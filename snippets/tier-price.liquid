@@ -91,11 +91,9 @@
     endcase
   endif
   
-  comment Nếu không áp dụng tier pricing, tắt tier_enabled
+  comment Nếu không áp dụng tier pricing, đánh dấu để không tính tier discount
   endcomment
-  unless tier_applies
-    assign tier_enabled = false
-  endunless
+  assign tier_scope_applies = tier_applies
   
   comment Đọc config từng tier từ settings
   endcomment
@@ -146,7 +144,7 @@
   assign has_tier = false
   assign total_spent = 0
   
-  if tier_enabled and customer
+  if tier_enabled and tier_scope_applies and customer
     comment Tính tổng chi tiêu
     endcomment
     if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
