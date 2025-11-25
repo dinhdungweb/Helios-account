@@ -135,7 +135,7 @@
           "type": "prize",
           "settings": {
             "text": "Chúc bạn may mắn ngày mai",
-            "color": "#f8f9fa",
+            "color": "#000000",
             "code": "",
             "probability": 20
           }
@@ -162,7 +162,7 @@
           "type": "prize",
           "settings": {
             "text": "Chúc bạn may mắn ngày mai",
-            "color": "#f8f9fa",
+            "color": "#000000",
             "code": "",
             "probability": 20
           }
@@ -189,7 +189,7 @@
           "type": "prize",
           "settings": {
             "text": "Chúc bạn may mắn ngày mai",
-            "color": "#ffffff",
+            "color": "#000000",
             "code": "",
             "probability": 20
           }
