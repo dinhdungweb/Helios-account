@@ -69,21 +69,8 @@
     
     // Check if tier pricing applies to this product
     if (!checkTierApplies(product)) {
-      // Return regular price without tier discount
-      const formatMoney = (cents) => {
-        if (typeof theme !== 'undefined' && theme.Shopify && theme.Shopify.formatMoney) {
-          return theme.Shopify.formatMoney(cents, theme.money_format_with_code_preference || theme.money_format);
-        }
-        return new Intl.NumberFormat('vi-VN').format(cents / 100) + ' VND';
-      };
-      
-      let html = '<div class="price-area-regular">';
-      html += '<span class="theme-money">' + formatMoney(variant.price) + '</span>';
-      if (variant.compare_at_price && variant.compare_at_price > variant.price) {
-        html += ' <span class="compare-at-price"><span class="theme-money">' + formatMoney(variant.compare_at_price) + '</span></span>';
-      }
-      html += '</div>';
-      return html;
+      // Don't replace HTML - keep original price from Liquid template
+      return null;
     }
     
     const tierPrice = Math.round(variant.price * (1 - tierInfo.discount));
