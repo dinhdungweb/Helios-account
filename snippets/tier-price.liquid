@@ -235,20 +235,20 @@
   
   <div class="tier-pricing-prices">
     {% comment %} Giá sau tier discount (hiển thị đầu tiên) {% endcomment %}
-    <span class="tier-price-final {% if has_tier and tier_discount > 0 %}tier-price-discounted{% endif %}">
+    <span class="tier-price-final {% if has_tier and tier_discount > 0 %}tier-price-discounted{% endif %}" style="display: inline-block;">
       <span class="theme-money">{%- render "price", price: tier_price -%}</span>
     </span>
 
     {% comment %} Giá gốc (nếu có tier discount) {% endcomment %}
     {% if has_tier and show_original and tier_discount > 0 %}
-      <span class="tier-price-original">
+      <span class="tier-price-original" style="display: inline-block;">
         <span class="theme-money">{%- render "price", price: price -%}</span>
       </span>
     {% endif %}
 
     {% comment %} Compare at price (nếu có sale) {% endcomment %}
     {% if has_sale %}
-      <span class="tier-price-compare">
+      <span class="tier-price-compare" style="display: inline-block;">
         <span class="theme-money">{%- render "price", price: compare_at_price -%}</span>
       </span>
     {% endif %}
