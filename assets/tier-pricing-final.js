@@ -175,6 +175,13 @@
   
   // Initialize
   function init() {
+    // Check if we're on a page that needs tier pricing
+    const hasTierPricing = document.querySelector('.tier-pricing-wrapper');
+    if (!hasTierPricing) {
+      // No tier pricing on this page, skip initialization
+      return;
+    }
+    
     // Try to extract tier info
     if (extractTierInfo()) {
       // Try to install interceptor
@@ -193,8 +200,8 @@
       }
     }
     
-    // Retry if not ready
-    if (!isReady) {
+    // Retry if not ready (but only if tier pricing exists)
+    if (!isReady && hasTierPricing) {
       setTimeout(init, 100);
     }
   }
@@ -209,33 +216,49 @@
     setTimeout(init, 100);
   }
   
-  // Listen for quickbuy modal open
+  // Listen for quickbuy modal - observe body for modal creation
   if (typeof $ !== 'undefined') {
-    $(document).on('modalOpen', '#quick-buy-modal', function() {
-      reinitForModal();
+    // Listen for quickbuy button clicks
+    $(document).on('click', '[data-cc-quick-buy]', function() {
+      // Wait for modal to be created and content loaded
+      setTimeout(() => {
+        const $modal = $('#quick-buy-modal');
+        if ($modal.length && $modal.find('.product-area').length) {
+          reinitForModal();
+        }
+      }, 500);
     });
     
-    // Also listen for DOM changes in modal
-    const observer = new MutationObserver((mutations) => {
+    // Also observe body for modal creation
+    const bodyObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.addedNodes.length) {
           mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1 && (node.matches('.product-area') || node.querySelector('.product-area'))) {
-              reinitForModal();
+            if (node.nodeType === 1) {
+              // Check if this is the quickbuy modal
+              if (node.id === 'quick-buy-modal' || node.querySelector('#quick-buy-modal')) {
+                setTimeout(() => {
+                  const $modal = $('#quick-buy-modal');
+                  if ($modal.find('.product-area').length) {
+                    reinitForModal();
+                  }
+                }, 300);
+              }
+              // Check if product-area was added inside modal
+              else if (node.closest('#quick-buy-modal') && (node.matches('.product-area') || node.querySelector('.product-area'))) {
+                reinitForModal();
+              }
             }
           });
         }
       });
     });
     
-    // Observe modal container
-    const modalContainer = document.querySelector('#quick-buy-modal');
-    if (modalContainer) {
-      observer.observe(modalContainer, {
-        childList: true,
-        subtree: true
-      });
-    }
+    // Observe body for modal creation
+    bodyObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   }
   
   // Start
