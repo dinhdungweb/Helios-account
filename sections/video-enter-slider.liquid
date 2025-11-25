@@ -1,0 +1,129 @@
+{% comment %}
+  Video Center Slide Swiper Section
+{% endcomment %}
+
+
+<div class="swiper video-center-swiper">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks %}
+      <div class="swiper-slide video-slide">
+        <div class="video-container" data-video-id="video-{{ block.id }}">
+          <video
+            id="video-{{ block.id }}"
+            class="video-element"
+            poster="{{ block.settings.thumbnail | img_url: '800x' }}"
+            preload="none"
+          >
+            <source src="{{ block.settings.video_url }}" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <button class="video-play-button" aria-label="Play video">
+            ▶
+          </button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Navigation -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
+<style>
+  .video-container {
+    position: relative;
+  }
+  .video-element {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .video-container.playing .video-play-button {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var swiper = new Swiper('.video-center-swiper', {
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      spaceBetween: 20,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    });
+
+    var containers = document.querySelectorAll('.video-container');
+    containers.forEach(function(container) {
+      var btn = container.querySelector('.video-play-button');
+      var video = container.querySelector('video');
+      btn.addEventListener('click', function() {
+        if (video.paused) {
+          video.play();
+          container.classList.add('playing');
+        } else {
+          video.pause();
+          container.classList.remove('playing');
+        }
+      });
+      // Pause other videos when one plays
+      video.addEventListener('play', function() {
+        containers.forEach(function(other) {
+          var otherVideo = other.querySelector('video');
+          if (otherVideo !== video) {
+            otherVideo.pause();
+            other.classList.remove('playing');
+          }
+        });
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Video Center Swiper",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video Slide",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Thumbnail Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Center Swiper"
+    }
+  ]
+}
+{% endschema %}

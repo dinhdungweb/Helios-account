@@ -1,0 +1,205 @@
+{%- liquid
+  assign page_type = request.page_type
+  assign template_name = template.name
+  assign currency = shop.currency
+  assign is_logged_in = false
+  if customer and customer.id
+    assign is_logged_in = true
+  endif
+
+  assign product_id = blank
+  assign variant_id = blank
+  assign price_cents = blank
+  if page_type == 'product'
+    assign product_id = product.id
+    assign variant_id = product.selected_or_first_available_variant.id
+    assign price_cents = product.selected_or_first_available_variant.price
+  endif
+
+  assign gtm_id = settings.gtm_id | default: 'GTM-54WD6KR'
+-%}
+
+<!-- ============================ -->
+<!-- DATA LAYER PRELOAD + GTM -->
+<!-- ============================ -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'page_view',
+    page_type: '{{ page_type }}',
+    template: '{{ template_name }}',
+    currency: '{{ currency }}',
+    customer_logged_in: {{ is_logged_in | json }},
+    {% if page_type == 'product' %}
+    ecommerce: {
+      items: [{
+        item_id: '{{ product_id }}',
+        item_variant: '{{ variant_id }}',
+        price_cents: {{ price_cents }},
+        currency: '{{ currency }}'
+      }]
+    }
+    {% endif %}
+  });
+
+  // Defer GTM loading
+  function loadGTM() {
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', '{{ gtm_id }}');
+  }
+
+  if (document.readyState === 'complete') {
+    setTimeout(loadGTM, 1000);
+  } else {
+    window.addEventListener('load', function() {
+      setTimeout(loadGTM, 1000);
+    });
+  }
+</script>
+<!-- END DATA LAYER + GTM -->
+
+{% unless settings.use_gtm_only %}
+  {% if settings.enable_fb_direct %}
+  <!-- ============================ -->
+  <!-- META PIXEL FACEBOOK (Direct) -->
+  <!-- ============================ -->
+  <script>
+    function loadFacebookPixel() {
+      !function(f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function() { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+        t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '327408762660294');
+      fbq('track', 'PageView');
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(loadFacebookPixel, 1500);
+    } else {
+      window.addEventListener('load', function() {
+        setTimeout(loadFacebookPixel, 1500);
+      });
+    }
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=327408762660294&ev=PageView&noscript=1" />
+  </noscript>
+  {% endif %}
+
+  {% if settings.enable_google_ads_direct %}
+  <!-- ================================================== -->
+  <!-- GOOGLE ADS REMARKETING TAG (Direct) -->
+  <!-- ================================================== -->
+  {% assign fa_google_ads_audience_tag_id = 371802377 %}
+  {% assign fa_product_id_alpha2_code = 'VN' %}
+  {% assign fa_product_id = 'default' %}
+
+  {%- assign fa_current_variant = product.selected_or_first_available_variant -%}
+  {% if template contains 'product' %}
+    {%- assign fa_product_price = fa_current_variant.price | money_without_currency | remove:',' -%}
+  {% elsif template contains 'cart' %}
+    {%- assign fa_product_price = cart.total_price | money_without_currency | remove:',' -%}
+  {% endif %}
+
+  {%- capture fa_product_id_value -%}
+    shopify_{{ fa_product_id_alpha2_code }}_{{ product.id }}_{{ fa_current_variant.id }}
+  {%- endcapture -%}
+
+  <script>
+    function loadGoogleAds() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-{{ fa_google_ads_audience_tag_id }}';
+      document.head.appendChild(script);
+
+      script.onload = function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'AW-{{ fa_google_ads_audience_tag_id }}');
+
+        var ev = {{ fa_event | default: 'page_view' | json }};
+        if (ev) {
+          gtag('event', ev, {
+            'send_to': 'AW-{{ fa_google_ads_audience_tag_id }}',
+            {% if template contains 'product' or template contains 'cart' %}
+            'value': {{ fa_product_price }},
+            {% endif %}
+            'items': [{ 'id': '{{ fa_product_id_value }}', 'google_business_vertical': 'retail' }]
+          });
+        }
+      };
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(loadGoogleAds, 2000);
+    } else {
+      window.addEventListener('load', function() {
+        setTimeout(loadGoogleAds, 2000);
+      });
+    }
+  </script>
+  {% endif %}
+
+  {% if settings.enable_tiktok_direct %}
+  <!-- ============================ -->
+  <!-- TIKTOK PIXEL (Direct) -->
+  <!-- ============================ -->
+  <script>
+    function loadTikTokPixel() {
+      !function(w, d, t) {
+        w.TiktokAnalyticsObject = t; var ttq = w[t] = w[t] || [];
+        ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+        ttq.setAndDefer = function(t, e) { t[e] = function() { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } };
+        for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+        ttq.instance = function(t) { for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]); return e };
+        ttq.load = function(e, n) { var i = "https://analytics.tiktok.com/i18n/pixel/events.js"; ttq._i = ttq._i || {}, ttq._i[e] = [], ttq._i[e]._u = i, ttq._t = ttq._t || {}, ttq._t[e] = +new Date, ttq._o = ttq._o || {}, ttq._o[e] = n || {}; var o = document.createElement("script"); o.type = "text/javascript", o.async = !0, o.src = i + "?sdkid=" + e + "&lib=" + t; var a = document.getElementsByTagName("script")[0]; a.parentNode.insertBefore(o, a) };
+        ttq.load('C6DPAH8A2TFR2CRB0530'); ttq.page();
+      }(window, document, 'ttq');
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(loadTikTokPixel, 2500);
+    } else {
+      window.addEventListener('load', function() {
+        setTimeout(loadTikTokPixel, 2500);
+      });
+    }
+  </script>
+  {% endif %}
+
+  {% if settings.enable_ga_direct %}
+  <!-- ============================ -->
+  <!-- GOOGLE ANALYTICS (Direct) -->
+  <!-- ============================ -->
+  <script>
+    function loadGoogleAnalytics() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-22QC6JW2FT';
+      document.head.appendChild(script);
+
+      script.onload = function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-22QC6JW2FT');
+      };
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(loadGoogleAnalytics, 3000);
+    } else {
+      window.addEventListener('load', function() {
+        setTimeout(loadGoogleAnalytics, 3000);
+      });
+    }
+  </script>
+  {% endif %}
+{% endunless %}

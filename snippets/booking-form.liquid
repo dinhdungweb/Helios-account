@@ -1,0 +1,971 @@
+{% comment %} {% if customer != nil %} {% endcomment %}
+  <!-- sections/booking-form.liquid -->
+  <div class="booking-container">
+    <h2 class="section-title">ĐẶT LỊCH HẸN</h2>
+
+    <!-- Bước 1: Chọn loại lịch hẹn -->
+    <div class="appointment-options">
+      <div class="appointment-card">
+        <h3>Hẹn trực tuyến</h3>
+        <p>Chọn thời gian phù hợp với bạn cho cuộc hẹn tư vấn 1:1 cùng Helios tại đây.</p>
+        <button class="book-btn" data-type="virtual">Đặt lịch hẹn</button>
+      </div>
+    </div>
+
+    <!-- Bước 2: Chọn ngày và giờ -->
+    <div class="schedule-section" style="display: none;">
+      <h2 class="section-title" id="appointment-title">Chọn khung giờ</h2>
+      <p class="timezone-info">Múi giờ: Việt Nam (GMT+07:00)</p>
+
+      <div class="schedule-grid"></div>
+      <button id="next-to-info" class="next-btn">Tiếp tục</button>
+    </div>
+
+    <!-- Bước 3: Nhập thông tin cá nhân -->
+    <div class="info-section" style="display: none;">
+      <h2 class="section-title">Thông tin của bạn</h2>
+      <form id="booking-form" class="booking-form">
+        <label>
+          <p>Họ*</p>
+          <input type="text" name="first_name" required>
+        </label>
+        <label>
+          <p>Tên*</p>
+          <input type="text" name="last_name" required>
+        </label>
+        <label>
+          <p>Số điện thoại*</p>
+          <div class="phone-input">
+            <select class="country-code" name="country_code">
+              <option value="+84">+84</option>
+            </select>
+            <input type="tel" name="phone" required>
+          </div>
+        </label>
+        <label>
+          <p>Email*</p>
+          <input type="email" name="email" required>
+        </label>
+        
+        <!-- Thêm trường về sản phẩm đã biết -->
+        <div class="form-section">
+          <h3 class="form-section-title">Bạn đã có món muốn xem?</h3>
+          <p class="form-section-subtitle">Hãy ghi rõ tên hoặc mã sản phẩm – Helios sẽ chuẩn bị sẵn cho bạn.</p>
+          <label>
+            <p>Tên hoặc mã sản phẩm</p>
+            <input type="text" name="specific_product" placeholder="Nhập tên hoặc mã sản phẩm...">
+          </label>
+        </div>
+        
+        <!-- Thêm trường về gợi ý sản phẩm -->
+        <div class="form-section">
+          <h3 class="form-section-title">Bạn chưa biết chọn gì?</h3>
+          <p class="form-section-subtitle">Hãy điền các thông tin dưới đây – Helios sẽ gợi ý những thiết kế phù hợp nhất với phong cách và nhu cầu của bạn.</p>
+          
+          <div class="checkbox-group">
+            <p class="checkbox-group-label">Sản phẩm bạn tìm kiếm</p>
+            <div class="checkbox-options">
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Nhẫn"> Nhẫn</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Vòng tay"> Vòng tay</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Dây chuyền"> Dây chuyền</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Mặt dây"> Mặt dây</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Khuyên tai"> Khuyên tai</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Kính"> Kính</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Phụ kiện da"> Phụ kiện da</label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="product_type_other_check" value="Khác" class="other-checkbox">
+                <span>Khác:</span>
+                <input type="text" name="product_type_other" class="other-input" placeholder="Nhập loại sản phẩm khác...">
+              </label>
+            </div>
+          </div>
+          
+          <div class="checkbox-group">
+            <p class="checkbox-group-label">Nhu cầu của bạn</p>
+            <div class="checkbox-options">
+              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Sử dụng hàng ngày"> Sử dụng hàng ngày</label>
+              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Sử dụng trong các sự kiện đặc biệt"> Sử dụng trong các sự kiện đặc biệt</label>
+              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Làm quà tặng"> Làm quà tặng</label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="needs_other_check" value="Khác" class="other-checkbox">
+                <span>Khác:</span>
+                <input type="text" name="needs_other" class="other-input" placeholder="Nhập nhu cầu khác...">
+              </label>
+            </div>
+          </div>
+          
+          <div class="checkbox-group">
+            <p class="checkbox-group-label">Phong cách bạn muốn tìm</p>
+            <div class="checkbox-options">
+              <label class="checkbox-label">
+                <input type="checkbox" name="style[]" value="Mạnh mẽ">
+                <span class="style-name">Mạnh mẽ</span>
+                <span class="style-desc">Thiết kế nam tính, góc cạnh, dày dặn.</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="style[]" value="Tối giản">
+                <span class="style-name">Tối giản</span>
+                <span class="style-desc">Thiết kế mảnh, ít chi tiết, dễ phối đồ hàng ngày.</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="style[]" value="Cá tính">
+                <span class="style-name">Cá tính</span>
+                <span class="style-desc">Thiết kế với điểm nhấn độc đáo, khác biệt với số đông.</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="style[]" value="Nghệ thuật">
+                <span class="style-name">Nghệ thuật</span>
+                <span class="style-desc">Thiết kế mang ý nghĩa biểu tượng, được lấy cảm hứng từ những câu chuyện thần thoại, văn hoá...</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="style_collection_check" value="Theo BST cụ thể" class="other-checkbox">
+                <span>Theo BST cụ thể:</span>
+                <input type="text" name="style_collection" class="other-input" placeholder="Nhập tên bộ sưu tập...">
+              </label>
+            </div>
+          </div>
+          
+          <div class="checkbox-group">
+            <p class="checkbox-group-label">Ngân sách dự kiến</p>
+            <div class="checkbox-options">
+              <label class="checkbox-label"><input type="radio" name="budget" value="Dưới 1 triệu"> Dưới 1 triệu</label>
+              <label class="checkbox-label"><input type="radio" name="budget" value="1–3 triệu"> 1–3 triệu</label>
+              <label class="checkbox-label"><input type="radio" name="budget" value="Trên 3 triệu"> Trên 3 triệu</label>
+            </div>
+          </div>
+        </div>
+        
+        <label>
+          <p>Ghi chú thêm (nếu có)</p>
+          <textarea name="notes" placeholder="Bạn muốn lưu ý điều gì?"></textarea>
+        </label>
+        <div class="confirm-btn-div">
+          <button type="submit" class="confirm-btn">Xác nhận lịch hẹn</button>
+        </div>
+      </form>
+    </div>
+    <!-- Tra cứu lịch hẹn -->
+    <div class="booking-lookup-section">
+      <h3>Tra cứu lịch hẹn</h2>
+      <form id="lookup-form" class="lookup-form">
+        <label>
+          Nhập email của bạn:
+          <input type="email" name="lookup_email" required placeholder="you@example.com" />
+        </label>
+        <button type="submit" class="lookup-btn">Xem lịch hẹn</button>
+      </form>
+      <div id="booking-results" class="booking-results"></div>
+    </div>
+  </div>
+
+
+
+  <!-- Modal Thông báo -->
+  <div id="booking-modal" class="booking-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="modal-icon">
+        <div class="success-icon" id="modal-success-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+            <circle cx="12" cy="12" r="11" fill="none" stroke="#4CAF50" stroke-width="2"/>
+            <path d="M7 13l3 3 7-7" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="error-icon" id="modal-error-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+            <circle cx="12" cy="12" r="11" fill="none" stroke="#F44336" stroke-width="2"/>
+            <line x1="8" y1="8" x2="16" y2="16" stroke="#F44336" stroke-width="2" stroke-linecap="round"/>
+            <line x1="16" y1="8" x2="8" y2="16" stroke="#F44336" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <h3 id="modal-title" class="modal-title"></h3>
+      <p id="modal-message" class="modal-message"></p>
+      <button id="modal-button" class="modal-button">Đồng ý</button>
+    </div>
+  </div>
+{% comment %} {% else %}
+  <div class="booking-customer-noti">
+    <p>Anh/chị cần đăng nhập để đặt lịch hẹn</p>
+    <a href="#" id="open-auth-modal" class="button" role="button">Đăng nhập/Đăng ký</a>
+  </div>
+
+  <!-- AUTH MODAL: Đăng nhập / Đăng ký / Quên mật khẩu -->
+  <div id="auth-modal" class="auth-modal" aria-hidden="true">
+    <div class="auth-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+      <button class="auth-modal__close" type="button" aria-label="Đóng" data-close-auth>&times;</button>
+
+      <h3 id="auth-modal-title" class="auth-modal__title">Tài khoản khách hàng</h3>
+
+      <!-- Tabs -->
+      <div class="auth-tabs" role="tablist" aria-label="Auth Tabs">
+        <button class="auth-tab is-active" role="tab" aria-selected="true" data-target="#auth-login">Đăng nhập</button>
+        <button class="auth-tab" role="tab" aria-selected="false" data-target="#auth-register">Đăng ký</button>
+      </div>
+
+      <!-- Đăng nhập -->
+      <div id="auth-login" class="auth-panel is-active" role="tabpanel">
+        {% form 'customer_login', return_to: 'back' %}
+          {{ form.errors | default_errors }}
+
+          <label for="LoginEmail">Email</label>
+          <input type="email" id="LoginEmail" name="customer[email]" autocorrect="off" autocapitalize="off" required>
+
+          <label for="LoginPassword">Mật khẩu</label>
+          <input type="password" id="LoginPassword" name="customer[password]" required>
+
+          <button type="submit" class="auth-btn">Đăng nhập</button>
+
+          <p class="auth-meta">
+            <a href="#" id="open-recover">Quên mật khẩu?</a>
+          </p>
+
+          {% if form.errors %}
+            <script>window.__openAuthAfterLoad='login';</script>
+          {% endif %}
+        {% endform %}
+
+        <div class="auth-fallback">
+          <p>Nếu không đăng nhập được trong modal, vui lòng dùng:
+            <!-- Classic accounts -->
+            <a href="{{ routes.account_login_url }}?return_to={{ request.path | url_encode }}">Trang đăng nhập</a>
+            <!-- New customer accounts (nếu shop bật loại tài khoản mới) -->
+            hoặc <a href="/customer_authentication/login?return_to={{ request.path | url_encode }}">Đăng nhập tài khoản mới</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Đăng ký -->
+      <div id="auth-register" class="auth-panel" role="tabpanel" hidden>
+        {% form 'create_customer', return_to: 'back' %}
+          {{ form.errors | default_errors }}
+
+          <div class="auth-grid">
+            <label>Họ
+              <input type="text" name="customer[first_name]" required>
+            </label>
+            <label>Tên
+              <input type="text" name="customer[last_name]" required>
+            </label>
+          </div>
+
+          <label>Email
+            <input type="email" name="customer[email]" required>
+          </label>
+
+          <label>Mật khẩu
+            <input type="password" name="customer[password]" required>
+          </label>
+
+          <button type="submit" class="auth-btn">Tạo tài khoản</button>
+
+          {% if form.errors %}
+            <script>window.__openAuthAfterLoad='register';</script>
+          {% endif %}
+        {% endform %}
+
+        <div class="auth-fallback">
+          <p>Nếu không đăng ký được trong modal, vui lòng dùng:
+            <a href="{{ routes.account_register_url }}?return_to={{ request.path | url_encode }}">Trang đăng ký</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quên mật khẩu -->
+      <div id="auth-recover" class="auth-panel" role="tabpanel" hidden>
+        <p>Nhập email để đặt lại mật khẩu.</p>
+        {% form 'recover_customer_password' %}
+          {{ form.errors | default_errors }}
+
+          <label for="RecoverEmail">Email</label>
+          <input type="email" id="RecoverEmail" name="email" required>
+
+          <button class="auth-btn" type="submit">Gửi liên kết đặt lại</button>
+
+          {% if form.posted_successfully? %}
+            <p class="auth-success">Đã gửi email đặt lại mật khẩu. Vui lòng kiểm tra hộp thư.</p>
+            <script>window.__openAuthAfterLoad='login';</script>
+          {% elsif form.errors %}
+            <script>window.__openAuthAfterLoad='recover';</script>
+          {% endif %}
+        {% endform %}
+
+        <p class="auth-meta"><a href="#" id="back-to-login">Quay lại đăng nhập</a></p>
+      </div>
+
+      <noscript>
+        <div class="auth-noscript">
+          <p>Trình duyệt của bạn đang tắt JavaScript. Vui lòng truy cập
+            <a href="{{ routes.account_login_url }}?return_to={{ request.path | url_encode }}">Đăng nhập</a> /
+            <a href="{{ routes.account_register_url }}?return_to={{ request.path | url_encode }}">Đăng ký</a>.
+          </p>
+        </div>
+      </noscript>
+    </div>
+  </div>
+{% endif %} {% endcomment %}
+
+
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  emailjs.init('Lr7kNsBdZNxnx1oH7');
+</script>
+
+<script src="{{ 'firebase-init.js' | asset_url }}" type="module"></script>
+<script src="{{ 'firebase-operations.js' | asset_url }}" type="module"></script>
+<script src="{{ 'booking-script.js' | asset_url }}" type="module"></script>
+
+<!-- Styles -->
+<style>
+/* ===== AUTH MODAL (Login/Register) ===== */
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.7);
+  z-index: 1100; /* cao hơn booking-modal (1000) */
+}
+.auth-modal[aria-hidden="false"] { display: flex; }
+
+.auth-modal__dialog {
+  position: relative;
+  width: 95%;
+  max-width: 560px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  padding: 24px 24px 28px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.auth-modal__title {
+  margin: 0 0 10px 0;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.auth-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+  color: #aaa;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.auth-modal__close:hover { color: #fff; }
+
+.auth-tabs {
+  display: flex;
+  gap: 10px;
+  margin: 8px 0 16px;
+}
+.auth-tab {
+  flex: 1;
+  background: #111;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 10px 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  cursor: pointer;
+  transition: .2s;
+}
+.auth-tab.is-active {
+  background: #fab320;
+  color: #000;
+  border-color: #fab320;
+}
+
+.auth-panel { display: none; }
+.auth-panel.is-active { display: block; }
+.auth-panel label {
+  display: block;
+  color: #ddd;
+  margin: 10px 0 6px;
+}
+.auth-panel input {
+  width: 100%;
+  padding: 12px;
+  background: #111111;
+  border: 1px solid #444;
+  color: #fff;
+  font-size: 1rem;
+}
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.auth-btn {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 18px;
+  background: #fab320;
+  color: #000;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+.auth-btn:hover { background:#000; color:#fff; }
+
+.auth-meta {
+  text-align: center;
+  margin-top: 10px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+.auth-meta a { color: #fff; text-decoration: underline; }
+
+.auth-fallback {
+  margin-top: 12px;
+  font-size: .9rem;
+  color: #aaa;
+}
+.auth-fallback a { color: #fab320; text-decoration: underline; }
+
+.auth-success { color: #85ff85; margin-top: 8px; }
+
+html.no-scroll, body.no-scroll { overflow: hidden; }
+
+@media (max-width: 768px) {
+  .auth-grid { grid-template-columns: 1fr; }
+  .auth-modal__dialog { padding: 20px; }
+}
+
+.booking-customer-noti {
+  text-align: center;
+  margin: 0 15px 100px;
+}
+.booking-customer-noti p {
+  font-size: 25px;
+}
+.schedule-section {
+    text-align: center;
+}
+  .booking-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 15px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+  }
+  form#lookup-form {
+    margin-top: 1.3rem;
+}
+  .appointment-options {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .appointment-card {
+    background-color: #111111;
+    border: 1px solid #fab320;
+    width: 100%;
+    padding: 24px 24px 30px;
+    max-width: 700px;
+    flex: 1;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .appointment-card:hover {
+    border-color: #fff;
+  }
+
+  .appointment-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+
+  .appointment-card p {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 15px;
+  }
+  .confirm-btn-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+  }
+  .book-btn,
+  .next-btn,
+  .confirm-btn,
+  .lookup-btn {
+    background-color: #fab320;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .book-btn:hover,
+  .next-btn:hover,
+  .confirm-btn:hover,
+  .lookup-btn:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .timezone-info {
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #ccc;
+    text-align: center;
+  }
+
+.schedule-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    margin: 20px 0;
+    justify-content: flex-start;
+    scroll-behavior: smooth;
+}
+
+.schedule-column {
+  min-width: 200px;
+  flex-shrink: 0;
+  background-color: #111111;
+  border: 1px solid #444;
+   
+  padding: 16px;
+  text-align: center;
+}
+
+.schedule-column h4 {
+  font-size: 0.9rem;
+  color: #bbb;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.schedule-column h5 {
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.schedule-column .date-box {
+  margin-bottom: 10px;
+}
+
+.schedule-column .weekday {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.schedule-column .day-month {
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+.time-slot {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 0;
+  background-color: #1f1f1f;
+  border: 1px solid #555;
+   
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.time-slot:hover,
+.time-slot.selected {
+  background-color: #fff;
+  color: #000;
+}
+
+
+  .info-section,
+  .booking-form {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .booking-form label {
+    display: block;
+    margin: 15px 0 8px;
+    color: #ddd;
+    font-weight: 500;
+  }
+
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #111111;
+    border: 1px solid #555;
+     
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .booking-form textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .phone-input {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Phần style cho các trường mới */
+  .form-section {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+  }
+  
+  .form-section-title {
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 0 0 5px 0;
+  }
+  
+  .form-section-subtitle {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin: 0 0 20px 0;
+  }
+  
+  .checkbox-group {
+    margin-bottom: 25px;
+  }
+  
+  .checkbox-group-label {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #ddd;
+  }
+  
+  .checkbox-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .checkbox-label input[type="checkbox"],
+  .checkbox-label input[type="radio"] {
+    width: auto;
+    margin-right: 6px;
+    vertical-align: bottom;
+    min-height: max-content;
+  }
+  
+  .style-name {
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  .style-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-left: 21px;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  
+  .other-input {
+    width: auto;
+    flex: 1;
+    margin-top: 15px;
+    padding: 5px 10px;
+  }
+  
+  .other-checkbox {
+    margin-top: 7px !important;
+  }
+
+.booking-lookup-section {
+    max-width: 700px;
+    margin: 40px auto 60px;
+    background-color: #111111;
+    padding: 30px;
+    border: 1px solid #fab320;
+    text-align: center;
+}
+  .lookup-form input {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 12px;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #444;
+    font-size: 15px;
+    color: #fff;
+  }
+
+  .booking-results {
+    margin-top: 20px;
+    color: #ccc;
+  }
+  /* Scrollbar tổng thể cho mọi trình duyệt hỗ trợ */
+.schedule-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.schedule-grid::-webkit-scrollbar-track {
+  background: #1a1a1a; /* Màu nền track tối */
+}
+
+.schedule-grid::-webkit-scrollbar-thumb {
+  background-color: #555; /* Màu thanh cuộn chính */
+  border-radius: 10px;
+  border: 1px solid #333;
+}
+
+.schedule-grid::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+
+/* Firefox */
+.schedule-grid {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #1a1a1a;
+}
+
+.phone-input .text, .booking-form .pretty-select .text {
+  min-width: 0;
+  display: block;
+  padding: 15px 50px 15px 0;
+}
+  .booking-form .pretty-select {
+    display: block;
+  }
+  
+  /* Modal Styles */
+  .booking-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+  }
+  
+  .modal-content {
+    position: relative;
+    background-color: #1a1a1a;
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #444;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .close-modal:hover {
+    color: white;
+  }
+  
+  .modal-icon {
+    margin: 0 auto 20px;
+  }
+  
+  .success-icon, .error-icon {
+    display: none;
+  }
+  
+  .modal-title {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: white;
+  }
+  
+  .modal-message {
+    margin-bottom: 25px;
+    font-size: 1rem;
+    color: #ccc;
+    line-height: 1.5;
+  }
+  
+  .modal-button {
+    background-color: #ffffff;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .modal-button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .appointment-options {
+      flex-direction: column;
+      align-items: center;
+    }
+    .appointment-card {
+      max-width: 100%;
+    }
+    .phone-input {
+      flex-direction: column;
+    }
+    .checkbox-label {
+      flex-wrap: wrap;
+    }
+    .modal-content {
+      margin: 20% auto;
+      padding: 20px;
+    }
+  }
+</style>
+
+<script>
+  // Script để xử lý input "Khác"
+  document.addEventListener('DOMContentLoaded', function() {
+    const otherCheckboxes = document.querySelectorAll('.other-checkbox');
+    
+    otherCheckboxes.forEach(checkbox => {
+      const otherInput = checkbox.closest('.checkbox-label').querySelector('.other-input');
+      
+      // Khi checkbox "Khác" được chọn/bỏ chọn
+      checkbox.addEventListener('change', function() {
+        otherInput.disabled = !this.checked;
+        if (!this.checked) {
+          otherInput.value = '';
+        } else {
+          otherInput.focus();
+        }
+      });
+      
+      // Khởi tạo trạng thái ban đầu
+      otherInput.disabled = !checkbox.checked;
+    });
+  });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('auth-modal');
+  const openBtn = document.getElementById('open-auth-modal') || document.querySelector('.booking-customer-noti .button');
+  const closeBtn = modal ? modal.querySelector('[data-close-auth]') : null;
+  const tabs = modal ? modal.querySelectorAll('.auth-tab') : [];
+  const panels = modal ? modal.querySelectorAll('.auth-panel') : [];
+
+  function setActivePanel(selector) {
+    if (!modal) return;
+    const targetPanel = modal.querySelector(selector);
+    panels.forEach(p => { p.classList.remove('is-active'); p.hidden = true; });
+    if (targetPanel) { targetPanel.classList.add('is-active'); targetPanel.hidden = false; }
+    tabs.forEach(t => t.classList.toggle('is-active', t.getAttribute('data-target') === selector));
+  }
+
+  function openModal(defaultPanel = '#auth-login') {
+    if (!modal) return;
+    modal.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('no-scroll');
+    setActivePanel(defaultPanel);
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('no-scroll');
+  }
+
+  openBtn && openBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal('#auth-login');
+  });
+  closeBtn && closeBtn.addEventListener('click', closeModal);
+
+  // Click ra ngoài dialog để đóng
+  modal && modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  // ESC để đóng
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Tabs
+  tabs && tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-target');
+      setActivePanel(target);
+    });
+  });
+
+  // Recover password
+  const openRecover = modal ? modal.querySelector('#open-recover') : null;
+  const backToLogin = modal ? modal.querySelector('#back-to-login') : null;
+  openRecover && openRecover.addEventListener('click', function(e) {
+    e.preventDefault();
+    setActivePanel('#auth-recover');
+  });
+  backToLogin && backToLogin.addEventListener('click', function(e) {
+    e.preventDefault();
+    setActivePanel('#auth-login');
+  });
+
+  // Tự mở lại modal nếu có lỗi/submit từ Shopify (được set trong Liquid)
+  if (window.__openAuthAfterLoad === 'login') openModal('#auth-login');
+  if (window.__openAuthAfterLoad === 'register') openModal('#auth-register');
+  if (window.__openAuthAfterLoad === 'recover') openModal('#auth-recover');
+});
+
+</script>
+

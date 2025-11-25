@@ -1,0 +1,122 @@
+{% render "contact-form-to-sheet", 
+  cf-title : section.settings.contact-form-to-sheet-title, 
+  cf-paragraph : section.settings.contact-form-to-sheet-paragraph, 
+  cf-form-action-url : section.settings.form_action_url,
+  cf-entry1 : section.settings.form_action_entry1,
+  cf-placeholder1 : section.settings.form_action_placeholder1,
+  cf-entry2 : section.settings.form_action_entry2,
+  cf-placeholder2 : section.settings.form_action_placeholder2,
+  cf-entry3 : section.settings.form_action_entry3,
+  cf-placeholder3 : section.settings.form_action_placeholder3,
+  cf-entry4 : section.settings.form_action_entry4,
+  cf-placeholder4 : section.settings.form_action_placeholder4,
+  cf-entry5 : section.settings.form_action_entry5,
+  cf-placeholder5 : section.settings.form_action_placeholder5,
+  cf-entry6 : section.settings.form_action_entry6,
+  cf-button : section.settings.form_action_button,
+  cf-banner-left : section.settings.banner_left
+%}
+{% schema %}
+  {
+    "name": "Contact form to sheet",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact-form-to-sheet-title",
+        "label": "Title",
+        "default": "Liên hệ với chúng tôi"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_left",
+        "label": "Image"
+      },
+      {
+        "type": "richtext",
+        "id": "contact-form-to-sheet-paragraph",
+        "label": "Paragraph"
+      },
+      {
+        "type": "text",
+        "id": "form_action_url",
+        "label": "Form action url"
+      },
+      {
+        "type": "text",
+        "id": "form_action_entry1",
+        "label": "Entry 1",
+        "placeholder": "entry.xxx"
+      },
+      {
+        "type": "text",
+        "id": "form_action_placeholder1",
+        "label": "Place Holder 1",
+        "default": "Họ và tên"
+      },
+      {
+        "type": "text",
+        "id": "form_action_entry2",
+        "label": "Entry 2",
+        "placeholder": "entry.xxx"
+      },
+      {
+        "type": "text",
+        "id": "form_action_placeholder2",
+        "label": "Place Holder 2",
+        "default": "Số điện thoại"
+      },
+      {
+        "type": "text",
+        "id": "form_action_entry3",
+        "label": "Entry 3",
+        "placeholder": "entry.xxx"
+      },
+      {
+        "type": "text",
+        "id": "form_action_placeholder3",
+        "label": "Place Holder 3",
+        "default": "Email"
+      },
+      {
+        "type": "text",
+        "id": "form_action_entry4",
+        "label": "Entry 4"
+      },
+      {
+        "type": "text",
+        "id": "form_action_placeholder4",
+        "label": "Place Holder 4",
+        "default": "Custom holder"
+      },
+      {
+        "type": "text",
+        "id": "form_action_entry5",
+        "label": "Entry 5",
+        "placeholder": "entry.xxx"
+      },
+      {
+        "type": "text",
+        "id": "form_action_placeholder5",
+        "label": "Place Holder 5",
+        "default": "Nội dung"
+      },
+      {
+        "type": "text",
+        "id": "form_action_entry6",
+        "label": "Entry 6",
+        "placeholder": "entry.xxx"
+      },
+      {
+        "type": "text",
+        "id": "form_action_button",
+        "label": "Button name",
+        "default": "Đăng ký"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Contact form to sheet"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,192 @@
+{% comment %}
+  Tier Pricing Display
+  
+  Parameters:
+  - price: Giá gốc của variant (required)
+  - compare_at_price: Giá so sánh (optional)
+  - customer: Customer object (optional)
+  - show_original: Hiển thị giá gốc (default: true)
+  - show_badge: Hiển thị badge tier (default: true)
+  
+  Usage:
+  {% render 'tier-price', 
+    price: variant.price, 
+    compare_at_price: variant.compare_at_price,
+    customer: customer,
+    show_original: true,
+    show_badge: true
+  %}
+{% endcomment %}
+
+{% liquid
+  comment ============================================
+    ĐỌC CẤU HÌNH TỪ THEME SETTINGS
+  ============================================
+  endcomment
+  assign tier_enabled = settings.tier_pricing_enabled
+  assign prioritize_tags = settings.tier_prioritize_tags
+  assign use_custom_metafield = settings.tier_use_custom_metafield
+  
+  comment Đọc config từng tier từ settings
+  endcomment
+  assign tier_1_name = settings.tier_1_name
+  assign tier_1_tag = settings.tier_1_tag
+  assign tier_1_discount = settings.tier_1_discount
+  assign tier_1_threshold = settings.tier_1_threshold | plus: 0
+  
+  assign tier_2_name = settings.tier_2_name
+  assign tier_2_tag = settings.tier_2_tag
+  assign tier_2_discount = settings.tier_2_discount
+  assign tier_2_threshold = settings.tier_2_threshold | plus: 0
+  
+  assign tier_3_name = settings.tier_3_name
+  assign tier_3_tag = settings.tier_3_tag
+  assign tier_3_discount = settings.tier_3_discount
+  assign tier_3_threshold = settings.tier_3_threshold | plus: 0
+  
+  assign tier_4_name = settings.tier_4_name
+  assign tier_4_tag = settings.tier_4_tag
+  assign tier_4_discount = settings.tier_4_discount
+  assign tier_4_threshold = settings.tier_4_threshold | plus: 0
+  
+  assign tier_5_name = settings.tier_5_name
+  assign tier_5_tag = settings.tier_5_tag
+  assign tier_5_discount = settings.tier_5_discount
+  assign tier_5_threshold = settings.tier_5_threshold | plus: 0
+  
+  assign tier_6_name = settings.tier_6_name
+  assign tier_6_discount = settings.tier_6_discount
+  
+  comment Display settings
+  endcomment
+  if show_original == nil
+    assign show_original = settings.tier_show_original_price
+  endif
+  
+  if show_badge == nil
+    assign show_badge = settings.tier_show_badge
+  endif
+  
+  comment ============================================
+    LOGIC PHÂN LOẠI TIER
+  ============================================
+  endcomment
+  assign tier_discount = 0
+  assign tier_name = ""
+  assign has_tier = false
+  assign total_spent = 0
+  
+  if tier_enabled and customer
+    comment Tính tổng chi tiêu
+    endcomment
+    if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
+      assign total_spent = customer.metafields.custom.total_spent | plus: 0
+    else
+      assign total_spent = customer.total_spent | divided_by: 100
+    endif
+    
+    comment Ưu tiên tags nếu bật trong settings
+    endcomment
+    if prioritize_tags
+      if customer.tags contains tier_1_tag
+        assign tier_discount = tier_1_discount
+        assign tier_name = tier_1_name
+        assign has_tier = true
+      elsif customer.tags contains tier_2_tag
+        assign tier_discount = tier_2_discount
+        assign tier_name = tier_2_name
+        assign has_tier = true
+      elsif customer.tags contains tier_3_tag
+        assign tier_discount = tier_3_discount
+        assign tier_name = tier_3_name
+        assign has_tier = true
+      elsif customer.tags contains tier_4_tag
+        assign tier_discount = tier_4_discount
+        assign tier_name = tier_4_name
+        assign has_tier = true
+      elsif customer.tags contains tier_5_tag
+        assign tier_discount = tier_5_discount
+        assign tier_name = tier_5_name
+        assign has_tier = true
+      endif
+    endif
+    
+    comment Nếu chưa có tier từ tags, dùng total_spent
+    endcomment
+    unless has_tier
+      if total_spent >= tier_1_threshold
+        assign tier_discount = tier_1_discount
+        assign tier_name = tier_1_name
+        assign has_tier = true
+      elsif total_spent >= tier_2_threshold
+        assign tier_discount = tier_2_discount
+        assign tier_name = tier_2_name
+        assign has_tier = true
+      elsif total_spent >= tier_3_threshold
+        assign tier_discount = tier_3_discount
+        assign tier_name = tier_3_name
+        assign has_tier = true
+      elsif total_spent >= tier_4_threshold
+        assign tier_discount = tier_4_discount
+        assign tier_name = tier_4_name
+        assign has_tier = true
+      elsif total_spent >= tier_5_threshold
+        assign tier_discount = tier_5_discount
+        assign tier_name = tier_5_name
+        assign has_tier = true
+      else
+        assign tier_discount = tier_6_discount
+        assign tier_name = tier_6_name
+        assign has_tier = true
+      endif
+    endunless
+  endif
+  
+  comment Tính giá tier
+  endcomment
+  assign discount_multiplier = 100 | minus: tier_discount | divided_by: 100.0
+  assign tier_price = price | times: discount_multiplier | round
+  
+  assign has_sale = false
+  if compare_at_price and compare_at_price > price
+    assign has_sale = true
+  endif
+%}
+
+<div class="tier-pricing-wrapper" 
+     data-tier="{{ tier_name }}"
+     data-customer-tier="{{ tier_name }}"
+     data-customer-total-spent="{{ total_spent }}"
+     data-tier-discount="{{ tier_discount }}"
+     data-has-customer="{% if customer %}true{% else %}false{% endif %}">
+  
+  <div class="tier-pricing-prices">
+    {% comment %} Giá sau tier discount (hiển thị đầu tiên) {% endcomment %}
+    <span class="tier-price-final {% if has_tier and tier_discount > 0 %}tier-price-discounted{% endif %}">
+      <span class="theme-money">{%- render "price", price: tier_price -%}</span>
+    </span>
+
+    {% comment %} Giá gốc (nếu có tier discount) {% endcomment %}
+    {% if has_tier and show_original and tier_discount > 0 %}
+      <span class="tier-price-original">
+        <span class="theme-money">{%- render "price", price: price -%}</span>
+      </span>
+    {% endif %}
+
+    {% comment %} Compare at price (nếu có sale) {% endcomment %}
+    {% if has_sale %}
+      <span class="tier-price-compare">
+        <span class="theme-money">{%- render "price", price: compare_at_price -%}</span>
+      </span>
+    {% endif %}
+  </div>
+</div>
+{% comment %} Tier Badge (sau giá) {% endcomment %}
+  {% if has_tier and show_badge and tier_discount > 0 %}
+    <span class="tier-badge tier-badge--{{ tier_name | handleize }}">
+      <svg class="tier-badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+      </svg>
+      -{{ tier_discount }}% {{ tier_name }}
+    </span>
+  {% endif %}

@@ -1,0 +1,49 @@
+<div class="care-about">
+  <h2 style="padding-bottom: 0px; background-color: #fff;color: #000; padding: 10px 15px;font-size: 20px; font-weight: 600;margin-bottom: 15px;">QUAN TÂM NHẤT</h2>
+  
+  {% assign count = 0 %}
+  {% for article in blog.articles %}
+    {% if article.tags contains 'quantamnhat' %}
+      <div class="article">
+        {% if article.image %}
+          <div class="article-image-blog">
+            <a href="{{ article.url }}">
+              <img src="{{ article.image.src | img_url: 'medium' }}" alt="{{ article.title }}" />
+            </a>
+          </div>
+        {% endif %}
+        <div class="article-content">
+          <h5 class="rb_title_care_about">
+            <a href="{{ article.url }}">{{ article.title }}</a>
+          </h5>
+        </div>
+      </div>
+      {% assign count = count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% if count == 0 %}
+    <p>Không có bài viết nào được quan tâm nhất.</p>
+  {% endif %}
+</div>
+
+
+
+<style>
+  .rb_title_care_about {
+    font-size: 17px;
+  }
+  .article {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  .article-image-blog img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    border-radius: 5px;
+  }
+  .article-content {
+    flex: 1;
+  }
+</style>

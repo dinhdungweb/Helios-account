@@ -1,0 +1,261 @@
+{% comment %}
+  Popup Section - Shopify
+  File: sections/popup-newsletter.liquid
+{% endcomment %}
+
+<style>
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .popup-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .popup-container {
+    position: relative;
+    max-width: 600px;
+    width: 90%;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    min-height: 650px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+  }
+
+  .popup-overlay.active .popup-container {
+    transform: scale(1);
+  }
+
+  .popup-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+  }
+
+  .popup-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 2;
+  }
+
+  .popup-content {
+    position: relative;
+    z-index: 3;
+    padding: 50px 40px;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 650px;
+  }
+
+  .popup-text-wrapper {
+    margin-bottom: auto;
+  }
+
+  .popup-title {
+    margin-bottom: 20px;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .popup-description {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 0;
+    color: #ffffff;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .popup-cta-wrapper {
+    margin-top: auto;
+    padding-top: 30px;
+  }
+
+  .popup-cta {
+    display: inline-block;
+    background: #f5a623;
+    color: #1a1a1a;
+    padding: 15px 40px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+
+  .popup-cta:hover {
+    background: #e09615;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 166, 35, 0.4);
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  .popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+  }
+
+  @media (max-width: 768px) {
+    .popup-container {
+      width: 95%;
+      max-width: 450px;
+      min-height: 500px;
+    }
+
+    .popup-content {
+      padding: 40px 25px;
+      min-height: 500px;
+    }
+
+    .popup-description {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .popup-cta {
+      padding: 12px 30px;
+      font-size: 13px;
+    }
+  }
+</style>
+
+<div class="popup-overlay" id="newsletterPopup-{{ section.id }}" data-popup-delay="{{ section.settings.delay | default: 5000 }}" data-popup-show-once="{{ section.settings.show_once }}">
+  <div class="popup-container">
+    <div class="popup-close" data-popup-close>×</div>
+    
+    {% if section.settings.image != blank %}
+      <img 
+        data-popup-image="{{ section.settings.image | img_url: '800x' }}" 
+        alt="{{ section.settings.title }}"
+        class="popup-image"
+        loading="lazy"
+      >
+    {% endif %}
+
+    <div class="popup-content">
+      <div class="popup-text-wrapper">
+        <h2 class="popup-title h2">{{ section.settings.title }}</h2>
+        <p class="popup-description">{{ section.settings.description }}</p>
+      </div>
+      
+      <div class="popup-cta-wrapper">
+        <a href="{{ section.settings.button_link }}" class="popup-cta">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Popup Newsletter",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hình ảnh popup"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề",
+      "default": "BẠN ĐANG TÌN VÀO ĐIỀU GÌ?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Mô tả",
+      "default": "Không nhiều người giỏi được em tin bé cuộc sống nhiều thứ thách. Nhưng chính những mảnh vỡ tiền bạnh trinh sẽ một thất sự thành mẻ và là cơ chế tốt để đến tâm mở là sự làm thành lập bạn với lời."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Text nút CTA",
+      "default": "KHÁM PHÁ BST ĐỨC TIN"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link nút CTA"
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "min": 0,
+      "max": 5000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Delay hiển thị (milliseconds)",
+      "default": 3000
+    },
+    {
+      "type": "checkbox",
+      "id": "show_once",
+      "label": "Chỉ hiển thị một lần",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popup Newsletter"
+    }
+  ]
+}
+{% endschema %}

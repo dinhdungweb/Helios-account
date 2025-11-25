@@ -1,0 +1,285 @@
+/* ============================================
+   TIER PRICING STYLES
+   ============================================ */
+
+.tier-pricing-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Product block: Inline display - match theme default behavior */
+.product-block .price .tier-pricing-wrapper {
+  display: inline;
+  margin: 0;
+}
+
+.product-block .price .tier-pricing-wrapper .tier-badge {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 6px;
+  margin-left: 4px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.product-block .price .tier-pricing-wrapper .tier-pricing-prices {
+  display: inline;
+  line-height: 1.5;
+}
+
+.product-block .price .tier-pricing-wrapper .tier-pricing-prices > * {
+  display: inline;
+  /* white-space: nowrap; */
+  padding-right: 3px;
+}
+
+/* ============================================
+   TIER BADGE
+   ============================================ */
+
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.tier-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tier-badge-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* ============================================
+   PRICING DISPLAY
+   ============================================ */
+
+.tier-pricing-prices {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Giá gốc (gạch ngang) */
+.tier-price-original {
+  text-decoration: line-through;
+  opacity: 0.6;
+  color: #f2f2f2;
+}
+
+/* Giá sau tier discount */
+.tier-price-final {
+  font-size: 1.3em;
+  line-height: 1.3;
+  color: inherit;
+}
+
+.tier-price-final.tier-price-discounted {
+  /* color: #fab320; */
+  font-size: 1.3em;
+}
+
+/* Compare at price (sale price) */
+.tier-price-compare {
+  text-decoration: line-through;
+  opacity: 0.5;
+  font-size: 1em;
+  color: #f2f2f2;
+}
+
+
+/* ============================================
+   PRODUCT BLOCK INTEGRATION
+   ============================================ */
+
+.product-block .tier-pricing-wrapper {
+  margin: 4px 0 8px 0;
+}
+
+.product-block .tier-badge {
+  font-size: 10px;
+  padding: 3px 8px;
+}
+
+.product-block .tier-price-final {
+  font-size: 1em;
+}
+
+
+/* ============================================
+   PRODUCT PAGE INTEGRATION
+   ============================================ */
+
+.product-area .tier-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+
+/* ============================================
+   CART INTEGRATION
+   ============================================ */
+
+.cart-item .tier-pricing-wrapper,
+.cart-drawer .tier-pricing-wrapper {
+  margin: 4px 0;
+}
+
+.cart-item .tier-badge,
+.cart-drawer .tier-badge {
+  font-size: 9px;
+  padding: 2px 6px;
+}
+
+.cart-item .tier-price-final,
+.cart-drawer .tier-price-final {
+  font-size: 1em;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .tier-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .tier-pricing-prices {
+    gap: 6px;
+  }
+
+  .tier-login-link {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 661px) {
+  .product-block .tier-badge {
+    margin-top: 5px;
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .tier-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .tier-badge-icon {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .tier-price-original {
+    color: #f2f2f2;
+  }
+
+  .tier-price-compare {
+    color: #888;
+  }
+
+  .tier-login-link {
+    background: rgba(250, 179, 32, 0.15);
+  }
+
+  .tier-login-link:hover {
+    background: rgba(250, 179, 32, 0.25);
+  }
+}
+
+/* ============================================
+   ANIMATION
+   ============================================ */
+
+@keyframes tier-badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.tier-badge--black-diamond {
+  animation: tier-badge-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.tier-pricing-wrapper:focus-within .tier-badge {
+  outline: 2px solid #fab320;
+  outline-offset: 2px;
+}
+
+.tier-login-link:focus {
+  outline: 2px solid #fab320;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  .tier-badge {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+  }
+
+  .tier-login-prompt {
+    display: none;
+  }
+}
+
+
+/* ============================================
+   FORCE TIER PRICING VISIBILITY
+   ============================================ */
+
+/* Ensure tier pricing wrapper is always visible and on top */
+.price-area .tier-pricing-wrapper {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 100 !important;
+}
+
+/* Hide any price elements added by theme.js after tier-pricing-wrapper */
+.price-area .tier-pricing-wrapper ~ * {
+  display: none !important;
+}
+
+/* Alternative: Hide all direct children of price-area except tier-pricing-wrapper */
+.price-area > *:not(.tier-pricing-wrapper):not(.unit-price) {
+  display: none !important;
+}
+
+/* Ensure price-area shows tier pricing */
+/* .price-area:has(.tier-pricing-wrapper) {
+  min-height: 60px !important;
+} */

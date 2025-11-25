@@ -1,0 +1,690 @@
+<!-- sections/random-number-generator.liquid -->
+{{ 'random-generator.css' | asset_url | stylesheet_tag }}
+
+<div class="random-generator-section" id="random-generator-{{ section.id }}">
+  <div class="generator-container">
+    <div class="random-generator-wrapper">
+      
+      <!-- Header -->
+      <div class="generator-header">
+        {% if section.settings.title != blank %}
+          <h2 class="generator-title">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p class="generator-description">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Random Number Display -->
+      <div class="number-display">
+        <div class="result-container">
+          <span class="result-number" id="result-number-{{ section.id }}">?</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="generator-controls">
+        <div class="input-group">
+          <div class="input-field">
+            <label for="min-{{ section.id }}">{{ section.settings.min_label | default: 'Số tối thiểu' }}</label>
+            <input 
+              type="number" 
+              id="min-{{ section.id }}" 
+              value="{{ section.settings.default_min | default: 1 }}"
+              min="-999999"
+              max="999999"
+            >
+          </div>
+          
+          <div class="input-field">
+            <label for="max-{{ section.id }}">{{ section.settings.max_label | default: 'Số tối đa' }}</label>
+            <input 
+              type="number" 
+              id="max-{{ section.id }}" 
+              value="{{ section.settings.default_max | default: 100 }}"
+              min="-999999"
+              max="999999"
+            >
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button 
+          class="generate-btn" 
+          id="generate-btn-{{ section.id }}"
+          onclick="generateRandomNumber('{{ section.id }}')"
+        >
+          {{ section.settings.button_text | default: 'Quay số ngẫu nhiên' }}
+        </button>
+
+        <!-- Additional Options -->
+        <div class="additional-options">
+          <div class="option-group">
+            <label class="checkbox-label">
+              <input 
+                type="checkbox" 
+                id="allow-duplicates-{{ section.id }}" 
+                {% if section.settings.allow_duplicates %}checked{% endif %}
+              >
+              <span class="checkmark"></span>
+              {{ section.settings.duplicates_label | default: 'Cho phép số trùng lặp' }}
+            </label>
+          </div>
+
+          <div class="option-group">
+            <label for="quantity-{{ section.id }}">{{ section.settings.quantity_label | default: 'Số lượng' }}</label>
+            <select id="quantity-{{ section.id }}">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- History -->
+      {% if section.settings.show_history %}
+        <div class="history-section">
+          <h3>{{ section.settings.history_title | default: 'Lịch sử kết quả' }}</h3>
+          <div class="history-list" id="history-{{ section.id }}">
+            <p class="no-history">Chưa có kết quả nào được tạo</p>
+          </div>
+          <button 
+            class="clear-history-btn" 
+            id="clear-history-{{ section.id }}"
+            onclick="clearHistory('{{ section.id }}')"
+            style="display: none;"
+          >
+            {{ section.settings.clear_history_text | default: 'Xóa lịch sử' }}
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- CSS Styles -->
+<style>
+.random-generator-section {
+  padding: 60px 0;
+  background: {{ section.settings.background_color | default: '#f8f9fa' }};
+}
+
+.generator-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.random-generator-wrapper {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.generator-title {
+  font-size: 2.5rem;
+  color: {{ section.settings.title_color | default: '#2c3e50' }};
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.generator-description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.number-display {
+  margin-bottom: 40px;
+}
+
+.result-container {
+  background: linear-gradient(135deg, {{ section.settings.accent_color | default: '#667eea' }}, {{ section.settings.secondary_color | default: '#764ba2' }});
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.result-number {
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1.3;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  min-width: 120px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.generator-controls {
+  margin-bottom: 40px;
+}
+
+.input-group {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.input-field {
+  flex: 1;
+  max-width: 200px;
+}
+
+.input-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-field input,
+.option-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-field input:focus,
+.option-group select:focus {
+  outline: none;
+  border-color: {{ section.settings.accent_color | default: '#667eea' }};
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.generate-btn {
+  background: linear-gradient(135deg, {{ section.settings.button_color | default: '#667eea' }}, {{ section.settings.button_hover_color | default: '#764ba2' }});
+  color: #111111;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  margin-bottom: 30px;
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.generate-btn:active {
+  transform: translateY(0);
+}
+
+.additional-options {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  color: #666666;
+}
+
+.checkbox-label input {
+  display: none;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.checkbox-label input:checked + .checkmark {
+  background: {{ section.settings.accent_color | default: '#667eea' }};
+  border-color: {{ section.settings.accent_color | default: '#667eea' }};
+}
+
+.checkbox-label input:checked + .checkmark::after {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.history-section {
+  border-top: 2px solid #f0f0f0;
+  padding-top: 30px;
+  text-align: left;
+}
+
+.history-section h3 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.history-list {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.history-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+  font-family: monospace;
+  color: #495057;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.no-history {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+}
+
+.clear-history-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.clear-history-btn:hover {
+  background: #c82333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .random-generator-wrapper {
+    padding: 30px 20px;
+  }
+  
+  .generator-title {
+    font-size: 2rem;
+  }
+  
+  .result-number {
+    font-size: 3rem;
+  }
+  
+  .input-group {
+    gap: 15px;
+  }
+  
+  .additional-options {
+    gap: 15px;
+  }
+}
+</style>
+
+<!-- JavaScript -->
+<script>
+function generateRandomNumber(sectionId) {
+  const minInput = document.getElementById('min-' + sectionId);
+  const maxInput = document.getElementById('max-' + sectionId);
+  const quantitySelect = document.getElementById('quantity-' + sectionId);
+  const allowDuplicates = document.getElementById('allow-duplicates-' + sectionId);
+  const resultElement = document.getElementById('result-number-' + sectionId);
+  const button = document.getElementById('generate-btn-' + sectionId);
+  
+  let min = parseInt(minInput.value) || 1;
+  let max = parseInt(maxInput.value) || 100;
+  const quantity = parseInt(quantitySelect.value) || 1;
+  const duplicates = allowDuplicates.checked;
+  
+  // Validation
+  if (min > max) {
+    [min, max] = [max, min];
+    minInput.value = min;
+    maxInput.value = max;
+  }
+  
+  if (!duplicates && quantity > (max - min + 1)) {
+    alert('Không thể tạo ' + quantity + ' số không trùng lặp trong khoảng từ ' + min + ' đến ' + max);
+    return;
+  }
+  
+  // Animation
+  button.disabled = true;
+  button.textContent = 'Đang quay...';
+  resultElement.style.transform = 'scale(0.8)';
+  
+  // Generate random numbers
+  setTimeout(() => {
+    const results = [];
+    const usedNumbers = new Set();
+    
+    for (let i = 0; i < quantity; i++) {
+      let randomNum;
+      let attempts = 0;
+      
+      do {
+        randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+        attempts++;
+      } while (!duplicates && usedNumbers.has(randomNum) && attempts < 1000);
+      
+      if (!duplicates) {
+        usedNumbers.add(randomNum);
+      }
+      results.push(randomNum);
+    }
+    
+    // Display results
+    if (results.length === 1) {
+      resultElement.textContent = results[0];
+    } else {
+      resultElement.textContent = results.join(', ');
+    }
+    
+    // Add to history
+    addToHistory(sectionId, results, min, max);
+    
+    // Reset button
+    resultElement.style.transform = 'scale(1)';
+    button.disabled = false;
+    button.textContent = '{{ section.settings.button_text | default: "Quay số ngẫu nhiên" }}';
+    
+    // Add celebration effect
+    createConfetti();
+  }, 1000);
+}
+
+function addToHistory(sectionId, results, min, max) {
+  const historyElement = document.getElementById('history-' + sectionId);
+  const clearButton = document.getElementById('clear-history-' + sectionId);
+  
+  if (!historyElement) return;
+  
+  const noHistoryElement = historyElement.querySelector('.no-history');
+  if (noHistoryElement) {
+    noHistoryElement.remove();
+  }
+  
+  const historyItem = document.createElement('div');
+  historyItem.className = 'history-item';
+  const timestamp = new Date().toLocaleTimeString('vi-VN');
+  historyItem.innerHTML = `
+    <strong>${results.join(', ')}</strong> 
+    (${min}-${max}) - ${timestamp}
+  `;
+  
+  historyElement.insertBefore(historyItem, historyElement.firstChild);
+  
+  // Show clear button
+  if (clearButton) {
+    clearButton.style.display = 'inline-block';
+  }
+  
+  // Limit history to 10 items
+  const items = historyElement.querySelectorAll('.history-item');
+  if (items.length > 10) {
+    items[items.length - 1].remove();
+  }
+}
+
+function clearHistory(sectionId) {
+  const historyElement = document.getElementById('history-' + sectionId);
+  const clearButton = document.getElementById('clear-history-' + sectionId);
+  
+  if (historyElement) {
+    historyElement.innerHTML = '<p class="no-history">Chưa có kết quả nào được tạo</p>';
+  }
+  
+  if (clearButton) {
+    clearButton.style.display = 'none';
+  }
+}
+
+function createConfetti() {
+  // Simple confetti effect
+  const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c'];
+  
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      const confetti = document.createElement('div');
+      confetti.style.cssText = `
+        position: fixed;
+        top: 20%;
+        left: ${Math.random() * 100}%;
+        width: 10px;
+        height: 10px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        animation: confetti-fall 2s ease-out forwards;
+      `;
+      
+      document.body.appendChild(confetti);
+      
+      setTimeout(() => confetti.remove(), 2000);
+    }, i * 50);
+  }
+}
+
+// CSS for confetti animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(-100vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
+</script>
+
+{% schema %}
+{
+  "name": "Random Number Generator",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cài đặt chung"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề",
+      "default": "Máy tạo số ngẫu nhiên"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Mô tả",
+      "default": "Tạo số ngẫu nhiên"
+    },
+    {
+      "type": "header",
+      "content": "Cài đặt mặc định"
+    },
+    {
+      "type": "number",
+      "id": "default_min",
+      "label": "Số tối thiểu mặc định",
+      "default": 1
+    },
+    {
+      "type": "number",
+      "id": "default_max",
+      "label": "Số tối đa mặc định",
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_duplicates",
+      "label": "Cho phép số trùng lặp mặc định",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Nhãn văn bản"
+    },
+    {
+      "type": "text",
+      "id": "min_label",
+      "label": "Nhãn số tối thiểu",
+      "default": "Số tối thiểu"
+    },
+    {
+      "type": "text",
+      "id": "max_label",
+      "label": "Nhãn số tối đa",
+      "default": "Số tối đa"
+    },
+    {
+      "type": "text",
+      "id": "quantity_label",
+      "label": "Nhãn số lượng",
+      "default": "Số lượng"
+    },
+    {
+      "type": "text",
+      "id": "duplicates_label",
+      "label": "Nhãn cho phép trùng lặp",
+      "default": "Cho phép số trùng lặp"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Văn bản nút",
+      "default": "Quay số ngẫu nhiên"
+    },
+    {
+      "type": "header",
+      "content": "Lịch sử"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_history",
+      "label": "Hiển thị lịch sử",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "history_title",
+      "label": "Tiêu đề lịch sử",
+      "default": "Lịch sử kết quả"
+    },
+    {
+      "type": "text",
+      "id": "clear_history_text",
+      "label": "Văn bản xóa lịch sử",
+      "default": "Xóa lịch sử"
+    },
+    {
+      "type": "header",
+      "content": "Màu sắc"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Màu nền",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Màu tiêu đề",
+      "default": "#2c3e50"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Màu chính",
+      "default": "#667eea"
+    },
+    {
+      "type": "color",
+      "id": "secondary_color",
+      "label": "Màu phụ",
+      "default": "#764ba2"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Màu nút",
+      "default": "#667eea"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Màu nút khi hover",
+      "default": "#764ba2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Random Number Generator"
+    }
+  ]
+}
+{% endschema %}

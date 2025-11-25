@@ -1,0 +1,165 @@
+{%- liquid
+  assign heading_tag = "h2"
+  if section.settings.heading_h1
+    assign heading_tag = "h1"
+  endif
+-%}
+
+<div id="quiz-{{ section.id }}" class="quiz-section{% if section.settings.glass_effect %} quiz--glass{% endif %}"
+     data-method="{{ section.settings.method }}"
+     data-show-progress="{{ section.settings.show_progress }}"
+     data-persist="{{ section.settings.persist_answer }}"
+     data-restart-enabled="{{ section.settings.restart_enabled }}">
+
+  <style>
+    #quiz-{{ section.id }}{
+      --quiz-accent: {{ section.settings.accent_color }};
+      --quiz-bg: {{ section.settings.bg_color }};
+      --quiz-text: {{ section.settings.text_color }};
+      --quiz-card-bg: {{ section.settings.card_bg }};
+      --quiz-radius: {{ section.settings.radius }}px;
+      --quiz-shadow: {{ section.settings.shadow_strength }};
+    }
+    #quiz-{{ section.id }}.quiz--glass .quiz-card,
+    #quiz-{{ section.id }}.quiz--glass .quiz-result{ backdrop-filter: blur(8px); }
+  </style>
+
+  <div class="quiz-inner">
+    {% if section.settings.title != blank %}
+      <div class="quiz-header">
+        <{{ heading_tag }} class="quiz-title">{{ section.settings.title | escape }}</{{ heading_tag }}>
+      </div>
+    {% endif %}
+    <div class="quiz-progress" aria-live="polite"></div>
+    <div class="quiz-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="quiz-progressbar__bar"></div>
+    </div>
+
+    <div class="quiz-card" data-state="question">
+      <!-- Question content inserted by quiz.js -->
+    </div>
+
+    <div class="quiz-result" hidden>
+      <div class="quiz-result__media"></div>
+      <div class="quiz-result__content">
+        <{{ heading_tag }} class="quiz-result__title h2"></{{ heading_tag }}>
+        <div class="quiz-result__desc rte"></div>
+        <div class="quiz-result__cta"></div>
+      </div>
+    </div>
+
+    {%- assign results_for_products = section.blocks | where: 'type', 'result' -%}
+    <div class="quiz-recommendations" aria-live="polite">
+      {%- for block in results_for_products -%}
+        {%- assign reco_collection = collections[block.settings.reco_collection] -%}
+        <div class="quiz-reco-set" id="quiz-reco-{{ block.id }}" hidden>
+          {%- if block.settings.reco_title != blank -%}
+            <h3 class="quiz-reco-title">{{ block.settings.reco_title | escape }}</h3>
+          {%- endif -%}
+          {%- if reco_collection -%}
+            <div class="quiz-reco-grid">
+              {%- for product in reco_collection.products limit: block.settings.reco_limit -%}
+                {% render 'product-block', product: product, show_title: true, show_price: true, show_review: true, show_add_to_cart: true %}
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <p class="feature-subheader">Chưa gán collection đề xuất cho kết luận này.</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} Embed configuration as JSON for JS to consume {%- endcomment -%}
+  <script type="application/json" id="quiz-data-{{ section.id }}">
+  {
+    "questions": [
+      {%- assign qblocks = section.blocks | where: 'type', 'question' -%}
+      {%- for block in qblocks -%}
+        {%- capture q_options -%}{{ block.settings.options_json | strip }}{%- endcapture -%}
+        {
+          "id": "{{ block.id }}",
+          "text": {{ block.settings.question_text | json }},
+          "options": {{ q_options | json }},
+          "image": {%- if block.settings.question_image -%}{{ block.settings.question_image | image_url: width: 1200 | json }}{%- else -%}null{%- endif -%},
+          "image_alt": {{ block.settings.question_image_alt | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "results": [
+      {%- assign results = section.blocks | where: 'type', 'result' -%}
+      {%- for block in results -%}
+        {%- capture rule_json -%}{{ block.settings.rule_json | strip }}{%- endcapture -%}
+        {
+          "id": "{{ block.id }}",
+          "category_key": {{ block.settings.category_key | json }},
+          "title": {{ block.settings.result_title | json }},
+          "desc": {{ block.settings.result_desc | json }},
+          "image": {%- if block.settings.result_image -%}{{ block.settings.result_image | image_url: width: 1600 | json }}{%- else -%}null{%- endif -%},
+          "cta": { "label": {{ block.settings.cta_label | json }}, "link": {{ block.settings.cta_link | json }} },
+          "rule": {{ rule_json | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="{{ 'quiz.css' | asset_url }}">
+  <script src="{{ 'quiz.js' | asset_url }}" defer></script>
+</div>
+
+{% schema %}
+{
+  "name": "Quiz",
+  "class": "section-quiz",
+  "settings": [
+    {"type": "select", "id": "method", "label": "Phương pháp kết luận", "default": "highest_category", "options": [
+      {"value": "highest_category", "label": "Category có điểm cao nhất"},
+      {"value": "rules", "label": "Theo rules (điều kiện)"}
+    ]},
+    {"type": "checkbox", "id": "show_progress", "label": "Hiển thị tiến độ", "default": true},
+    {"type": "checkbox", "id": "persist_answer", "label": "Lưu trạng thái (localStorage)", "default": false},
+    {"type": "checkbox", "id": "restart_enabled", "label": "Cho phép làm lại", "default": true},
+    {"type": "checkbox", "id": "heading_h1", "label": "Dùng H1 cho tiêu đề kết luận", "default": false}
+    ,{"type":"text","id":"title","label":"Tiêu đề (tuỳ chọn)","default":"Khảo sát nhanh dành cho bạn"}
+    ,{"type":"color","id":"accent_color","label":"Màu nhấn","default":"#fab320"}
+    ,{"type":"color","id":"bg_color","label":"Màu nền","default":"#0e0e0e"}
+    ,{"type":"color","id":"text_color","label":"Màu chữ","default":"#f2f2f2"}
+    ,{"type":"color","id":"card_bg","label":"Màu khối nội dung","default":"rgba(255,255,255,0.06)"}
+    ,{"type":"range","id":"radius","label":"Bo góc (px)","min":0,"max":24,"step":1,"default":12,"unit":"px"}
+    ,{"type":"range","id":"shadow_strength","label":"Độ đổ bóng","min":0,"max":24,"step":1,"default":16}
+    ,{"type":"checkbox","id":"glass_effect","label":"Hiệu ứng mờ (glass)","default":true}
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Câu hỏi",
+      "settings": [
+        {"type": "text", "id": "question_text", "label": "Nội dung câu hỏi", "default": "Câu hỏi của bạn"},
+        {"type": "textarea", "id": "options_json", "label": "Danh sách lựa chọn (JSON)", "info": "Dán JSON dạng danh sách: [{\"label\":\"...\", \"weights\": {\"bold\": 3}, \"tags\":[\"prefer_bold\"]}]"},
+        {"type": "image_picker", "id": "question_image", "label": "Ảnh câu hỏi (tuỳ chọn)"},
+        {"type": "text", "id": "question_image_alt", "label": "Alt ảnh"}
+      ]
+    },
+    {
+      "type": "result",
+      "name": "Kết luận",
+      "settings": [
+        {"type": "text", "id": "category_key", "label": "Category (dùng cho phương pháp điểm cao nhất)", "info": "Ví dụ: bold, minimal, classic"},
+        {"type": "text", "id": "result_title", "label": "Tiêu đề"},
+        {"type": "richtext", "id": "result_desc", "label": "Mô tả"},
+        {"type": "image_picker", "id": "result_image", "label": "Ảnh kết luận (tuỳ chọn)"},
+        {"type": "text", "id": "cta_label", "label": "Nhãn nút", "default": "Khám phá"},
+        {"type": "url", "id": "cta_link", "label": "Link nút"},
+        {"type": "textarea", "id": "rule_json", "label": "Rule JSON (dùng khi phương pháp = rules)", "info": "Ví dụ: {\"any\":[{\"category\":\"bold\",\"gte\":6},{\"tags\":[\"prefer_bold\"]}]}"},
+        {"type": "collection", "id": "reco_collection", "label": "Collection đề xuất (hiển thị sau kết luận)"},
+        {"type": "range", "id": "reco_limit", "label": "Số sản phẩm đề xuất", "min": 1, "max": 12, "step": 1, "default": 6},
+        {"type": "text", "id": "reco_title", "label": "Tiêu đề đề xuất", "default": "Sản phẩm phù hợp"}
+      ]
+    }
+  ],
+  "presets": [
+    {"name": "Quiz", "category": "Custom content"}
+  ]
+}
+{% endschema %}

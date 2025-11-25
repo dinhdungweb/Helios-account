@@ -1,0 +1,182 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "quiz_tinh_cach": {
+      "type": "quiz",
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question_text": "Khi đứng trước một mục tiêu mới, việc đầu tiên anh em nghĩ đến là gì?",
+            "options_json": "[{\"label\":\"Âm thầm bắt tay vào làm từng bước nhỏ, miễn là mỗi ngày đều tiến lên\",\"weights\":{\"ca_chep\":4},\"tags\":[\"steady\",\"persistent\"]},{\"label\":\"Ok, làm luôn!, không do dự, thích cảm giác thử thách mạnh\",\"weights\":{\"rong\":4},\"tags\":[\"bold\",\"action\"]},{\"label\":\"Ngồi quan sát dấu hiệu – nếu cảm thấy đúng thời điểm, anh mới bắt đầu\",\"weights\":{\"chuong_ho_menh\":4},\"tags\":[\"intuitive\",\"timing\"]},{\"label\":\"Lập kế hoạch chi tiết: đường đi – deadline – checklist rõ ràng rồi mới tiến hành\",\"weights\":{\"dai_thu\":4},\"tags\":[\"planning\",\"systematic\"]}]",
+            "question_image_alt": "Mục tiêu mới"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question_text": "Nếu công việc đang bế tắc, anh em thường làm gì để thoát khỏi vòng lặp?",
+            "options_json": "[{\"label\":\"Đổi góc nhìn, phân nhỏ việc ra và xử lý từng mảnh một\",\"weights\":{\"ca_chep\":4},\"tags\":[\"methodical\",\"patient\"]},{\"label\":\"Tạo cú hích mạnh: đổi môi trường, thử một thứ mới hoàn toàn, hoặc nhảy thẳng vào hành động\",\"weights\":{\"rong\":4},\"tags\":[\"breakthrough\",\"dynamic\"]},{\"label\":\"Tìm một vật/niềm tin nhỏ để reset, kiểu như đeo nhẫn, thiền, hoặc đi lặng vài phút\",\"weights\":{\"chuong_ho_menh\":4,\"hoa_nho\":2},\"tags\":[\"spiritual\",\"reset\"]},{\"label\":\"Mổ xẻ vấn đề, dò đúng nguyên nhân và xử lý tận gốc bằng logic\",\"weights\":{\"dai_thu\":4},\"tags\":[\"analytical\",\"logical\"]}]",
+            "question_image_alt": "Giải quyết bế tắc"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question_text": "Trong một nhóm bạn, anh em thường là người…",
+            "options_json": "[{\"label\":\"Trầm nhưng vững – kiểu người ai cũng thấy tin cậy\",\"weights\":{\"ca_chep\":4,\"dai_thu\":2},\"tags\":[\"reliable\",\"steady\"]},{\"label\":\"Nổi bật, bùng nổ năng lượng, dễ thành tâm điểm\",\"weights\":{\"rong\":4},\"tags\":[\"energetic\",\"leader\"]},{\"label\":\"Lặng lẽ để ý mọi người, là nơi an toàn để bạn bè tâm sự\",\"weights\":{\"hoa_nho\":4,\"chuong_ho_menh\":2},\"tags\":[\"empathetic\",\"listener\"]},{\"label\":\"Rõ ràng – nói thẳng, nghĩ gì nói nấy, ghét dây dưa\",\"weights\":{\"dai_thu\":4},\"tags\":[\"direct\",\"honest\"]}]",
+            "question_image_alt": "Vai trò trong nhóm"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question_text": "Khi quyết định một điều quan trọng, anh em đặt nặng yếu tố nào nhất?",
+            "options_json": "[{\"label\":\"Mức độ bền vững, dài hạn\",\"weights\":{\"ca_chep\":4,\"dai_thu\":2},\"tags\":[\"sustainable\",\"long_term\"]},{\"label\":\"Cơ hội tạo bứt phá lớn\",\"weights\":{\"rong\":4},\"tags\":[\"opportunity\",\"breakthrough\"]},{\"label\":\"Cảm giác đúng linh cảm hoặc dấu hiệu cuộc sống gửi đến\",\"weights\":{\"chuong_ho_menh\":4,\"hoa_nho\":2},\"tags\":[\"intuition\",\"signs\"]},{\"label\":\"Sự hợp lý, tính toán và kiểm soát\",\"weights\":{\"dai_thu\":4},\"tags\":[\"rational\",\"control\"]}]",
+            "question_image_alt": "Quyết định quan trọng"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question_text": "Một ngày hoàn hảo của anh em sẽ diễn ra như thế nào?",
+            "options_json": "[{\"label\":\"Làm được đúng những điều mình tự hứa với bản thân\",\"weights\":{\"ca_chep\":4,\"dai_thu\":1},\"tags\":[\"commitment\",\"self_discipline\"]},{\"label\":\"Học được điều mới, gặp người mới, có cảm giác mình đang lớn lên nhanh\",\"weights\":{\"rong\":4},\"tags\":[\"growth\",\"adventure\"]},{\"label\":\"Một ngày nhẹ nhàng, bình yên, cảm giác tinh thần được nạp lại\",\"weights\":{\"hoa_nho\":4,\"chuong_ho_menh\":2},\"tags\":[\"peaceful\",\"recharge\"]},{\"label\":\"Hoàn thành một danh sách công việc sạch sẽ, gọn gàng\",\"weights\":{\"dai_thu\":4},\"tags\":[\"organized\",\"productive\"]}]",
+            "question_image_alt": "Ngày hoàn hảo"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question_text": "Khi cuộc sống ném cho anh em một biến cố bất ngờ, anh em sẽ phản ứng như thế nào?",
+            "options_json": "[{\"label\":\"Giữ bình tĩnh, làm từng phần nhỏ trong tầm kiểm soát\",\"weights\":{\"ca_chep\":4,\"dai_thu\":1},\"tags\":[\"calm\",\"step_by_step\"]},{\"label\":\"Tạo một hành động mạnh để thay đổi ngay tình thế\",\"weights\":{\"rong\":4},\"tags\":[\"decisive\",\"strong_action\"]},{\"label\":\"Tìm điểm tựa tinh thần – một người, một vật, một ký ức để trấn an lại bản thân\",\"weights\":{\"chuong_ho_menh\":4,\"hoa_nho\":2},\"tags\":[\"spiritual_support\",\"comfort\"]},{\"label\":\"Lập tức phân tích: chuyện này đến từ đâu, rủi ro – hướng xử lý – phương án dự phòng là gì\",\"weights\":{\"dai_thu\":4},\"tags\":[\"analytical\",\"strategic\"]}]",
+            "question_image_alt": "Biến cố bất ngờ"
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "question_text": "Điều gì khiến anh em cảm thấy mình trưởng thành hơn sau mỗi giai đoạn khó khăn?",
+            "options_json": "[{\"label\":\"Nhìn lại và thấy mình kiên trì hơn, bền bỉ hơn\",\"weights\":{\"ca_chep\":4,\"dai_thu\":1},\"tags\":[\"persistence\",\"endurance\"]},{\"label\":\"Những lần dám bước vào điều mình sợ và vượt qua nó\",\"weights\":{\"rong\":4},\"tags\":[\"courage\",\"overcome_fear\"]},{\"label\":\"Mỗi lần tìm được sự bình yên bên trong, ngay cả lúc cuộc sống hỗn loạn nhất\",\"weights\":{\"hoa_nho\":4,\"chuong_ho_menh\":2},\"tags\":[\"inner_peace\",\"resilience\"]},{\"label\":\"Hiểu rõ hơn cách thế giới vận hành và biết cách chủ động giải quyết vấn đề\",\"weights\":{\"dai_thu\":4},\"tags\":[\"understanding\",\"problem_solving\"]}]",
+            "question_image_alt": "Trưởng thành"
+          }
+        },
+        "result_ca_chep": {
+          "type": "result",
+          "settings": {
+            "category_key": "ca_chep",
+            "result_title": "Cá Chép",
+            "result_desc": "<p><strong>Kiểu người bền bỉ, điềm tĩnh, tin vào sức mạnh của sự tích lũy từng ngày.</strong></p><p>Anh em là người \"đi chậm nhưng không đứng yên\", phù hợp với hành trình vượt vũ môn – thăng hoa bằng nỗ lực thật sự.</p><p>✨ <strong>Đặc điểm nổi bật:</strong></p><ul><li>Kiên trì, bền bỉ trong mọi hoàn cảnh</li><li>Tin vào sức mạnh của thời gian và sự tích lũy</li><li>Không vội vàng, luôn bước đi vững chắc</li><li>Có khả năng chịu đựng và vượt qua thử thách</li></ul><p>💎 <strong>Trang sức phù hợp:</strong> Những món đơn giản, bền đẹp, mang ý nghĩa sâu sắc</p>",
+            "cta_label": "Khám Phá Bộ Sưu Tập",
+            "cta_link": "",
+            "rule_json": "",
+            "reco_collection": "",
+            "reco_limit": 6,
+            "reco_title": "Trang Sức Cho Người Kiên Trì"
+          }
+        },
+        "result_dai_thu": {
+          "type": "result",
+          "settings": {
+            "category_key": "dai_thu",
+            "result_title": "Đại Thụ",
+            "result_desc": "<p><strong>Đây là kiểu người trưởng thành, vững chãi, không bị lay động bởi những biến động bên ngoài.</strong></p><p>Anh em tin rằng mọi thành công lâu dài đều phải bắt đầu từ gốc rễ: tư duy – kỷ luật – nền tảng sống. Một khi đã đứng vững, không ai có thể xô ngã anh em.</p><p>✨ <strong>Đặc điểm nổi bật:</strong></p><ul><li>Tư duy logic, có hệ thống</li><li>Kỷ luật cao, có nguyên tắc sống rõ ràng</li><li>Vững vàng, không dao động trước khó khăn</li><li>Nhìn xa trông rộng, có tầm nhìn dài hạn</li></ul><p>💎 <strong>Trang sức phù hợp:</strong> Thiết kế cổ điển, sang trọng, thể hiện đẳng cấp</p>",
+            "cta_label": "Xem Bộ Sưu Tập Đại Thụ",
+            "cta_link": "",
+            "rule_json": "{\"any\":[{\"all\":[{\"category\":\"ca_chep\",\"gte\":15},{\"category\":\"dai_thu\",\"gte\":10}]},{\"category\":\"dai_thu\",\"gte\":20}]}",
+            "reco_collection": "",
+            "reco_limit": 6,
+            "reco_title": "Trang Sức Cho Người Vững Chãi"
+          }
+        },
+        "result_hoa_nho": {
+          "type": "result",
+          "settings": {
+            "category_key": "hoa_nho",
+            "result_title": "Hoa Nhỏ",
+            "result_desc": "<p><strong>Kiểu người mềm mại mà mạnh mẽ, giàu sự tinh tế và cảm xúc.</strong></p><p>Anh em sống với trái tim luôn mở — biết cảm, biết thương, biết lắng nghe chính mình. Không ồn ào nhưng có sức ảnh hưởng lặng lẽ.</p><p>✨ <strong>Đặc điểm nổi bật:</strong></p><ul><li>Tinh tế, nhạy cảm với cảm xúc</li><li>Có khả năng chữa lành và an ủi người khác</li><li>Sống chân thành, thấu hiểu</li><li>Mạnh mẽ một cách dịu dàng</li></ul><p>💎 <strong>Trang sức phù hợp:</strong> Thiết kế tinh tế, nhẹ nhàng, mang ý nghĩa tình cảm</p>",
+            "cta_label": "Khám Phá Hoa Nhỏ",
+            "cta_link": "",
+            "rule_json": "{\"any\":[{\"all\":[{\"category\":\"ca_chep\",\"gte\":15},{\"category\":\"chuong_ho_menh\",\"gte\":8}]},{\"category\":\"hoa_nho\",\"gte\":20}]}",
+            "reco_collection": "",
+            "reco_limit": 6,
+            "reco_title": "Trang Sức Cho Tâm Hồn Tinh Tế"
+          }
+        },
+        "result_chuong_ho_menh": {
+          "type": "result",
+          "settings": {
+            "category_key": "chuong_ho_menh",
+            "result_title": "Chuông Hộ Mệnh",
+            "result_desc": "<p><strong>Kiểu người sống bằng trực giác, tín hiệu và những điều tinh tế mà người khác không nhìn thấy.</strong></p><p>Anh em cảm nhận cuộc đời bằng \"cách riêng\", có chiều sâu nội tâm và sự kết nối với những điều khó gọi thành lời.</p><p>✨ <strong>Đặc điểm nổi bật:</strong></p><ul><li>Trực giác nhạy bén, cảm nhận được dấu hiệu</li><li>Có chiều sâu tâm linh, kết nối với vũ trụ</li><li>Tìm thấy bình an trong nội tâm</li><li>Tin vào những điều vô hình nhưng mạnh mẽ</li></ul><p>💎 <strong>Trang sức phù hợp:</strong> Những món mang ý nghĩa tâm linh, bảo vệ năng lượng</p>",
+            "cta_label": "Tìm Hiểu Chuông Hộ Mệnh",
+            "cta_link": "",
+            "rule_json": "",
+            "reco_collection": "",
+            "reco_limit": 6,
+            "reco_title": "Trang Sức Hộ Mệnh"
+          }
+        },
+        "result_rong": {
+          "type": "result",
+          "settings": {
+            "category_key": "rong",
+            "result_title": "Rồng",
+            "result_desc": "<p><strong>Kiểu người dũng khí, thích thử thách mạnh, luôn muốn bứt phá khỏi vùng an toàn.</strong></p><p>Anh em thuộc nhóm \"đã làm thì làm lớn\", dám đương đầu, dám liều để đạt điều mình muốn. Rồng là biểu tượng của bản lĩnh và sự chuyển hóa — mỗi lần ngã là một lần anh em trưởng thành nhanh hơn người khác.</p><p>✨ <strong>Đặc điểm nổi bật:</strong></p><ul><li>Dũng cảm, không sợ thử thách</li><li>Năng lượng mạnh mẽ, quyết đoán</li><li>Luôn muốn bứt phá, đổi mới</li><li>Học hỏi nhanh từ thất bại</li></ul><p>💎 <strong>Trang sức phù hợp:</strong> Thiết kế mạnh mẽ, nổi bật, thể hiện cá tính</p>",
+            "cta_label": "Khám Phá Sức Mạnh Rồng",
+            "cta_link": "",
+            "rule_json": "",
+            "reco_collection": "",
+            "reco_limit": 6,
+            "reco_title": "Trang Sức Cho Người Dũng Cảm"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6",
+        "question_7",
+        "result_ca_chep",
+        "result_dai_thu",
+        "result_hoa_nho",
+        "result_chuong_ho_menh",
+        "result_rong"
+      ],
+      "settings": {
+        "method": "rules",
+        "show_progress": true,
+        "persist_answer": true,
+        "restart_enabled": true,
+        "heading_h1": false,
+        "title": "Khám Phá Bản Chất Thật Của Bạn",
+        "accent_color": "#fab320",
+        "bg_color": "#0e0e0e",
+        "text_color": "#f2f2f2",
+        "card_bg": "rgba(255,255,255,0.06)",
+        "radius": 16,
+        "shadow_strength": 20,
+        "glass_effect": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "quiz_tinh_cach"
+  ]
+}

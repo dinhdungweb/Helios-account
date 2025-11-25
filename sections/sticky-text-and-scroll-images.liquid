@@ -1,0 +1,91 @@
+{% schema %}
+{
+  "name": "Text & Scroll Images",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "left_text",
+      "label": "Left Column Text",
+      "default": "This is your sticky text that stays centered."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text & Scroll Images"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.sticky-section {
+  display: flex;
+  gap: 40px;
+  padding: 60px 20px;
+}
+.sticky-left {
+  flex: 1;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  height: fit-content;
+}
+.sticky-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.sticky-right img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+@media screen and (max-width: 768px) {
+  .sticky-section {
+    flex-direction: column;
+  }
+  .sticky-left {
+    position: relative;
+    transform: none;
+    top: auto;
+  }
+}
+</style>
+
+
+<div class="section wide-container">
+  <div class="sticky-section">
+  <div class="sticky-left">
+    <p>{{ section.settings.left_text }}</p>
+  </div>
+  <div class="sticky-right">
+    {% if section.settings.image_1 != blank %}
+      <img src="{{ section.settings.image_1 | img_url: 'master' }}" alt="Image 1">
+    {% endif %}
+    {% if section.settings.image_2 != blank %}
+      <img src="{{ section.settings.image_2 | img_url: 'master' }}" alt="Image 2">
+    {% endif %}
+    {% if section.settings.image_3 != blank %}
+      <img src="{{ section.settings.image_3 | img_url: 'master' }}" alt="Image 3">
+    {% endif %}
+  </div>
+</div>
+</div>

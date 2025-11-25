@@ -1,0 +1,253 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "slideshow_zgyayq": {
+      "type": "slideshow",
+      "blocks": {
+        "image_xLCMTA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-02-min.jpg",
+            "mobile_image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-03-min.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_xLCMTA"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_mxQxCi": {
+      "type": "slideshow",
+      "blocks": {
+        "image_bH4xHJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-04-min.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_bH4xHJ"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "image_with_text_Bw6CfM": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color: #fab320\">Ở NGAY TRUNG TÂM QUẬN 1, HELIOS ĐÃ SẴN SÀNG. CÒN BẠN?</font>",
+        "title_size": 34,
+        "title_width": 18,
+        "text": "<p>Khởi đầu mùa hè, Helios mang tới cho bạn một cơ sở Helios cách phố đi bộ Nguyễn Huệ chỉ 5 phút di chuyển. Helios Vincom Đồng Khởi chính thức mở bán từ ngày 06/06 và sẽ khai trương vào ngày 14/06. Hành trình mới, sản phẩm mới, phần quà mới đang đợi bạn khám phá.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "center",
+        "text_width": 50,
+        "button_style": "auto",
+        "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-04-min.jpg",
+        "image_width": 100,
+        "image_position": "left",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "slideshow_EDMQmA": {
+      "type": "slideshow",
+      "blocks": {
+        "image_hLgjDA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-07-min.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_hLgjDA"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "image_with_text_xLr7az": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color:#fab320\">HƯỚNG DẪN ĐƯỜNG VÀO HELIOS - VINCOM ĐỒNG KHỞI</font>",
+        "title_size": 34,
+        "title_width": 18,
+        "text": "<p>Chào mừng bạn đã tới cơ sở mới nhất của Helios tại Vincom Đồng Khởi.</p><p>Sau khi xuống tầng B1 của Vincom Đồng Khởi, bạn hãy tìm tới Khu vực của The New Playground tại Lô 38-48 tầng B1. Tại đây, bạn sẽ tìm thấy Helios ở Gian 18-19.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "center",
+        "text_width": 50,
+        "button_style": "auto",
+        "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-07-min.jpg",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "slideshow_mGgdTN": {
+      "type": "slideshow",
+      "blocks": {
+        "image_eKHBxg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-06-min.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_eKHBxg"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "image_with_text_JYP6jw": {
+      "type": "image-with-text",
+      "disabled": true,
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "MÓN QUÀ ĐẶC BIỆT DÀNH CHO BẠN",
+        "title_size": 42,
+        "title_width": 12,
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "center",
+        "text_width": 50,
+        "button_style": "auto",
+        "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-06-min.jpg",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "slideshow_zgyayq",
+    "slideshow_mxQxCi",
+    "image_with_text_Bw6CfM",
+    "slideshow_EDMQmA",
+    "image_with_text_xLr7az",
+    "slideshow_mGgdTN",
+    "image_with_text_JYP6jw"
+  ]
+}

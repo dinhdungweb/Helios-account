@@ -1,0 +1,249 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "5e4bbe21-71d4-4614-a9e9-da1c0bdd4e71": {
+      "type": "background-video",
+      "settings": {
+        "video_shopify": "shopify://files/videos/10.06.2023 Helios Collection Amazon cover web_657e20d9-ce5d-488c-863e-d1fcf9ba2d07.mov",
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "subheading": "",
+        "title": "",
+        "title_size": 60,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "",
+        "enlarge_text": false,
+        "button_label": "",
+        "button_link": "",
+        "overlay_position": "position--hcenter position--vcenter",
+        "height": "fixed",
+        "height_desktop": 700,
+        "height_mobile": 240,
+        "full_width": true,
+        "overlay_style_tint": true
+      }
+    },
+    "1657168936ad7e0667": {
+      "type": "video",
+      "disabled": true,
+      "settings": {
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "image": "shopify://shop_images/BANNER_ATLANTIS.jpg",
+        "subheading": "",
+        "video_title": "",
+        "title_size": 60,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "",
+        "enlarge_text": false,
+        "overlay_position": "position--hcenter position--vcenter",
+        "full_width": false,
+        "overlay_style_tint": true
+      }
+    },
+    "1657167828ce082d4c": {
+      "type": "rich-text",
+      "settings": {
+        "subheading": "OFFICIAL RELEASE",
+        "title": "AMAZON COLLECTION",
+        "title_size": 36,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Ẩn sau vẻ ngoài hùng vĩ nguyên sơ, Amazon lại là nơi tồn tại những hiểm họa bất ngờ và đáng sợ nhất thế giới. Giữa chốn rừng thiêng nước độc ấy, chuỗi khắc nghiệt không hồi kết sẽ đẩy con người tới cực hạn của sức chịu đựng.<br/><br/>BST lần này của Helios lấy cảm hứng từ hành trình sinh tồn trong rừng Amazon. Với ý nghĩa: Đánh thức bản lĩnh tiềm ẩn để đương đầu với sự khắc nghiệt. Khi khai phá được chất gan lì, gai góc của chính mình, thì dẫu gặp phải biến động, ta vẫn tự tin trỗi dậy và vượt qua tất thảy.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "1657106380ec509684": {
+      "type": "slideshow",
+      "blocks": {
+        "1657106380862b2853-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC03294.jpg",
+            "slide_link": "shopify://collections/atlantis12",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--right position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "105a81a7-6e02-400b-bd0d-20070c971982": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/amazon.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "1657106380862b2853-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner_ngang.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "0f39ffba-2344-4e68-a355-6696176a1f75": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z4428151482443_01fb1c39a7faa2b4d11abaa069bafdec.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "1657106380862b2853-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z4427773809183_9149e7aa64236c29ff0855c26439457c.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "c1369a93-94d0-43aa-8a87-85dfffc11c3f": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/amz.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "1657106380862b2853-0",
+        "105a81a7-6e02-400b-bd0d-20070c971982",
+        "1657106380862b2853-2",
+        "0f39ffba-2344-4e68-a355-6696176a1f75",
+        "1657106380862b2853-1",
+        "c1369a93-94d0-43aa-8a87-85dfffc11c3f"
+      ],
+      "settings": {
+        "height": "fixed",
+        "height_desktop": 700,
+        "height_mobile": 260,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "none",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "promotion_image_jBznNx": {
+          "type": "promotion_image",
+          "settings": {
+            "position_in_grid": 6,
+            "desktop_size": "one-column",
+            "image": "shopify://shop_images/vong-tay-bac-s925-caiman-black-v2-helios-silver-original_2_02acb711-5c7e-40a3-b672-aa3a0de16b07.jpg",
+            "heading": "Promote a product or a temporary offer",
+            "content": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "promotion_image_jBznNx"
+      ],
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 3,
+        "grid_mobile": "2",
+        "products_per_page": 18,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "show_filter_counts": true,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "sidebar",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "none",
+        "collapse_sort_by": false,
+        "enable_sorting": false,
+        "show_featured_in_sort": false
+      }
+    }
+  },
+  "order": [
+    "5e4bbe21-71d4-4614-a9e9-da1c0bdd4e71",
+    "1657168936ad7e0667",
+    "1657167828ce082d4c",
+    "1657106380ec509684",
+    "main"
+  ]
+}

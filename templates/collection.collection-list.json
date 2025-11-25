@@ -1,0 +1,459 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "disabled": true,
+      "settings": {
+        "show_collection_content": true,
+        "show_collection_image": true,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 3,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "sidebar",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    },
+    "gallery_rU844n": {
+      "type": "gallery",
+      "blocks": {
+        "image_6TqNAq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/9.4_design_nh_banner_chrysaber_2.0-04.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/chrysaber-collection",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_FCbL97": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/9.1__nh_banner_bst_triminhle_b_n_s_a_11.1-03_ae8b5f63-47e0-4ad1-ada1-6a94c732156d.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/hellfire-collection",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_A3PL9E": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/web_copy_1_fb7f207e-c66c-49d5-9763-160276fe9bde.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/te-thien-collection",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_Q3rd6g": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/500KB_banner_FREEDOM_2700x1000_1.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/freedom",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_HHdYDi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2700x1000_copy.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/helios-x-triminhle-7dsato",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_3qrJiw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/CH2700x1000copy2.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/helios-x-chi-hao",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_86jLU6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner-2.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/lotus",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_tiyqcB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/BANNER_ATLANTIS_1_1950x_1024x1024_6c8261d6-c580-4535-855a-19701efcce32.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/atlantis",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_WPGrVc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/anh_collection_2_15ff4993b13647628db8c5d0192b4f73_2048x2048_d0272999-e314-4672-80f5-7ecd79860260.png",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/bushido",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_cN8rYK": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/WEB-COVERAMAZON3.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/amazon",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_JQNAbz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/page2700x1000.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/angelos",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_NKATBQ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Mobilebanner2_1024x1024_ce013c42-082b-4f5a-9a36-b4f442e096f2.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/helios-x-triminhle",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_fDgTw7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/mucollection-2.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/helios-x-viet-devils",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_4GjVWm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/CollectionSF-1.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/sunflower",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_YjNRRi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/cover_page_-1_c2132691-5b47-4e73-99e2-5652cc683a8d.jpg",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "shopify://collections/helios-x-neko",
+            "text_alignment": "position--left position--bottom"
+          }
+        }
+      },
+      "block_order": [
+        "image_6TqNAq",
+        "image_FCbL97",
+        "image_A3PL9E",
+        "image_Q3rd6g",
+        "image_HHdYDi",
+        "image_3qrJiw",
+        "image_86jLU6",
+        "image_tiyqcB",
+        "image_WPGrVc",
+        "image_cN8rYK",
+        "image_JQNAbz",
+        "image_NKATBQ",
+        "image_fDgTw7",
+        "image_4GjVWm",
+        "image_YjNRRi"
+      ],
+      "disabled": true,
+      "name": "Gallery",
+      "settings": {
+        "title": "",
+        "grid": 2,
+        "desktop_image_height": 320,
+        "mobile_image_height": 120,
+        "title_size": 44,
+        "enable_margin": true,
+        "full_width": true,
+        "enable_carousel": false,
+        "overlay_style_tint": false,
+        "alternate_bg_color": false
+      }
+    },
+    "gallery_2_columns_VqBPxe": {
+      "type": "gallery-2-columns",
+      "blocks": {
+        "image_Vgzdnf": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/z7211462588789_84ebe2ccf885fd8c3c5c7b837f798904.jpg",
+            "block_link": "shopify://collections/faith-collection",
+            "link_target": "_self"
+          }
+        },
+        "image_PPpYWW": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/9.4_design_nh_banner_chrysaber_2.0-04.jpg",
+            "block_link": "shopify://collections/chrysaber-collection",
+            "link_target": "_self"
+          }
+        },
+        "image_8Utggn": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/9.1__nh_banner_bst_triminhle_b_n_s_a_11.1-03_ae8b5f63-47e0-4ad1-ada1-6a94c732156d.jpg",
+            "block_link": "shopify://collections/hellfire-collection",
+            "link_target": "_self"
+          }
+        },
+        "image_8G3nfw": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/web_copy_1_fb7f207e-c66c-49d5-9763-160276fe9bde.jpg",
+            "block_link": "shopify://collections/te-thien-collection",
+            "link_target": "_self"
+          }
+        },
+        "image_TqVQ8r": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/500KB_banner_FREEDOM_2700x1000_1.jpg",
+            "block_link": "shopify://collections/freedom",
+            "link_target": "_self"
+          }
+        },
+        "image_BtQDXq": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/2700x1000_copy.jpg",
+            "block_link": "shopify://collections/helios-x-triminhle-7dsato",
+            "link_target": "_self"
+          }
+        },
+        "image_tqWtLE": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/CH2700x1000copy2.jpg",
+            "block_link": "shopify://collections/helios-x-chi-hao",
+            "link_target": "_self"
+          }
+        },
+        "image_CWNrVL": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/banner-2.jpg",
+            "block_link": "shopify://collections/lotus",
+            "link_target": "_self"
+          }
+        },
+        "image_pjWwJq": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/BANNER_ATLANTIS_1_1950x_1024x1024_6c8261d6-c580-4535-855a-19701efcce32.jpg",
+            "block_link": "shopify://collections/atlantis",
+            "link_target": "_self"
+          }
+        },
+        "image_gWttGj": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/anh_collection_2_15ff4993b13647628db8c5d0192b4f73_2048x2048_d0272999-e314-4672-80f5-7ecd79860260.png",
+            "block_link": "shopify://collections/bushido",
+            "link_target": "_self"
+          }
+        },
+        "image_cNWbCr": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/WEB_-_COVER_AMAZON2_d4ebba7d-a2e4-41e4-8487-de1f0f7d8029.jpg",
+            "block_link": "shopify://collections/amazon",
+            "link_target": "_self"
+          }
+        },
+        "image_Jq6RE7": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/page2700x1000.jpg",
+            "block_link": "shopify://collections/angelos",
+            "link_target": "_self"
+          }
+        },
+        "image_KYkTgz": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/Mobilebanner2_1024x1024_ce013c42-082b-4f5a-9a36-b4f442e096f2.jpg",
+            "block_link": "",
+            "link_target": "_self"
+          }
+        },
+        "image_8HQHFp": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/mucollection-2.jpg",
+            "block_link": "shopify://collections/helios-x-viet-devils",
+            "link_target": "_self"
+          }
+        },
+        "image_HjJENb": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/CollectionSF-1.jpg",
+            "block_link": "shopify://collections/sunflower",
+            "link_target": "_self"
+          }
+        },
+        "image_DAkHDx": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/cover_page_-1_c2132691-5b47-4e73-99e2-5652cc683a8d.jpg",
+            "block_link": "shopify://collections/helios-x-neko",
+            "link_target": "_self"
+          }
+        }
+      },
+      "block_order": [
+        "image_Vgzdnf",
+        "image_PPpYWW",
+        "image_8Utggn",
+        "image_8G3nfw",
+        "image_TqVQ8r",
+        "image_BtQDXq",
+        "image_tqWtLE",
+        "image_CWNrVL",
+        "image_pjWwJq",
+        "image_gWttGj",
+        "image_cNWbCr",
+        "image_Jq6RE7",
+        "image_KYkTgz",
+        "image_8HQHFp",
+        "image_HjJENb",
+        "image_DAkHDx"
+      ],
+      "name": "Gallery 2 Columns",
+      "settings": {
+        "gallery_title": "Our Collections"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "gallery_rU844n",
+    "gallery_2_columns_VqBPxe"
+  ]
+}

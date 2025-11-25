@@ -1,0 +1,278 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "mousewheel_collection_EULzWQ": {
+      "type": "mousewheel-collection",
+      "blocks": {
+        "video_MYGqcp": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/website.mov",
+            "video_url": "",
+            "video_mobile": "shopify://files/videos/mobile (2).mov",
+            "video_url_mobile": "",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_JmLt3f": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/15_dcc733de-a424-4fee-9b4c-7f66d1e2913d.jpg",
+            "image_mobile": "shopify://shop_images/POSTER_3NG_PE.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "Xem thêm",
+            "button_link": ""
+          }
+        },
+        "image_B6cMib": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/9_126c4759-c578-4d3c-9381-98d175efdbdb.jpg",
+            "image_mobile": "shopify://shop_images/1_0884f3af-1f7d-4c38-806e-a07bc925e657.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_pTwNFD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/10_f2f3ec33-7dda-4c83-9cf8-cb490bacd797.jpg",
+            "image_mobile": "shopify://shop_images/2_d4a4acac-1c98-4528-a160-721b15f1c867.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_TrMA7a": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/11_abdfa087-76d0-4356-aaac-38dd603f0dc3.jpg",
+            "image_mobile": "shopify://shop_images/3_105f648a-fcbc-40d2-8e43-ca1ce8813fcf.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_k9Yex9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/19_9.jpg",
+            "image_mobile": "shopify://shop_images/z7119664003860_94636b78d28407d31849fa6d5c9dfcd5.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_3Y3CjX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7117962862879_555e64e62f1506fc0e5636492216854c.jpg",
+            "image_mobile": "shopify://shop_images/tren.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_bTKgNC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/13_c6e0584e-3129-46d6-860c-9bb5eeca5642.jpg",
+            "image_mobile": "shopify://shop_images/6_eb2421fd-a6d6-4ccb-a96b-bff2d54a7435.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_iy4J8a": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7150683117921_dfff67515b7b168bc7c20d879c53e72e.jpg",
+            "image_mobile": "shopify://shop_images/7_4925f50a-8efa-4008-be9e-041c3b8e23b2.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_KXzkXw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/14_1a732726-d3ec-4baa-94f2-0ff4ec95235a.jpg",
+            "image_mobile": "shopify://shop_images/5_8d43c042-c1ca-4724-b25b-640c6f3a682d.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_UdYjp9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7150683319835_ef2fc3d54829c27c51e40bcca9d5599d.jpg",
+            "image_mobile": "shopify://shop_images/5_d4aaaa2a-c6df-4ed1-9a37-fe53a2376bd5.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "banner_7nh4WG": {
+          "type": "banner",
+          "settings": {
+            "banner_image_left": "shopify://shop_images/z7120492084293_0543d7b3658742fc617948d2367b0782.jpg",
+            "banner_link_left": "shopify://products/men-armor-helios-black-silver",
+            "heading_left": "Nhẫn Men Armor",
+            "text_left": "",
+            "button_label_left": "Mua Ngay",
+            "button_link_left": "shopify://products/men-armor-helios-black-silver",
+            "banner_image_right": "shopify://shop_images/z7120491260529_04463a73254f9785ef64dc06748c05ec.jpg",
+            "banner_link_right": "shopify://products/ao-da-men-armor-helios-x-tri-minh-le",
+            "heading_right": "Áo Da Men Armor",
+            "text_right": "",
+            "button_label_right": "Mua Ngay",
+            "button_link_right": "shopify://products/ao-da-men-armor-helios-x-tri-minh-le",
+            "open_new_tab": false,
+            "text_position": "center",
+            "text_color": "#ffffff",
+            "overlay_color": "rgba(0,0,0,0)",
+            "overlay_opacity": 100
+          }
+        },
+        "slideshow_8QNkPn": {
+          "type": "slideshow",
+          "settings": {
+            "slide1_image_desktop": "shopify://shop_images/z7118176590079_6a8932b87e3f54cec055c7b3ba2cbed5.jpg",
+            "slide1_image_mobile": "shopify://shop_images/z7119512146368_da15f13a450702a20f480140085bd1fa.jpg",
+            "slide1_link": "",
+            "slide1_heading": "",
+            "slide1_text": "",
+            "slide1_button_label": "",
+            "slide2_image_desktop": "shopify://shop_images/z7118176690672_4193fd1745e6f8889961c95a435371ee.jpg",
+            "slide2_image_mobile": "shopify://shop_images/z7119512124993_be1cf57c2142dd1b8cc32822c3901cfc.jpg",
+            "slide2_link": "",
+            "slide2_heading": "",
+            "slide2_text": "",
+            "slide2_button_label": "",
+            "slide3_image_desktop": "shopify://shop_images/z7118176733404_111a82c1d3d7014aa2ae7fa5952878b4.jpg",
+            "slide3_image_mobile": "shopify://shop_images/z7119512104023_0cdb57f5f13c733da08c353d6755c12e.jpg",
+            "slide3_link": "",
+            "slide3_heading": "",
+            "slide3_text": "",
+            "slide3_button_label": "",
+            "slide4_image_desktop": "shopify://shop_images/z7118176774918_8ac234aec90cf62c4054bfecb03334de.jpg",
+            "slide4_image_mobile": "shopify://shop_images/z7119512124994_9f7de86a449f02b9517990085daed45a.jpg",
+            "slide4_link": "",
+            "slide4_heading": "",
+            "slide4_text": "",
+            "slide4_button_label": "",
+            "slide5_link": "",
+            "slide5_heading": "",
+            "slide5_text": "",
+            "slide5_button_label": "",
+            "slide6_image_desktop": "shopify://shop_images/z7118176649484_a8b39a907344dfe4f3758ccfa3bab27a.jpg",
+            "slide6_image_mobile": "shopify://shop_images/z7119512146364_4898e5538a7e9903099b14efedb44777.jpg",
+            "slide6_link": "",
+            "slide6_heading": "",
+            "slide6_text": "",
+            "slide6_button_label": "",
+            "slide7_image_desktop": "shopify://shop_images/z7118176818155_a77cd79f50d1d746bab89bbe7492d5f8.jpg",
+            "slide7_image_mobile": "shopify://shop_images/z7119512124995_7a9771008e835419793e64b1584b1942.jpg",
+            "slide7_link": "",
+            "slide7_heading": "",
+            "slide7_text": "",
+            "slide7_button_label": "",
+            "autoplay": true,
+            "autoplay_speed": 3,
+            "show_dots": true,
+            "show_arrows": false,
+            "open_new_tab": false,
+            "text_position": "center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_zP8nHf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7117964571467_a2b8072527509be5178e28dcf5998699.jpg",
+            "image_mobile": "shopify://shop_images/z7119664003908_08367b57a9eb7aa2d237b934becdbd5b.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_BjfUMY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/12_7e1dfd78-c723-42ea-88c7-f27617226779.jpg",
+            "image_mobile": "shopify://shop_images/4_e7ecf165-3a86-4a1c-816d-160a84bc0cc4.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "image_JrxF6N": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/z7116172431101_0bb25fd21f6146ed6099bb99dda0f2c6.jpg",
+            "image_mobile": "shopify://shop_images/z7119664003906_95bc5cb397a20b3ceb9d82688901d741.jpg",
+            "heading": "",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_MYGqcp",
+        "image_JmLt3f",
+        "image_B6cMib",
+        "image_pTwNFD",
+        "image_TrMA7a",
+        "image_k9Yex9",
+        "image_3Y3CjX",
+        "image_bTKgNC",
+        "image_iy4J8a",
+        "image_KXzkXw",
+        "image_UdYjp9",
+        "banner_7nh4WG",
+        "slideshow_8QNkPn",
+        "image_zP8nHf",
+        "image_BjfUMY",
+        "image_JrxF6N"
+      ],
+      "name": "Mousewheel Collection",
+      "settings": {
+        "height": "full",
+        "show_pagination": false,
+        "show_navigation": false
+      }
+    }
+  },
+  "order": [
+    "mousewheel_collection_EULzWQ"
+  ]
+}

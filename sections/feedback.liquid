@@ -1,0 +1,139 @@
+  <div class="wide-container">
+    <div class="feedback-list">
+      {% paginate shop.metaobjects['custom_feedback'].values by 16 %}
+        {% for feedback in shop.metaobjects['custom_feedback'].values %}
+          <div class="feedback-card">
+            <div class="feedback-products-hover">
+              <a href="{{ feedback.link_instagram }}">
+                <div class="feedback-image">{{ feedback.image | metafield_tag }}</div>
+              </a>
+              <div class="feedback-products">
+                {% for product in feedback.list_products.value %}
+                  <a href="{{ product.url }}" class="feedback-product">{{ product.featured_image | img_tag }}</a>
+                {% endfor %}
+              </div>
+            </div>
+            <a href="{{ feedback.link_instagram }}" class="feedback-instagram">
+              <div class="feedback-avatar">{{ feedback.avatar | metafield_tag }}</div>
+              <div class="feedback-name">{{ feedback.name }}</div>
+            </a>
+          </div>
+        {% endfor %}
+        {%- if paginate.pages > 1 -%}
+        <div data-cc-animate class="pagination">
+          {{ paginate | default_pagination }}
+        </div>
+      {%- endif -%}
+      {% endpaginate %}
+    </div>
+  </div>
+
+{%- style -%}
+feedback-products::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+feedback-products::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+feedback-products::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 1px solid #555555;
+}
+.feedback-list .pagination {
+  width: 100%;
+  margin-bottom: 70px;
+}
+.feedback-container {
+  max-width: 1600px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  margin: auto;
+}
+.feedback-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0.4rem;
+    row-gap: 3rem;
+    margin-top: 2rem;
+}
+.feedback-card {
+    width: 25%;
+    padding: 0 0.4rem;
+}
+.feedback-products-hover {
+  position: relative;
+  overflow: hidden;
+}
+.feedback-products {
+  display: flex;  
+  align-items: center;
+  gap: 10px;
+  transform: translateY(100%);
+  background: #000;
+  width: 100%;
+  height: max-content;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: transform 0.5s;
+  opacity: 0;
+}
+.feedback-products a img {
+  width: 100%;
+  height: auto;
+}
+.feedback-avatar > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 99px;
+  object-fit: cover;
+}
+.feedback-image img {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    object-fit: cover;
+}
+.feedback-products-hover:hover .feedback-products {
+  opacity: 1;
+  transform: translateY(0%);
+}
+a.feedback-instagram {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 15px 0;
+}
+@media screen and (max-width: 768px)
+{
+  .feedback-card {
+    width: 50%;
+}
+  .feedback-list {
+    margin: 0;
+  }
+  .feedback-image > img {
+    height: 250px;
+  }
+  /* .feedback-products a img {
+    max-width: 35px;
+    height: 35px;
+} */
+  .feedback-products {
+    gap: 5px;
+    padding: 5px;
+  }
+  a.feedback-product {
+    width: 22.5%;
+}
+}
+{%- endstyle -%}

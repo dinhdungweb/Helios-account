@@ -1,0 +1,454 @@
+{%- liquid
+  assign heading_tag = "h2"
+  if section.settings.heading_h1
+    assign heading_tag = "h1"
+  endif
+-%}
+
+<div id="section-id-{{ section.id }}" class="{% if section.settings.full_width == false %}section-spacing wide-container{% else %}header-overlap-section needs-alt-logo{% endif %}" data-section-type="background-video-responsive">
+  {% style %}
+    {% if section.settings.video_full_vh %}
+    #section-id-{{ section.id }} .video-responsive-container { height: var(--viewport-height); }
+    {% else %}
+    #section-id-{{ section.id }} .video-responsive-container { height: {{ section.settings.video_height_mobile }}px; }
+    {% endif %}
+    #section-id-{{ section.id }} .line-1 {
+      max-width: {{ section.settings.title_width }}em;
+    }
+
+    @media (min-width: 768px) {
+      {% unless section.settings.video_full_vh %}
+      #section-id-{{ section.id }} .video-responsive-container { height: {{ section.settings.video_height_desktop }}px; }
+      {% endunless %}
+
+      #section-id-{{ section.id }} .line-1 {
+        font-size: {{ section.settings.title_size | times: 0.7 }}px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      #section-id-{{ section.id }} .line-1 {
+        font-size: {{ section.settings.title_size }}px;
+      }
+    }
+  {% endstyle %}
+
+  <div class="video-responsive-container video-responsive-container--background image-overlay
+    {% if section.settings.overlay_style_tint %} image-overlay--bg-full{% endif %}">
+
+    {% if section.settings.video_link != blank %}
+      <a class="video-link-overlay" href="{{ section.settings.video_link }}" {% if section.settings.video_link_new_tab %}target="_blank" rel="noopener"{% endif %} aria-label="{{ section.settings.title | default: section.settings.subtitle | default: 'Video link' | escape }}"></a>
+    {% endif %}
+
+    {%- liquid
+      assign cover_image = section.settings.image
+      if cover_image == blank and section.settings.video_shopify_desktop
+        assign cover_image = section.settings.video_shopify_desktop.preview_image
+      endif
+    -%}
+
+    {% if cover_image %}
+      <link rel="preload" as="image" href="{{ cover_image | img_url: '1600x' }}" fetchpriority="high">
+    {% endif %}
+
+    {% if cover_image %}
+      <div class="video-responsive-container__poster"
+        style="background-image: url('{{ cover_image | img_url: '1600x' }}'); background-size: cover; background-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %}; position: absolute; inset: 0; z-index: 1;">
+        <img src="{{ cover_image | img_url: '1600x' }}" 
+             alt="{{ cover_image.alt | escape }}" 
+             fetchpriority="high"
+             width="{{ cover_image.width }}"
+             height="{{ cover_image.height }}"
+             style="width: 100%; height: 100%; object-fit: cover; object-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %};">
+      </div>
+    {% endif %}
+
+    <video class="background-video-responsive desktop-video" 
+           muted loop playsinline preload="none"
+           data-video-src="desktop"
+           {% if cover_image %}poster="{{ cover_image | img_url: '1600x' }}"{% endif %}>
+      {% if section.settings.video_shopify_desktop %}
+        {% for source in section.settings.video_shopify_desktop.sources %}
+          <source data-src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+      {% elsif section.settings.video_external_desktop contains 'youtube.com' or section.settings.video_external_desktop contains 'vimeo.com' %}
+        <source data-src="{{ section.settings.video_external_desktop }}" type="video/youtube">
+      {% endif %}
+    </video>
+
+    <video class="background-video-responsive mobile-video" 
+           muted loop playsinline preload="none"
+           data-video-src="mobile"
+           {% if cover_image %}poster="{{ cover_image | img_url: '1200x' }}"{% endif %}>
+      {% if section.settings.video_shopify_mobile %}
+        {% for source in section.settings.video_shopify_mobile.sources %}
+          <source data-src="{{ source.url }}" type="{{ source.mime_type }}">
+        {% endfor %}
+      {% elsif section.settings.video_external_mobile contains 'youtube.com' or section.settings.video_external_mobile contains 'vimeo.com' %}
+        <source data-src="{{ section.settings.video_external_mobile }}" type="video/youtube">
+      {% endif %}
+    </video>
+
+    <div class="video-overlay-content text-center">
+      {% if section.settings.subtitle != blank %}
+        <p class="video-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+
+      {% if section.settings.title_image %}
+        <img src="{{ section.settings.title_image | image_url: width: section.settings.title_image_width_desktop }}"
+             alt="Title Image"
+             class="video-title-image"
+             style="max-width: {{ section.settings.title_image_width_desktop }}px;">
+      {% elsif section.settings.title != blank %}
+        <{{ heading_tag }} class="video-title">{{ section.settings.title }}</{{ heading_tag }}>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="video-description">{{ section.settings.description }}</div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="video-button">{{ section.settings.button_label }}</a>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var section = document.getElementById('section-id-{{ section.id }}');
+  if (!section) return;
+
+  var videoContainer = section.querySelector('.video-responsive-container');
+  var poster = section.querySelector('.video-responsive-container__poster');
+  var desktopVideo = section.querySelector('.desktop-video');
+  var mobileVideo = section.querySelector('.mobile-video');
+  var videoLoaded = false;
+
+  function isMobile() {
+    return window.innerWidth < 768;
+  }
+
+  function loadVideo() {
+    if (videoLoaded) return;
+    videoLoaded = true;
+
+    var targetVideo = isMobile() ? mobileVideo : desktopVideo;
+    if (!targetVideo) return;
+
+    // Load video sources
+    var sources = targetVideo.querySelectorAll('source[data-src]');
+    sources.forEach(function(source) {
+      source.src = source.getAttribute('data-src');
+      source.removeAttribute('data-src');
+    });
+
+    // Load video and play
+    targetVideo.load();
+    
+    // Wait for video to be ready
+    targetVideo.addEventListener('loadeddata', function() {
+      targetVideo.classList.add('loaded');
+    }, { once: true });
+    
+    var playPromise = targetVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.then(function() {
+        // Video started playing, fade out poster
+        if (poster) {
+          poster.style.transition = 'opacity 0.5s ease';
+          poster.style.opacity = '0';
+          setTimeout(function() {
+            poster.style.display = 'none';
+          }, 500);
+        }
+      }).catch(function(error) {
+        console.log('Video autoplay prevented:', error);
+        // Keep poster visible if autoplay fails
+      });
+    }
+  }
+
+  // Use Intersection Observer for lazy loading
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadVideo();
+          observer.disconnect();
+        }
+      });
+    }, {
+      rootMargin: '50px'
+    });
+
+    observer.observe(videoContainer);
+  } else {
+    // Fallback: load after page load
+    if (document.readyState === 'complete') {
+      setTimeout(loadVideo, 1000);
+    } else {
+      window.addEventListener('load', function() {
+        setTimeout(loadVideo, 1000);
+      });
+    }
+  }
+
+  // Handle window resize
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      if (videoLoaded) {
+        var newTargetVideo = isMobile() ? mobileVideo : desktopVideo;
+        var oldTargetVideo = isMobile() ? desktopVideo : mobileVideo;
+        
+        if (oldTargetVideo) oldTargetVideo.pause();
+        if (newTargetVideo && newTargetVideo.readyState >= 2) {
+          newTargetVideo.play();
+        }
+      }
+    }, 250);
+  });
+})();
+</script>
+
+<style>
+  .video-responsive-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-responsive-container__poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .background-video-responsive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .background-video-responsive.loaded {
+    opacity: 1;
+  }
+
+  .mobile-video {
+    display: none;
+  }
+
+  /* Removed full-width/original-size/full-screen variants to simplify */
+
+  .video-overlay-content {
+    position: absolute;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .video-link-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+  }
+
+  .video-overlay-content > * {
+    margin: 10px 0;
+  }
+
+  .video-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+
+  .video-title-image {
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .video-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+
+  .video-description {
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto 15px;
+    opacity: 0.85;
+  }
+
+  .video-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .video-button:hover {
+    background-color: #f2f2f2;
+  }
+   @media (max-width: 768px) {
+    .desktop-video {
+      display: none;
+    }
+    .mobile-video {
+      display: block;
+    }
+    .video-title-image {
+      max-width: 300px !important;
+    }
+    .video-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Video responsive",
+  "settings": [
+    {
+      "id": "video_full_vh",
+      "type": "checkbox",
+      "label": "Chiều cao 100vh toàn màn hình",
+      "default": false
+    },
+    {
+      "id": "video_height_desktop",
+      "type": "range",
+      "label": "Chiều cao video (Desktop)",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "default": 700,
+      "unit": "px"
+    },
+    {
+      "id": "video_height_mobile",
+      "type": "range",
+      "label": "Chiều cao video (Mobile)",
+      "min": 150,
+      "max": 1000,
+      "step": 10,
+      "default": 450,
+      "unit": "px"
+    },
+    {
+      "id": "video_link",
+      "type": "url",
+      "label": "Video click link"
+    },
+    {
+      "id": "video_link_new_tab",
+      "type": "checkbox",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "id": "video_shopify_desktop",
+      "type": "video",
+      "label": "Desktop Video (Shopify Hosted)",
+      "info": "Chỉ dành cho phiên bản desktop"
+    },
+    {
+      "id": "video_external_desktop",
+      "type": "text",
+      "label": "Desktop Video (YouTube/Vimeo)",
+      "info": "Link video dành riêng cho desktop"
+    },
+    {
+      "id": "video_shopify_mobile",
+      "type": "video",
+      "label": "Mobile Video (Shopify Hosted)",
+      "info": "Chỉ dành cho phiên bản mobile"
+    },
+    {
+      "id": "video_external_mobile",
+      "type": "text",
+      "label": "Mobile Video (YouTube/Vimeo)",
+      "info": "Link video dành riêng cho mobile"
+    },
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "Fallback Image",
+      "info": "Sử dụng khi video không load được"
+    },
+    {
+      "id": "subtitle",
+      "type": "text",
+      "label": "Subtitle"
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "label": "Title (Text)"
+    },
+    {
+      "id": "title_image",
+      "type": "image_picker",
+      "label": "Title Image",
+      "info": "Nếu chọn, ảnh sẽ thay thế tiêu đề văn bản"
+    },
+    {
+      "id": "title_image_width_desktop",
+      "type": "range",
+      "label": "Title image width desktop (px)",
+      "min": 100,
+      "max": 1100,
+      "step": 10,
+      "default": 800
+    },
+    {
+      "id": "description",
+      "type": "textarea",
+      "label": "Description"
+    },
+    {
+      "id": "button_label",
+      "type": "text",
+      "label": "Button Label"
+    },
+    {
+      "id": "button_link",
+      "type": "url",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video responsive",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

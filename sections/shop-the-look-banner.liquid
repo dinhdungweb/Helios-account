@@ -1,0 +1,439 @@
+{%- style -%}
+.shop-the-look-banner {
+  padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+}
+
+.shop-the-look-banner__header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.shop-the-look-banner__title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.shop-the-look-banner__subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 0;
+}
+
+.shop-the-look-banner__content {
+  display: grid;
+  gap: 30px;
+  padding: 0 10px;
+  max-width: 100%;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.shop-the-look-banner__content[data-banner-width="25"] {
+  grid-template-columns: 25fr 75fr;
+}
+
+.shop-the-look-banner__content[data-banner-width="30"] {
+  grid-template-columns: 30fr 70fr;
+}
+
+.shop-the-look-banner__content[data-banner-width="33"] {
+  grid-template-columns: 33fr 67fr;
+}
+
+.shop-the-look-banner__content[data-banner-width="35"] {
+  grid-template-columns: 35fr 65fr;
+}
+
+.shop-the-look-banner__content[data-banner-width="40"] {
+  grid-template-columns: 40fr 60fr;
+}
+
+.shop-the-look-banner__content[data-banner-width="45"] {
+  grid-template-columns: 45fr 55fr;
+}
+
+.shop-the-look-banner__content[data-banner-width="50"] {
+  grid-template-columns: 50fr 50fr;
+}
+
+.shop-the-look-banner__banner {
+  grid-column: span 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.shop-the-look-banner__banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.shop-the-look-banner__banner-content {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  max-width: 80%;
+}
+
+.shop-the-look-banner__banner-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.shop-the-look-banner__banner-text {
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.shop-the-look-banner__banner-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.shop-the-look-banner__banner-button:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.shop-the-look-banner__products {
+  grid-column: span 1;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 50px;
+}
+
+.shop-the-look-banner__swiper-container {
+  position: relative;
+  overflow: visible;
+  padding: 20px 0;
+}
+
+.shop-the-look-banner__swiper-container .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.shop-the-look-banner__swiper-container .product-block {
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.shop-the-look-banner__navigation {
+  margin-top: 25px;
+  padding-bottom: 50px;
+  position: absolute;
+  bottom:0;
+  left: 50%;
+}
+
+.shop-the-look-banner__swiper-container .swiper-button-prev,
+.shop-the-look-banner__swiper-container .swiper-button-next {
+  position: static;
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  color: #000000;
+  margin: 0;
+}
+
+.shop-the-look-banner__swiper-container .swiper-button-prev:after,
+.shop-the-look-banner__swiper-container .swiper-button-next:after {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.shop-the-look-banner__swiper-container .swiper-button-prev:hover,
+.shop-the-look-banner__swiper-container .swiper-button-next:hover {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.shop-the-look-banner__swiper-container .swiper-pagination {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .shop-the-look-banner__content {
+    grid-template-columns: 1fr!important;
+    gap: 0;
+  }
+
+  .shop-the-look-banner__banner,
+  .shop-the-look-banner__products {
+    grid-column: span 1;
+  }
+  
+  .shop-the-look-banner__banner {
+    min-height: 300px;
+  }
+
+  .shop-the-look-banner__banner-content {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .shop-the-look-banner__banner-heading {
+    font-size: 22px;
+  }
+
+  .shop-the-look-banner__title {
+    font-size: 24px;
+  }
+  
+  .shop-the-look-banner__swiper-container .product-block {
+    max-width: 100%;
+  }
+}
+{%- endstyle -%}
+
+<div class="shop-the-look-banner section-{{ section.id }}-padding">
+  <div class="shop-the-look-banner__header">
+    {% if section.settings.title != blank %}
+      <h2 class="shop-the-look-banner__title">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.settings.subtitle != blank %}
+      <p class="shop-the-look-banner__subtitle">{{ section.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+
+  <div class="shop-the-look-banner__content" data-banner-width="{{ section.settings.banner_width }}">
+    <div class="shop-the-look-banner__banner">
+      {% if section.settings.banner_image != blank %}
+        {%- assign banner_sizes = '(max-width: 768px) 100vw, ' | append: section.settings.banner_width | append: 'vw' -%}
+        {{ section.settings.banner_image | image_url: width: 1000 | image_tag:
+          class: 'shop-the-look-banner__banner-image',
+          loading: 'lazy',
+          sizes: banner_sizes
+        }}
+      {% endif %}
+      
+      <div class="shop-the-look-banner__banner-content">
+        {% if section.settings.banner_heading != blank %}
+          <h3 class="shop-the-look-banner__banner-heading">{{ section.settings.banner_heading }}</h3>
+        {% endif %}
+        
+        {% if section.settings.banner_text != blank %}
+          <p class="shop-the-look-banner__banner-text">{{ section.settings.banner_text }}</p>
+        {% endif %}
+        
+        {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="shop-the-look-banner__banner-button">
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="shop-the-look-banner__products">
+      <div class="swiper-container shop-the-look-banner__swiper-container" data-section-id="{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              {% if block.settings.product != blank %}
+                {%- render 'product-block',
+                  product: block.settings.product,
+                  show_secondary_image: section.settings.show_secondary_image
+                -%}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <div class="shop-the-look-banner__navigation">
+        <div class="swiper-button-prev">{% render 'svg-chevron-left' %}</div>
+        <div class="swiper-button-next">{% render 'svg-chevron-right' %}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var shopLookSwiper = new Swiper('.shop-the-look-banner__swiper-container[data-section-id="{{ section.id }}"]', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: false,
+      navigation: {
+        nextEl: '.shop-the-look-banner__navigation .swiper-button-next',
+        prevEl: '.shop-the-look-banner__navigation .swiper-button-prev',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Shop the look banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Shop the look"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "banner_heading",
+      "label": "Banner heading"
+    },
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "banner_width",
+      "min": 25,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Banner width",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show secondary image on hover",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "0",
+          "label": "0px"
+        },
+        {
+          "value": "20",
+          "label": "20px"
+        },
+        {
+          "value": "40",
+          "label": "40px"
+        },
+        {
+          "value": "60",
+          "label": "60px"
+        },
+        {
+          "value": "80",
+          "label": "80px"
+        }
+      ],
+      "default": "40",
+      "label": "Top padding"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "0",
+          "label": "0px"
+        },
+        {
+          "value": "20",
+          "label": "20px"
+        },
+        {
+          "value": "40",
+          "label": "40px"
+        },
+        {
+          "value": "60",
+          "label": "60px"
+        },
+        {
+          "value": "80",
+          "label": "80px"
+        }
+      ],
+      "default": "40",
+      "label": "Bottom padding"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the look banner",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

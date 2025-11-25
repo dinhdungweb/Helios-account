@@ -1,0 +1,86 @@
+{% comment %}
+Custom code: auto customer discount
+{% endcomment %}
+
+{% assign discount_customer_tag_gold = 'GOLD' %}
+{% assign discount_customer_tag_silver = 'SILVER' %}
+{% assign discount_customer_tag_bronze = 'BRONZE' %}
+{% assign discount_code_gold = 'LOYALTY30' %}
+{% assign discount_code_silver = 'LOYALTY20' %}
+{% assign discount_code_bronze = 'LOYALTY10' %}
+
+{% if customer %}
+  
+  {% if customer.tags contains discount_customer_tag_gold %}
+    <h2>Chào mừng thành viên {{ customer.last_name }} {{ discount_customer_tag_gold }} {{ customer.email }} {{ customer.has_avatar? }}</h2>
+    <script>
+      window.addEventListener('load', function() {
+        var currentUrl = window.location.pathname;
+        
+        // Chỉ áp dụng mã giảm giá trên các trang custom discount hoặc cart, không trên checkout
+        if (currentUrl === '/cart' || currentUrl === '/pages/member-club') {
+          fetch("/discount/{{ discount_code_gold }}")
+            .then(response => {
+              if (response.ok) {
+                alert('Mã giảm giá {{ discount_code_gold }} đã được áp dụng!');
+              } else {
+                alert('Không thể áp dụng mã giảm giá {{ discount_code_gold }}.');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+      });
+      
+    </script>
+  {% elsif customer.tags contains discount_customer_tag_silver %}
+    <h2>Chào mừng thành viên {{ discount_customer_tag_silver }}</h2>
+    <script>
+      window.addEventListener('load', function() {
+        var currentUrl = window.location.pathname;
+        
+        // Chỉ áp dụng mã giảm giá trên các trang custom discount hoặc cart, không trên checkout
+        if (currentUrl === '/cart' || currentUrl === '/pages/member-club') {
+          fetch("/discount/{{ discount_code_silver }}")
+            .then(response => {
+              if (response.ok) {
+                alert('Mã giảm giá {{ discount_code_silver }} đã được áp dụng!');
+              } else {
+                alert('Không thể áp dụng mã giảm giá {{ discount_code_silver }}.');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+      });
+    </script>
+  {% elsif customer.tags contains discount_customer_tag_bronze %}
+    <h2>Chào mừng thành viên {{ discount_customer_tag_bronze }}</h2>{{ customer.email }}
+    <script>
+      window.addEventListener('load', function() {
+        var currentUrl = window.location.pathname; 
+        
+        // Chỉ áp dụng mã giảm giá trên các trang custom discount hoặc cart, không trên checkout
+        if (currentUrl === '/cart' || currentUrl === '/pages/member-club') {
+          fetch("/discount/{{ discount_code_bronze }}")
+            .then(response => {
+              if (response.ok) {
+                alert('Mã giảm giá {{ discount_code_bronze }} đã được áp dụng!');
+              } else {
+                alert('Không thể áp dụng mã giảm giá {{ discount_code_bronze }}.');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        }
+      });
+    </script>
+  {% else %}
+    <p>Bạn không có mã giảm giá nào khả dụng.</p>
+  {% endif %}
+{% else %}
+  <p>Bạn chưa đăng nhập! Vui lòng đăng nhập để sử dụng tiện ích này.</p>
+{% endif %}

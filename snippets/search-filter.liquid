@@ -1,0 +1,805 @@
+{% comment %}
+  Render search facets (filtering and sorting for collections/search results)
+  
+  Accepts:
+  - mode: {String} 'collection' or 'search'
+  - results: {Object} Collection or Search object
+  - section: {Object} The section objects with settings galore
+  - current_sort_by: {String} The value of the current sort
+  - promotion_blocks: {Array} Danh sách các promotion blocks đã được sắp xếp
+{% endcomment %}
+
+{%- liquid  
+  if mode == "collection"
+    assign translation_sort_title = 'collections.sorting.title' | t
+    assign translation_submit_button = 'collections.filtering.submit' | t
+    assign translation_close = 'collections.filtering.mobile_close' | t
+    assign translation_open = 'collections.filtering.mobile_reveal' | t
+    assign translation_show_results = 'collections.filtering.show_results' | t
+    assign translation_show_results_singular = 'collections.filtering.show_results_singular' | t
+    assign translation_clear_all = 'collections.filtering.clear_all' | t
+    assign translation_no_matches = 'collections.general.no_matches' | t
+  elsif mode == "search"
+    assign translation_sort_title = 'general.search.sort_title' | t
+    assign translation_submit_button = 'general.search.submit' | t
+    assign translation_close = 'general.search.filtering.mobile_close' | t
+    assign translation_open = 'general.search.filtering.mobile_reveal' | t
+    assign translation_show_results = 'general.search.filtering.show_results' | t
+    assign translation_show_results_singular = 'general.search.filtering.show_results_singular' | t
+    assign translation_clear_all = 'general.search.filtering.clear_all' | t
+    assign translation_no_matches = 'general.search.no_results_title' | t
+  endif
+
+  if results.results_count
+    assign results_count = results.results_count
+  elsif results.products_count
+    assign results_count = results.products_count
+  endif
+
+  assign show_filters = false
+  for filter in results.filters
+    case filter.type
+      when "list"
+        for value in filter.values
+          if value.count > 0
+            assign show_filters = true
+            break
+          endif
+        endfor
+      when "price_range"
+        assign show_filters = true
+        break
+    endcase
+
+    if show_filters
+      break
+    endif
+  endfor
+-%}
+
+{% capture form_hidden_fields %}
+  {% if mode == "collection" %}
+    {%- comment -%}
+      Preserve automatic vendor/type collections & sorting
+    {%- endcomment -%}
+    {%- if collection.current_vendor or collection.current_type -%}
+      <input type="hidden" name="q" value="{{ collection.current_vendor }}{{ collection.current_type }}">
+    {%- endif -%}
+  {%- elsif mode == "search" -%}
+    <input type="hidden" name="type" value="{{ settings.search_type }}" />
+    <input type="hidden" name="options[prefix]" value="last" />
+    <input type="hidden" name="q" value="{{ results.terms | escape }}" />
+  {%- endif -%}
+
+  {%- if section.settings.enable_sorting == false -%}
+    <input type="hidden" name="sort_by" value="{{ current_sort_by }}">
+  {%- endif -%}
+{% endcapture %}
+
+{% if section.settings.filter_mode == "simple" or section.settings.filter_mode == "none" %}
+  <div class="wide-container filter{% if mode == "collection" and section.settings.show_collection_image == false and section.settings.show_collection_content == false %} mt-0{% endif %}"
+       data-cc-animate data-cc-animate-delay="0.7s">
+
+    <form id="FacetsForm" data-ajax-container>
+      {%- if show_filters -%}
+        {% if section.settings.filter_mode == "simple" %}
+          {%- for filter in results.filters -%}
+            {%- assign num_available_options = 0 -%}
+
+            {%- case filter.type -%}
+              {%- when "boolean" or "list" -%}
+                {% capture option %}
+                  <div class="option">
+                    <label for="filter-by-{{ forloop.index }}">{{ filter.label }}</label>
+                    <select id="filter-by-{{ forloop.index }}" name="{{ filter.values.first.param_name }}">
+                      <option value="">{{ 'collections.filtering.all' | t }}</option>
+                      {%- for value in filter.values -%}
+                        {%- if value.count > 0 or section.settings.show_filter_deadends %}
+                          {%- assign num_available_options = num_available_options | plus: 1 -%}
+                          <option value="{{ value.value | escape }}" {% if value.active %}selected{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                            {{ value.label }}{% if section.settings.show_filter_counts %} ({{ value.count }}){% endif %}
+                          </option>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {% endcapture %}
+                {%- if num_available_options > 0 or section.settings.show_filter_deadends -%}
+                  {{ option }}
+                {% endif %}
+              {%- when "price_range" -%}
+                {% comment %}{% render 'price-range', filter: filter %}{% endcomment %}
+
+            {%- endcase -%}
+          {%- endfor -%}
+        {% endif %}
+
+        {%- if section.settings.enable_sorting -%}
+          <div class="option">
+            <label for="filter-by-sort-by">{{ translation_sort_title }}</label>
+            <select id="filter-by-sort-by" name="sort_by">
+              {%- for option in results.sort_options -%}
+                {%- if option.value == "manual" and section.settings.show_featured_in_sort -%}
+                  <option value="{{ option.value | escape }}"{% if option.value == sort_by or option.value == current_sort_by %} selected="selected"{% endif %}>
+                    {{ option.name | escape }}
+                  </option>
+                {%- elsif option.value != "manual" -%}
+                  <option value="{{ option.value | escape }}"{% if option.value == sort_by or option.value == current_sort_by %} selected="selected"{% endif %}>
+                    {{ option.name | escape }}
+                  </option>
+                {%- endif -%}
+              {%- endfor -%}
+            </select>
+          </div>
+        {% endif %}
+      {%- endif -%}
+
+      {{ form_hidden_fields }}
+
+      <noscript>
+        <button type="submit" class="btn">{{ translation_submit_button }}</button>
+      </noscript>
+    </form>
+  </div>
+{% endif %}
+
+<div data-cc-animate data-cc-animate-delay="0.7s">
+  <div class="wide-container half-gutter {% if section.settings.filter_mode == "drawer" %}filter-drawer{% endif %} cc-product-filter-container
+        {% if section.settings.filter_mode == "simple" or section.settings.filter_mode == "none" %}pt-0{% endif %}
+        {% if mode == "collection" and section.settings.show_collection_image == false and section.settings.show_collection_content == false %}pt-0{% endif %}" data-ajax-container data-ajax-scroll-to>
+
+    {% if section.settings.filter_mode == "sidebar" or section.settings.filter_mode == "drawer" %}
+      <div class="footer-button-xs {% if section.settings.filter_mode == "drawer" %}footer-button-drawer{% endif %}">
+        <button class="filter-btn button no-hover" data-show-filter
+                data-close-text="{{ translation_close }}"
+                data-open-text="{{ translation_open }}"
+                data-result-count-text="{{ translation_show_results }}"
+                data-result-count-text-singular="{{ translation_show_results_singular }}">
+          {% comment %}{{ translation_open }}{% endcomment %}FILTERS
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.17071 18C6.58254 16.8348 7.69378 16 9 16C10.3062 16 11.4175 16.8348 11.8293 18H22V20H11.8293C11.4175 21.1652 10.3062 22 9 22C7.69378 22 6.58254 21.1652 6.17071 20H2V18H6.17071ZM12.1707 11C12.5825 9.83481 13.6938 9 15 9C16.3062 9 17.4175 9.83481 17.8293 11H22V13H17.8293C17.4175 14.1652 16.3062 15 15 15C13.6938 15 12.5825 14.1652 12.1707 13H2V11H12.1707ZM6.17071 4C6.58254 2.83481 7.69378 2 9 2C10.3062 2 11.4175 2.83481 11.8293 4H22V6H11.8293C11.4175 7.16519 10.3062 8 9 8C7.69378 8 6.58254 7.16519 6.17071 6H2V4H6.17071ZM9 6C9.55228 6 10 5.55228 10 5C10 4.44772 9.55228 4 9 4C8.44772 4 8 4.44772 8 5C8 5.55228 8.44772 6 9 6ZM15 13C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11C14.4477 11 14 11.4477 14 12C14 12.5523 14.4477 13 15 13ZM9 20C9.55228 20 10 19.5523 10 19C10 18.4477 9.55228 18 9 18C8.44772 18 8 18.4477 8 19C8 19.5523 8.44772 20 9 20Z"></path></svg>
+        </button>
+        {% comment %}
+        <form id="FacetsForm" data-ajax-container>
+          {%- if section.settings.enable_sorting -%}
+            <div class="cc-product-filter__sort-by">
+              <select id="sort-by" name="sort_by" class="cc-select">
+                {%- for option in results.sort_options -%}
+                  {%- if option.value == "manual" and section.settings.show_featured_in_sort -%}
+                    <option value="{{ option.value | escape }}" {% if option.value == current_sort_by %}selected{% endif %}>
+                      {{ option.name | escape }}
+                    </option>
+                  {%- elsif option.value != "manual" -%}
+                    <option value="{{ option.value | escape }}" {% if option.value == current_sort_by %}selected{% endif %}>
+                      {{ option.name | escape }}
+                    </option>
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif %}
+        </form>
+        {% endcomment %}
+      </div>
+
+      {% if section.settings.filter_mode == "drawer" %}
+        <div class="cc-product-filter cc-product-filter--drawer">
+          <div class="cc-filter-drawer-container">
+            <button type="button" class="cc-filter-close" data-close-filter aria-label="Close filter">×</button>
+            <form id="FacetsForm">
+              {%- for filter in results.filters -%}
+                {%- liquid
+                  if settings.swatch_enabled and settings.swatch_option_name == filter.label and filter.type == "list"
+                    assign filter_group_is_swatch = true
+                  elsif filter.presentation == 'swatch'
+                    assign filter_group_is_swatch = true
+                  else
+                    assign filter_group_is_swatch = false
+                  endif
+
+                  if section.settings.collapse_filters_method == 'all'
+                    assign filter_is_open = false
+                  elsif section.settings.collapse_filters_method == 'none'
+                    assign filter_is_open = true
+                  elsif section.settings.collapse_filters_method contains 'over-'
+                    assign limit = section.settings.collapse_filters_method | split: '-' | last | plus: 0
+                    if filter.values.size > limit
+                      assign filter_is_open = false
+                    else
+                      assign filter_is_open = true
+                    endif
+                  endif
+
+                  assign filter_title = filter.label | escape
+                  assign num_available_options = 0
+                -%}
+
+                {%- capture filter_content -%}
+                  {%- case filter.type -%}
+                    {%- when "boolean" or "list" -%}
+                      {%- if filter_group_is_swatch -%}
+                        {%- if filter.presentation == 'swatch' -%}
+                          <style>
+                            {%- comment -%} Native swatches {%- endcomment -%}
+                            {%- for value in filter.values -%}
+                              {%- liquid
+                                if value.display.type != 'colors'
+                                  continue
+                                endif
+                                assign size_limit = value.display.value.size | at_most: 4
+                              -%}
+                              {%- case size_limit -%}
+                                {%- when 1 -%}
+                                  .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                    background-color: {{ value.display.value }};
+                                  }
+                                {%- when 2 -%}
+                                  .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                    background-image: linear-gradient(to right, {{ value.display.value[0] }}, {{ value.display.value[0] }} 50%, {{ value.display.value[1] }} 50%, {{ value.display.value[1] }});
+                                  }
+                                {%- when 3 -%}
+                                  .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                    background-image: linear-gradient(to right, {{ value.display.value[0] }}, {{ value.display.value[0] }} 33.3%, {{ value.display.value[1] }} 33.3%, {{ value.display.value[1] }} 66.6%, {{ value.display.value[2] }} 66.6%, {{ value.display.value[2] }});
+                                  }
+                                {%- when 4 -%}
+                                  .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                    background-image: conic-gradient({{ value.display.value[0] }} 0deg 90deg, {{ value.display.value[1] }} 90deg 180deg, {{ value.display.value[2] }} 180deg 270deg, {{ value.display.value[3] }} 270deg 360deg);
+                                  }
+                              {%- endcase -%}
+                              {%- if size_limit > 1 -%}
+                                .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                  transform: rotateZ(45deg);
+                                }
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </style>
+                        {%- endif -%}
+                        <ul class="cc-swatches">
+                          {%- for value in filter.values -%}
+                            {%- if value.count > 0 or section.settings.show_filter_deadends %}
+                              {%- assign num_available_options = num_available_options | plus: 1 -%}
+                              <li data-tag="{{ value.label | handle }}"{% if filter.presentation == 'swatch' %} data-swatch-native{% endif %}>
+                                <label class="cc-checkbox{% if value.active %} active{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}"
+                                       title="{{ value.label | escape }}">
+                                  <input class="cc-checkbox__input"
+                                         id="Filter-{{ value.param_name }}-{{ value.value | handle }}"
+                                         type="checkbox"
+                                         name="{{ value.param_name }}"
+                                         value="{{ value.value | escape }}"
+                                         {% if value.active %}checked{% endif %}
+                                    {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                                  {%- if filter.presentation == 'swatch' -%}
+                                    <span class="swatch-sample">
+                                      {%- if value.display.type == 'image' -%}
+                                        <img
+                                          class="swatch-sample__img"
+                                          src="{{ value.display.value | image_url: width: 64, height: 64, crop: 'center' }}"
+                                          width="64"
+                                          height="64"
+                                          alt="{{ value.display.value.alt | escape }}"
+                                          loading="lazy"
+                                          fetchpriority="low"
+                                          role="presentation">
+                                      {%- endif -%}
+                                    </span>
+                                  {%- endif -%}
+                                </label>
+                                {% if settings.swatch_method == "image" %}
+                                  {% style %}
+                                    .cc-swatches [data-tag="{{ value.label | handle }}"]:not([data-swatch-native]) .cc-checkbox::before {
+                                    background-image: url({{ value.label | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }});
+                                    }
+                                  {% endstyle %}
+                                {% endif %}
+                              </li>
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </ul>
+                      {%- else -%}
+                        {%- for value in filter.values -%}
+                          {%- if value.count > 0 or section.settings.show_filter_deadends %}
+                            {%- assign num_available_options = num_available_options | plus: 1 -%}
+                            <label class="cc-checkbox">
+                              <input class="cc-checkbox__input"
+                                     id="Filter-{{ value.param_name }}-{{ value.value | handle }}"
+                                     type="checkbox"
+                                     name="{{ value.param_name }}"
+                                     value="{{ value.value | escape }}"
+                                     {% if value.active %}checked{% endif %}
+                              {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+
+                              <span class="cc-checkbox__label">{{ value.label | escape }}</span>
+
+                              {% if section.settings.show_filter_counts %}
+                                <span class="cc-checkbox__count">{{ value.count }}</span>
+                              {% endif %}
+                            </label>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      {%- endif -%}
+
+                    {%- when "price_range" -%}
+                      {%- assign num_available_options = 1 -%}
+                      {% render 'price-range', filter: filter %}
+
+                  {%- endcase -%}
+                {%- endcapture -%}
+
+                {%- if num_available_options > 0 or section.settings.show_filter_deadends -%}
+                  {%- render "accordion", first_item_open: filter_is_open, item1_title: filter_title, item1_content: filter_content -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if section.settings.enable_sorting -%}
+                {%- liquid
+                  assign filter_title = translation_sort_title
+
+                  if section.settings.collapse_sort_by == true
+                    assign filter_is_open = false
+                  else
+                    assign filter_is_open = true
+                  endif
+                -%}
+
+                {%- capture filter_content -%}
+                  <ul class="cc-product-filter__sort-by">
+                    {%- for option in results.sort_options -%}
+                      {%- if option.value == "manual" and section.settings.show_featured_in_sort -%}
+                        <label class="cc-checkbox sort-{{ option.name | handle }}">
+                          <input class="cc-checkbox__input"
+                                 type="radio"
+                                 name="sort_by"
+                                 value="{{ option.value | escape }}"
+                                 {% if option.value == current_sort_by %}checked{% endif %}
+                          >
+                          <span class="cc-checkbox__label">{{ option.name | escape }}</span>
+                        </label>
+                      {%- elsif option.value != "manual" -%}
+                        <label class="cc-checkbox sort-{{ option.name | handle }}">
+                          <input class="cc-checkbox__input"
+                                 type="radio"
+                                 name="sort_by"
+                                 value="{{ option.value | escape }}"
+                                 {% if option.value == current_sort_by %}checked{% endif %}
+                          >
+                          <span class="cc-checkbox__label">{{ option.name | escape }}</span>
+                        </label>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </ul>
+                {%- endcapture -%}
+
+                {%- render "accordion", first_item_open: filter_is_open, item1_title: filter_title, item1_content: filter_content -%}
+              {% endif %}
+
+              {{ form_hidden_fields }}
+
+              <noscript>
+                <button type="submit" class="btn">{{ translation_submit_button }}</button>
+              </noscript>
+            </form>
+          </div>
+          <div class="cc-drawer-overlay" data-close-filter></div>
+        </div>
+      {% else %}
+        <div class="cc-product-filter cc-product-filter--sticky-{{ section.settings.sticky_sidebar }} {% if section.settings.sticky_sidebar %}cc-sticky-scroll-direction{% endif %}"
+             {% if section.settings.sticky_sidebar %}data-cc-sticky-scroll-top{% endif %}>
+          <button type="button" class="cc-filter-close" data-close-filter aria-label="Close filter">×</button>
+          <form id="FacetsForm">
+            {%- for filter in results.filters -%}
+              {%- liquid
+                if settings.swatch_enabled and settings.swatch_option_name == filter.label and filter.type == "list"
+                  assign filter_group_is_swatch = true
+                elsif filter.presentation == 'swatch'
+                  assign filter_group_is_swatch = true
+                else
+                  assign filter_group_is_swatch = false
+                endif
+
+                if section.settings.collapse_filters_method == 'all'
+                  assign filter_is_open = false
+                elsif section.settings.collapse_filters_method == 'none'
+                  assign filter_is_open = true
+                elsif section.settings.collapse_filters_method contains 'over-'
+                  assign limit = section.settings.collapse_filters_method | split: '-' | last | plus: 0
+                  if filter.values.size > limit
+                    assign filter_is_open = false
+                  else
+                    assign filter_is_open = true
+                  endif
+                endif
+
+                assign filter_title = filter.label | escape
+                assign num_available_options = 0
+              -%}
+
+              {%- capture filter_content -%}
+                {%- case filter.type -%}
+                  {%- when "boolean" or "list" -%}
+                    {%- if filter_group_is_swatch -%}
+                      {%- if filter.presentation == 'swatch' -%}
+                        <style>
+                          {%- comment -%} Native swatches {%- endcomment -%}
+                          {%- for value in filter.values -%}
+                            {%- liquid
+                              if value.display.type != 'colors'
+                                continue
+                              endif
+                              assign size_limit = value.display.value.size | at_most: 4
+                            -%}
+                            {%- case size_limit -%}
+                              {%- when 1 -%}
+                                .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                  background-color: {{ value.display.value }};
+                                }
+                              {%- when 2 -%}
+                                .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                  background-image: linear-gradient(to right, {{ value.display.value[0] }}, {{ value.display.value[0] }} 50%, {{ value.display.value[1] }} 50%, {{ value.display.value[1] }});
+                                }
+                              {%- when 3 -%}
+                                .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                  background-image: linear-gradient(to right, {{ value.display.value[0] }}, {{ value.display.value[0] }} 33.3%, {{ value.display.value[1] }} 33.3%, {{ value.display.value[1] }} 66.6%, {{ value.display.value[2] }} 66.6%, {{ value.display.value[2] }});
+                                }
+                              {%- when 4 -%}
+                                .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                  background-image: conic-gradient({{ value.display.value[0] }} 0deg 90deg, {{ value.display.value[1] }} 90deg 180deg, {{ value.display.value[2] }} 180deg 270deg, {{ value.display.value[3] }} 270deg 360deg);
+                                }
+                            {%- endcase -%}
+                            {%- if size_limit > 1 -%}
+                              .cc-swatches [data-tag="{{ value.label | handle }}"][data-swatch-native] .cc-checkbox .swatch-sample {
+                                transform: rotateZ(45deg);
+                              }
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </style>
+                      {%- endif -%}
+                      <ul class="cc-swatches">
+                        {%- for value in filter.values -%}
+                          {%- if value.count > 0 or section.settings.show_filter_deadends %}
+                            {%- assign num_available_options = num_available_options | plus: 1 -%}
+                            <li data-tag="{{ value.label | handle }}"{% if filter.presentation == 'swatch' %} data-swatch-native{% endif %}>
+                              <label class="cc-checkbox{% if value.active %} active{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}"
+                                     title="{{ value.label | escape }}">
+                                <input class="cc-checkbox__input"
+                                       id="Filter-{{ value.param_name }}-{{ value.value | handle }}"
+                                       type="checkbox"
+                                       name="{{ value.param_name }}"
+                                       value="{{ value.value | escape }}"
+                                       {% if value.active %}checked{% endif %}
+                                  {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                                {%- if filter.presentation == 'swatch' -%}
+                                  <span class="swatch-sample">
+                                    {%- if value.display.type == 'image' -%}
+                                      <img
+                                        class="swatch-sample__img"
+                                        src="{{ value.display.value | image_url: width: 64, height: 64, crop: 'center' }}"
+                                        width="64"
+                                        height="64"
+                                        alt="{{ value.display.value.alt | escape }}"
+                                        loading="lazy"
+                                        fetchpriority="low"
+                                        role="presentation">
+                                    {%- endif -%}
+                                  </span>
+                                {%- endif -%}
+                              </label>
+                              {% if settings.swatch_method == "image" %}
+                                {% style %}
+                                  .cc-swatches [data-tag="{{ value.label | handle }}"]:not([data-swatch-native]) .cc-checkbox::before {
+                                  background-image: url({{ value.label | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }});
+                                  }
+                                {% endstyle %}
+                              {% endif %}
+                            </li>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    {%- else -%}
+                      {%- for value in filter.values -%}
+                        {%- if value.count > 0 or section.settings.show_filter_deadends %}
+                          {%- assign num_available_options = num_available_options | plus: 1 -%}
+                          <label class="cc-checkbox">
+                            <input class="cc-checkbox__input"
+                                   id="Filter-{{ value.param_name }}-{{ value.value | handle }}"
+                                   type="checkbox"
+                                   name="{{ value.param_name }}"
+                                   value="{{ value.value | escape }}"
+                                   {% if value.active %}checked{% endif %}
+                              {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+
+                            <span class="cc-checkbox__label">{{ value.label | escape }}</span>
+
+                            {% if section.settings.show_filter_counts %}
+                              <span class="cc-checkbox__count">{{ value.count }}</span>
+                            {% endif %}
+                          </label>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+
+                  {%- when "price_range" -%}
+                    {%- assign num_available_options = 1 -%}
+                    {% render 'price-range', filter: filter %}
+
+                {%- endcase -%}
+              {%- endcapture -%}
+
+              {%- if num_available_options > 0 or section.settings.show_filter_deadends -%}
+                {%- render "accordion", first_item_open: filter_is_open, item1_title: filter_title, item1_content: filter_content -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if section.settings.enable_sorting -%}
+              {%- liquid
+                assign filter_title = translation_sort_title
+
+                if section.settings.collapse_sort_by == true
+                  assign filter_is_open = false
+                else
+                  assign filter_is_open = true
+                endif
+              -%}
+
+              {%- capture filter_content -%}
+                <ul class="cc-product-filter__sort-by">
+                  {%- for option in results.sort_options -%}
+                    {%- if option.value == "manual" and section.settings.show_featured_in_sort -%}
+                      <label class="cc-checkbox sort-{{ option.name | handle }}">
+                        <input class="cc-checkbox__input"
+                               type="radio"
+                               name="sort_by"
+                               value="{{ option.value | escape }}"
+                               {% if option.value == current_sort_by %}checked{% endif %}
+                        >
+                        <span class="cc-checkbox__label">{{ option.name | escape }}</span>
+                      </label>
+                    {%- elsif option.value != "manual" -%}
+                      <label class="cc-checkbox sort-{{ option.name | handle }}">
+                        <input class="cc-checkbox__input"
+                               type="radio"
+                               name="sort_by"
+                               value="{{ option.value | escape }}"
+                               {% if option.value == current_sort_by %}checked{% endif %}
+                        >
+                        <span class="cc-checkbox__label">{{ option.name | escape }}</span>
+                      </label>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- endcapture -%}
+
+              {%- render "accordion", first_item_open: filter_is_open, item1_title: filter_title, item1_content: filter_content -%}
+            {% endif %}
+
+            {{ form_hidden_fields }}
+
+            <noscript>
+              <button type="submit" class="btn">{{ translation_submit_button }}</button>
+            </noscript>
+          </form>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="product-list-container
+                {% if section.settings.filter_mode == "sidebar"%}product-list-container--with-sidebar{% endif %}
+                {% if section.settings.filter_mode == "drawer"%}product-list-container--with-drawer{% endif %}
+                " data-infinite-scroll-container>
+
+      {% capture active_filters_html %}
+        <div class="active-filter-controls-container">
+          <ul class="active-filter-controls">
+            <li class="active-filter-controls__clear-left">
+              <a href="{{ results_url }}" class="active-filter-controls__clear">
+                {{ translation_clear_all }}
+              </a>
+            </li>
+
+            {%- for filter in results.filters -%}
+              {%- for value in filter.active_values -%}
+                <li>
+                  <a href="{{ value.url_to_remove }}" class="active-filter-controls__tag" data-active-tag="{{ value | escape }}">
+                    {{ value.label | escape }}
+                  </a>
+                </li>
+              {%- endfor -%}
+
+              {% if filter.type == "price_range" %}
+                {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                  <li>
+                    <a href="{{ filter.url_to_remove }}" class="active-filter-controls__tag" data-active-tag="{{ filter | escape }}">
+                      {%-if filter.min_value.value %}{%- render "price", price: filter.min_value.value -%}{%- else -%}{%- render "price", price: 0 -%}{%- endif -%}&nbsp;-&nbsp;{%- if filter.max_value.value -%}{%- render "price", price: filter.max_value.value -%}{%- else -%}{%- render "price", price: filter.range_max -%}{% endif %}
+                    </a>
+                  </li>
+                {%- endif -%}
+              {% endif %}
+            {%- endfor -%}
+
+            <li class="active-filter-controls__clear-right">
+              <a href="{{ results_url }}" class="active-filter-controls__clear">
+                {{ translation_clear_all }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      {% endcapture %}
+      {%- if active_filters_html contains 'active-filter-controls__tag' -%}
+        {{ active_filters_html }}
+      {%- endif -%}
+
+      <div class="product-list cf
+            product-list--{{ section.settings.layout }}
+            {% if section.settings.grid_mobile == '2' %}mob-two-col{% endif %}
+            {% if section.settings.layout == 'columns' %}jiggly-split dynamic-col-{{ section.settings.grid }}{% else %}grid--uniform{% endif %}
+            grid-{{ section.settings.grid }}"
+           data-result-count="{{ results_count }}"
+           data-infinite-scroll-results>
+
+        {% unless results_count > 0 %}
+          <h3 class="align-centre no-results">{{ translation_no_matches }}</h3>
+        {% endunless %}
+
+        {% if section.settings.layout == 'rows' %}
+          {% if section.settings.grid == 2 %}
+            {% assign product_class = 'column half' %}
+          {% elsif section.settings.grid == 3 %}
+            {% assign product_class = 'column third' %}
+          {% else %}
+            {% assign product_class = 'column quarter' %}
+          {% endif %}
+        {% endif %}
+
+        {% if mode == "search" %}
+          {% for item in results.results %}
+            {% if item.featured_media %}
+              {% render 'product-block', product: item, product_class: product_class, i: forloop.index, show_vendor: section.settings.show_vendor %}
+            {% elsif item.object_type == 'article' %}
+              <div class="product-block {{ product_class }} search-result" data-loop-index="{{ forloop.index }}"
+              >
+                {% render 'article-block',
+                        article: item,
+                        show_date: settings.blog_show_date,
+                        show_author: settings.blog_show_author,
+                        image_shape: settings.blog_image_shape,
+                        blog_excerpt: settings.blog_excerpt
+                %}
+              </div>
+            {% else %}
+              <div class="product-block {{ product_class }} search-result" data-loop-index="{{ forloop.index }}">
+                <h3 class="search-result__title"><a data-cc-animate-click href="{{ item.url }}">{{ item.title }}</a></h3>
+                <div class="rte">
+                  <p>{{ item.content | strip_html | truncatewords: 30 }}</p>
+                  <p><a data-cc-animate-click href="{{ item.url }}">{{ 'blogs.article.read_more' | t }} &rarr;</a></p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% elsif mode == "collection" %}
+          {% assign product_count = 0 %}
+          {% if paginate.current_page > 1 %}
+            {% assign is_paginated = true %}
+          {% else %}
+            {% assign is_paginated = false %}
+          {% endif %}
+          {% assign pagination_offset = paginate.current_page | minus: 1 | times: section.settings.products_per_page %}
+          
+          {% for product in results.products %}
+            {% assign product_count = product_count | plus: 1 %}
+            {% assign absolute_position = product_count | plus: pagination_offset %}
+            
+            {% comment %} Kiểm tra và chèn các promotion blocks vào vị trí tương ứng {% endcomment %}
+            {% if promotion_blocks.size > 0 %}
+              {% for block in promotion_blocks %}
+                {% comment %}
+                <!-- Debug info:
+                  Absolute Position: {{ absolute_position }}
+                  Block Position: {{ block.settings.position_in_grid }}
+                  Page: {{ paginate.current_page }}
+                  Offset: {{ pagination_offset }}
+                -->
+                {% endcomment %}
+                {% if block.settings.position_in_grid == absolute_position %}
+                  <div class="product-block promotion-block {{ block.settings.desktop_size }}" {{ block.shopify_attributes }}>
+                    {% case block.type %}
+                      {% when 'promotion_image' %}
+                        {% if block.settings.image != blank %}
+                          <div class="promotion-image-container">
+                            <a href="{{ block.settings.link_url }}" class="promotion-link">
+                              <div class="responsive-image-wrapper">
+                                {% if block.settings.mobile_image != blank %}
+                                  <img src="{{ block.settings.image | img_url: '1600x' }}" 
+                                    alt="{{ block.settings.image.alt | escape }}"
+                                    class="hide-on-mobile"
+                                    width="{{ block.settings.image.width }}"
+                                    height="{{ block.settings.image.height }}"
+                                    loading="lazy">
+                                  <img src="{{ block.settings.mobile_image | img_url: '1000x' }}" 
+                                    alt="{{ block.settings.mobile_image.alt | escape }}"
+                                    class="show-on-mobile"
+                                    width="{{ block.settings.mobile_image.width }}"
+                                    height="{{ block.settings.mobile_image.height }}"
+                                    loading="lazy">
+                                {% else %}
+                                  <img src="{{ block.settings.image | img_url: '1600x' }}" 
+                                    alt="{{ block.settings.image.alt | escape }}"
+                                    width="{{ block.settings.image.width }}"
+                                    height="{{ block.settings.image.height }}"
+                                    loading="lazy">
+                                {% endif %}
+                              
+                                {% if block.settings.heading != blank or block.settings.content != blank %}
+                                  <div class="promotion-content">
+                                    {% if block.settings.heading != blank %}
+                                      <div class="promotion-heading">{{ block.settings.heading }}</div>
+                                    {% endif %}
+                                    {% if block.settings.content != blank %}
+                                      <div class="promotion-text">{{ block.settings.content }}</div>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </a>
+                          </div>
+                        {% endif %}
+                      {% when 'promotion_video' %}
+                        {% if block.settings.video != blank %}
+                          <div class="promotion-video-container">
+                            <a href="{{ block.settings.link_url }}" class="promotion-link">
+                              <div class="responsive-video-wrapper">
+                                {% if block.settings.video_poster != blank %}
+                                  <video 
+                                    src="{{ block.settings.video | file_url }}" 
+                                    poster="{{ block.settings.video_poster | img_url: '1600x' }}"
+                                    controls
+                                    {% if block.settings.autoplay %}autoplay muted loop{% endif %}>
+                                  </video>
+                                {% else %}
+                                  <video 
+                                    src="{{ block.settings.video | file_url }}" 
+                                    controls
+                                    {% if block.settings.autoplay %}autoplay muted loop{% endif %}>
+                                  </video>
+                                {% endif %}
+                              
+                                {% if block.settings.heading != blank or block.settings.content != blank %}
+                                  <div class="promotion-content">
+                                    {% if block.settings.heading != blank %}
+                                      <div class="promotion-heading">{{ block.settings.heading }}</div>
+                                    {% endif %}
+                                    {% if block.settings.content != blank %}
+                                      <div class="promotion-text">{{ block.settings.content }}</div>
+                                    {% endif %}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </a>
+                          </div>
+                        {% endif %}
+                    {% endcase %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+            
+            {% render 'product-block', product: product, product_class: product_class, i: forloop.index, show_vendor: section.settings.show_vendor %}
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      {% comment %}
+        Infinite scroll option:
+
+        By default, more products will load in once you scroll to the bottom of the page.
+
+        Change 'false' to 'true' on the line below to prevent this from happening, and instead show a button at the bottom of the page.
+        Clicking this button will load in the next batch of products.
+      {% endcomment %}
+
+      {% assign show_scroll_button = false %}
+      {% if paginate.pages > 1 %}
+        <div class="pagination central small-gap-top content {% if section.settings.enable_infinite_scroll %}infiniscroll{% if show_scroll_button %} wait-for-trigger{% endif %}{% endif %}  transparent">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{% render "cart-drawer" %}
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product recommendations"
+    },
+    {
+      "type": "text",
+      "id": "recommend-product-heading",
+      "label": "Recommend Products Heading",
+      "default": "Recommend Products"
+    },
+    {
+      "type": "product_list",
+      "id": "product-list",
+      "label": "Products",
+      "limit": 12
+    }
+  ]
+}
+{% endschema %}

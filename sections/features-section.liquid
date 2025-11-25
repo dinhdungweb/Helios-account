@@ -1,0 +1,182 @@
+{% schema %}
+{
+  "name": "Features Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon/Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "desc",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Features Section",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Distinctive, Diverse Designs",
+            "desc": "With hundreds of models across styles—from bold to minimal—Helios offers a design for every taste."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Uniqueness for the Unique",
+            "desc": "Each piece is handcrafted by skilled artisans—impossible to replicate by machines. That’s what makes every Helios creation uniquely yours."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Story-Driven Creations",
+            "desc": "At Helios, each piece is a handcrafted story—made to reflect your style and continue your journey."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Crafted for Longevity",
+            "desc": "Helios uses premium materials built to last—so your style endures, not fades."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Elevated Unboxing Experience",
+            "desc": "At HELIOS, we refresh our packaging regularly to keep your unboxing experience new, refined, and memorable."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Reliable After-Sales Service",
+            "desc": "Our team supports you every step of the way—even after your purchase."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section class="helios-why-choose">
+  <div class="container">
+    <h2 class="section-title">WHY SHOULD YOU CHOOSE HELIOS?</h2>
+    <div class="grid">
+      {% for block in section.blocks %}
+        <div class="feature-card">
+          {% if block.settings.icon != blank %}
+            <img class="feature-icon" src="{{ block.settings.icon | img_url: '360x360' }}" alt="{{ block.settings.title }}">
+          {% endif %}
+          <h3 class="feature-title">{{ block.settings.title }}</h3>
+          <p class="feature-desc">{{ block.settings.desc }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.helios-why-choose {
+  background: #000;
+  color: #fab320;
+  padding: 40px 20px;
+  font-family: inherit;
+}
+.helios-why-choose .section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 50px;
+  color: #fab320;
+}
+.helios-why-choose .container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.helios-why-choose .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.helios-why-choose .feature-card {
+  background: #222;
+  border-radius: 10px;
+  box-shadow: 0 2px 18px rgba(0,0,0,0.14);
+  padding: 18px 18px 26px 18px;
+  text-align: center;
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: box-shadow .3s;
+}
+.helios-why-choose .feature-card:hover {
+  box-shadow: 0 6px 26px rgba(255,192,64,0.18);
+}
+.helios-why-choose .feature-icon {
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.helios-why-choose .feature-title {
+  font-size: 1.09rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.helios-why-choose .feature-desc {
+  font-size: 0.96rem;
+  color: #fffbe8;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .helios-why-choose .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .helios-why-choose .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .helios-why-choose .feature-card {
+    padding: 10px;
+    min-height: 180px;
+  }
+  .helios-why-choose .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 35px;
+  }
+}
+</style>

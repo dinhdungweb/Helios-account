@@ -1,0 +1,526 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" />
+<div class="rowblog">
+  {% if section.settings.blog_ads_img %}
+  <div class="ads-img">
+    <a href="{{ section.settings.blog_ads_link }}">
+      <img src="{{ section.settings.blog_ads_img | image_url }}" alt="HELIOS JEWELS" loading="lazy">
+    </a>
+  </div>
+  {% endif %}
+  
+  <div class="leftcolumn">
+    <div class="blog-container">
+    {% paginate article.comments by 50 %}
+    {% if article.image and section.settings.featured_image == "wide" %}
+    <div class="article-header image-overlay image-overlay--bg-full needs-alt-logo" data-cc-animate>
+      <div class="rimage-outer-wrapper rimage-background lazyload fade-in"
+           data-cc-animate="cc-fade-in-zoom-out"
+           data-bgset="{% render 'bgset', image: article.image %}"
+           data-sizes="auto"
+           data-parent-fit="cover">
+        <noscript>
+          <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%">
+            <img src="{{ article.image | img_url: '1024x1024' }}" alt="{{ article.image.alt | escape }}" class="rimage__image">
+          </div>
+        </noscript>
+      </div>
+
+      <div class="overlay-type overlay" data-cc-animate="cc-fade-in-zoom-out">
+        <div class="overlay__content">
+          <div class="content central transparent">
+            {%- if section.settings.blog_show_date -%}
+              <div class="feature-subheader" data-cc-animate data-cc-animate-delay=".4s">
+                <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_date_year' }}</time>
+              </div>
+            {%- endif -%}
+            <h1 class="line-1 h1" data-cc-animate data-cc-animate-delay=".2s">
+              {{ article.title }}
+            </h1>
+            {% if section.settings.blog_show_author %}
+              <div class="feature-subheader" data-cc-animate data-cc-animate-delay=".6s">
+                <span class="author">{{ article.author }}</span>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if article.image and section.settings.featured_image == "wide" %}
+    <div class="central content">
+  {% endif %}
+
+  {% comment %}
+  When a comment has just been submitted, it's not shown right away.
+  Shopify needs to wait until it knows for sure that it is not spam to publish it.
+  We can still show right away *to its author* the comment he just submitted
+  — although that comment may not have been published yet.
+  When a comment is submitted, the browser is redirected to a page that
+  includes the new comment id in its URL. Example:
+  http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
+  When a comment ID is specified in an article URL, that comment is accessible in the
+  template through a Liquid object called comment.
+  That comment is a full-fledged comment variable that has all the regular comment properties:
+  http://docs.shopify.com/themes/liquid-variables/comment.
+  Note that comment.created_at will only be defined if the comment did not have any blank field
+  — was posted without error.
+  {% endcomment %}
+
+  {% assign number_of_comments = article.comments_count %}
+
+  {% comment %}If a comment was just submitted, and it has no blank fields.{% endcomment %}
+  {% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+  {% endif %}
+
+  <div class="article">
+    {% if article.image and section.settings.featured_image == "narrow" %}
+      <div class="article-image">
+        {% render 'responsive-image', image: article.image, animateZoom: true %}
+      </div>
+    {% endif %}
+
+    {% unless article.image and section.settings.featured_image == "wide" %}
+      <h1 class="feature-header" data-cc-animate data-cc-animate-delay=".4s">
+        {{ article.title }}
+      </h1>
+      
+      {% if section.settings.blog_show_date or section.settings.blog_show_author %}
+        <div class="feature-subheader" data-cc-animate data-cc-animate-delay=".6s">
+          {%- if section.settings.blog_show_date -%}
+            <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_date_year' }}</time>
+          {%- endif -%}
+
+          {%- if section.settings.blog_show_author -%}
+            {%- if section.settings.blog_show_date -%},&nbsp;{%- endif -%}
+            <span class="author">{{ article.author }}</span>
+          {%- endif -%}
+        </div>
+      {% endif %}
+    {% endunless %}
+    
+    <div class="article-template__content page-width page-width--narrow rte" itemprop="articleBody" {{ block.shopify_attributes }}>
+         {% render 'toc', block : block %}
+
+
+  </div>
+
+    
+    {% if section.settings.blog_show_social %}
+      <div data-cc-animate data-cc-animate-delay=".5s">
+        {% render 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+      </div>
+    {% endif %}
+    </div>
+    
+  {% if blog.comments_enabled? %}
+    {% if article.comments != blank %}
+      <div id="comments" class="content-row" data-cc-animate data-cc-animate-delay=".5s">
+        <h2 class="align-left">{{ 'blogs.comments.title' | t }}</h2>
+
+        {% comment %} Show a comment that was *just* submitted {% endcomment %}
+        {% if comment and comment.status != 'published' %}
+          <p class="success feedback">
+            {% if blog.moderated? %}
+              {{ 'blogs.comments.success_moderated' | t }}
+            {% else %}
+              {{ 'blogs.comments.success' | t }}
+            {% endif %}
+          </p>
+        {% endif %}
+        {% comment %} Loop through approved comments: {% endcomment %}
+        {% if number_of_comments > 0 %}
+          <ul>
+            {% for comment in article.comments %}
+              <li id="{{ comment.id }}" class="comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}">
+                <h4 class="comment-author">{{ 'blogs.comments.author_meta_said' | t: author: comment.author }}</h4>
+                <div class="comment-content">
+                  {{ comment.content }}
+                </div>
+                <p class="comment-date">
+                  {% assign comment_date = comment.created_at | date: format: 'month_date_year' %}
+                  {{ 'blogs.comments.date_meta' | t: comment_date: comment_date }}
+                </p>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% comment %}Comments are paginated.{% endcomment %}
+        {% if paginate.pages > 1 %}
+          <div id="pagination">
+            {{ paginate | default_pagination }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %}Comment submission form.{% endcomment %}
+
+    <div data-cc-animate data-cc-animate-delay=".5s">
+      {% form article %}
+        <hr>
+        <h3 id="add-comment-title">{{ 'blogs.comments.form_title' | t }}</h3>
+
+        {% if form.errors %}
+          <div class="feedback error">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="form">
+          <div class="input-row">
+            <input aria-label="{{ 'blogs.comments.name' | t }}" placeholder="{{ 'blogs.comments.name' | t }}" required{% if form.errors contains "author" %} class="error"{% endif %} type="text" name="comment[author]" id="comment-author" value="{{ form.author }}" />
+          </div>
+
+          <div class="input-row">
+            <input aria-label="{{ 'blogs.comments.email' | t }}" placeholder="{{ 'blogs.comments.email' | t }}" required{% if form.errors contains "email" %} class="error"{% endif %} type="email" name="comment[email]" id="comment-email" value="{{ form.email }}" />
+          </div>
+
+          <div class="input-row">
+            <textarea aria-label="{{ 'blogs.comments.message' | t }}" placeholder="{{ 'blogs.comments.message' | t }}" required{% if form.errors contains "body" %} class="error"{% endif %} name="comment[body]" id="comment-body">{{ form.body }}</textarea>
+          </div>
+
+          <div class="wide-action">
+            <input type="submit" value="{{ 'blogs.comments.post' | t }}" />
+          </div>
+        </div>
+      {% endform %}
+    </div>
+  {% endif %}
+
+
+{% if blog.next_article or blog.previous_article %}
+    <div class="other-products other-products--articles" data-cc-animate data-cc-animate-delay=".5s">
+      <div class="other-products__label">
+        <a data-cc-animate-click href="{{ blog.url }}">{{ 'blogs.article.back_to_blog_html' | t: blog: blog.title }}</a>
+      </div>
+      <div class="other-products__products">
+        {% if blog.previous_article %}
+        <span class="other-products__product previous">
+          <a data-cc-animate-click href="{{ blog.previous_article }}">
+            <div class="other-products__product__arrow"><span class="arr">{% render 'svg-chevron-left' %}</span></div>
+            <div class="other-products__product__title h5">{{ 'blogs.article.older_post' | t }}</div>
+          </a>
+        </span>
+        {% endif %}
+        {% if blog.next_article %}
+        <span class="other-products__product next">
+          <a data-cc-animate-click href="{{ blog.next_article }}" >
+            <div class="other-products__product__title h5">{{ 'blogs.article.newer_post' | t }}</div>
+            <div class="other-products__product__arrow"><span class="arr">{% render 'svg-chevron-right' %}</span></div>
+          </a>
+        </span>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+</div>
+<div class="rightcolumn">
+  <div class="recent-post">
+    {% include 'careabout' %}
+  </div>
+  <div class="recent-post">
+    {% include 'relatedblogs' %}
+  </div>
+</div>  
+  {% if article.image and section.settings.featured_image == "wide" %}
+  </div>
+  {% endif %}
+
+  {% endpaginate %}
+</div>
+{% render 'structured-data-article', article: article %}
+
+<style>
+  .slick-next {
+    left: 100%!important;
+}
+  .slick-prev {
+    left: -15px!important;
+}
+  .sale-pup {
+    margin-top: 30px;
+    width: 100%;
+    position: relative;
+    background: #222;
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 25px 15px 20px 15px;
+}
+  .gift-discount a {
+    color: orange;
+    font-weight: 600;
+  }
+  .gift-title {
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    background-color: #777;
+    padding: 3px 10px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  .gift-title svg {
+    padding-right: 4px;
+  }
+  /* banner ads */
+  .ads-img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin-bottom: 50px;
+  }
+  .ads-img img {
+    width: 100%;
+    height: auto;
+  }
+  .ads {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+  }
+  p.title-ads {
+    font-size: 40px;
+    font-weight: bold;
+  }
+  button.btn {
+    font-size: 14px;
+    background-color: #FFB31F;
+    border: 1px solid #fff;
+    color: #fff;
+  }
+   @media screen and (max-width: 767px) {
+    .ads-img {
+    margin-bottom: 10px;
+    }
+     p.title-ads {
+      font-size: 33px;
+      margin-top: 15px;
+     }
+     button.btn {
+       padding: 10px 15px;
+       font-size: 13px;
+     }
+  }
+  /* end banner ads */
+  .blog-container {
+  width: 100%;
+  background: #000000;
+  padding-left: 15px;
+  padding-right: 50px;
+  zoom: 1;
+  -webkit-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  }
+  .article {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.article-image-blog {
+  float: left;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.article-image-blog img {
+  object-fit: cover;
+}
+
+.article-content {
+  
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+.article-content h5 {
+    margin: 0;
+    text-align: left;
+}
+
+.article-content p {
+  margin: 5px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.article-content a {
+  display: block;
+  margin: 0;
+}
+  * {
+  box-sizing: border-box;
+  }
+  .care-about {
+  margin-top: 8px;
+  margin-bottom: 30px;
+  }
+  .care-about li {
+  display: block;
+  }
+  
+  .rowblog {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  }
+  .rowblog:after {
+  content: "";
+  display: table;
+  clear: both;
+  
+}
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 73%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 27%;
+  padding: 0 20px;
+  position: sticky;
+  top: var(--nav-height);
+}
+
+  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .rowblog {
+    width: 100%!important;
+    margin: 0;
+  }
+}
+  @media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+@media screen and (max-width: 800px) {
+  .rowblog {
+    width: 100%;
+    margin: 0;
+  }
+
+@media screen and (max-width: 800px) {
+    #relatedblogs {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+@media screen and (max-width: 800px) {
+  .care-about {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .blog-container {
+  width: 100%;
+  background: #000000;
+  padding: 15px;
+  zoom: 1;
+  -webkit-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  }
+}
+    
+</style>
+{% schema %}
+{
+      "name": "Article pages",
+      "limit": 1,
+"settings": [
+    {
+      "type": "header",
+      "content": "Table of content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_toc",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "toc_hd",
+      "label": "Heading",
+      "default": "Table of Content"
+    },
+    {
+      "type": "range",
+      "id": "toc-hd-sz",
+      "label": "Text size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "toc-ctn-bk",
+      "label": "Background",
+      "default": "#f1f1f1"
+    },
+    {
+      "type": "color",
+      "id": "toc-btn-bk",
+      "label": "button background",
+      "default": "#3fb9fc"
+    },
+    {
+      "type": "color",
+      "id": "toc-btn-txt",
+      "label": "button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "toc-btn-hvr-bk",
+      "label": "button background on hover",
+      "default": "#0E32C7"
+    },
+    {
+      "type": "color",
+      "id": "toc-btn-hvr-txt",
+      "label": "button text on hover",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Blog ADS"
+    },
+    {
+      "type": "url",
+      "id": "blog_ads_link",
+      "label": "Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "blog_ads_img",
+      "label": "Image"
+    }
+]
+}
+{% endschema %}

@@ -1,0 +1,138 @@
+{%- liquid
+  assign uses_comma_decimals = false
+  assign currency_test_string = 101 | money_without_currency
+  if currency_test_string == '1,01'
+  	assign uses_comma_decimals = true
+  endif
+-%}
+<div class="custom-price-range-filter">
+  <ul class="price-range-list">
+    <li>
+      <label class="cc-checkbox">
+        <input class="cc-checkbox__input"
+               type="radio"
+               name="{{ filter.min_value.param_name }}-{{ filter.max_value.param_name }}"
+               value="0-499000"
+               {% if filter.min_value.value == 0 and filter.max_value.value == 499000 %}checked{% endif %}
+               data-min-value="0"
+               data-max-value="499000">
+        <span class="cc-checkbox__label">0 - 499.000 VND</span>
+      </label>
+    </li>
+    <li>
+      <label class="cc-checkbox">
+        <input class="cc-checkbox__input"
+               type="radio"
+               name="{{ filter.min_value.param_name }}-{{ filter.max_value.param_name }}"
+               value="500000-999000"
+               {% if filter.min_value.value == 500000 and filter.max_value.value == 999000 %}checked{% endif %}
+               data-min-value="500000"
+               data-max-value="999000">
+        <span class="cc-checkbox__label">500.000 - 999.000 VND</span>
+      </label>
+    </li>
+    <li>
+      <label class="cc-checkbox">
+        <input class="cc-checkbox__input"
+               type="radio"
+               name="{{ filter.min_value.param_name }}-{{ filter.max_value.param_name }}"
+               value="1000000-1499000"
+               {% if filter.min_value.value == 1000000 and filter.max_value.value == 1499000 %}checked{% endif %}
+               data-min-value="1000000"
+               data-max-value="1499000">
+        <span class="cc-checkbox__label">1.000.000 - 1.499.000 VND</span>
+      </label>
+    </li>
+    <li>
+      <label class="cc-checkbox">
+        <input class="cc-checkbox__input"
+               type="radio"
+               name="{{ filter.min_value.param_name }}-{{ filter.max_value.param_name }}"
+               value="1500000-1999000"
+               {% if filter.min_value.value == 1500000 and filter.max_value.value == 1999000 %}checked{% endif %}
+               data-min-value="1500000"
+               data-max-value="1999000">
+        <span class="cc-checkbox__label">1.500.000 - 1.999.000 VND</span>
+      </label>
+    </li>
+    <li>
+      <label class="cc-checkbox">
+        <input class="cc-checkbox__input"
+               type="radio"
+               name="{{ filter.min_value.param_name }}"
+               value="2000000"
+               {% if filter.min_value.value == 2000000 and filter.max_value.value == blank %}checked{% endif %}
+               data-min-value="2000000"
+               data-max-clear="true">
+        <span class="cc-checkbox__label">Trên 2.000.000 VND</span>
+      </label>
+    </li>
+  </ul>
+</div>
+
+<div class="cc-price-range">
+  <div class="cc-price-range__input-row">
+    <div class="cc-price-range__input-container">
+      <span class="cc-price-range__input-currency-symbol">{{ cart.currency.symbol }}</span>
+      <input class="cc-price-range__input cc-price-range__input--min"
+        id="CCPriceRangeMin"
+        name="{{ filter.min_value.param_name }}"
+        {%- if filter.min_value.value -%}
+          {%- if uses_comma_decimals -%}
+            value="{{ filter.min_value.value | money_without_currency | remove: ' ' | remove: "'" | remove: '.' | replace: ',', '.' | round }}"
+          {%- else -%}
+            value="{{ filter.min_value.value | money_without_currency | remove: ' ' | remove: "'" | remove: ',' | round }}"
+          {%- endif -%}
+        {% endif %}
+        placeholder="0"
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        step="10"
+        min="0"
+        {%- if uses_comma_decimals -%}
+          max="{{ filter.range_max | money_without_currency | remove: ' ' | remove: "'" | remove: '.' | replace: ',', '.' | round }}"
+        {%- else -%}
+          max="{{ filter.range_max | money_without_currency | remove: ' ' | remove: "'" | remove: ',' | round }}"
+        {% endif %}
+        aria-label="{{ 'collections.price_range.min_label' | t | escape }}" />
+    </div>
+    <div class="cc-price-range__input-container">
+      <span class="cc-price-range__input-currency-symbol">{{ cart.currency.symbol }}</span>
+      <input class="cc-price-range__input cc-price-range__input--max"
+        id="CCPriceRangeMax"
+        name="{{ filter.max_value.param_name }}"
+        {%- if filter.max_value.value -%}
+          {%- if uses_comma_decimals -%}
+            value="{{ filter.max_value.value | money_without_currency | remove: ' ' | remove: "'" | remove: '.' | replace: ',', '.' | round }}"
+          {%- else -%}
+            value="{{ filter.max_value.value | money_without_currency | remove: ' ' | remove: "'" | remove: ',' | round }}"
+          {% endif %}
+        {%- endif -%}
+        {%- if uses_comma_decimals -%}
+          placeholder="{{ filter.range_max | money_without_currency | remove: ' ' | remove: "'" | remove: '.' | replace: ',', '.' | round }}"
+        {%- else -%}
+          placeholder="{{ filter.range_max | money_without_currency | remove: ' ' | remove: "'" | remove: ',' | round }}"
+        {% endif %}
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        step="10"
+        min="0"
+        {%- if uses_comma_decimals -%}
+          max="{{ filter.range_max | money_without_currency | remove: ' ' | remove: '.' | replace: ',', '.' | round }}"
+        {%- else -%}
+          max="{{ filter.range_max | money_without_currency | remove: ' ' | remove: ',' | round }}"
+        {% endif %}
+        aria-label="{{ 'collections.price_range.max_label' | t | escape }}" />
+    </div>
+  </div>
+
+  <div class="cc-price-range__bar">
+    <div class="cc-price-range__bar-inactive"></div>
+    <div class="cc-price-range__bar-active"></div>
+    <div class="cc-price-range__control cc-price-range__control--min"></div>
+    <div class="cc-price-range__control cc-price-range__control--max"></div>
+  </div>
+</div>
+

@@ -1,0 +1,298 @@
+{{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
+
+<!-- Tính tổng chi tiêu -->
+{% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+  {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+{% else %}
+  {% assign total_spent = customer.total_spent | divided_by: 100 %}
+{% endif %}
+{% assign points = customer.metafields.rewards.points | default: 0 %}
+
+<!-- Kiểm tra tag khách hàng -->
+{% if customer.tags contains "BLACK DIAMOND" %}
+  {% assign tier = "BLACK DIAMOND" %}
+  {% assign next_tier = "MAX LEVEL" %}
+  {% assign next_tier_amount = total_spent %}
+{% elsif customer.tags contains "DIAMOND" %}
+  {% assign tier = "DIAMOND" %}
+  {% assign next_tier = "BLACK DIAMOND" %}
+  {% assign next_tier_amount = 100000000 %}
+{% elsif customer.tags contains "PLATINUM" %}
+  {% assign tier = "PLATINUM" %}
+  {% assign next_tier = "DIAMOND" %}
+  {% assign next_tier_amount = 20000000 %}
+{% elsif customer.tags contains "GOLD" %}
+  {% assign tier = "GOLD" %}
+  {% assign next_tier = "PLATINUM" %}
+  {% assign next_tier_amount = 10000000 %}
+{% elsif customer.tags contains "SILVER" %}
+  {% assign tier = "SILVER" %}
+  {% assign next_tier = "GOLD" %}
+  {% assign next_tier_amount = 6000000 %}
+{% else %}
+  <!-- Nếu không có tag, xác định cấp bậc bằng tổng tiền đã chi -->
+  {% if total_spent < 3000000 %}
+    {% assign tier = "MEMBER" %}
+    {% assign next_tier = "SILVER" %}
+    {% assign next_tier_amount = 3000000 %}
+  {% elsif total_spent >= 3000000 and total_spent < 6000000 %}
+    {% assign tier = "SILVER" %}
+    {% assign next_tier = "GOLD" %}
+    {% assign next_tier_amount = 6000000 %}
+  {% elsif total_spent >= 6000000 and total_spent < 10000000 %}
+    {% assign tier = "GOLD" %}
+    {% assign next_tier = "PLATINUM" %}
+    {% assign next_tier_amount = 10000000 %}
+  {% elsif total_spent >= 10000000 and total_spent < 20000000 %}
+    {% assign tier = "PLATINUM" %}
+    {% assign next_tier = "DIAMOND" %}
+    {% assign next_tier_amount = 20000000 %}
+  {% elsif total_spent >= 20000000 and total_spent < 100000000 %}
+    {% assign tier = "DIAMOND" %}
+    {% assign next_tier = "BLACK DIAMOND" %}
+    {% assign next_tier_amount = 100000000 %}
+  {% else %}
+    {% assign tier = "BLACK DIAMOND" %}
+    {% assign next_tier = "MAX LEVEL" %}
+    {% assign next_tier_amount = total_spent %}
+  {% endif %}
+{% endif %}
+
+<!-- Tính phần trăm tiến trình -->
+{% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
+{% assign remaining_amount = next_tier_amount | minus: total_spent %}
+<div class="wide-container customer-account-container">
+  <div class="customer-sidebar">
+    <div class="customer-info">
+      <div class="customer-info-header flex justify-between align-center">
+        <div class="customer-info-name flex align-center">
+          <div class="customer-avatar"></div>
+          <div class="customer-name-email">
+            <div>Xin chào, <strong>{{ customer.name }}</strong></div>
+            <div class="text-ellipsis">{{ customer.email }}</div>
+          </div>
+        </div> 
+        <a href="{{ routes.account_logout_url }}" class="logout-button">Đăng xuất</a>
+      </div>
+      <div class="customer-total-spent flex justify-between align-center mt-14 mb-5">
+        <div>Tổng chi tiêu: </div>
+        <div>
+          {% assign formatted_total_spent = total_spent | floor | split: '' | reverse %}
+          {% assign formatted_number = '' %}
+          
+          {% for digit in formatted_total_spent %}
+            {% assign remainder = forloop.index0 | modulo: 3 %}
+            {% if remainder == 0 and forloop.index0 != 0 %}
+              {% assign formatted_number = formatted_number | append: '.' %}
+            {% endif %}
+            {% assign formatted_number = formatted_number | append: digit %}
+          {% endfor %}
+          
+          {% assign formatted_number = formatted_number | split: '' | reverse | join: '' %}
+          <strong>{{ formatted_number }} VND</strong>
+        </div>
+      </div>
+      <div class="customer-tier flex justify-between align-center mb-14">
+        <div>Hạng — <strong>{{ tier }}</strong></div>
+        <div>Điểm — <strong>{{ points }}</strong></div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <span class="progress-fill" style="width: {{ progress_percentage }}%;"></span>
+        </div>
+        <p class="progress-status">
+          {% if tier == "BLACK DIAMOND" %}
+            Bạn đã đạt hạng cao nhất!
+          {% else %}
+            {% assign formatted_remaining_amount = remaining_amount | floor | split: '' | reverse %}
+            {% assign formatted_remaining = '' %}
+            
+            {% for digit in formatted_remaining_amount %}
+              {% assign remainder = forloop.index0 | modulo: 3 %}
+              {% if remainder == 0 and forloop.index0 != 0 %}
+                {% assign formatted_remaining = formatted_remaining | append: '.' %}
+              {% endif %}
+              {% assign formatted_remaining = formatted_remaining | append: digit %}
+            {% endfor %}
+            
+            {% assign formatted_remaining = formatted_remaining | split: '' | reverse | join: '' %}
+
+            Cần tiêu thêm <strong>{{ formatted_remaining }} VND</strong> để lên hạng <strong>{{ next_tier }}</strong>.
+          {% endif %}
+        </p>
+      </div>
+
+    </div>
+    <ul class="account-tabs">
+      <li class="tab-link active" data-tab="rewards">Welcome to Helios</li>
+      <li class="tab-link" data-tab="account">Tài khoản</li>
+      <li class="tab-link" data-tab="orders">Đơn hàng</li>
+      <li class="tab-link" data-tab="benefits">Befenits / Promos</li>
+      <li class="tab-link" data-tab="discord">Helios Club</li>
+      <!-- <li class="tab-link" data-tab="wishlist">Yêu thích</li> -->
+    </ul>
+  </div>
+
+  <div class="customer-content">
+    <div id="rewards" class="customer-tab-content active">
+      <h3 style="text-align:left; margin-bottom: 20px;">Welcome to Helios</h3>
+      <div class="reward-tiers">
+        <div class="tier">
+          <img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/1.4_DESIGN_NH_CHAO_M_NG_THANH_VIEN_M_I-01.jpg?v=1743569220" alt=""/>
+        </div>
+      </div>
+    </div>
+
+    <div id="account" class="customer-tab-content">
+      <h3 style="text-align:left">Chi tiết tài khoản</h3>
+      <p><strong>Họ và tên:</strong> {{ customer.name }}</p>
+      <p><strong>Số điện thoại:</strong> {{ customer.phone }}</p>
+      <p><strong>Email:</strong> {{ customer.email }}</p>
+      <p><strong>Địa chỉ:</strong> 
+        {% for address in customer.addresses %}
+          {{ address.company }} {{ address.street }}, {{ address.city }} {% if address.province_code %}, {{ address.province_code }}{% endif %}, {{ address.country }} {{ address.zip }}
+        {% endfor %}
+      </p>
+      <a class="logout-button" href="{{ routes.account_addresses_url }}">Sửa thông tin</a>
+    </div>
+
+    <div id="orders" class="customer-tab-content">
+      <h3 style="text-align:left">Đơn hàng</h3>
+      {% paginate customer.orders by 20 %}
+      {% if customer.orders.size != 0 %}
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in customer.orders %}
+          <tr>
+            <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+            <td>{{ order.created_at | date: format: 'month_date_year' }}</td>
+            <td>{{ order.financial_status_label }}</td>
+            <td>{{ order.total_price | money }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}<p>No orders found.</p>{% endif %}
+      {% endpaginate %}
+    </div>
+
+    <div id="benefits" class="customer-tab-content">
+      <h3 style="text-align:left">Benefits & Promos</h3>
+      <div class="custom-tier-content">
+        {% case tier %}
+          {% when "BLACK DIAMOND" %}
+            {{ section.settings.content_black_diamond | raw }}
+          {% when "DIAMOND" %}
+            {{ section.settings.content_diamond | raw }}
+          {% when "PLATINUM" %}
+            {{ section.settings.content_platinum | raw }}
+          {% when "GOLD" %}
+            {{ section.settings.content_gold | raw }}
+          {% when "SILVER" %}
+            {{ section.settings.content_silver | raw }}
+          {% else %}
+            {{ section.settings.content_member | raw }}
+        {% endcase %}
+      </div>
+    </div>
+
+    <div id="discord" class="customer-tab-content">
+      <h3 style="text-align:left; margin-bottom: 20px;">Helios Community</h3>
+      <div style="margin-bottom: 20px;"><img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z6465765703069_030e64083cc975d6127ff8a441409631_95f8c0e0-1f78-4f16-b036-4de58aa1d26c.jpg?v=1743569814" alt=""/></div>
+      <p>Helios Club là cộng đồng dành riêng cho những người ‘khác biệt’– những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê ‘màu’ Helios.</p>
+          
+      <p>Đây là nơi để anh em chia sẻ trải nghiệm, kinh nghiệm sử dụng phụ kiện, những câu chuyện phía sau món đồ; đồng thời là không gian mở để đặt câu hỏi, tư vấn, trao đổi và thảo luận một cách thẳng thắn và chân thành.</p>
+          
+      <p>Nếu bạn yêu thích sự khác biệt: Chào mừng bạn đến với Helios Club!</p>
+      <a href="https://www.facebook.com/groups/508707569692422" title=""><button>Tham gia ngay</button></a>
+    </div>
+
+    <!-- <div id="wishlist" class="customer-tab-content">
+      <h3 style="text-align:left">Wishlist</h3>
+      <p>Your saved items.</p>
+    </div> -->
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.tab-link').forEach(tab => {
+  tab.addEventListener('click', function () {
+    document.querySelectorAll('.tab-link').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.customer-tab-content').forEach(el => el.classList.remove('active'));
+    
+    this.classList.add('active');
+    document.getElementById(this.dataset.tab).classList.add('active');
+  });
+});
+
+</script>
+{% schema %}
+{
+  "name": "Main Account",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "heading_h1",
+          "label": "Set as primary page heading",
+          "info": "Uses <h1> tag. One per page recommended. [Learn more](https://cleancanvas.co.uk/support/showcase/seo#inner-anchor-0)",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "html",
+      "id": "content_black_diamond",
+      "label": "Nội dung BLACK DIAMOND"
+    },
+    {
+      "type": "html",
+      "id": "content_diamond",
+      "label": "Nội dung DIAMOND"
+    },
+    {
+      "type": "html",
+      "id": "content_platinum",
+      "label": "Nội dung PLATINUM"
+    },
+    {
+      "type": "html",
+      "id": "content_gold",
+      "label": "Nội dung GOLD"
+    },
+    {
+      "type": "html",
+      "id": "content_silver",
+      "label": "Nội dung SILVER"
+    },
+    {
+      "type": "html",
+      "id": "content_member",
+      "label": "Nội dung MEMBER"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Account",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

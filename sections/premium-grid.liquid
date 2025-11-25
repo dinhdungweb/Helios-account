@@ -1,0 +1,362 @@
+<!-- sections/serie-ghost.liquid -->
+<div class="serie-ghost-section">
+  <div class="premium-container">
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="main-image-wrapper">
+        <div class="main-image">
+          {% if section.settings.main_image %}
+            {%- liquid
+              assign main_ratio_val = blank
+              if section.settings.image_aspect_ratio == '1/1'
+                assign main_ratio_val = 1
+              elsif section.settings.image_aspect_ratio == '3/4'
+                assign main_ratio_val = 0.75
+              elsif section.settings.image_aspect_ratio == '4/3'
+                assign main_ratio_val = 1.333
+              elsif section.settings.image_aspect_ratio == '16/9'
+                assign main_ratio_val = 1.777
+              endif
+            -%}
+            {% if main_ratio_val %}
+              {% render 'responsive-image', image: section.settings.main_image, aspect_ratio: main_ratio_val %}
+            {% else %}
+              {% render 'responsive-image', image: section.settings.main_image %}
+            {% endif %}
+          {% endif %}
+        </div>
+        
+        <!-- Title overlapping the image -->
+        <div class="overlay-title">
+          {% if section.settings.back_link_text %}
+            <div class="back-link">
+              <a href="{{ section.settings.back_link_url | default: '/' }}">
+                ← {{ section.settings.back_link_text }}
+              </a>
+            </div>
+          {% endif %}
+          <div class="premium-main-title">{{ section.settings.title | default: 'Serie Ghost' }}</div>
+        </div>
+      </div>
+      
+      <div class="main-text">
+        <div class="text-content">
+          {% if section.settings.description %}
+            <div class="description">
+              {{ section.settings.description }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom Gallery -->
+    <div class="bottom-gallery">
+      {% for block in section.blocks %}
+        {% if block.type == 'gallery_image' and block.settings.image %}
+          <div class="gallery-item">
+            {% render 'responsive-image', image: block.settings.image %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.serie-ghost-section {
+  background: {{ section.settings.background_color | default: '#f5f5f5' }};
+  padding: 90px 0;
+}
+
+.premium-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+  align-items: center;
+}
+
+.main-image-wrapper {
+  position: relative;
+}
+
+.main-image .rimage-outer-wrapper {
+  width: 100%;
+  display: block;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.overlay-title {
+  position: absolute;
+  right: -72%;
+  bottom: 75%;
+  z-index: 2;
+}
+
+.premium-main-title {
+  font-size: {{ section.settings.title_size | default: 72 }}px;
+  font-weight: 900;
+  line-height: 1;
+  color: {{ section.settings.title_color | default: '#000' }};
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  text-align: left!important;
+}
+
+.main-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-content {
+  max-width: 400px;
+}
+
+.back-link {
+  margin-bottom: 10px;
+}
+
+.back-link a {
+  color: {{ section.settings.text_color | default: '#666' }};
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.back-link a:hover {
+  color: {{ section.settings.title_color | default: '#000' }};
+}
+
+.description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: {{ section.settings.text_color | default: '#666' }};
+  margin-top: 30px;
+}
+
+.bottom-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: {{ section.settings.gallery_aspect_ratio | default: '4/5' }};
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+   .bottom-gallery {
+    width: 73%;
+    }
+  }
+@media (max-width: 767.8px) {
+  .serie-ghost-section {
+    padding: 40px 0;
+  }
+  
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .premium-main-title {
+    font-size: {{ section.settings.title_size | default: 72 | divided_by: 1.5 }}px;
+  }
+  
+  .overlay-title {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 30px;
+  }
+  
+  .bottom-gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .premium-main-title {
+    font-size: {{ section.settings.title_size | default: 72 | divided_by: 2 }}px;
+  }
+  
+  .premium-container {
+    padding: 0 15px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Serie Ghost",
+  "tag": "section",
+  "class": "section-serie-ghost",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Serie Ghost"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "info": "Optional description text"
+    },
+    {
+      "type": "text",
+      "id": "back_link_text",
+      "label": "Back Link Text",
+      "default": "BACK TO SERIES"
+    },
+    {
+      "type": "url",
+      "id": "back_link_url",
+      "label": "Back Link URL",
+      "default": "/"
+    },
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 36,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 72
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Main Image Aspect Ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4/3",
+          "label": "Standard (4:3)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "16/9",
+          "label": "Wide (16:9)"
+        },
+        {
+          "value": "2/3",
+          "label": "Tall Portrait (2:3)"
+        }
+      ],
+      "default": "3/4"
+    },
+    {
+      "type": "select",
+      "id": "gallery_aspect_ratio",
+      "label": "Gallery Images Aspect Ratio",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4/3",
+          "label": "Standard (4:3)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "4/5",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "16/9",
+          "label": "Wide (16:9)"
+        }
+      ],
+      "default": "4/5"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_image",
+      "name": "Gallery Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Serie Ghost",
+      "blocks": [
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

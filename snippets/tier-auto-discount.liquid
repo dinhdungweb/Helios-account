@@ -1,0 +1,252 @@
+{% comment %}
+  Auto-apply Tier Discount Code
+  
+  Tự động apply discount code dựa trên tier của customer
+  Sử dụng cho Option A (Free - không cần Shopify Plus)
+{% endcomment %}
+
+{% if customer %}
+  {% comment %} Tính total_spent {% endcomment %}
+  {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+    {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+  {% else %}
+    {% assign total_spent = customer.total_spent | divided_by: 100 %}
+  {% endif %}
+  
+  {% comment %} Xác định discount code từ settings {% endcomment %}
+  {% liquid
+    assign discount_code = ""
+    assign prioritize_tags = settings.tier_prioritize_tags
+    
+    comment Ưu tiên tags nếu bật trong settings
+    endcomment
+    if prioritize_tags
+      if customer.tags contains settings.tier_1_tag
+        assign discount_code = settings.tier_1_discount_code
+      elsif customer.tags contains settings.tier_2_tag
+        assign discount_code = settings.tier_2_discount_code
+      elsif customer.tags contains settings.tier_3_tag
+        assign discount_code = settings.tier_3_discount_code
+      elsif customer.tags contains settings.tier_4_tag
+        assign discount_code = settings.tier_4_discount_code
+      elsif customer.tags contains settings.tier_5_tag
+        assign discount_code = settings.tier_5_discount_code
+      endif
+    endif
+    
+    comment Nếu chưa có discount code, dùng total_spent
+    endcomment
+    if discount_code == ""
+      assign tier_1_threshold = settings.tier_1_threshold | plus: 0
+      assign tier_2_threshold = settings.tier_2_threshold | plus: 0
+      assign tier_3_threshold = settings.tier_3_threshold | plus: 0
+      assign tier_4_threshold = settings.tier_4_threshold | plus: 0
+      assign tier_5_threshold = settings.tier_5_threshold | plus: 0
+      
+      if total_spent >= tier_1_threshold
+        assign discount_code = settings.tier_1_discount_code
+      elsif total_spent >= tier_2_threshold
+        assign discount_code = settings.tier_2_discount_code
+      elsif total_spent >= tier_3_threshold
+        assign discount_code = settings.tier_3_discount_code
+      elsif total_spent >= tier_4_threshold
+        assign discount_code = settings.tier_4_discount_code
+      elsif total_spent >= tier_5_threshold
+        assign discount_code = settings.tier_5_discount_code
+      else
+        assign discount_code = settings.tier_6_discount_code
+      endif
+    endif
+  %}
+  
+  <script>
+    (function() {
+      const discountCode = '{{ discount_code }}';
+      const totalSpent = {{ total_spent }};
+      
+      if (!discountCode) return;
+      
+      // Store discount code for later use
+      sessionStorage.setItem('helios_tier_discount', discountCode);
+      sessionStorage.setItem('helios_total_spent', totalSpent);
+      
+      // Function to add discount to URL
+      function addDiscountToUrl(url) {
+        try {
+          const urlObj = new URL(url, window.location.origin);
+          urlObj.searchParams.set('discount', discountCode);
+          return urlObj.toString();
+        } catch (e) {
+          return url + (url.includes('?') ? '&' : '?') + 'discount=' + discountCode;
+        }
+      }
+      
+      // Auto-apply to checkout buttons
+      function applyDiscountToCheckout() {
+        // Checkout buttons
+        const checkoutSelectors = [
+          '[name="checkout"]',
+          '.checkout-button',
+          '[href*="/checkout"]',
+          'button[type="submit"][name="checkout"]',
+          'input[type="submit"][name="checkout"]'
+        ];
+        
+        checkoutSelectors.forEach(selector => {
+          document.querySelectorAll(selector).forEach(btn => {
+            if (btn.dataset.discountApplied) return;
+            btn.dataset.discountApplied = 'true';
+            
+            if (btn.tagName === 'A') {
+              // Link element
+              btn.href = addDiscountToUrl(btn.href);
+            } else if (btn.tagName === 'BUTTON' || btn.tagName === 'INPUT') {
+              // Button element
+              btn.addEventListener('click', function(e) {
+                const form = btn.closest('form');
+                if (form && form.action.includes('/cart')) {
+                  e.preventDefault();
+                  window.location.href = addDiscountToUrl('/checkout');
+                }
+              });
+            }
+          });
+        });
+        
+        // Cart links
+        document.querySelectorAll('a[href*="/cart"]').forEach(link => {
+          if (!link.dataset.discountApplied) {
+            link.dataset.discountApplied = 'true';
+            link.href = addDiscountToUrl(link.href);
+          }
+        });
+      }
+      
+      // Apply on page load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyDiscountToCheckout);
+      } else {
+        applyDiscountToCheckout();
+      }
+      
+      // Re-apply when new elements are added (for AJAX cart)
+      const observer = new MutationObserver(function(mutations) {
+        applyDiscountToCheckout();
+      });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      // Show notification (optional)
+      {% if settings.tier_show_discount_notification %}
+      const notification = document.createElement('div');
+      notification.className = 'tier-discount-notification';
+      notification.innerHTML = `
+        <div class="tier-discount-notification-content">
+          <span class="tier-discount-text">
+            Bạn được giảm giá tự động khi thanh toán!
+          </span>
+          <button class="tier-discount-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+      `;
+      
+      // Add to page after 2 seconds
+      setTimeout(() => {
+        document.body.appendChild(notification);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          setTimeout(() => notification.remove(), 300);
+        }, 5000);
+      }, 2000);
+      {% endif %}
+      
+      // Debug info (remove in production)
+      console.log('Helios Tier Discount:', {
+        code: discountCode,
+        totalSpent: totalSpent,
+        tier: discountCode.replace('AUTO_', '').replace(/_\d+$/, '')
+      });
+    })();
+  </script>
+  
+  <style>
+    .tier-discount-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      animation: slideInUp 0.3s ease-out;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tier-discount-notification-content {
+      background: linear-gradient(135deg, #fab320 0%, #ff8c00 100%);
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 300px;
+    }
+    
+    .tier-discount-icon {
+      font-size: 20px;
+    }
+    
+    .tier-discount-text {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .tier-discount-close {
+      background: none;
+      border: none;
+      color: #000;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    
+    .tier-discount-close:hover {
+      opacity: 1;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .tier-discount-notification {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+      }
+      
+      .tier-discount-notification-content {
+        max-width: none;
+      }
+    }
+  </style>
+{% endif %}

@@ -1,0 +1,76 @@
+{% style %}
+  .table-oc{
+    margin:0px 0px 20px 0px
+  }
+  .content-toc.table-oc {
+    margin: 0;
+  }
+  .table-oc > ol{
+    margin:10px;
+    background:{{block.settings.toc-ctn-bk}};
+    width:fit-content;
+    padding-left: 20px;
+  }
+  .table-oc ol {
+    padding: 5px 15px;
+}
+  .table-oc a {
+    border-bottom: none;
+  }
+  html{
+    scroll-behavior:smooth
+  }
+  .table-oc li::before{
+    content:"\2022";
+    color:grey;
+    font-weight:700;
+    display: none;
+    width:1em;
+    margin-left:-1em
+  }
+  .collapsible-toc:hover{
+    background-color:#555
+  }
+  .content-toc{
+    padding-top: 1px;
+    padding-bottom: 10px;
+    display:block;
+    background-color: #111;
+  }
+  .content-toc{
+    display: block;
+  }
+  @media only screen and (max-width: 667px) {:target:before {content: "";display: block;height: 100px;margin: -30px 0 0;}}
+  
+    div.collapsible-toc {
+    background: #f2f2f2;
+    color: #333;
+    padding: 10px 15px;
+    border: none;  
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .content-toc ol li {
+    font-size: 0.9rem;
+  }
+  div.collapsible-toc:hover {
+    background : #ddd;
+    color: {{block.settings.toc-btn-hvr-txt}};
+  }
+    .collapsible-toc > svg {
+      fill: #111;
+    }
+    .collapsible-toc.h3.active svg {
+    rotate: 180deg;
+}
+{% endstyle %}
+
+<div class=" collapsible-toc h3" style="font-size:{{block.settings.toc-hd-sz}}px;">{{block.settings.toc_hd}} Xem nhanh <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+  <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+</svg></div>
+<div class="content-toc table-oc" data-toc></div>
+<div class="rte" data-content >{{ article.content }}</div>
+<script type="text/javascript" src="{{ 'table-of-contents.js' | asset_url }}"></script>  
+<script>tableOfContents("[data-content]","[data-toc]",{listType:"ol",levels:"h2, h3, h4, h5, h6"});for(var coll=document.getElementsByClassName("collapsible-toc"),i=0;i<coll.length;i++)coll[i].addEventListener("click",function(){this.classList.toggle("active");var l=this.nextElementSibling;"none"===l.style.display?l.style.display="block":l.style.display="none"});</script>

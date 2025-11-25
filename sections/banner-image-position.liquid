@@ -1,0 +1,245 @@
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "url",
+      "id": "image_link",
+      "label": "Link for the Banner Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",  
+      "name": "Child Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "child_image_1",
+          "label": "Select Child Image"
+        },
+        {
+          "type": "url",
+          "id": "child_image_1_link",
+          "label": "Link for Child Image"
+        },
+        {
+          "type": "range",
+          "id": "child_image_1_position_x",
+          "label": "Horizontal Position (X) for Child Image",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "default": 0,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "child_image_1_position_y",
+          "label": "Vertical Position (Y) for Child Image",
+          "min": -100,
+          "max": 100,
+          "step": 2,
+          "default": 0,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "child_image_1_width",
+          "label": "Width for Child Image (%)",
+          "min": 5,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "select",
+          "id": "child_image_1_animation",
+          "label": "Animation Effect",
+          "options": [
+            {
+              "value": "fade",
+              "label": "Fade"
+            },
+            {
+              "value": "fade-to-left",
+              "label": "Fade to Left"
+            },
+            {
+              "value": "fade-to-right",
+              "label": "Fade to Right"
+            },
+            {
+              "value": "fade-to-down",
+              "label": "Fade to Down"
+            },
+            {
+              "value": "fade-to-up",
+              "label": "Fade to Up"
+            }
+          ],
+          "default": "fade",
+          "info": "Select the animation effect for the child image."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner",
+      "settings": {
+        "banner_image": "",
+        "image_link": ""
+      },
+      "blocks": [
+        {
+          "type": "image", 
+          "settings": {
+            "child_image_1": "",
+            "child_image_1_link": "",
+            "child_image_1_position_x": 0,
+            "child_image_1_position_y": 0,
+            "child_image_1_width": 50,
+            "child_image_1_animation": "fade"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-banner-section" style="background-image: url({{ section.settings.banner_image | img_url: 'original' }});">
+  {% for block in section.blocks %}
+    <div class="image-wrapper" 
+         style="position: absolute; 
+                left: {{ block.settings.child_image_1_position_x }}%; 
+                top: {{ block.settings.child_image_1_position_y }}%; 
+                width: {{ block.settings.child_image_1_width }}%; 
+                height: auto;">
+      {% if block.settings.child_image_1_link != blank %}
+        <a href="{{ block.settings.child_image_1_link }}" class="child-image-link">
+          <img src="{{ block.settings.child_image_1 | img_url: 'original' }}" 
+               alt="Child Image" 
+               class="fade-in-image {{ block.settings.child_image_1_animation }}"
+               data-animation="{{ block.settings.child_image_1_animation }}">
+        </a>
+      {% else %}
+        <img src="{{ block.settings.child_image_1 | img_url: 'original' }}" 
+             alt="Child Image" 
+             class="fade-in-image {{ block.settings.child_image_1_animation }}"
+             data-animation="{{ block.settings.child_image_1_animation }}">
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .custom-banner-section {
+    {% comment %} margin-top: var(--nav-height); {% endcomment %}
+    position: relative;
+    width: 100%;
+    height: 696px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+  }
+
+  .image-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .image-wrapper img {
+    max-width: 100%;
+    height: auto;
+    opacity: 0;
+    transition: all 1.5s ease-in-out;
+  }
+
+  .child-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+
+  /* Fade effect */
+  .image-wrapper img.fade {
+    opacity: 0;
+  }
+  .image-wrapper img.fade.loaded {
+    opacity: 1;
+  }
+
+  /* Fade to Left effect */
+  .image-wrapper img.fade-to-left {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  .image-wrapper img.fade-to-left.loaded {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Fade to Right effect */
+  .image-wrapper img.fade-to-right {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  .image-wrapper img.fade-to-right.loaded {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Fade to Down effect */
+  .image-wrapper img.fade-to-down {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  .image-wrapper img.fade-to-down.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Fade to Up effect */
+  .image-wrapper img.fade-to-up {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  .image-wrapper img.fade-to-up.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const images = document.querySelectorAll('.fade-in-image');
+    images.forEach(image => {
+      if (image.complete) {
+        image.classList.add('loaded');
+      } else {
+        image.addEventListener('load', function() {
+          image.classList.add('loaded');
+        });
+      }
+    });
+  });
+</script>

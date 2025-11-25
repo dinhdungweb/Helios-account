@@ -1,0 +1,314 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "background_video_responsive_RnWgY3": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 910,
+        "video_height_mobile": 600,
+        "video_link": "shopify://collections/faith-collection",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/freecompress-web.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/freecompress-web.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "featured_collection_WGhiFt": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "new-products",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "two_banner_gUWcNj": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_jqKwem": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/z7239842999976_1e7375c4841ebc77ecf63fa8808effd1.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/nhan-bac-nam",
+            "title": "NHẪN BẠC NAM",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_jAMpJq": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/SRK00356.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/faith-collection",
+            "title": "BỘ SƯU TẬP \"ĐỨC TIN\"",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_jqKwem",
+        "banner_jAMpJq"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": true,
+        "gap": 0,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
+    },
+    "two_banner_C3RzCw": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_wnK37c": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/SRK00535.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/mat-day-chuyen-bac-s925",
+            "title": "MẶT DÂY CHUYỀN BẠC",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_CcYr6M": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/6-1_69915b2c-015a-46d8-a9b5-3205387891a3.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/new-in",
+            "title": "NEW IN",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_wnK37c",
+        "banner_CcYr6M"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": true,
+        "gap": 0,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
+    },
+    "two_banner_qNEPMY": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_Nmp8fT": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/4-1.webp",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/vong-tay-bac-nam",
+            "title": "VÒNG TAY BẠC",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_Adiycb": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/SRK00464.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/khuyen-tai-bac-nam",
+            "title": "KHUYÊN TAI BẠC",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_Nmp8fT",
+        "banner_Adiycb"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": true,
+        "gap": 0,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
+    },
+    "two_banner_E4NazD": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_d3ddye": {
+          "type": "banner",
+          "settings": {
+            "video": "shopify://files/videos/Quay xưởng bộ đức tin FAITH 29.10.2025 DƯỚI 10MB.mp4",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/all-products",
+            "title": "CHẾ TÁC THỦ CÔNG",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_bVTGHD": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/SRK00771.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/accessories",
+            "title": "ACCESSORIES",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_d3ddye",
+        "banner_bVTGHD"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": true,
+        "gap": 0,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
+    },
+    "popup_overlay_custom_pFebVj": {
+      "type": "popup-overlay-custom",
+      "name": "Popup Newsletter",
+      "settings": {
+        "image": "shopify://shop_images/1_1_b2a73143-7a17-4f7c-b9aa-2bb32fe07237.webp",
+        "title": "BẠN ĐANG TIN VÀO ĐIỀU GÌ?",
+        "description": "Không nhiều người giữ được đức tin khi cuộc sống nhiều thử thách.\nNhưng chính những người bước tiếp trên hành trình ấy mới thật sự mạnh mẽ.\nHELIOS tạo nên BST Đức Tin - như lời tri ân dành cho bản lĩnh đó.",
+        "button_text": "KHÁM PHÁ BST ĐỨC TIN",
+        "button_link": "shopify://collections/faith-collection",
+        "delay": 5000,
+        "show_once": true
+      }
+    }
+  },
+  "order": [
+    "background_video_responsive_RnWgY3",
+    "featured_collection_WGhiFt",
+    "two_banner_gUWcNj",
+    "two_banner_C3RzCw",
+    "two_banner_qNEPMY",
+    "two_banner_E4NazD",
+    "popup_overlay_custom_pFebVj"
+  ]
+}

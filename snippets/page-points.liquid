@@ -1,0 +1,284 @@
+{% assign customer_points = customer.metafields.rewards.points | default: 0 %}
+
+<div class="customer-rewards-points">
+  <h1>Chương Trình Điểm Thưởng</h1>
+  
+  {% if customer_points >= 5000 %}
+      <form id="reward-exchange-form">
+          <input type="hidden" id="customerId" value="{{ customer.id }}">
+          <input type="hidden" id="customerEmail" value="{{ customer.email }}">
+          <div class="rewards-point-header flex justify-between mb-14">
+            <div>Xin chào, <strong>{{ customer.name }}</strong>!</div>
+            <div>Điểm: <strong>{{ customer_points }}</strong></div>
+          </div>
+          <label for="discount">Chọn mức giảm giá:</label>
+          <select id="discountValue">
+              <option value="50000">50.000 VND - 5000 Điểm</option>
+              <option value="100000">100.000 VND - 10000 Điểm</option>
+          </select>
+          <button type="submit" id="exchange-btn">Đổi Điểm </button>
+          <button id="loading-icon" style="display: none;"><span class="loading-icon"></span></button>
+          
+      </form>
+  {% else %}
+      <p>Bạn cần ít nhất 5000 điểm để đổi mã giảm giá.</p>
+  {% endif %}
+  
+  <h2>Lịch Sử Đổi Điểm</h2>
+  <table id="reward-history">
+      <thead>
+          <tr>
+              <th>Ngày</th>
+              <th>Điểm Đã Dùng</th>
+              <th>Hành Động</th>
+              <th>Mã Giảm Giá</th>
+              <th>Giá Trị (VND)</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr><td colspan="5" class="empty-message">Đang tải dữ liệu...</td></tr>
+      </tbody>
+  </table>
+  <div class="rewards-pagination">
+      <button class="page-btn" id="prevPage" disabled>← Trước</button>
+      <span id="pageInfo"></span>
+      <button class="page-btn" id="nextPage" disabled>Tiếp →</button>
+  </div>
+</div>
+<style>
+.customer-rewards-points form {
+    max-width: 400px;
+    margin: 20px auto;
+    background: #1e1e1e;
+    padding: 20px;
+}
+
+.customer-rewards-points label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #fab320;
+}
+
+.customer-rewards-points .pretty-select {
+    padding: 10px;
+    border: 1px solid #fab320;
+    font-size: 14px;
+    background: #222;
+    color: #ffffff;
+}
+.customer-rewards-points .pretty-select .label {
+    display: none;
+}
+.customer-rewards-points button {
+    background: #fab320;
+    color: #121212;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.customer-rewards-points button:hover {
+    background: #d89d1a;
+}
+
+.customer-rewards-points table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1e1e1e;
+    margin-top: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.customer-rewards-points th, .customer-rewards-points td {
+    padding: 7px 15px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.customer-rewards-points th {
+    background: #fab320;
+    color: #121212;
+    text-transform: uppercase;
+}
+
+.customer-rewards-points tbody tr:nth-child(even) {
+    background: #2a2a2a;
+}
+
+.customer-rewards-points tbody tr:hover {
+    background: #fab320;
+    color: #121212;
+}
+
+.customer-rewards-points .empty-message {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+}
+
+.rewards-pagination {
+    display: none;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.rewards-pagination .page-btn {
+    background: #fab320;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #121212;
+}
+
+.rewards-pagination .page-btn:hover {
+    background: #d89d1a;
+}
+
+.rewards-pagination .page-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.loading-icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 3px solid #fab320;
+    border-top: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+#loading-icon {
+  background: transparent;
+  min-width: 117px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .customer-rewards-points table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+</style>
+
+<script>
+document.getElementById("reward-exchange-form")?.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const exchangeBtn = document.getElementById("exchange-btn");
+    const loadingIcon = document.getElementById("loading-icon");
+
+    // Ẩn nút và hiển thị loading
+    exchangeBtn.style.display = "none";
+    loadingIcon.style.display = "inline-block";
+
+    const customerId = document.getElementById("customerId").value;
+    const customerEmail = document.getElementById("customerEmail").value;
+    const discountValue = document.getElementById("discountValue").value;
+
+    try {
+        const response = await fetch("https://alabaster-ivy-glove.glitch.me/apps/reward-exchange", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ customerId, customerEmail, discountValue: parseInt(discountValue) })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert(`Mã giảm giá của bạn: ${data.discountCode}`);
+            fetchRewardHistory(); // Cập nhật lịch sử ngay sau khi đổi điểm
+        } else {
+            alert(`Lỗi: ${data.error}`);
+        }
+    } catch (error) {
+        console.error("❌ Lỗi khi đổi điểm:", error.message);
+        alert("Có lỗi xảy ra, vui lòng thử lại!");
+    }
+
+    // Hiện lại nút và ẩn loading sau khi xử lý xong
+    exchangeBtn.style.display = "inline-block";
+    loadingIcon.style.display = "none";
+});
+
+
+let historyData = [];
+let currentPage = 1;
+const itemsPerPage = 10;
+
+async function fetchRewardHistory() {
+    try {
+        const response = await fetch(`https://alabaster-ivy-glove.glitch.me/customer-reward-history?customer_id={{ customer.id }}`);
+        if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+
+        const data = await response.json();
+        historyData = data.history || [];
+
+        if (historyData.length === 0) {
+            document.querySelector("#reward-history tbody").innerHTML = "<tr><td colspan='5' class='empty-message'>Chưa có lịch sử đổi điểm</td></tr>";
+            return;
+        }
+
+        historyData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Hiển thị mới nhất trước
+        renderTable();
+    } catch (error) {
+        console.error("❌ Lỗi khi tải lịch sử:", error.message);
+    }
+}
+
+function renderTable() {
+    const tableBody = document.querySelector("#reward-history tbody");
+    tableBody.innerHTML = "";
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const paginatedData = historyData.slice(start, start + itemsPerPage);
+
+    paginatedData.forEach(item => {
+        const row = `<tr>
+            <td>${new Date(item.date).toLocaleDateString()}</td>
+            <td>${item.points_used}</td>
+            <td>${item.action}</td>
+            <td>${item.discount_code !== "Không có" ? item.discount_code : "N/A"}</td>
+            <td>${item.amount_vnd.toLocaleString()} VND</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
+
+    // Hiển thị hoặc ẩn phân trang
+    const paginationElement = document.querySelector(".rewards-pagination");
+    if (historyData.length > itemsPerPage) {
+        paginationElement.style.display = "flex";
+    } else {
+        paginationElement.style.display = "none";
+    }
+
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = start + itemsPerPage >= historyData.length;  
+    document.getElementById("pageInfo").innerText = `Trang ${currentPage} / ${Math.ceil(historyData.length / itemsPerPage)}`;
+}
+
+document.getElementById("prevPage").addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+    }
+});
+
+document.getElementById("nextPage").addEventListener("click", () => {
+    if ((currentPage * itemsPerPage) < historyData.length) {
+        currentPage++;
+        renderTable();
+    }
+});
+
+fetchRewardHistory();
+</script>

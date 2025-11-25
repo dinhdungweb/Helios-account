@@ -1,0 +1,162 @@
+<div class="vote-container">
+  <!-- Form nhập email -->
+  <div id="email-auth-container">
+    <label for="email">Nhập email để vote:</label>
+    <input type="email" id="email" placeholder="Nhập email của bạn">
+    <button id="send-email-otp">Gửi mã xác minh</button>
+  </div>
+
+  <!-- Form nhập mã xác minh -->
+  <div id="otp-verification-container" style="display: none;">
+    <label for="otp-code">Nhập mã xác minh:</label>
+    <input type="text" id="otp-code" placeholder="Nhập mã xác minh">
+    <button id="verify-email-otp">Xác minh</button>
+  </div>
+
+  <!-- Kết quả vote -->
+  <div id="vote-result" style="display: none;">
+    <p id="vote-message"></p>
+  </div>
+</div>
+
+<style>
+.vote-container {
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+</style>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
+// ✅ Cấu hình Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCrWJgfwz4AdGPKwnC-anB1rAa9jpttUF4",
+  authDomain: "vote-with-otp.firebaseapp.com",
+  projectId: "vote-with-otp",
+  storageBucket: "vote-with-otp.firebasestorage.app",
+  messagingSenderId: "375309219137",
+  appId: "1:375309219137:web:2b674d218ac47b08665dc0",
+  measurementId: "G-MT9L8ZWVDN"
+};
+
+// ✅ Khởi tạo Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+auth.useDeviceLanguage();
+
+// ✅ Tắt reCAPTCHA cho Email Authentication
+auth.settings.appVerificationDisabledForTesting = true;
+
+// ✅ Cấu hình gửi email xác minh
+const actionCodeSettings = {
+  url: "https://helios.vn/pages/vote?emailSignIn=true",
+  handleCodeInApp: true
+};
+
+// ✅ Gửi OTP qua email
+document.getElementById("send-email-otp").addEventListener("click", () => {
+  const email = document.getElementById("email").value.trim();
+
+  if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    alert("❌ Email không hợp lệ! Vui lòng nhập đúng email.");
+    return;
+  }
+
+  sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    .then(() => {
+      localStorage.setItem("emailForSignIn", email);
+      alert("✅ Mã xác minh đã gửi đến email của bạn! Vui lòng kiểm tra hộp thư.");
+      document.getElementById("email-auth-container").style.display = "none";
+      document.getElementById("otp-verification-container").style.display = "block";
+    })
+    .catch((error) => {
+      console.error("❌ Lỗi gửi email:", error);
+      alert("❌ Lỗi gửi email: " + error.message);
+    });
+});
+
+// ✅ Xác minh OTP từ email
+document.getElementById("verify-email-otp").addEventListener("click", () => {
+  if (isSignInWithEmailLink(auth, window.location.href)) {
+    let email = localStorage.getItem("emailForSignIn");
+
+    if (!email) {
+      email = prompt("Nhập lại email của bạn:");
+    }
+
+    signInWithEmailLink(auth, email, window.location.href)
+      .then((result) => {
+        document.getElementById("otp-verification-container").style.display = "none";
+        document.getElementById("vote-result").style.display = "block";
+        document.getElementById("vote-message").innerText = "✅ Xác minh thành công! Bạn đã vote!";
+        saveVoteToShopify(email);
+      })
+      .catch((error) => {
+        alert("❌ Lỗi xác minh email: " + error.message);
+      });
+  }
+});
+
+// ✅ Lưu vote vào Shopify Metafields
+function saveVoteToShopify(email) {
+  fetch("/vote", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email: email })
+  })
+  .then(response => response.json())
+  .then(data => console.log("✅ Vote đã được lưu:", data))
+  .catch(error => console.error("❌ Lỗi khi lưu vote:", error));
+}
+document.addEventListener("DOMContentLoaded", () => {
+  if (isSignInWithEmailLink(auth, window.location.href)) {
+    let email = localStorage.getItem("emailForSignIn");
+
+    if (!email) {
+      email = prompt("Nhập email của bạn để xác minh:");
+    }
+
+    signInWithEmailLink(auth, email, window.location.href)
+      .then((result) => {
+        document.getElementById("otp-verification-container").style.display = "none";
+        document.getElementById("vote-result").style.display = "block";
+        document.getElementById("vote-message").innerText = "✅ Xác minh thành công! Bạn đã vote!";
+
+        saveVoteToShopify(email);
+
+        // ✅ Chuyển hướng về trang Vote sau khi đăng nhập
+        setTimeout(() => {
+          window.location.href = "https://helios.vn/pages/vote";
+        }, 2000);
+      })
+      .catch((error) => {
+        alert("❌ Lỗi xác minh email: " + error.message);
+      });
+  }
+});
+
+</script>

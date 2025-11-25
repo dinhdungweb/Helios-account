@@ -1,0 +1,20 @@
+{% comment %}
+  Snippet format số tiền VND
+  Usage: {% render 'format-vnd', amount: 1000000 %}
+  Output: 1.000.000
+{% endcomment %}
+
+{% liquid
+  assign amount_floor = amount | floor | split: '' | reverse
+  assign formatted_number = ''
+  
+  for digit in amount_floor
+    assign remainder = forloop.index0 | modulo: 3
+    if remainder == 0 and forloop.index0 != 0
+      assign formatted_number = formatted_number | append: '.'
+    endif
+    assign formatted_number = formatted_number | append: digit
+  endfor
+  
+  assign formatted_number = formatted_number | split: '' | reverse | join: ''
+%}{{ formatted_number }}

@@ -1,0 +1,379 @@
+{%- liquid
+  assign heading_tag = "h2"
+  if section.settings.heading_h1
+    assign heading_tag = "h1"
+  endif
+-%}
+
+<div id="quiz-{{ section.id }}" class="quiz-section{% if section.settings.glass_effect %} quiz--glass{% endif %}"
+     data-method="highest_category"
+     data-show-progress="{{ section.settings.show_progress }}"
+     data-persist="false"
+     data-restart-enabled="{{ section.settings.enable_restart }}">
+
+  <style>
+    #quiz-{{ section.id }}{
+      --quiz-accent: {{ section.settings.accent_color | default: '#fab320' }};
+      --quiz-bg: {{ section.settings.bg_color | default: '#0e0e0e' }};
+      --quiz-text: {{ section.settings.text_color | default: '#f2f2f2' }};
+      --quiz-card-bg: {{ section.settings.card_bg | default: 'rgba(255,255,255,0.06)' }};
+      --quiz-radius: {{ section.settings.radius | default: 12 }}px;
+      --quiz-shadow: {{ section.settings.shadow_strength | default: 16 }};
+    }
+    #quiz-{{ section.id }}.quiz--glass .quiz-card,
+    #quiz-{{ section.id }}.quiz--glass .quiz-result{ backdrop-filter: blur(8px); }
+  </style>
+
+  <div class="quiz-inner">
+    {% if section.settings.quiz_title != blank %}
+      <div class="quiz-header">
+        <{{ heading_tag }} class="quiz-title">{{ section.settings.quiz_title | escape }}</{{ heading_tag }}>
+        {% if section.settings.quiz_description != blank %}
+          <p class="quiz-subtitle">{{ section.settings.quiz_description | escape }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="quiz-progress" aria-live="polite"></div>
+    <div class="quiz-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="quiz-progressbar__bar"></div>
+    </div>
+
+    <div class="quiz-card" data-state="question">
+      <!-- Question content inserted by quiz.js -->
+    </div>
+
+    <div class="quiz-result" hidden>
+      <div class="quiz-result__media"></div>
+      <div class="quiz-result__content">
+        <{{ heading_tag }} class="quiz-result__title h2"></{{ heading_tag }}>
+        <div class="quiz-result__desc rte"></div>
+        <div class="quiz-result__cta"></div>
+      </div>
+    </div>
+
+    {%- assign results_for_products = section.blocks | where: 'type', 'result' -%}
+    <div class="quiz-recommendations" aria-live="polite">
+      {%- for block in results_for_products -%}
+        {%- assign reco_collection = collections[block.settings.reco_collection] -%}
+        <div class="quiz-reco-set" id="quiz-reco-{{ block.id }}" hidden>
+          {%- if block.settings.reco_title != blank -%}
+            <h3 class="quiz-reco-title">{{ block.settings.reco_title | escape }}</h3>
+          {%- endif -%}
+          {%- if reco_collection -%}
+            <div class="quiz-reco-grid">
+              {%- for product in reco_collection.products limit: block.settings.reco_limit -%}
+                {% render 'product-block', product: product, show_title: true, show_price: true, show_review: true, show_add_to_cart: true %}
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <p class="feature-subheader">Chưa gán collection đề xuất cho kết luận này.</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} Embed configuration as JSON for JS to consume {%- endcomment -%}
+  <script type="application/json" id="quiz-data-{{ section.id }}">
+  {
+    "questions": [
+      {%- assign qblocks = section.blocks | where: 'type', 'question' -%}
+      {%- for block in qblocks -%}
+        {
+          "id": "{{ block.id }}",
+          "text": {{ block.settings.question_text | json }},
+          "options": [
+            {
+              "label": {{ block.settings.answer_a | json }},
+              "weights": { "{{ block.settings.weight_a }}": 1 }
+            },
+            {
+              "label": {{ block.settings.answer_b | json }},
+              "weights": { "{{ block.settings.weight_b }}": 1 }
+            },
+            {
+              "label": {{ block.settings.answer_c | json }},
+              "weights": { "{{ block.settings.weight_c }}": 1 }
+            },
+            {
+              "label": {{ block.settings.answer_d | json }},
+              "weights": { "{{ block.settings.weight_d }}": 1 }
+            }
+          ],
+          "image": {%- if block.settings.question_image -%}{{ block.settings.question_image | image_url: width: 1200 | json }}{%- else -%}null{%- endif -%},
+          "image_alt": {{ block.settings.question_image_alt | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    "results": [
+      {%- assign results = section.blocks | where: 'type', 'result' -%}
+      {%- for block in results -%}
+        {
+          "id": "{{ block.settings.result_id }}",
+          "category_key": {{ block.settings.result_id | json }},
+          "title": {{ block.settings.result_title | json }},
+          "desc": {{ block.settings.result_description | json }},
+          "image": {%- if block.settings.result_image -%}{{ block.settings.result_image | image_url: width: 1600 | json }}{%- else -%}null{%- endif -%},
+          "cta": { 
+            "label": {%- if block.settings.result_product_handle != blank -%}"Xem sản phẩm"{%- else -%}""{%- endif -%}, 
+            "link": {%- if block.settings.result_product_handle != blank -%}{{ '/products/' | append: block.settings.result_product_handle | json }}{%- else -%}""{%- endif -%}
+          },
+          "rule": {}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="{{ 'quiz.css' | asset_url }}">
+  <script src="{{ 'quiz.js' | asset_url }}" defer></script>
+</div>
+
+{% schema %}
+{
+  "name": "Quiz V2 (Tính cách)",
+  "class": "section-quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "quiz_title",
+      "label": "Tiêu đề Quiz",
+      "default": "Trắc Nghiệm Tính Cách"
+    },
+    {
+      "type": "text",
+      "id": "quiz_description",
+      "label": "Mô tả Quiz",
+      "default": "Khám phá tính cách của bạn qua 8 câu hỏi"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress",
+      "label": "Hiển thị tiến độ",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_restart",
+      "label": "Cho phép làm lại",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_h1",
+      "label": "Dùng H1 cho tiêu đề",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Màu sắc & Giao diện"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Màu nhấn",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền",
+      "default": "#0e0e0e"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Màu khối nội dung",
+      "default": "rgba(255,255,255,0.06)"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Bo góc (px)",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "shadow_strength",
+      "label": "Độ đổ bóng",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "glass_effect",
+      "label": "Hiệu ứng mờ (glass)",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Câu hỏi",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "question_text",
+          "label": "Nội dung câu hỏi",
+          "default": "Câu hỏi của bạn?"
+        },
+        {
+          "type": "text",
+          "id": "answer_a",
+          "label": "Câu trả lời A",
+          "default": "Lựa chọn A"
+        },
+        {
+          "type": "select",
+          "id": "weight_a",
+          "label": "Điểm cho A",
+          "options": [
+            {"value": "A", "label": "A"},
+            {"value": "B", "label": "B"},
+            {"value": "C", "label": "C"},
+            {"value": "D", "label": "D"}
+          ],
+          "default": "A"
+        },
+        {
+          "type": "text",
+          "id": "answer_b",
+          "label": "Câu trả lời B",
+          "default": "Lựa chọn B"
+        },
+        {
+          "type": "select",
+          "id": "weight_b",
+          "label": "Điểm cho B",
+          "options": [
+            {"value": "A", "label": "A"},
+            {"value": "B", "label": "B"},
+            {"value": "C", "label": "C"},
+            {"value": "D", "label": "D"}
+          ],
+          "default": "B"
+        },
+        {
+          "type": "text",
+          "id": "answer_c",
+          "label": "Câu trả lời C",
+          "default": "Lựa chọn C"
+        },
+        {
+          "type": "select",
+          "id": "weight_c",
+          "label": "Điểm cho C",
+          "options": [
+            {"value": "A", "label": "A"},
+            {"value": "B", "label": "B"},
+            {"value": "C", "label": "C"},
+            {"value": "D", "label": "D"}
+          ],
+          "default": "C"
+        },
+        {
+          "type": "text",
+          "id": "answer_d",
+          "label": "Câu trả lời D",
+          "default": "Lựa chọn D"
+        },
+        {
+          "type": "select",
+          "id": "weight_d",
+          "label": "Điểm cho D",
+          "options": [
+            {"value": "A", "label": "A"},
+            {"value": "B", "label": "B"},
+            {"value": "C", "label": "C"},
+            {"value": "D", "label": "D"}
+          ],
+          "default": "D"
+        },
+        {
+          "type": "image_picker",
+          "id": "question_image",
+          "label": "Ảnh câu hỏi (tuỳ chọn)"
+        },
+        {
+          "type": "text",
+          "id": "question_image_alt",
+          "label": "Alt text cho ảnh"
+        }
+      ]
+    },
+    {
+      "type": "result",
+      "name": "Kết luận",
+      "settings": [
+        {
+          "type": "text",
+          "id": "result_id",
+          "label": "ID kết luận",
+          "info": "Ví dụ: ca_chep, dai_thu, hoa_nho, chuong_ho_menh, rong"
+        },
+        {
+          "type": "text",
+          "id": "result_title",
+          "label": "Tiêu đề kết luận",
+          "default": "Kết quả của bạn"
+        },
+        {
+          "type": "richtext",
+          "id": "result_description",
+          "label": "Mô tả kết luận",
+          "default": "<p>Mô tả kết quả của bạn</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "result_image",
+          "label": "Ảnh kết luận"
+        },
+        {
+          "type": "text",
+          "id": "result_product_handle",
+          "label": "Product handle (tuỳ chọn)",
+          "info": "Nhập handle sản phẩm để hiển thị nút xem sản phẩm"
+        },
+        {
+          "type": "collection",
+          "id": "reco_collection",
+          "label": "Collection đề xuất"
+        },
+        {
+          "type": "range",
+          "id": "reco_limit",
+          "label": "Số sản phẩm đề xuất",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 6
+        },
+        {
+          "type": "text",
+          "id": "reco_title",
+          "label": "Tiêu đề đề xuất",
+          "default": "Sản phẩm phù hợp"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz V2 (Tính cách)",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

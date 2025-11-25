@@ -1,0 +1,118 @@
+<div class="csb-container">
+  <!-- <div class="box box-1" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/1_833b08a7-7fb6-4f0b-8c40-9e36ae4e1b5e.jpg?v=1730434259);" data-text="Bushido">
+  </div>
+  <div class="box box-2" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/4_e1c7565f-0924-4630-9001-2f48ef926f53.jpg?v=1730434259);" data-text="Bushido">
+  </div>
+  <div class="box box-3" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/3_5b27e58b-884c-4a75-8017-8e34bd11c47f.jpg?v=1730434258);" data-text="Bushido">
+  </div>
+  <div class="box box-4" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/2_1858f9c7-bd3d-4f12-ae80-ce286c27fc77.jpg?v=1730434259);" data-text="Bushido">
+  </div>
+  <div class="box box-5" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/5_aaffe23b-d7fe-4cdf-a08e-ff5fccba1758.jpg?v=1730434258);" data-text="Bushido">
+  </div> -->
+  <div class="box box-1" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/8_c8d8dd65-1258-46ed-89ae-52d200ac6a76.jpg?v=1730435988);" data-text="Bushido">
+  </div>
+  <div class="box box-2" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/4_e1c7565f-0924-4630-9001-2f48ef926f53.jpg?v=1730434259);" data-text="Bushido">
+  </div>
+  <div class="box box-3" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/7_2.jpg?v=1730435987);" data-text="Bushido">
+  </div>
+  <div class="box box-4" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/5_aaffe23b-d7fe-4cdf-a08e-ff5fccba1758.jpg?v=1730434258);" data-text="Bushido">
+  </div>
+  <div class="box box-5" style="--img: url(https://cdn.shopify.com/s/files/1/0644/2958/8701/files/9_9f8f1086-3441-4270-9a96-9a2b26fcc26b.jpg?v=1730435987);" data-text="Bushido">
+  </div>
+</div>
+<style>
+.csb-container {
+  position: relative;
+  width: 1024px;
+  height: 550px;
+  display: grid;
+  margin: 100px auto;
+}
+.box {
+  /* position: absolute; */
+  background: var(--img) center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all 400ms;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.csb-container {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 1em;
+  transition: all 400ms;
+}
+.csb-container:hover .box {
+  filter: grayscale(100%) opacity(24%);
+}
+.csb-container .box:hover {
+  filter: grayscale(0%) opacity(100%);
+}
+.csb-container {
+  --layout-1: 3fr 1fr 1fr 1fr 1fr;
+  --layout-2: 1fr 3fr 1fr 1fr 1fr;
+  --layout-3: 1fr 1fr 3fr 1fr 1fr;
+  --layout-4: 1fr 1fr 1fr 3fr 1fr;
+  --layout-5: 1fr 1fr 1fr 1fr 3fr;
+
+  &:has(.box-1:hover) {
+    grid-template-columns: var(--layout-1);
+  }
+
+  &:has(.box-2:hover) {
+    grid-template-columns: var(--layout-2);
+  }
+
+  &:has(.box-3:hover) {
+    grid-template-columns: var(--layout-3);
+  }
+
+  &:has(.box-4:hover) {
+    grid-template-columns: var(--layout-4);
+  }
+
+  &:has(.box-5:hover) {
+    grid-template-columns: var(--layout-5);
+  }
+}
+.box {
+  &:nth-child(odd) {
+    transform: translateY(-16px);
+  }
+
+  &:nth-child(even) {
+    transform: translateY(16px);
+  }
+
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    font-size: large;
+    color: #fff;
+    background: #111;
+    bottom: 20px;
+    padding: 10px 10px 10px 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    transition: all 400ms;
+    transform: translateY(60px);
+    opacity: 0;
+  }
+
+  &:hover::after {
+    transform: translateY(0);
+    opacity: 1;
+    trasition-delay: 200ms;
+    
+  }
+}
+@media screen and (max-width: 768px) {
+  .csb-container {
+  width: 100%;
+  height: 200px;
+  margin: 50px auto;
+}
+}
+</style>

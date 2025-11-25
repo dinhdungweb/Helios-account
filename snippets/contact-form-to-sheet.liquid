@@ -1,0 +1,264 @@
+<div class="form-to-sheet-wrapper d-flex">
+    {% if cf-banner-left %}
+    <div class="form-image">
+      <img src="{{ cf-banner-left | img_url: 'original' }}" alt="Right Image" id="zoomableImage">
+    </div>
+    {% endif %}
+    <article class="form-to-sheet-letter">
+      <div class="form-to-sheet-side">
+        <h2 class="form-to-sheet-title h2">{{ cf-title }}</h2>
+        <div class="form-to-sheet-des">{{ cf-paragraph }}</div>
+        <form id="ajax-form" action="{{ cf-form-action-url }}" method="post">
+          {% if cf-placeholder1 and cf-placeholder2 != "" %}
+          <div class="flex">
+            <input type="text" id="name" name="{{ cf-entry1 }}" placeholder="{{ cf-placeholder1 }}" required>
+            <input type="number" id="tel" name="{{ cf-entry2 }}" placeholder="{{ cf-placeholder2 }}">
+          </div>
+          {% endif %}
+          {% if cf-placeholder3 != "" %}
+          <input type="email" id="email" name="{{ cf-entry3 }}" placeholder="{{ cf-placeholder3 }}" required>
+          {% endif %}
+          {% if cf-placeholder4 != "" %}
+          <input type="text" id="url" name="{{ cf-entry4 }}" placeholder="{{ cf-placeholder4 }}">
+          {% endif %}
+          {% if cf-placeholder5 != "" %}
+          <textarea id="message" name="{{ cf-entry5 }}" placeholder="{{ cf-placeholder5 }}"></textarea>
+          {% endif %}
+          {% if cf-entry6 != "" %}
+          <label for="dropdown-form">Lựa chọn của bạn?</label>
+          <select id="dropdown-form" name="{{ cf-entry6 }}">
+            <option value="Private">Private</option>
+            <option value="Public nhưng ẩn danh">Public nhưng ẩn danh</option>
+          </select>
+          {% endif %}
+          <div class="d-flex jc-center mt-30">
+            <button id="send-form-to-sheet-letter" type="submit">{{ cf-button }}</button>
+          </div>
+        </form>
+        <div id="form-message" style="margin-top: 10px; display: none;text-align: center"></div>
+      </div>
+    </article>
+  </div>
+<div class="image-zoom-overlay" id="imageZoomOverlay">
+    <button class="close-btn" id="closeZoom">&times;</button>
+    <img src="" alt="Zoomed Image" id="zoomedImage">
+  </div>
+<script>
+document.getElementById("ajax-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+    })
+        .then(() => {
+            document.getElementById("form-message").style.display = "block";
+            document.getElementById("form-message").innerText = "Gửi thành công!";
+            document.getElementById("form-message").style.color = "green";
+
+            form.reset();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            document.getElementById("form-message").style.display = "block";
+            document.getElementById("form-message").innerText = "Gửi thất bại. Vui lòng thử lại!";
+            document.getElementById("form-message").style.color = "red";
+        });
+});
+  // JavaScript xử lý zoom ảnh
+    document.addEventListener("DOMContentLoaded", function () {
+      const zoomableImage = document.getElementById("zoomableImage");
+      const imageZoomOverlay = document.getElementById("imageZoomOverlay");
+      const zoomedImage = document.getElementById("zoomedImage");
+      const closeZoom = document.getElementById("closeZoom");
+
+      // Hiện popup zoom khi click vào ảnh
+      zoomableImage.addEventListener("click", function () {
+        const imgSrc = zoomableImage.getAttribute("src");
+        zoomedImage.setAttribute("src", imgSrc);
+        imageZoomOverlay.style.display = "flex"; // Hiển thị overlay
+      });
+
+      // Đóng popup zoom khi nhấn nút tắt
+      closeZoom.addEventListener("click", function () {
+        imageZoomOverlay.style.display = "none"; // Ẩn overlay
+      });
+
+      // Đóng popup zoom khi click ra ngoài overlay
+      imageZoomOverlay.addEventListener("click", function (event) {
+        if (event.target === imageZoomOverlay) {
+          imageZoomOverlay.style.display = "none";
+        }
+      });
+    });
+</script>
+<style>
+  .image-zoom-overlay {
+      position: fixed;
+    padding: 50px;
+      top: calc(var(--nav-height) - 30px);
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - var(--nav-height) + 30px);
+      background: rgb(0 0 0 / 81%);
+      display: none; /* Ẩn mặc định */
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    .image-zoom-overlay img {
+      max-width: 95%;
+      max-height: 95%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Nút tắt */
+    .image-zoom-overlay .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: #fff;
+      padding: 0;
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 30px!important;
+    }
+
+    .image-zoom-overlay .close-btn:hover {
+      background: #ff5e57;
+      color: #fff;
+    }
+.pretty-select.id-dropdown-form {
+    color: #ccc;
+    font-size: 14px;
+    width: 100%;
+}
+.form-to-sheet-letter form input {
+  font-size: 14px;
+}
+button#send-form-to-sheet-letter {
+    font-size: 14px;
+}
+.d-flex {
+  display: flex;
+}
+.jc-center {
+  justify-content: center;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-30 {
+  margin-top: 30px;
+}  
+input, textarea {
+    background-color: transparent;
+    color: #fff;
+    font-size: 14px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    outline: 0;
+    min-height: 1.3rem;
+}
+::placeholder {
+  color: #ddd;
+}
+input:focus, textarea:focus, .pretty-select.id-dropdown-form:focus {
+  background: transparent;
+  color: #fff;
+  border: 1px solid orange;
+}
+textarea {
+  height: 8rem;
+}
+.form-to-sheet-wrapper {
+  margin: 100px auto;
+  width: 1100px;
+  max-width: 100%;
+  height: auto;
+  /* padding: 20px; */
+  border: 1px solid #ddd;
+}
+.flex {
+  display: flex;
+  gap: 8px;
+}
+button#send-form-to-sheet-letter {
+  padding: 10px 30px;
+  margin-left: 2px;
+  background: orange;
+  color: #fff;
+  font-size: 14px;
+}
+button#send-form-to-sheet-letter:hover {
+  background-color: #fff;
+  color: orange;
+  outline-color: #d3d3d3;
+  transform: scale(0.95);
+}
+.form-to-sheet-title {
+text-align: center;
+color: #FAB320;
+}
+.form-to-sheet-des {
+font-size: 14px;
+padding-bottom: 10px;
+padding-left: 10px;
+padding-right: 10px;
+}
+.text-center {
+  text-align: center;
+}
+.form-image {
+    width: 50%;
+}
+.form-image img {
+    height: 100%;
+    object-fit: cover;
+}
+  article.form-to-sheet-letter {
+    margin: 0 auto;
+    width: 50%;
+    padding: 50px;
+}
+/* @media (min-width: 1024px) {
+.form-to-sheet-wrapper {
+padding: 40px 50px;
+}
+} */
+@media screen and (max-width: 767.8px) {
+  .form-to-sheet-wrapper {
+  flex-wrap: wrap;
+  }
+  article.form-to-sheet-letter, .form-image {
+    width: 100%;
+  }
+  article.form-to-sheet-letter {
+    padding: 40px 20px;
+  }
+  .form-to-sheet-wrapper {
+    border: none;
+  }
+  .form-to-sheet-wrapper {
+    margin: 0;
+  }
+  .form-image img {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>

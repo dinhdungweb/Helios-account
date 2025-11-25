@@ -1,0 +1,235 @@
+{% comment %}
+  Magazine Flipbook Section - Full Fix (Scroll, Keyboard, and Mid-page Drag Enabled)
+{% endcomment %}
+
+<style>
+  .magazine-flipbook-section {
+    text-align: center;
+    margin: 3rem auto;
+    max-width: 100%;
+    padding: 0 1rem;
+    background-size: cover;
+    background-position: center;
+  }
+  .magazine-flipbook-heading { font-size: 2rem; margin-bottom: 1.5rem; font-weight: 500; letter-spacing: 0.5px; }
+  .magazine-flipbook-container { margin: 0 auto; background: transparent; box-shadow: 0 10px 30px rgba(0,0,0,0.6); overflow: hidden; position: relative; }
+  .magazine-flipbook-container .page { width: 100%; height: 100%; box-sizing: border-box; background: #fff; position: relative; cursor: grab; }
+  .magazine-flipbook-container .page img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .magazine-flipbook-container .page::before,
+  .magazine-flipbook-container .page::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 6%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .magazine-flipbook-container .page::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
+  }
+  .magazine-flipbook-container .page::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0.15), transparent);
+  }
+  .magazine-flipbook-container .shadow { background: radial-gradient(rgba(0,0,0,0.25) 0%, transparent 80%); position: absolute; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+  .magazine-flipbook-container .turn-page { box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+  .magazine-flipbook-nav { margin-top: 1.5rem; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .magazine-flipbook-nav button { background: #222; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; }
+  .magazine-flipbook-nav button:hover { background: #000; transform: translateY(-2px); }
+  .page-counter { font-size: 0.9rem; margin: 0 0.5rem; color: #bbb; }
+  .magazine-loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(255,255,255,0.1); z-index: 10; }
+  .progress-bar { margin-top: 10px; height: 6px; width: 100px; background: #444; border-radius: 5px; overflow: hidden; }
+  .progress-bar-inner { height: 100%; background: #fab320; width: 0%; transition: width 0.3s ease; }
+  @media (max-width: 767.8px) {
+    .magazine-flipbook-container { width: 100% !important; height: auto !important; aspect-ratio: 2/3; }
+    .magazine-flipbook-section {
+      {% if section.settings.background_image_mobile %}
+        background-image: url('{{ section.settings.background_image_mobile | image_url }}');
+      {% elsif section.settings.background_image %}
+        background-image: url('{{ section.settings.background_image | image_url }}');
+      {% endif %}
+    }
+  }
+  @media (min-width: 768px) {
+    .magazine-flipbook-section {
+      {% if section.settings.background_image_desktop %}
+        background-image: url('{{ section.settings.background_image_desktop | image_url }}');
+      {% elsif section.settings.background_image %}
+        background-image: url('{{ section.settings.background_image | image_url }}');
+      {% endif %}
+    }
+  }
+</style>
+
+<div class="magazine-flipbook-section">
+  {% if section.settings.heading != blank %}
+    <h2 class="magazine-flipbook-heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+  <div class="magazine-loading" id="loading-{{ section.id }}">
+    Đang tải... <div class="progress-bar"><div class="progress-bar-inner" id="progress-{{ section.id }}"></div></div>
+  </div>
+  <div id="magazine-{{ section.id }}" class="magazine-flipbook-container" style="width:{{ section.settings.width | default:1000 }}px;height:{{ section.settings.height | default:707 }}px;"></div>
+  <div class="magazine-flipbook-nav">
+    <button aria-label="Trang trước" class="prev-page" data-target="{{ section.id }}">‹ Trước</button>
+    <span class="page-counter"><span id="current-page-{{ section.id }}">1</span> / <span id="total-pages-{{ section.id }}">0</span></span>
+    <button aria-label="Trang tiếp theo" class="next-page" data-target="{{ section.id }}">Tiếp ›</button>
+    {% if section.settings.allow_fullscreen %}
+    <button aria-label="Xem toàn màn hình" class="fullscreen-toggle" data-target="{{ section.id }}">Fullscreen</button>
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ 'turn.js' | asset_url }}"></script>
+<script>
+  jQuery(function($){
+    const flipId = {{ section.id | json }};
+    const container = $('#magazine-' + flipId);
+    const loading = $('#loading-' + flipId);
+    const progressBar = $('#progress-' + flipId);
+    const pages = [{% for block in section.blocks %}{{ block.settings.page_image | img_url: 'master' | json }}{% unless forloop.last %},{% endunless %}{% endfor %}];
+
+    let loadedPages = 0;
+
+    function updateProgress() {
+      const percent = Math.round((loadedPages / pages.length) * 100);
+      progressBar.css('width', percent + '%');
+    }
+
+    function preloadPages(callback) {
+      if (pages.length === 0) { callback(); return; }
+      pages.forEach(function(src){
+        if (!src) { loadedPages++; updateProgress(); return; }
+        const img = new Image();
+        img.src = src;
+        img.onload = img.onerror = function(){
+          loadedPages++;
+          updateProgress();
+          if (loadedPages === pages.length) callback();
+        };
+      });
+    }
+
+    preloadPages(function(){
+      loading.fadeOut();
+      pages.forEach(function(src, index){
+        const page = $('<div/>', { class: 'page' }).append(
+          $('<img/>', { src: src, alt: 'Trang tạp chí ' + (index+1) })
+        );
+        container.append(page);
+      });
+      let initWidth = window.innerWidth <= 768 ? container.parent().width() : {{ section.settings.width | default:1000 }};
+      let initHeight = window.innerWidth <= 768 ? initWidth * ({{ section.settings.height | default:707 }} / {{ section.settings.width | default:1000 }}) : {{ section.settings.height | default:707 }};
+
+      container.turn({
+        width: initWidth,
+        height: initHeight,
+        autoCenter: true,
+        display: window.innerWidth <= 768 ? 'single' : 'double',
+        acceleration: true,
+        gradients: true,
+        elevation: 50,
+        turnCorners: 'tl,tr,bl,br',
+        corners: true,
+        when: {
+          turning: function(e, page) {
+            $('#current-page-' + flipId).text(page);
+          },
+          turned: function(e, page) {
+            $('#current-page-' + flipId).text(page);
+          }
+        }
+      });
+
+      $('#total-pages-' + flipId).text(container.turn('pages'));
+
+      // 👇 Auto-tip góc trang đầu sau 1.5 giây để gợi ý có thể lật
+      setTimeout(() => {
+        container.turn('peel', 'br');
+        setTimeout(() => container.turn('peel', false), 1200);
+      }, 1500);
+    });
+
+    $('.prev-page[data-target="'+flipId+'"]').on('click', function(){ container.turn('previous'); });
+    $('.next-page[data-target="'+flipId+'"]').on('click', function(){ container.turn('next'); });
+
+    function enterFullscreen(el) {
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+
+    function exitFullscreen() {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
+
+    $('.fullscreen-toggle[data-target="'+flipId+'"]').on('click', function(){
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        enterFullscreen(container[0]);
+      } else {
+        exitFullscreen();
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        document.body.style.overflow = '';
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    $(window).on('resize', function(){
+      let newWidth = window.innerWidth <= 768 ? container.parent().width() : {{ section.settings.width | default:1000 }};
+      let newHeight = window.innerWidth <= 768 ? newWidth * ({{ section.settings.height | default:707 }} / {{ section.settings.width | default:1000 }}) : {{ section.settings.height | default:707 }};
+      container.turn('size', newWidth, newHeight);
+      if (window.innerWidth <= 768) {
+        container.turn('display', 'single');
+      } else {
+        container.turn('display', 'double');
+      }
+    });
+
+    container[0].addEventListener('touchstart', function(e){
+      this.touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    container[0].addEventListener('touchend', function(e){
+      const deltaX = e.changedTouches[0].screenX - this.touchStartX;
+      if (deltaX > 50) container.turn('previous');
+      else if (deltaX < -50) container.turn('next');
+    }, { passive: true });
+
+    $(document).on('keydown', function(e) {
+      if (e.key === 'ArrowRight') container.turn('next');
+      else if (e.key === 'ArrowLeft') container.turn('previous');
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Magazine Flipbook",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Tiêu đề (tuỳ chọn)", "default": "Magazine Flipbook" },
+    { "type": "number", "id": "width", "label": "Chiều rộng (px)", "default": 800 },
+    { "type": "number", "id": "height", "label": "Chiều cao (px)", "default": 500 },
+    { "type": "checkbox", "id": "allow_fullscreen", "label": "Cho phép toàn màn hình", "default": true },
+    { "type": "image_picker", "id": "background_image", "label": "Ảnh nền mặc định" },
+    { "type": "image_picker", "id": "background_image_desktop", "label": "Ảnh nền desktop (tuỳ chọn)" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "Ảnh nền mobile (tuỳ chọn)" }
+  ],
+  "blocks": [
+    { "type": "page", "name": "Trang tạp chí", "settings": [{ "type": "image_picker", "id": "page_image", "label": "Ảnh trang" }] }
+  ],
+  "presets": [
+    { "name": "Magazine Flipbook", "category": "Media" }
+  ]
+}
+{% endschema %}

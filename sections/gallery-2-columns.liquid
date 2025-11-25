@@ -1,0 +1,105 @@
+<style>
+  .gallery-2col-flexible {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 100%;
+    width: 1500px;
+    margin: auto;
+    padding: 20px;
+  }
+  .gallery-2col-flexible img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Responsive cho màn hình nhỏ */
+  @media (max-width: 767px) {
+    .gallery-2col-flexible {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  /* Style cho title */
+  .gallery-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 24px;
+  }
+</style>
+
+{% if section.settings.gallery_title != blank %}
+  <h2 class="gallery-title">{{ section.settings.gallery_title }}</h2>
+{% endif %}
+
+<div class="gallery-2col-flexible">
+  {% for block in section.blocks %}
+    {% if block.settings.block_image %}
+      {% assign url = block.settings.block_link | default: '' %}
+      {% if url != '' %}
+        <a href="{{ url }}" target="{{ block.settings.link_target }}" rel="noopener noreferrer">
+          <img src="{{ block.settings.block_image | img_url: 'master' }}" loading="lazy" alt="Gallery image {{ forloop.index }}" />
+        </a>
+      {% else %}
+        <img src="{{ block.settings.block_image | img_url: 'master' }}" loading="lazy" alt="Gallery image {{ forloop.index }}" />
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Gallery 2 Columns",
+  "settings": [
+    {
+      "type": "text",
+      "id": "gallery_title",
+      "label": "Gallery Title",
+      "default": "Gallery"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "block_link",
+          "label": "Link URL"
+        },
+        {
+          "type": "select",
+          "id": "link_target",
+          "label": "Link Target",
+          "default": "_self",
+          "options": [
+            {
+              "value": "_self",
+              "label": "Open in same tab"
+            },
+            {
+              "value": "_blank",
+              "label": "Open in new tab"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery 2 Columns"
+    }
+  ]
+}
+{% endschema %}

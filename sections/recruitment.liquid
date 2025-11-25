@@ -1,0 +1,250 @@
+{% schema %}
+{
+  "name": "Danh sách tuyển dụng",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "job",
+      "name": "Vị trí tuyển dụng",
+      "settings": [
+        {
+          "type": "text",
+          "id": "job_title",
+          "label": "Tên vị trí"
+        },
+        {
+          "type": "text",
+          "id": "department",
+          "label": "Phòng ban"
+        },
+        {
+          "type": "text",
+          "id": "unit",
+          "label": "Đơn vị"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Địa điểm làm việc"
+        },
+        {
+          "type": "text",
+          "id": "deadline",
+          "label": "Hạn nộp hồ sơ (YYYY-MM-DD)"
+        },
+        {
+          "type": "url",
+          "id": "apply_link",
+          "label": "Link ứng tuyển"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Danh sách tuyển dụng"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="job-section">
+  <h2 class="job-title">Cơ hội nghề nghiệp</h2>
+
+  <div class="job-filters">
+    <!-- Vị trí tuyển dụng -->
+    <select id="filter-job_title">
+      <option value="">Vị trí tuyển dụng</option>
+      {% assign job_titles = section.blocks | map: "settings" | map: "job_title" | uniq %}
+      {% for title in job_titles %}
+        {% if title != blank %}<option value="{{ title }}">{{ title }}</option>{% endif %}
+      {% endfor %}
+    </select>
+  
+    <!-- Phòng ban -->
+    <select id="filter-department">
+      <option value="">Phòng ban làm việc</option>
+      {% assign departments = section.blocks | map: "settings" | map: "department" | uniq %}
+      {% for d in departments %}
+        {% if d != blank %}<option value="{{ d }}">{{ d }}</option>{% endif %}
+      {% endfor %}
+    </select>
+  
+    <!-- Địa điểm -->
+    <select id="filter-location">
+      <option value="">Địa điểm</option>
+      {% assign locations = section.blocks | map: "settings" | map: "location" | uniq %}
+      {% for l in locations %}
+        {% if l != blank %}<option value="{{ l }}">{{ l }}</option>{% endif %}
+      {% endfor %}
+    </select>
+  
+    <button onclick="filterJobs()">Tìm kiếm</button>
+  </div>
+
+  <table class="job-table" id="job-table">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Vị trí tuyển dụng</th>
+        <th>Đang tuyển</th>
+        <th>Số lượng</th>
+        <th>Địa điểm làm</th>
+        <th>Hạn nộp hồ sơ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% assign today = 'now' | date: "%Y-%m-%d" %}
+      {% for block in section.blocks %}
+        <tr class="job-row"
+            data-job_title="{{ block.settings.job_title }}"
+            data-department="{{ block.settings.department }}"
+            data-location="{{ block.settings.location }}">
+          <td data-label="STT">{{ forloop.index }}</td>
+          <td data-label="Vị trí">{{ block.settings.job_title }}</td>
+          <td data-label="Đang tuyển">
+            {% if block.settings.deadline < today %}
+              <span class="closed">Đã hết hạn</span>
+            {% else %}
+              <a href="{{ block.settings.apply_link }}" class="apply-button">Ứng tuyển</a>
+            {% endif %}
+          </td>
+          <td data-label="Số lượng">1</td>
+          <td data-label="Địa điểm">{{ block.settings.location }}</td>
+          <td data-label="Hạn nộp">{{ block.settings.deadline | date: "%d/%m/%Y" }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .job-section {
+    padding: 20px 15px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .job-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .job-filters {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .job-filters select, .job-filters button {
+    padding: 11px 22px;
+    vertical-align: baseline;
+}
+
+  .job-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    color: #333;
+  }
+  tr.job-row {
+    color: #f2f2f2;
+}
+  .job-table thead {
+    background-color: #f8f8f8;
+  }
+
+  .job-table th, .job-table td {
+    padding: 12px 15px;
+    border: 1px solid #333;
+    text-align: center;
+  }
+
+  .apply-button {
+    background: none;
+    border: 1px solid #fab320;
+    color: #fab320;
+    padding: 6px 14px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+  .apply-button:hover {
+    background-color: #fab320;
+    color: #333;
+}
+
+  .closed {
+    color: gray;
+  }
+  @media screen and (max-width: 768px) {
+  .job-filters {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .job-filters select,
+  .job-filters button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .job-table {
+    overflow-x: auto;
+    white-space: wrap;
+  }
+
+  .job-table thead {
+    display: none;
+  }
+
+  .job-table tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    padding: 10px;
+    background: #111;
+  }
+
+  .job-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .job-table td:last-child {
+    border-bottom: none;
+  }
+
+  .job-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-basis: 50%;
+    text-align: left;
+  }
+}
+
+</style>
+
+<script>
+  function filterJobs() {
+    const jobTitle = document.getElementById('filter-job_title').value;
+    const dept = document.getElementById('filter-department').value;
+    const loc = document.getElementById('filter-location').value;
+
+    document.querySelectorAll('.job-row').forEach(row => {
+      const match =
+        (!jobTitle || row.dataset.job_title === jobTitle) &&
+        (!dept || row.dataset.department === dept) &&
+        (!loc || row.dataset.location === loc);
+
+      row.style.display = match ? '' : 'none';
+    });
+  }
+</script>
+

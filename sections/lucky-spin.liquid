@@ -1,0 +1,580 @@
+{% schema %}
+{
+  "name": "Vòng Quay May Mắn",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tiêu đề vòng quay",
+      "default": "Vòng quay may mắn - Quay là trúng!"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Mô tả vòng quay",
+      "default": "Tham gia vòng quay để nhận ngay những phần quà hấp dẫn từ Helios."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Chữ trên nút quay",
+      "default": "QUAY"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Màu nền nút",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Màu chữ nút",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Màu nền",
+      "default": "#ff6347"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "prize",
+      "name": "Phần thưởng",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tên phần thưởng",
+          "default": "Giảm 10%"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Màu phần thưởng",
+          "default": "#2196f3"
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Mã giảm giá",
+          "default": "LUCKY10"
+        },
+        {
+          "type": "number",
+          "id": "probability",
+          "label": "Xác suất (%)",
+          "default": 20
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Vòng Quay May Mắn",
+      "category": "Khuyến mãi",
+      "blocks": [
+        {
+          "type": "prize",
+          "settings": {
+            "text": "Giảm 10%",
+            "color": "#2196f3",
+            "code": "LUCKY10"
+          }
+        },
+        {
+          "type": "prize",
+          "settings": {
+            "text": "Giảm 20%",
+            "color": "#4caf50",
+            "code": "LUCKY20"
+          }
+        },
+        {
+          "type": "prize",
+          "settings": {
+            "text": "Giảm 30%",
+            "color": "#ff9800",
+            "code": "LUCKY30"
+          }
+        },
+        {
+          "type": "prize",
+          "settings": {
+            "text": "Quà tặng",
+            "color": "#f44336",
+            "code": "GIFT"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Tiêu đề + Mô tả -->
+<div style="text-align: center; padding: 20px; color: white;">
+  <h2 style="margin-bottom: 10px; font-size: 2rem;">{{ section.settings.heading }}</h2>
+  <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">{{ section.settings.description }}</p>
+</div>
+
+<!-- Modal kết quả -->
+<div id="lucky-wheel-modal" class="wheel-modal" style="display: none;">
+  <div class="wheel-modal-box">
+    <h2>🎉 Bạn đã trúng thưởng!</h2>
+    <p id="modal-prize-text"></p>
+    <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">Đóng</button>
+  </div>
+</div>
+
+<!-- Vòng quay -->
+<div id="lucky-wheel-container" style="background-color: {{ section.settings.background_color }}; padding: 20px;">
+  <div class="lucky-wheel-frame">
+    <canvas id="lucky-wheel-canvas" width="600" height="600"></canvas>
+    <div id="lucky-wheel-pointer">
+      <div class="pointer-body"></div>
+      <div class="pointer-dot"></div>
+    </div>
+    <div id="lucky-wheel-spin">
+      <div class="inner-dot"></div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  #lucky-wheel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px 50px!important;
+  }
+
+  .lucky-wheel-frame {
+    position: relative;
+    width: 90vw;
+    max-width: 600px;
+    height: 90vw;
+    max-height: 600px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Đổ bóng cho khung vòng quay */
+  }
+
+  #lucky-wheel-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
+    z-index: 1;
+    display: block;
+  }
+
+  #lucky-wheel-spin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Gradient cho nút */
+    width: 17%;
+    height: 17%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), /* Đổ bóng bên ngoài */
+                inset 0 2px 5px rgba(255, 255, 255, 0.7), /* Đổ bóng sáng bên trong */
+                inset 0 -2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng tối bên trong */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #lucky-wheel-spin .inner-dot {
+    width: 30%;
+    height: 30%;
+    background: linear-gradient(145deg, #d0d0d0, #b0b0b0); /* Gradient cho chấm trong */
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng cho chấm */
+  }
+
+  #lucky-wheel-spin:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), /* Đổ bóng lớn hơn khi hover */
+                inset 0 2px 5px rgba(255, 255, 255, 0.7),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #lucky-wheel-pointer {
+    position: absolute;
+    top: 18%;
+    right: 18%;
+    transform: translate(50%, -50%) rotate(45deg);
+    z-index: 4;
+    transition: transform 0.1s ease;
+  }
+
+  .pointer-body {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(145deg, #ffffff, #d0d0d0); /* Gradient cho thân kim chỉ */
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    position: relative;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), /* Đổ bóng bên ngoài */
+                inset 0 2px 5px rgba(255, 255, 255, 0.5), /* Đổ bóng sáng bên trong */
+                inset 0 -2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng tối bên trong */
+    border: 4px solid #f2f2f2;
+  }
+  
+  .pointer-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(145deg, #d0d0d0, #b0b0b0); /* Gradient cho chấm */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), /* Đổ bóng bên ngoài */
+                inset 0 1px 2px rgba(255, 255, 255, 0.5); /* Đổ bóng sáng bên trong */
+  }
+
+  .wheel-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .wheel-modal-box {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 90vw;
+    animation: zoomIn 0.4s ease-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Đổ bóng cho modal */
+  }
+
+  .wheel-modal-box h2 {
+    font-size: 5vw;
+    color: #f2f2f2;
+  }
+
+  .wheel-modal-box #modal-prize-text {
+    font-size: 4.5vw;
+    font-weight: bold;
+    color: #fab320;
+  }
+
+  .wheel-modal-box button {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Gradient cho nút đóng */
+    color: #111;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 4vw;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng cho nút */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .wheel-modal-box button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes zoomIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes pointerTick {
+    0% { transform: translate(50%, -50%) rotate(45deg); }
+    25% { transform: translate(50%, -50%) rotate(52deg); }
+    50% { transform: translate(50%, -50%) rotate(38deg); }
+    75% { transform: translate(50%, -50%) rotate(48deg); }
+    100% { transform: translate(50%, -50%) rotate(45deg); }
+  }
+
+  @media (min-width: 768px) {
+    .wheel-modal-box h2 {
+      font-size: 24px;
+    }
+
+    .wheel-modal-box #modal-prize-text {
+      font-size: 25px;
+    }
+
+    .wheel-modal-box button {
+      font-size: 16px;
+    }
+  }
+
+  .pointer-shake {
+    animation: pointerTick 0.4s ease-in-out;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const canvas = document.getElementById('lucky-wheel-canvas');
+  const ctx = canvas.getContext('2d');
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = Math.min(centerX, centerY) * 0.9;
+  const outerBorderWidth = radius * 0.05;
+  const pointer = document.getElementById('lucky-wheel-pointer');
+
+  const prizes = [
+    {% for block in section.blocks %}
+      {
+        text: "{{ block.settings.text | escape }}",
+        color: "{{ block.settings.color }}",
+        code: "{{ block.settings.code }}",
+        probability: {{ block.settings.probability }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  // Validate prizes array
+  if (prizes.length === 0) {
+    // Add default prizes if none are defined
+    prizes.push(
+      { text: "Giảm 10%", color: "#2196f3", code: "LUCKY10", probability: 25 },
+      { text: "Giảm 20%", color: "#4caf50", code: "LUCKY20", probability: 25 },
+      { text: "Giảm 30%", color: "#ff9800", code: "LUCKY30", probability: 25 },
+      { text: "Quà tặng", color: "#f44336", code: "GIFT", probability: 25 }
+    );
+  }
+
+  const totalProb = prizes.reduce((sum, p) => sum + p.probability, 0);
+  if (totalProb !== 100) {
+    prizes.forEach(p => p.probability = (p.probability / totalProb) * 100);
+  }
+
+  let currentAngle = 0;
+  const equalAngle = (Math.PI * 2) / prizes.length;
+  prizes.forEach(p => {
+    p.startAngle = currentAngle;
+    p.angle = equalAngle;
+    p.endAngle = currentAngle + equalAngle;
+    currentAngle = p.endAngle;
+  });
+
+  // Store boundary angles for pointer tick effect
+  const boundaryAngles = [];
+  prizes.forEach(p => boundaryAngles.push(p.startAngle));
+
+  function drawWheel() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw outer white border
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+    
+    // Draw inner wheel sections with slight gradient
+    prizes.forEach(p => {
+      const gradient = ctx.createRadialGradient(centerX, centerY, radius * 0.5, centerX, centerY, radius);
+      gradient.addColorStop(0, p.color);
+      gradient.addColorStop(1, adjustBrightness(p.color, -20)); // Làm tối màu ở rìa
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius - outerBorderWidth, p.startAngle, p.endAngle);
+      ctx.lineTo(centerX, centerY);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    });
+    
+    // Draw divider lines with slight shadow
+    ctx.lineWidth = 2;
+    prizes.forEach(p => {
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      let x = centerX + Math.cos(p.startAngle) * radius;
+      let y = centerY + Math.sin(p.startAngle) * radius;
+      ctx.lineTo(x, y);
+      ctx.strokeStyle = 'white';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+      ctx.shadowBlur = 3;
+      ctx.stroke();
+    });
+    ctx.shadowBlur = 0; // Reset shadow
+    
+    // Draw text with shadow
+    prizes.forEach(p => {
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(p.startAngle + p.angle / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = 'white';
+      ctx.font = '14px Font-1736240127176';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+      ctx.shadowBlur = 2;
+      ctx.shadowOffsetX = 1;
+      ctx.shadowOffsetY = 1;
+      ctx.fillText(p.text, radius * 0.75, 5);
+      ctx.restore();
+    });
+    ctx.shadowBlur = 0; // Reset shadow
+    
+    // Draw outer tick marks with shadow
+    const tickCount = prizes.length * 2;
+    const tickAngle = (Math.PI * 2) / tickCount;
+    const tickLength = radius * 0.05;
+    
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'white';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+    ctx.shadowBlur = 3;
+    
+    for (let i = 0; i < tickCount; i++) {
+      const angle = i * tickAngle;
+      const x1 = centerX + Math.cos(angle) * (radius - 2);
+      const y1 = centerY + Math.sin(angle) * (radius - 2);
+      const x2 = centerX + Math.cos(angle) * (radius + tickLength - 2);
+      const y2 = centerY + Math.sin(angle) * (radius + tickLength - 2);
+      
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+    ctx.shadowBlur = 0; // Reset shadow
+  }
+
+  // Helper function to adjust brightness of a color
+  function adjustBrightness(hex, percent) {
+    let r = parseInt(hex.slice(1, 3), 16);
+    let g = parseInt(hex.slice(3, 5), 16);
+    let b = parseInt(hex.slice(5, 7), 16);
+    
+    r = Math.min(255, Math.max(0, r + (r * percent / 100)));
+    g = Math.min(255, Math.max(0, g + (g * percent / 100)));
+    b = Math.min(255, Math.max(0, b + (b * percent / 100)));
+    
+    return `#${Math.round(r).toString(16).padStart(2, '0')}${Math.round(g).toString(16).padStart(2, '0')}${Math.round(b).toString(16).padStart(2, '0')}`;
+  }
+
+  drawWheel();
+
+  let isSpinning = false;
+  let startAngle = 0;
+  let currentRotation = 0;
+  let lastAngle = 0; // Biến để lưu góc trước đó
+
+  // Function to make the pointer shake
+  function tickPointer() {
+    pointer.classList.remove('pointer-shake');
+    void pointer.offsetWidth; // Force reflow to restart animation
+    pointer.classList.add('pointer-shake');
+  }
+
+  // Function to check if we crossed a boundary
+  function checkBoundaries(currentAngle) {
+    const normalizedAngle = (currentAngle % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+    const normalizedLastAngle = (lastAngle % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+
+    // Kiểm tra từng ranh giới
+    for (let i = 0; i < boundaryAngles.length; i++) {
+      const boundary = boundaryAngles[i];
+      // Xử lý trường hợp vòng quay quay qua góc 0
+      const crossedBoundary =
+        (normalizedLastAngle <= boundary && normalizedAngle > boundary) ||
+        (normalizedLastAngle >= boundary && normalizedAngle < boundary && normalizedAngle < normalizedLastAngle);
+
+      if (crossedBoundary) {
+        tickPointer();
+        break;
+      }
+    }
+
+    lastAngle = currentAngle; // Cập nhật góc trước đó
+  }
+
+  document.getElementById('lucky-wheel-spin').addEventListener('click', function () {
+    if (isSpinning) return;
+    isSpinning = true;
+
+    const rnd = Math.random() * 100;
+    let cumulative = 0;
+    let selectedPrize = prizes[0];
+    for (let prize of prizes) {
+      cumulative += prize.probability;
+      if (rnd <= cumulative) {
+        selectedPrize = prize;
+        break;
+      }
+    }
+
+    const midAngle = selectedPrize.startAngle + selectedPrize.angle / 2;
+    const stopAt = (Math.PI * 1.75 - midAngle + Math.PI * 2) % (Math.PI * 2);
+    const fullRotations = 5 + Math.floor(Math.random() * 3);
+    const finalAngle = fullRotations * Math.PI * 2 + stopAt;
+
+    animateSpin(finalAngle, selectedPrize);
+  });
+
+  function animateSpin(targetAngle, selectedPrize) {
+    const duration = 5000;
+    const frameRate = 1000 / 60;
+    const totalFrames = duration / frameRate;
+    let frame = 0;
+    const start = currentRotation;
+    const change = targetAngle - currentRotation;
+    lastAngle = start; // Reset last angle
+
+    const spinInterval = setInterval(() => {
+      frame++;
+      if (frame >= totalFrames) {
+        clearInterval(spinInterval);
+        isSpinning = false;
+        currentRotation = targetAngle % (Math.PI * 2); // Keep within 2PI
+
+        setTimeout(() => {
+          document.getElementById('modal-prize-text').innerText = `${selectedPrize.text} - Mã: ${selectedPrize.code}`;
+          document.getElementById('lucky-wheel-modal').style.display = 'flex';
+        }, 500);
+        return;
+      }
+
+      // Easing function to make the spin slow down gradually
+      const easedAngle = easeOutQuart(frame, start, change, totalFrames);
+      startAngle = easedAngle;
+      
+      // Check if we crossed section boundary for pointer tick effect
+      checkBoundaries(easedAngle);
+      
+      // Update wheel rotation
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(startAngle);
+      ctx.translate(-centerX, -centerY);
+      drawWheel();
+      ctx.restore();
+    }, frameRate);
+  }
+
+  // Better easing function for wheel spinning
+  function easeOutQuart(t, b, c, d) {
+    t /= d;
+    t--;
+    return -c * (t * t * t * t - 1) + b;
+  }
+});
+</script>

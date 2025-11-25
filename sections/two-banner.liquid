@@ -1,0 +1,264 @@
+{%- liquid
+  assign section_classes = 'two-banner two-banner--' | append: section.id
+-%}
+
+<div id="section-id-{{ section.id }}" class="{% if section.settings.overlap_header %}header-overlap-section needs-alt-logo{% endif %}">
+<section class="{{ section_classes }} {% if section.settings.sticky_desktop %}is-sticky-desktop{% endif %} {% if section.settings.sticky_mobile_item %}is-sticky-mobile{% endif %}" data-section-id="{{ section.id }}" style="--sticky-offset-desktop: {{ section.settings.sticky_offset_desktop | default: 0 }}px; --sticky-offset-mobile: {{ section.settings.sticky_offset_mobile | default: 0 }}px; --sticky-z-index: {{ section.settings.sticky_z_index | default: 1000 }};">
+  <style>
+    .two-banner--{{ section.id }} .two-banner__grid {display:grid; grid-template-columns:1fr; gap: {{ section.settings.gap | default: 16 }}px;}
+    @media (min-width: 750px) {
+      .two-banner--{{ section.id }} .two-banner__grid {grid-template-columns: 1fr 1fr;}
+    }
+    .two-banner--{{ section.id }} .two-banner__item {position: relative; overflow: hidden;}
+    .two-banner--{{ section.id }} .two-banner__media img,
+    .two-banner--{{ section.id }} .two-banner__media video,
+    .two-banner--{{ section.id }} .two-banner__media iframe {width:100%; height:100%; object-fit:cover; display:block;}
+    .two-banner--{{ section.id }} .two-banner__media { aspect-ratio: var(--ratio-mobile, 1.7778); }
+    @media (min-width: 769px) {
+      .two-banner--{{ section.id }} .two-banner__media { aspect-ratio: var(--ratio-desktop, var(--ratio-mobile, 1.7778)); }
+    }
+    @media (min-width: 769px) {
+      .two-banner--{{ section.id }}.is-sticky-desktop { position: -webkit-sticky; position: sticky; top: var(--sticky-offset-desktop, 0px); z-index: var(--sticky-z-index, 1000); }
+    }
+    @media (max-width: 768px) {
+      .two-banner--{{ section.id }}.is-sticky-mobile .two-banner__item { position: -webkit-sticky; position: sticky; top: var(--sticky-offset-mobile, 0px); z-index: var(--sticky-z-index, 1000); }
+    }
+    .two-banner--{{ section.id }} .two-banner__overlay {position:absolute; inset:0; display:flex; justify-content:center; align-items:center; z-index:5; pointer-events:none;}
+    .two-banner--{{ section.id }} .two-banner__overlay.h-left {justify-content:flex-start;}
+    .two-banner--{{ section.id }} .two-banner__overlay.h-right {justify-content:flex-end;}
+    .two-banner--{{ section.id }} .two-banner__overlay.v-top {align-items:flex-start;}
+    .two-banner--{{ section.id }} .two-banner__overlay.v-bottom {align-items:flex-end;}
+    .two-banner--{{ section.id }} .two-banner__title-wrapper {color: var(--title-color, #fff); background: var(--bg-color, transparent); transform: translate(var(--x, 0), var(--y, 0));}
+    .two-banner--{{ section.id }} .two-banner__link {position:absolute; inset:0; z-index:10;}
+    .two-banner__grid .section-background-video .video-container--background video {position:relative}
+  </style>
+
+  <div class="two-banner__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign img_desktop = block.settings.image_desktop | default: block.settings.image
+        assign img_mobile = block.settings.image_mobile | default: block.settings.image
+        assign img = img_desktop
+        assign vid = block.settings.video
+        assign vurl = block.settings.video_url
+        assign external_url = ''
+        assign poster_image = img
+        assign ar_mobile = block.settings.aspect_ratio_mobile
+        assign ar_desktop = block.settings.aspect_ratio_desktop
+
+        assign ratio_mobile = ''
+        if ar_mobile == '1_1'
+          assign ratio_mobile = '1/1'
+        elsif ar_mobile == '2_3'
+          assign ratio_mobile = '2/3'
+        elsif ar_mobile == '3_2'
+          assign ratio_mobile = '3/2'
+        elsif ar_mobile == '4_3'
+          assign ratio_mobile = '4/3'
+        elsif ar_mobile == '16_9'
+          assign ratio_mobile = '16/9'
+        else
+          assign ratio_mobile = 1.7778
+          if img_mobile != blank
+            assign ratio_mobile = img_mobile.aspect_ratio
+          endif
+        endif
+
+        assign ratio_desktop = ''
+        if ar_desktop == '1_1'
+          assign ratio_desktop = '1/1'
+        elsif ar_desktop == '2_3'
+          assign ratio_desktop = '2/3'
+        elsif ar_desktop == '3_2'
+          assign ratio_desktop = '3/2'
+        elsif ar_desktop == '4_3'
+          assign ratio_desktop = '4/3'
+        elsif ar_desktop == '16_9'
+          assign ratio_desktop = '16/9'
+        else
+          assign ratio_desktop = 1.7778
+          if img_desktop != blank
+            assign ratio_desktop = img_desktop.aspect_ratio
+          else
+            assign ratio_desktop = ratio_mobile
+          endif
+        endif
+        if poster_image == blank and vid != blank
+          assign poster_image = vid.preview_image
+        endif
+        if vurl.type == 'youtube' and vurl.id != blank
+          assign external_url = 'https://www.youtube.com/watch?v=' | append: vurl.id
+        elsif vurl.type == 'vimeo' and vurl.id != blank
+          assign external_url = 'https://vimeo.com/' | append: vurl.id
+        endif
+      -%}
+      <div class="two-banner__item" {{ block.shopify_attributes }}>
+        <div class="two-banner__media" style="--ratio-mobile: {{ ratio_mobile }}; --ratio-desktop: {{ ratio_desktop }};">
+          {%- if vid != blank -%}
+            {%- render 'inline-video', video_shopify: vid, image: poster_image, autoplay: false, loop: block.settings.video_loop -%}
+          {%- elsif external_url != blank -%}
+            {%- render 'inline-video', video_external: external_url, image: poster_image, autoplay: false, loop: block.settings.video_loop -%}
+          {%- elsif img_desktop != blank or img_mobile != blank -%}
+            <picture>
+              {% if img_mobile != blank %}
+                <source media="(max-width: 768px)"
+                        srcset="{{ img_mobile | image_url: width: 480 }} 480w, {{ img_mobile | image_url: width: 768 }} 768w, {{ img_mobile | image_url: width: 1000 }} 1000w"
+                        sizes="100vw">
+              {% endif %}
+              {% if img_desktop != blank %}
+                <source media="(min-width: 769px)"
+                        srcset="{{ img_desktop | image_url: width: 800 }} 800w, {{ img_desktop | image_url: width: 1200 }} 1200w, {{ img_desktop | image_url: width: 1600 }} 1600w, {{ img_desktop | image_url: width: 2000 }} 2000w"
+                        sizes="(min-width: 750px) 50vw, 100vw" />
+              {% endif %}
+              {%- liquid
+                assign fallback_image = img_mobile | default: img_desktop
+              -%}
+              <img src="{{ fallback_image | image_url: width: 1200 }}"
+                   alt="{{ fallback_image.alt | escape }}"
+                   loading="lazy" 
+                   decoding="async"
+                   width="{{ fallback_image.width }}"
+                   height="{{ fallback_image.height }}">
+            </picture>
+          {%- else -%}
+            <div style="aspect-ratio: 16/9; background:#eee; display:flex; align-items:center; justify-content:center;">Banner</div>
+          {%- endif -%}
+        </div>
+
+        <div class="two-banner__overlay h-{{ block.settings.h_align }} v-{{ block.settings.v_align }}">
+          <div class="two-banner__title-wrapper" style="--title-color: {{ block.settings.title_color }}; --bg-color: {{ block.settings.title_bg }}; --x: {{ block.settings.x_offset | default: 0 }}px; --y: {{ block.settings.y_offset | default: 0 }}px; text-align: {{ block.settings.text_align }}; padding: {{ block.settings.padding | default: 12 }}px;">
+            {%- if block.settings.title != blank -%}
+              <div class="two-banner__title">{{ block.settings.title }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- if block.settings.link != blank -%}
+          <a class="two-banner__link" href="{{ block.settings.link }}" aria-label="{{ block.settings.title | default: 'Banner' }}"></a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+</div>
+
+{% schema %}
+{
+  "name": "Two Banners",
+  "class": "section-two-banners",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "overlap_header",
+      "label": "Transparent header",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Banner gap",
+      "min": 0,
+      "max": 64,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_desktop",
+      "label": "Sticky toàn bộ section (Desktop)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_mobile_item",
+      "label": "Sticky từng banner (Mobile)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset_desktop",
+      "label": "Khoảng cách từ trên (Desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset_mobile",
+      "label": "Khoảng cách từ trên (Mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "sticky_z_index",
+      "label": "Z-index khi sticky",
+      "min": 0,
+      "max": 9900,
+      "step": 100,
+      "default": 1000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {"type": "image_picker", "id": "image_desktop", "label": "Ảnh Desktop"},
+        {"type": "image_picker", "id": "image_mobile", "label": "Ảnh Mobile"},
+        {"type": "image_picker", "id": "image", "label": "Image (Legacy)"},
+        {"type": "video", "id": "video", "label": "Shopify Video"},
+        {"type": "video_url", "id": "video_url", "label": "Video Youtube/Vimeo", "accept": ["youtube", "vimeo"]},
+        {"type": "checkbox", "id": "video_loop", "label": "Loop Video", "default": false},
+        {"type": "select", "id": "aspect_ratio_mobile", "label": "Aspect ratio (mobile)", "default": "2_3", "options": [
+          {"label": "Auto (image)", "value": "auto"},
+          {"label": "1:1 (square)", "value": "1_1"},
+          {"label": "2:3 (portrait)", "value": "2_3"},
+          {"label": "3:2", "value": "3_2"},
+          {"label": "4:3", "value": "4_3"},
+          {"label": "16:9", "value": "16_9"}
+        ]},
+        {"type": "select", "id": "aspect_ratio_desktop", "label": "Aspect ratio (desktop)", "default": "1_1", "options": [
+          {"label": "Auto (image)", "value": "auto"},
+          {"label": "1:1 (square)", "value": "1_1"},
+          {"label": "2:3 (portrait)", "value": "2_3"},
+          {"label": "3:2", "value": "3_2"},
+          {"label": "4:3", "value": "4_3"},
+          {"label": "16:9", "value": "16_9"}
+        ]},
+        {"type": "url", "id": "link", "label": "Banner url"},
+        {"type": "text", "id": "title", "label": "Title", "default": "Collection Title"},
+        {"type": "color", "id": "title_color", "label": "Color", "default": "#ffffff"},
+        {"type": "color", "id": "title_bg", "label": "Title Background", "default": "rgba(0,0,0,0.4)"},
+        {"type": "select", "id": "h_align", "label": "Title Horizon Alignment", "default": "center", "options": [
+          {"label": "Trái", "value": "left"},
+          {"label": "Giữa", "value": "center"},
+          {"label": "Phải", "value": "right"}
+        ]},
+        {"type": "select", "id": "v_align", "label": "Title Vertical Alignment", "default": "middle", "options": [
+          {"label": "Trên", "value": "top"},
+          {"label": "Giữa", "value": "middle"},
+          {"label": "Dưới", "value": "bottom"}
+        ]},
+        {"type": "select", "id": "text_align", "label": "Text Alignment", "default": "center", "options": [
+          {"label": "Trái", "value": "left"},
+          {"label": "Giữa", "value": "center"},
+          {"label": "Phải", "value": "right"}
+        ]},
+        {"type": "range", "id": "x_offset", "label": "Horizon (px)", "min": -200, "max": 200, "step": 5, "default": 0},
+        {"type": "range", "id": "y_offset", "label": "Vertical (px)", "min": -200, "max": 200, "step": 5, "default": 0},
+        {"type": "range", "id": "padding", "label": "Title Spacing (px)", "min": 0, "max": 60, "step": 1, "default": 12}
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {"name": "Two Banners", "category": "Image", "blocks": [{"type": "banner"}, {"type": "banner"}]}
+  ]
+}
+{% endschema %}

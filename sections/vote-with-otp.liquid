@@ -1,0 +1,125 @@
+<div class="vote-container">
+  <!-- Form nhập số điện thoại -->
+  <div id="phone-auth-container">
+    <label for="phone-number">Nhập số điện thoại để vote:</label>
+    <input type="tel" id="phone-number" placeholder="Nhập số điện thoại">
+    <button id="send-otp">Gửi OTP</button>
+    <div id="recaptcha-container"></div> <!-- Captcha chống spam -->
+  </div>
+
+  <!-- Form nhập OTP -->
+  <div id="otp-verification-container" style="display: none;">
+    <label for="otp-code">Nhập mã OTP:</label>
+    <input type="text" id="otp-code" placeholder="Nhập mã OTP">
+    <button id="verify-otp">Xác minh OTP</button>
+  </div>
+
+  <!-- Hiển thị kết quả vote -->
+  <div id="vote-result" style="display: none;">
+    <p id="vote-message"></p>
+  </div>
+</div>
+<style>
+.vote-container {
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+</style>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+  import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
+  // Cấu hình Firebase (Lấy từ Firebase Console)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCrWJgfwz4AdGPKwnC-anB1rAa9jpttUF4",
+    authDomain: "vote-with-otp.firebaseapp.com",
+    projectId: "vote-with-otp",
+    storageBucket: "vote-with-otp.firebasestorage.app",
+    messagingSenderId: "375309219137",
+    appId: "1:375309219137:web:2b674d218ac47b08665dc0",
+    measurementId: "G-MT9L8ZWVDN"
+  };
+
+  // Khởi tạo Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  auth.useDeviceLanguage();
+
+  // Tạo Recaptcha để chống spam
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+    size: "invisible"
+  });
+
+  let confirmationResult;
+
+  // Xử lý gửi OTP
+  document.getElementById("send-otp").addEventListener("click", () => {
+    const phoneNumber = document.getElementById("phone-number").value;
+    const appVerifier = window.recaptchaVerifier;
+
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmation) => {
+        confirmationResult = confirmation;
+        document.getElementById("phone-auth-container").style.display = "none";
+        document.getElementById("otp-verification-container").style.display = "block";
+        alert("Mã OTP đã được gửi đến số điện thoại của bạn!");
+      })
+      .catch((error) => {
+        alert("Lỗi gửi OTP: " + error.message);
+      });
+  });
+
+  // Xác minh OTP
+  document.getElementById("verify-otp").addEventListener("click", () => {
+    const otpCode = document.getElementById("otp-code").value;
+
+    confirmationResult.confirm(otpCode)
+      .then((result) => {
+        const user = result.user;
+        document.getElementById("otp-verification-container").style.display = "none";
+        document.getElementById("vote-result").style.display = "block";
+        document.getElementById("vote-message").innerText = "✅ Xác minh thành công! Bạn đã vote!";
+
+        // Lưu số điện thoại đã vote
+        saveVoteToShopify(user.phoneNumber);
+      })
+      .catch((error) => {
+        alert("Lỗi xác minh OTP: " + error.message);
+      });
+  });
+
+  // Lưu vote vào Shopify Metafields để ngăn trùng lặp
+  function saveVoteToShopify(phoneNumber) {
+    fetch("/vote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ phone: phoneNumber })
+    })
+    .then(response => response.json())
+    .then(data => console.log("Vote saved:", data))
+    .catch(error => console.error("Lỗi khi lưu vote:", error));
+  }
+</script>

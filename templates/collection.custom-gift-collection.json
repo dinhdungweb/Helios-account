@@ -1,0 +1,261 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "background_video_xPaUQ4": {
+      "type": "background-video",
+      "disabled": true,
+      "settings": {
+        "video_shopify": "shopify://files/videos/Reel tặng quà nhận quà STOPMOTION 7.12.2024 4x1 nén.mp4",
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "subheading": "",
+        "title": "HỮU HÌNH HOÁ NIỀM VUI",
+        "title_size": 36,
+        "title_width": 20,
+        "heading_h1": false,
+        "text": "<p>Khám phá những cách để ‘hữu hình hoá’ cảm xúc của bạn cho người ấy qua từng chế tác thủ công từ bàn tay người Việt.</p>",
+        "enlarge_text": false,
+        "button_label": "",
+        "button_link": "",
+        "overlay_position": "position--left position--vcenter",
+        "height": "fixed",
+        "height_desktop": 500,
+        "height_mobile": 400,
+        "full_width": true,
+        "overlay_style_tint": true
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "disabled": true,
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 12,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": false,
+        "show_vendor": false,
+        "show_filter_counts": false,
+        "show_filter_deadends": false,
+        "ajax_products": false,
+        "filter_mode": "none",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "all",
+        "collapse_sort_by": false,
+        "enable_sorting": false,
+        "show_featured_in_sort": false
+      }
+    },
+    "video_with_text_FwjXPF": {
+      "type": "video-with-text",
+      "settings": {
+        "media_type": "video",
+        "content_position": "left",
+        "text_alignment": "left",
+        "desktop_video_url": "https://cdn.shopify.com/videos/c/o/v/5bbc5b6c0beb4184b3dc753eef2bd199.mp4",
+        "mobile_video_url": "https://cdn.shopify.com/videos/c/o/v/5bbc5b6c0beb4184b3dc753eef2bd199.mp4",
+        "heading": "HỮU HÌNH HOÁ NIỀM VUI",
+        "paragraph": "Khám phá những cách để ‘hữu hình hoá’ cảm xúc của bạn cho người ấy qua từng chế tác thủ công từ bàn tay người Việt."
+      }
+    },
+    "featured_collection_Fckiqm": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "all-products",
+        "layout": "carousel",
+        "featured_addtocart_hide": false,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "text_columns_with_images_NAgUmk": {
+      "type": "text-columns-with-images",
+      "blocks": {
+        "text_block_WwPBbW": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/DSC02003.jpg",
+            "image_width": 700,
+            "title": "ANH ẤY",
+            "text": "",
+            "button_label": "",
+            "link": "shopify://collections/qua-tang-cho-nam"
+          }
+        },
+        "text_block_hRBwAY": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/DSC02018.jpg",
+            "image_width": 700,
+            "title": "CÔ ẤY",
+            "text": "",
+            "button_label": "",
+            "link": "shopify://collections/qua-tang-cho-nu"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_WwPBbW",
+        "text_block_hRBwAY"
+      ],
+      "settings": {
+        "title": "BẠN CẦN QUÀ TẶNG CHO…",
+        "text_alignment": "center",
+        "button_style": "primary",
+        "media_shape": "natural",
+        "alternate_bg_color": false,
+        "full_width": true
+      }
+    },
+    "text_columns_with_images_YDCqqG": {
+      "type": "text-columns-with-images",
+      "blocks": {
+        "text_block_FzrXR6": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/2025-01-11_10-42-43_B_R8_S4.jpg",
+            "image_width": 700,
+            "title": "Nhẫn đôi cho cặp tình nhân",
+            "text": "",
+            "button_label": "",
+            "link": "shopify://collections/nhan-doi"
+          }
+        },
+        "text_block_QWaEwx": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/2025-01-11_10-42-18_B_R8_S4.jpg",
+            "image_width": 700,
+            "title": "Những chế tác mang câu chuyện đằng sau",
+            "text": "",
+            "button_label": "",
+            "link": "shopify://collections/all-products"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_FzrXR6",
+        "text_block_QWaEwx"
+      ],
+      "settings": {
+        "title": "QUÀ TẶNG ĐA TẦNG Ý NGHĨA",
+        "text_alignment": "center",
+        "button_style": "primary",
+        "media_shape": "natural",
+        "alternate_bg_color": false,
+        "full_width": true
+      }
+    },
+    "slideshow_nnzbep": {
+      "type": "slideshow",
+      "blocks": {
+        "image_ejLHaq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC02064.jpg",
+            "mobile_image": "shopify://shop_images/DSC02064.jpg",
+            "slide_link": "shopify://collections/sale-kit",
+            "subheading": "",
+            "title": "PACKAGING ĐẶC BIỆT CHỨA ĐỰNG CÂU CHUYỆN ĐẶC BIỆT",
+            "title_size": 20,
+            "title_width": 18,
+            "heading_h1": false,
+            "text": "<p>Những món quà của bạn sẽ được gửi tới người nhận trong packaging chỉn chu nhất!</p>",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--left position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_ejLHaq"
+      ],
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 660,
+        "height_mobile": 500,
+        "full_width": false,
+        "mobile_overlay_under": true,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "text_columns_with_images_VWYGmR": {
+      "type": "text-columns-with-images",
+      "blocks": {
+        "text_block_FPGexG": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/STORE_LTN_1_of_17.jpg",
+            "image_width": 700,
+            "title": "Mua tại cửa hàng",
+            "text": "",
+            "button_label": "",
+            "link": "shopify://pages/contact"
+          }
+        },
+        "text_block_prYRkT": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/28.11_BANNER_BLACK_SILVER-02-min_7da45b7c-eeb4-405c-99d8-db12e38a969b.jpg",
+            "image_width": 700,
+            "title": "Mua sắm trực tuyến",
+            "text": "",
+            "button_label": "",
+            "link": "shopify://collections/all-products"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_FPGexG",
+        "text_block_prYRkT"
+      ],
+      "settings": {
+        "title": "GHÉ THĂM HELIOS",
+        "text_alignment": "center",
+        "button_style": "primary",
+        "media_shape": "natural",
+        "alternate_bg_color": false,
+        "full_width": true
+      }
+    }
+  },
+  "order": [
+    "background_video_xPaUQ4",
+    "main",
+    "video_with_text_FwjXPF",
+    "featured_collection_Fckiqm",
+    "text_columns_with_images_NAgUmk",
+    "text_columns_with_images_YDCqqG",
+    "slideshow_nnzbep",
+    "text_columns_with_images_VWYGmR"
+  ]
+}

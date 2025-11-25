@@ -1,0 +1,10 @@
+{% assign raw_number = include.value | floor | split: '' | reverse %}
+{% assign formatted_number = '' %}
+{% for digit in raw_number %}
+  {% assign remainder = forloop.index0 | modulo: 3 %}
+  {% if remainder == 0 and forloop.index0 != 0 %}
+    {% assign formatted_number = formatted_number | append: '.' %}
+  {% endif %}
+  {% assign formatted_number = formatted_number | append: digit %}
+{% endfor %}
+{{ formatted_number | split: '' | reverse | join: '' }}

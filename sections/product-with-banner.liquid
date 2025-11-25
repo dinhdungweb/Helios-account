@@ -1,0 +1,665 @@
+{% style %}
+  .section-id-{{ section.id }} {
+    {% if section.settings.section_spacing %}
+      padding-top: {{ section.settings.section_spacing }}px;
+      padding-bottom: {{ section.settings.section_spacing }}px;
+    {% endif %}
+  }
+
+  .section-id-{{ section.id }} .banner-products-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: stretch;
+  }
+
+  .section-id-{{ section.id }} .banner-products-wrapper.position-right {
+    flex-direction: row-reverse;
+  }
+
+  .section-id-{{ section.id }} .banner-products__banner {
+    flex: 0 0 {{ section.settings.banner_width }}%;
+    min-width: 280px;
+  }
+
+  .section-id-{{ section.id }} .banner-products__products {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .section-id-{{ section.id }} .banner-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .section-id-{{ section.id }} .banner-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .section-id-{{ section.id }} .banner-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: {{ section.settings.text_vertical_position }};
+    align-items: {{ section.settings.text_horizontal_position }};
+    padding: 40px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .section-id-{{ section.id }} .banner-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+  .section-id-{{ section.id }} .banner-content__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+  }
+
+  .section-id-{{ section.id }} .banner-title {
+    font-size: {{ section.settings.heading_size }}px;
+    margin-bottom: 15px;
+    color: {{ section.settings.text_color }};
+    font-weight: 700;
+  }
+
+  .section-id-{{ section.id }} .banner-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: {{ section.settings.text_color }};
+  }
+
+  .section-id-{{ section.id }} .banner-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text }};
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+
+  .section-id-{{ section.id }} .banner-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .section-id-{{ section.id }} .products-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  /* Carousel Styles */
+  .section-id-{{ section.id }} .product-slider {
+    position: relative;
+  }
+
+  .section-id-{{ section.id }} .swiper-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .section-id-{{ section.id }} .swiper-button-prev,
+  .section-id-{{ section.id }} .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .section-id-{{ section.id }} .swiper-button-prev {
+    left: 10px;
+  }
+
+  .section-id-{{ section.id }} .swiper-button-next {
+    right: 10px;
+  }
+
+  .section-id-{{ section.id }} .swiper-button-prev:hover,
+  .section-id-{{ section.id }} .swiper-button-next:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width: 768px) {
+    .section-id-{{ section.id }} {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .section-id-{{ section.id }} .banner-products-wrapper {
+      flex-direction: column !important;
+      gap: 20px;
+    }
+
+    .section-id-{{ section.id }} .banner-products__banner,
+    .section-id-{{ section.id }} .banner-products__products {
+      flex: 1 1 100%;
+      min-width: 100%;
+      width: 100%;
+    }
+
+    .section-id-{{ section.id }} .banner-content {
+      padding: 15px;
+    }
+
+    .section-id-{{ section.id }} .banner-title {
+      font-size: {{ section.settings.heading_size | times: 0.6 }}px;
+      margin-bottom: 10px;
+    }
+
+    .section-id-{{ section.id }} .banner-description {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .section-id-{{ section.id }} .banner-button {
+      padding: 8px 20px;
+      font-size: 14px;
+    }
+
+    .section-id-{{ section.id }} .products-grid {
+      grid-template-columns: repeat({{ section.settings.products_per_row_mobile }}, 1fr);
+      gap: 10px;
+    }
+
+    .section-id-{{ section.id }} .banner-image-wrapper {
+      min-height: 250px;
+    }
+
+    .section-id-{{ section.id }} .product-slider {
+      margin: 0 -15px;
+      padding: 0 15px;
+    }
+
+    .section-id-{{ section.id }} .swiper-button-prev,
+    .section-id-{{ section.id }} .swiper-button-next {
+      width: 32px;
+      height: 32px;
+    }
+
+    .section-id-{{ section.id }} .swiper-button-prev {
+      left: 5px;
+    }
+
+    .section-id-{{ section.id }} .swiper-button-next {
+      right: 5px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .section-id-{{ section.id }} .products-grid {
+      grid-template-columns: repeat({{ section.settings.products_per_row }}, 1fr);
+    }
+  }
+{% endstyle %}
+
+<div class="section-id-{{ section.id }} wide-container {% if section.settings.alternate_bg %}use-alt-bg{% endif %}" data-section-type="banner-with-products" data-components="product-block" data-cc-animate>
+  
+  {% if section.settings.section_title != blank %}
+    <div class="section-heading" data-cc-animate>
+      <h2 class="h2">{{ section.settings.section_title }}</h2>
+    </div>
+  {% endif %}
+
+  <div class="banner-products-wrapper position-{{ section.settings.banner_position }}">
+    
+    <!-- Banner Section -->
+    <div class="banner-products__banner" data-cc-animate="cc-fade-in">
+      <div class="banner-image-wrapper">
+        {% if section.settings.banner_image != blank %}
+          {{ section.settings.banner_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: section.settings.banner_image.alt }}
+        {% else %}
+          <div class="placeholder-image" style="height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.show_banner_text %}
+          <div class="banner-content">
+            <div class="banner-content__inner">
+              {% if section.settings.banner_title != blank %}
+                <h3 class="banner-title">{{ section.settings.banner_title }}</h3>
+              {% endif %}
+
+              {% if section.settings.banner_description != blank %}
+                <div class="banner-description">{{ section.settings.banner_description }}</div>
+              {% endif %}
+
+              {% if section.settings.banner_button_label != blank and section.settings.banner_button_link != blank %}
+                <a href="{{ section.settings.banner_button_link }}" class="banner-button">
+                  {{ section.settings.banner_button_label }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="banner-products__products" data-cc-animate="cc-fade-in" data-cc-animate-delay="0.2s">
+      {% if section.settings.products_title != blank %}
+        <h3 class="h3" style="margin-bottom: 20px;">{{ section.settings.products_title }}</h3>
+      {% endif %}
+
+      {% if section.settings.products_layout == 'carousel' %}
+        <!-- Carousel Layout -->
+        <div class="product-slider">
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var productSwiper = new Swiper('.section-id-{{ section.id }} .swiper-container', {
+                slidesPerView: {{ section.settings.products_per_row }},
+                spaceBetween: 20,
+                navigation: {
+                  nextEl: '.section-id-{{ section.id }} .swiper-button-next',
+                  prevEl: '.section-id-{{ section.id }} .swiper-button-prev',
+                },
+                breakpoints: {
+                  320: {
+                    slidesPerView: {{ section.settings.products_per_row_mobile }},
+                    spaceBetween: 10
+                  },
+                  768: {
+                    slidesPerView: {{ section.settings.products_per_row }},
+                    spaceBetween: 20
+                  }
+                }
+              });
+            });
+          </script>
+          <div class="swiper-container product-list product-list--carousel"
+               data-products-in-view="{{ section.settings.products_per_row }}">
+            <div class="swiper-wrapper" data-normheights=".image" data-normheights-inner="img">
+              {% if section.settings.collection != blank %}
+                {% assign collection = collections[section.settings.collection] %}
+                {% for product in collection.products limit: section.settings.products_count %}
+                  <div class="swiper-slide">
+                    {% render 'product-block', 
+                      product: product, 
+                      i: forloop.index, 
+                      show_vendor: section.settings.show_vendor,
+                      hide_swatches: section.settings.hide_swatches 
+                    %}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% for i in (1..section.settings.products_count) %}
+                  <div class="swiper-slide">
+                    {% render 'onboarding-product-block', i: forloop.index %}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+            <a href="#" class="swiper-button-prev js-swiper-button-prev" aria-label="{{ 'general.accessibility_labels.previous' | t | escape }}">{% render 'svg-chevron-left' %}</a>
+            <a href="#" class="swiper-button-next js-swiper-button-next" aria-label="{{ 'general.accessibility_labels.next' | t | escape }}">{% render 'svg-chevron-right' %}</a>
+          </div>
+        </div>
+      {% else %}
+        <!-- Grid Layout -->
+        <div class="products-grid">
+          {% if section.settings.collection != blank %}
+            {% assign collection = collections[section.settings.collection] %}
+            {% for product in collection.products limit: section.settings.products_count %}
+              {% render 'product-block', 
+                product: product, 
+                i: forloop.index, 
+                show_vendor: section.settings.show_vendor,
+                hide_swatches: section.settings.hide_swatches 
+              %}
+            {% endfor %}
+          {% else %}
+            {% for i in (1..section.settings.products_count) %}
+              {% render 'onboarding-product-block', i: forloop.index %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.show_view_all and section.settings.collection != blank %}
+        <div style="text-align: center; margin-top: 30px;">
+          <a href="{{ collections[section.settings.collection].url }}" class="button">
+            {{ 'collections.general.view_all' | t }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner với sản phẩm",
+  "class": "section-banner-with-products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cài đặt chung"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Tiêu đề section",
+      "default": "Sản phẩm nổi bật"
+    },
+    {
+      "type": "range",
+      "id": "section_spacing",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Khoảng cách section",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "alternate_bg",
+      "label": "Dùng màu nền thay thế",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Cài đặt Banner"
+    },
+    {
+      "type": "select",
+      "id": "banner_position",
+      "label": "Vị trí banner",
+      "options": [
+        {
+          "value": "left",
+          "label": "Bên trái"
+        },
+        {
+          "value": "right",
+          "label": "Bên phải"
+        }
+      ],
+      "default": "left",
+      "info": "Chọn vị trí banner ở bên trái hoặc bên phải"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Hình ảnh banner"
+    },
+    {
+      "type": "range",
+      "id": "banner_width",
+      "min": 25,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Độ rộng banner",
+      "default": 35,
+      "info": "Điều chỉnh độ rộng của banner (25%-50%)"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Bo góc hình ảnh",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_text",
+      "label": "Hiển thị text trên banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Tiêu đề banner",
+      "default": "Bộ sưu tập đặc biệt"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Kích thước tiêu đề",
+      "default": 32
+    },
+    {
+      "type": "textarea",
+      "id": "banner_description",
+      "label": "Mô tả banner",
+      "default": "Khám phá những sản phẩm độc đáo và chất lượng cao nhất"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_label",
+      "label": "Nhãn nút",
+      "default": "Khám phá ngay"
+    },
+    {
+      "type": "url",
+      "id": "banner_button_link",
+      "label": "Link nút"
+    },
+    {
+      "type": "select",
+      "id": "text_vertical_position",
+      "label": "Vị trí dọc của text",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Trên"
+        },
+        {
+          "value": "center",
+          "label": "Giữa"
+        },
+        {
+          "value": "flex-end",
+          "label": "Dưới"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_horizontal_position",
+      "label": "Vị trí ngang của text",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Trái"
+        },
+        {
+          "value": "center",
+          "label": "Giữa"
+        },
+        {
+          "value": "flex-end",
+          "label": "Phải"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Căn chỉnh text",
+      "options": [
+        {
+          "value": "left",
+          "label": "Trái"
+        },
+        {
+          "value": "center",
+          "label": "Giữa"
+        },
+        {
+          "value": "right",
+          "label": "Phải"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Màu overlay",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Độ mờ overlay",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Màu nền nút",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Màu chữ nút",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Cài đặt sản phẩm"
+    },
+    {
+      "type": "text",
+      "id": "products_title",
+      "label": "Tiêu đề danh sách sản phẩm",
+      "default": "Sản phẩm trong bộ sưu tập"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "select",
+      "id": "products_layout",
+      "label": "Kiểu hiển thị",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Lưới (Grid)"
+        },
+        {
+          "value": "carousel",
+          "label": "Trượt (Slider)"
+        }
+      ],
+      "default": "grid",
+      "info": "Chọn hiển thị dạng lưới hoặc slider"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Số lượng sản phẩm",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Sản phẩm mỗi hàng (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "products_per_row_mobile",
+      "label": "Sản phẩm mỗi hàng (Mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Hiển thị nhà cung cấp",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_swatches",
+      "label": "Ẩn màu sắc sản phẩm",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Hiển thị nút 'Xem tất cả'",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner với sản phẩm",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,413 @@
+{% comment %}
+  New Collections Section - Layout like provided image
+  3 images in a row with decreasing size, title centered right of large image, description right of small image
+{% endcomment %}
+
+<section class="new-collections" data-section-id="{{ section.id }}">
+  <div class="new-collections__container">
+    <div class="new-collections__grid">
+      <!-- Cột 1: Ảnh lớn -->
+      <div class="new-collections__image-large">
+        {%- if section.settings.main_image != blank -%}
+          <img 
+            src="{{ section.settings.main_image | img_url: '800x' }}"
+            srcset="{{ section.settings.main_image | img_url: '400x' }} 400w,
+                    {{ section.settings.main_image | img_url: '600x' }} 600w,
+                    {{ section.settings.main_image | img_url: '800x' }} 800w"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            alt="{{ section.settings.main_image.alt | escape }}"
+            loading="lazy"
+            class="new-collections__img"
+          >
+        {%- else -%}
+          <div class="new-collections__placeholder">
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Cột 2: Tiêu đề và ảnh trung bình -->
+      <div class="new-collections__content-middle">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="new-collections__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        <div class="new-collections__image-medium">
+          {%- if section.settings.medium_image != blank -%}
+            <img 
+              src="{{ section.settings.medium_image | img_url: '500x' }}"
+              srcset="{{ section.settings.medium_image | img_url: '300x' }} 300w,
+                      {{ section.settings.medium_image | img_url: '400x' }} 400w,
+                      {{ section.settings.medium_image | img_url: '500x' }} 500w"
+              sizes="(max-width: 768px) 80vw, 33vw"
+              alt="{{ section.settings.medium_image.alt | escape }}"
+              loading="lazy"
+              class="new-collections__img"
+            >
+          {%- else -%}
+            <div class="new-collections__placeholder">
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Cột 3: Ảnh nhỏ và mô tả -->
+      <div class="new-collections__content-right">
+        <div class="new-collections__image-small">
+          {%- if section.settings.small_image != blank -%}
+            <img 
+              src="{{ section.settings.small_image | img_url: '400x' }}"
+              srcset="{{ section.settings.small_image | img_url: '200x' }} 200w,
+                      {{ section.settings.small_image | img_url: '300x' }} 300w,
+                      {{ section.settings.small_image | img_url: '400x' }} 400w"
+              sizes="(max-width: 768px) 60vw, 33vw"
+              alt="{{ section.settings.small_image.alt | escape }}"
+              loading="lazy"
+              class="new-collections__img"
+            >
+          {%- else -%}
+            <div class="new-collections__placeholder">
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.description != blank -%}
+          <div class="new-collections__description">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
+          <a href="{{ section.settings.button_link }}" class="new-collections__link">
+            {{ section.settings.button_text }} →
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .new-collections {
+    padding: 100px 0;
+    background-color: {{ section.settings.background_color | default: '#ffffff' }};
+    overflow: hidden;
+  }
+
+  .new-collections__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .new-collections__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 cột bằng nhau */
+    grid-template-rows: 1fr; /* 1 hàng duy nhất */
+    gap: 20px;
+    min-height: 600px;
+    align-items: center;
+  }
+
+  .new-collections__image-large {
+    grid-column: 1;
+    height: 100%;
+  }
+
+  .new-collections__image-large .new-collections__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 600px;
+  }
+
+  .new-collections__content-middle {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px 0;
+  }
+
+  .new-collections__title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin: 0 0 20px 0;
+    line-height: 0.9;
+    color: {{ section.settings.heading_color | default: '#000000' }};
+    text-align: center;
+  }
+
+  .new-collections__image-medium {
+    width: 100%;
+    height: 500px; /* Kích thước giảm dần */
+  }
+
+  .new-collections__image-medium .new-collections__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .new-collections__content-right {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 20px 0;
+  }
+
+  .new-collections__image-small {
+    width: 100%;
+    height: 400px; /* Kích thước nhỏ nhất */
+  }
+
+  .new-collections__image-small .new-collections__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .new-collections__description {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: {{ section.settings.text_color | default: '#666666' }};
+    margin-bottom: 25px;
+    max-width: 300px;
+  }
+
+  .new-collections__link {
+    display: inline-block;
+    color: {{ section.settings.link_color | default: '#000000' }};
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+  }
+
+  .new-collections__link:hover {
+    opacity: 0.7;
+  }
+
+  /* General Image Styles */
+  .new-collections__img {
+    display: block;
+  }
+
+  /* Placeholders */
+  .new-collections__placeholder {
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+  }
+
+  .new-collections__image-large .new-collections__placeholder {
+    min-height: 600px;
+  }
+
+  .placeholder-svg {
+    width: 50px;
+    height: 50px;
+    opacity: 0.3;
+    fill: #ccc;
+  }
+
+  /* Tablet Responsive */
+  @media screen and (max-width: 1024px) {
+    .new-collections__container {
+      padding: 0 30px;
+    }
+
+    .new-collections__title {
+      font-size: 3rem;
+      letter-spacing: 4px;
+    }
+
+    .new-collections__image-medium {
+      height: 400px;
+    }
+
+    .new-collections__image-small {
+      height: 300px;
+    }
+  }
+
+  /* Mobile Responsive */
+  @media screen and (max-width: 768px) {
+    .new-collections {
+      padding: 60px 0;
+    }
+
+    .new-collections__container {
+      padding: 0 20px;
+    }
+
+    .new-collections__grid {
+      grid-template-columns: 1fr; /* Chuyển thành 1 cột trên mobile */
+      grid-template-rows: auto auto auto; /* 3 hàng */
+      gap: 30px;
+      min-height: auto;
+    }
+
+    .new-collections__content-middle {
+      order: 2; /* Tiêu đề giữa */
+    }
+
+    .new-collections__image-large {
+      order: 1;
+    }
+
+    .new-collections__content-right {
+      order: 3;
+    }
+
+    .new-collections__image-large .new-collections__img {
+      min-height: 400px;
+    }
+
+    .new-collections__image-medium .new-collections__img {
+      min-height: 300px;
+    }
+
+    .new-collections__image-small .new-collections__img {
+      min-height: 250px;
+    }
+
+    .new-collections__title {
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+
+    .new-collections__description {
+      max-width: none;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .new-collections__title {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+    }
+
+    .new-collections__description {
+      font-size: 0.85rem;
+    }
+
+    .new-collections__image-large .new-collections__img {
+      min-height: 300px;
+    }
+
+    .new-collections__image-medium .new-collections__img {
+      min-height: 250px;
+    }
+
+    .new-collections__image-small .new-collections__img {
+      min-height: 200px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "New Collections",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text", 
+      "id": "heading",
+      "label": "Heading",
+      "default": "NEW COLLECTIONS"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description", 
+      "default": "<p>A bold statement, you might call it. Black asymmetric dress blowing voluminously in the wind. Oversized hybrids of hoodie and jacket that turn out to be made from recycled leather and nylon derived leather... raised with boots. Tote bags included.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Large Image (Left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "medium_image", 
+      "label": "Medium Image (Middle)"
+    },
+    {
+      "type": "image_picker",
+      "id": "small_image",
+      "label": "Small Image (Right)"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Link Text",
+      "default": "View more"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color", 
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color", 
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Collections"
+    }
+  ]
+}
+{% endschema %}

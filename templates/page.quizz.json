@@ -1,0 +1,158 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "quiz_sample": {
+      "type": "quiz",
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question_text": "Phong cách thời trang hàng ngày của bạn là gì?",
+            "options_json": "[{\"label\":\"Mạnh mẽ, cá tính, nổi bật\",\"weights\":{\"bold\":4,\"edgy\":3,\"statement\":2},\"tags\":[\"prefer_bold\",\"confident\"]},{\"label\":\"Tối giản, thanh lịch, tinh tế\",\"weights\":{\"minimal\":4,\"elegant\":3,\"refined\":2},\"tags\":[\"prefer_minimal\",\"sophisticated\"]},{\"label\":\"Cổ điển, sang trọng, quý phái\",\"weights\":{\"classic\":4,\"luxury\":3,\"timeless\":2},\"tags\":[\"prefer_classic\",\"traditional\"]},{\"label\":\"Trẻ trung, năng động, hiện đại\",\"weights\":{\"trendy\":4,\"youthful\":3,\"modern\":2},\"tags\":[\"prefer_trendy\",\"energetic\"]}]",
+            "question_image": "shopify://shop_images/ascensis-draconis-len-mau.jpg",
+            "question_image_alt": "Phong cách thời trang"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question_text": "Bạn thường đeo trang sức trong những dịp nào?",
+            "options_json": "[{\"label\":\"Hàng ngày, mọi lúc mọi nơi\",\"weights\":{\"minimal\":3,\"trendy\":3,\"casual\":4},\"tags\":[\"daily_wear\",\"versatile\"]},{\"label\":\"Đi làm, gặp gỡ công việc\",\"weights\":{\"elegant\":4,\"classic\":3,\"professional\":3},\"tags\":[\"work_wear\",\"formal\"]},{\"label\":\"Dự tiệc, sự kiện đặc biệt\",\"weights\":{\"luxury\":4,\"bold\":3,\"statement\":3},\"tags\":[\"special_occasion\",\"glamorous\"]},{\"label\":\"Đi chơi, hẹn hò, gặp bạn bè\",\"weights\":{\"trendy\":4,\"youthful\":3,\"fun\":3},\"tags\":[\"casual_outing\",\"social\"]}]",
+            "question_image": "shopify://shop_images/nhan-exeltus-len-mau.jpg",
+            "question_image_alt": "Dịp đeo trang sức"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question_text": "Bạn thích trang sức có kích thước như thế nào?",
+            "options_json": "[{\"label\":\"To bản, nổi bật, thu hút ánh nhìn\",\"weights\":{\"bold\":5,\"statement\":4,\"dramatic\":3},\"tags\":[\"large_size\",\"eye_catching\"]},{\"label\":\"Vừa phải, cân đối, hài hòa\",\"weights\":{\"classic\":4,\"elegant\":3,\"balanced\":3},\"tags\":[\"medium_size\",\"proportional\"]},{\"label\":\"Nhỏ nhắn, tinh tế, thanh lịch\",\"weights\":{\"minimal\":5,\"delicate\":4,\"refined\":3},\"tags\":[\"small_size\",\"subtle\"]},{\"label\":\"Đa dạng, tùy tâm trạng và trang phục\",\"weights\":{\"trendy\":4,\"versatile\":3,\"flexible\":3},\"tags\":[\"varied_size\",\"adaptable\"]}]",
+            "question_image": "shopify://shop_images/talis-charm-helios-black-silver-len-mau_1.webp",
+            "question_image_alt": "Kích thước trang sức"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question_text": "Bạn thích trang sức có họa tiết và chi tiết như thế nào?",
+            "options_json": "[{\"label\":\"Đơn giản, trơn, không họa tiết\",\"weights\":{\"minimal\":5,\"modern\":3,\"clean\":4},\"tags\":[\"simple_design\",\"plain\"]},{\"label\":\"Họa tiết cổ điển, hoa văn truyền thống\",\"weights\":{\"classic\":5,\"vintage\":4,\"ornate\":3},\"tags\":[\"traditional_pattern\",\"detailed\"]},{\"label\":\"Độc đáo, cá tính, khác biệt\",\"weights\":{\"bold\":5,\"edgy\":4,\"unique\":4},\"tags\":[\"unique_design\",\"distinctive\"]},{\"label\":\"Hiện đại, trendy, theo xu hướng\",\"weights\":{\"trendy\":5,\"contemporary\":4,\"fashionable\":3},\"tags\":[\"modern_design\",\"current\"]}]",
+            "question_image": "shopify://shop_images/nhan-exaltus-concept.jpg",
+            "question_image_alt": "Họa tiết trang sức"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question_text": "Bạn sẵn sàng chi bao nhiêu cho một món trang sức yêu thích?",
+            "options_json": "[{\"label\":\"Dưới 500k - Giá cả phải chăng\",\"weights\":{\"trendy\":3,\"minimal\":2,\"affordable\":4},\"tags\":[\"budget_friendly\",\"entry_level\"]},{\"label\":\"500k - 1 triệu - Tầm trung\",\"weights\":{\"classic\":3,\"elegant\":3,\"moderate\":3},\"tags\":[\"mid_range\",\"reasonable\"]},{\"label\":\"1 - 2 triệu - Cao cấp\",\"weights\":{\"luxury\":3,\"bold\":2,\"premium\":4},\"tags\":[\"high_end\",\"quality\"]},{\"label\":\"Trên 2 triệu - Không giới hạn\",\"weights\":{\"luxury\":5,\"statement\":4,\"exclusive\":4},\"tags\":[\"luxury_tier\",\"investment\"]}]",
+            "question_image": "shopify://shop_images/fidelis-charm-helios-black-silver-len-mau_1.webp",
+            "question_image_alt": "Ngân sách trang sức"
+          }
+        },
+        "result_bold": {
+          "type": "result",
+          "settings": {
+            "category_key": "bold",
+            "result_title": "Phong Cách Mạnh Mẽ & Cá Tính",
+            "result_desc": "<p><strong>Bạn là người tự tin, không ngại thể hiện cá tính!</strong></p><p>Phong cách của bạn mạnh mẽ, nổi bật và luôn thu hút mọi ánh nhìn. Bạn yêu thích những món trang sức to bản, có thiết kế độc đáo và khác biệt.</p><p>✨ <strong>Đặc điểm:</strong></p><ul><li>Thiết kế độc đáo, khác biệt</li><li>Kích thước to bản, nổi bật</li><li>Họa tiết cá tính, ấn tượng</li><li>Phù hợp: Dự tiệc, sự kiện</li></ul><p>💎 <strong>Gợi ý:</strong> Nhẫn statement, vòng tay chunky, khuyên tai lớn</p>",
+            "result_image": "shopify://shop_images/1_1_b2a73143-7a17-4f7c-b9aa-2bb32fe07237.webp",
+            "cta_label": "Khám Phá Ngay",
+            "cta_link": "",
+            "rule_json": "",
+            "reco_collection": "all-products",
+            "reco_limit": 4,
+            "reco_title": "Trang Sức Phù Hợp Với Bạn"
+          }
+        },
+        "result_minimal": {
+          "type": "result",
+          "settings": {
+            "category_key": "minimal",
+            "result_title": "Phong Cách Tối Giản & Thanh Lịch",
+            "result_desc": "<p><strong>Bạn yêu thích sự đơn giản nhưng tinh tế!</strong></p><p>Phong cách của bạn tối giản, thanh lịch và vượt thời gian. Bạn tin rằng \"less is more\" và thích những món trang sức nhỏ nhắn, tinh tế nhưng đầy ý nghĩa.</p><p>✨ <strong>Đặc điểm:</strong></p><ul><li>Thiết kế đơn giản, tinh tế</li><li>Kích thước nhỏ nhắn, thanh lịch</li><li>Không họa tiết hoặc rất tối giản</li><li>Phù hợp: Hàng ngày, đi làm</li></ul><p>💎 <strong>Gợi ý:</strong> Nhẫn mảnh, dây chuyền đơn giản, khuyên tai nhỏ</p>",
+            "result_image": "shopify://shop_images/shogun-helios-black-silver.jpg",
+            "cta_label": "Xem Bộ Sưu Tập",
+            "cta_link": "",
+            "rule_json": "",
+            "reco_collection": "all-products",
+            "reco_limit": 4,
+            "reco_title": "Trang Sức Tối Giản Cho Bạn"
+          }
+        },
+        "result_classic": {
+          "type": "result",
+          "settings": {
+            "category_key": "classic",
+            "result_title": "Phong Cách Cổ Điển & Sang Trọng",
+            "result_desc": "<p><strong>Bạn trân trọng vẻ đẹp trường tồn với thời gian!</strong></p><p>Phong cách của bạn cổ điển, sang trọng và quý phái. Bạn yêu thích những món trang sức có thiết kế truyền thống, hoa văn tinh xảo và giá trị lâu dài.</p><p>✨ <strong>Đặc điểm:</strong></p><ul><li>Thiết kế cổ điển, truyền thống</li><li>Kích thước vừa phải, cân đối</li><li>Họa tiết hoa văn tinh xảo</li><li>Phù hợp: Công việc, sự kiện trang trọng</li></ul><p>💎 <strong>Gợi ý:</strong> Nhẫn kim cương, vòng tay vintage, mặt dây chuyền cổ điển</p>",
+            "result_image": "shopify://shop_images/archie-helios-black-silver-len-mau.jpg",
+            "cta_label": "Khám Phá Bộ Sưu Tập",
+            "cta_link": "",
+            "rule_json": "",
+            "reco_collection": "all-products",
+            "reco_limit": 4,
+            "reco_title": "Trang Sức Cổ Điển Dành Cho Bạn"
+          }
+        },
+        "result_trendy": {
+          "type": "result",
+          "settings": {
+            "category_key": "trendy",
+            "result_title": "Phong Cách Trẻ Trung & Hiện Đại",
+            "result_desc": "<p><strong>Bạn luôn bắt kịp xu hướng và yêu thích sự mới mẻ!</strong></p><p>Phong cách của bạn trẻ trung, năng động và hiện đại. Bạn thích thử nghiệm những thiết kế mới, theo xu hướng và không ngại thay đổi.</p><p>✨ <strong>Đặc điểm:</strong></p><ul><li>Thiết kế hiện đại, theo trend</li><li>Kích thước đa dạng, linh hoạt</li><li>Họa tiết trendy, bắt mắt</li><li>Phù hợp: Đi chơi, gặp bạn bè</li></ul><p>💎 <strong>Gợi ý:</strong> Nhẫn xếp layer, vòng tay charm, khuyên tai trendy</p>",
+            "result_image": "shopify://shop_images/archie-helios-black-silver-len-mau.jpg",
+            "cta_label": "Xem Xu Hướng Mới",
+            "cta_link": "",
+            "rule_json": "",
+            "reco_collection": "all-products",
+            "reco_limit": 4,
+            "reco_title": "Trang Sức Trendy Cho Bạn"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "result_bold",
+        "result_minimal",
+        "result_classic",
+        "result_trendy"
+      ],
+      "settings": {
+        "method": "highest_category",
+        "show_progress": true,
+        "persist_answer": true,
+        "restart_enabled": true,
+        "heading_h1": false,
+        "title": "Khám Phá Phong Cách Trang Sức Của Bạn",
+        "accent_color": "#fab320",
+        "bg_color": "#000000",
+        "text_color": "#f2f2f2",
+        "card_bg": "#ffffff0f",
+        "radius": 16,
+        "shadow_strength": 20,
+        "glass_effect": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "quiz_sample"
+  ]
+}

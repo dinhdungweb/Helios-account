@@ -1,0 +1,184 @@
+<style>
+  .custom-art-wrapper {
+    padding: 90px 20px;
+    width: 1400px;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .custom-art-title {
+    font-size: {{ section.settings.title_size }}px;
+    margin-bottom: {{ section.settings.title_margin }}px;
+    text-align: center;
+    line-height: .9;
+    font-weight: 900;
+  }
+
+  .custom-art-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1.2fr 2fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+  }
+
+  .art-text-block {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    align-self: end;
+  }
+
+  .art-image-person {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    align-self: center;
+    text-align: center;
+  }
+
+  .art-image-building {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    align-self: end;
+  }
+
+  .art-image-building img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .art-text-overlay {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    padding: 10px 0;
+  }
+
+  .art-image-ocean {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    position: relative;
+    height: 100%;
+  }
+
+  .art-image-ocean img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .art-description {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    align-self: start;
+    line-height: 1.6;
+  }
+
+  @media screen and (max-width: 768px) {
+    .custom-art-layout {
+      display: block;
+    }
+    .custom-art-title {
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+  }
+</style>
+
+<section class="custom-art-wrapper">
+  <div class="custom-art-title">{{ section.settings.section_title }}</div>
+
+  <div class="custom-art-layout">
+    <div class="art-text-block">
+      <p>{{ section.settings.text_block | escape }}</p>
+    </div>
+
+    <div class="art-image-person">
+      <img src="{{ section.settings.image_person | image_url }}" alt="Person image">
+    </div>
+
+    <div class="art-image-building">
+      <div class="art-text-overlay">
+        <p>{{ section.settings.text_building | escape }}</p>
+      </div>
+      <img src="{{ section.settings.image_building | image_url }}" alt="Building image">
+    </div>
+
+    <div class="art-image-ocean">
+      <img src="{{ section.settings.image_ocean | image_url }}" alt="Ocean image">
+    </div>
+
+    <div class="art-description">
+      <p>{{ section.settings.description_text | escape }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Art Layout Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Explore the Visual Story"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Font Size (px)",
+      "min": 20,
+      "max": 150,
+      "step": 2,
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "label": "Spacing below Title (px)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "textarea",
+      "id": "text_block",
+      "label": "Left Column Text",
+      "default": "Text block on the top-left column."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_person",
+      "label": "Image - Person (Left Bottom)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_building",
+      "label": "Image - Building (Middle Top)"
+    },
+    {
+      "type": "textarea",
+      "id": "text_building",
+      "label": "Text next to Building Image (Middle Top)",
+      "default": "Overlay or caption text here."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_ocean",
+      "label": "Image - Ocean (Right Top)"
+    },
+    {
+      "type": "textarea",
+      "id": "description_text",
+      "label": "Description under Ocean Image (Bottom Right)",
+      "default": "This is a description in the empty area under the ocean image."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Art Layout Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,138 @@
+<div class="sticky-section-wrapper">
+  <div class="text-row">
+    <div class="sticky-text">
+      {{ section.settings.text_content }}
+    </div>
+  </div>
+  <div class="image-row">
+    <div class="image-scroll-container">
+      <div class="image-scroll-inner">
+        {% for block in section.blocks %}
+          {% if block.type == 'image' %}
+            <img src="{{ block.settings.image | img_url: 'master' }}" alt="Scroll Image">
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sticky-section-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .text-row {
+    height: 100vh; /* Row text cao bằng màn hình */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    height: 100vh; /* Chiều cao cơ bản */
+  }
+
+  .sticky-text {
+    width: 50%;
+    padding: 20px;
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+  }
+
+  .image-scroll-container {
+    width: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-scroll-inner {
+    display: flex;
+    transition: transform 0.1s ease;
+  }
+
+  .image-scroll-inner img {
+    height: 300px; /* Điều chỉnh kích thước ảnh */
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const scrollContainer = document.querySelector('.image-scroll-inner');
+    const imageRow = document.querySelector('.image-row');
+    
+    // Tính toán chiều rộng cần cuộn của dãy ảnh
+    const scrollWidth = scrollContainer.scrollWidth - imageRow.offsetWidth;
+    
+    // Tính chiều cao cần thiết để ảnh cuộn hết
+    const extraHeight = (scrollWidth / window.innerWidth) * window.innerHeight * 2; // Nhân 2 để tăng thời gian cuộn
+    imageRow.style.height = `${window.innerHeight + extraHeight}px`;
+
+    window.addEventListener('scroll', function() {
+      const scrollTop = window.scrollY;
+      const imageRowTop = imageRow.offsetTop;
+      const imageRowHeight = imageRow.offsetHeight;
+
+      // Khi cuộn đến hoặc qua image-row
+      if (scrollTop >= imageRowTop && scrollTop <= imageRowTop + imageRowHeight) {
+        const scrollProgress = (scrollTop - imageRowTop) / (imageRowHeight - window.innerHeight);
+        const translateX = Math.min(0, -scrollProgress * scrollWidth);
+        scrollContainer.style.transform = `translateX(${translateX}px)`;
+      } else if (scrollTop < imageRowTop) {
+        scrollContainer.style.transform = 'translateX(0)';
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Sticky Text Scroll Images",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text_content",
+      "label": "Nội dung văn bản",
+      "default": "Đoạn văn bản sẽ hiển thị ở đây và cố định khi cuộn."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Chọn ảnh"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky Text Scroll Images",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

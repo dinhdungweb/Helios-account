@@ -1,0 +1,294 @@
+<div class="cart-drawer">
+  <div class="cart-drawer-box">
+    <header class="cart-drawer-header">
+      <div class="cart-title">Shopping Cart</div>
+      <div class="cart-drawer-header-right">
+        <span class="cart-drawer-header-right-items">{{ cart.item_count }} sản phẩm</span>
+        <button id="btn-close" title="Đóng" class="cart-drawer-header-right-close" type="button">
+          {% render 'svg-close' %}
+        </button>
+      </div>
+    </header>
+
+    {% form 'cart', cart, class: 'cart-drawer-form' %}
+      {% if cart.item_count == 0 %}
+        <p class="cart-drawer-empty">Giỏ hàng của bạn đang trống!</p>
+      {% else %}
+        <div class="cart-drawer-items">
+          {% for item in cart.items %}
+            <div class="cart-drawer-item" data-line-item-key="{{ item.key }}">
+              <div class="cart-drawer-item-image">
+                <img src="{{ item.image | img_url: '200x' }}" alt="{{ item.title }}">
+              </div>
+              <div class="cart-drawer-item-main">
+                <div class="cart-drawer-item-main-flex">
+                  <div class="cart-drawer-item-main-flex-left">
+                    <h3>
+                      <a href="{{ item.url }}">{{ item.product.title }}</a>
+                    </h3>
+                    <span>{{ item.variant.title }}</span>
+                    <div class="cart-price">
+                      {% if item.original_price > item.final_price %}
+                        <span class="price-original" style="text-decoration: line-through; opacity: 0.6; margin-right: 8px;">
+                          {% render 'format-vnd', price: item.original_price %}
+                        </span>
+                        <span class="price-final">
+                          {% render 'format-vnd', price: item.final_price %}
+                        </span>
+                      {% else %}
+                        {% render 'tier-price', 
+                          price: item.original_price,
+                          compare_at_price: item.variant.compare_at_price,
+                          customer: customer,
+                          show_original: true,
+                          show_badge: false
+                        %}
+                      {% endif %}
+                    </div>
+                    <div class="cart-drawer-quantity-selector">
+                      <button class="cart-drawer-quantity-selector-minus" type="button">
+                        {% render 'svg-minus' %}
+                      </button>
+                      <input type="text" readonly value="{{ item.quantity }}">
+                      <button class="cart-drawer-quantity-selector-plus" type="button">{% render 'svg-plus' %}</button>
+                    </div>
+                  </div>
+                  <div class="cart-drawer-item-main-flex-right">
+                    <div class="cart-drawer-remove-btn">{% render 'svg-delete' %}</div>
+                    {% if item.line_level_discount_allocations.size > 0 %}
+                      <ul class="cart-discount-list">
+                      {% for discount_allocation in item.line_level_discount_allocations %}
+                        <li class="cart-discount">
+                          <div class="cart-discount__label"><span class="cart-discount__icon">{% render 'icon-label' %}</span> {{ discount_allocation.discount_application.title }}</div>
+                          <div class="cart-discount__amount">(-<span class="theme-money">{%- render "price", price: discount_allocation.amount, disable_currency_code: true -%}</span>)</div>
+                        </li>
+                      {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+          <div class="recommend-product-heading">{{ section.settings.recommend-product-heading }}</div>
+          
+          {% if section.settings.product-list != blank %}
+              {% for product in section.settings.product-list %}
+                  <div class="cart-drawer-item">
+                    <div class="cart-drawer-item-image">
+                      <a href="{{ product.url }}" alt="{{ product.title }}">{{ product.featured_image | image_url: width: 200 | image_tag }}</a>
+                    </div> 
+                    <div class="cart-drawer-item-main">
+                      <div class="recommend-product-title">
+                      <a href="{{ product.url }}" alt="{{ product.title }}">{{ product.title }}</a>
+                      </div>
+                      <div class="recommend-product-price">
+                      {% render 'tier-price', 
+                        price: product.price,
+                        compare_at_price: product.compare_at_price,
+                        customer: customer,
+                        show_original: true,
+                        show_badge: true
+                      %}
+                      </div>
+                      {% if product.variants.size > 1 %}
+                          {% assign sold_out = true %}
+                          {% for variant in product.variants %}
+                              {% unless variant.available %}
+                                  {% continue %}
+                              {% endunless %}
+                              {% assign sold_out = false %}
+                              {% break %}
+                          {% endfor %}
+                      
+                          {% if sold_out %}
+                              <button class="add-to-cart-btn product-variant-submit-button" disabled>Hết hàng</button>
+                          {% else %}
+                              <div class="product-variant-dropdown">
+                                  <form class="product-add-to-cart" action="/cart/add" method="post">
+                                      <select name="id" class="product-variant-select">
+                                          {% for variant in product.variants %}
+                                              <option value="{{ variant.id }}" {% unless variant.available %}disabled="disabled"{% endunless %}>
+                                                  {{ variant.title }}
+                                                  {% unless variant.available %}
+                                                      - Hết hàng
+                                                  {% endunless %}
+                                              </option>
+                                          {% endfor %}
+                                      </select>
+                                      <button class="add-to-cart-btn product-variant-submit-button" data-product-variant="{{product.first_available_variant.id}}">Thêm vào giỏ hàng</button>
+                                  </form>
+                              </div>
+                          {% endif %}
+                      {% else %}
+                          {% form 'product', product, class: 'product-add-to-cart' %}
+                              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                              <button class="add-to-cart-btn product-variant-submit-button" data-product-variant="{{product.first_available_variant.id}}">
+                                  {% if product.available %}
+                                      Thêm vào giỏ hàng
+                                  {% else %}
+                                      Hết hàng
+                                  {% endif %}
+                              </button>
+                          {% endform %}
+                      {% endif %}
+                    </div>
+                  </div>
+              {% endfor %}
+            {% endif %}
+           </div>
+        <footer class="cart-drawer-footer">
+          {% comment %} Calculate tier pricing total - SYNC WITH tier-price.liquid {% endcomment %}
+          {% liquid
+            assign tier_enabled = settings.tier_pricing_enabled
+            assign prioritize_tags = settings.tier_prioritize_tags
+            assign use_custom_metafield = settings.tier_use_custom_metafield
+            
+            assign tier_1_name = settings.tier_1_name
+            assign tier_1_tag = settings.tier_1_tag
+            assign tier_1_discount = settings.tier_1_discount
+            assign tier_1_threshold = settings.tier_1_threshold | plus: 0
+            
+            assign tier_2_name = settings.tier_2_name
+            assign tier_2_tag = settings.tier_2_tag
+            assign tier_2_discount = settings.tier_2_discount
+            assign tier_2_threshold = settings.tier_2_threshold | plus: 0
+            
+            assign tier_3_name = settings.tier_3_name
+            assign tier_3_tag = settings.tier_3_tag
+            assign tier_3_discount = settings.tier_3_discount
+            assign tier_3_threshold = settings.tier_3_threshold | plus: 0
+            
+            assign tier_4_name = settings.tier_4_name
+            assign tier_4_tag = settings.tier_4_tag
+            assign tier_4_discount = settings.tier_4_discount
+            assign tier_4_threshold = settings.tier_4_threshold | plus: 0
+            
+            assign tier_5_name = settings.tier_5_name
+            assign tier_5_tag = settings.tier_5_tag
+            assign tier_5_discount = settings.tier_5_discount
+            assign tier_5_threshold = settings.tier_5_threshold | plus: 0
+            
+            assign tier_6_name = settings.tier_6_name
+            assign tier_6_discount = settings.tier_6_discount
+            
+            assign tier_discount_percent = 0
+            assign customer_tier = ''
+            assign has_tier = false
+            assign total_spent = 0
+            
+            if tier_enabled and customer
+              if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
+                assign total_spent = customer.metafields.custom.total_spent | plus: 0
+              else
+                assign total_spent = customer.total_spent | divided_by: 100
+              endif
+              
+              if prioritize_tags
+                if customer.tags contains tier_1_tag
+                  assign tier_discount_percent = tier_1_discount
+                  assign customer_tier = tier_1_name
+                  assign has_tier = true
+                elsif customer.tags contains tier_2_tag
+                  assign tier_discount_percent = tier_2_discount
+                  assign customer_tier = tier_2_name
+                  assign has_tier = true
+                elsif customer.tags contains tier_3_tag
+                  assign tier_discount_percent = tier_3_discount
+                  assign customer_tier = tier_3_name
+                  assign has_tier = true
+                elsif customer.tags contains tier_4_tag
+                  assign tier_discount_percent = tier_4_discount
+                  assign customer_tier = tier_4_name
+                  assign has_tier = true
+                elsif customer.tags contains tier_5_tag
+                  assign tier_discount_percent = tier_5_discount
+                  assign customer_tier = tier_5_name
+                  assign has_tier = true
+                endif
+              endif
+              
+              unless has_tier
+                if total_spent >= tier_1_threshold
+                  assign tier_discount_percent = tier_1_discount
+                  assign customer_tier = tier_1_name
+                  assign has_tier = true
+                elsif total_spent >= tier_2_threshold
+                  assign tier_discount_percent = tier_2_discount
+                  assign customer_tier = tier_2_name
+                  assign has_tier = true
+                elsif total_spent >= tier_3_threshold
+                  assign tier_discount_percent = tier_3_discount
+                  assign customer_tier = tier_3_name
+                  assign has_tier = true
+                elsif total_spent >= tier_4_threshold
+                  assign tier_discount_percent = tier_4_discount
+                  assign customer_tier = tier_4_name
+                  assign has_tier = true
+                elsif total_spent >= tier_5_threshold
+                  assign tier_discount_percent = tier_5_discount
+                  assign customer_tier = tier_5_name
+                  assign has_tier = true
+                else
+                  assign tier_discount_percent = tier_6_discount
+                  assign customer_tier = tier_6_name
+                  assign has_tier = true
+                endif
+              endunless
+            endif
+          %}
+          
+          {% comment %} Calculate cart total with tier discount {% endcomment %}
+          {% if tier_discount_percent > 0 %}
+            {% assign discount_multiplier = 100 | minus: tier_discount_percent %}
+            {% assign cart_tier_total = cart.original_total_price | times: discount_multiplier | divided_by: 100 %}
+            {% assign cart_tier_discount = cart.original_total_price | minus: cart_tier_total %}
+          {% else %}
+            {% assign cart_tier_total = cart.original_total_price %}
+            {% assign cart_tier_discount = 0 %}
+          {% endif %}
+          
+          {% comment %} Show price breakdown {% endcomment %}
+          {% if has_tier and tier_discount_percent > 0 %}
+            <div class="cart-drawer-footer-row">
+              <h3>Tổng phụ</h3>
+              <span>{{ cart.original_total_price | money }}</span>
+            </div>
+            <div class="cart-drawer-footer-row">
+              <h3>Giảm giá {{ customer_tier }} (-{{ tier_discount_percent }}%)</h3>
+              <span>- {{ cart_tier_discount | money }}</span>
+            </div>
+          {% endif %}
+          
+          {% if cart.total_discounts > 0 %}
+            {% unless has_tier and tier_discount_percent > 0 %}
+              <div class="cart-drawer-footer-row">
+                <h3>Tổng phụ</h3>
+                <span>{{ cart.original_total_price | money }}</span>
+              </div>
+            {% endunless %}
+            <div class="cart-drawer-footer-row">
+              <h3>Giảm giá khác</h3>
+              <span>- {{ cart.total_discounts | money }}</span>
+            </div>
+          {% endif %}
+          
+          <div class="cart-drawer-footer-row">
+            <h3>Tổng cộng</h3>
+            {% if has_tier and tier_discount_percent > 0 %}
+              <span>{{ cart_tier_total | money }}</span>
+            {% else %}
+              <span>{{ cart.total_price | money }}</span>
+            {% endif %}
+          </div>
+          <div class="cart-drawer-item-main-grid">
+            <!-- <a href="/cart/"><button class="cart-drawer-second-button">Xem giỏ hàng</button></a> -->
+            <a href="/checkout"><button type="submit" name="checkout" class="cart-drawer-button">Thanh toán</button></a>
+          </div>
+        </footer>
+      {% endif %}
+    {% endform %}
+  </div>
+</div>

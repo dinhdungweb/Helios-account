@@ -1,0 +1,121 @@
+{% unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' %}
+{% assign t = template | split: '.' | first %}
+  
+<nav class="wide-container breadcrumbs" role="navigation" aria-label="breadcrumbs">
+  <ol style="padding: 0">
+    <li>
+      <a href="/" title="Home">HOME</a>
+    </li>
+
+  {% case t %}
+  {% when 'page' %}
+
+    <li>
+      <a href="{{ page.url }}" aria-current="page">{{ page.title }}</a>
+    </li>
+
+  {% when 'product' %}
+
+    {% if collection.url %}
+      <li>
+        {{ collection.title | link_to: collection.url }}
+      </li>
+    {% endif %}
+
+    <li>
+      <a href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+    </li>
+
+  {% when 'collection' and collection.handle %}
+
+    {% if current_tags %}
+      <li>{{ collection.title | link_to: collection.url }}</li>
+      <li>
+        {% capture tag_url %}{{ collection.url }}/{{ current_tags | join: "+"}}{% endcapture %}
+        <a href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + "}}</a>
+      </li>
+    {% else %}
+      <li>
+        <a href="{{ collection.url }}" aria-current="page">{{ collection.title }}</a>
+      </li>
+    {% endif %}
+
+  {% when 'blog' %}
+
+    {% if current_tags %}
+      <li>{{ blog.title | link_to: blog.url }}</li>
+      <li>
+        {% capture tag_url %}{{blog.url}}/tagged/{{ current_tags | join: "+" }}{% endcapture %}
+        <a href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + " }}</a>
+      </li>
+    {% else %}
+      <li>
+        <a href="{{ blog.url }}" aria-current="page">{{ blog.title }}</a>
+      </li>
+    {% endif %}
+
+  {% when 'article' %}
+
+    <li>{{ blog.title | link_to: blog.url }}</li>
+    <li>
+      <a href="{{ article.url }}" aria-current="page">{{ article.title }}</a>
+    </li>
+
+  {% else %}
+
+    <li aria-current="page">
+      <a href="{{ request.path }}" aria-current="page">{{ page_title }}</a>
+    </li>
+
+  {% endcase %}
+
+  </ol>
+</nav>
+<script defer>
+    const breadCrumbLinks = document.querySelectorAll(".breadcrumbs a")
+    const lastLink = breadCrumbLinks[breadCrumbLinks.length - 1]
+    lastLink.href = "javascript:void(0)"
+</script>
+{% endunless %}
+<style>
+  /* Breadcrumbs */
+    .breadcrumbs {
+        padding: 0rem 20px;
+        color: {{ settings.breadcrumb_text_color }};
+    }
+  .breadcrumbs ol {
+    margin: 15px 0;
+  }
+    .breadcrumbs li {
+        display: inline-block;
+    }
+
+    .breadcrumbs a {
+        text-decoration: none;
+        /*Will put liquid customization here*/
+        font-size: 13px;
+        color: inherit;
+    }
+
+    .breadcrumbs li:not(:last-child):after {
+        {%- if settings.breadcrumb_delimeter == "angle_right" -%}
+            content: "›";
+            font-size: 18px;
+            color: white;
+        {%- elsif settings.breadcrumb_delimeter == "slash" -%}
+            content: "/";
+            font-size: 16px;
+            color: white;
+        {%- endif -%}
+        display: inline-block;
+        margin-left: .75rem;
+        margin-right: 0.50rem;
+        speak: none;
+    }
+
+    .breadcrumbs [aria-current="page"] {
+        color: inherit;
+        font-weight: normal;
+        text-decoration: none;
+    }
+</style>

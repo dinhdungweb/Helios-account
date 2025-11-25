@@ -1,0 +1,411 @@
+{% schema %}
+{
+  "name": "Infinite Scroll Cards",
+  "settings": [
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll Speed (seconds per cycle)",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 15,
+      "unit": "s",
+      "info": "Adjust the time it takes for the cards to complete one full scroll cycle."
+    },
+    {
+      "type": "select",
+      "id": "scroll_direction",
+      "label": "Scroll Direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (Right to Left)"
+        },
+        {
+          "value": "right",
+          "label": "Right (Left to Right)"
+        }
+      ],
+      "default": "left",
+      "info": "Choose the direction of the infinite scroll."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Card Title"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description",
+          "label": "Card Description",
+          "default": "This is a description for the card."
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image",
+          "info": "Optional: Add an image to the card."
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "label": "Image Width (%)",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "default": 100,
+          "unit": "%",
+          "info": "Adjust the width of the image in the card."
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image Position (Vertical)",
+          "options": [
+            {
+              "value": "top",
+              "label": "Above Title"
+            },
+            {
+              "value": "middle",
+              "label": "Between Title and Description"
+            },
+            {
+              "value": "bottom",
+              "label": "Below Description"
+            }
+          ],
+          "default": "top",
+          "info": "Choose where the image appears vertically on the card."
+        },
+        {
+          "type": "select",
+          "id": "image_align",
+          "label": "Image Alignment (Horizontal)",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center",
+          "info": "Choose the horizontal alignment of the image in the card."
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Card Link",
+          "info": "Optional: Add a link to the card."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Infinite Scroll Cards",
+      "settings": {
+        "scroll_speed": 15,
+        "scroll_direction": "left"
+      },
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Card 1",
+            "card_description": "This is the first card description.",
+            "card_image": "",
+            "image_width": 100,
+            "image_position": "top",
+            "image_align": "center",
+            "card_link": ""
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Card 2",
+            "card_description": "This is the second card description.",
+            "card_image": "",
+            "image_width": 100,
+            "image_position": "middle",
+            "image_align": "center",
+            "card_link": ""
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Card 3",
+            "card_description": "This is the third card description.",
+            "card_image": "",
+            "image_width": 100,
+            "image_position": "bottom",
+            "image_align": "center",
+            "card_link": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="infinite-scroll-section">
+  <div class="cards-container" id="cardsContainer" data-direction="{{ section.settings.scroll_direction }}">
+    <!-- Original cards -->
+    <div class="cards-wrapper">
+      {% for block in section.blocks %}
+        <div class="card" {{ block.shopify_attributes }}>
+          {% if block.settings.card_link != blank %}
+            <a href="{{ block.settings.card_link }}" class="card-link">
+          {% endif %}
+          {% if block.settings.card_image != blank and block.settings.image_position == 'top' %}
+            <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
+              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+                   alt="{{ block.settings.card_title }}"
+                   class="card-image"
+                   style="width: {{ block.settings.image_width }}%;">
+            </div>
+          {% endif %}
+          <h3 class="card-title">{{ block.settings.card_title }}</h3>
+          {% if block.settings.card_image != blank and block.settings.image_position == 'middle' %}
+            <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
+              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+                   alt="{{ block.settings.card_title }}"
+                   class="card-image"
+                   style="width: {{ block.settings.image_width }}%;">
+            </div>
+          {% endif %}
+          <p class="card-description">{{ block.settings.card_description }}</p>
+          {% if block.settings.card_image != blank and block.settings.image_position == 'bottom' %}
+            <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
+              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+                   alt="{{ block.settings.card_title }}"
+                   class="card-image"
+                   style="width: {{ block.settings.image_width }}%;">
+            </div>
+          {% endif %}
+          {% if block.settings.card_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <!-- Duplicated cards for infinite scroll -->
+    <div class="cards-wrapper cards-wrapper-duplicate">
+      {% for block in section.blocks %}
+        <div class="card" {{ block.shopify_attributes }}>
+          {% if block.settings.card_link != blank %}
+            <a href="{{ block.settings.card_link }}" class="card-link">
+          {% endif %}
+          {% if block.settings.card_image != blank and block.settings.image_position == 'top' %}
+            <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
+              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+                   alt="{{ block.settings.card_title }}"
+                   class="card-image"
+                   style="width: {{ block.settings.image_width }}%;">
+            </div>
+          {% endif %}
+          <h3 class="card-title">{{ block.settings.card_title }}</h3>
+          {% if block.settings.card_image != blank and block.settings.image_position == 'middle' %}
+            <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
+              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+                   alt="{{ block.settings.card_title }}"
+                   class="card-image"
+                   style="width: {{ block.settings.image_width }}%;">
+            </div>
+          {% endif %}
+          <p class="card-description">{{ block.settings.card_description }}</p>
+          {% if block.settings.card_image != blank and block.settings.image_position == 'bottom' %}
+            <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
+              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+                   alt="{{ block.settings.card_title }}"
+                   class="card-image"
+                   style="width: {{ block.settings.image_width }}%;">
+            </div>
+          {% endif %}
+          {% if block.settings.card_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .infinite-scroll-section {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+  }
+
+  .cards-container {
+    display: flex;
+    width: fit-content;
+  }
+
+  .cards-container[data-direction="left"] {
+    animation: infiniteScrollLeft {{ section.settings.scroll_speed }}s linear infinite;
+  }
+
+  .cards-container[data-direction="right"] {
+    animation: infiniteScrollRight {{ section.settings.scroll_speed }}s linear infinite;
+  }
+
+  .cards-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    padding: 0 15px;
+  }
+
+  .cards-wrapper-duplicate {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    padding: 0 15px;
+  }
+
+  .card {
+    background: #000;
+    border: 1px solid #6f6f6f4a;
+    padding: 20px;
+    width: 400px;
+    min-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  }
+
+  .card-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .image-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .card-image {
+    max-width: 100%;
+    border-radius: 4px;
+    object-fit: contain; /* Ensure image scales proportionally without cropping */
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .card-description {
+    font-size: 1rem;
+    color: #dadada;
+    margin: 0;
+  }
+
+  @keyframes infiniteScrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes infiniteScrollRight {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  /* Pause animation on hover */
+  .cards-container:hover {
+    animation-play-state: paused;
+  }
+
+  /* Hover effects: Dim other cards */
+  .cards-wrapper .card:hover ~ .card,
+  .cards-wrapper .card:not(:hover) {
+    opacity: 1;
+  }
+
+  .cards-wrapper:hover .card:not(:hover) {
+    opacity: 0.5;
+  }
+
+  .cards-wrapper-duplicate .card:hover ~ .card,
+  .cards-wrapper-duplicate .card:not(:hover) {
+    opacity: 1;
+  }
+
+  .cards-wrapper-duplicate:hover .card:not(:hover) {
+    opacity: 0.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card {
+      width: 300px;
+      min-width: 300px;
+    }
+
+    .cards-wrapper,
+    .cards-wrapper-duplicate {
+      gap: 20px;
+      padding: 0 10px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const container = document.getElementById("cardsContainer");
+    const originalWrapper = container.querySelector(".cards-wrapper");
+    const duplicateWrapper = container.querySelector(".cards-wrapper-duplicate");
+    const cards = originalWrapper.querySelectorAll(".card");
+
+    // Ensure there are enough cards to make infinite scroll seamless
+    if (cards.length > 0) {
+      // Calculate total width including gaps
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 30; // Match the CSS gap
+      const totalCards = cards.length;
+      const totalWidth = (cardWidth + gap) * totalCards;
+
+      // Set the width for both wrappers to ensure proper spacing
+      originalWrapper.style.width = `${totalWidth}px`;
+      duplicateWrapper.style.width = `${totalWidth}px`;
+
+      // Adjust container width to account for both wrappers
+      container.style.width = `${totalWidth * 3}px`;
+    }
+  });
+</script>

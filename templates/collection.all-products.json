@@ -1,0 +1,178 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "video_with_text_EebWjf": {
+      "type": "video-with-text",
+      "blocks": {
+        "button_D3k84m": {
+          "type": "button",
+          "settings": {
+            "button_text": "GỢI Ý MÙA THU",
+            "button_link": "shopify://collections/goi-y-cho-mua-thu"
+          }
+        },
+        "button_j6yiRi": {
+          "type": "button",
+          "settings": {
+            "button_text": "GỢI Ý MUA LẦN ĐẦU",
+            "button_link": "shopify://collections/goi-y-mua-lan-dau"
+          }
+        },
+        "button_nUNyzj": {
+          "type": "button",
+          "settings": {
+            "button_text": "BÁN CHẠY NHẤT",
+            "button_link": "shopify://collections/best-sellers"
+          }
+        },
+        "button_WUUUNU": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_text": "HÀNG MỚI VỀ",
+            "button_link": "shopify://collections/chrysaber-collection"
+          }
+        }
+      },
+      "block_order": [
+        "button_D3k84m",
+        "button_j6yiRi",
+        "button_nUNyzj",
+        "button_WUUUNU"
+      ],
+      "settings": {
+        "media_type": "image",
+        "content_position": "left",
+        "text_alignment": "left",
+        "desktop_video_url": "",
+        "mobile_video_url": "",
+        "desktop_image_url": "shopify://shop_images/Up_bai_12.jpg",
+        "mobile_image_url": "shopify://shop_images/Up_bai_12.jpg",
+        "heading": "ALL PRODUCTS",
+        "paragraph": "Mọi sản phẩm bạn đang tìm kiếm đều ở đây. Nếu bạn gặp khó khăn, chúng tôi có vài gợi ý"
+      }
+    },
+    "text_width_icon_Nr4rbc": {
+      "type": "text-width-icon",
+      "blocks": {
+        "text_block_jTjJjG": {
+          "type": "text_block",
+          "settings": {
+            "title": "CHẤT LIỆU BẠC S925",
+            "icon": "water"
+          }
+        },
+        "text_block_bUhQJx": {
+          "type": "text_block",
+          "settings": {
+            "title": "200.000+ KHÁCH HÀNG",
+            "icon": "shield"
+          }
+        },
+        "text_block_4YgJtC": {
+          "type": "text_block",
+          "settings": {
+            "title": "ĐÁNH SÁNG TRỌN ĐỜI",
+            "icon": "check"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_jTjJjG",
+        "text_block_bUhQJx",
+        "text_block_4YgJtC"
+      ],
+      "disabled": true,
+      "settings": {
+        "background_color": "#111111",
+        "text_color": "#ffffff",
+        "font_size": 14,
+        "padding_top": 8,
+        "padding_bottom": 8
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "promotion_image_tccrBe": {
+          "type": "promotion_image",
+          "settings": {
+            "position_in_grid": 7,
+            "desktop_size": "two-columns",
+            "image": "shopify://shop_images/z7211707051522_85ef01237e8c48d084cb1f99fa7a4bc0.jpg",
+            "mobile_image": "shopify://shop_images/z7211707051522_85ef01237e8c48d084cb1f99fa7a4bc0_3b157b5d-648e-4189-ace3-ad993258e172.jpg",
+            "heading": "HELIOS PRIVATE CALL",
+            "content": "",
+            "link_url": "shopify://pages/helios-private-call"
+          }
+        },
+        "promotion_image_egT8fp": {
+          "type": "promotion_image",
+          "settings": {
+            "position_in_grid": 15,
+            "desktop_size": "two-columns",
+            "image": "shopify://shop_images/z7211707034893_1a56a4ee44e3bf183ad8e9f596b2ac1a.jpg",
+            "mobile_image": "shopify://shop_images/z7211707034893_1a56a4ee44e3bf183ad8e9f596b2ac1a_ed15616a-ef31-430a-a488-bfcf41a0ec45.jpg",
+            "heading": "Khẳng định bản lĩnh vững vàng",
+            "content": "",
+            "link_url": "shopify://collections/men-armor"
+          }
+        },
+        "promotion_image_8A8P8K": {
+          "type": "promotion_image",
+          "settings": {
+            "position_in_grid": 31,
+            "desktop_size": "two-columns",
+            "image": "shopify://shop_images/z7048815292340_0954504efa928d871dd28d6d29487666.jpg",
+            "mobile_image": "shopify://shop_images/Up_bai_1900_x_900_px_1080_x_1350_px_22.jpg",
+            "heading": "Những item phù hợp nhất cho mùa thu 2025",
+            "content": "",
+            "link_url": "shopify://collections/goi-y-cho-mua-thu"
+          }
+        }
+      },
+      "block_order": [
+        "promotion_image_tccrBe",
+        "promotion_image_egT8fp",
+        "promotion_image_8A8P8K"
+      ],
+      "custom_css": [
+        ".pb-medium.sm\\:pt-medium.cc-animate-init.-in.cc-animate-complete,.wide-container.half-gutter.cc-product-filter-container.pt-0 {padding-top: 0;}"
+      ],
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    }
+  },
+  "order": [
+    "video_with_text_EebWjf",
+    "text_width_icon_Nr4rbc",
+    "main"
+  ]
+}

@@ -1,0 +1,91 @@
+{% comment %}
+  Tier Pricing CSS Variables
+  Đọc màu sắc từ theme settings và generate CSS variables
+{% endcomment %}
+
+<style>
+:root {
+  /* Tier 1: {{ settings.tier_1_name }} */
+  --tier-1-color-start: {{ settings.tier_1_color_start }};
+  --tier-1-color-end: {{ settings.tier_1_color_end }};
+  --tier-1-text-color: {{ settings.tier_1_text_color }};
+  
+  /* Tier 2: {{ settings.tier_2_name }} */
+  --tier-2-color-start: {{ settings.tier_2_color_start }};
+  --tier-2-color-end: {{ settings.tier_2_color_end }};
+  --tier-2-text-color: {{ settings.tier_2_text_color }};
+  
+  /* Tier 3: {{ settings.tier_3_name }} */
+  --tier-3-color-start: {{ settings.tier_3_color_start }};
+  --tier-3-color-end: {{ settings.tier_3_color_end }};
+  --tier-3-text-color: {{ settings.tier_3_text_color }};
+  
+  /* Tier 4: {{ settings.tier_4_name }} */
+  --tier-4-color-start: {{ settings.tier_4_color_start }};
+  --tier-4-color-end: {{ settings.tier_4_color_end }};
+  --tier-4-text-color: {{ settings.tier_4_text_color }};
+  
+  /* Tier 5: {{ settings.tier_5_name }} */
+  --tier-5-color-start: {{ settings.tier_5_color_start }};
+  --tier-5-color-end: {{ settings.tier_5_color_end }};
+  --tier-5-text-color: {{ settings.tier_5_text_color }};
+  
+  /* Tier 6: {{ settings.tier_6_name }} */
+  --tier-6-color-start: {{ settings.tier_6_color_start }};
+  --tier-6-color-end: {{ settings.tier_6_color_end }};
+  --tier-6-text-color: {{ settings.tier_6_text_color }};
+  
+  /* Badge Settings */
+  --tier-badge-font-size: {{ settings.tier_badge_font_size }}px;
+  --tier-badge-font-size-small: {{ settings.tier_badge_font_size_small }}px;
+  --tier-badge-border-radius: {{ settings.tier_badge_border_radius }}px;
+}
+
+/* Apply CSS variables to tier badges */
+.tier-badge--{{ settings.tier_1_tag | handleize }} {
+  background: linear-gradient(135deg, var(--tier-1-color-start) 0%, var(--tier-1-color-end) 100%);
+  color: var(--tier-1-text-color);
+  font-size: var(--tier-badge-font-size);
+  border-radius: var(--tier-badge-border-radius);
+}
+
+.tier-badge--{{ settings.tier_2_tag | handleize }} {
+  background: linear-gradient(135deg, var(--tier-2-color-start) 0%, var(--tier-2-color-end) 100%);
+  color: var(--tier-2-text-color);
+  font-size: var(--tier-badge-font-size);
+  border-radius: var(--tier-badge-border-radius);
+}
+
+.tier-badge--{{ settings.tier_3_tag | handleize }} {
+  background: linear-gradient(135deg, var(--tier-3-color-start) 0%, var(--tier-3-color-end) 100%);
+  color: var(--tier-3-text-color);
+  font-size: var(--tier-badge-font-size);
+  border-radius: var(--tier-badge-border-radius);
+}
+
+.tier-badge--{{ settings.tier_4_tag | handleize }} {
+  background: linear-gradient(135deg, var(--tier-4-color-start) 0%, var(--tier-4-color-end) 100%);
+  color: var(--tier-4-text-color);
+  font-size: var(--tier-badge-font-size);
+  border-radius: var(--tier-badge-border-radius);
+}
+
+.tier-badge--{{ settings.tier_5_tag | handleize }} {
+  background: linear-gradient(135deg, var(--tier-5-color-start) 0%, var(--tier-5-color-end) 100%);
+  color: var(--tier-5-text-color);
+  font-size: var(--tier-badge-font-size);
+  border-radius: var(--tier-badge-border-radius);
+}
+
+.tier-badge--{{ settings.tier_6_name | handleize }} {
+  background: linear-gradient(135deg, var(--tier-6-color-start) 0%, var(--tier-6-color-end) 100%);
+  color: var(--tier-6-text-color);
+  font-size: var(--tier-badge-font-size);
+  border-radius: var(--tier-badge-border-radius);
+}
+
+/* Product block badges - smaller */
+.product-block .tier-badge {
+  font-size: var(--tier-badge-font-size-small) !important;
+}
+</style>
