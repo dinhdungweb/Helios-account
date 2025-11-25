@@ -331,8 +331,8 @@
   </script>
   <script src="{{ 'price-range-filter.js' | asset_url }}" defer="defer"></script>
   
-  {% comment %} Tier Pricing Final - Intercept jQuery html() and handle quickbuy modal {% endcomment %}
-  <script src="{{ 'tier-pricing-final.js' | asset_url }}" defer="defer"></script>
+  {% comment %} Tier Pricing Final - Disabled to use pure Liquid rendering {% endcomment %}
+  {% comment %} <script src="{{ 'tier-pricing-final.js' | asset_url }}" defer="defer"></script> {% endcomment %}
   
   {% comment %} Tier Auto Discount - Tự động apply discount code theo tier {% endcomment %}
   {% render 'tier-auto-discount' %}
