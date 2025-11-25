@@ -110,7 +110,7 @@
     "cart_currency_code_enabled": true,
     "tier_pricing_enabled": true,
     "tier_pricing_scope": "tagged",
-    "tier_pricing_collection_handles": "helios-black-silver",
+    "tier_pricing_collection_handles": "",
     "tier_1_discount": 100,
     "tier_1_discount_code": "DRAJ65B2Q28X",
     "tier_2_discount": 100,
