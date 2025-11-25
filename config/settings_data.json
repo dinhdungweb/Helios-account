@@ -109,7 +109,7 @@
     "currency_code_enabled": true,
     "cart_currency_code_enabled": true,
     "tier_pricing_enabled": true,
-    "tier_pricing_scope": "all",
+    "tier_pricing_scope": "tagged",
     "tier_pricing_product_tags": "",
     "tier_pricing_collection_handles": "",
     "tier_1_discount": 100,
