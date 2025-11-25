@@ -111,7 +111,7 @@
     "tier_pricing_enabled": true,
     "tier_pricing_scope": "tagged",
     "tier_pricing_collection_handles": "helios-black-silver",
-    "tier_1_discount": 20,
+    "tier_1_discount": 50,
     "tier_show_original_price": true,
     "tier_show_badge": true,
     "tier_badge_font_size_small": 10,
