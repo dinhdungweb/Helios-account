@@ -1,3 +1,50 @@
+<!-- Logic phân hạng khách hàng -->
+{% if customer %}
+  {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+    {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+  {% else %}
+    {% assign total_spent = customer.total_spent | divided_by: 100 %}
+  {% endif %}
+
+  {% if customer.tags contains "BLACK DIAMOND" %}
+    {% assign tier = "BLACK DIAMOND" %}
+  {% elsif customer.tags contains "DIAMOND" %}
+    {% assign tier = "DIAMOND" %}
+  {% elsif customer.tags contains "PLATINUM" %}
+    {% assign tier = "PLATINUM" %}
+  {% elsif customer.tags contains "GOLD" %}
+    {% assign tier = "GOLD" %}
+  {% elsif customer.tags contains "SILVER" %}
+    {% assign tier = "SILVER" %}
+  {% else %}
+    {% if total_spent < 3000000 %}
+      {% assign tier = "MEMBER" %}
+    {% elsif total_spent >= 3000000 and total_spent < 6000000 %}
+      {% assign tier = "SILVER" %}
+    {% elsif total_spent >= 6000000 and total_spent < 10000000 %}
+      {% assign tier = "GOLD" %}
+    {% elsif total_spent >= 10000000 and total_spent < 20000000 %}
+      {% assign tier = "PLATINUM" %}
+    {% elsif total_spent >= 20000000 and total_spent < 100000000 %}
+      {% assign tier = "DIAMOND" %}
+    {% else %}
+      {% assign tier = "BLACK DIAMOND" %}
+    {% endif %}
+  {% endif %}
+
+  {% assign has_spun = customer.metafields.custom.lucky_wheel_spun %}
+  {% assign can_spin = false %}
+  {% if tier == "SILVER" or tier == "GOLD" or tier == "PLATINUM" or tier == "DIAMOND" or tier == "BLACK DIAMOND" %}
+    {% if has_spun == "true" or has_spun == true %}
+      {% assign can_spin = false %}
+      {% assign already_spun = true %}
+    {% else %}
+      {% assign can_spin = true %}
+      {% assign already_spun = false %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
 {% schema %}
 {
   "name": "Vòng Quay May Mắn",
@@ -79,14 +126,71 @@
 
 <!-- Vòng quay -->
 <div id="lucky-wheel-container">
-  <div class="lucky-wheel-frame">
-    <canvas id="lucky-wheel-canvas" width="600" height="600"></canvas>
-    <div id="lucky-wheel-spin">{{ section.settings.button_text }}</div>
-    <div id="lucky-wheel-pointer"></div>
-  </div>
+  {% if customer == null %}
+    <!-- Chưa đăng nhập -->
+    <div class="wheel-message">
+      <h3>Vui lòng đăng nhập để tham gia vòng quay may mắn</h3>
+      <a href="/account/login" class="login-button">Đăng nhập</a>
+    </div>
+  {% elsif can_spin == false %}
+    <!-- Chưa đủ hạng -->
+    <div class="wheel-message">
+      <h3>Chỉ khách hàng hạng SILVER trở lên mới được tham gia</h3>
+      <p>Hạng hiện tại của bạn: <strong>{{ tier }}</strong></p>
+      <p>Tiêu thêm để lên hạng SILVER và nhận quyền quay thưởng!</p>
+    </div>
+  {% elsif already_spun %}
+    <!-- Đã quay rồi -->
+    <div class="wheel-message">
+      <h3>Bạn đã sử dụng lượt quay của mình</h3>
+      <p>Mỗi khách hàng chỉ được quay 1 lần duy nhất.</p>
+    </div>
+  {% else %}
+    <!-- Được phép quay -->
+    <div class="lucky-wheel-frame">
+      <canvas id="lucky-wheel-canvas" width="600" height="600"></canvas>
+      <div id="lucky-wheel-spin">{{ section.settings.button_text }}</div>
+      <div id="lucky-wheel-pointer"></div>
+    </div>
+  {% endif %}
 </div>
 
 <style>
+  .wheel-message {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .wheel-message h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .wheel-message p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #666;
+  }
+
+  .wheel-message .login-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s ease;
+  }
+
+  .wheel-message .login-button:hover {
+    transform: scale(1.05);
+  }
+
   .lucky-wheel-frame {
     position: relative;
     width: 90vw;
@@ -231,6 +335,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const canvas = document.getElementById('lucky-wheel-canvas');
+  if (!canvas) return; // Không có canvas nếu chưa đăng nhập hoặc không đủ điều kiện
+  
   const ctx = canvas.getContext('2d');
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
@@ -289,8 +395,25 @@ document.addEventListener('DOMContentLoaded', function () {
   let startAngle = 0;
   let currentRotation = 0;
 
+  // Kiểm tra localStorage xem đã quay chưa
+  const customerId = '{{ customer.id }}';
+  const hasSpunLocal = localStorage.getItem(`lucky_wheel_spun_${customerId}`);
+  
+  if (hasSpunLocal === 'true') {
+    document.getElementById('lucky-wheel-spin').style.opacity = '0.5';
+    document.getElementById('lucky-wheel-spin').style.cursor = 'not-allowed';
+    document.getElementById('lucky-wheel-spin').innerText = 'ĐÃ QUAY';
+  }
+
   document.getElementById('lucky-wheel-spin').addEventListener('click', function () {
     if (isSpinning) return;
+    
+    // Kiểm tra đã quay chưa
+    if (hasSpunLocal === 'true' || localStorage.getItem(`lucky_wheel_spun_${customerId}`) === 'true') {
+      alert('Bạn đã sử dụng lượt quay của mình!');
+      return;
+    }
+    
     isSpinning = true;
 
     const rnd = Math.random() * 100;
@@ -330,6 +453,15 @@ document.addEventListener('DOMContentLoaded', function () {
         // Reset canvas về trạng thái ban đầu
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         drawWheel();
+
+        // Lưu trạng thái đã quay vào localStorage
+        localStorage.setItem(`lucky_wheel_spun_${customerId}`, 'true');
+        localStorage.setItem(`lucky_wheel_prize_${customerId}`, selectedPrize.text);
+        
+        // Vô hiệu hóa nút quay
+        document.getElementById('lucky-wheel-spin').style.opacity = '0.5';
+        document.getElementById('lucky-wheel-spin').style.cursor = 'not-allowed';
+        document.getElementById('lucky-wheel-spin').innerText = 'ĐÃ QUAY';
 
         setTimeout(() => {
           document.getElementById('modal-prize-text').innerText = `${selectedPrize.text}`;
