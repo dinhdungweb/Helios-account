@@ -1313,7 +1313,6 @@
         "type": "text",
         "id": "tier_pricing_collection_handles",
         "label": "Collection Handles (phân cách bằng dấu phẩy)",
-        "default": "",
         "info": "VD: vip-collection, premium-products. Chỉ áp dụng khi chọn 'Collections cụ thể'"
       },
       {
