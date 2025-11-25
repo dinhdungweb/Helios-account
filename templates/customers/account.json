@@ -1,1 +1,246 @@
-{"sections":{"slideshow_mHKbXU":{"type":"slideshow","blocks":{"image_AD6YEJ":{"type":"image","settings":{"image":"shopify:\/\/shop_images\/z7260074937732_5bbf18147c1c56fa33a84a6df5925607.jpg","mobile_image":"shopify:\/\/shop_images\/z7260074937684_80ac5b40974e5451a6742c97f59f4c35.jpg","slide_link":"","subheading":"","title":"","title_size":60,"title_width":12,"heading_h1":false,"text":"","enlarge_text":true,"button_label":"","overlay_position":"position--hcenter position--vcenter","overlay_position_mobile":"position--hcenter-xs position--vcenter-xs"}}},"block_order":["image_AD6YEJ"],"name":"Slideshow","settings":{"height":"adapt","height_desktop":600,"height_mobile":500,"full_width":true,"mobile_overlay_under":false,"overlay_style_tint":true,"slide_transition":"slide","slide_navigation":"dots","autoplay":true,"autoplay_speed":7}},"main":{"type":"main-account","settings":{"content_black_diamond":"","content_diamond":"","content_platinum":"","content_gold":"","content_silver":"","content_member":""}},"image_with_text_8HTLRw":{"type":"image-with-text","name":"Media with text","settings":{"subheading":"","title":"TẶNG STICKER NHIỆT BLACK SUN CHO MEMBER PLATINUM, DIAMOND VÀ BLACK DIAMOND","title_size":26,"title_width":40,"text":"","button_label":"Xem sản phẩm","button_link":"shopify:\/\/products\/sticker-ui-nhiet-black-sun-helios","text_alignment":"left","text_width":50,"button_style":"auto","image":"shopify:\/\/shop_images\/z7260932250959_ee3534ba4274ef4fd82bad97cdbbc1fb.jpg","image_width":100,"image_position":"left","media_size":"contain","color_scheme":"standard","color_bg":"","color_text":""}},"image_with_text_9H7MjK":{"type":"image-with-text","name":"Media with text","settings":{"subheading":"","title":"VÒNG QUAY BLACK SUN","title_size":26,"title_width":40,"text":"<p>Để tri ân anh em member của HELIOS, chúng tôi tặng bạn một lần quay mỗi ngày để có cơ hội nhận nhẫn Black Sun miễn phí<br\/>Vận may có mỉm cười với bạn hôm nay?<\/p>","button_label":"","button_link":"","text_alignment":"left","text_width":50,"button_style":"auto","image":"shopify:\/\/shop_images\/z7260025319945_09dab025bba201008223bd0f15c1bfeb.jpg","image_width":100,"image_position":"right","media_size":"cover","color_scheme":"standard","color_bg":"","color_text":""}},"spin_wheel_BUzLp7":{"type":"spin-wheel","blocks":{"prize_KK9gcR":{"type":"prize","settings":{"text":"Miễn phí Sticker nhiệt","color":"#e5e4e2","code":"","probability":20}},"prize_rc8MdG":{"type":"prize","settings":{"text":"Miễn phí Nhẫn Black Sun","color":"#fab320","code":"","probability":2}},"prize_yQwFYG":{"type":"prize","settings":{"text":"Chúc bạn may mắn ngày mai","color":"#f8f9fa","code":"","probability":20}},"prize_xWNVbi":{"type":"prize","settings":{"text":"Miễn phí Sticker nhiệt","color":"#e5e4e2","code":"","probability":20}},"prize_CD4zBt":{"type":"prize","settings":{"text":"Miễn phí Nhẫn Black Sun","color":"#fab320","code":"","probability":2}},"prize_grha6j":{"type":"prize","settings":{"text":"Chúc bạn may mắn ngày mai","color":"#f8f9fa","code":"","probability":20}},"prize_k6wHB9":{"type":"prize","settings":{"text":"Miễn phí Sticker nhiệt","color":"#e5e4e2","code":"","probability":20}},"prize_ffLFQX":{"type":"prize","settings":{"text":"Miễn phí Nhẫn Black Sun","color":"#fab320","code":"","probability":2}},"prize_c6tMC3":{"type":"prize","settings":{"text":"Chúc bạn may mắn ngày mai","color":"#ffffff","code":"","probability":20}}},"block_order":["prize_KK9gcR","prize_rc8MdG","prize_yQwFYG","prize_xWNVbi","prize_CD4zBt","prize_grha6j","prize_k6wHB9","prize_ffLFQX","prize_c6tMC3"],"name":"Vòng Quay May Mắn","settings":{"button_text":"QUAY","button_bg_color":"#fcbf49","button_text_color":"#000000"}},"featured_collection_EGhrVE":{"type":"featured-collection","settings":{"title":"Sản Phẩm Mới","featured_collection_align":"center","collection":"new-products","layout":"carousel","featured_addtocart_hide":false,"show_add_to_cart":true,"show_title":true,"show_price":true,"show_review":true,"show_vendor":false,"grid":4,"rows":2,"grid_mobile":"2","hide_swatches":false,"alternate_bg_color":false,"show_view_all":false}}},"order":["slideshow_mHKbXU","main","image_with_text_8HTLRw","image_with_text_9H7MjK","spin_wheel_BUzLp7","featured_collection_EGhrVE"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_mHKbXU": {
+      "type": "slideshow",
+      "blocks": {
+        "image_AD6YEJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7260074937732_5bbf18147c1c56fa33a84a6df5925607.jpg",
+            "mobile_image": "shopify://shop_images/z7260074937684_80ac5b40974e5451a6742c97f59f4c35.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_AD6YEJ"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "main": {
+      "type": "main-account",
+      "settings": {
+        "content_black_diamond": "",
+        "content_diamond": "",
+        "content_platinum": "",
+        "content_gold": "",
+        "content_silver": "",
+        "content_member": ""
+      }
+    },
+    "shop_the_look_banner_VctRxn": {
+      "type": "shop-the-look-banner",
+      "blocks": {
+        "product_ftkH97": {
+          "type": "product",
+          "settings": {
+            "product": "sticker-ui-nhiet-black-sun-helios"
+          }
+        }
+      },
+      "block_order": [
+        "product_ftkH97"
+      ],
+      "name": "Shop the look banner",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "banner_image": "shopify://shop_images/z7260932250959_ee3534ba4274ef4fd82bad97cdbbc1fb.jpg",
+        "banner_heading": "",
+        "banner_text": "",
+        "button_label": "",
+        "button_link": "",
+        "banner_width": 50,
+        "show_secondary_image": true,
+        "padding_top": "0",
+        "padding_bottom": "0"
+      }
+    },
+    "image_with_text_9H7MjK": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "VÒNG QUAY BLACK SUN",
+        "title_size": 26,
+        "title_width": 40,
+        "text": "<p>Để tri ân anh em member của HELIOS, chúng tôi tặng bạn một lần quay mỗi ngày để có cơ hội nhận nhẫn Black Sun miễn phí<br/>Vận may có mỉm cười với bạn hôm nay?</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "image": "shopify://shop_images/z7260025319945_09dab025bba201008223bd0f15c1bfeb.jpg",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "cover",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "spin_wheel_BUzLp7": {
+      "type": "spin-wheel",
+      "blocks": {
+        "prize_KK9gcR": {
+          "type": "prize",
+          "settings": {
+            "text": "Miễn phí Sticker nhiệt",
+            "color": "#e5e4e2",
+            "code": "",
+            "probability": 20
+          }
+        },
+        "prize_rc8MdG": {
+          "type": "prize",
+          "settings": {
+            "text": "Miễn phí Nhẫn Black Sun",
+            "color": "#fab320",
+            "code": "",
+            "probability": 2
+          }
+        },
+        "prize_yQwFYG": {
+          "type": "prize",
+          "settings": {
+            "text": "Chúc bạn may mắn ngày mai",
+            "color": "#f8f9fa",
+            "code": "",
+            "probability": 20
+          }
+        },
+        "prize_xWNVbi": {
+          "type": "prize",
+          "settings": {
+            "text": "Miễn phí Sticker nhiệt",
+            "color": "#e5e4e2",
+            "code": "",
+            "probability": 20
+          }
+        },
+        "prize_CD4zBt": {
+          "type": "prize",
+          "settings": {
+            "text": "Miễn phí Nhẫn Black Sun",
+            "color": "#fab320",
+            "code": "",
+            "probability": 2
+          }
+        },
+        "prize_grha6j": {
+          "type": "prize",
+          "settings": {
+            "text": "Chúc bạn may mắn ngày mai",
+            "color": "#f8f9fa",
+            "code": "",
+            "probability": 20
+          }
+        },
+        "prize_k6wHB9": {
+          "type": "prize",
+          "settings": {
+            "text": "Miễn phí Sticker nhiệt",
+            "color": "#e5e4e2",
+            "code": "",
+            "probability": 20
+          }
+        },
+        "prize_ffLFQX": {
+          "type": "prize",
+          "settings": {
+            "text": "Miễn phí Nhẫn Black Sun",
+            "color": "#fab320",
+            "code": "",
+            "probability": 2
+          }
+        },
+        "prize_c6tMC3": {
+          "type": "prize",
+          "settings": {
+            "text": "Chúc bạn may mắn ngày mai",
+            "color": "#ffffff",
+            "code": "",
+            "probability": 20
+          }
+        }
+      },
+      "block_order": [
+        "prize_KK9gcR",
+        "prize_rc8MdG",
+        "prize_yQwFYG",
+        "prize_xWNVbi",
+        "prize_CD4zBt",
+        "prize_grha6j",
+        "prize_k6wHB9",
+        "prize_ffLFQX",
+        "prize_c6tMC3"
+      ],
+      "name": "Vòng Quay May Mắn",
+      "settings": {
+        "button_text": "QUAY",
+        "button_bg_color": "#fcbf49",
+        "button_text_color": "#000000"
+      }
+    },
+    "featured_collection_EGhrVE": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Sản Phẩm Mới",
+        "featured_collection_align": "center",
+        "collection": "new-products",
+        "layout": "carousel",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    }
+  },
+  "order": [
+    "slideshow_mHKbXU",
+    "main",
+    "shop_the_look_banner_VctRxn",
+    "image_with_text_9H7MjK",
+    "spin_wheel_BUzLp7",
+    "featured_collection_EGhrVE"
+  ]
+}
