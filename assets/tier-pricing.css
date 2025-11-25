@@ -260,26 +260,11 @@
    FORCE TIER PRICING VISIBILITY
    ============================================ */
 
-/* Ensure tier pricing wrapper is always visible and on top */
+/* Ensure tier pricing wrapper is always visible */
 .price-area .tier-pricing-wrapper {
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
-  position: relative !important;
-  z-index: 100 !important;
 }
 
-/* Hide any price elements added by theme.js after tier-pricing-wrapper */
-.price-area .tier-pricing-wrapper ~ * {
-  display: none !important;
-}
-
-/* Alternative: Hide all direct children of price-area except tier-pricing-wrapper */
-.price-area > *:not(.tier-pricing-wrapper):not(.unit-price) {
-  display: none !important;
-}
-
-/* Ensure price-area shows tier pricing */
-/* .price-area:has(.tier-pricing-wrapper) {
-  min-height: 60px !important;
-} */
+/* Note: Removed aggressive display:none rules that were hiding default prices */
