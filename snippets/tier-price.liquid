@@ -4,6 +4,7 @@
   Parameters:
   - price: Giá gốc của variant (required)
   - compare_at_price: Giá so sánh (optional)
+  - product: Product object (optional but recommended for scope filtering)
   - customer: Customer object (optional)
   - show_original: Hiển thị giá gốc (default: true)
   - show_badge: Hiển thị badge tier (default: true)
@@ -12,6 +13,7 @@
   {% render 'tier-price', 
     price: variant.price, 
     compare_at_price: variant.compare_at_price,
+    product: product,
     customer: customer,
     show_original: true,
     show_badge: true
@@ -26,6 +28,74 @@
   assign tier_enabled = settings.tier_pricing_enabled
   assign prioritize_tags = settings.tier_prioritize_tags
   assign use_custom_metafield = settings.tier_use_custom_metafield
+  
+  comment ============================================
+    KIỂM TRA PHẠM VI ÁP DỤNG
+  ============================================
+  endcomment
+  assign tier_scope = settings.tier_pricing_scope | default: 'all'
+  assign tier_applies = false
+  
+  if tier_enabled
+    case tier_scope
+      when 'all'
+        assign tier_applies = true
+      
+      when 'tagged'
+        comment Chỉ áp dụng cho sản phẩm có tag
+        endcomment
+        if product and settings.tier_pricing_product_tags != blank
+          assign allowed_tags = settings.tier_pricing_product_tags | split: ','
+          for tag in allowed_tags
+            assign tag_trimmed = tag | strip
+            if product.tags contains tag_trimmed
+              assign tier_applies = true
+              break
+            endif
+          endfor
+        endif
+      
+      when 'collections'
+        comment Chỉ áp dụng cho collections cụ thể
+        endcomment
+        if product and settings.tier_pricing_collection_handles != blank
+          assign allowed_collections = settings.tier_pricing_collection_handles | split: ','
+          for product_collection in product.collections
+            for handle in allowed_collections
+              assign handle_trimmed = handle | strip
+              if product_collection.handle == handle_trimmed
+                assign tier_applies = true
+                break
+              endif
+            endfor
+            if tier_applies
+              break
+            endif
+          endfor
+        endif
+      
+      when 'exclude_tagged'
+        comment Áp dụng cho tất cả TRỪ sản phẩm có tag
+        endcomment
+        assign tier_applies = true
+        if product and settings.tier_pricing_product_tags != blank
+          assign excluded_tags = settings.tier_pricing_product_tags | split: ','
+          for tag in excluded_tags
+            assign tag_trimmed = tag | strip
+            if product.tags contains tag_trimmed
+              assign tier_applies = false
+              break
+            endif
+          endfor
+        endif
+    endcase
+  endif
+  
+  comment Nếu không áp dụng tier pricing, tắt tier_enabled
+  endcomment
+  unless tier_applies
+    assign tier_enabled = false
+  endunless
   
   comment Đọc config từng tier từ settings
   endcomment
@@ -158,7 +228,10 @@
      data-customer-tier="{{ tier_name }}"
      data-customer-total-spent="{{ total_spent }}"
      data-tier-discount="{{ tier_discount }}"
-     data-has-customer="{% if customer %}true{% else %}false{% endif %}">
+     data-has-customer="{% if customer %}true{% else %}false{% endif %}"
+     data-tier-scope="{{ tier_scope }}"
+     data-tier-allowed-tags="{{ settings.tier_pricing_product_tags }}"
+     data-tier-allowed-collections="{{ settings.tier_pricing_collection_handles }}">
   
   <div class="tier-pricing-prices">
     {% comment %} Giá sau tier discount (hiển thị đầu tiên) {% endcomment %}

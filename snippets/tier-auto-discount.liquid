@@ -17,6 +17,7 @@
   {% liquid
     assign discount_code = ""
     assign prioritize_tags = settings.tier_prioritize_tags
+    assign tier_scope = settings.tier_pricing_scope | default: 'all'
     
     comment Ưu tiên tags nếu bật trong settings
     endcomment
@@ -63,12 +64,18 @@
     (function() {
       const discountCode = '{{ discount_code }}';
       const totalSpent = {{ total_spent }};
+      const tierScope = '{{ tier_scope }}';
+      const allowedTags = '{{ settings.tier_pricing_product_tags }}';
+      const allowedCollections = '{{ settings.tier_pricing_collection_handles }}';
       
       if (!discountCode) return;
       
-      // Store discount code for later use
+      // Store discount code and scope info for later use
       sessionStorage.setItem('helios_tier_discount', discountCode);
       sessionStorage.setItem('helios_total_spent', totalSpent);
+      sessionStorage.setItem('helios_tier_scope', tierScope);
+      sessionStorage.setItem('helios_tier_tags', allowedTags);
+      sessionStorage.setItem('helios_tier_collections', allowedCollections);
       
       // Function to add discount to URL
       function addDiscountToUrl(url) {

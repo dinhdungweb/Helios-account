@@ -145,6 +145,7 @@
             assign tier_enabled = settings.tier_pricing_enabled
             assign prioritize_tags = settings.tier_prioritize_tags
             assign use_custom_metafield = settings.tier_use_custom_metafield
+            assign tier_scope = settings.tier_pricing_scope | default: 'all'
             
             assign tier_1_name = settings.tier_1_name
             assign tier_1_tag = settings.tier_1_tag
@@ -240,11 +241,78 @@
             endif
           %}
           
-          {% comment %} Calculate cart total with tier discount {% endcomment %}
+          {% comment %} Calculate cart total with tier discount - Apply scope filter {% endcomment %}
           {% if tier_discount_percent > 0 %}
             {% assign discount_multiplier = 100 | minus: tier_discount_percent %}
-            {% assign cart_tier_total = cart.original_total_price | times: discount_multiplier | divided_by: 100 %}
-            {% assign cart_tier_discount = cart.original_total_price | minus: cart_tier_total %}
+            {% assign cart_tier_total = 0 %}
+            {% assign cart_tier_discount = 0 %}
+            {% assign cart_non_tier_total = 0 %}
+            
+            {% comment %} Loop through cart items and apply tier only to eligible products {% endcomment %}
+            {% for item in cart.items %}
+              {% assign item_applies = false %}
+              
+              {% comment %} Check if tier pricing applies to this product {% endcomment %}
+              {% case tier_scope %}
+                {% when 'all' %}
+                  {% assign item_applies = true %}
+                
+                {% when 'tagged' %}
+                  {% if settings.tier_pricing_product_tags != blank %}
+                    {% assign allowed_tags = settings.tier_pricing_product_tags | split: ',' %}
+                    {% for tag in allowed_tags %}
+                      {% assign tag_trimmed = tag | strip %}
+                      {% if item.product.tags contains tag_trimmed %}
+                        {% assign item_applies = true %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                
+                {% when 'collections' %}
+                  {% if settings.tier_pricing_collection_handles != blank %}
+                    {% assign allowed_collections = settings.tier_pricing_collection_handles | split: ',' %}
+                    {% for product_collection in item.product.collections %}
+                      {% for handle in allowed_collections %}
+                        {% assign handle_trimmed = handle | strip %}
+                        {% if product_collection.handle == handle_trimmed %}
+                          {% assign item_applies = true %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                      {% if item_applies %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                
+                {% when 'exclude_tagged' %}
+                  {% assign item_applies = true %}
+                  {% if settings.tier_pricing_product_tags != blank %}
+                    {% assign excluded_tags = settings.tier_pricing_product_tags | split: ',' %}
+                    {% for tag in excluded_tags %}
+                      {% assign tag_trimmed = tag | strip %}
+                      {% if item.product.tags contains tag_trimmed %}
+                        {% assign item_applies = false %}
+                        {% break %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+              {% endcase %}
+              
+              {% comment %} Calculate item total with or without tier discount {% endcomment %}
+              {% if item_applies %}
+                {% assign item_tier_price = item.final_line_price | times: discount_multiplier | divided_by: 100 %}
+                {% assign cart_tier_total = cart_tier_total | plus: item_tier_price %}
+                {% assign item_discount = item.final_line_price | minus: item_tier_price %}
+                {% assign cart_tier_discount = cart_tier_discount | plus: item_discount %}
+              {% else %}
+                {% assign cart_non_tier_total = cart_non_tier_total | plus: item.final_line_price %}
+              {% endif %}
+            {% endfor %}
+            
+            {% comment %} Add non-tier items to total {% endcomment %}
+            {% assign cart_tier_total = cart_tier_total | plus: cart_non_tier_total %}
           {% else %}
             {% assign cart_tier_total = cart.original_total_price %}
             {% assign cart_tier_discount = 0 %}

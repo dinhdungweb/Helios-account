@@ -16,16 +16,75 @@
       tierInfo = {
         tier: wrapper.dataset.customerTier || '',
         discount: parseFloat(wrapper.dataset.tierDiscount || 0) / 100,
-        hasCustomer: wrapper.dataset.hasCustomer === 'true'
+        hasCustomer: wrapper.dataset.hasCustomer === 'true',
+        scope: wrapper.dataset.tierScope || 'all',
+        allowedTags: wrapper.dataset.tierAllowedTags || '',
+        allowedCollections: wrapper.dataset.tierAllowedCollections || ''
       };
       return true;
     }
     return false;
   }
   
+  // Check if tier pricing applies to current product
+  function checkTierApplies(product) {
+    if (!tierInfo) return false;
+    
+    const scope = tierInfo.scope;
+    
+    // All products
+    if (scope === 'all') return true;
+    
+    // Tagged products
+    if (scope === 'tagged') {
+      if (!tierInfo.allowedTags) return false;
+      const allowedTags = tierInfo.allowedTags.split(',').map(t => t.trim().toLowerCase());
+      const productTags = (product.tags || []).map(t => t.toLowerCase());
+      return allowedTags.some(tag => productTags.includes(tag));
+    }
+    
+    // Collections
+    if (scope === 'collections') {
+      if (!tierInfo.allowedCollections) return false;
+      const allowedCollections = tierInfo.allowedCollections.split(',').map(c => c.trim().toLowerCase());
+      // Note: Product JSON doesn't always include collections, so we default to true
+      // The Liquid template will handle the actual filtering
+      return true;
+    }
+    
+    // Exclude tagged
+    if (scope === 'exclude_tagged') {
+      if (!tierInfo.allowedTags) return true;
+      const excludedTags = tierInfo.allowedTags.split(',').map(t => t.trim().toLowerCase());
+      const productTags = (product.tags || []).map(t => t.toLowerCase());
+      return !excludedTags.some(tag => productTags.includes(tag));
+    }
+    
+    return false;
+  }
+  
   // Build tier pricing HTML
-  function buildTierHTML(variant) {
+  function buildTierHTML(variant, product) {
     if (!tierInfo) return null;
+    
+    // Check if tier pricing applies to this product
+    if (!checkTierApplies(product)) {
+      // Return regular price without tier discount
+      const formatMoney = (cents) => {
+        if (typeof theme !== 'undefined' && theme.Shopify && theme.Shopify.formatMoney) {
+          return theme.Shopify.formatMoney(cents, theme.money_format_with_code_preference || theme.money_format);
+        }
+        return new Intl.NumberFormat('vi-VN').format(cents / 100) + ' VND';
+      };
+      
+      let html = '<div class="price-area-regular">';
+      html += '<span class="theme-money">' + formatMoney(variant.price) + '</span>';
+      if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+        html += ' <span class="compare-at-price"><span class="theme-money">' + formatMoney(variant.compare_at_price) + '</span></span>';
+      }
+      html += '</div>';
+      return html;
+    }
     
     const tierPrice = Math.round(variant.price * (1 - tierInfo.discount));
     const formatMoney = (cents) => {
@@ -96,7 +155,7 @@
             const variant = product.variants.find(v => v.id == variantInput.value);
             
             if (variant) {
-              const tierHTML = buildTierHTML(variant);
+              const tierHTML = buildTierHTML(variant, product);
               if (tierHTML) {
                 return originalHtml.call(this, tierHTML);
               }

@@ -354,10 +354,14 @@
 
                 {%- when 'price' -%}
                   <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
-                    {% if current_variant.compare_at_price > current_variant.price %}
-                      <span class="was-price theme-money">{%- render "price", price: current_variant.compare_at_price -%}</span>
-                    {% endif %}
-                    <div class="price theme-money">{%- render "price", price: current_variant.price -%}</div>
+                    {% render 'tier-price', 
+                      price: current_variant.price,
+                      compare_at_price: current_variant.compare_at_price,
+                      product: product,
+                      customer: customer,
+                      show_original: true,
+                      show_badge: true
+                    %}
 
                     {% render 'unit-price', variant: current_variant %}
                   </div>
