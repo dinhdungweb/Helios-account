@@ -1077,3 +1077,11 @@ input:checked + .slider:before {
     max-width: none;
   }
 }
+.welcome-tier {
+    text-align: center;
+    font-size: 1.3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-transform: uppercase;
+    line-height: 1.7;
+}
