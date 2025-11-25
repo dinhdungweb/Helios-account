@@ -144,8 +144,11 @@
             if (variant) {
               const tierHTML = buildTierHTML(variant, product);
               if (tierHTML) {
+                // Tier pricing applies, replace with tier HTML
                 return originalHtml.call(this, tierHTML);
               }
+              // Tier pricing doesn't apply, use original HTML update
+              // Fall through to call original method below
             }
           } catch (e) {
             // Fallback to original
