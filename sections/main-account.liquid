@@ -135,7 +135,46 @@
 
   <div class="customer-content">
     <div id="rewards" class="customer-tab-content active">
-      <h3 style="text-align:left; margin-bottom: 20px;">Welcome to Helios</h3>
+      <div class="custom-tier-content">
+        {% case tier %}
+          {% when "BLACK DIAMOND" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG ĐEN" CỦA HELIOS
+              <br>BẠN CHÍNH LÀ PHẦN KHÔNG THỂ THIẾU TẠO NÊN HELIOS HÔM NAY
+              <br>CÁC ĐẶC QUYỀN CAO CẤP NHẤT CHÚNG TÔI SẼ DÀNH RIÊNG CHO BẠN</p>
+            </div>
+          {% when "DIAMOND" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "KIM CƯƠNG" CỦA HELIOS
+              <br>BẠN LÀ TOP 1% KHÁCH HÀNG CAO CẤP NHẤT CỦA CHÚNG TÔI
+              <br>CÁC TRẢI NGHIỆM VÀ SẢN PHẨM ĐẶC QUYỀN LÀ MÓN QUÀ CHO SỰ ĐỒNG HÀNH CỦA BẠN</p>
+            </div>
+          {% when "PLATINUM" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "BẠCH KIM" CỦA HELIOS
+              <br>BẠN ĐANG THUỘC VÀO NHÓM KHÁCH HÀNG CAO CẤP CỦA CHÚNG TÔI
+              <br>CÁC ƯU ĐÃI VÀ TRẢI NGHIỆM ĐỀU SẼ ĐƯỢC ƯU TIÊN CHO BẠN</p>
+            </div>
+          {% when "GOLD" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "VÀNG" CỦA HELIOS
+              <br>CẢM ƠN BẠN ĐÃ CHỌN HELIOS NHIỀU HƠN MỘT LẦN
+              <br>CÁC ĐẶC QUYỀN Ở ĐÂY LÀ CÁCH CHÚNG TÔI CẢM ƠN SỰ LỰA CHỌN ĐÓ</p>
+            </div>
+          {% when "SILVER" %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM "BẠC" CỦA HELIOS
+              <br>BẠN ĐÃ TÌM ĐƯỢC THỨ THUỘC VỀ MÌNH Ở ĐÂY
+              <br>MONG HÀNH TRÌNH CỦA BẠN SẼ TIẾP TỤC CÓ CÙNG HELIOS</p>
+            </div>
+          {% else %}
+            <div class="welcome-tier">
+              <p>CHÀO MỪNG NGƯỜI ANH EM
+              <br>HÀNH TRÌNH CỦA BẠN VỚI HELIOS ĐÃ BẮT ĐẦU
+              <br>HÃY SẴN SÀNG NHẬN NHỮNG BẤT NGỜ THÚ VỊ NHẤT</p>
+            </div>
+        {% endcase %}
+      </div>
       <div class="reward-tiers">
         <div class="tier">
           <img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/SRK00644-2.jpg?v=1764068164" alt=""/>
