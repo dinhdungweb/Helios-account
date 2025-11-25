@@ -163,9 +163,18 @@
   // Initialize
   function init() {
     // Check if we're on a page that needs tier pricing
-    const hasTierPricing = document.querySelector('.tier-pricing-wrapper');
-    if (!hasTierPricing) {
+    const tierWrapper = document.querySelector('.tier-pricing-wrapper');
+    if (!tierWrapper) {
       // No tier pricing on this page, skip initialization
+      return;
+    }
+    
+    // Check if tier pricing actually applies (has discount > 0 or has customer)
+    const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
+    const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
+    
+    if (!hasCustomer || tierDiscount === 0) {
+      // No customer or no discount, don't intercept
       return;
     }
     
@@ -187,8 +196,8 @@
       }
     }
     
-    // Retry if not ready (but only if tier pricing exists)
-    if (!isReady && hasTierPricing) {
+    // Retry if not ready (but only if tier pricing exists and applies)
+    if (!isReady && tierWrapper && hasCustomer && tierDiscount > 0) {
       setTimeout(init, 100);
     }
   }
