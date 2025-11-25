@@ -275,9 +275,9 @@
 }
 
 /* Alternative: Hide all direct children of price-area except tier-pricing-wrapper */
-.price-area > *:not(.tier-pricing-wrapper):not(.unit-price) {
+/* .price-area > *:not(.tier-pricing-wrapper):not(.unit-price) {
   display: none !important;
-}
+} */
 
 /* Ensure price-area shows tier pricing */
 /* .price-area:has(.tier-pricing-wrapper) {
