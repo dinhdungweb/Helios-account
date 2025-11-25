@@ -4,7 +4,7 @@
 
 1. ✅ Chỉ khách hàng đã đăng nhập mới được quay
 2. ✅ Chỉ khách hàng hạng SILVER trở lên được quay
-3. ✅ Mỗi khách hàng chỉ được quay 1 lần (lưu trong localStorage)
+3. ✅ Mỗi khách hàng được quay 1 lần mỗi ngày (reset lúc 00:00)
 
 ## Logic phân hạng:
 
@@ -24,14 +24,20 @@
 - Lấy hạng từ customer tags hoặc tính từ `total_spent`
 - Nếu < SILVER → Thông báo chưa đủ hạng
 
-### 3. Kiểm tra đã quay chưa
-- Kiểm tra localStorage: `lucky_wheel_spun_{customer_id}`
-- Kiểm tra metafield (optional): `customer.metafields.custom.lucky_wheel_spun`
+### 3. Kiểm tra đã quay hôm nay chưa
+- Kiểm tra localStorage: `lucky_wheel_date_{customer_id}` (lưu ngày quay)
+- So sánh với ngày hiện tại (format: YYYY-MM-DD)
+- Nếu đã quay hôm nay → Hiển thị countdown đến 00:00
 
 ### 4. Sau khi quay
-- Lưu vào localStorage
-- Vô hiệu hóa nút quay
+- Lưu ngày quay vào localStorage
+- Lưu phần thưởng và timestamp
+- Vô hiệu hóa nút quay (đến hết ngày)
 - Hiển thị kết quả
+
+### 5. Reset tự động
+- Mỗi ngày lúc 00:00, khách hàng có thể quay lại
+- Countdown hiển thị thời gian còn lại
 
 ## Setup Metafield (Optional - để đồng bộ giữa các thiết bị):
 
@@ -65,12 +71,21 @@ Vì Liquid không thể cập nhật metafield từ frontend, bạn cần:
 
 1. Đăng nhập với tài khoản MEMBER → Không được quay
 2. Đăng nhập với tài khoản SILVER → Được quay 1 lần
-3. Sau khi quay xong → Nút bị vô hiệu hóa
-4. Reload trang → Vẫn không quay được nữa
-5. Đăng xuất và đăng nhập tài khoản khác → Được quay lại
+3. Sau khi quay xong → Nút bị vô hiệu hóa, hiển thị "ĐÃ QUAY HÔM NAY"
+4. Reload trang → Vẫn không quay được, hiển thị countdown
+5. Đợi đến 00:00 ngày hôm sau → Được quay lại
+6. Đăng xuất và đăng nhập tài khoản khác → Được quay (mỗi tài khoản riêng biệt)
 
 ## Lưu ý:
 
 - Hạng khách hàng được tính từ `customer.tags` hoặc `total_spent`
-- LocalStorage lưu theo customer ID nên mỗi khách có trạng thái riêng
+- LocalStorage lưu theo customer ID và ngày nên mỗi khách có trạng thái riêng
+- Reset tự động lúc 00:00 mỗi ngày (theo giờ máy khách)
+- Countdown hiển thị thời gian còn lại đến lượt quay tiếp theo
 - Nếu khách xóa localStorage có thể quay lại (để chặn hoàn toàn cần backend)
+
+## Dữ liệu lưu trong localStorage:
+
+- `lucky_wheel_date_{customer_id}`: Ngày quay gần nhất (YYYY-MM-DD)
+- `lucky_wheel_prize_{customer_id}`: Phần thưởng đã trúng
+- `lucky_wheel_prize_date_{customer_id}`: Timestamp đầy đủ của lần quay

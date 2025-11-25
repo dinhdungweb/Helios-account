@@ -142,9 +142,31 @@
   {% elsif already_spun %}
     <!-- Đã quay rồi -->
     <div class="wheel-message">
-      <h3>Bạn đã sử dụng lượt quay của mình</h3>
-      <p>Mỗi khách hàng chỉ được quay 1 lần duy nhất.</p>
+      <h3>Bạn đã sử dụng lượt quay hôm nay</h3>
+      <p>Mỗi khách hàng được quay 1 lần mỗi ngày.</p>
+      <p id="countdown-timer"></p>
     </div>
+    <script>
+      function updateCountdown() {
+        const now = new Date();
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
+        const diff = tomorrow - now;
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        const timer = document.getElementById('countdown-timer');
+        if (timer) {
+          timer.innerHTML = `<strong>Quay lại sau: ${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}</strong>`;
+        }
+      }
+      
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
   {% else %}
     <!-- Được phép quay -->
     <div class="lucky-wheel-frame">
@@ -395,22 +417,52 @@ document.addEventListener('DOMContentLoaded', function () {
   let startAngle = 0;
   let currentRotation = 0;
 
-  // Kiểm tra localStorage xem đã quay chưa
+  // Kiểm tra localStorage xem đã quay chưa (theo ngày)
   const customerId = '{{ customer.id }}';
-  const hasSpunLocal = localStorage.getItem(`lucky_wheel_spun_${customerId}`);
+  const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+  const lastSpinDate = localStorage.getItem(`lucky_wheel_date_${customerId}`);
+  const hasSpunToday = lastSpinDate === today;
   
-  if (hasSpunLocal === 'true') {
-    document.getElementById('lucky-wheel-spin').style.opacity = '0.5';
-    document.getElementById('lucky-wheel-spin').style.cursor = 'not-allowed';
-    document.getElementById('lucky-wheel-spin').innerText = 'ĐÃ QUAY';
+  // Hiển thị trạng thái nút
+  function updateButtonState(canSpin) {
+    const button = document.getElementById('lucky-wheel-spin');
+    if (!canSpin) {
+      button.style.opacity = '0.5';
+      button.style.cursor = 'not-allowed';
+      button.innerText = 'ĐÃ QUAY HÔM NAY';
+    } else {
+      button.style.opacity = '1';
+      button.style.cursor = 'pointer';
+      button.innerText = '{{ section.settings.button_text }}';
+    }
   }
+
+  // Tính thời gian còn lại đến 00:00 ngày mai
+  function getTimeUntilMidnight() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const diff = tomorrow - now;
+    
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    return `${hours} giờ ${minutes} phút`;
+  }
+
+  updateButtonState(!hasSpunToday);
 
   document.getElementById('lucky-wheel-spin').addEventListener('click', function () {
     if (isSpinning) return;
     
-    // Kiểm tra đã quay chưa
-    if (hasSpunLocal === 'true' || localStorage.getItem(`lucky_wheel_spun_${customerId}`) === 'true') {
-      alert('Bạn đã sử dụng lượt quay của mình!');
+    // Kiểm tra đã quay hôm nay chưa
+    const currentDate = new Date().toISOString().split('T')[0];
+    const lastSpin = localStorage.getItem(`lucky_wheel_date_${customerId}`);
+    
+    if (lastSpin === currentDate) {
+      const timeLeft = getTimeUntilMidnight();
+      alert(`Bạn đã quay hôm nay rồi!\nQuay lại sau: ${timeLeft}`);
       return;
     }
     
@@ -454,14 +506,14 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         drawWheel();
 
-        // Lưu trạng thái đã quay vào localStorage
-        localStorage.setItem(`lucky_wheel_spun_${customerId}`, 'true');
+        // Lưu ngày quay vào localStorage
+        const spinDate = new Date().toISOString().split('T')[0];
+        localStorage.setItem(`lucky_wheel_date_${customerId}`, spinDate);
         localStorage.setItem(`lucky_wheel_prize_${customerId}`, selectedPrize.text);
+        localStorage.setItem(`lucky_wheel_prize_date_${customerId}`, new Date().toISOString());
         
         // Vô hiệu hóa nút quay
-        document.getElementById('lucky-wheel-spin').style.opacity = '0.5';
-        document.getElementById('lucky-wheel-spin').style.cursor = 'not-allowed';
-        document.getElementById('lucky-wheel-spin').innerText = 'ĐÃ QUAY';
+        updateButtonState(false);
 
         setTimeout(() => {
           document.getElementById('modal-prize-text').innerText = `${selectedPrize.text}`;
