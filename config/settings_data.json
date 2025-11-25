@@ -109,7 +109,7 @@
     "currency_code_enabled": true,
     "cart_currency_code_enabled": true,
     "tier_pricing_enabled": true,
-    "tier_pricing_scope": "collections",
+    "tier_pricing_scope": "tagged",
     "tier_pricing_collection_handles": "helios-black-silver",
     "tier_1_discount": 20,
     "tier_show_original_price": true,
