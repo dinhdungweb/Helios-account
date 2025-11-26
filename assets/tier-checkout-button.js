@@ -54,7 +54,8 @@
       checkoutWrapper.className = 'tier-checkout-wrapper';
       checkoutWrapper.style.cssText = `
         width: 100%;
-        margin-top: 10px;
+        margin-top: -14px;
+        margin-bottom: 24px;
       `;
       
       // Create custom checkout button
