@@ -49,24 +49,48 @@
       // Check if custom button already exists
       if (actionDiv.querySelector('.tier-checkout-button')) return;
       
+      // Check if action div has flexbox layout (buttons in same row)
+      const hasFlexLayout = actionDiv.classList.contains('product-detail__form__options--with-quantity') || 
+                           window.getComputedStyle(actionDiv).display === 'flex';
+      
       // Create custom checkout button
       const checkoutBtn = document.createElement('button');
       checkoutBtn.type = 'button';
       checkoutBtn.className = 'button tier-checkout-button';
       checkoutBtn.textContent = 'Mua ngay';
-      checkoutBtn.style.cssText = `
-        margin-top: 10px;
-        width: 100%;
-        padding: 18px 30px;
-        background-color: #fab320;
-        color: #000000;
-        border: 1px solid #fab320;
-        border-radius: var(--btn-border-radius, 4px);
-        font-weight: 400;
-        line-height: 1.25em;
-        transition: opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s;
-        cursor: pointer;
-      `;
+      
+      // Apply styles based on layout
+      if (hasFlexLayout) {
+        // Same row layout - use flex
+        checkoutBtn.style.cssText = `
+          flex: 1;
+          margin-left: 10px;
+          padding: 18px 30px;
+          background-color: #fab320;
+          color: #000000;
+          border: 1px solid #fab320;
+          border-radius: var(--btn-border-radius, 4px);
+          font-weight: 400;
+          line-height: 1.25em;
+          transition: opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s;
+          cursor: pointer;
+        `;
+      } else {
+        // Stacked layout - full width
+        checkoutBtn.style.cssText = `
+          margin-top: 10px;
+          width: 100%;
+          padding: 18px 30px;
+          background-color: #fab320;
+          color: #000000;
+          border: 1px solid #fab320;
+          border-radius: var(--btn-border-radius, 4px);
+          font-weight: 400;
+          line-height: 1.25em;
+          transition: opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s;
+          cursor: pointer;
+        `;
+      }
       
       // Add hover effect
       checkoutBtn.addEventListener('mouseenter', function() {
