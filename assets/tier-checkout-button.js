@@ -156,29 +156,43 @@
   document.addEventListener('click', function(e) {
     const quickBuyBtn = e.target.closest('[data-cc-quick-buy]');
     if (quickBuyBtn) {
-      // Wait for modal to load content - try multiple times
-      const attempts = [500, 1000, 1500, 2000];
-      attempts.forEach(delay => {
+      // Wait for tier-pricing-final.js to finish rendering tier wrapper
+      // Try multiple times with increasing delays
+      const checkAndInit = function(attempt, maxAttempts) {
+        if (attempt > maxAttempts) return;
+        
         setTimeout(function() {
-          initTierCheckout();
-        }, delay);
-      });
+          const modal = document.querySelector('#quick-buy-modal');
+          const tierWrapper = modal ? modal.querySelector('.tier-pricing-wrapper') : null;
+          
+          if (tierWrapper) {
+            // Tier wrapper found, init checkout button
+            initTierCheckout();
+          } else if (attempt < maxAttempts) {
+            // Not found yet, try again
+            checkAndInit(attempt + 1, maxAttempts);
+          }
+        }, 300 * attempt); // 300ms, 600ms, 900ms, 1200ms, 1500ms
+      };
+      
+      checkAndInit(1, 5);
     }
   });
   
-  // Also listen for modal open events
+  // Also observe for tier-pricing-wrapper being added to modal
   const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
       if (mutation.addedNodes.length) {
         mutation.addedNodes.forEach(function(node) {
-          if (node.nodeType === 1 && (
-            node.classList && (
-              node.classList.contains('quick-buy-modal') ||
-              node.id === 'quick-buy-modal' ||
-              node.querySelector && node.querySelector('.product-detail__form__action')
-            )
-          )) {
-            setTimeout(initTierCheckout, 300);
+          if (node.nodeType === 1) {
+            // Check if tier-pricing-wrapper was added
+            if (node.classList && node.classList.contains('tier-pricing-wrapper')) {
+              setTimeout(initTierCheckout, 100);
+            }
+            // Or if it's inside the added node
+            else if (node.querySelector && node.querySelector('.tier-pricing-wrapper')) {
+              setTimeout(initTierCheckout, 100);
+            }
           }
         });
       }
