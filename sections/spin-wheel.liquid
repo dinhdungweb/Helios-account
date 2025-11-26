@@ -424,13 +424,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const rnd = Math.random() * 100;
     let cumulative = 0;
-    let selectedPrize = prizes[0];
-    for (let prize of prizes) {
+    let selectedPrize = null;
+    
+    // Lọc ra các phần thưởng có xác suất > 0
+    const validPrizes = prizes.filter(p => p.probability > 0);
+    
+    for (let prize of validPrizes) {
       cumulative += prize.probability;
-      if (rnd <= cumulative) {
+      if (rnd < cumulative) {
         selectedPrize = prize;
         break;
       }
+    }
+    
+    // Fallback nếu không tìm thấy (không nên xảy ra)
+    if (!selectedPrize) {
+      selectedPrize = validPrizes[validPrizes.length - 1];
     }
 
     const midAngle = selectedPrize.startAngle + selectedPrize.angle / 2;
