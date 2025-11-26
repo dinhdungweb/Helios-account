@@ -90,10 +90,11 @@
         handleTierCheckout(form, discountCode);
       });
       
-      // Insert after add to cart button
-      const addButton = actionDiv.querySelector('button[type="submit"]');
-      if (addButton) {
-        addButton.parentNode.insertBefore(checkoutBtn, addButton.nextSibling);
+      // Insert after the action div (not inside it) to ensure it's on a new row
+      if (actionDiv.nextSibling) {
+        actionDiv.parentNode.insertBefore(checkoutBtn, actionDiv.nextSibling);
+      } else {
+        actionDiv.parentNode.appendChild(checkoutBtn);
       }
     });
   }
