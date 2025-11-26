@@ -59,6 +59,29 @@
         "content_member": ""
       }
     },
+    "rich_text_cnY8ed": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "TẶNG STICKER NHIỆT BLACK SUN CHO MEMBER PLATINUM, DIAMOND VÀ BLACK DIAMOND",
+        "title_size": 20,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "shop_the_look_banner_VctRxn": {
       "type": "shop-the-look-banner",
       "blocks": {
@@ -238,6 +261,7 @@
   "order": [
     "slideshow_mHKbXU",
     "main",
+    "rich_text_cnY8ed",
     "shop_the_look_banner_VctRxn",
     "image_with_text_9H7MjK",
     "spin_wheel_BUzLp7",
