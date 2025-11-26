@@ -152,4 +152,39 @@
   // Re-initialize on AJAX page changes (if theme uses AJAX)
   document.addEventListener('shopify:section:load', initTierCheckout);
   
+  // Re-initialize when quick view modal opens
+  document.addEventListener('click', function(e) {
+    const quickBuyBtn = e.target.closest('[data-cc-quick-buy]');
+    if (quickBuyBtn) {
+      // Wait for modal to load content
+      setTimeout(function() {
+        initTierCheckout();
+      }, 500);
+    }
+  });
+  
+  // Also listen for modal open events
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.addedNodes.length) {
+        mutation.addedNodes.forEach(function(node) {
+          if (node.nodeType === 1 && (
+            node.classList && (
+              node.classList.contains('quick-buy-modal') ||
+              node.id === 'quick-buy-modal' ||
+              node.querySelector && node.querySelector('.product-detail__form__action')
+            )
+          )) {
+            setTimeout(initTierCheckout, 300);
+          }
+        });
+      }
+    });
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  
 })();
