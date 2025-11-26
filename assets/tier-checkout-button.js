@@ -156,10 +156,13 @@
   document.addEventListener('click', function(e) {
     const quickBuyBtn = e.target.closest('[data-cc-quick-buy]');
     if (quickBuyBtn) {
-      // Wait for modal to load content
-      setTimeout(function() {
-        initTierCheckout();
-      }, 500);
+      // Wait for modal to load content - try multiple times
+      const attempts = [500, 1000, 1500, 2000];
+      attempts.forEach(delay => {
+        setTimeout(function() {
+          initTierCheckout();
+        }, delay);
+      });
     }
   });
   
