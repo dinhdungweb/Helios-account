@@ -57,10 +57,31 @@
       checkoutBtn.style.cssText = `
         margin-top: 10px;
         width: 100%;
-        background: #fab320;
-        color: #000;
-        font-weight: bold;
+        padding: 18px 30px;
+        background-color: #fab320;
+        color: #000000;
+        border: 1px solid #fab320;
+        border-radius: var(--btn-border-radius, 4px);
+        font-weight: 400;
+        line-height: 1.25em;
+        transition: opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s;
+        cursor: pointer;
       `;
+      
+      // Add hover effect
+      checkoutBtn.addEventListener('mouseenter', function() {
+        if (!this.disabled) {
+          this.style.backgroundColor = '#000000';
+          this.style.color = '#fab320';
+        }
+      });
+      
+      checkoutBtn.addEventListener('mouseleave', function() {
+        if (!this.disabled) {
+          this.style.backgroundColor = '#fab320';
+          this.style.color = '#000000';
+        }
+      });
       
       // Add click handler
       checkoutBtn.addEventListener('click', function(e) {
