@@ -89,7 +89,7 @@
     "social_custom_icon": "shopify://shop_images/Logo_phu-02.png",
     "blog_show_date": false,
     "blog_excerpt": "none",
-    "blog_image_shape": "square",
+    "blog_image_shape": "portrait_tall",
     "favicon": "shopify://shop_images/464413022_945803257578038_2084379289906124096_n.jpg",
     "animation_enabled_desktop": false,
     "animation_enabled_mobile": false,
