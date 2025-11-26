@@ -72,7 +72,7 @@
           "type": "buy_buttons",
           "settings": {
             "show_quantity_selector": true,
-            "enable_payment_button": false,
+            "enable_payment_button": true,
             "show_pickup_availability": false,
             "enable_mobile_sticky_cart": true,
             "show_gift_card_recipient": false
