@@ -55,9 +55,8 @@
       checkoutBtn.className = 'button tier-checkout-button';
       checkoutBtn.textContent = 'Mua ngay';
       checkoutBtn.style.cssText = `
-        display: block;
-        margin-top: 10px;
-        width: 100%;
+        flex: 1;
+        margin-left: 10px;
         padding: 18px 30px;
         background-color: #fab320;
         color: #000000;
@@ -90,11 +89,11 @@
         handleTierCheckout(form, discountCode);
       });
       
-      // Add with-payment-button class to action div (like Shopify does)
-      actionDiv.classList.add('with-payment-button');
-      
-      // Insert inside action div at the end (like payment_button does)
-      actionDiv.appendChild(checkoutBtn);
+      // Insert after add to cart button (same row if flex layout)
+      const addButton = actionDiv.querySelector('button[type="submit"]');
+      if (addButton) {
+        addButton.parentNode.insertBefore(checkoutBtn, addButton.nextSibling);
+      }
     });
   }
   
