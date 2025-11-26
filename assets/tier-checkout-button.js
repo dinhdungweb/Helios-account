@@ -8,15 +8,23 @@
   
   // Wait for tier pricing to be ready
   function initTierCheckout() {
+    // Get discount code from sessionStorage (set by tier-auto-discount.liquid)
+    const discountCode = sessionStorage.getItem('helios_tier_discount');
+    
+    if (!discountCode) {
+      // No tier discount, don't modify anything
+      return;
+    }
+    
+    // Check if tier pricing wrapper exists (means customer is logged in with tier)
     const tierWrapper = document.querySelector('.tier-pricing-wrapper');
     if (!tierWrapper) return;
     
     const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
     const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
-    const discountCode = tierWrapper.dataset.tierCode || '';
     
     // Only proceed if customer has tier discount
-    if (!hasCustomer || tierDiscount === 0 || !discountCode) {
+    if (!hasCustomer || tierDiscount === 0) {
       return;
     }
     
