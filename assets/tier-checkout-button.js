@@ -90,12 +90,11 @@
         handleTierCheckout(form, discountCode);
       });
       
-      // Insert after the action div (not inside it) to ensure it's on a new row
-      if (actionDiv.nextSibling) {
-        actionDiv.parentNode.insertBefore(checkoutBtn, actionDiv.nextSibling);
-      } else {
-        actionDiv.parentNode.appendChild(checkoutBtn);
-      }
+      // Add with-payment-button class to action div (like Shopify does)
+      actionDiv.classList.add('with-payment-button');
+      
+      // Insert inside action div at the end (like payment_button does)
+      actionDiv.appendChild(checkoutBtn);
     });
   }
   
