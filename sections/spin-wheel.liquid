@@ -118,7 +118,7 @@
 <!-- Modal kết quả -->
 <div id="lucky-wheel-modal" class="wheel-modal" style="display: none;">
   <div class="wheel-modal-box">
-    <h2>🎉 Bạn đã trúng thưởng!</h2>
+    <h2>Bạn đã trúng thưởng!</h2>
     <p id="modal-prize-text"></p>
     <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">Đóng</button>
   </div>
@@ -327,7 +327,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const canvas = document.getElementById('lucky-wheel-canvas');
-  if (!canvas) return; // Không có canvas nếu chưa đăng nhập hoặc không đủ điều kiện
+  if (!canvas) return; 
   
   const ctx = canvas.getContext('2d');
   const centerX = canvas.width / 2;
