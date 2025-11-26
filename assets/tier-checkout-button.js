@@ -49,14 +49,21 @@
       // Check if custom button already exists
       if (actionDiv.querySelector('.tier-checkout-button')) return;
       
-      // Create custom checkout button (always full width, new row like dynamic checkout)
+      // Create wrapper div for checkout button (to force new row)
+      const checkoutWrapper = document.createElement('div');
+      checkoutWrapper.className = 'tier-checkout-wrapper';
+      checkoutWrapper.style.cssText = `
+        width: 100%;
+        margin-top: 10px;
+      `;
+      
+      // Create custom checkout button
       const checkoutBtn = document.createElement('button');
       checkoutBtn.type = 'button';
       checkoutBtn.className = 'button tier-checkout-button';
       checkoutBtn.textContent = 'Mua ngay';
       checkoutBtn.style.cssText = `
-        flex: 1;
-        margin-left: 10px;
+        width: 100%;
         padding: 18px 30px;
         background-color: #fab320;
         color: #000000;
@@ -89,10 +96,14 @@
         handleTierCheckout(form, discountCode);
       });
       
-      // Insert after add to cart button (same row if flex layout)
-      const addButton = actionDiv.querySelector('button[type="submit"]');
-      if (addButton) {
-        addButton.parentNode.insertBefore(checkoutBtn, addButton.nextSibling);
+      // Add button to wrapper
+      checkoutWrapper.appendChild(checkoutBtn);
+      
+      // Insert wrapper after action div (new row)
+      if (actionDiv.nextSibling) {
+        actionDiv.parentNode.insertBefore(checkoutWrapper, actionDiv.nextSibling);
+      } else {
+        actionDiv.parentNode.appendChild(checkoutWrapper);
       }
     });
   }
