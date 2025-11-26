@@ -157,7 +157,7 @@
         "prize_yQwFYG": {
           "type": "prize",
           "settings": {
-            "text": "Chúc bạn may mắn ngày mai",
+            "text": "Chúc bạn may mắn",
             "color": "#000000",
             "code": "",
             "probability": 24
@@ -184,7 +184,7 @@
         "prize_grha6j": {
           "type": "prize",
           "settings": {
-            "text": "Chúc bạn may mắn ngày mai",
+            "text": "Chúc bạn may mắn",
             "color": "#000000",
             "code": "",
             "probability": 24
@@ -211,7 +211,7 @@
         "prize_c6tMC3": {
           "type": "prize",
           "settings": {
-            "text": "Chúc bạn may mắn ngày mai",
+            "text": "Chúc bạn may mắn",
             "color": "#000000",
             "code": "",
             "probability": 25
