@@ -63,7 +63,7 @@ a.logout-button {
 }
 .customer-content {
   flex: 1;
-  padding: 20px 50px;
+  padding: 0 50px;
   transition: all .3s ease;
   position: relative;
 }
