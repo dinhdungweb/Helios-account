@@ -169,7 +169,6 @@
     const tierWrapper = document.querySelector('.tier-pricing-wrapper');
     if (!tierWrapper) {
       // No tier pricing on this page, skip initialization
-      console.log('[Tier Pricing] No tier-pricing-wrapper found, skipping');
       return;
     }
     
@@ -177,20 +176,10 @@
     const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
     const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
     
-    console.log('[Tier Pricing] Init check:', {
-      tierDiscount,
-      hasCustomer,
-      tierScope: tierWrapper.dataset.tierScope,
-      allowedTags: tierWrapper.dataset.tierAllowedTags
-    });
-    
     if (!hasCustomer || tierDiscount === 0) {
       // No customer or no discount, don't intercept
-      console.log('[Tier Pricing] Skipping - no customer or no discount');
       return;
     }
-    
-    console.log('[Tier Pricing] Installing interceptor...');
     
     // Try to extract tier info
     if (extractTierInfo()) {
