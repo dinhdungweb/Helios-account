@@ -1,4 +1,4 @@
-<!-- Logic phân hạng khách hàng -->
+<!-- phân hạng khách hàng -->
 {% if customer %}
   {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
     {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
@@ -118,7 +118,7 @@
 <!-- Modal kết quả -->
 <div id="lucky-wheel-modal" class="wheel-modal" style="display: none;">
   <div class="wheel-modal-box">
-    <h2>Bạn đã trúng thưởng!</h2>
+    <h2>🎉 Bạn đã trúng thưởng!</h2>
     <p id="modal-prize-text"></p>
     <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">Đóng</button>
   </div>
@@ -137,7 +137,7 @@
     <div class="wheel-message">
       <h3>Chỉ khách hàng hạng SILVER trở lên mới được tham gia</h3>
       <p>Hạng hiện tại của bạn: <strong>{{ tier }}</strong></p>
-      <p>Tiêu thêm để lên hạng SILVER và nhận quyền quay thưởng!</p>
+      <p>Chi tiêu thêm để lên hạng SILVER và nhận quyền quay thưởng!</p>
     </div>
   {% else %}
     <!-- Được phép quay -->
@@ -327,7 +327,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const canvas = document.getElementById('lucky-wheel-canvas');
-  if (!canvas) return; 
+  if (!canvas) return; // Không có canvas nếu chưa đăng nhập hoặc không đủ điều kiện
   
   const ctx = canvas.getContext('2d');
   const centerX = canvas.width / 2;
@@ -389,6 +389,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Kiểm tra localStorage xem đã quay chưa (theo ngày)
   const customerId = '{{ customer.id }}';
+  const customerEmail = '{{ customer.email }}';
   const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
   const lastSpinDate = localStorage.getItem(`lucky_wheel_date_${customerId}`);
   const hasSpunToday = lastSpinDate === today;
@@ -470,14 +471,26 @@ document.addEventListener('DOMContentLoaded', function () {
         drawWheel();
 
         // Lưu ngày quay vào localStorage
+        const spinTime = new Date().toISOString();
         const spinDate = new Date().toISOString().split('T')[0];
         localStorage.setItem(`lucky_wheel_date_${customerId}`, spinDate);
         localStorage.setItem(`lucky_wheel_prize_${customerId}`, selectedPrize.text);
-        localStorage.setItem(`lucky_wheel_prize_date_${customerId}`, new Date().toISOString());
+        localStorage.setItem(`lucky_wheel_prize_date_${customerId}`, spinTime);
+
+        const winner = {
+          user_id: `${customerId}`,
+          user_email: `${customerEmail}`,
+          prize: `${selectedPrize.text}`,
+          won_time: spinTime
+        };
+
+        {% comment %} console.log(winner); {% endcomment %}
 
         setTimeout(() => {
           document.getElementById('modal-prize-text').innerText = `${selectedPrize.text}`;
           document.getElementById('lucky-wheel-modal').style.display = 'flex';
+          // sent result to backend
+          sendToBackend(winner);
         }, 500);
         return;
       }
@@ -498,5 +511,22 @@ document.addEventListener('DOMContentLoaded', function () {
     t--;
     return c * (t * t * t + 1) + b;
   }
+
+  function sendToBackend(winner) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Basic cWNkNHJkYTl2enk5Znp0QEVETjp0ZHRfdmpjIVRDVDZyeWIzcW1w");
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(winner),
+      redirect: "follow"
+    };
+    fetch("https://v3.mvphsp.com/api/winners", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+  }
+
 });
 </script>
