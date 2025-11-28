@@ -1,0 +1,51 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "featured_blog_CYCTne": {
+      "type": "featured-blog",
+      "name": "Blog posts",
+      "settings": {
+        "title": "",
+        "blog": "black-sun-club",
+        "post_limit": 3,
+        "show_view_all": false,
+        "blog_show_author": false,
+        "blog_show_date": true,
+        "layout": "slideshow",
+        "blog_first_post_big": false,
+        "alternate_bg_color": false,
+        "height": "full",
+        "height_desktop": 700,
+        "height_mobile": 500,
+        "full_width": true,
+        "overlay_style_tint": true,
+        "autoplay": true,
+        "autoplay_speed": 10,
+        "slide_transition": "slide"
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "blog_layout": "rows",
+        "blog_posts_per_page": 10,
+        "blog_posts_per_row_mobile": "1",
+        "blog_show_title": true,
+        "blog_show_filter": false,
+        "blog_show_rss_link": false
+      }
+    }
+  },
+  "order": [
+    "featured_blog_CYCTne",
+    "main"
+  ]
+}
