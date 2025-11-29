@@ -31,6 +31,11 @@
         </span>
       </div>
     {% endif %}
+    {% if article.metafields.custom.blog_custom_tag %}
+      <div class="article-custom-tag">
+        {{ article.metafields.custom.blog_custom_tag }}
+      </div>
+    {% endif %}
   </div>
 
   <div class="article-block__content">
