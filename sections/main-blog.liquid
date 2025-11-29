@@ -30,6 +30,11 @@
           {% endif %}
           </span>
       </h1>
+      {% if blog.metafields.custom.blog_description %}
+        <div class="blog-description">
+          {{ blog.metafields.custom.blog_description }}
+        </div>
+      {% endif %}
     </div>
   {% endif %}
 
