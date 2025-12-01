@@ -490,9 +490,6 @@
     },
     "page_titles": {
       "products": "SẢN PHẨM"
-    },
-    "errors": {
-      "reset_password_html": "<a href=\"/account/login#recover\">đặt lại mật khẩu</a>"
     }
   }
 }
