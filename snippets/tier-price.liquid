@@ -47,9 +47,15 @@
         if product and settings.tier_pricing_product_tags != blank
           assign allowed_tags = settings.tier_pricing_product_tags | split: ','
           for tag in allowed_tags
-            assign tag_trimmed = tag | strip
-            if product.tags contains tag_trimmed
-              assign tier_applies = true
+            assign tag_trimmed = tag | strip | downcase
+            for product_tag in product.tags
+              assign product_tag_down = product_tag | downcase
+              if product_tag_down == tag_trimmed
+                assign tier_applies = true
+                break
+              endif
+            endfor
+            if tier_applies
               break
             endif
           endfor
@@ -62,7 +68,7 @@
           assign allowed_collections = settings.tier_pricing_collection_handles | split: ','
           for product_collection in product.collections
             for handle in allowed_collections
-              assign handle_trimmed = handle | strip
+              assign handle_trimmed = handle | strip | downcase
               if product_collection.handle == handle_trimmed
                 assign tier_applies = true
                 break
@@ -81,9 +87,15 @@
         if product and settings.tier_pricing_product_tags != blank
           assign excluded_tags = settings.tier_pricing_product_tags | split: ','
           for tag in excluded_tags
-            assign tag_trimmed = tag | strip
-            if product.tags contains tag_trimmed
-              assign tier_applies = false
+            assign tag_trimmed = tag | strip | downcase
+            for product_tag in product.tags
+              assign product_tag_down = product_tag | downcase
+              if product_tag_down == tag_trimmed
+                assign tier_applies = false
+                break
+              endif
+            endfor
+            if tier_applies == false
               break
             endif
           endfor
