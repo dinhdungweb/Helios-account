@@ -90,15 +90,22 @@
     // Try to get product data from page
     let productTags = [];
     
-    // Method 1: From tier-pricing-wrapper data attribute
-    const tierWrapper = document.querySelector('.tier-pricing-wrapper');
-    console.log('[TierProductDiscount] Tier wrapper found:', !!tierWrapper);
+    // Method 1: From tier-pricing-wrapper data attribute - check ALL wrappers
+    const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
+    console.log('[TierProductDiscount] Found wrappers:', allWrappers.length);
     
-    if (tierWrapper) {
-      console.log('[TierProductDiscount] Wrapper dataset:', tierWrapper.dataset);
-      if (tierWrapper.dataset.productTags) {
-        productTags = tierWrapper.dataset.productTags.split(',').map(t => t.trim()).filter(t => t);
-        console.log('[TierProductDiscount] Tags from wrapper:', productTags);
+    for (let i = 0; i < allWrappers.length; i++) {
+      const wrapper = allWrappers[i];
+      console.log(`[TierProductDiscount] Wrapper ${i} dataset:`, wrapper.dataset);
+      
+      if (wrapper.dataset.productTags && wrapper.dataset.productTags.trim()) {
+        productTags = wrapper.dataset.productTags.split(',').map(t => t.trim()).filter(t => t);
+        console.log(`[TierProductDiscount] Tags from wrapper ${i}:`, productTags);
+        
+        if (productTags.length > 0) {
+          console.log('[TierProductDiscount] ✓ Found tags, using this wrapper');
+          break; // Use first wrapper with tags
+        }
       }
     }
     
