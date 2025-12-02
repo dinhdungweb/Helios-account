@@ -90,20 +90,31 @@
     // Try to get product data from page
     let productTags = [];
     
-    // Method 1: From tier-pricing-wrapper data attribute - check ALL wrappers
-    const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
-    console.log('[TierProductDiscount] Found wrappers:', allWrappers.length);
+    // Method 1: From tier-pricing-wrapper data attribute - ONLY from main product area
+    // Exclude wrappers in cart-drawer, recommended products, etc.
+    const mainProductArea = document.querySelector('.product-detail, .product-single, main, [data-section-type="product"]');
+    const allWrappers = mainProductArea 
+      ? mainProductArea.querySelectorAll('.tier-pricing-wrapper')
+      : document.querySelectorAll('.tier-pricing-wrapper:not(.cart-drawer .tier-pricing-wrapper):not([data-recommend] .tier-pricing-wrapper)');
+    
+    console.log('[TierProductDiscount] Found wrappers in main product area:', allWrappers.length);
     
     for (let i = 0; i < allWrappers.length; i++) {
       const wrapper = allWrappers[i];
+      
+      // Skip if wrapper is inside cart-drawer or recommend section
+      if (wrapper.closest('.cart-drawer, [data-recommend], .recommend-products, .cart-recommendations')) {
+        console.log(`[TierProductDiscount] ✗ Wrapper ${i} is in cart/recommend area, skipping`);
+        continue;
+      }
+      
       console.log(`[TierProductDiscount] Wrapper ${i}:`, {
         tier: wrapper.dataset.tier,
         tierDiscount: wrapper.dataset.tierDiscount,
         productTags: wrapper.dataset.productTags,
         productId: wrapper.dataset.productId,
         productHandle: wrapper.dataset.productHandle,
-        hasCustomer: wrapper.dataset.hasCustomer,
-        allDataset: wrapper.dataset
+        hasCustomer: wrapper.dataset.hasCustomer
       });
       
       if (wrapper.dataset.productTags && wrapper.dataset.productTags.trim()) {
