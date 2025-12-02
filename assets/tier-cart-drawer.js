@@ -73,13 +73,16 @@
       
       console.log('[TierCartDrawer] Total after tier pricing:', totalAfterTier);
       
-      // Update subtotal display
-      const subtotalElements = document.querySelectorAll('.cart-drawer [class*="subtotal"], .cart-drawer [class*="tổng-phụ"], .cart-drawer [class*="tong-phu"]');
-      subtotalElements.forEach(el => {
-        const priceEl = el.querySelector('[class*="price"], [class*="money"]');
-        if (priceEl) {
-          priceEl.textContent = formatMoney(totalAfterTier);
-          console.log('[TierCartDrawer] Updated subtotal display');
+      // Update subtotal display - find by text content
+      const footerRows = document.querySelectorAll('.cart-drawer-footer-row, .cart-drawer [class*="footer"] [class*="row"]');
+      footerRows.forEach(row => {
+        const heading = row.querySelector('h3');
+        if (heading && heading.textContent.includes('Tổng phụ')) {
+          const priceSpan = row.querySelector('span');
+          if (priceSpan) {
+            priceSpan.textContent = formatMoney(totalAfterTier);
+            console.log('[TierCartDrawer] Updated subtotal:', formatMoney(totalAfterTier));
+          }
         }
       });
       
