@@ -280,7 +280,7 @@
     {%- if settings.quickbuy_enabled -%}
       <div class="cc-quick-buy-btn-container">
         <a href="{{ product_url }}" class="button alt cc-quick-buy-btn">
-          Mua ngay
+          {{ 'products.listing.buy_now' | t }}
         </a>
       </div>
     {%- endif -%}
@@ -435,7 +435,7 @@
           <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
         {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
           <a href="{{ product_url }}" class="button alt">
-            Mua ngay
+            {{ 'products.listing.buy_now' | t }}
           </a>
         {% elsif settings.enable_locked_content %}
           {% if settings.lock_all_product_prices %}
@@ -445,12 +445,12 @@
           {% else %}
             <!-- Nếu sản phẩm không bị khóa, hiển thị giá bình thường -->
             <a href="{{ product_url }}" class="button alt">
-              Mua ngay
+              {{ 'products.listing.buy_now' | t }}
             </a>
           {% endif %}
         {% else %}
           <a href="{{ product_url }}" class="button alt">
-            Mua ngay
+            {{ 'products.listing.buy_now' | t }}
           </a>
         {% endif %}
       {% else %}
@@ -460,7 +460,7 @@
           <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
         {% else %}
           <a href="{{ product_url }}" class="button alt">
-            Mua ngay
+            {{ 'products.listing.buy_now' | t }}
           </a>
         {% endif %}
       {% endif %}

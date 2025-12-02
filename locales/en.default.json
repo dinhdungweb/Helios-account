@@ -149,6 +149,7 @@
     "listing": {
       "loading": "Loading...",
       "quick_view": "Quick View",
+      "buy_now": "Buy Now",
       "from": "From",
       "sold_out": "Sold out"
     }
