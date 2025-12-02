@@ -212,15 +212,17 @@
     comment ============================================
       OVERRIDE DISCOUNT TỪ PRODUCT TAGS (Nếu có)
       Format: tier-{tier_name}-{percent}
-      VD: tier-gold-15, tier-platinum-20
+      VD: tier-gold-15, tier-platinum-20, tier-blackdiamond-25
     ============================================
     endcomment
     if has_tier and product and product.tags
-      assign tier_name_lower = tier_name | downcase
+      comment Remove spaces and convert to lowercase for matching
+      endcomment
+      assign tier_name_lower = tier_name | downcase | replace: ' ', '' | replace: '_', ''
       assign tag_prefix = 'tier-' | append: tier_name_lower | append: '-'
       
       for tag in product.tags
-        assign tag_lower = tag | downcase
+        assign tag_lower = tag | downcase | strip
         if tag_lower contains tag_prefix
           comment Extract percent from tag
           endcomment
