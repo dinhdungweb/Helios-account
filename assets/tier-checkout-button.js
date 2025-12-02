@@ -19,7 +19,29 @@
       return;
     }
     
-    console.log('[TierCheckoutButton] Discount code:', discountCode);
+    // Check if tier pricing wrapper exists with valid discount
+    const tierWrapper = document.querySelector('.tier-pricing-wrapper');
+    if (!tierWrapper) {
+      console.log('[TierCheckoutButton] No tier wrapper found, exiting');
+      return;
+    }
+    
+    const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
+    const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
+    
+    console.log('[TierCheckoutButton] Tier info:', {
+      discountCode,
+      tierDiscount,
+      hasCustomer
+    });
+    
+    // Only show custom button if customer has tier discount
+    if (!hasCustomer || tierDiscount === 0) {
+      console.log('[TierCheckoutButton] No customer or zero discount, exiting');
+      return;
+    }
+    
+    console.log('[TierCheckoutButton] ✓ Customer has tier discount, creating custom button');
     
     // Hide Shopify dynamic checkout buttons
     const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
