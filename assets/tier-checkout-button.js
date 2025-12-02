@@ -1,269 +1,66 @@
 /**
  * Tier Pricing Checkout Button
- * Replace Shopify dynamic checkout with custom button that applies tier discount
+ * Intercept add to cart and redirect to checkout with tier discount
  */
 
 (function() {
   'use strict';
   
-  // Wait for tier pricing to be ready
-  function initTierCheckout() {
-    console.log('[TierCheckoutButton] Initializing...');
-    
-    // Get discount code from sessionStorage (set by tier-auto-discount.liquid)
+  console.log('[TierCheckoutButton] Script loaded');
+  
+  // Intercept all checkout/cart actions
+  function interceptCheckout() {
     const discountCode = sessionStorage.getItem('helios_tier_discount');
     
-    console.log('[TierCheckoutButton] Discount code from sessionStorage:', discountCode);
-    
     if (!discountCode) {
-      console.log('[TierCheckoutButton] No discount code, exiting');
+      console.log('[TierCheckoutButton] No discount code in sessionStorage');
       return;
     }
     
-    // Check if ANY tier pricing wrapper exists with customer
-    const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
-    console.log('[TierCheckoutButton] Found tier wrappers:', allWrappers.length);
+    console.log('[TierCheckoutButton] Active discount code:', discountCode);
     
-    let hasValidTier = false;
-    allWrappers.forEach((wrapper, index) => {
-      const tierDiscount = parseFloat(wrapper.dataset.tierDiscount || 0);
-      const hasCustomer = wrapper.dataset.hasCustomer === 'true';
-      console.log(`[TierCheckoutButton] Wrapper ${index}:`, { 
-        tierDiscount, 
-        hasCustomer,
-        tier: wrapper.dataset.tier 
-      });
+    // Method 1: Intercept checkout button clicks
+    document.addEventListener('click', function(e) {
+      const target = e.target.closest('button[name="checkout"], a[href*="/checkout"]');
       
-      if (hasCustomer && tierDiscount > 0) {
-        hasValidTier = true;
-      }
-    });
-    
-    if (!hasValidTier) {
-      console.log('[TierCheckoutButton] No valid tier found, exiting');
-      return;
-    }
-    
-    console.log('[TierCheckoutButton] ✓ Valid tier found, creating custom checkout button...');
-    
-    // Hide Shopify dynamic checkout buttons
-    const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
-    dynamicButtons.forEach(btn => {
-      btn.style.display = 'none';
-    });
-    
-    // Create custom checkout button
-    createCustomCheckoutButton(discountCode);
-  }
-  
-  function createCustomCheckoutButton(discountCode) {
-    // Find all product forms - try multiple selectors
-    let productForms = document.querySelectorAll('form[action*="/cart/add"]');
-    
-    if (productForms.length === 0) {
-      // Try alternative selectors
-      productForms = document.querySelectorAll('form.product-form, form[id*="product"], form.shopify-product-form');
-      console.log('[TierCheckoutButton] Using alternative selector, found:', productForms.length);
-    }
-    
-    if (productForms.length === 0) {
-      // Last resort: find any form with add to cart button
-      const allForms = document.querySelectorAll('form');
-      productForms = Array.from(allForms).filter(form => 
-        form.querySelector('button[name="add"], input[name="add"]')
-      );
-      console.log('[TierCheckoutButton] Using last resort selector, found:', productForms.length);
-    }
-    
-    console.log('[TierCheckoutButton] Found product forms:', productForms.length);
-    
-    productForms.forEach((form, index) => {
-      console.log(`[TierCheckoutButton] Checking form ${index}:`, form);
-      
-      let actionDiv = form.querySelector('.product-detail__form__action');
-      
-      if (!actionDiv) {
-        console.log('[TierCheckoutButton] No .product-detail__form__action, trying alternative...');
-        
-        // Try to find add to cart button container
-        const addToCartBtn = form.querySelector('button[name="add"], input[name="add"]');
-        if (!addToCartBtn) {
-          console.log('[TierCheckoutButton] No add to cart button, skipping');
-          return;
-        }
-        
-        // Use parent of add to cart button
-        actionDiv = addToCartBtn.parentElement;
-        console.log('[TierCheckoutButton] Using button parent as action div:', actionDiv);
-      }
-      
-      // Check if custom button already exists
-      if (actionDiv.querySelector('.tier-checkout-button')) {
-        console.log('[TierCheckoutButton] Button already exists, skipping');
-        return;
-      }
-      
-      console.log('[TierCheckoutButton] Creating button for form');
-      
-      // Create wrapper div for checkout button (to force new row)
-      const checkoutWrapper = document.createElement('div');
-      checkoutWrapper.className = 'tier-checkout-wrapper';
-      checkoutWrapper.style.cssText = `
-        width: 100%;
-        margin-top: -14px;
-        margin-bottom: 24px;
-      `;
-      
-      // Create custom checkout button
-      const checkoutBtn = document.createElement('button');
-      checkoutBtn.type = 'button';
-      checkoutBtn.className = 'button tier-checkout-button';
-      checkoutBtn.textContent = 'Mua ngay';
-      checkoutBtn.style.cssText = `
-        width: 100%;
-        padding: 18px 30px;
-        background-color: #fab320;
-        color: #000000;
-        border: 1px solid #fab320;
-        border-radius: var(--btn-border-radius, 4px);
-        font-weight: 400;
-        line-height: 1.25em;
-        transition: opacity 0.3s, color 0.3s, background-color 0.3s, border-color 0.3s;
-        cursor: pointer;
-      `;
-      
-      // Add hover effect
-      checkoutBtn.addEventListener('mouseenter', function() {
-        if (!this.disabled) {
-          this.style.backgroundColor = '#000000';
-          this.style.color = '#fab320';
-        }
-      });
-      
-      checkoutBtn.addEventListener('mouseleave', function() {
-        if (!this.disabled) {
-          this.style.backgroundColor = '#fab320';
-          this.style.color = '#000000';
-        }
-      });
-      
-      // Add click handler
-      checkoutBtn.addEventListener('click', function(e) {
+      if (target) {
         e.preventDefault();
-        handleTierCheckout(form, discountCode);
-      });
-      
-      // Add button to wrapper
-      checkoutWrapper.appendChild(checkoutBtn);
-      
-      // Insert wrapper after action div (new row)
-      if (actionDiv.nextSibling) {
-        actionDiv.parentNode.insertBefore(checkoutWrapper, actionDiv.nextSibling);
-      } else {
-        actionDiv.parentNode.appendChild(checkoutWrapper);
-      }
-    });
-  }
-  
-  async function handleTierCheckout(form, discountCode) {
-    const button = form.querySelector('.tier-checkout-button');
-    const originalText = button.textContent;
-    
-    try {
-      // Disable button
-      button.disabled = true;
-      button.textContent = 'Đang xử lý...';
-      
-      // Get form data
-      const formData = new FormData(form);
-      
-      // Add to cart
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to add to cart');
-      }
-      
-      // Get the most up-to-date discount code from sessionStorage
-      // (may have been updated by tier-product-discount.js)
-      const currentDiscountCode = sessionStorage.getItem('helios_tier_discount') || discountCode;
-      
-      console.log('[TierCheckoutButton] Redirecting to checkout with discount:', currentDiscountCode);
-      
-      // Redirect to checkout with discount code
-      window.location.href = `/checkout?discount=${encodeURIComponent(currentDiscountCode)}`;
-      
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('Có lỗi xảy ra. Vui lòng thử lại!');
-      button.disabled = false;
-      button.textContent = originalText;
-    }
-  }
-  
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTierCheckout);
-  } else {
-    initTierCheckout();
-  }
-  
-  // Re-initialize on AJAX page changes (if theme uses AJAX)
-  document.addEventListener('shopify:section:load', initTierCheckout);
-  
-  // Re-initialize when quick view modal opens
-  document.addEventListener('click', function(e) {
-    const quickBuyBtn = e.target.closest('[data-cc-quick-buy]');
-    if (quickBuyBtn) {
-      // Wait for tier-pricing-final.js to finish rendering tier wrapper
-      // Try multiple times with increasing delays
-      const checkAndInit = function(attempt, maxAttempts) {
-        if (attempt > maxAttempts) return;
+        e.stopPropagation();
         
-        setTimeout(function() {
-          const modal = document.querySelector('#quick-buy-modal');
-          const tierWrapper = modal ? modal.querySelector('.tier-pricing-wrapper') : null;
-          
-          if (tierWrapper) {
-            // Tier wrapper found, init checkout button
-            initTierCheckout();
-          } else if (attempt < maxAttempts) {
-            // Not found yet, try again
-            checkAndInit(attempt + 1, maxAttempts);
-          }
-        }, 300 * attempt); // 300ms, 600ms, 900ms, 1200ms, 1500ms
-      };
-      
-      checkAndInit(1, 5);
-    }
-  });
-  
-  // Also observe for tier-pricing-wrapper being added to modal
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.addedNodes.length) {
-        mutation.addedNodes.forEach(function(node) {
-          if (node.nodeType === 1) {
-            // Check if tier-pricing-wrapper was added
-            if (node.classList && node.classList.contains('tier-pricing-wrapper')) {
-              setTimeout(initTierCheckout, 100);
-            }
-            // Or if it's inside the added node
-            else if (node.querySelector && node.querySelector('.tier-pricing-wrapper')) {
-              setTimeout(initTierCheckout, 100);
-            }
-          }
-        });
+        console.log('[TierCheckoutButton] Checkout button clicked, redirecting with discount:', discountCode);
+        window.location.href = `/checkout?discount=${encodeURIComponent(discountCode)}`;
       }
+    }, true);
+    
+    // Method 2: Modify all checkout links
+    function updateCheckoutLinks() {
+      const checkoutLinks = document.querySelectorAll('a[href*="/checkout"]');
+      checkoutLinks.forEach(link => {
+        if (!link.dataset.tierModified) {
+          const url = new URL(link.href, window.location.origin);
+          url.searchParams.set('discount', discountCode);
+          link.href = url.toString();
+          link.dataset.tierModified = 'true';
+          console.log('[TierCheckoutButton] Modified checkout link:', link.href);
+        }
+      });
+    }
+    
+    updateCheckoutLinks();
+    
+    // Watch for new links
+    const observer = new MutationObserver(updateCheckoutLinks);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
     });
-  });
+  }
   
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', interceptCheckout);
+  } else {
+    interceptCheckout();
+  }
   
 })();
