@@ -63,6 +63,7 @@
   <script>
     (function() {
       const discountCode = '{{ discount_code }}';
+      const customerTier = '{% if customer.tags contains settings.tier_1_tag %}{{ settings.tier_1_name }}{% elsif customer.tags contains settings.tier_2_tag %}{{ settings.tier_2_name }}{% elsif customer.tags contains settings.tier_3_tag %}{{ settings.tier_3_name }}{% elsif customer.tags contains settings.tier_4_tag %}{{ settings.tier_4_name }}{% elsif customer.tags contains settings.tier_5_tag %}{{ settings.tier_5_name }}{% else %}{{ settings.tier_6_name }}{% endif %}';
       const totalSpent = {{ total_spent }};
       const tierScope = '{{ tier_scope }}';
       const allowedTags = '{{ settings.tier_pricing_product_tags }}';
@@ -72,6 +73,7 @@
       
       // Store discount code and scope info for later use
       sessionStorage.setItem('helios_tier_discount', discountCode);
+      sessionStorage.setItem('helios_customer_tier', customerTier);
       sessionStorage.setItem('helios_total_spent', totalSpent);
       sessionStorage.setItem('helios_tier_scope', tierScope);
       sessionStorage.setItem('helios_tier_tags', allowedTags);

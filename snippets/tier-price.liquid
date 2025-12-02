@@ -208,6 +208,34 @@
         assign has_tier = true
       endif
     endunless
+    
+    comment ============================================
+      OVERRIDE DISCOUNT TỪ PRODUCT TAGS (Nếu có)
+      Format: tier-{tier_name}-{percent}
+      VD: tier-gold-15, tier-platinum-20
+    ============================================
+    endcomment
+    if has_tier and product and product.tags
+      assign tier_name_lower = tier_name | downcase
+      assign tag_prefix = 'tier-' | append: tier_name_lower | append: '-'
+      
+      for tag in product.tags
+        assign tag_lower = tag | downcase
+        if tag_lower contains tag_prefix
+          comment Extract percent from tag
+          endcomment
+          assign tag_parts = tag_lower | split: '-'
+          if tag_parts.size == 3
+            assign custom_percent = tag_parts[2] | plus: 0
+            if custom_percent > 0 and custom_percent <= 100
+              assign tier_discount = custom_percent
+              assign tier_discount_source = 'product_tag'
+              break
+            endif
+          endif
+        endif
+      endfor
+    endif
   endif
   
   comment Tính giá tier

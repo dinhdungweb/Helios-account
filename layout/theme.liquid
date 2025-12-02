@@ -337,6 +337,9 @@
   {% comment %} Tier Checkout Button - Custom checkout button with tier discount {% endcomment %}
   <script src="{{ 'tier-checkout-button.js' | asset_url }}" defer="defer"></script>
   
+  {% comment %} Tier Product Discount - Handle product-specific discount from tags {% endcomment %}
+  <script src="{{ 'tier-product-discount.js' | asset_url }}" defer="defer"></script>
+  
   {% comment %} Tier Auto Discount - Tự động apply discount code theo tier {% endcomment %}
   {% render 'tier-auto-discount' %}
 </body>
