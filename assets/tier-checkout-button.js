@@ -8,25 +8,37 @@
   
   // Wait for tier pricing to be ready
   function initTierCheckout() {
+    console.log('[TierCheckoutButton] Initializing...');
+    
     // Get discount code from sessionStorage (set by tier-auto-discount.liquid)
     const discountCode = sessionStorage.getItem('helios_tier_discount');
     
+    console.log('[TierCheckoutButton] Discount code from sessionStorage:', discountCode);
+    
     if (!discountCode) {
-      // No tier discount, don't modify anything
+      console.log('[TierCheckoutButton] No discount code, exiting');
       return;
     }
     
     // Check if tier pricing wrapper exists (means customer is logged in with tier)
     const tierWrapper = document.querySelector('.tier-pricing-wrapper');
-    if (!tierWrapper) return;
+    if (!tierWrapper) {
+      console.log('[TierCheckoutButton] No tier wrapper found, exiting');
+      return;
+    }
     
     const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
     const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
     
+    console.log('[TierCheckoutButton] Tier info:', { tierDiscount, hasCustomer });
+    
     // Only proceed if customer has tier discount
     if (!hasCustomer || tierDiscount === 0) {
+      console.log('[TierCheckoutButton] No customer or zero discount, exiting');
       return;
     }
+    
+    console.log('[TierCheckoutButton] Creating custom checkout button...');
     
     // Hide Shopify dynamic checkout buttons
     const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
@@ -134,6 +146,8 @@
       // Get the most up-to-date discount code from sessionStorage
       // (may have been updated by tier-product-discount.js)
       const currentDiscountCode = sessionStorage.getItem('helios_tier_discount') || discountCode;
+      
+      console.log('[TierCheckoutButton] Redirecting to checkout with discount:', currentDiscountCode);
       
       // Redirect to checkout with discount code
       window.location.href = `/checkout?discount=${encodeURIComponent(currentDiscountCode)}`;
