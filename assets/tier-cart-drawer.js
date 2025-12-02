@@ -155,19 +155,27 @@
           
           // Update "Giảm giá DIAMOND" or any tier discount row
           else if (headingText.includes('Giảm giá') && !headingText.includes('khác')) {
-            const discountPercent = totalOriginal > 0 ? Math.round((totalDiscount / totalOriginal) * 100) : 0;
-            const tierName = sessionStorage.getItem('helios_customer_tier') || 'DIAMOND';
-            
-            heading.innerHTML = `Giảm giá ${tierName} (-${discountPercent}%)`;
-            priceSpan.textContent = '- ' + formatMoney(totalDiscount);
-            console.log(`[TierCartDrawer] ✓ Updated discount: -${formatMoney(totalDiscount)} (${discountPercent}%)`);
+            if (totalDiscount > 0 && totalOriginal > 0) {
+              const discountPercent = Math.round((totalDiscount / totalOriginal) * 100);
+              const tierName = sessionStorage.getItem('helios_customer_tier') || 'DIAMOND';
+              
+              heading.innerHTML = `Giảm giá ${tierName} (-${discountPercent}%)`;
+              priceSpan.textContent = '- ' + formatMoney(totalDiscount);
+              console.log(`[TierCartDrawer] ✓ Updated discount: -${formatMoney(totalDiscount)} (${discountPercent}%)`);
+            } else {
+              console.log(`[TierCartDrawer] ⚠️ Skipping discount update (totalDiscount = ${totalDiscount}), keeping Liquid value`);
+            }
           }
           
           // Update "Tổng cộng" (final total after discount)
           else if (headingText.includes('Tổng cộng')) {
-            const newValue = formatMoney(totalAfterTier);
-            priceSpan.textContent = newValue;
-            console.log(`[TierCartDrawer] ✓ Updated "Tổng cộng": ${newValue}`);
+            if (totalAfterTier >= 0 && totalOriginal > 0) {
+              const newValue = formatMoney(totalAfterTier);
+              priceSpan.textContent = newValue;
+              console.log(`[TierCartDrawer] ✓ Updated "Tổng cộng": ${newValue}`);
+            } else {
+              console.log(`[TierCartDrawer] ⚠️ Skipping "Tổng cộng" update, keeping Liquid value: ${priceSpan.textContent}`);
+            }
           }
         }
       });
