@@ -53,23 +53,36 @@
     // Try to get product data from page
     let productTags = [];
     
-    // Method 1: From product JSON (most reliable)
-    const productJsonEl = document.querySelector('[data-product-json]');
-    if (productJsonEl) {
-      try {
-        const productData = JSON.parse(productJsonEl.textContent);
-        productTags = productData.tags || [];
-      } catch (e) {
-        console.error('Error parsing product JSON:', e);
+    // Method 1: From tier-pricing-wrapper data attribute
+    const tierWrapper = document.querySelector('.tier-pricing-wrapper');
+    if (tierWrapper && tierWrapper.dataset.productTags) {
+      productTags = tierWrapper.dataset.productTags.split(',').map(t => t.trim());
+    }
+    
+    // Method 2: From product JSON
+    if (productTags.length === 0) {
+      const productJsonEl = document.querySelector('[data-product-json]');
+      if (productJsonEl) {
+        try {
+          const productData = JSON.parse(productJsonEl.textContent);
+          productTags = productData.tags || [];
+        } catch (e) {
+          // Ignore error
+        }
       }
     }
     
-    // Method 2: From meta tags
+    // Method 3: From meta tags
     if (productTags.length === 0) {
       const metaTags = document.querySelector('meta[property="product:tag"]');
       if (metaTags) {
         productTags = metaTags.content.split(',').map(t => t.trim());
       }
+    }
+    
+    // Method 4: From window.product (if theme exposes it)
+    if (productTags.length === 0 && typeof window.product !== 'undefined') {
+      productTags = window.product.tags || [];
     }
     
     // Check for product-specific discount

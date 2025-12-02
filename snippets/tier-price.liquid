@@ -259,7 +259,9 @@
      data-has-customer="{% if customer %}true{% else %}false{% endif %}"
      data-tier-scope="{{ tier_scope }}"
      data-tier-allowed-tags="{{ settings.tier_pricing_product_tags }}"
-     data-tier-allowed-collections="{{ settings.tier_pricing_collection_handles }}">
+     data-tier-allowed-collections="{{ settings.tier_pricing_collection_handles }}"
+     data-product-tags="{% if product %}{{ product.tags | join: ',' }}{% endif %}"
+     data-tier-discount-source="{{ tier_discount_source }}">
   
   <div class="tier-pricing-prices">
     {% comment %} Giá sau tier discount (hiển thị đầu tiên) {% endcomment %}

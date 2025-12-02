@@ -131,8 +131,12 @@
         throw new Error('Failed to add to cart');
       }
       
+      // Get the most up-to-date discount code from sessionStorage
+      // (may have been updated by tier-product-discount.js)
+      const currentDiscountCode = sessionStorage.getItem('helios_tier_discount') || discountCode;
+      
       // Redirect to checkout with discount code
-      window.location.href = `/checkout?discount=${encodeURIComponent(discountCode)}`;
+      window.location.href = `/checkout?discount=${encodeURIComponent(currentDiscountCode)}`;
       
     } catch (error) {
       console.error('Checkout error:', error);
