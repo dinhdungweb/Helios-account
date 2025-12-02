@@ -57,16 +57,44 @@
   }
   
   function createCustomCheckoutButton(discountCode) {
-    // Find all product forms
-    const productForms = document.querySelectorAll('form[action*="/cart/add"]');
+    // Find all product forms - try multiple selectors
+    let productForms = document.querySelectorAll('form[action*="/cart/add"]');
+    
+    if (productForms.length === 0) {
+      // Try alternative selectors
+      productForms = document.querySelectorAll('form.product-form, form[id*="product"], form.shopify-product-form');
+      console.log('[TierCheckoutButton] Using alternative selector, found:', productForms.length);
+    }
+    
+    if (productForms.length === 0) {
+      // Last resort: find any form with add to cart button
+      const allForms = document.querySelectorAll('form');
+      productForms = Array.from(allForms).filter(form => 
+        form.querySelector('button[name="add"], input[name="add"]')
+      );
+      console.log('[TierCheckoutButton] Using last resort selector, found:', productForms.length);
+    }
     
     console.log('[TierCheckoutButton] Found product forms:', productForms.length);
     
-    productForms.forEach(form => {
-      const actionDiv = form.querySelector('.product-detail__form__action');
+    productForms.forEach((form, index) => {
+      console.log(`[TierCheckoutButton] Checking form ${index}:`, form);
+      
+      let actionDiv = form.querySelector('.product-detail__form__action');
+      
       if (!actionDiv) {
-        console.log('[TierCheckoutButton] No action div in form, skipping');
-        return;
+        console.log('[TierCheckoutButton] No .product-detail__form__action, trying alternative...');
+        
+        // Try to find add to cart button container
+        const addToCartBtn = form.querySelector('button[name="add"], input[name="add"]');
+        if (!addToCartBtn) {
+          console.log('[TierCheckoutButton] No add to cart button, skipping');
+          return;
+        }
+        
+        // Use parent of add to cart button
+        actionDiv = addToCartBtn.parentElement;
+        console.log('[TierCheckoutButton] Using button parent as action div:', actionDiv);
       }
       
       // Check if custom button already exists
