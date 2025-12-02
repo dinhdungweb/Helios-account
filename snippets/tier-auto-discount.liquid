@@ -19,6 +19,30 @@
     assign prioritize_tags = settings.tier_prioritize_tags
     assign tier_scope = settings.tier_pricing_scope | default: 'all'
     
+    comment Đọc tier names và thresholds từ settings
+    endcomment
+    assign tier_1_name = settings.tier_1_name
+    assign tier_1_tag = settings.tier_1_tag
+    assign tier_1_threshold = settings.tier_1_threshold | plus: 0
+    
+    assign tier_2_name = settings.tier_2_name
+    assign tier_2_tag = settings.tier_2_tag
+    assign tier_2_threshold = settings.tier_2_threshold | plus: 0
+    
+    assign tier_3_name = settings.tier_3_name
+    assign tier_3_tag = settings.tier_3_tag
+    assign tier_3_threshold = settings.tier_3_threshold | plus: 0
+    
+    assign tier_4_name = settings.tier_4_name
+    assign tier_4_tag = settings.tier_4_tag
+    assign tier_4_threshold = settings.tier_4_threshold | plus: 0
+    
+    assign tier_5_name = settings.tier_5_name
+    assign tier_5_tag = settings.tier_5_tag
+    assign tier_5_threshold = settings.tier_5_threshold | plus: 0
+    
+    assign tier_6_name = settings.tier_6_name
+    
     comment Ưu tiên tags nếu bật trong settings
     endcomment
     if prioritize_tags
@@ -38,12 +62,6 @@
     comment Nếu chưa có discount code, dùng total_spent
     endcomment
     if discount_code == ""
-      assign tier_1_threshold = settings.tier_1_threshold | plus: 0
-      assign tier_2_threshold = settings.tier_2_threshold | plus: 0
-      assign tier_3_threshold = settings.tier_3_threshold | plus: 0
-      assign tier_4_threshold = settings.tier_4_threshold | plus: 0
-      assign tier_5_threshold = settings.tier_5_threshold | plus: 0
-      
       if total_spent >= tier_1_threshold
         assign discount_code = settings.tier_1_discount_code
       elsif total_spent >= tier_2_threshold
