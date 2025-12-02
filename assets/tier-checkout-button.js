@@ -20,25 +20,31 @@
       return;
     }
     
-    // Check if tier pricing wrapper exists (means customer is logged in with tier)
-    const tierWrapper = document.querySelector('.tier-pricing-wrapper');
-    if (!tierWrapper) {
-      console.log('[TierCheckoutButton] No tier wrapper found, exiting');
+    // Check if ANY tier pricing wrapper exists with customer
+    const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
+    console.log('[TierCheckoutButton] Found tier wrappers:', allWrappers.length);
+    
+    let hasValidTier = false;
+    allWrappers.forEach((wrapper, index) => {
+      const tierDiscount = parseFloat(wrapper.dataset.tierDiscount || 0);
+      const hasCustomer = wrapper.dataset.hasCustomer === 'true';
+      console.log(`[TierCheckoutButton] Wrapper ${index}:`, { 
+        tierDiscount, 
+        hasCustomer,
+        tier: wrapper.dataset.tier 
+      });
+      
+      if (hasCustomer && tierDiscount > 0) {
+        hasValidTier = true;
+      }
+    });
+    
+    if (!hasValidTier) {
+      console.log('[TierCheckoutButton] No valid tier found, exiting');
       return;
     }
     
-    const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
-    const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
-    
-    console.log('[TierCheckoutButton] Tier info:', { tierDiscount, hasCustomer });
-    
-    // Only proceed if customer has tier discount
-    if (!hasCustomer || tierDiscount === 0) {
-      console.log('[TierCheckoutButton] No customer or zero discount, exiting');
-      return;
-    }
-    
-    console.log('[TierCheckoutButton] Creating custom checkout button...');
+    console.log('[TierCheckoutButton] ✓ Valid tier found, creating custom checkout button...');
     
     // Hide Shopify dynamic checkout buttons
     const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
@@ -54,12 +60,22 @@
     // Find all product forms
     const productForms = document.querySelectorAll('form[action*="/cart/add"]');
     
+    console.log('[TierCheckoutButton] Found product forms:', productForms.length);
+    
     productForms.forEach(form => {
       const actionDiv = form.querySelector('.product-detail__form__action');
-      if (!actionDiv) return;
+      if (!actionDiv) {
+        console.log('[TierCheckoutButton] No action div in form, skipping');
+        return;
+      }
       
       // Check if custom button already exists
-      if (actionDiv.querySelector('.tier-checkout-button')) return;
+      if (actionDiv.querySelector('.tier-checkout-button')) {
+        console.log('[TierCheckoutButton] Button already exists, skipping');
+        return;
+      }
+      
+      console.log('[TierCheckoutButton] Creating button for form');
       
       // Create wrapper div for checkout button (to force new row)
       const checkoutWrapper = document.createElement('div');
