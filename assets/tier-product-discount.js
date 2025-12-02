@@ -96,16 +96,26 @@
     
     for (let i = 0; i < allWrappers.length; i++) {
       const wrapper = allWrappers[i];
-      console.log(`[TierProductDiscount] Wrapper ${i} dataset:`, wrapper.dataset);
+      console.log(`[TierProductDiscount] Wrapper ${i}:`, {
+        tier: wrapper.dataset.tier,
+        tierDiscount: wrapper.dataset.tierDiscount,
+        productTags: wrapper.dataset.productTags,
+        productId: wrapper.dataset.productId,
+        productHandle: wrapper.dataset.productHandle,
+        hasCustomer: wrapper.dataset.hasCustomer,
+        allDataset: wrapper.dataset
+      });
       
       if (wrapper.dataset.productTags && wrapper.dataset.productTags.trim()) {
         productTags = wrapper.dataset.productTags.split(',').map(t => t.trim()).filter(t => t);
-        console.log(`[TierProductDiscount] Tags from wrapper ${i}:`, productTags);
+        console.log(`[TierProductDiscount] ✓ Tags from wrapper ${i}:`, productTags);
         
         if (productTags.length > 0) {
-          console.log('[TierProductDiscount] ✓ Found tags, using this wrapper');
+          console.log('[TierProductDiscount] ✓ Using this wrapper with tags');
           break; // Use first wrapper with tags
         }
+      } else {
+        console.log(`[TierProductDiscount] ✗ Wrapper ${i} has no productTags`);
       }
     }
     
