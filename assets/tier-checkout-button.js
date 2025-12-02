@@ -165,8 +165,21 @@
         }
       });
       
-      // Insert button after add to cart button
-      addToCartBtn.parentNode.insertBefore(checkoutBtn, addToCartBtn.nextSibling);
+      // Wrap button in a div to force new line
+      const buttonWrapper = document.createElement('div');
+      buttonWrapper.style.cssText = `
+        clear: both;
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+      `;
+      buttonWrapper.appendChild(checkoutBtn);
+      
+      // Remove margin-top from button since wrapper has it
+      checkoutBtn.style.marginTop = '0';
+      
+      // Insert wrapper after add to cart button
+      addToCartBtn.parentNode.insertBefore(buttonWrapper, addToCartBtn.nextSibling);
       
       console.log('[TierCheckoutButton] ✓ Created custom Mua ngay button');
     });
