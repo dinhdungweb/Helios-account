@@ -231,7 +231,21 @@
   }
 
   function getDefaultTierDiscount(tierName) {
-    // Map tier names to default discounts
+    // Try to get config from sessionStorage
+    const configStr = sessionStorage.getItem('helios_tier_config');
+    if (configStr) {
+      try {
+        const config = JSON.parse(configStr);
+        const discount = config[tierName.toUpperCase()];
+        if (discount !== undefined) {
+          return discount;
+        }
+      } catch (e) {
+        console.warn('[TierDraftOrder] Invalid tier config in sessionStorage:', e);
+      }
+    }
+
+    // Fallback to hardcoded values if config is missing
     // These should match your theme settings
     const tierDiscounts = {
       'BLACK DIAMOND': 20,

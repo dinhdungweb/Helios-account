@@ -126,6 +126,16 @@
       const allowedTags = '{{ settings.tier_pricing_product_tags }}';
       const allowedCollections = '{{ settings.tier_pricing_collection_handles }}';
       
+      // Tier configuration from settings
+      const tierConfig = {
+        '{{ settings.tier_1_name | upcase }}': {{ settings.tier_1_discount | default: 0 }},
+        '{{ settings.tier_2_name | upcase }}': {{ settings.tier_2_discount | default: 0 }},
+        '{{ settings.tier_3_name | upcase }}': {{ settings.tier_3_discount | default: 0 }},
+        '{{ settings.tier_4_name | upcase }}': {{ settings.tier_4_discount | default: 0 }},
+        '{{ settings.tier_5_name | upcase }}': {{ settings.tier_5_discount | default: 0 }},
+        '{{ settings.tier_6_name | upcase }}': {{ settings.tier_6_discount | default: 0 }}
+      };
+      
       console.log('[TierAutoDiscount] Setting sessionStorage:', {
         discountCode,
         customerTier,
@@ -149,75 +159,9 @@
       sessionStorage.setItem('helios_tier_scope', tierScope);
       sessionStorage.setItem('helios_tier_tags', allowedTags);
       sessionStorage.setItem('helios_tier_collections', allowedCollections);
+      sessionStorage.setItem('helios_tier_config', JSON.stringify(tierConfig));
       
-      // Function to add discount to URL
-      function addDiscountToUrl(url) {
-        try {
-          const urlObj = new URL(url, window.location.origin);
-          urlObj.searchParams.set('discount', discountCode);
-          return urlObj.toString();
-        } catch (e) {
-          return url + (url.includes('?') ? '&' : '?') + 'discount=' + discountCode;
-        }
-      }
-      
-      // Auto-apply to checkout buttons
-      function applyDiscountToCheckout() {
-        // Checkout buttons
-        const checkoutSelectors = [
-          '[name="checkout"]',
-          '.checkout-button',
-          '[href*="/checkout"]',
-          'button[type="submit"][name="checkout"]',
-          'input[type="submit"][name="checkout"]'
-        ];
-        
-        checkoutSelectors.forEach(selector => {
-          document.querySelectorAll(selector).forEach(btn => {
-            if (btn.dataset.discountApplied) return;
-            btn.dataset.discountApplied = 'true';
-            
-            if (btn.tagName === 'A') {
-              // Link element
-              btn.href = addDiscountToUrl(btn.href);
-            } else if (btn.tagName === 'BUTTON' || btn.tagName === 'INPUT') {
-              // Button element
-              btn.addEventListener('click', function(e) {
-                const form = btn.closest('form');
-                if (form && form.action.includes('/cart')) {
-                  e.preventDefault();
-                  window.location.href = addDiscountToUrl('/checkout');
-                }
-              });
-            }
-          });
-        });
-        
-        // Cart links
-        document.querySelectorAll('a[href*="/cart"]').forEach(link => {
-          if (!link.dataset.discountApplied) {
-            link.dataset.discountApplied = 'true';
-            link.href = addDiscountToUrl(link.href);
-          }
-        });
-      }
-      
-      // Apply on page load
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyDiscountToCheckout);
-      } else {
-        applyDiscountToCheckout();
-      }
-      
-      // Re-apply when new elements are added (for AJAX cart)
-      const observer = new MutationObserver(function(mutations) {
-        applyDiscountToCheckout();
-      });
-      
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
+      sessionStorage.setItem('helios_tier_config', JSON.stringify(tierConfig));
       
       // Show notification (optional)
       {% if settings.tier_show_discount_notification %}
