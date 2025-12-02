@@ -343,6 +343,9 @@
   {% comment %} Tier Cart Drawer - Update cart drawer with correct discount {% endcomment %}
   <script src="{{ 'tier-cart-drawer.js' | asset_url }}" defer="defer"></script>
   
+  {% comment %} Tier Draft Order - Create draft order with line item discounts {% endcomment %}
+  <script src="{{ 'tier-draft-order.js' | asset_url }}" defer="defer"></script>
+  
   {% comment %} Tier Auto Discount - Tự động apply discount code theo tier {% endcomment %}
   {% render 'tier-auto-discount' %}
 </body>

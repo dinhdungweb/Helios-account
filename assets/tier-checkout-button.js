@@ -56,6 +56,33 @@
     createCustomCheckoutButtons(discountCode);
   }
   
+  async function checkProductSpecificDiscount(cartItem) {
+    const customerTier = sessionStorage.getItem('helios_customer_tier');
+    if (!customerTier) return false;
+    
+    try {
+      // Fetch product data
+      const productResponse = await fetch(`/products/${cartItem.handle}.js`);
+      const productData = await productResponse.json();
+      
+      const tierNameNormalized = customerTier.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
+      const tagPrefix = `tier-${tierNameNormalized}-`;
+      
+      // Check if product has tier-specific tag
+      for (const tag of productData.tags || []) {
+        const tagLower = tag.toLowerCase().trim();
+        if (tagLower.startsWith(tagPrefix)) {
+          console.log('[TierCheckoutButton] Found product-specific discount tag:', tag);
+          return true;
+        }
+      }
+    } catch (error) {
+      console.warn('[TierCheckoutButton] Could not check product tags:', error);
+    }
+    
+    return false;
+  }
+  
   function createCustomCheckoutButtons(discountCode) {
     // Find all product forms
     const productForms = document.querySelectorAll('form[action*="/cart/add"]');
@@ -147,13 +174,23 @@
           const data = await response.json();
           console.log('[TierCheckoutButton] Added to cart:', data);
           
-          // Get latest discount code from sessionStorage
-          const currentDiscountCode = sessionStorage.getItem('helios_tier_discount') || discountCode;
+          // Check if product has product-specific discount
+          const hasProductSpecificDiscount = await checkProductSpecificDiscount(data);
           
-          console.log('[TierCheckoutButton] Redirecting to checkout with discount:', currentDiscountCode);
-          
-          // Redirect to checkout with discount
-          window.location.href = `/checkout?discount=${encodeURIComponent(currentDiscountCode)}`;
+          if (hasProductSpecificDiscount) {
+            console.log('[TierCheckoutButton] Product has specific discount, using draft order');
+            // Trigger draft order creation (handled by tier-draft-order.js)
+            const event = new CustomEvent('tier:create-draft-order');
+            document.dispatchEvent(event);
+          } else {
+            // Get latest discount code from sessionStorage
+            const currentDiscountCode = sessionStorage.getItem('helios_tier_discount') || discountCode;
+            
+            console.log('[TierCheckoutButton] Using standard checkout with discount:', currentDiscountCode);
+            
+            // Redirect to checkout with discount
+            window.location.href = `/checkout?discount=${encodeURIComponent(currentDiscountCode)}`;
+          }
           
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);

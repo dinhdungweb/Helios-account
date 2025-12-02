@@ -1,0 +1,254 @@
+/**
+ * Tier Draft Order Handler
+ * Create draft order with line item discounts via backend API
+ */
+
+(function() {
+  'use strict';
+  
+  const API_ENDPOINT = 'https://helios-tier-pricing-api-h543.vercel.app/api/create-draft-order';
+  
+  console.log('[TierDraftOrder] Script loaded');
+  
+  // Listen for draft order creation event
+  function setupEventListeners() {
+    document.addEventListener('tier:create-draft-order', async function(e) {
+      console.log('[TierDraftOrder] Draft order event received');
+      
+      try {
+        await createDraftOrderCheckout();
+      } catch (error) {
+        console.error('[TierDraftOrder] Error:', error);
+        alert('Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại!');
+      }
+    });
+  }
+  
+  // Also intercept cart drawer checkout button
+  function interceptCartCheckout() {
+    document.addEventListener('click', async function(e) {
+      const checkoutBtn = e.target.closest('[name="checkout"], .cart__checkout-button, .cart-drawer__checkout');
+      
+      if (checkoutBtn) {
+        // Check if any cart item has product-specific discount
+        const hasProductSpecificDiscount = await checkCartForProductSpecificDiscounts();
+        
+        if (hasProductSpecificDiscount) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          console.log('[TierDraftOrder] Cart has product-specific discount, using draft order');
+          
+          const originalText = checkoutBtn.textContent || checkoutBtn.value;
+          checkoutBtn.disabled = true;
+          if (checkoutBtn.textContent) {
+            checkoutBtn.textContent = 'Đang xử lý...';
+          } else {
+            checkoutBtn.value = 'Đang xử lý...';
+          }
+          
+          try {
+            await createDraftOrderCheckout();
+          } catch (error) {
+            console.error('[TierDraftOrder] Error:', error);
+            alert('Có lỗi xảy ra. Vui lòng thử lại!');
+            checkoutBtn.disabled = false;
+            if (checkoutBtn.textContent) {
+              checkoutBtn.textContent = originalText;
+            } else {
+              checkoutBtn.value = originalText;
+            }
+          }
+        }
+      }
+    }, true);
+  }
+  
+  async function checkCartForProductSpecificDiscounts() {
+    const customerTier = sessionStorage.getItem('helios_customer_tier');
+    if (!customerTier) return false;
+    
+    try {
+      const cartResponse = await fetch('/cart.js');
+      const cart = await cartResponse.json();
+      
+      const tierNameNormalized = customerTier.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
+      const tagPrefix = `tier-${tierNameNormalized}-`;
+      
+      for (const item of cart.items) {
+        const productResponse = await fetch(`/products/${item.handle}.js`);
+        const productData = await productResponse.json();
+        
+        for (const tag of productData.tags || []) {
+          const tagLower = tag.toLowerCase().trim();
+          if (tagLower.startsWith(tagPrefix)) {
+            console.log('[TierDraftOrder] Found product-specific discount in cart:', item.product_title);
+            return true;
+          }
+        }
+      }
+    } catch (error) {
+      console.warn('[TierDraftOrder] Could not check cart for product-specific discounts:', error);
+    }
+    
+    return false;
+  }
+  
+  async function createDraftOrderCheckout() {
+    console.log('[TierDraftOrder] Creating draft order...');
+    
+    // Get current cart
+    const cartResponse = await fetch('/cart.js');
+    const cart = await cartResponse.json();
+    
+    console.log('[TierDraftOrder] Current cart:', cart);
+    
+    if (!cart.items || cart.items.length === 0) {
+      throw new Error('Cart is empty');
+    }
+    
+    // Get customer info
+    const customerId = getCustomerId();
+    const customerEmail = getCustomerEmail();
+    
+    if (!customerId && !customerEmail) {
+      throw new Error('Customer information not found');
+    }
+    
+    // Build items with tier discounts
+    const items = await Promise.all(cart.items.map(async item => {
+      const discountPercent = await getItemTierDiscount(item);
+      
+      return {
+        variant_id: item.variant_id,
+        quantity: item.quantity,
+        price: item.price / 100, // Convert from cents to dollars
+        discount_percent: discountPercent
+      };
+    }));
+    
+    console.log('[TierDraftOrder] Items with discounts:', items);
+    
+    // Call backend API
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        customer_id: customerId,
+        customer_email: customerEmail,
+        items: items
+      })
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || 'Failed to create draft order');
+    }
+    
+    const data = await response.json();
+    console.log('[TierDraftOrder] Draft order created:', data);
+    
+    // Clear cart before redirecting
+    await fetch('/cart/clear.js', { method: 'POST' });
+    
+    // Redirect to invoice
+    window.location.href = data.invoice_url;
+  }
+  
+  async function getItemTierDiscount(item) {
+    // Get customer tier
+    const customerTier = sessionStorage.getItem('helios_customer_tier');
+    if (!customerTier) return 0;
+    
+    // Fetch full product data to get tags
+    let productTags = [];
+    try {
+      const productResponse = await fetch(`/products/${item.handle}.js`);
+      const productData = await productResponse.json();
+      productTags = productData.tags || [];
+    } catch (error) {
+      console.warn('[TierDraftOrder] Could not fetch product tags:', error);
+      // Fallback to item.product_tags if available
+      productTags = item.product_tags || [];
+    }
+    
+    console.log('[TierDraftOrder] Product tags:', { product: item.product_title, tags: productTags });
+    
+    // Check for product-specific discount from tags
+    const tierNameNormalized = customerTier.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
+    const tagPrefix = `tier-${tierNameNormalized}-`;
+    
+    for (const tag of productTags) {
+      const tagLower = tag.toLowerCase().trim();
+      if (tagLower.startsWith(tagPrefix)) {
+        const parts = tagLower.split('-');
+        if (parts.length === 3) {
+          const percent = parseInt(parts[2], 10);
+          if (percent > 0 && percent <= 100) {
+            console.log('[TierDraftOrder] Product-specific discount:', { product: item.product_title, percent });
+            return percent;
+          }
+        }
+      }
+    }
+    
+    // Use default tier discount
+    const defaultDiscount = getDefaultTierDiscount(customerTier);
+    console.log('[TierDraftOrder] Default tier discount:', { product: item.product_title, percent: defaultDiscount });
+    return defaultDiscount;
+  }
+  
+  function getDefaultTierDiscount(tierName) {
+    // Map tier names to default discounts
+    // These should match your theme settings
+    const tierDiscounts = {
+      'BLACK DIAMOND': 20,
+      'BLACKDIAMOND': 20,
+      'DIAMOND': 20,
+      'PLATINUM': 15,
+      'GOLD': 10,
+      'SILVER': 7,
+      'MEMBER': 5
+    };
+    
+    return tierDiscounts[tierName.toUpperCase()] || 0;
+  }
+  
+  function getCustomerId() {
+    // Try to get from meta tag or global variable
+    const metaCustomerId = document.querySelector('meta[name="customer-id"]');
+    if (metaCustomerId) {
+      return metaCustomerId.content;
+    }
+    
+    if (typeof window.ShopifyAnalytics !== 'undefined' && window.ShopifyAnalytics.meta) {
+      return window.ShopifyAnalytics.meta.page.customerId;
+    }
+    
+    return null;
+  }
+  
+  function getCustomerEmail() {
+    // Try to get from meta tag or global variable
+    const metaEmail = document.querySelector('meta[name="customer-email"]');
+    if (metaEmail) {
+      return metaEmail.content;
+    }
+    
+    return null;
+  }
+  
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setupEventListeners();
+      interceptCartCheckout();
+    });
+  } else {
+    setupEventListeners();
+    interceptCartCheckout();
+  }
+  
+})();
