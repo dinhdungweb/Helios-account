@@ -97,6 +97,7 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+        display: block;
       `;
       
       // Hover effects
