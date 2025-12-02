@@ -173,7 +173,7 @@
     <div id="account" class="customer-tab-content">
       <h3 style="text-align:left">Chi tiết tài khoản</h3>
       <p><strong>Họ và tên:</strong> {{ customer.name }}</p>
-      <p><strong>Số điện thoại:</strong> {{ customer.phone }}</p>
+      <p><strong>Số điện thoại:</strong> {{ customer.default_address.phone }}</p>
       <p><strong>Email:</strong> {{ customer.email }}</p>
       <p><strong>Địa chỉ:</strong> 
         {% for address in customer.addresses %}
