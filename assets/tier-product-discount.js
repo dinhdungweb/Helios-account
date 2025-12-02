@@ -160,10 +160,12 @@
       sessionStorage.setItem('helios_tier_discount_percent', productDiscount.percent);
       sessionStorage.setItem('helios_tier_discount_source', 'product_tag');
     } else {
-      // Use default tier discount code
-      console.log('[TierProductDiscount] Using default discount:', defaultDiscountCode);
+      // Reset to default tier discount code
+      console.log('[TierProductDiscount] No product-specific discount, resetting to default:', defaultDiscountCode);
       sessionStorage.setItem('helios_tier_discount', defaultDiscountCode);
       sessionStorage.setItem('helios_tier_discount_source', 'default');
+      // Remove product-specific percent
+      sessionStorage.removeItem('helios_tier_discount_percent');
     }
   }
   
