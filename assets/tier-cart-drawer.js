@@ -99,15 +99,46 @@
         discount: totalDiscount
       });
       
-      // Update subtotal display (should show ORIGINAL price)
-      const footerRows = document.querySelectorAll('.cart-drawer-footer-row, .cart-drawer [class*="footer"] [class*="row"]');
-      footerRows.forEach(row => {
+      // Update cart footer displays
+      const cartFooter = document.querySelector('.cart-drawer footer, .cart-drawer-footer, .cart-drawer__footer');
+      if (!cartFooter) {
+        console.log('[TierCartDrawer] ✗ Cart footer not found');
+        return;
+      }
+      
+      const footerRows = cartFooter.querySelectorAll('.cart-drawer-footer-row');
+      console.log('[TierCartDrawer] Found footer rows:', footerRows.length);
+      
+      footerRows.forEach((row, index) => {
         const heading = row.querySelector('h3');
-        if (heading && heading.textContent.includes('Tổng phụ')) {
-          const priceSpan = row.querySelector('span');
-          if (priceSpan) {
-            priceSpan.textContent = formatMoney(totalOriginal);
-            console.log('[TierCartDrawer] Updated subtotal (original):', formatMoney(totalOriginal));
+        const priceSpan = row.querySelector('span');
+        
+        if (heading && priceSpan) {
+          const headingText = heading.textContent.trim();
+          console.log(`[TierCartDrawer] Row ${index}: "${headingText}" = "${priceSpan.textContent.trim()}"`);
+          
+          // Update "Tổng phụ" (subtotal - original price before any discount)
+          if (headingText.includes('Tổng phụ')) {
+            const newValue = formatMoney(totalOriginal);
+            priceSpan.textContent = newValue;
+            console.log(`[TierCartDrawer] ✓ Updated "Tổng phụ": ${newValue}`);
+          }
+          
+          // Update "Giảm giá DIAMOND" or any tier discount row
+          else if (headingText.includes('Giảm giá') && !headingText.includes('khác')) {
+            const discountPercent = totalOriginal > 0 ? Math.round((totalDiscount / totalOriginal) * 100) : 0;
+            const tierName = sessionStorage.getItem('helios_customer_tier') || 'DIAMOND';
+            
+            heading.innerHTML = `Giảm giá ${tierName} (-${discountPercent}%)`;
+            priceSpan.textContent = '- ' + formatMoney(totalDiscount);
+            console.log(`[TierCartDrawer] ✓ Updated discount: -${formatMoney(totalDiscount)} (${discountPercent}%)`);
+          }
+          
+          // Update "Tổng cộng" (final total after discount)
+          else if (headingText.includes('Tổng cộng')) {
+            const newValue = formatMoney(totalAfterTier);
+            priceSpan.textContent = newValue;
+            console.log(`[TierCartDrawer] ✓ Updated "Tổng cộng": ${newValue}`);
           }
         }
       });
