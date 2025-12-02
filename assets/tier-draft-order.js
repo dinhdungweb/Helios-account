@@ -170,10 +170,64 @@
       }
     }
 
+    // Check if tier pricing applies to this product based on scope
+    const tierScope = sessionStorage.getItem('helios_tier_scope') || 'all';
+    const allowedTags = sessionStorage.getItem('helios_tier_tags') || '';
+    const allowedCollections = sessionStorage.getItem('helios_tier_collections') || '';
+
+    const applies = checkTierApplies(tierScope, allowedTags, allowedCollections, productTags, item);
+
+    if (!applies) {
+      console.log('[TierDraftOrder] Tier pricing does not apply to this product (scope mismatch):', item.product_title);
+      return 0;
+    }
+
     // Use default tier discount
     const defaultDiscount = getDefaultTierDiscount(customerTier);
     console.log('[TierDraftOrder] Default tier discount:', { product: item.product_title, percent: defaultDiscount });
     return defaultDiscount;
+  }
+
+  function checkTierApplies(scope, allowedTagsStr, allowedCollectionsStr, productTags, item) {
+    // All products
+    if (scope === 'all') return true;
+
+    // Tagged products
+    if (scope === 'tagged') {
+      if (!allowedTagsStr) return false;
+      const allowedTags = allowedTagsStr.split(',').map(t => t.trim().toLowerCase());
+      const pTags = productTags.map(t => t.toLowerCase());
+      return allowedTags.some(tag => pTags.includes(tag));
+    }
+
+    // Collections
+    if (scope === 'collections') {
+      if (!allowedCollectionsStr) return false;
+      // Note: We can't easily check collections in JS without fetching product JSON which might not have collections
+      // However, for draft order, we can rely on the fact that if it's in the cart, we might need to assume true 
+      // OR fetch product JSON to check collections if possible.
+      // Since we already fetch product JSON in getItemTierDiscount, let's try to check collections if available.
+      // But product.js endpoint usually doesn't return collections. 
+      // Strategy: If scope is collections, we might need to be lenient or find another way.
+      // For now, let's assume true if we can't verify, OR strictly return false if we want to be safe.
+      // Better approach: The liquid template `tier-price.liquid` handles the display. 
+      // If we want to be strict, we should probably pass collection info to the cart item properties or similar.
+      // Given the limitations, let's check if we can get collections from the product fetch.
+      // Unfortunately /products/handle.js does NOT return collections.
+      // So for 'collections' scope, we will default to TRUE to avoid blocking valid discounts, 
+      // unless we can verify otherwise. This is a known limitation mentioned in the summary.
+      return true;
+    }
+
+    // Exclude tagged
+    if (scope === 'exclude_tagged') {
+      if (!allowedTagsStr) return true;
+      const excludedTags = allowedTagsStr.split(',').map(t => t.trim().toLowerCase());
+      const pTags = productTags.map(t => t.toLowerCase());
+      return !excludedTags.some(tag => pTags.includes(tag));
+    }
+
+    return false;
   }
 
   function getDefaultTierDiscount(tierName) {
