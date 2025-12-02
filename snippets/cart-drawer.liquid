@@ -295,9 +295,30 @@
                   {% endif %}
               {% endcase %}
               
-              {% comment %} Calculate item total with or without tier discount {% endcomment %}
+              {% comment %} Calculate item total with tier discount {% endcomment %}
               {% if item_applies %}
-                {% assign item_tier_price = item.final_line_price | times: discount_multiplier | divided_by: 100 %}
+                {% comment %} Check for product-specific discount from tags {% endcomment %}
+                {% assign item_discount_percent = tier_discount_percent %}
+                {% assign tier_name_normalized = customer_tier | downcase | replace: ' ', '' | replace: '_', '' %}
+                {% assign tag_prefix = 'tier-' | append: tier_name_normalized | append: '-' %}
+                
+                {% for tag in item.product.tags %}
+                  {% assign tag_lower = tag | downcase | strip %}
+                  {% if tag_lower contains tag_prefix %}
+                    {% assign tag_parts = tag_lower | split: '-' %}
+                    {% if tag_parts.size == 3 %}
+                      {% assign custom_percent = tag_parts[2] | plus: 0 %}
+                      {% if custom_percent > 0 and custom_percent <= 100 %}
+                        {% assign item_discount_percent = custom_percent %}
+                        {% break %}
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                
+                {% comment %} Calculate with correct discount percent {% endcomment %}
+                {% assign item_discount_multiplier = 100 | minus: item_discount_percent %}
+                {% assign item_tier_price = item.final_line_price | times: item_discount_multiplier | divided_by: 100 %}
                 {% assign cart_tier_total = cart_tier_total | plus: item_tier_price %}
                 {% assign item_discount = item.final_line_price | minus: item_tier_price %}
                 {% assign cart_tier_discount = cart_tier_discount | plus: item_discount %}
