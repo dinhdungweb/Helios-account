@@ -251,6 +251,22 @@
   endif
 %}
 
+{% comment %} DEBUG: Log product info {% endcomment %}
+{% if product %}
+  <script>
+    console.log('[TierPrice] Product info:', {
+      id: '{{ product.id }}',
+      handle: '{{ product.handle }}',
+      tags: {{ product.tags | json }},
+      tagsCount: {{ product.tags.size }}
+    });
+  </script>
+{% else %}
+  <script>
+    console.log('[TierPrice] No product object passed to snippet');
+  </script>
+{% endif %}
+
 <div class="tier-pricing-wrapper tier-pricing-injected" 
      data-tier="{{ tier_name }}"
      data-customer-tier="{{ tier_name }}"

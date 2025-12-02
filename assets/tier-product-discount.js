@@ -6,11 +6,21 @@
 (function() {
   'use strict';
   
+  console.log('[TierProductDiscount] Script loaded');
+  
   // Get customer tier from tier-auto-discount
   const defaultDiscountCode = sessionStorage.getItem('helios_tier_discount');
   const customerTier = sessionStorage.getItem('helios_customer_tier');
   
+  console.log('[TierProductDiscount] Initial check:', {
+    defaultDiscountCode,
+    customerTier,
+    hasDiscount: !!defaultDiscountCode,
+    hasTier: !!customerTier
+  });
+  
   if (!defaultDiscountCode || !customerTier) {
+    console.log('[TierProductDiscount] No tier discount or customer tier found, exiting');
     return; // No tier discount
   }
   
