@@ -320,7 +320,13 @@
               <span>{{ cart.original_total_price | money }}</span>
             </div>
             <div class="cart-drawer-footer-row">
-              <h3>Giảm giá {{ customer_tier }} (-{{ tier_discount_percent }}%)</h3>
+              {% comment %} Calculate actual discount percentage {% endcomment %}
+              {% if cart.original_total_price > 0 %}
+                {% assign actual_discount_percent = cart_tier_discount | times: 100 | divided_by: cart.original_total_price %}
+              {% else %}
+                {% assign actual_discount_percent = 0 %}
+              {% endif %}
+              <h3>Giảm giá {{ customer_tier }} (-{{ actual_discount_percent }}%)</h3>
               <span>- {{ cart_tier_discount | money }}</span>
             </div>
           {% endif %}
