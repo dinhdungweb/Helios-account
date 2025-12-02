@@ -64,54 +64,61 @@
         });
         
         if (tierWrapper) {
-          // Get original price (before tier discount)
-          const tierPriceOriginal = tierWrapper.querySelector('.tier-price-original .theme-money');
-          // Get final price (after tier discount)
-          const tierPriceFinal = tierWrapper.querySelector('.tier-price-final .theme-money');
-          const quantityInput = item.querySelector('input[type="number"], [name*="quantity"]');
+          // Get quantity first
+          const quantityInput = item.querySelector('input[type="text"], input[type="number"], [name*="quantity"]');
+          const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
           
-          if (quantityInput) {
-            const quantity = parseInt(quantityInput.value) || 1;
-            
-            // Extract final price
-            let finalPrice = 0;
-            if (tierPriceFinal) {
-              const finalPriceText = tierPriceFinal.textContent.replace(/[^\d]/g, '');
-              finalPrice = parseInt(finalPriceText) || 0;
-            }
-            
-            // Extract original price
-            let originalPrice = 0;
-            if (tierPriceOriginal) {
-              const originalPriceText = tierPriceOriginal.textContent.replace(/[^\d]/g, '');
-              originalPrice = parseInt(originalPriceText) || 0;
-            }
-            
-            // If no original price, try to get from compare_at_price or use final price
-            if (originalPrice === 0) {
-              const comparePrice = tierWrapper.querySelector('.tier-price-compare .theme-money');
-              if (comparePrice) {
-                const comparePriceText = comparePrice.textContent.replace(/[^\d]/g, '');
-                originalPrice = parseInt(comparePriceText) || finalPrice;
-              } else {
-                // No discount, original = final
-                originalPrice = finalPrice;
-              }
-            }
-            
-            totalOriginal += originalPrice * quantity;
-            totalAfterTier += finalPrice * quantity;
-            
-            console.log('[TierCartDrawer] Item:', { 
-              hasOriginal: !!tierPriceOriginal,
-              hasFinal: !!tierPriceFinal,
-              originalPrice, 
-              finalPrice, 
-              quantity, 
-              originalSubtotal: originalPrice * quantity,
-              finalSubtotal: finalPrice * quantity
-            });
+          // Try multiple selectors for prices
+          const tierPriceFinal = tierWrapper.querySelector('.tier-price-final .theme-money, .tier-price-final');
+          const tierPriceOriginal = tierWrapper.querySelector('.tier-price-original .theme-money, .tier-price-original');
+          
+          console.log(`[TierCartDrawer] Item ${index} elements:`, {
+            hasTierWrapper: true,
+            hasFinal: !!tierPriceFinal,
+            hasOriginal: !!tierPriceOriginal,
+            finalText: tierPriceFinal?.textContent,
+            originalText: tierPriceOriginal?.textContent,
+            quantity
+          });
+          
+          // Extract final price (price after tier discount)
+          let finalPrice = 0;
+          if (tierPriceFinal) {
+            const finalPriceText = tierPriceFinal.textContent.trim().replace(/[^\d]/g, '');
+            finalPrice = parseInt(finalPriceText) || 0;
+            console.log(`[TierCartDrawer] Item ${index} final price:`, finalPriceText, '→', finalPrice);
           }
+          
+          // Extract original price (price before tier discount)
+          let originalPrice = 0;
+          if (tierPriceOriginal) {
+            const originalPriceText = tierPriceOriginal.textContent.trim().replace(/[^\d]/g, '');
+            originalPrice = parseInt(originalPriceText) || 0;
+            console.log(`[TierCartDrawer] Item ${index} original price:`, originalPriceText, '→', originalPrice);
+          }
+          
+          // If no original price shown, it means no tier discount, so original = final
+          if (originalPrice === 0 && finalPrice > 0) {
+            originalPrice = finalPrice;
+            console.log(`[TierCartDrawer] Item ${index} no tier discount, using final as original`);
+          }
+          
+          // Calculate totals
+          const itemOriginalTotal = originalPrice * quantity;
+          const itemFinalTotal = finalPrice * quantity;
+          
+          totalOriginal += itemOriginalTotal;
+          totalAfterTier += itemFinalTotal;
+          
+          console.log(`[TierCartDrawer] Item ${index} totals:`, { 
+            originalPrice, 
+            finalPrice, 
+            quantity,
+            itemOriginalTotal,
+            itemFinalTotal
+          });
+        } else {
+          console.log(`[TierCartDrawer] Item ${index} has no tier wrapper`);
         }
       });
       
@@ -231,9 +238,10 @@
     }
   }
   
-  // Initialize
+  // Initialize with delay to ensure tier wrappers are rendered
   function init() {
-    updateCartDrawer();
+    // Wait for tier-pricing-final.js to inject wrappers
+    setTimeout(updateCartDrawer, 500);
   }
   
   // Run on page load
@@ -242,6 +250,11 @@
   } else {
     init();
   }
+  
+  // Also run after window load (everything ready)
+  window.addEventListener('load', function() {
+    setTimeout(updateCartDrawer, 300);
+  });
   
   // Watch for cart drawer opening
   const observer = new MutationObserver(function(mutations) {
