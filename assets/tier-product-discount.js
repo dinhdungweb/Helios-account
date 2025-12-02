@@ -91,56 +91,52 @@
     let productTags = [];
     
     // Method 1: From tier-pricing-wrapper data attribute
-    // First, log ALL wrappers to debug
-    const allWrappersDebug = document.querySelectorAll('.tier-pricing-wrapper');
-    console.log('[TierProductDiscount] DEBUG: Total wrappers on page:', allWrappersDebug.length);
-    allWrappersDebug.forEach((w, i) => {
-      console.log(`[TierProductDiscount] DEBUG Wrapper ${i}:`, {
-        hasTags: !!w.dataset.productTags,
-        tags: w.dataset.productTags,
-        productId: w.dataset.productId,
-        inCart: !!w.closest('.cart-drawer, [data-recommend], .recommend-products'),
-        parent: w.parentElement?.className
-      });
-    });
+    // Strategy: Find wrapper with product tags, prioritize main product area
     
-    // Now filter to main product area only
-    const mainProductArea = document.querySelector('.product-detail, .product-single, main, [data-section-type="product"]');
-    const allWrappers = mainProductArea 
-      ? mainProductArea.querySelectorAll('.tier-pricing-wrapper')
-      : document.querySelectorAll('.tier-pricing-wrapper:not(.cart-drawer .tier-pricing-wrapper):not([data-recommend] .tier-pricing-wrapper)');
+    const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
+    console.log('[TierProductDiscount] Found total wrappers:', allWrappers.length);
     
-    console.log('[TierProductDiscount] Found wrappers in main product area:', allWrappers.length);
+    // Separate wrappers by location
+    const mainWrappers = [];
+    const otherWrappers = [];
     
-    for (let i = 0; i < allWrappers.length; i++) {
-      const wrapper = allWrappers[i];
-      
-      // Skip if wrapper is inside cart-drawer or recommend section
-      if (wrapper.closest('.cart-drawer, [data-recommend], .recommend-products, .cart-recommendations')) {
-        console.log(`[TierProductDiscount] ✗ Wrapper ${i} is in cart/recommend area, skipping`);
-        continue;
-      }
+    allWrappers.forEach((wrapper, i) => {
+      const inCart = wrapper.closest('.cart-drawer, [data-recommend], .recommend-products, .cart-recommendations');
+      const hasTags = wrapper.dataset.productTags && wrapper.dataset.productTags.trim();
       
       console.log(`[TierProductDiscount] Wrapper ${i}:`, {
-        tier: wrapper.dataset.tier,
-        tierDiscount: wrapper.dataset.tierDiscount,
-        productTags: wrapper.dataset.productTags,
+        hasTags: !!hasTags,
+        tags: wrapper.dataset.productTags,
         productId: wrapper.dataset.productId,
-        productHandle: wrapper.dataset.productHandle,
-        hasCustomer: wrapper.dataset.hasCustomer
+        inCart: !!inCart,
+        location: inCart ? 'cart/recommend' : 'main'
       });
       
-      if (wrapper.dataset.productTags && wrapper.dataset.productTags.trim()) {
-        productTags = wrapper.dataset.productTags.split(',').map(t => t.trim()).filter(t => t);
-        console.log(`[TierProductDiscount] ✓ Tags from wrapper ${i}:`, productTags);
-        
-        if (productTags.length > 0) {
-          console.log('[TierProductDiscount] ✓ Using this wrapper with tags');
-          break; // Use first wrapper with tags
+      if (hasTags) {
+        if (inCart) {
+          otherWrappers.push(wrapper);
+        } else {
+          mainWrappers.push(wrapper);
         }
-      } else {
-        console.log(`[TierProductDiscount] ✗ Wrapper ${i} has no productTags`);
       }
+    });
+    
+    console.log('[TierProductDiscount] Wrappers with tags:', {
+      inMain: mainWrappers.length,
+      inOther: otherWrappers.length
+    });
+    
+    // Priority: main area first, then others
+    const wrapperToUse = mainWrappers[0] || otherWrappers[0];
+    
+    if (wrapperToUse && wrapperToUse.dataset.productTags) {
+      productTags = wrapperToUse.dataset.productTags.split(',').map(t => t.trim()).filter(t => t);
+      console.log('[TierProductDiscount] ✓ Using wrapper with tags:', {
+        location: mainWrappers[0] ? 'main' : 'cart/recommend',
+        tags: productTags
+      });
+    } else {
+      console.log('[TierProductDiscount] ✗ No wrapper with tags found');
     }
     
     // Method 2: From product JSON

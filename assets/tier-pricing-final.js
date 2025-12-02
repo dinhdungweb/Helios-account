@@ -19,7 +19,9 @@
         hasCustomer: wrapper.dataset.hasCustomer === 'true',
         scope: wrapper.dataset.tierScope || 'all',
         allowedTags: wrapper.dataset.tierAllowedTags || '',
-        allowedCollections: wrapper.dataset.tierAllowedCollections || ''
+        allowedCollections: wrapper.dataset.tierAllowedCollections || '',
+        // Store ALL data attributes for later use
+        allDataAttributes: Object.assign({}, wrapper.dataset)
       };
       return true;
     }
@@ -82,7 +84,19 @@
     };
     
     const tierSlug = tierInfo.tier.toLowerCase().replace(/\s+/g, '-');
-    let html = '<div class="tier-pricing-wrapper tier-pricing-injected" data-tier="' + tierInfo.tier + '">';
+    
+    // Build data attributes string from stored attributes
+    let dataAttrs = 'data-tier="' + tierInfo.tier + '"';
+    if (tierInfo.allDataAttributes) {
+      for (const key in tierInfo.allDataAttributes) {
+        if (key !== 'tier') { // Skip tier as we already added it
+          const value = tierInfo.allDataAttributes[key];
+          dataAttrs += ' data-' + key.replace(/([A-Z])/g, '-$1').toLowerCase() + '="' + (value || '').replace(/"/g, '&quot;') + '"';
+        }
+      }
+    }
+    
+    let html = '<div class="tier-pricing-wrapper tier-pricing-injected" ' + dataAttrs + '>';
     
     html += '<div class="tier-pricing-prices">';
     
