@@ -49,13 +49,20 @@
   
   async function updateCartTotals() {
     try {
-      // Get all tier-pricing wrappers in cart
-      const cartItems = document.querySelectorAll('.cart-drawer .cart-item, .cart-drawer [class*="cart__item"]');
+      // Get all cart items (not recommend products)
+      const cartItems = document.querySelectorAll('.cart-drawer-items > .cart-drawer-item');
+      console.log('[TierCartDrawer] Found cart items:', cartItems.length);
+      
       let totalOriginal = 0;
       let totalAfterTier = 0;
       
-      cartItems.forEach(item => {
+      cartItems.forEach((item, index) => {
         const tierWrapper = item.querySelector('.tier-pricing-wrapper');
+        console.log(`[TierCartDrawer] Item ${index}:`, {
+          hasTierWrapper: !!tierWrapper,
+          element: item
+        });
+        
         if (tierWrapper) {
           // Get original price (before tier discount)
           const tierPriceOriginal = tierWrapper.querySelector('.tier-price-original .theme-money');
