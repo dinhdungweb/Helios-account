@@ -60,16 +60,69 @@
     endif
   %}
   
+  {% comment %} Determine customer tier name (same logic as tier-price.liquid) {% endcomment %}
+  {% liquid
+    assign customer_tier_name = ""
+    
+    comment Ưu tiên tags nếu bật trong settings
+    endcomment
+    if prioritize_tags
+      if customer.tags contains tier_1_tag
+        assign customer_tier_name = tier_1_name
+      elsif customer.tags contains tier_2_tag
+        assign customer_tier_name = tier_2_name
+      elsif customer.tags contains tier_3_tag
+        assign customer_tier_name = tier_3_name
+      elsif customer.tags contains tier_4_tag
+        assign customer_tier_name = tier_4_name
+      elsif customer.tags contains tier_5_tag
+        assign customer_tier_name = tier_5_name
+      endif
+    endif
+    
+    comment Nếu chưa có tier từ tags, dùng total_spent
+    endcomment
+    if customer_tier_name == ""
+      if total_spent >= tier_1_threshold
+        assign customer_tier_name = tier_1_name
+      elsif total_spent >= tier_2_threshold
+        assign customer_tier_name = tier_2_name
+      elsif total_spent >= tier_3_threshold
+        assign customer_tier_name = tier_3_name
+      elsif total_spent >= tier_4_threshold
+        assign customer_tier_name = tier_4_name
+      elsif total_spent >= tier_5_threshold
+        assign customer_tier_name = tier_5_name
+      else
+        assign customer_tier_name = tier_6_name
+      endif
+    endif
+  %}
+  
   <script>
     (function() {
       const discountCode = '{{ discount_code }}';
-      const customerTier = '{% if customer.tags contains settings.tier_1_tag %}{{ settings.tier_1_name }}{% elsif customer.tags contains settings.tier_2_tag %}{{ settings.tier_2_name }}{% elsif customer.tags contains settings.tier_3_tag %}{{ settings.tier_3_name }}{% elsif customer.tags contains settings.tier_4_tag %}{{ settings.tier_4_name }}{% elsif customer.tags contains settings.tier_5_tag %}{{ settings.tier_5_name }}{% else %}{{ settings.tier_6_name }}{% endif %}';
+      const customerTier = '{{ customer_tier_name }}';
       const totalSpent = {{ total_spent }};
       const tierScope = '{{ tier_scope }}';
       const allowedTags = '{{ settings.tier_pricing_product_tags }}';
       const allowedCollections = '{{ settings.tier_pricing_collection_handles }}';
       
-      if (!discountCode) return;
+      console.log('[TierAutoDiscount] Setting sessionStorage:', {
+        discountCode,
+        customerTier,
+        totalSpent,
+        tierScope
+      });
+      
+      if (!discountCode) {
+        console.log('[TierAutoDiscount] No discount code, exiting');
+        return;
+      }
+      
+      if (!customerTier) {
+        console.log('[TierAutoDiscount] ⚠️ No customer tier determined!');
+      }
       
       // Store discount code and scope info for later use
       sessionStorage.setItem('helios_tier_discount', discountCode);
