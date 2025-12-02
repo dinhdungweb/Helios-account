@@ -129,7 +129,7 @@
             "cta_label": "Khám Phá Hoa Nhỏ",
             "cta_link": "",
             "rule_json": "{\"any\":[{\"all\":[{\"category\":\"ca_chep\",\"gte\":15},{\"category\":\"chuong_ho_menh\",\"gte\":8}]},{\"category\":\"hoa_nho\",\"gte\":20}]}",
-            "reco_collection": "hoa-nhỏ",
+            "reco_collection": "hoa-nho",
             "reco_limit": 6,
             "reco_title": "Trang Sức Cho Tâm Hồn Tinh Tế"
           }
