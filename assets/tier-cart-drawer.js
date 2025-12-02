@@ -40,8 +40,56 @@
       }
     });
     
+    // Update cart totals to reflect tier pricing
+    updateCartTotals();
+    
     // Add discount info if not exists
     addDiscountInfo(discountCode);
+  }
+  
+  async function updateCartTotals() {
+    try {
+      // Get all tier-pricing wrappers in cart
+      const cartItems = document.querySelectorAll('.cart-drawer .cart-item, .cart-drawer [class*="cart__item"]');
+      let totalAfterTier = 0;
+      
+      cartItems.forEach(item => {
+        const tierWrapper = item.querySelector('.tier-pricing-wrapper');
+        if (tierWrapper) {
+          const tierPriceFinal = tierWrapper.querySelector('.tier-price-final .theme-money');
+          const quantityInput = item.querySelector('input[type="number"], [name*="quantity"]');
+          
+          if (tierPriceFinal && quantityInput) {
+            // Extract price from text (remove currency symbols)
+            const priceText = tierPriceFinal.textContent.replace(/[^\d]/g, '');
+            const price = parseInt(priceText) || 0;
+            const quantity = parseInt(quantityInput.value) || 1;
+            
+            totalAfterTier += price * quantity;
+            console.log('[TierCartDrawer] Item:', { price, quantity, subtotal: price * quantity });
+          }
+        }
+      });
+      
+      console.log('[TierCartDrawer] Total after tier pricing:', totalAfterTier);
+      
+      // Update subtotal display
+      const subtotalElements = document.querySelectorAll('.cart-drawer [class*="subtotal"], .cart-drawer [class*="tổng-phụ"], .cart-drawer [class*="tong-phu"]');
+      subtotalElements.forEach(el => {
+        const priceEl = el.querySelector('[class*="price"], [class*="money"]');
+        if (priceEl) {
+          priceEl.textContent = formatMoney(totalAfterTier);
+          console.log('[TierCartDrawer] Updated subtotal display');
+        }
+      });
+      
+    } catch (error) {
+      console.error('[TierCartDrawer] Error updating cart totals:', error);
+    }
+  }
+  
+  function formatMoney(cents) {
+    return new Intl.NumberFormat('vi-VN').format(cents) + ' VND';
   }
   
   function addDiscountInfo(discountCode) {
