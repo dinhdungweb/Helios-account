@@ -80,6 +80,10 @@
       
       console.log('[TierCheckoutButton] Found add to cart button:', addToCartBtn);
       
+      // Force add to cart button to be block and full width
+      addToCartBtn.style.display = 'block';
+      addToCartBtn.style.width = '100%';
+      
       // Create custom "Mua ngay" button
       const checkoutBtn = document.createElement('button');
       checkoutBtn.type = 'button';
