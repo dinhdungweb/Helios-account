@@ -251,7 +251,7 @@
   endif
 %}
 
-<div class="tier-pricing-wrapper" 
+<div class="tier-pricing-wrapper tier-pricing-injected" 
      data-tier="{{ tier_name }}"
      data-customer-tier="{{ tier_name }}"
      data-customer-total-spent="{{ total_spent }}"
@@ -260,8 +260,10 @@
      data-tier-scope="{{ tier_scope }}"
      data-tier-allowed-tags="{{ settings.tier_pricing_product_tags }}"
      data-tier-allowed-collections="{{ settings.tier_pricing_collection_handles }}"
-     data-product-tags="{% if product %}{{ product.tags | join: ',' }}{% endif %}"
-     data-tier-discount-source="{{ tier_discount_source }}">
+     data-product-tags="{% if product and product.tags %}{{ product.tags | join: ',' }}{% endif %}"
+     data-tier-discount-source="{{ tier_discount_source | default: 'default' }}"
+     data-product-id="{% if product %}{{ product.id }}{% endif %}"
+     data-product-handle="{% if product %}{{ product.handle }}{% endif %}">
   
   <div class="tier-pricing-prices">
     {% comment %} Giá sau tier discount (hiển thị đầu tiên) {% endcomment %}
