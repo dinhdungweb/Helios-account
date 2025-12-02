@@ -90,8 +90,21 @@
     // Try to get product data from page
     let productTags = [];
     
-    // Method 1: From tier-pricing-wrapper data attribute - ONLY from main product area
-    // Exclude wrappers in cart-drawer, recommended products, etc.
+    // Method 1: From tier-pricing-wrapper data attribute
+    // First, log ALL wrappers to debug
+    const allWrappersDebug = document.querySelectorAll('.tier-pricing-wrapper');
+    console.log('[TierProductDiscount] DEBUG: Total wrappers on page:', allWrappersDebug.length);
+    allWrappersDebug.forEach((w, i) => {
+      console.log(`[TierProductDiscount] DEBUG Wrapper ${i}:`, {
+        hasTags: !!w.dataset.productTags,
+        tags: w.dataset.productTags,
+        productId: w.dataset.productId,
+        inCart: !!w.closest('.cart-drawer, [data-recommend], .recommend-products'),
+        parent: w.parentElement?.className
+      });
+    });
+    
+    // Now filter to main product area only
     const mainProductArea = document.querySelector('.product-detail, .product-single, main, [data-section-type="product"]');
     const allWrappers = mainProductArea 
       ? mainProductArea.querySelectorAll('.tier-pricing-wrapper')
@@ -182,8 +195,8 @@
   
   // Initialize on page load with delay to ensure tier-pricing-wrapper is rendered
   function init() {
-    // Wait a bit for tier-pricing-wrapper to be injected
-    setTimeout(updateProductDiscount, 100);
+    // Wait longer for all tier-price snippets to render
+    setTimeout(updateProductDiscount, 500);
   }
   
   if (document.readyState === 'loading') {
@@ -191,6 +204,11 @@
   } else {
     init();
   }
+  
+  // Also run after window load (everything is ready)
+  window.addEventListener('load', function() {
+    setTimeout(updateProductDiscount, 200);
+  });
   
   // Re-check on variant change
   document.addEventListener('variant:change', function() {
