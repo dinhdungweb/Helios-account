@@ -16,13 +16,20 @@
     defaultDiscountCode,
     customerTier,
     hasDiscount: !!defaultDiscountCode,
-    hasTier: !!customerTier
+    hasTier: !!customerTier,
+    allSessionStorage: Object.keys(sessionStorage).reduce((acc, key) => {
+      if (key.startsWith('helios_')) acc[key] = sessionStorage.getItem(key);
+      return acc;
+    }, {})
   });
   
   if (!defaultDiscountCode || !customerTier) {
-    console.log('[TierProductDiscount] No tier discount or customer tier found, exiting');
+    console.log('[TierProductDiscount] ⚠️ No tier discount or customer tier found, exiting');
+    console.log('[TierProductDiscount] Customer needs to be logged in with a tier to use product-specific discounts');
     return; // No tier discount
   }
+  
+  console.log('[TierProductDiscount] ✓ Customer has tier, proceeding with product discount check');
   
   /**
    * Extract discount percent from product tags
