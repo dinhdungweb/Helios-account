@@ -1,6 +1,6 @@
 /**
  * Tier Pricing Checkout Button
- * Intercept add to cart and redirect to checkout with tier discount
+ * Create custom "Mua ngay" button that applies tier discount
  */
 
 (function() {
@@ -8,131 +8,173 @@
   
   console.log('[TierCheckoutButton] Script loaded');
   
-  // Intercept all checkout/cart actions
-  function interceptCheckout() {
+  function initTierCheckout() {
+    console.log('[TierCheckoutButton] Initializing...');
+    
+    // Get discount code from sessionStorage
     const discountCode = sessionStorage.getItem('helios_tier_discount');
     
     if (!discountCode) {
-      console.log('[TierCheckoutButton] No discount code in sessionStorage');
+      console.log('[TierCheckoutButton] No discount code, exiting');
       return;
     }
     
-    console.log('[TierCheckoutButton] Active discount code:', discountCode);
-    console.log('[TierCheckoutButton] Setting up click interceptor...');
+    console.log('[TierCheckoutButton] Discount code:', discountCode);
     
-    // Method 1: Intercept ALL clicks and check if it's a checkout action
-    document.addEventListener('click', function(e) {
-      // Log all clicks for debugging
-      if (e.target.textContent && e.target.textContent.includes('Mua ngay')) {
-        console.log('[TierCheckoutButton] "Mua ngay" button clicked!', {
-          target: e.target,
-          tagName: e.target.tagName,
-          className: e.target.className,
-          id: e.target.id,
-          name: e.target.name,
-          type: e.target.type,
-          form: e.target.form,
-          closest: e.target.closest('button, a, input')
-        });
-      }
-      
-      // Check various checkout button types
-      const target = e.target.closest(
-        'button[name="checkout"], ' +
-        'input[name="checkout"], ' +
-        'a[href*="/checkout"], ' +
-        '.shopify-payment-button__button, ' +
-        '[data-shopify-buttoncontainer] button, ' +
-        'button[type="submit"][form*="product"]'
-      );
-      
-      if (target) {
-        console.log('[TierCheckoutButton] Checkout button detected:', target);
-        
-        // Check if it's a form submission
-        const form = target.closest('form');
-        if (form && form.action && form.action.includes('/cart/add')) {
-          console.log('[TierCheckoutButton] Add to cart form, will intercept after add');
-          // Let it add to cart first, then intercept
-          return;
-        }
-        
-        // If it's a direct checkout link/button
-        if (target.href && target.href.includes('/checkout')) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          console.log('[TierCheckoutButton] Intercepting checkout link, redirecting with discount:', discountCode);
-          window.location.href = `/checkout?discount=${encodeURIComponent(discountCode)}`;
-          return;
-        }
-        
-        // If it's a checkout button (not link)
-        if (target.name === 'checkout' || target.classList.contains('shopify-payment-button__button')) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          console.log('[TierCheckoutButton] Intercepting checkout button, redirecting with discount:', discountCode);
-          window.location.href = `/checkout?discount=${encodeURIComponent(discountCode)}`;
-          return;
-        }
-      }
-    }, true);
+    // Hide Shopify dynamic checkout buttons
+    const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
+    console.log('[TierCheckoutButton] Found Shopify payment buttons:', dynamicButtons.length);
     
-    // Method 2: Modify all checkout links
-    function updateCheckoutLinks() {
-      const checkoutLinks = document.querySelectorAll('a[href*="/checkout"]');
-      checkoutLinks.forEach(link => {
-        if (!link.dataset.tierModified) {
-          const url = new URL(link.href, window.location.origin);
-          url.searchParams.set('discount', discountCode);
-          link.href = url.toString();
-          link.dataset.tierModified = 'true';
-          console.log('[TierCheckoutButton] Modified checkout link:', link.href);
-        }
-      });
-    }
-    
-    updateCheckoutLinks();
-    
-    // Watch for new links
-    const observer = new MutationObserver(updateCheckoutLinks);
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
+    dynamicButtons.forEach(btn => {
+      btn.style.display = 'none';
+      console.log('[TierCheckoutButton] Hidden Shopify payment button');
     });
     
-    // Method 3: Intercept Shopify dynamic checkout
-    // Override Shopify.PaymentButton if it exists
-    if (window.Shopify && window.Shopify.PaymentButton) {
-      console.log('[TierCheckoutButton] Intercepting Shopify.PaymentButton');
-      const originalInit = window.Shopify.PaymentButton.init;
-      window.Shopify.PaymentButton.init = function() {
-        console.log('[TierCheckoutButton] PaymentButton.init called');
-        const result = originalInit.apply(this, arguments);
-        
-        // Modify all payment buttons after init
-        setTimeout(() => {
-          document.querySelectorAll('.shopify-payment-button__button').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log('[TierCheckoutButton] Payment button clicked, redirecting with discount');
-              window.location.href = `/checkout?discount=${encodeURIComponent(discountCode)}`;
-            }, true);
-          });
-        }, 100);
-        
-        return result;
-      };
-    }
+    // Create custom checkout buttons
+    createCustomCheckoutButtons(discountCode);
   }
   
-  // Initialize
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', interceptCheckout);
-  } else {
-    interceptCheckout();
+  function createCustomCheckoutButtons(discountCode) {
+    // Find all product forms
+    const productForms = document.querySelectorAll('form[action*="/cart/add"]');
+    console.log('[TierCheckoutButton] Found product forms:', productForms.length);
+    
+    productForms.forEach((form, index) => {
+      console.log(`[TierCheckoutButton] Processing form ${index}`);
+      
+      // Check if button already exists
+      if (form.querySelector('.tier-checkout-button')) {
+        console.log('[TierCheckoutButton] Button already exists, skipping');
+        return;
+      }
+      
+      // Find add to cart button
+      const addToCartBtn = form.querySelector('button[name="add"], input[name="add"], button[type="submit"]');
+      
+      if (!addToCartBtn) {
+        console.log('[TierCheckoutButton] No add to cart button found');
+        return;
+      }
+      
+      console.log('[TierCheckoutButton] Found add to cart button:', addToCartBtn);
+      
+      // Create custom "Mua ngay" button
+      const checkoutBtn = document.createElement('button');
+      checkoutBtn.type = 'button';
+      checkoutBtn.className = 'button tier-checkout-button';
+      checkoutBtn.textContent = 'Mua ngay';
+      checkoutBtn.style.cssText = `
+        width: 100%;
+        padding: 18px 30px;
+        margin-top: 10px;
+        background-color: #fab320;
+        color: #000000;
+        border: 1px solid #fab320;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      `;
+      
+      // Hover effects
+      checkoutBtn.addEventListener('mouseenter', function() {
+        if (!this.disabled) {
+          this.style.backgroundColor = '#000000';
+          this.style.color = '#fab320';
+        }
+      });
+      
+      checkoutBtn.addEventListener('mouseleave', function() {
+        if (!this.disabled) {
+          this.style.backgroundColor = '#fab320';
+          this.style.color = '#000000';
+        }
+      });
+      
+      // Click handler
+      checkoutBtn.addEventListener('click', async function(e) {
+        e.preventDefault();
+        console.log('[TierCheckoutButton] Mua ngay clicked');
+        
+        const originalText = this.textContent;
+        this.disabled = true;
+        this.textContent = 'Đang xử lý...';
+        this.style.opacity = '0.6';
+        
+        try {
+          // Get form data
+          const formData = new FormData(form);
+          
+          console.log('[TierCheckoutButton] Adding to cart...');
+          
+          // Add to cart
+          const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            body: formData
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to add to cart');
+          }
+          
+          const data = await response.json();
+          console.log('[TierCheckoutButton] Added to cart:', data);
+          
+          // Get latest discount code from sessionStorage
+          const currentDiscountCode = sessionStorage.getItem('helios_tier_discount') || discountCode;
+          
+          console.log('[TierCheckoutButton] Redirecting to checkout with discount:', currentDiscountCode);
+          
+          // Redirect to checkout with discount
+          window.location.href = `/checkout?discount=${encodeURIComponent(currentDiscountCode)}`;
+          
+        } catch (error) {
+          console.error('[TierCheckoutButton] Error:', error);
+          alert('Có lỗi xảy ra. Vui lòng thử lại!');
+          this.disabled = false;
+          this.textContent = originalText;
+          this.style.opacity = '1';
+        }
+      });
+      
+      // Insert button after add to cart button
+      addToCartBtn.parentNode.insertBefore(checkoutBtn, addToCartBtn.nextSibling);
+      
+      console.log('[TierCheckoutButton] ✓ Created custom Mua ngay button');
+    });
   }
+  
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTierCheckout);
+  } else {
+    initTierCheckout();
+  }
+  
+  // Re-initialize on section load (for AJAX)
+  document.addEventListener('shopify:section:load', initTierCheckout);
+  
+  // Watch for new forms being added
+  const observer = new MutationObserver(function(mutations) {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (node.nodeType === 1) {
+          if (node.matches && node.matches('form[action*="/cart/add"]')) {
+            setTimeout(initTierCheckout, 100);
+            break;
+          } else if (node.querySelector && node.querySelector('form[action*="/cart/add"]')) {
+            setTimeout(initTierCheckout, 100);
+            break;
+          }
+        }
+      }
+    }
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
   
 })();
