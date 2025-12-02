@@ -51,37 +51,63 @@
     try {
       // Get all tier-pricing wrappers in cart
       const cartItems = document.querySelectorAll('.cart-drawer .cart-item, .cart-drawer [class*="cart__item"]');
+      let totalOriginal = 0;
       let totalAfterTier = 0;
       
       cartItems.forEach(item => {
         const tierWrapper = item.querySelector('.tier-pricing-wrapper');
         if (tierWrapper) {
+          // Get original price (before tier discount)
+          const tierPriceOriginal = tierWrapper.querySelector('.tier-price-original .theme-money');
+          // Get final price (after tier discount)
           const tierPriceFinal = tierWrapper.querySelector('.tier-price-final .theme-money');
           const quantityInput = item.querySelector('input[type="number"], [name*="quantity"]');
           
           if (tierPriceFinal && quantityInput) {
-            // Extract price from text (remove currency symbols)
-            const priceText = tierPriceFinal.textContent.replace(/[^\d]/g, '');
-            const price = parseInt(priceText) || 0;
             const quantity = parseInt(quantityInput.value) || 1;
             
-            totalAfterTier += price * quantity;
-            console.log('[TierCartDrawer] Item:', { price, quantity, subtotal: price * quantity });
+            // Extract final price
+            const finalPriceText = tierPriceFinal.textContent.replace(/[^\d]/g, '');
+            const finalPrice = parseInt(finalPriceText) || 0;
+            
+            // Extract original price (if exists, otherwise use final price)
+            let originalPrice = finalPrice;
+            if (tierPriceOriginal) {
+              const originalPriceText = tierPriceOriginal.textContent.replace(/[^\d]/g, '');
+              originalPrice = parseInt(originalPriceText) || finalPrice;
+            }
+            
+            totalOriginal += originalPrice * quantity;
+            totalAfterTier += finalPrice * quantity;
+            
+            console.log('[TierCartDrawer] Item:', { 
+              originalPrice, 
+              finalPrice, 
+              quantity, 
+              originalSubtotal: originalPrice * quantity,
+              finalSubtotal: finalPrice * quantity
+            });
           }
         }
       });
       
-      console.log('[TierCartDrawer] Total after tier pricing:', totalAfterTier);
+      const totalDiscount = totalOriginal - totalAfterTier;
       
-      // Update subtotal display - find by text content
+      console.log('[TierCartDrawer] Totals:', {
+        original: totalOriginal,
+        afterTier: totalAfterTier,
+        discount: totalDiscount
+      });
+      
+      // Update subtotal display (should show ORIGINAL price)
       const footerRows = document.querySelectorAll('.cart-drawer-footer-row, .cart-drawer [class*="footer"] [class*="row"]');
       footerRows.forEach(row => {
         const heading = row.querySelector('h3');
         if (heading && heading.textContent.includes('Tổng phụ')) {
           const priceSpan = row.querySelector('span');
           if (priceSpan) {
-            priceSpan.textContent = formatMoney(totalAfterTier);
-            console.log('[TierCartDrawer] Updated subtotal:', formatMoney(totalAfterTier));
+            priceSpan.textContent = formatMoney(totalOriginal);
+            console.log('[TierCartDrawer] Updated subtotal (original):', formatMoney(totalOriginal));
           }
         }
       });
