@@ -98,7 +98,6 @@
         border: 1px solid #fab320;
         border-radius: 4px;
         font-size: 16px;
-        font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
         display: block;
