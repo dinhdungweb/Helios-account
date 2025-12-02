@@ -279,8 +279,8 @@
 
     {%- if settings.quickbuy_enabled -%}
       <div class="cc-quick-buy-btn-container">
-        <a href="{{ product_url }}" data-cc-quick-buy class="button alt cc-quick-buy-btn">
-          {{ 'products.listing.quick_view' | t }}
+        <a href="{{ product_url }}" class="button alt cc-quick-buy-btn">
+          Mua ngay
         </a>
       </div>
     {%- endif -%}
@@ -434,8 +434,8 @@
         {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
           <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
         {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
-          <a href="{{ product_url }}" data-cc-quick-buy class="button alt">
-            {{ 'products.listing.quick_view' | t }}
+          <a href="{{ product_url }}" class="button alt">
+            Mua ngay
           </a>
         {% elsif settings.enable_locked_content %}
           {% if settings.lock_all_product_prices %}
@@ -444,13 +444,13 @@
             <a href="{{ routes.account_url }}" style="pointer-events: none" class="button alt">{{ settings.atc_locked_text_tag }}</a>
           {% else %}
             <!-- Nếu sản phẩm không bị khóa, hiển thị giá bình thường -->
-            <a href="{{ product_url }}" data-cc-quick-buy class="button alt">
-              {{ 'products.listing.quick_view' | t }}
+            <a href="{{ product_url }}" class="button alt">
+              Mua ngay
             </a>
           {% endif %}
         {% else %}
-          <a href="{{ product_url }}" data-cc-quick-buy class="button alt">
-            {{ 'products.listing.quick_view' | t }}
+          <a href="{{ product_url }}" class="button alt">
+            Mua ngay
           </a>
         {% endif %}
       {% else %}
@@ -459,8 +459,8 @@
         {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
           <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
         {% else %}
-          <a href="{{ product_url }}" data-cc-quick-buy class="button alt">
-            {{ 'products.listing.quick_view' | t }}
+          <a href="{{ product_url }}" class="button alt">
+            Mua ngay
           </a>
         {% endif %}
       {% endif %}
