@@ -6,7 +6,7 @@
 (function() {
   'use strict';
   
-  const API_ENDPOINT = 'https://helios-tier-pricing-api-h543.vercel.app/api/create-draft-order';
+  const API_ENDPOINT = 'https://helios-tier-pricing-api-h543-5d18pkqtu.vercel.app//api/create-draft-order';
   
   console.log('[TierDraftOrder] Script loaded');
   
