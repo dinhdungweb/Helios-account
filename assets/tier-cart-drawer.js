@@ -70,24 +70,41 @@
           const tierPriceFinal = tierWrapper.querySelector('.tier-price-final .theme-money');
           const quantityInput = item.querySelector('input[type="number"], [name*="quantity"]');
           
-          if (tierPriceFinal && quantityInput) {
+          if (quantityInput) {
             const quantity = parseInt(quantityInput.value) || 1;
             
             // Extract final price
-            const finalPriceText = tierPriceFinal.textContent.replace(/[^\d]/g, '');
-            const finalPrice = parseInt(finalPriceText) || 0;
+            let finalPrice = 0;
+            if (tierPriceFinal) {
+              const finalPriceText = tierPriceFinal.textContent.replace(/[^\d]/g, '');
+              finalPrice = parseInt(finalPriceText) || 0;
+            }
             
-            // Extract original price (if exists, otherwise use final price)
-            let originalPrice = finalPrice;
+            // Extract original price
+            let originalPrice = 0;
             if (tierPriceOriginal) {
               const originalPriceText = tierPriceOriginal.textContent.replace(/[^\d]/g, '');
-              originalPrice = parseInt(originalPriceText) || finalPrice;
+              originalPrice = parseInt(originalPriceText) || 0;
+            }
+            
+            // If no original price, try to get from compare_at_price or use final price
+            if (originalPrice === 0) {
+              const comparePrice = tierWrapper.querySelector('.tier-price-compare .theme-money');
+              if (comparePrice) {
+                const comparePriceText = comparePrice.textContent.replace(/[^\d]/g, '');
+                originalPrice = parseInt(comparePriceText) || finalPrice;
+              } else {
+                // No discount, original = final
+                originalPrice = finalPrice;
+              }
             }
             
             totalOriginal += originalPrice * quantity;
             totalAfterTier += finalPrice * quantity;
             
             console.log('[TierCartDrawer] Item:', { 
+              hasOriginal: !!tierPriceOriginal,
+              hasFinal: !!tierPriceFinal,
               originalPrice, 
               finalPrice, 
               quantity, 
@@ -126,9 +143,14 @@
           
           // Update "Tổng phụ" (subtotal - original price before any discount)
           if (headingText.includes('Tổng phụ')) {
-            const newValue = formatMoney(totalOriginal);
-            priceSpan.textContent = newValue;
-            console.log(`[TierCartDrawer] ✓ Updated "Tổng phụ": ${newValue}`);
+            // Only update if we have valid total
+            if (totalOriginal > 0) {
+              const newValue = formatMoney(totalOriginal);
+              priceSpan.textContent = newValue;
+              console.log(`[TierCartDrawer] ✓ Updated "Tổng phụ": ${newValue}`);
+            } else {
+              console.log(`[TierCartDrawer] ⚠️ Skipping "Tổng phụ" update (totalOriginal = 0), keeping Liquid value: ${priceSpan.textContent}`);
+            }
           }
           
           // Update "Giảm giá DIAMOND" or any tier discount row
