@@ -22,7 +22,19 @@
     
     // Method 1: Intercept ALL clicks and check if it's a checkout action
     document.addEventListener('click', function(e) {
-      console.log('[TierCheckoutButton] Click detected on:', e.target);
+      // Log all clicks for debugging
+      if (e.target.textContent && e.target.textContent.includes('Mua ngay')) {
+        console.log('[TierCheckoutButton] "Mua ngay" button clicked!', {
+          target: e.target,
+          tagName: e.target.tagName,
+          className: e.target.className,
+          id: e.target.id,
+          name: e.target.name,
+          type: e.target.type,
+          form: e.target.form,
+          closest: e.target.closest('button, a, input')
+        });
+      }
       
       // Check various checkout button types
       const target = e.target.closest(
