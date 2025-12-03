@@ -35,73 +35,113 @@
   endcomment
   assign tier_scope = settings.tier_pricing_scope | default: 'all'
   assign tier_applies = false
+  assign has_product_specific_tag = false
   
-  if tier_enabled
-    case tier_scope
-      when 'all'
-        assign tier_applies = true
-      
-      when 'tagged'
-        comment Chỉ áp dụng cho sản phẩm có tag
-        endcomment
-        if product and settings.tier_pricing_product_tags != blank
-          assign allowed_tags = settings.tier_pricing_product_tags | split: ','
-          for tag in allowed_tags
-            assign tag_trimmed = tag | strip | downcase
-            for product_tag in product.tags
-              assign product_tag_down = product_tag | downcase
-              if product_tag_down == tag_trimmed
-                assign tier_applies = true
-                break
-              endif
-            endfor
-            if tier_applies
-              break
-            endif
-          endfor
+  comment ============================================
+    PRIORITY 1: Check for product-specific tier tags FIRST
+    Format: tier-{tier_name}-{percent}
+    If product has this tag, ALWAYS apply tier pricing regardless of scope
+  ============================================
+  endcomment
+  if tier_enabled and customer and product and product.tags
+    comment Get all tier names to check
+    endcomment
+    assign all_tier_names = tier_1_name | append: ',' | append: tier_2_name | append: ',' | append: tier_3_name | append: ',' | append: tier_4_name | append: ',' | append: tier_5_name | append: ',' | append: tier_6_name
+    assign tier_names_array = all_tier_names | split: ','
+    
+    for tier_name_check in tier_names_array
+      if tier_name_check != blank
+        assign tier_name_lower = tier_name_check | downcase | replace: ' ', '' | replace: '_', ''
+        assign tag_prefix = 'tier-' | append: tier_name_lower | append: '-'
+        
+        for tag in product.tags
+          assign tag_lower = tag | downcase | strip
+          if tag_lower contains tag_prefix
+            assign has_product_specific_tag = true
+            assign tier_applies = true
+            break
+          endif
+        endfor
+        
+        if has_product_specific_tag
+          break
         endif
-      
-      when 'collections'
-        comment Chỉ áp dụng cho collections cụ thể
-        endcomment
-        if product and settings.tier_pricing_collection_handles != blank
-          assign allowed_collections = settings.tier_pricing_collection_handles | split: ','
-          for product_collection in product.collections
-            for handle in allowed_collections
-              assign handle_trimmed = handle | strip | downcase
-              if product_collection.handle == handle_trimmed
-                assign tier_applies = true
-                break
-              endif
-            endfor
-            if tier_applies
-              break
-            endif
-          endfor
-        endif
-      
-      when 'exclude_tagged'
-        comment Áp dụng cho tất cả TRỪ sản phẩm có tag
-        endcomment
-        assign tier_applies = true
-        if product and settings.tier_pricing_product_tags != blank
-          assign excluded_tags = settings.tier_pricing_product_tags | split: ','
-          for tag in excluded_tags
-            assign tag_trimmed = tag | strip | downcase
-            for product_tag in product.tags
-              assign product_tag_down = product_tag | downcase
-              if product_tag_down == tag_trimmed
-                assign tier_applies = false
-                break
-              endif
-            endfor
-            if tier_applies == false
-              break
-            endif
-          endfor
-        endif
-    endcase
+      endif
+    endfor
   endif
+  
+  comment ============================================
+    PRIORITY 2: If no product-specific tag, check scope
+  ============================================
+  endcomment
+  unless has_product_specific_tag
+    if tier_enabled
+      case tier_scope
+        when 'all'
+          assign tier_applies = true
+        
+        when 'tagged'
+          comment Chỉ áp dụng cho sản phẩm có tag
+          endcomment
+          if product and settings.tier_pricing_product_tags != blank
+            assign allowed_tags = settings.tier_pricing_product_tags | split: ','
+            for tag in allowed_tags
+              assign tag_trimmed = tag | strip | downcase
+              for product_tag in product.tags
+                assign product_tag_down = product_tag | downcase
+                if product_tag_down == tag_trimmed
+                  assign tier_applies = true
+                  break
+                endif
+              endfor
+              if tier_applies
+                break
+              endif
+            endfor
+          endif
+        
+        when 'collections'
+          comment Chỉ áp dụng cho collections cụ thể
+          endcomment
+          if product and settings.tier_pricing_collection_handles != blank
+            assign allowed_collections = settings.tier_pricing_collection_handles | split: ','
+            for product_collection in product.collections
+              for handle in allowed_collections
+                assign handle_trimmed = handle | strip | downcase
+                if product_collection.handle == handle_trimmed
+                  assign tier_applies = true
+                  break
+                endif
+              endfor
+              if tier_applies
+                break
+              endif
+            endfor
+          endif
+        
+        when 'exclude_tagged'
+          comment Áp dụng cho tất cả TRỪ sản phẩm có tag
+          endcomment
+          assign tier_applies = true
+          if product and settings.tier_pricing_product_tags != blank
+            assign excluded_tags = settings.tier_pricing_product_tags | split: ','
+            for tag in excluded_tags
+              assign tag_trimmed = tag | strip | downcase
+              for product_tag in product.tags
+                assign product_tag_down = product_tag | downcase
+                if product_tag_down == tag_trimmed
+                  assign tier_applies = false
+                  break
+                endif
+              endfor
+              if tier_applies == false
+                break
+              endif
+            endfor
+          endif
+      endcase
+    endif
+  endunless
   
   comment Nếu không áp dụng tier pricing, đánh dấu để không tính tier discount
   endcomment
