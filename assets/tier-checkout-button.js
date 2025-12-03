@@ -193,19 +193,17 @@
           
           console.log('[TierCheckoutButton] Product tier discount:', tierDiscount, 'from wrapper:', !!tierWrapper);
           
-          // Wait a bit for cart to update, then trigger draft order
-          setTimeout(() => {
-            console.log('[TierCheckoutButton] Dispatching tier:create-draft-order event');
-            const event = new CustomEvent('tier:create-draft-order', {
-              detail: {
-                productDiscount: tierDiscount,
-                fromProductPage: true,
-                variantId: data.variant_id // Pass variant_id to match in cart
-              }
-            });
-            document.dispatchEvent(event);
-            console.log('[TierCheckoutButton] Event dispatched with discount:', tierDiscount, 'variant:', data.variant_id);
-          }, 800); // Wait 800ms for cart to update
+          // Trigger draft order immediately (cart already updated after successful add)
+          console.log('[TierCheckoutButton] Dispatching tier:create-draft-order event');
+          const event = new CustomEvent('tier:create-draft-order', {
+            detail: {
+              productDiscount: tierDiscount,
+              fromProductPage: true,
+              variantId: data.variant_id // Pass variant_id to match in cart
+            }
+          });
+          document.dispatchEvent(event);
+          console.log('[TierCheckoutButton] Event dispatched with discount:', tierDiscount, 'variant:', data.variant_id);
 
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
