@@ -11,49 +11,51 @@
   function initTierCheckout() {
     console.log('[TierCheckoutButton] Initializing...');
 
-    // Get discount code from sessionStorage
-    const discountCode = sessionStorage.getItem('helios_tier_discount');
+    // Wait a bit for tier-pricing-wrapper to be rendered by Liquid
+    setTimeout(() => {
+      // Check if tier pricing wrapper exists with valid discount
+      const tierWrapper = document.querySelector('.tier-pricing-wrapper');
+      if (!tierWrapper) {
+        console.log('[TierCheckoutButton] No tier wrapper found, exiting');
+        return;
+      }
 
-    if (!discountCode) {
-      console.log('[TierCheckoutButton] No discount code, exiting');
-      return;
-    }
+      const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
+      const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
+      const customerTier = tierWrapper.dataset.customerTier || '';
 
-    // Check if tier pricing wrapper exists with valid discount
-    const tierWrapper = document.querySelector('.tier-pricing-wrapper');
-    if (!tierWrapper) {
-      console.log('[TierCheckoutButton] No tier wrapper found, exiting');
-      return;
-    }
+      console.log('[TierCheckoutButton] Tier info:', {
+        tierDiscount,
+        hasCustomer,
+        customerTier
+      });
 
-    const tierDiscount = parseFloat(tierWrapper.dataset.tierDiscount || 0);
-    const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
+      // Only show custom button if customer has tier discount
+      if (!hasCustomer || tierDiscount === 0) {
+        console.log('[TierCheckoutButton] No customer or zero discount, exiting');
+        return;
+      }
 
-    console.log('[TierCheckoutButton] Tier info:', {
-      discountCode,
-      tierDiscount,
-      hasCustomer
-    });
+      console.log('[TierCheckoutButton] ✓ Customer has tier discount, creating custom button');
 
-    // Only show custom button if customer has tier discount
-    if (!hasCustomer || tierDiscount === 0) {
-      console.log('[TierCheckoutButton] No customer or zero discount, exiting');
-      return;
-    }
+      // Store tier info in sessionStorage for other scripts to use
+      if (customerTier) {
+        sessionStorage.setItem('helios_customer_tier', customerTier);
+        sessionStorage.setItem('helios_tier_discount_percent', tierDiscount);
+      }
 
-    console.log('[TierCheckoutButton] ✓ Customer has tier discount, creating custom button');
+      // Hide Shopify dynamic checkout buttons
+      const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
+      console.log('[TierCheckoutButton] Found Shopify payment buttons:', dynamicButtons.length);
 
-    // Hide Shopify dynamic checkout buttons
-    const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
-    console.log('[TierCheckoutButton] Found Shopify payment buttons:', dynamicButtons.length);
+      dynamicButtons.forEach(btn => {
+        btn.style.display = 'none';
+        console.log('[TierCheckoutButton] Hidden Shopify payment button');
+      });
 
-    dynamicButtons.forEach(btn => {
-      btn.style.display = 'none';
-      console.log('[TierCheckoutButton] Hidden Shopify payment button');
-    });
-
-    // Create custom checkout buttons
-    createCustomCheckoutButtons(discountCode);
+      // Create custom checkout buttons
+      createCustomCheckoutButtons();
+    }, 100); // Small delay to ensure DOM is ready
   }
 
   async function checkProductSpecificDiscount(cartItem) {
@@ -83,7 +85,7 @@
     return false;
   }
 
-  function createCustomCheckoutButtons(discountCode) {
+  function createCustomCheckoutButtons() {
     // Find all product forms
     const productForms = document.querySelectorAll('form[action*="/cart/add"]');
     console.log('[TierCheckoutButton] Found product forms:', productForms.length);
@@ -177,20 +179,10 @@
           // Check if customer has tier (always use draft order for tier customers)
           const customerTier = sessionStorage.getItem('helios_customer_tier');
 
-          if (customerTier) {
-            console.log('[TierCheckoutButton] Customer has tier, using draft order');
-            // Trigger draft order creation (handled by tier-draft-order.js)
-            const event = new CustomEvent('tier:create-draft-order');
-            document.dispatchEvent(event);
-          } else {
-            // Get latest discount code from sessionStorage
-            const currentDiscountCode = sessionStorage.getItem('helios_tier_discount') || discountCode;
-
-            console.log('[TierCheckoutButton] Using standard checkout with discount:', currentDiscountCode);
-
-            // Redirect to checkout with discount
-            window.location.href = `/checkout?discount=${encodeURIComponent(currentDiscountCode)}`;
-          }
+          // Always use draft order for tier customers (handled by tier-draft-order.js)
+          console.log('[TierCheckoutButton] Customer has tier, using draft order');
+          const event = new CustomEvent('tier:create-draft-order');
+          document.dispatchEvent(event);
 
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
