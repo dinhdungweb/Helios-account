@@ -92,20 +92,29 @@
     }
 
     // Build items with tier discounts
-    const items = await Promise.all(cart.items.map(async (item, index) => {
+    const items = await Promise.all(cart.items.map(async (item) => {
       let discountPercent = 0;
       
       // Try to get discount from cart drawer first (if available)
+      // Match by variant_id, NOT by index
       const cartItems = document.querySelectorAll('.cart-drawer-item');
-      if (cartItems[index]) {
-        const wrapper = cartItems[index].querySelector('.tier-pricing-wrapper');
-        if (wrapper) {
-          discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
-          console.log('[TierDraftOrder] Got discount from cart drawer:', { product: item.product_title, percent: discountPercent });
+      for (const cartItem of cartItems) {
+        const variantIdAttr = cartItem.dataset.variantId || cartItem.getAttribute('data-variant-id');
+        if (variantIdAttr && parseInt(variantIdAttr) === item.variant_id) {
+          const wrapper = cartItem.querySelector('.tier-pricing-wrapper');
+          if (wrapper) {
+            discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
+            console.log('[TierDraftOrder] Got discount from cart drawer:', { 
+              product: item.product_title, 
+              variant: item.variant_id,
+              percent: discountPercent 
+            });
+            break;
+          }
         }
       }
       
-      // If cart drawer not available, calculate discount
+      // If cart drawer not available or no discount found, calculate discount
       if (discountPercent === 0) {
         discountPercent = await getItemTierDiscount(item);
         console.log('[TierDraftOrder] Calculated discount:', { product: item.product_title, percent: discountPercent });

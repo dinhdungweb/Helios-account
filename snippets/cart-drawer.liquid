@@ -16,7 +16,7 @@
       {% else %}
         <div class="cart-drawer-items">
           {% for item in cart.items %}
-            <div class="cart-drawer-item" data-line-item-key="{{ item.key }}">
+            <div class="cart-drawer-item" data-line-item-key="{{ item.key }}" data-variant-id="{{ item.variant_id }}">
               <div class="cart-drawer-item-image">
                 <img src="{{ item.image | img_url: '200x' }}" alt="{{ item.title }}">
               </div>
