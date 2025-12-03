@@ -13,10 +13,11 @@
   // Listen for draft order creation event
   function setupEventListeners() {
     document.addEventListener('tier:create-draft-order', async function (e) {
-      console.log('[TierDraftOrder] Draft order event received');
+      console.log('[TierDraftOrder] Draft order event received', e.detail);
 
       try {
-        await createDraftOrderCheckout();
+        // Pass event detail (may contain productDiscount from product page)
+        await createDraftOrderCheckout(e.detail);
       } catch (error) {
         console.error('[TierDraftOrder] Error:', error);
         alert('Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại!');
@@ -70,8 +71,8 @@
     return !!customerTier;
   }
 
-  async function createDraftOrderCheckout() {
-    console.log('[TierDraftOrder] Creating draft order...');
+  async function createDraftOrderCheckout(eventDetail) {
+    console.log('[TierDraftOrder] Creating draft order...', eventDetail);
 
     // Get current cart
     const cartResponse = await fetch('/cart.js');
@@ -92,32 +93,47 @@
     }
 
     // Build items with tier discounts
-    const items = await Promise.all(cart.items.map(async (item) => {
+    const items = await Promise.all(cart.items.map(async (item, index) => {
       let discountPercent = 0;
       let foundWrapper = false;
       
-      // Try to get discount from cart drawer first (if available)
+      // PRIORITY 1: If called from product page "Mua ngay" button, use provided discount
+      // This is the most recent item added (last in cart)
+      if (eventDetail && eventDetail.fromProductPage && index === cart.items.length - 1) {
+        discountPercent = eventDetail.productDiscount || 0;
+        console.log('[TierDraftOrder] Got discount from product page event:', { 
+          product: item.product_title, 
+          variant: item.variant_id,
+          percent: discountPercent,
+          source: 'product_page_event'
+        });
+        foundWrapper = true; // Mark as found to skip other checks
+      }
+      
+      // PRIORITY 2: Try to get discount from cart drawer (if available)
       // Match by variant_id, NOT by index
-      const cartItems = document.querySelectorAll('.cart-drawer-item');
-      for (const cartItem of cartItems) {
-        const variantIdAttr = cartItem.dataset.variantId || cartItem.getAttribute('data-variant-id');
-        if (variantIdAttr && parseInt(variantIdAttr) === item.variant_id) {
-          const wrapper = cartItem.querySelector('.tier-pricing-wrapper');
-          if (wrapper) {
-            foundWrapper = true;
-            discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
-            console.log('[TierDraftOrder] Got discount from cart drawer:', { 
-              product: item.product_title, 
-              variant: item.variant_id,
-              percent: discountPercent,
-              source: 'cart_drawer_wrapper'
-            });
-            break;
+      if (!foundWrapper) {
+        const cartItems = document.querySelectorAll('.cart-drawer-item');
+        for (const cartItem of cartItems) {
+          const variantIdAttr = cartItem.dataset.variantId || cartItem.getAttribute('data-variant-id');
+          if (variantIdAttr && parseInt(variantIdAttr) === item.variant_id) {
+            const wrapper = cartItem.querySelector('.tier-pricing-wrapper');
+            if (wrapper) {
+              foundWrapper = true;
+              discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
+              console.log('[TierDraftOrder] Got discount from cart drawer:', { 
+                product: item.product_title, 
+                variant: item.variant_id,
+                percent: discountPercent,
+                source: 'cart_drawer_wrapper'
+              });
+              break;
+            }
           }
         }
       }
       
-      // Only calculate discount if wrapper NOT found
+      // PRIORITY 3: Only calculate discount if wrapper NOT found
       // If wrapper found with discount=0, trust Liquid's scope check
       if (!foundWrapper) {
         discountPercent = await getItemTierDiscount(item);
