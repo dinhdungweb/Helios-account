@@ -9,9 +9,25 @@
   let tierInfo = null;
   let isReady = false;
   
-  // Extract tier info from initial render
+  // Extract tier info from initial render (MAIN PRODUCT only, not product blocks)
   function extractTierInfo() {
-    const wrapper = document.querySelector('.tier-pricing-wrapper');
+    // Find wrapper in MAIN PRODUCT area only (not product blocks/recommendations)
+    let wrapper = null;
+    const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
+    
+    for (const w of allWrappers) {
+      // Skip wrappers from product blocks, recommendations, cart
+      if (w.closest('.product-block, [data-cc-product-block], .recommend-products, .cart-drawer, .cart-items')) {
+        continue;
+      }
+      // Check if wrapper is in main product area
+      const isInProductArea = w.closest('.product-area, .product-single, main.main-content, .product-template');
+      if (isInProductArea) {
+        wrapper = w;
+        break;
+      }
+    }
+    
     if (wrapper && !tierInfo) {
       tierInfo = {
         tier: wrapper.dataset.customerTier || '',
