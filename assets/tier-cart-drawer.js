@@ -60,23 +60,25 @@
     // Get default tier discount from settings (from tier-price wrapper)
     const tierWrapper = document.querySelector('.tier-pricing-wrapper');
     const defaultDiscount = tierWrapper ? parseFloat(tierWrapper.dataset.tierDiscount || 0) : 0;
+    const tierScope = tierWrapper ? tierWrapper.dataset.tierScope : 'all';
     
-    // Check for product-specific discount from tags
+    console.log('[TierCartDrawer] Checking discount for:', item.product_title, 'Scope:', tierScope);
+    
+    // Try to get product data
+    let productData = null;
+    try {
+      const productResponse = await fetch(`/products/${item.handle}.js`);
+      productData = await productResponse.json();
+    } catch (error) {
+      console.warn('[TierCartDrawer] Could not fetch product data:', error);
+    }
+    
+    const productTags = productData ? productData.tags : (item.product_tags || []);
+    
+    // Check for product-specific discount from tags (PRIORITY 1)
     const tierNameNormalized = customerTier.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
     const tagPrefix = `tier-${tierNameNormalized}-`;
     
-    // Try to get product tags
-    let productTags = [];
-    try {
-      const productResponse = await fetch(`/products/${item.handle}.js`);
-      const productData = await productResponse.json();
-      productTags = productData.tags || [];
-    } catch (error) {
-      console.warn('[TierCartDrawer] Could not fetch product tags:', error);
-      productTags = item.product_tags || [];
-    }
-    
-    // Check for product-specific tag
     for (const tag of productTags) {
       const tagLower = tag.toLowerCase().trim();
       if (tagLower.startsWith(tagPrefix)) {
@@ -91,14 +93,63 @@
       }
     }
     
-    // Return default discount
-    return defaultDiscount;
+    // Check if product qualifies for default tier discount based on scope (PRIORITY 2)
+    let itemApplies = false;
+    
+    switch (tierScope) {
+      case 'all':
+        itemApplies = true;
+        break;
+        
+      case 'tagged':
+        // Check if product has allowed tags
+        const allowedTags = tierWrapper.dataset.tierAllowedTags?.split(',').map(t => t.trim().toLowerCase()) || [];
+        itemApplies = productTags.some(tag => allowedTags.includes(tag.toLowerCase()));
+        break;
+        
+      case 'collections':
+        // Check if product is in allowed collections
+        const allowedCollections = tierWrapper.dataset.tierAllowedCollections?.split(',').map(c => c.trim().toLowerCase()) || [];
+        // Note: cart item doesn't have collections data, so we check product data
+        if (productData && productData.collections) {
+          itemApplies = productData.collections.some(col => allowedCollections.includes(col.handle.toLowerCase()));
+        }
+        break;
+        
+      case 'exclude_tagged':
+        // Apply to all except excluded tags
+        const excludedTags = tierWrapper.dataset.tierAllowedTags?.split(',').map(t => t.trim().toLowerCase()) || [];
+        itemApplies = !productTags.some(tag => excludedTags.includes(tag.toLowerCase()));
+        break;
+    }
+    
+    if (itemApplies) {
+      console.log('[TierCartDrawer] Default tier discount applies:', item.product_title, defaultDiscount + '%');
+      return defaultDiscount;
+    }
+    
+    // No discount applies
+    console.log('[TierCartDrawer] No discount applies:', item.product_title);
+    return 0;
   }
   
   function updateDiscountDisplay(customerTier, totalDiscount) {
-    // Find discount row in cart footer
-    const discountRow = document.querySelector('.cart-drawer-footer-row:has(h3)');
-    if (!discountRow) return;
+    // Find all footer rows
+    const footerRows = document.querySelectorAll('.cart-drawer-footer-row');
+    
+    // Find the discount row (contains "Giảm giá")
+    let discountRow = null;
+    footerRows.forEach(row => {
+      const h3 = row.querySelector('h3');
+      if (h3 && h3.textContent.includes('Giảm giá')) {
+        discountRow = row;
+      }
+    });
+    
+    if (!discountRow) {
+      console.log('[TierCartDrawer] Discount row not found');
+      return;
+    }
     
     // Find the discount amount span
     const discountSpan = discountRow.querySelector('span');
@@ -107,6 +158,41 @@
       const formattedDiscount = formatMoney(totalDiscount);
       discountSpan.textContent = `- ${formattedDiscount}`;
       console.log('[TierCartDrawer] Updated discount display:', formattedDiscount);
+    }
+    
+    // Also update total
+    updateTotalDisplay(totalDiscount);
+  }
+  
+  function updateTotalDisplay(totalDiscount) {
+    // Find total row
+    const footerRows = document.querySelectorAll('.cart-drawer-footer-row');
+    let totalRow = null;
+    let subtotalAmount = 0;
+    
+    footerRows.forEach(row => {
+      const h3 = row.querySelector('h3');
+      if (h3 && h3.textContent.includes('Tổng phụ')) {
+        const span = row.querySelector('span');
+        if (span) {
+          // Parse subtotal amount
+          const amountText = span.textContent.replace(/[^\d]/g, '');
+          subtotalAmount = parseInt(amountText, 10);
+        }
+      }
+      if (h3 && h3.textContent.includes('Tổng cộng')) {
+        totalRow = row;
+      }
+    });
+    
+    if (totalRow && subtotalAmount > 0) {
+      const newTotal = subtotalAmount - totalDiscount;
+      const formattedTotal = formatMoney(newTotal);
+      const totalSpan = totalRow.querySelector('span');
+      if (totalSpan) {
+        totalSpan.textContent = formattedTotal;
+        console.log('[TierCartDrawer] Updated total:', formattedTotal);
+      }
     }
   }
   
