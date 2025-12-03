@@ -13,10 +13,30 @@
 
     // Wait a bit for tier-pricing-wrapper to be rendered by Liquid
     setTimeout(() => {
-      // Check if tier pricing wrapper exists with valid discount
-      const tierWrapper = document.querySelector('.tier-pricing-wrapper');
+      // Find ALL tier-pricing-wrappers on page
+      const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
+      console.log('[TierCheckoutButton] Found tier wrappers:', allWrappers.length);
+      
+      // Filter to find wrapper for MAIN PRODUCT only (exclude cart drawer, recommendations)
+      let tierWrapper = null;
+      for (const wrapper of allWrappers) {
+        // Skip if wrapper is inside cart drawer or recommendations
+        if (wrapper.closest('.cart-drawer, [data-recommend], .recommend-products, .cart-items')) {
+          console.log('[TierCheckoutButton] Skipping wrapper from cart/recommend');
+          continue;
+        }
+        
+        // Check if wrapper is in main product area
+        const isInProductArea = wrapper.closest('.product-area, .product-single, main.main-content, .product-template');
+        if (isInProductArea) {
+          tierWrapper = wrapper;
+          console.log('[TierCheckoutButton] Found wrapper in main product area');
+          break;
+        }
+      }
+      
       if (!tierWrapper) {
-        console.log('[TierCheckoutButton] No tier wrapper found, exiting');
+        console.log('[TierCheckoutButton] No tier wrapper found for main product, exiting');
         return;
       }
 
@@ -24,7 +44,7 @@
       const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
       const customerTier = tierWrapper.dataset.customerTier || '';
 
-      console.log('[TierCheckoutButton] Tier info:', {
+      console.log('[TierCheckoutButton] Main product tier info:', {
         tierDiscount,
         hasCustomer,
         customerTier
@@ -32,7 +52,7 @@
 
       // Only show custom button if customer has tier discount
       if (!hasCustomer || tierDiscount === 0) {
-        console.log('[TierCheckoutButton] No customer or zero discount, exiting');
+        console.log('[TierCheckoutButton] No customer or zero discount for this product, exiting');
         return;
       }
 
