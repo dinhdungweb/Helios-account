@@ -111,7 +111,7 @@
     "tier_pricing_enabled": true,
     "tier_pricing_scope": "tagged",
     "tier_pricing_product_tags": "",
-    "tier_pricing_collection_handles": "accessories",
+    "tier_pricing_collection_handles": "",
     "tier_1_discount": 25,
     "tier_2_discount": 20,
     "tier_3_discount": 15,
