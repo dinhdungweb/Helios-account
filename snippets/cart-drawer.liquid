@@ -309,15 +309,19 @@
                 
                 {% for tag in item.product.tags %}
                   {% assign tag_lower = tag | downcase | strip %}
-                  {% if tag_lower contains tag_prefix %}
-                    {% assign tag_parts = tag_lower | split: '-' %}
-                    {% if tag_parts.size == 3 %}
-                      {% assign custom_percent = tag_parts[2] | plus: 0 %}
-                      {% if custom_percent > 0 and custom_percent <= 100 %}
-                        {% assign item_discount_percent = custom_percent %}
-                        {% assign has_product_specific_discount = true %}
-                        {% assign item_applies = true %}
-                        {% break %}
+                  {% comment %} Check if tag STARTS with prefix (not just contains) {% endcomment %}
+                  {% assign tag_parts = tag_lower | split: '-' %}
+                  {% if tag_parts.size == 3 %}
+                    {% if tag_parts[0] == 'tier' %}
+                      {% assign tag_tier_name = tag_parts[1] %}
+                      {% if tag_tier_name == tier_name_normalized %}
+                        {% assign custom_percent = tag_parts[2] | plus: 0 %}
+                        {% if custom_percent > 0 and custom_percent <= 100 %}
+                          {% assign item_discount_percent = custom_percent %}
+                          {% assign has_product_specific_discount = true %}
+                          {% assign item_applies = true %}
+                          {% break %}
+                        {% endif %}
                       {% endif %}
                     {% endif %}
                   {% endif %}
