@@ -295,10 +295,15 @@
                   {% endif %}
               {% endcase %}
               
-              {% comment %} Calculate item total with tier discount {% endcomment %}
-              {% if item_applies %}
-                {% comment %} Check for product-specific discount from tags {% endcomment %}
-                {% assign item_discount_percent = tier_discount_percent %}
+              {% comment %} ============================================
+                PRIORITY 1: Check for product-specific tier tag FIRST
+                Format: tier-{tier_name}-{percent}
+                If product has this tag, ALWAYS apply regardless of scope
+              ============================================ {% endcomment %}
+              {% assign has_product_specific_discount = false %}
+              {% assign item_discount_percent = tier_discount_percent %}
+              
+              {% if customer_tier != blank %}
                 {% assign tier_name_normalized = customer_tier | downcase | replace: ' ', '' | replace: '_', '' %}
                 {% assign tag_prefix = 'tier-' | append: tier_name_normalized | append: '-' %}
                 
@@ -310,12 +315,17 @@
                       {% assign custom_percent = tag_parts[2] | plus: 0 %}
                       {% if custom_percent > 0 and custom_percent <= 100 %}
                         {% assign item_discount_percent = custom_percent %}
+                        {% assign has_product_specific_discount = true %}
+                        {% assign item_applies = true %}
                         {% break %}
                       {% endif %}
                     {% endif %}
                   {% endif %}
                 {% endfor %}
-                
+              {% endif %}
+              
+              {% comment %} Apply discount if item qualifies (either by scope or product-specific tag) {% endcomment %}
+              {% if item_applies or has_product_specific_discount %}
                 {% comment %} Calculate with correct discount percent {% endcomment %}
                 {% assign item_discount_multiplier = 100 | minus: item_discount_percent %}
                 {% assign item_tier_price = item.final_line_price | times: item_discount_multiplier | divided_by: 100 %}
