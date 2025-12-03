@@ -267,19 +267,15 @@
       Format: tier-{tier_name}-{percent}
       VD: tier-gold-15, tier-platinum-20, tier-blackdiamond-25
       
-      If product has tier-specific tag, ALWAYS apply regardless of scope
+      If product has tier-specific tag matching customer tier, ALWAYS apply regardless of scope
     ============================================
     endcomment
     if has_tier and product and product.tags
-      comment If product has specific tag, force tier_scope_applies = true
-      endcomment
-      if has_product_specific_tag
-        assign tier_scope_applies = true
-      endif
       comment Remove spaces and convert to lowercase for matching
       endcomment
       assign tier_name_lower = tier_name | downcase | replace: ' ', '' | replace: '_', ''
       assign tag_prefix = 'tier-' | append: tier_name_lower | append: '-'
+      assign found_matching_tag = false
       
       for tag in product.tags
         assign tag_lower = tag | downcase | strip
@@ -292,6 +288,10 @@
             if custom_percent > 0 and custom_percent <= 100
               assign tier_discount = custom_percent
               assign tier_discount_source = 'product_tag'
+              assign found_matching_tag = true
+              comment Force tier_scope_applies = true for this product
+              endcomment
+              assign tier_scope_applies = true
               break
             endif
           endif
