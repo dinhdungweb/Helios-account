@@ -181,8 +181,10 @@
 
           // Always use draft order for tier customers (handled by tier-draft-order.js)
           console.log('[TierCheckoutButton] Customer has tier, using draft order');
+          console.log('[TierCheckoutButton] Dispatching tier:create-draft-order event');
           const event = new CustomEvent('tier:create-draft-order');
           document.dispatchEvent(event);
+          console.log('[TierCheckoutButton] Event dispatched');
 
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
