@@ -94,6 +94,7 @@
     // Build items with tier discounts
     const items = await Promise.all(cart.items.map(async (item) => {
       let discountPercent = 0;
+      let foundWrapper = false;
       
       // Try to get discount from cart drawer first (if available)
       // Match by variant_id, NOT by index
@@ -103,21 +104,28 @@
         if (variantIdAttr && parseInt(variantIdAttr) === item.variant_id) {
           const wrapper = cartItem.querySelector('.tier-pricing-wrapper');
           if (wrapper) {
+            foundWrapper = true;
             discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
             console.log('[TierDraftOrder] Got discount from cart drawer:', { 
               product: item.product_title, 
               variant: item.variant_id,
-              percent: discountPercent 
+              percent: discountPercent,
+              source: 'cart_drawer_wrapper'
             });
             break;
           }
         }
       }
       
-      // If cart drawer not available or no discount found, calculate discount
-      if (discountPercent === 0) {
+      // Only calculate discount if wrapper NOT found
+      // If wrapper found with discount=0, trust Liquid's scope check
+      if (!foundWrapper) {
         discountPercent = await getItemTierDiscount(item);
-        console.log('[TierDraftOrder] Calculated discount:', { product: item.product_title, percent: discountPercent });
+        console.log('[TierDraftOrder] Calculated discount:', { 
+          product: item.product_title, 
+          percent: discountPercent,
+          source: 'calculated'
+        });
       }
 
       return {
