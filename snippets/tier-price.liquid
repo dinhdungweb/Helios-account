@@ -300,6 +300,17 @@
     endif
   endif
   
+  comment ============================================
+    FINAL CHECK: Only apply tier discount if scope allows
+    Reset tier info if scope doesn't apply
+  ============================================
+  endcomment
+  unless tier_scope_applies
+    assign tier_discount = 0
+    assign tier_name = ""
+    assign has_tier = false
+  endunless
+  
   comment Tính giá tier
   endcomment
   assign discount_multiplier = 100 | minus: tier_discount | divided_by: 100.0
