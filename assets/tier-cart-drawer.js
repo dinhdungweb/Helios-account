@@ -11,9 +11,6 @@
   async function updateCartDrawer() {
     console.log('[TierCartDrawer] Updating cart drawer...');
     
-    // Liquid template already calculated discount correctly
-    // We just need to update checkout button behavior
-    
     // Get customer tier info
     const customerTier = sessionStorage.getItem('helios_customer_tier');
     
@@ -24,57 +21,13 @@
     
     console.log('[TierCartDrawer] Customer tier:', customerTier);
     
-    // Check if cart has mixed discounts by checking tier-pricing-wrapper in cart items
-    const hasMixedDiscounts = await checkForMixedDiscounts();
+    // ALWAYS use draft order when customer has tier discount
+    // This ensures accurate line item discounts and prevents discount code
+    // from applying to items outside scope
+    console.log('[TierCartDrawer] Customer has tier, will use draft order for accurate pricing');
     
-    console.log('[TierCartDrawer] Has mixed discounts:', hasMixedDiscounts);
-    
-    // Update checkout button
-    updateCheckoutButton(hasMixedDiscounts);
-  }
-  
-  async function checkForMixedDiscounts() {
-    // Get cart data
-    const cartResponse = await fetch('/cart.js');
-    const cart = await cartResponse.json();
-    
-    // Check all cart item wrappers for different discount percentages
-    const itemWrappers = document.querySelectorAll('.cart-drawer-item .tier-pricing-wrapper');
-    
-    if (itemWrappers.length === 0) return false;
-    
-    // Check if number of items with tier pricing matches total cart items
-    // If not, we have items outside scope that shouldn't get discount
-    if (itemWrappers.length < cart.items.length) {
-      console.log('[TierCartDrawer] Cart has items outside tier scope:', itemWrappers.length, 'vs', cart.items.length);
-      return true; // Force draft order
-    }
-    
-    let firstDiscount = null;
-    let hasZeroDiscount = false;
-    
-    for (const wrapper of itemWrappers) {
-      const discount = parseFloat(wrapper.dataset.tierDiscount || 0);
-      
-      if (discount === 0) {
-        hasZeroDiscount = true;
-      }
-      
-      if (firstDiscount === null) {
-        firstDiscount = discount;
-      } else if (firstDiscount !== discount) {
-        console.log('[TierCartDrawer] Mixed discounts detected:', firstDiscount, 'vs', discount);
-        return true;
-      }
-    }
-    
-    // If any item has 0% discount, we need draft order to prevent applying discount to it
-    if (hasZeroDiscount && firstDiscount > 0) {
-      console.log('[TierCartDrawer] Cart has items with 0% discount mixed with tier items');
-      return true;
-    }
-    
-    return false;
+    // Update checkout button to trigger draft order
+    updateCheckoutButton(true); // Always true = always use draft order
   }
   
 
