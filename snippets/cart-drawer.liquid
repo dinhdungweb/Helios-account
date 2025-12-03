@@ -328,6 +328,17 @@
                 {% endfor %}
               {% endif %}
               
+              {% comment %} DEBUG: Log item discount decision {% endcomment %}
+              <script>
+                console.log('[CartDrawer] Item: {{ item.product.title }}', {
+                  item_applies: {{ item_applies }},
+                  has_product_specific: {{ has_product_specific_discount }},
+                  discount_percent: {{ item_discount_percent }},
+                  collections: {{ item.product.collections | map: 'handle' | json }},
+                  tags: {{ item.product.tags | json }}
+                });
+              </script>
+              
               {% comment %} Apply discount if item qualifies (either by scope or product-specific tag) {% endcomment %}
               {% if item_applies or has_product_specific_discount %}
                 {% comment %} Calculate with correct discount percent {% endcomment %}

@@ -92,8 +92,19 @@
     }
 
     // Build items with tier discounts
-    const items = await Promise.all(cart.items.map(async item => {
-      const discountPercent = await getItemTierDiscount(item);
+    // Get discount info from tier-pricing-wrapper in cart drawer (already calculated by Liquid)
+    const items = cart.items.map((item, index) => {
+      // Find corresponding tier-pricing-wrapper in cart drawer
+      const cartItems = document.querySelectorAll('.cart-drawer-item');
+      let discountPercent = 0;
+      
+      if (cartItems[index]) {
+        const wrapper = cartItems[index].querySelector('.tier-pricing-wrapper');
+        if (wrapper) {
+          discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
+          console.log('[TierDraftOrder] Got discount from wrapper:', { product: item.product_title, percent: discountPercent });
+        }
+      }
 
       return {
         variant_id: item.variant_id,
@@ -101,7 +112,7 @@
         price: item.price / 100, // Convert from cents to dollars
         discount_percent: discountPercent
       };
-    }));
+    });
 
     console.log('[TierDraftOrder] Items with discounts:', items);
 
