@@ -98,8 +98,8 @@
       let foundWrapper = false;
       
       // PRIORITY 1: If called from product page "Mua ngay" button, use provided discount
-      // This is the most recent item added (last in cart)
-      if (eventDetail && eventDetail.fromProductPage && index === cart.items.length - 1) {
+      // Match by variant_id (not index, as adding existing item increases quantity)
+      if (eventDetail && eventDetail.fromProductPage && eventDetail.variantId && item.variant_id === eventDetail.variantId) {
         discountPercent = eventDetail.productDiscount || 0;
         console.log('[TierDraftOrder] Got discount from product page event:', { 
           product: item.product_title, 

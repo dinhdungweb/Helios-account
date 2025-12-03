@@ -79,33 +79,6 @@
     }, 100); // Small delay to ensure DOM is ready
   }
 
-  async function checkProductSpecificDiscount(cartItem) {
-    const customerTier = sessionStorage.getItem('helios_customer_tier');
-    if (!customerTier) return false;
-
-    try {
-      // Fetch product data
-      const productResponse = await fetch(`/products/${cartItem.handle}.js`);
-      const productData = await productResponse.json();
-
-      const tierNameNormalized = customerTier.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
-      const tagPrefix = `tier-${tierNameNormalized}-`;
-
-      // Check if product has tier-specific tag
-      for (const tag of productData.tags || []) {
-        const tagLower = tag.toLowerCase().trim();
-        if (tagLower.startsWith(tagPrefix)) {
-          console.log('[TierCheckoutButton] Found product-specific discount tag:', tag);
-          return true;
-        }
-      }
-    } catch (error) {
-      console.warn('[TierCheckoutButton] Could not check product tags:', error);
-    }
-
-    return false;
-  }
-
   function createCustomCheckoutButtons() {
     // Find all product forms
     const productForms = document.querySelectorAll('form[action*="/cart/add"]');
@@ -197,9 +170,6 @@
           const data = await response.json();
           console.log('[TierCheckoutButton] Added to cart:', data);
 
-          // Check if customer has tier (always use draft order for tier customers)
-          const customerTier = sessionStorage.getItem('helios_customer_tier');
-
           // Always use draft order for tier customers
           console.log('[TierCheckoutButton] Customer has tier, using draft order');
           
@@ -229,11 +199,12 @@
             const event = new CustomEvent('tier:create-draft-order', {
               detail: {
                 productDiscount: tierDiscount,
-                fromProductPage: true
+                fromProductPage: true,
+                variantId: data.variant_id // Pass variant_id to match in cart
               }
             });
             document.dispatchEvent(event);
-            console.log('[TierCheckoutButton] Event dispatched with discount:', tierDiscount);
+            console.log('[TierCheckoutButton] Event dispatched with discount:', tierDiscount, 'variant:', data.variant_id);
           }, 800); // Wait 800ms for cart to update
 
         } catch (error) {
