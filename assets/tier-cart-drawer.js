@@ -6,25 +6,17 @@
 (function() {
   'use strict';
   
-  console.log('[TierCartDrawer] Script loaded');
-  
   async function updateCartDrawer() {
-    console.log('[TierCartDrawer] Updating cart drawer...');
-    
     // Get customer tier info
     const customerTier = sessionStorage.getItem('helios_customer_tier');
     
     if (!customerTier) {
-      console.log('[TierCartDrawer] No customer tier found');
       return;
     }
-    
-    console.log('[TierCartDrawer] Customer tier:', customerTier);
     
     // ALWAYS use draft order when customer has tier discount
     // This ensures accurate line item discounts and prevents discount code
     // from applying to items outside scope
-    console.log('[TierCartDrawer] Customer has tier, will use draft order for accurate pricing');
     
     // Update checkout button to trigger draft order
     updateCheckoutButton(true); // Always true = always use draft order
@@ -39,14 +31,12 @@
       if (hasMixedDiscounts) {
         // Will use draft order - handled by tier-draft-order.js
         // DO NOT add discount code to URL
-        console.log('[TierCartDrawer] Mixed discounts or items outside scope detected, will use draft order');
         
         // Remove discount from URL if it was added before
         if (btn.tagName === 'A' && btn.href.includes('discount=')) {
           const url = new URL(btn.href, window.location.origin);
           url.searchParams.delete('discount');
           btn.href = url.toString();
-          console.log('[TierCartDrawer] Removed discount from checkout link');
         }
       } else {
         // Standard checkout with discount code
@@ -55,7 +45,6 @@
           const url = new URL(btn.href, window.location.origin);
           url.searchParams.set('discount', discountCode);
           btn.href = url.toString();
-          console.log('[TierCartDrawer] Updated checkout link:', btn.href);
         }
       }
     });

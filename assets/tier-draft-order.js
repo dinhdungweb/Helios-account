@@ -8,12 +8,9 @@
 
   const API_ENDPOINT = 'https://helios-tier-pricing-api-h543.vercel.app/api/create-draft-order';
 
-  console.log('[TierDraftOrder] Script loaded');
-
   // Listen for draft order creation event
   function setupEventListeners() {
     document.addEventListener('tier:create-draft-order', async function (e) {
-      console.log('[TierDraftOrder] Draft order event received', e.detail);
 
       try {
         // Pass event detail (may contain productDiscount from product page)
@@ -37,8 +34,6 @@
         if (shouldUseDraftOrder) {
           e.preventDefault();
           e.stopPropagation();
-
-          console.log('[TierDraftOrder] Customer has tier, using draft order');
 
           const originalText = checkoutBtn.textContent || checkoutBtn.value;
           checkoutBtn.disabled = true;
@@ -72,13 +67,9 @@
   }
 
   async function createDraftOrderCheckout(eventDetail) {
-    console.log('[TierDraftOrder] Creating draft order...', eventDetail);
-
     // Get current cart
     const cartResponse = await fetch('/cart.js');
     const cart = await cartResponse.json();
-
-    console.log('[TierDraftOrder] Current cart:', cart);
 
     if (!cart.items || cart.items.length === 0) {
       throw new Error('Cart is empty');
@@ -101,12 +92,6 @@
       // Match by variant_id (not index, as adding existing item increases quantity)
       if (eventDetail && eventDetail.fromProductPage && eventDetail.variantId && item.variant_id === eventDetail.variantId) {
         discountPercent = eventDetail.productDiscount || 0;
-        console.log('[TierDraftOrder] Got discount from product page event:', { 
-          product: item.product_title, 
-          variant: item.variant_id,
-          percent: discountPercent,
-          source: 'product_page_event'
-        });
         foundWrapper = true; // Mark as found to skip other checks
       }
       
@@ -121,12 +106,6 @@
             if (wrapper) {
               foundWrapper = true;
               discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
-              console.log('[TierDraftOrder] Got discount from cart drawer:', { 
-                product: item.product_title, 
-                variant: item.variant_id,
-                percent: discountPercent,
-                source: 'cart_drawer_wrapper'
-              });
               break;
             }
           }
@@ -137,11 +116,6 @@
       // If wrapper found with discount=0, trust Liquid's scope check
       if (!foundWrapper) {
         discountPercent = await getItemTierDiscount(item);
-        console.log('[TierDraftOrder] Calculated discount:', { 
-          product: item.product_title, 
-          percent: discountPercent,
-          source: 'calculated'
-        });
       }
 
       return {
@@ -151,8 +125,6 @@
         discount_percent: discountPercent
       };
     }));
-
-    console.log('[TierDraftOrder] Items with discounts:', items);
 
     // Call backend API
     const response = await fetch(API_ENDPOINT, {
@@ -173,7 +145,6 @@
     }
 
     const data = await response.json();
-    console.log('[TierDraftOrder] Draft order created:', data);
 
     // Clear cart before redirecting
     await fetch('/cart/clear.js', { method: 'POST' });
@@ -199,8 +170,6 @@
       productTags = item.product_tags || [];
     }
 
-    console.log('[TierDraftOrder] Product tags:', { product: item.product_title, tags: productTags });
-
     // Check for product-specific discount from tags
     const tierNameNormalized = customerTier.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
     const tagPrefix = `tier-${tierNameNormalized}-`;
@@ -212,7 +181,6 @@
         if (parts.length === 3) {
           const percent = parseInt(parts[2], 10);
           if (percent > 0 && percent <= 100) {
-            console.log('[TierDraftOrder] Product-specific discount:', { product: item.product_title, percent });
             return percent;
           }
         }
@@ -227,13 +195,11 @@
     const applies = checkTierApplies(tierScope, allowedTags, allowedCollections, productTags, item);
 
     if (!applies) {
-      console.log('[TierDraftOrder] Tier pricing does not apply to this product (scope mismatch):', item.product_title);
       return 0;
     }
 
     // Use default tier discount
     const defaultDiscount = getDefaultTierDiscount(customerTier);
-    console.log('[TierDraftOrder] Default tier discount:', { product: item.product_title, percent: defaultDiscount });
     return defaultDiscount;
   }
 
@@ -258,7 +224,6 @@
       // If wrapper exists, we trust Liquid's scope check (which CAN check collections)
       // If we reach here (no wrapper), we must be conservative and return FALSE
       // to avoid applying discount to products outside allowed collections
-      console.log('[TierDraftOrder] Cannot verify collections scope in JS, returning false for safety');
       return false;
     }
 

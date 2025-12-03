@@ -56,18 +56,11 @@
     // Tagged products
     if (scope === 'tagged') {
       if (!tierInfo.allowedTags) {
-        console.log('[TierPricingFinal] Tagged scope but no allowedTags configured');
         return false;
       }
       const allowedTags = tierInfo.allowedTags.split(',').map(t => t.trim().toLowerCase());
       const productTags = (product.tags || []).map(t => t.toLowerCase());
-      const applies = allowedTags.some(tag => productTags.includes(tag));
-      console.log('[TierPricingFinal] Tagged scope check:', {
-        allowedTags,
-        productTags,
-        applies
-      });
-      return applies;
+      return allowedTags.some(tag => productTags.includes(tag));
     }
     
     // Collections

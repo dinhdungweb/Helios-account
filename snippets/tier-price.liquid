@@ -322,26 +322,7 @@
   endif
 %}
 
-{% comment %} DEBUG: Log product info {% endcomment %}
-{% if product %}
-  <script>
-    console.log('[TierPrice] Product info:', {
-      id: '{{ product.id }}',
-      handle: '{{ product.handle }}',
-      tags: {{ product.tags | json }},
-      tagsCount: {{ product.tags.size }},
-      tierScope: '{{ tier_scope }}',
-      tierApplies: {{ tier_scope_applies }},
-      tierDiscount: {{ tier_discount }},
-      allowedTags: '{{ settings.tier_pricing_product_tags }}',
-      allowedCollections: '{{ settings.tier_pricing_collection_handles }}'
-    });
-  </script>
-{% else %}
-  <script>
-    console.log('[TierPrice] No product object passed to snippet');
-  </script>
-{% endif %}
+
 
 <div class="tier-pricing-wrapper tier-pricing-injected" 
      data-tier="{{ tier_name }}"

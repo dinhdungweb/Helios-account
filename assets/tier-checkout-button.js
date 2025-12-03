@@ -6,23 +6,17 @@
 (function () {
   'use strict';
 
-  console.log('[TierCheckoutButton] Script loaded');
-
   function initTierCheckout() {
-    console.log('[TierCheckoutButton] Initializing...');
-
     // Wait a bit for tier-pricing-wrapper to be rendered by Liquid
     setTimeout(() => {
       // Find ALL tier-pricing-wrappers on page
       const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
-      console.log('[TierCheckoutButton] Found tier wrappers:', allWrappers.length);
       
       // Filter to find wrapper for MAIN PRODUCT only (exclude cart drawer, recommendations)
       let tierWrapper = null;
       for (const wrapper of allWrappers) {
         // Skip if wrapper is inside cart drawer or recommendations
         if (wrapper.closest('.cart-drawer, [data-recommend], .recommend-products, .cart-items')) {
-          console.log('[TierCheckoutButton] Skipping wrapper from cart/recommend');
           continue;
         }
         
@@ -30,13 +24,11 @@
         const isInProductArea = wrapper.closest('.product-area, .product-single, main.main-content, .product-template');
         if (isInProductArea) {
           tierWrapper = wrapper;
-          console.log('[TierCheckoutButton] Found wrapper in main product area');
           break;
         }
       }
       
       if (!tierWrapper) {
-        console.log('[TierCheckoutButton] No tier wrapper found for main product, exiting');
         return;
       }
 
@@ -44,34 +36,22 @@
       const hasCustomer = tierWrapper.dataset.hasCustomer === 'true';
       const customerTier = tierWrapper.dataset.customerTier || '';
 
-      console.log('[TierCheckoutButton] Main product tier info:', {
-        tierDiscount,
-        hasCustomer,
-        customerTier
-      });
-
       // Only show custom button if customer has tier discount
       if (!hasCustomer || tierDiscount === 0) {
-        console.log('[TierCheckoutButton] No customer or zero discount for this product, exiting');
         return;
       }
-
-      console.log('[TierCheckoutButton] ✓ Customer has tier discount, creating custom button');
 
       // Store tier info in sessionStorage IMMEDIATELY for other scripts to use
       if (customerTier) {
         sessionStorage.setItem('helios_customer_tier', customerTier);
         sessionStorage.setItem('helios_tier_discount_percent', tierDiscount);
-        console.log('[TierCheckoutButton] Stored tier info in sessionStorage:', { customerTier, tierDiscount });
       }
 
       // Hide Shopify dynamic checkout buttons
       const dynamicButtons = document.querySelectorAll('.shopify-payment-button');
-      console.log('[TierCheckoutButton] Found Shopify payment buttons:', dynamicButtons.length);
 
       dynamicButtons.forEach(btn => {
         btn.style.display = 'none';
-        console.log('[TierCheckoutButton] Hidden Shopify payment button');
       });
 
       // Create custom checkout buttons
@@ -82,14 +62,10 @@
   function createCustomCheckoutButtons() {
     // Find all product forms
     const productForms = document.querySelectorAll('form[action*="/cart/add"]');
-    console.log('[TierCheckoutButton] Found product forms:', productForms.length);
 
-    productForms.forEach((form, index) => {
-      console.log(`[TierCheckoutButton] Processing form ${index}`);
-
+    productForms.forEach((form) => {
       // Check if button already exists
       if (form.querySelector('.tier-checkout-button')) {
-        console.log('[TierCheckoutButton] Button already exists, skipping');
         return;
       }
 
@@ -97,11 +73,8 @@
       const addToCartBtn = form.querySelector('button[name="add"], input[name="add"], button[type="submit"]');
 
       if (!addToCartBtn) {
-        console.log('[TierCheckoutButton] No add to cart button found');
         return;
       }
-
-      console.log('[TierCheckoutButton] Found add to cart button:', addToCartBtn);
 
       // Force add to cart button to be block and full width
       addToCartBtn.style.display = 'block';
@@ -144,7 +117,6 @@
       // Click handler
       checkoutBtn.addEventListener('click', async function (e) {
         e.preventDefault();
-        console.log('[TierCheckoutButton] Mua ngay clicked');
 
         const originalText = this.textContent;
         this.disabled = true;
@@ -154,8 +126,6 @@
         try {
           // Get form data
           const formData = new FormData(form);
-
-          console.log('[TierCheckoutButton] Adding to cart...');
 
           // Add to cart
           const response = await fetch('/cart/add.js', {
@@ -168,11 +138,7 @@
           }
 
           const data = await response.json();
-          console.log('[TierCheckoutButton] Added to cart:', data);
 
-          // Always use draft order for tier customers
-          console.log('[TierCheckoutButton] Customer has tier, using draft order');
-          
           // Get discount from tier-pricing-wrapper on MAIN PRODUCT page (not cart/recommend)
           let tierWrapper = null;
           const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
@@ -191,10 +157,7 @@
           
           const tierDiscount = tierWrapper ? parseFloat(tierWrapper.dataset.tierDiscount || 0) : 0;
           
-          console.log('[TierCheckoutButton] Product tier discount:', tierDiscount, 'from wrapper:', !!tierWrapper);
-          
           // Trigger draft order immediately (cart already updated after successful add)
-          console.log('[TierCheckoutButton] Dispatching tier:create-draft-order event');
           const event = new CustomEvent('tier:create-draft-order', {
             detail: {
               productDiscount: tierDiscount,
@@ -203,7 +166,6 @@
             }
           });
           document.dispatchEvent(event);
-          console.log('[TierCheckoutButton] Event dispatched with discount:', tierDiscount, 'variant:', data.variant_id);
 
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
@@ -229,8 +191,6 @@
 
       // Insert wrapper after add to cart button
       addToCartBtn.parentNode.insertBefore(buttonWrapper, addToCartBtn.nextSibling);
-
-      console.log('[TierCheckoutButton] ✓ Created custom Mua ngay button');
     });
   }
 
