@@ -329,7 +329,12 @@
       id: '{{ product.id }}',
       handle: '{{ product.handle }}',
       tags: {{ product.tags | json }},
-      tagsCount: {{ product.tags.size }}
+      tagsCount: {{ product.tags.size }},
+      tierScope: '{{ tier_scope }}',
+      tierApplies: {{ tier_scope_applies }},
+      tierDiscount: {{ tier_discount }},
+      allowedTags: '{{ settings.tier_pricing_product_tags }}',
+      allowedCollections: '{{ settings.tier_pricing_collection_handles }}'
     });
   </script>
 {% else %}
