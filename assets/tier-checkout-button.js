@@ -38,10 +38,11 @@
 
       console.log('[TierCheckoutButton] ✓ Customer has tier discount, creating custom button');
 
-      // Store tier info in sessionStorage for other scripts to use
+      // Store tier info in sessionStorage IMMEDIATELY for other scripts to use
       if (customerTier) {
         sessionStorage.setItem('helios_customer_tier', customerTier);
         sessionStorage.setItem('helios_tier_discount_percent', tierDiscount);
+        console.log('[TierCheckoutButton] Stored tier info in sessionStorage:', { customerTier, tierDiscount });
       }
 
       // Hide Shopify dynamic checkout buttons
