@@ -189,6 +189,7 @@
   
   comment ============================================
     LOGIC PHÂN LOẠI TIER
+    Always run this if customer exists to determine tier name
   ============================================
   endcomment
   assign tier_discount = 0
@@ -196,7 +197,7 @@
   assign has_tier = false
   assign total_spent = 0
   
-  if tier_enabled and tier_scope_applies and customer
+  if tier_enabled and customer
     comment Tính tổng chi tiêu
     endcomment
     if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
@@ -265,9 +266,16 @@
       OVERRIDE DISCOUNT TỪ PRODUCT TAGS (Nếu có)
       Format: tier-{tier_name}-{percent}
       VD: tier-gold-15, tier-platinum-20, tier-blackdiamond-25
+      
+      If product has tier-specific tag, ALWAYS apply regardless of scope
     ============================================
     endcomment
     if has_tier and product and product.tags
+      comment If product has specific tag, force tier_scope_applies = true
+      endcomment
+      if has_product_specific_tag
+        assign tier_scope_applies = true
+      endif
       comment Remove spaces and convert to lowercase for matching
       endcomment
       assign tier_name_lower = tier_name | downcase | replace: ' ', '' | replace: '_', ''
