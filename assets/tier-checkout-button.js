@@ -203,11 +203,25 @@
           // Always use draft order for tier customers
           console.log('[TierCheckoutButton] Customer has tier, using draft order');
           
-          // Get discount from tier-pricing-wrapper on product page
-          const tierWrapper = document.querySelector('.tier-pricing-wrapper');
+          // Get discount from tier-pricing-wrapper on MAIN PRODUCT page (not cart/recommend)
+          let tierWrapper = null;
+          const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
+          for (const wrapper of allWrappers) {
+            // Skip wrappers from cart drawer or recommendations
+            if (wrapper.closest('.cart-drawer, [data-recommend], .recommend-products, .cart-items')) {
+              continue;
+            }
+            // Check if wrapper is in main product area
+            const isInProductArea = wrapper.closest('.product-area, .product-single, main.main-content, .product-template');
+            if (isInProductArea) {
+              tierWrapper = wrapper;
+              break;
+            }
+          }
+          
           const tierDiscount = tierWrapper ? parseFloat(tierWrapper.dataset.tierDiscount || 0) : 0;
           
-          console.log('[TierCheckoutButton] Product tier discount:', tierDiscount);
+          console.log('[TierCheckoutButton] Product tier discount:', tierDiscount, 'from wrapper:', !!tierWrapper);
           
           // Wait a bit for cart to update, then trigger draft order
           setTimeout(() => {
