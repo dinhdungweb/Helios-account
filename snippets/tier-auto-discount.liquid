@@ -100,12 +100,6 @@
         '{{ settings.tier_6_name | upcase }}': {{ settings.tier_6_discount | default: 0 }}
       };
       
-      console.log('[TierAutoDiscount] Setting sessionStorage:', {
-        customerTier,
-        totalSpent,
-        tierScope
-      });
-      
       // Store discount code and scope info for later use
       sessionStorage.removeItem('helios_tier_discount'); // Clear old discount code
       sessionStorage.setItem('helios_customer_tier', customerTier);
