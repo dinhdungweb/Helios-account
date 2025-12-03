@@ -179,12 +179,27 @@
           // Check if customer has tier (always use draft order for tier customers)
           const customerTier = sessionStorage.getItem('helios_customer_tier');
 
-          // Always use draft order for tier customers (handled by tier-draft-order.js)
+          // Always use draft order for tier customers
           console.log('[TierCheckoutButton] Customer has tier, using draft order');
-          console.log('[TierCheckoutButton] Dispatching tier:create-draft-order event');
-          const event = new CustomEvent('tier:create-draft-order');
-          document.dispatchEvent(event);
-          console.log('[TierCheckoutButton] Event dispatched');
+          
+          // Get discount from tier-pricing-wrapper on product page
+          const tierWrapper = document.querySelector('.tier-pricing-wrapper');
+          const tierDiscount = tierWrapper ? parseFloat(tierWrapper.dataset.tierDiscount || 0) : 0;
+          
+          console.log('[TierCheckoutButton] Product tier discount:', tierDiscount);
+          
+          // Wait a bit for cart to update, then trigger draft order
+          setTimeout(() => {
+            console.log('[TierCheckoutButton] Dispatching tier:create-draft-order event');
+            const event = new CustomEvent('tier:create-draft-order', {
+              detail: {
+                productDiscount: tierDiscount,
+                fromProductPage: true
+              }
+            });
+            document.dispatchEvent(event);
+            console.log('[TierCheckoutButton] Event dispatched with discount:', tierDiscount);
+          }, 800); // Wait 800ms for cart to update
 
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
