@@ -236,20 +236,14 @@
     // Collections
     if (scope === 'collections') {
       if (!allowedCollectionsStr) return false;
-      // Note: We can't easily check collections in JS without fetching product JSON which might not have collections
-      // However, for draft order, we can rely on the fact that if it's in the cart, we might need to assume true 
-      // OR fetch product JSON to check collections if possible.
-      // Since we already fetch product JSON in getItemTierDiscount, let's try to check collections if available.
-      // But product.js endpoint usually doesn't return collections. 
-      // Strategy: If scope is collections, we might need to be lenient or find another way.
-      // For now, let's assume true if we can't verify, OR strictly return false if we want to be safe.
-      // Better approach: The liquid template `tier-price.liquid` handles the display. 
-      // If we want to be strict, we should probably pass collection info to the cart item properties or similar.
-      // Given the limitations, let's check if we can get collections from the product fetch.
-      // Unfortunately /products/handle.js does NOT return collections.
-      // So for 'collections' scope, we will default to TRUE to avoid blocking valid discounts, 
-      // unless we can verify otherwise. This is a known limitation mentioned in the summary.
-      return true;
+      // Note: /products/handle.js does NOT return collections data
+      // We CANNOT verify collections in JS reliably
+      // IMPORTANT: This function should ONLY be called when wrapper is NOT found in cart drawer
+      // If wrapper exists, we trust Liquid's scope check (which CAN check collections)
+      // If we reach here (no wrapper), we must be conservative and return FALSE
+      // to avoid applying discount to products outside allowed collections
+      console.log('[TierDraftOrder] Cannot verify collections scope in JS, returning false for safety');
+      return false;
     }
 
     // Exclude tagged
