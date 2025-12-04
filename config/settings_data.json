@@ -119,6 +119,7 @@
     "tier_4_tag": "",
     "tier_4_discount": 19,
     "tier_4_color_start": "#fab320",
+    "tier_4_color_end": "#fdea3f",
     "tier_5_name": "SILVER",
     "tier_5_tag": "SILVER",
     "tier_5_discount": 17,
