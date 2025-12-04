@@ -36,7 +36,7 @@
   @media(max-width: 767px){
     .product-area__media .swiper-container:not(.swiper-container-horizontal) {
       padding-bottom: {{ 1 | divided_by: product.media.first.aspect_ratio | times: 100 }}%;
-      min-height: 300px; /* Đảm bảo có chiều cao tối thiểu khi chưa tải hình ảnh */
+      min-height: 300px; 
       position: relative;
       overflow: hidden;
     }
