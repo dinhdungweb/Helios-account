@@ -67,14 +67,6 @@
   }
 
   async function createDraftOrderCheckout(eventDetail) {
-    // Get current cart
-    const cartResponse = await fetch('/cart.js');
-    const cart = await cartResponse.json();
-
-    if (!cart.items || cart.items.length === 0) {
-      throw new Error('Cart is empty');
-    }
-
     // Get customer info
     const customerId = getCustomerId();
     const customerEmail = getCustomerEmail();
@@ -83,21 +75,33 @@
       throw new Error('Customer information not found');
     }
 
-    // Build items with tier discounts
-    const items = await Promise.all(cart.items.map(async (item, index) => {
-      let discountPercent = 0;
-      let foundWrapper = false;
-      
-      // PRIORITY 1: If called from product page "Mua ngay" button, use provided discount
-      // Match by variant_id (not index, as adding existing item increases quantity)
-      if (eventDetail && eventDetail.fromProductPage && eventDetail.variantId && item.variant_id === eventDetail.variantId) {
-        discountPercent = eventDetail.productDiscount || 0;
-        foundWrapper = true; // Mark as found to skip other checks
+    let items = [];
+
+    // Check if this is "Buy Now" mode (single item from product page)
+    if (eventDetail && eventDetail.buyNowMode && eventDetail.singleItem) {
+      // Buy Now: Only checkout this single item, ignore cart
+      items = [{
+        variant_id: eventDetail.singleItem.variant_id,
+        quantity: eventDetail.singleItem.quantity,
+        price: eventDetail.singleItem.price / 100, // Convert from cents to dollars
+        discount_percent: eventDetail.singleItem.discount_percent
+      }];
+    } else {
+      // Normal checkout: Get all items from cart
+      const cartResponse = await fetch('/cart.js');
+      const cart = await cartResponse.json();
+
+      if (!cart.items || cart.items.length === 0) {
+        throw new Error('Cart is empty');
       }
-      
-      // PRIORITY 2: Try to get discount from cart drawer (if available)
-      // Match by variant_id, NOT by index
-      if (!foundWrapper) {
+
+      // Build items with tier discounts
+      items = await Promise.all(cart.items.map(async (item) => {
+        let discountPercent = 0;
+        let foundWrapper = false;
+        
+        // Try to get discount from cart drawer (if available)
+        // Match by variant_id, NOT by index
         const cartItems = document.querySelectorAll('.cart-drawer-item');
         for (const cartItem of cartItems) {
           const variantIdAttr = cartItem.dataset.variantId || cartItem.getAttribute('data-variant-id');
@@ -110,21 +114,21 @@
             }
           }
         }
-      }
-      
-      // PRIORITY 3: Only calculate discount if wrapper NOT found
-      // If wrapper found with discount=0, trust Liquid's scope check
-      if (!foundWrapper) {
-        discountPercent = await getItemTierDiscount(item);
-      }
+        
+        // Only calculate discount if wrapper NOT found
+        // If wrapper found with discount=0, trust Liquid's scope check
+        if (!foundWrapper) {
+          discountPercent = await getItemTierDiscount(item);
+        }
 
-      return {
-        variant_id: item.variant_id,
-        quantity: item.quantity,
-        price: item.price / 100, // Convert from cents to dollars
-        discount_percent: discountPercent
-      };
-    }));
+        return {
+          variant_id: item.variant_id,
+          quantity: item.quantity,
+          price: item.price / 100, // Convert from cents to dollars
+          discount_percent: discountPercent
+        };
+      }));
+    }
 
     // Call backend API
     const response = await fetch(API_ENDPOINT, {
@@ -146,8 +150,11 @@
 
     const data = await response.json();
 
-    // Clear cart before redirecting
-    await fetch('/cart/clear.js', { method: 'POST' });
+    // Clear cart before redirecting (only if not Buy Now mode)
+    // Buy Now doesn't add to cart, so no need to clear
+    if (!eventDetail || !eventDetail.buyNowMode) {
+      await fetch('/cart/clear.js', { method: 'POST' });
+    }
 
     // Redirect to invoice
     window.location.href = data.invoice_url;

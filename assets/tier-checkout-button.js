@@ -126,20 +126,10 @@
         try {
           // Get form data
           const formData = new FormData(form);
+          const variantId = parseInt(formData.get('id'));
+          const quantity = parseInt(formData.get('quantity') || 1);
 
-          // Add to cart
-          const response = await fetch('/cart/add.js', {
-            method: 'POST',
-            body: formData
-          });
-
-          if (!response.ok) {
-            throw new Error('Failed to add to cart');
-          }
-
-          const data = await response.json();
-
-          // Get discount from tier-pricing-wrapper on MAIN PRODUCT page (not cart/recommend)
+          // Get discount from tier-pricing-wrapper on MAIN PRODUCT page
           let tierWrapper = null;
           const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
           for (const wrapper of allWrappers) {
@@ -157,12 +147,26 @@
           
           const tierDiscount = tierWrapper ? parseFloat(tierWrapper.dataset.tierDiscount || 0) : 0;
           
-          // Trigger draft order immediately (cart already updated after successful add)
+          // Get variant price from page
+          const variantInput = document.querySelector('[name="id"]');
+          let variantPrice = 0;
+          if (variantInput && typeof window.product !== 'undefined') {
+            const variant = window.product.variants.find(v => v.id == variantId);
+            if (variant) {
+              variantPrice = variant.price;
+            }
+          }
+          
+          // Trigger draft order immediately with single item (Buy Now = only this product)
           const event = new CustomEvent('tier:create-draft-order', {
             detail: {
-              productDiscount: tierDiscount,
-              fromProductPage: true,
-              variantId: data.variant_id // Pass variant_id to match in cart
+              buyNowMode: true, // Flag to indicate "Buy Now" - single item only
+              singleItem: {
+                variant_id: variantId,
+                quantity: quantity,
+                price: variantPrice,
+                discount_percent: tierDiscount
+              }
             }
           });
           document.dispatchEvent(event);
