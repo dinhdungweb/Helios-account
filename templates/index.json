@@ -55,13 +55,15 @@
         "image_KarRwm": {
           "type": "image",
           "settings": {
-            "slide_link": "",
-            "subheading": "Subheading",
-            "title": "Slideshow",
+            "image": "shopify://shop_images/z7287716314012_d99eea2754954e2c6799a73caa232861.jpg",
+            "mobile_image": "shopify://shop_images/z7287630029694_f75db0dffab379f8075deb8a2138fcee.jpg",
+            "slide_link": "shopify://collections/faith-collection",
+            "subheading": "",
+            "title": "",
             "title_size": 60,
             "title_width": 12,
             "heading_h1": false,
-            "text": "<p>and optional subtext</p>",
+            "text": "",
             "enlarge_text": true,
             "button_label": "",
             "overlay_position": "position--hcenter position--vcenter",
@@ -75,7 +77,7 @@
       ],
       "name": "Slideshow",
       "settings": {
-        "height": "fixed",
+        "height": "adapt",
         "height_desktop": 600,
         "height_mobile": 500,
         "full_width": true,
