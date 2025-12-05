@@ -112,6 +112,7 @@
     },
     "image_with_text_9H7MjK": {
       "type": "image-with-text",
+      "disabled": true,
       "name": "Media with text",
       "settings": {
         "subheading": "",
@@ -229,6 +230,7 @@
         "prize_ffLFQX",
         "prize_c6tMC3"
       ],
+      "disabled": true,
       "name": "Vòng Quay May Mắn",
       "settings": {
         "button_text": "QUAY",
