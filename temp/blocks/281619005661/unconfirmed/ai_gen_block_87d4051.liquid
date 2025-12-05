@@ -1,6 +1,548 @@
+{% doc %}
+  @prompt
+    Popup with countdownt title, text, button display only page
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-countdown-popup-overlay-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .ai-countdown-popup-overlay-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-countdown-popup-{{ ai_gen_id }} {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: {{ block.settings.popup_bg_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    padding: {{ block.settings.padding }}px;
+    max-width: {{ block.settings.popup_width }}px;
+    width: 90%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-countdown-popup-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .ai-countdown-popup-close-{{ ai_gen_id }} {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-countdown-popup-close-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-countdown-popup-content-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-countdown-popup-title-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color }};
+    font-size: {{ block.settings.title_size }}px;
+    margin: 0 0 20px;
+    font-weight: 600;
+  }
+
+  .ai-countdown-popup-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    margin: 0 0 30px;
+    line-height: 1.5;
+  }
+
+  .ai-countdown-timer-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .ai-countdown-unit-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+  }
+
+  .ai-countdown-number-{{ ai_gen_id }} {
+    background-color: {{ block.settings.timer_bg_color }};
+    color: {{ block.settings.timer_text_color }};
+    font-size: {{ block.settings.timer_size }}px;
+    font-weight: 700;
+    padding: 15px 10px;
+    border-radius: 8px;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-countdown-label-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: 12px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-countdown-popup-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+
+  .ai-countdown-popup-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-countdown-popup-{{ ai_gen_id }} {
+      padding: 30px 20px;
+    }
+
+    .ai-countdown-popup-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+    }
+
+    .ai-countdown-timer-{{ ai_gen_id }} {
+      gap: 10px;
+    }
+
+    .ai-countdown-unit-{{ ai_gen_id }} {
+      min-width: 50px;
+    }
+
+    .ai-countdown-number-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.timer_size }}px * 0.8);
+      padding: 12px 8px;
+      min-width: 50px;
+    }
+
+    .ai-countdown-popup-button-{{ ai_gen_id }} {
+      padding: 12px 30px;
+      font-size: calc({{ block.settings.button_text_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<countdown-popup-{{ ai_gen_id }} {{ block.shopify_attributes }}>
+  <div class="ai-countdown-popup-overlay-{{ ai_gen_id }}"></div>
+  
+  <div class="ai-countdown-popup-{{ ai_gen_id }}">
+    <button 
+      class="ai-countdown-popup-close-{{ ai_gen_id }}"
+      aria-label="Đóng popup"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="ai-countdown-popup-content-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-countdown-popup-title-{{ ai_gen_id }}">
+          {{ block.settings.title }}
+        </h2>
+      {% endif %}
+
+      {% if block.settings.text != blank %}
+        <div class="ai-countdown-popup-text-{{ ai_gen_id }}">
+          {{ block.settings.text }}
+        </div>
+      {% endif %}
+
+      <div class="ai-countdown-timer-{{ ai_gen_id }}">
+        <div class="ai-countdown-unit-{{ ai_gen_id }}">
+          <div class="ai-countdown-number-{{ ai_gen_id }}" data-days>00</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">Ngày</div>
+        </div>
+        <div class="ai-countdown-unit-{{ ai_gen_id }}">
+          <div class="ai-countdown-number-{{ ai_gen_id }}" data-hours>00</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">Giờ</div>
+        </div>
+        <div class="ai-countdown-unit-{{ ai_gen_id }}">
+          <div class="ai-countdown-number-{{ ai_gen_id }}" data-minutes>00</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">Phút</div>
+        </div>
+        <div class="ai-countdown-unit-{{ ai_gen_id }}">
+          <div class="ai-countdown-number-{{ ai_gen_id }}" data-seconds>00</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">Giây</div>
+        </div>
+      </div>
+
+      {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+        <a 
+          href="{{ block.settings.button_link }}" 
+          class="ai-countdown-popup-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</countdown-popup-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CountdownPopup{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.popup = this.querySelector('.ai-countdown-popup-{{ ai_gen_id }}');
+        this.overlay = this.querySelector('.ai-countdown-popup-overlay-{{ ai_gen_id }}');
+        this.closeBtn = this.querySelector('.ai-countdown-popup-close-{{ ai_gen_id }}');
+        this.daysEl = this.querySelector('[data-days]');
+        this.hoursEl = this.querySelector('[data-hours]');
+        this.minutesEl = this.querySelector('[data-minutes]');
+        this.secondsEl = this.querySelector('[data-seconds]');
+        
+        this.endDate = new Date('{{ block.settings.end_date }}').getTime();
+        this.delay = {{ block.settings.display_delay }} * 1000;
+        this.showOnce = {{ block.settings.show_once }};
+        this.cookieName = 'countdown_popup_{{ ai_gen_id }}_shown';
+      }
+
+      connectedCallback() {
+        if (this.showOnce && this.getCookie(this.cookieName)) {
+          return;
+        }
+
+        setTimeout(() => {
+          this.showPopup();
+        }, this.delay);
+
+        this.closeBtn.addEventListener('click', () => this.hidePopup());
+        this.overlay.addEventListener('click', () => this.hidePopup());
+
+        this.startCountdown();
+      }
+
+      showPopup() {
+        this.popup.classList.add('active');
+        this.overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        if (this.showOnce) {
+          this.setCookie(this.cookieName, 'true', 1);
+        }
+      }
+
+      hidePopup() {
+        this.popup.classList.remove('active');
+        this.overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      startCountdown() {
+        this.updateCountdown();
+        this.interval = setInterval(() => {
+          this.updateCountdown();
+        }, 1000);
+      }
+
+      updateCountdown() {
+        const now = new Date().getTime();
+        const distance = this.endDate - now;
+
+        if (distance < 0) {
+          clearInterval(this.interval);
+          this.daysEl.textContent = '00';
+          this.hoursEl.textContent = '00';
+          this.minutesEl.textContent = '00';
+          this.secondsEl.textContent = '00';
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        this.daysEl.textContent = String(days).padStart(2, '0');
+        this.hoursEl.textContent = String(hours).padStart(2, '0');
+        this.minutesEl.textContent = String(minutes).padStart(2, '0');
+        this.secondsEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = `expires=${date.toUTCString()}`;
+        document.cookie = `${name}=${value};${expires};path=/`;
+      }
+
+      disconnectedCallback() {
+        if (this.interval) {
+          clearInterval(this.interval);
+        }
+      }
+    }
+
+    customElements.define('countdown-popup-{{ ai_gen_id }}', CountdownPopup{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Countdown popup",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Nội dung"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề",
+      "default": "Ưu đãi đặc biệt!"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Văn bản",
+      "default": "Đừng bỏ lỡ cơ hội nhận ưu đãi độc quyền. Thời gian có hạn!"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Văn bản nút",
+      "default": "Mua ngay"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Liên kết nút"
+    },
+    {
+      "type": "header",
+      "content": "Đếm ngược"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "Ngày kết thúc",
+      "default": "2025-12-31 23:59:59",
+      "info": "Định dạng: YYYY-MM-DD HH:MM:SS"
+    },
+    {
+      "type": "header",
+      "content": "Hiển thị"
+    },
+    {
+      "type": "range",
+      "id": "display_delay",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "label": "Độ trễ hiển thị",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_once",
+      "label": "Chỉ hiển thị một lần",
+      "default": true,
+      "info": "Popup sẽ chỉ hiển thị một lần cho mỗi người dùng"
+    },
+    {
+      "type": "header",
+      "content": "Kích thước"
+    },
+    {
+      "type": "range",
+      "id": "popup_width",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "label": "Chiều rộng popup",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Bo góc popup",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Màu sắc popup"
+    },
+    {
+      "type": "color",
+      "id": "popup_bg_color",
+      "label": "Màu nền",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Màu tiêu đề",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu văn bản",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "header",
+      "content": "Kiểu chữ"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Cỡ chữ tiêu đề",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Cỡ chữ văn bản",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Bộ đếm thời gian"
+    },
+    {
+      "type": "range",
+      "id": "timer_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Cỡ chữ bộ đếm",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "timer_bg_color",
+      "label": "Màu nền bộ đếm",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "timer_text_color",
+      "label": "Màu chữ bộ đếm",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Nút"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Cỡ chữ nút",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Bo góc nút",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Màu nền nút",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Màu chữ nút",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Màu nền nút khi hover",
+      "default": "#ffe600"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown popup"
+    }
+  ]
+}
 {% endschema %}
