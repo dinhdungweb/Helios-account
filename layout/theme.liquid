@@ -329,24 +329,15 @@
       });
     }
   </script>
-  <script src="{{ 'price-range-filter.js' | asset_url }}" defer="defer"></script>
   
-  {% comment %} Tier Pricing Final - Intercept jQuery html() and handle quickbuy modal {% endcomment %}
+  {% comment %} Tier Pricing {% endcomment %}
   <script src="{{ 'tier-pricing-final.js' | asset_url }}" defer="defer"></script>
-  
-  {% comment %} Tier Checkout Button - Custom checkout button with tier discount {% endcomment %}
   <script src="{{ 'tier-checkout-button.js' | asset_url }}" defer="defer"></script>
-  
-  {% comment %} Tier Product Discount - Handle product-specific discount from tags {% endcomment %}
   <script src="{{ 'tier-product-discount.js' | asset_url }}" defer="defer"></script>
-  
-  {% comment %} Tier Cart Drawer - Update cart drawer with correct discount {% endcomment %}
   <script src="{{ 'tier-cart-drawer.js' | asset_url }}" defer="defer"></script>
-  
-  {% comment %} Tier Draft Order - Create draft order with line item discounts {% endcomment %}
   <script src="{{ 'tier-draft-order.js' | asset_url }}" defer="defer"></script>
   
-  {% comment %} Tier Auto Discount - Tự động apply discount code theo tier {% endcomment %}
+  {% comment %} Tier Auto Discount {% endcomment %}
   {% render 'tier-auto-discount' %}
 </body>
 </html>
