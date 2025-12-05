@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_RnWgY3": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -28,6 +29,62 @@
         "description": "",
         "button_label": "",
         "button_link": ""
+      }
+    },
+    "slideshow_AUtEr7": {
+      "type": "slideshow",
+      "blocks": {
+        "image_qbHR3Y": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7287629984073_3a966c3bc500e5a655e0a7b4a8e2c50c.jpg",
+            "mobile_image": "shopify://shop_images/z7287630047387_0a2c11536e641844731f96ec69295558.jpg",
+            "slide_link": "https://helios.vn/account",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "TRỞ THÀNH HỘI VIÊN",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_KarRwm": {
+          "type": "image",
+          "settings": {
+            "slide_link": "",
+            "subheading": "Subheading",
+            "title": "Slideshow",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "<p>and optional subtext</p>",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_qbHR3Y",
+        "image_KarRwm"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "fixed",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "featured_collection_WGhiFt": {
@@ -304,6 +361,7 @@
   },
   "order": [
     "background_video_responsive_RnWgY3",
+    "slideshow_AUtEr7",
     "featured_collection_WGhiFt",
     "two_banner_gUWcNj",
     "two_banner_C3RzCw",
