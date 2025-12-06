@@ -76,6 +76,19 @@
         return;
       }
 
+      // Don't show "Mua ngay" if product is sold out or unavailable
+      if (addToCartBtn.disabled || addToCartBtn.classList.contains('disabled')) {
+        return;
+      }
+
+      // Check if button text indicates sold out or pre-order
+      const btnText = (addToCartBtn.textContent || addToCartBtn.value || '').toLowerCase();
+      if (btnText.includes('hết hàng') || btnText.includes('sold out') || 
+          btnText.includes('unavailable') || btnText.includes('pre-order') ||
+          btnText.includes('đặt trước')) {
+        return;
+      }
+
       // Force add to cart button to be block and full width
       addToCartBtn.style.display = 'block';
       addToCartBtn.style.width = '100%';
