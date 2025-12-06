@@ -108,7 +108,7 @@
     "atc_locked_text_tag": "Sản phẩm bị khóa",
     "currency_code_enabled": true,
     "cart_currency_code_enabled": true,
-    "tier_pricing_enabled": false,
+    "tier_pricing_enabled": true,
     "tier_pricing_scope": "collections",
     "tier_pricing_product_tags": "tier-pricing",
     "tier_pricing_collection_handles": "tier-discount",
