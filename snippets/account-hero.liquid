@@ -1,0 +1,76 @@
+{% comment %}
+  Snippet: Account Hero Section
+  Usage: {% render 'account-hero', customer: customer, tier: tier, points: points, total_spent: total_spent, progress_percentage: progress_percentage, next_tier: next_tier, remaining_amount: remaining_amount %}
+{% endcomment %}
+
+<div class="account-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content wide-container">
+    <div class="hero-profile-flex">
+      <!-- Left: Avatar & Info -->
+      <div class="hero-identity">
+        <div class="hero-avatar">
+            <div class="avatar-ring"></div>
+            <!-- Avatar Image - Using a default or specific logic if available -->
+            <div class="avatar-img" style="background-image: url('https://cdn.shopify.com/s/files/1/0644/2958/8701/files/464413022_945803257578038_2084379289906124096_n.jpg?v=1764122552');"></div>
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-name">{{ customer.name }}</h1>
+          <div class="hero-email">{{ customer.email }}</div>
+          <div class="hero-tier-badge">{{ tier }} MEMBER</div>
+        </div>
+      </div>
+
+      <!-- Right: Stats & Progress -->
+      <div class="hero-stats-container">
+        <div class="hero-stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Tổng chi tiêu</span>
+            <span class="stat-value">
+                {% assign formatted_total_spent = total_spent | floor | split: '' | reverse %}
+                {% assign formatted_number = '' %}
+                {% for digit in formatted_total_spent %}
+                  {% assign remainder = forloop.index0 | modulo: 3 %}
+                  {% if remainder == 0 and forloop.index0 != 0 %}
+                    {% assign formatted_number = formatted_number | append: '.' %}
+                  {% endif %}
+                  {% assign formatted_number = formatted_number | append: digit %}
+                {% endfor %}
+                {{ formatted_number | split: '' | reverse | join: '' }} ₫
+            </span>
+          </div>
+          <div class="stat-item">
+             <span class="stat-label">Điểm thưởng</span>
+             <span class="stat-value">{{ points }}</span>
+          </div>
+        </div>
+
+        <div class="hero-progress-wrapper">
+          <div class="progress-info">
+             <span>Tiến trình thăng hạng</span>
+             <span>{{ progress_percentage }}%</span>
+          </div>
+          <div class="hero-progress-bar">
+            <div class="hero-progress-fill" style="width: {{ progress_percentage }}%;"></div>
+          </div>
+          <p class="hero-next-tier-msg">
+            {% if tier == "BLACK DIAMOND" %}
+              Bạn đã đạt hạng cao nhất!
+            {% else %}
+               {% assign formatted_remaining_amount = remaining_amount | floor | split: '' | reverse %}
+               {% assign formatted_remaining = '' %}
+               {% for digit in formatted_remaining_amount %}
+                 {% assign remainder = forloop.index0 | modulo: 3 %}
+                 {% if remainder == 0 and forloop.index0 != 0 %}
+                   {% assign formatted_remaining = formatted_remaining | append: '.' %}
+                 {% endif %}
+                 {% assign formatted_remaining = formatted_remaining | append: digit %}
+               {% endfor %}
+               Còn <strong>{{ formatted_remaining | split: '' | reverse | join: '' }} ₫</strong> để lên <strong>{{ next_tier }}</strong>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

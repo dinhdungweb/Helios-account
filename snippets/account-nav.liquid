@@ -1,0 +1,38 @@
+{% comment %}
+  Snippet: Account Navigation (Horizontal)
+{% endcomment %}
+
+<div class="account-nav-wrapper">
+  <div class="wide-container">
+    <ul class="account-nav-tabs">
+      <li class="nav-tab active" data-tab="rewards">
+        <span class="nav-text">Welcome</span>
+      </li>
+      <li class="nav-tab" data-tab="account">
+        <span class="nav-text">Tài Khoản</span>
+      </li>
+      <li class="nav-tab" data-tab="orders">
+        <span class="nav-text">Lịch Sử Mua Hàng</span>
+      </li>
+      <li class="nav-tab" data-tab="benefits">
+        <span class="nav-text">Quyền Lợi</span>
+      </li>
+      <li class="nav-tab" data-tab="discord">
+        <span class="nav-text">Cộng Đồng</span>
+      </li>
+      
+      {% comment %}Render Custom Tabs from Blocks{% endcomment %}
+      {% for block in section.blocks %}
+        {% if block.type == 'custom_tab' %}
+          <li class="nav-tab" data-tab="custom-tab-{{ block.id }}">
+            <span class="nav-text">{{ block.settings.title }}</span>
+          </li>
+        {% endif %}
+      {% endfor %}
+      
+      <li class="nav-tab logout-tab">
+        <a href="{{ routes.account_logout_url }}">Đăng Xuất</a>
+      </li>
+    </ul>
+  </div>
+</div>
