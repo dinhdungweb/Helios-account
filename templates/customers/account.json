@@ -50,14 +50,65 @@
     },
     "main": {
       "type": "main-account",
-      "settings": {
-        "content_black_diamond": "",
-        "content_diamond": "",
-        "content_platinum": "",
-        "content_gold": "",
-        "content_silver": "",
-        "content_member": ""
-      }
+      "blocks": {
+        "tier_black_diamond": {
+          "type": "tier_config",
+          "settings": {
+            "tier_tag": "BLACK DIAMOND",
+            "welcome_message": "<p>Chào mừng người anh em “kim cương đen” của Helios, bạn là phần không thể thiếu tạo nên Helios hôm nay và các đặc quyền cao cấp nhất sẽ được dành riêng cho bạn.</p>",
+            "benefits_content": "<p></p>"
+          }
+        },
+        "tier_diamond": {
+          "type": "tier_config",
+          "settings": {
+            "tier_tag": "DIAMOND",
+            "welcome_message": "<p>Chào mừng người anh em “kim cương” của Helios, top 1% khách hàng cao cấp nhất với những trải nghiệm và sản phẩm đặc quyền dành riêng cho sự đồng hành của bạn.</p>",
+            "benefits_content": "<p></p>"
+          }
+        },
+        "tier_platinum": {
+          "type": "tier_config",
+          "settings": {
+            "tier_tag": "PLATINUM",
+            "welcome_message": "<p>Chào mừng người anh em “bạch kim” của Helios, bạn thuộc nhóm khách hàng cao cấp với các ưu đãi và trải nghiệm luôn được ưu tiên.</p>",
+            "benefits_content": "<p></p>"
+          }
+        },
+        "tier_gold": {
+          "type": "tier_config",
+          "settings": {
+            "tier_tag": "GOLD",
+            "welcome_message": "<p>Chào mừng người anh em “vàng” của Helios, cảm ơn bạn đã chọn chúng tôi nhiều hơn một lần và hãy nhận lấy những đặc quyền như một lời cảm ơn.</p>",
+            "benefits_content": "<p></p>"
+          }
+        },
+        "tier_silver": {
+          "type": "tier_config",
+          "settings": {
+            "tier_tag": "SILVER",
+            "welcome_message": "<p>Chào mừng người anh em “bạc” của Helios, nơi bạn đã tìm được thứ thuộc về mình và tiếp tục đồng hành cùng chúng tôi.</p>",
+            "benefits_content": "<p></p>"
+          }
+        },
+        "tier_member": {
+          "type": "tier_config",
+          "settings": {
+            "tier_tag": "MEMBER",
+            "welcome_message": "<p>Chào mừng người anh em, hành trình của bạn với Helios đã bắt đầu và hãy sẵn sàng cho những bất ngờ thú vị nhất.</p>",
+            "benefits_content": "<p></p>"
+          }
+        }
+      },
+      "block_order": [
+        "tier_black_diamond",
+        "tier_diamond",
+        "tier_platinum",
+        "tier_gold",
+        "tier_silver",
+        "tier_member"
+      ],
+      "settings": {}
     },
     "rich_text_cnY8ed": {
       "type": "rich-text",

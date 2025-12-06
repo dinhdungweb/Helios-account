@@ -1,0 +1,41 @@
+{% comment %}
+  Snippet: Account Tier Content
+  Usage: {% render 'account-tier-content', tier: tier, type: 'welcome' %}
+  Params:
+    - tier: Current customer tier (e.g., 'GOLD')
+    - type: 'welcome' or 'benefits'
+{% endcomment %}
+
+{% assign content_found = false %}
+
+{% for block in section.blocks %}
+  {% if block.type == 'tier_config' %}
+    {% comment %}Check if tier matches. Case insensitive comparison is safer usually, but here strict match is fine as tags are controlled{% endcomment %}
+    {% if block.settings.tier_tag == tier %}
+      {% assign content_found = true %}
+      
+      {% if type == 'welcome' %}
+        {% if block.settings.welcome_message != blank %}
+          <div class="welcome-tier">
+            {{ block.settings.welcome_message }}
+          </div>
+        {% endif %}
+      {% elsif type == 'benefits' %}
+        {% if block.settings.benefits_content != blank %}
+          <div class="rte">
+            {{ block.settings.benefits_content }}
+          </div>
+        {% endif %}
+      {% endif %}
+      
+      {% break %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}Fallback for default welcome message if no block matches or for non-tiered members{% endcomment %}
+{% if content_found == false and type == 'welcome' %}
+  <div class="welcome-tier">
+    <span>Chào mừng bạn đến với Helios! Hành trình của bạn đã bắt đầu.</span>
+  </div>
+{% endif %}
