@@ -11,7 +11,6 @@
   "sections": {
     "background_video_responsive_RnWgY3": {
       "type": "background-video-responsive",
-      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -75,6 +74,7 @@
         "image_qbHR3Y",
         "image_KarRwm"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
