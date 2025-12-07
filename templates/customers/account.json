@@ -55,7 +55,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "BLACK DIAMOND",
-            "welcome_message": "<p>Chào mừng người anh em “kim cương đen” của Helios, bạn là phần không thể thiếu tạo nên Helios hôm nay và các đặc quyền cao cấp nhất sẽ được dành riêng cho bạn.</p>",
+            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
             "benefits_content": "<p></p>"
           }
         },
@@ -63,7 +63,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "DIAMOND",
-            "welcome_message": "<p>Chào mừng người anh em “kim cương” của Helios, top 1% khách hàng cao cấp nhất với những trải nghiệm và sản phẩm đặc quyền dành riêng cho sự đồng hành của bạn.</p>",
+            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
             "benefits_content": "<p></p>"
           }
         },
@@ -71,7 +71,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "PLATINUM",
-            "welcome_message": "<p>Chào mừng người anh em “bạch kim” của Helios, bạn thuộc nhóm khách hàng cao cấp với các ưu đãi và trải nghiệm luôn được ưu tiên.</p>",
+            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
             "benefits_content": "<p></p>"
           }
         },
@@ -79,7 +79,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "GOLD",
-            "welcome_message": "<p>Chào mừng người anh em “vàng” của Helios, cảm ơn bạn đã chọn chúng tôi nhiều hơn một lần và hãy nhận lấy những đặc quyền như một lời cảm ơn.</p>",
+            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
             "benefits_content": "<p></p>"
           }
         },
@@ -87,7 +87,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "SILVER",
-            "welcome_message": "<p>Chào mừng người anh em “bạc” của Helios, nơi bạn đã tìm được thứ thuộc về mình và tiếp tục đồng hành cùng chúng tôi.</p>",
+            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
             "benefits_content": "<p></p>"
           }
         },
@@ -95,7 +95,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "MEMBER",
-            "welcome_message": "<p>Chào mừng người anh em, hành trình của bạn với Helios đã bắt đầu và hãy sẵn sàng cho những bất ngờ thú vị nhất.</p>",
+            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
             "benefits_content": "<p></p>"
           }
         }
@@ -112,6 +112,7 @@
     },
     "rich_text_cnY8ed": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -146,6 +147,7 @@
       "block_order": [
         "product_ftkH97"
       ],
+      "disabled": true,
       "name": "Shop the look banner",
       "settings": {
         "title": "",
@@ -158,7 +160,7 @@
         "banner_width": 50,
         "show_secondary_image": false,
         "padding_top": "0",
-        "padding_bottom": "0"
+        "padding_bottom": "60"
       }
     },
     "image_with_text_9H7MjK": {
