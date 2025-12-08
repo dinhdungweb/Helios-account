@@ -30,6 +30,17 @@
   assign use_custom_metafield = settings.tier_use_custom_metafield
   
   comment ============================================
+    ĐỌC TIER NAMES TỪ SETTINGS (cần khai báo sớm cho PRIORITY 1)
+  ============================================
+  endcomment
+  assign tier_1_name = settings.tier_1_name
+  assign tier_2_name = settings.tier_2_name
+  assign tier_3_name = settings.tier_3_name
+  assign tier_4_name = settings.tier_4_name
+  assign tier_5_name = settings.tier_5_name
+  assign tier_6_name = settings.tier_6_name
+  
+  comment ============================================
     KIỂM TRA PHẠM VI ÁP DỤNG
   ============================================
   endcomment
@@ -147,34 +158,28 @@
   endcomment
   assign tier_scope_applies = tier_applies
   
-  comment Đọc config từng tier từ settings
+  comment Đọc config từng tier từ settings (tier names đã khai báo ở trên)
   endcomment
-  assign tier_1_name = settings.tier_1_name
   assign tier_1_tag = settings.tier_1_tag
   assign tier_1_discount = settings.tier_1_discount
   assign tier_1_threshold = settings.tier_1_threshold | plus: 0
   
-  assign tier_2_name = settings.tier_2_name
   assign tier_2_tag = settings.tier_2_tag
   assign tier_2_discount = settings.tier_2_discount
   assign tier_2_threshold = settings.tier_2_threshold | plus: 0
   
-  assign tier_3_name = settings.tier_3_name
   assign tier_3_tag = settings.tier_3_tag
   assign tier_3_discount = settings.tier_3_discount
   assign tier_3_threshold = settings.tier_3_threshold | plus: 0
   
-  assign tier_4_name = settings.tier_4_name
   assign tier_4_tag = settings.tier_4_tag
   assign tier_4_discount = settings.tier_4_discount
   assign tier_4_threshold = settings.tier_4_threshold | plus: 0
   
-  assign tier_5_name = settings.tier_5_name
   assign tier_5_tag = settings.tier_5_tag
   assign tier_5_discount = settings.tier_5_discount
   assign tier_5_threshold = settings.tier_5_threshold | plus: 0
   
-  assign tier_6_name = settings.tier_6_name
   assign tier_6_discount = settings.tier_6_discount
   
   comment Display settings
