@@ -280,7 +280,6 @@ body {
   border: 1px solid var(--helios-border);
   border-radius: 4px;
   overflow: hidden;
-  margin-bottom: 30px;
 }
 
 .welcome-card {
