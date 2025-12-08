@@ -12,7 +12,10 @@
   --helios-text-muted: #999999;
 }
 
-
+.wide-container {
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
 body {
   background-color: var(--helios-black);
