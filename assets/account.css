@@ -134,7 +134,6 @@ body {
 }
 
 .stat-value {
-  font-family: var(--helios-font-display);
   font-size: 24px;
   color: var(--helios-orange);
   font-weight: 600;
