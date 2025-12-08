@@ -79,12 +79,12 @@ body {
 }
 
 .hero-name {
-  font-family: var(--helios-font-display);
   text-transform: uppercase;
   font-weight: 700;
   margin: 0 0 5px;
   line-height: 1.1;
   letter-spacing: 1px;
+  text-align: left!important;
 }
 
 .hero-email {
