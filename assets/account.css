@@ -168,7 +168,7 @@ body {
 }
 
 .hero-progress-fill {
-  background: linear-gradient(90deg, #fab320, #ffeeaa);
+  background: #fab320;
   height: 100%;
   box-shadow: 0 0 10px rgba(250, 179, 32, 0.5);
   border-radius: 5px;
