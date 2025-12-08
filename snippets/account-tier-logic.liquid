@@ -11,7 +11,7 @@
     - remaining_amount
 {% endcomment %}
 
-<!-- Tính tổng chi tiêu -->
+{% comment %} Tính tổng chi tiêu {% endcomment %}
 {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
   {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
 {% else %}
@@ -20,7 +20,7 @@
 
 {% assign points = customer.metafields.rewards.points | default: 0 %}
 
-<!-- Kiểm tra tag khách hàng -->
+{% comment %} Kiểm tra tag khách hàng {% endcomment %}
 {% if customer.tags contains "BLACK DIAMOND" %}
   {% assign tier = "BLACK DIAMOND" %}
   {% assign next_tier = "MAX LEVEL" %}
@@ -42,7 +42,8 @@
   {% assign next_tier = "GOLD" %}
   {% assign next_tier_amount = 6000000 %}
 {% else %}
-  <!-- Nếu không có tag, xác định cấp bậc bằng tổng tiền đã chi -->
+
+  {% comment %} Nếu không có tag, xác định cấp bậc bằng tổng tiền đã chi {% endcomment %}
   {% if total_spent < 3000000 %}
     {% assign tier = "MEMBER" %}
     {% assign next_tier = "SILVER" %}
@@ -70,6 +71,6 @@
   {% endif %}
 {% endif %}
 
-<!-- Tính phần trăm tiến trình -->
+{% comment %} Tính phần trăm tiến trình {% endcomment %}
 {% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
 {% assign remaining_amount = next_tier_amount | minus: total_spent %}
