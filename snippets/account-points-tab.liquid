@@ -768,7 +768,11 @@
             </div>
           `;
           showModal('success', 'Đổi Điểm Thành Công', successHtml);
+          // Update points in tab
           document.getElementById('currentPointsDisplay').textContent = formatNumber(data.remaining_points);
+          // Update points in hero section
+          const heroPoints = document.getElementById('heroPointsDisplay');
+          if (heroPoints) heroPoints.textContent = formatNumber(data.remaining_points);
           loadHistory();
         } else {
           showModal('error', 'Đổi Điểm Thất Bại', `<p>${data.error}</p>`);
