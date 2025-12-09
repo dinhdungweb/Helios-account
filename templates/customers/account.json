@@ -55,7 +55,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "BLACK DIAMOND",
-            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
+            "welcome_message": "<h3>Chào mừng người anh em “kim cương đen” của Helios, bạn là phần không thể thiếu tạo nên Helios hôm nay và các đặc quyền cao cấp nhất sẽ được dành riêng cho bạn.</h3>",
             "benefits_content": ""
           }
         },
