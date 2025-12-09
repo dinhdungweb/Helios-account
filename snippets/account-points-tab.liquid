@@ -17,7 +17,7 @@
         <div class="points-hero-inner">
           <div class="points-stat">
             <span class="points-stat-label">Điểm Thưởng Hiện Có</span>
-            <span class="points-stat-value" id="currentPointsDisplay">{{ points }}</span>
+            <span class="points-stat-value" id="currentPointsDisplay" data-points="{{ points | default: 0 }}">{{ points | default: 0 }}</span>
           </div>
           <div class="points-stat">
             <span class="points-stat-label">Quy Đổi</span>
@@ -690,6 +690,18 @@
   const API_URL = '{{ rewards_api_url }}';
   const customerId = document.getElementById('acc-customerId')?.value;
   
+  // Format number with dot separator (Vietnamese style)
+  function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+  
+  // Format points display on load
+  const pointsDisplay = document.getElementById('currentPointsDisplay');
+  if (pointsDisplay) {
+    const rawPoints = parseInt(pointsDisplay.dataset.points) || 0;
+    pointsDisplay.textContent = formatNumber(rawPoints);
+  }
+  
   // Modal elements
   const modalOverlay = document.getElementById('pointsModalOverlay');
   const modalIcon = document.getElementById('modalIcon');
@@ -763,11 +775,11 @@
             </div>
             <div class="detail-row">
               <span class="detail-label">Điểm còn lại</span>
-              <span class="detail-value">${data.remaining_points.toLocaleString()}</span>
+              <span class="detail-value">${formatNumber(data.remaining_points)}</span>
             </div>
           `;
           showModal('success', 'Đổi Điểm Thành Công', successHtml);
-          document.getElementById('currentPointsDisplay').textContent = data.remaining_points;
+          document.getElementById('currentPointsDisplay').textContent = formatNumber(data.remaining_points);
           loadHistory();
         } else {
           showModal('error', 'Đổi Điểm Thất Bại', `<p>${data.error}</p>`);
@@ -796,15 +808,15 @@
         tbody.innerHTML = data.history.map(item => `
           <tr>
             <td data-label="Ngày">${new Date(item.date).toLocaleDateString('vi-VN')}</td>
-            <td data-label="Điểm">-${item.points_used.toLocaleString()}</td>
+            <td data-label="Điểm">-${formatNumber(item.points_used)}</td>
             <td data-label="Mã"><code>${item.discount_code}</code></td>
-            <td data-label="Giá trị">${item.amount_vnd.toLocaleString()} VND</td>
+            <td data-label="Giá trị">${formatNumber(item.amount_vnd)} VND</td>
           </tr>
         `).join('');
         
         if (data.points !== undefined) {
           const pointsDisplay = document.getElementById('currentPointsDisplay');
-          if (pointsDisplay) pointsDisplay.textContent = data.points;
+          if (pointsDisplay) pointsDisplay.textContent = formatNumber(data.points);
         }
       } else {
         tbody.innerHTML = '<tr><td colspan="4" class="empty-cell">Chưa có lịch sử đổi điểm</td></tr>';
