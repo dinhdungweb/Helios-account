@@ -7,106 +7,115 @@
 {% assign rewards_api_url = 'https://helios-tier-pricing-api-h543.vercel.app' %}
 
 <div class="points-exchange-wrapper">
-  
-  {% comment %}--- POINTS BALANCE ---{% endcomment %}
-  <div class="points-hero">
-    <div class="points-hero-inner">
-      <div class="points-stat">
-        <span class="points-stat-label">Điểm Thưởng Hiện Có</span>
-        <span class="points-stat-value" id="currentPointsDisplay">{{ points }}</span>
-      </div>
-      <div class="points-stat">
-        <span class="points-stat-label">Quy Đổi</span>
-        <span class="points-stat-info">1.000 điểm = 10.000 VND</span>
-      </div>
-    </div>
-  </div>
-
-  {% if points >= 5000 %}
-  {% comment %}--- EXCHANGE FORM ---{% endcomment %}
-  <div class="points-exchange-section">
-    <form id="account-reward-exchange-form">
-      <input type="hidden" id="acc-customerId" value="{{ customer.id }}">
+  <div class="points-two-columns">
+    
+    {% comment %}--- LEFT COLUMN: EXCHANGE ---{% endcomment %}
+    <div class="points-column points-column-left">
       
-      <div class="exchange-grid">
-        <label class="exchange-card">
-          <input type="radio" name="discount_value" value="50000" checked>
-          <div class="exchange-card-inner">
-            <span class="card-amount">50.000 VND</span>
-            <span class="card-points">5.000 điểm</span>
+      {% comment %}--- POINTS BALANCE ---{% endcomment %}
+      <div class="points-hero">
+        <div class="points-hero-inner">
+          <div class="points-stat">
+            <span class="points-stat-label">Điểm Thưởng Hiện Có</span>
+            <span class="points-stat-value" id="currentPointsDisplay">{{ points }}</span>
           </div>
-        </label>
-        
-        <label class="exchange-card">
-          <input type="radio" name="discount_value" value="100000">
-          <div class="exchange-card-inner">
-            <span class="card-amount">100.000 VND</span>
-            <span class="card-points">10.000 điểm</span>
+          <div class="points-stat">
+            <span class="points-stat-label">Quy Đổi</span>
+            <span class="points-stat-info">1.000 điểm = 10.000 VND</span>
           </div>
-        </label>
-        
-        <label class="exchange-card {% if points < 18000 %}is-locked{% endif %}">
-          <input type="radio" name="discount_value" value="200000" {% if points < 18000 %}disabled{% endif %}>
-          <div class="exchange-card-inner">
-            <span class="card-amount">200.000 VND</span>
-            <span class="card-points">18.000 điểm</span>
-            <span class="card-tag">SAVE 2K</span>
-          </div>
-        </label>
-        
-        <label class="exchange-card {% if points < 40000 %}is-locked{% endif %}">
-          <input type="radio" name="discount_value" value="500000" {% if points < 40000 %}disabled{% endif %}>
-          <div class="exchange-card-inner">
-            <span class="card-amount">500.000 VND</span>
-            <span class="card-points">40.000 điểm</span>
-            <span class="card-tag">SAVE 10K</span>
-          </div>
-        </label>
+        </div>
       </div>
-      
-      <button type="submit" class="dashboard-btn exchange-submit-btn" id="acc-exchange-btn">
-        <span class="btn-text">Đổi Điểm Ngay</span>
-        <span class="btn-loading" style="display:none;">
-          <span class="loading-spinner"></span>
-        </span>
-      </button>
-    </form>
-  </div>
-  {% else %}
-  {% comment %}--- NOT ENOUGH POINTS ---{% endcomment %}
-  <div class="points-insufficient-box">
-    <div class="insufficient-icon">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="12" y1="8" x2="12" y2="12"></line>
-        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-      </svg>
-    </div>
-    <p>Bạn cần ít nhất <strong>5.000 điểm</strong> để đổi mã giảm giá.</p>
-    <p class="current-points">Điểm hiện tại: <strong>{{ points }}</strong></p>
-  </div>
-  {% endif %}
 
-  {% comment %}--- HISTORY TABLE ---{% endcomment %}
-  <div class="points-history-section">
-    <h4 class="section-title">Lịch Sử Đổi Điểm</h4>
-    <div class="table-responsive">
-      <table class="dashboard-table" id="acc-reward-history">
-        <thead>
-          <tr>
-            <th>Ngày</th>
-            <th>Điểm Đã Dùng</th>
-            <th>Mã Giảm Giá</th>
-            <th>Giá Trị</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="4" class="loading-cell">Đang tải...</td></tr>
-        </tbody>
-      </table>
+      {% if points >= 5000 %}
+      {% comment %}--- EXCHANGE FORM ---{% endcomment %}
+      <div class="points-exchange-section">
+        <form id="account-reward-exchange-form">
+          <input type="hidden" id="acc-customerId" value="{{ customer.id }}">
+          
+          <div class="exchange-grid">
+            <label class="exchange-card">
+              <input type="radio" name="discount_value" value="50000" checked>
+              <div class="exchange-card-inner">
+                <span class="card-amount">50.000 VND</span>
+                <span class="card-points">5.000 điểm</span>
+              </div>
+            </label>
+            
+            <label class="exchange-card">
+              <input type="radio" name="discount_value" value="100000">
+              <div class="exchange-card-inner">
+                <span class="card-amount">100.000 VND</span>
+                <span class="card-points">10.000 điểm</span>
+              </div>
+            </label>
+            
+            <label class="exchange-card {% if points < 18000 %}is-locked{% endif %}">
+              <input type="radio" name="discount_value" value="200000" {% if points < 18000 %}disabled{% endif %}>
+              <div class="exchange-card-inner">
+                <span class="card-amount">200.000 VND</span>
+                <span class="card-points">18.000 điểm</span>
+                <span class="card-tag">SAVE 2K</span>
+              </div>
+            </label>
+            
+            <label class="exchange-card {% if points < 40000 %}is-locked{% endif %}">
+              <input type="radio" name="discount_value" value="500000" {% if points < 40000 %}disabled{% endif %}>
+              <div class="exchange-card-inner">
+                <span class="card-amount">500.000 VND</span>
+                <span class="card-points">40.000 điểm</span>
+                <span class="card-tag">SAVE 10K</span>
+              </div>
+            </label>
+          </div>
+          
+          <button type="submit" class="dashboard-btn exchange-submit-btn" id="acc-exchange-btn">
+            <span class="btn-text">Đổi Điểm Ngay</span>
+            <span class="btn-loading" style="display:none;">
+              <span class="loading-spinner"></span>
+            </span>
+          </button>
+        </form>
+      </div>
+      {% else %}
+      {% comment %}--- NOT ENOUGH POINTS ---{% endcomment %}
+      <div class="points-insufficient-box">
+        <div class="insufficient-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <p>Bạn cần ít nhất <strong>5.000 điểm</strong> để đổi mã giảm giá.</p>
+        <p class="current-points">Điểm hiện tại: <strong>{{ points }}</strong></p>
+      </div>
+      {% endif %}
+      
     </div>
+
+    {% comment %}--- RIGHT COLUMN: HISTORY ---{% endcomment %}
+    <div class="points-column points-column-right">
+      <div class="points-history-section">
+        <h4 class="section-title">Lịch Sử Đổi Điểm</h4>
+        <div class="table-responsive">
+          <table class="dashboard-table" id="acc-reward-history">
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Điểm</th>
+                <th>Mã Giảm Giá</th>
+                <th>Giá Trị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="4" class="loading-cell">Đang tải...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
   </div>
-  
 </div>
 
 {% comment %}--- RESULT MODAL ---{% endcomment %}
@@ -128,6 +137,14 @@
 /* Points Exchange - Helios V2 Style */
 .points-exchange-wrapper {
   max-width: 100%;
+}
+
+/* Two Column Layout */
+.points-two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
 }
 
 /* Points Hero Stats */
@@ -480,6 +497,24 @@
 }
 
 /* Responsive */
+@media (min-width: 1024px) {
+  /* Desktop: 2 columns layout */
+  .exchange-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1023px) {
+  /* Tablet and below: 1 column layout */
+  .points-two-columns {
+    grid-template-columns: 1fr;
+  }
+  
+  .exchange-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .exchange-grid {
     grid-template-columns: repeat(2, 1fr);
