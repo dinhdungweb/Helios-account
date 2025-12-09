@@ -153,9 +153,28 @@
 }
 
 .points-column-right {
-  max-height: 500px;
+  max-height: 516px;
   display: flex;
   flex-direction: column;
+}
+
+/* Custom Scrollbar */
+.table-responsive::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: var(--helios-dark-grey);
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--helios-border);
+  border-radius: 3px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: var(--helios-orange);
 }
 
 /* Points Hero Stats */
