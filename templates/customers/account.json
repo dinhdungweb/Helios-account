@@ -71,7 +71,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "PLATINUM",
-            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
+            "welcome_message": "<p>Chào mừng người anh em “bạch kim” của Helios, bạn thuộc nhóm khách hàng cao cấp với các ưu đãi và trải nghiệm luôn được ưu tiên.</p>",
             "benefits_content": ""
           }
         },
@@ -79,7 +79,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "GOLD",
-            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
+            "welcome_message": "<p>Chào mừng người anh em “vàng” của Helios, cảm ơn bạn đã chọn chúng tôi nhiều hơn một lần và hãy nhận lấy những đặc quyền như một lời cảm ơn.</p>",
             "benefits_content": ""
           }
         },
