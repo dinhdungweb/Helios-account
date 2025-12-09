@@ -144,7 +144,18 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
-  align-items: start;
+  align-items: stretch;
+}
+
+.points-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.points-column-right {
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Points Hero Stats */
@@ -347,6 +358,9 @@
   border: 1px solid var(--helios-border);
   padding: 0;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .points-column-right .points-history-section {
@@ -367,6 +381,8 @@
 
 .table-responsive {
   overflow-x: auto;
+  overflow-y: auto;
+  flex: 1;
 }
 
 #acc-reward-history {
