@@ -343,17 +343,79 @@
 
 /* History Section */
 .points-history-section {
-  margin-top: 30px;
+  background: var(--helios-dark-grey);
+  border: 1px solid var(--helios-border);
+  padding: 0;
+  height: 100%;
+}
+
+.points-column-right .points-history-section {
+  margin-top: 0;
 }
 
 .section-title {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--helios-text-muted);
-  margin: 0 0 20px;
-  padding-bottom: 15px;
+  color: #fff;
+  margin: 0;
+  padding: 20px 25px;
+  background: rgba(255,255,255,0.02);
   border-bottom: 1px solid var(--helios-border);
+  border-left: 4px solid var(--helios-orange);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+#acc-reward-history {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#acc-reward-history th {
+  text-align: left;
+  padding: 15px 20px;
+  color: var(--helios-text-muted);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: rgba(0,0,0,0.3);
+  border-bottom: 1px solid var(--helios-border);
+  white-space: nowrap;
+}
+
+#acc-reward-history td {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--helios-border);
+  color: #ccc;
+  font-size: 14px;
+}
+
+#acc-reward-history tbody tr:nth-child(even) {
+  background: rgba(255,255,255,0.02);
+}
+
+#acc-reward-history tbody tr:hover {
+  background: rgba(250, 179, 32, 0.05);
+}
+
+#acc-reward-history tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Value column - highlight */
+#acc-reward-history td:last-child {
+  color: var(--helios-orange);
+  font-weight: 600;
+}
+
+/* Points column - negative */
+#acc-reward-history td:nth-child(2) {
+  color: #ff6b6b;
+  font-weight: 500;
 }
 
 .loading-cell,
@@ -361,15 +423,52 @@
   text-align: center;
   color: var(--helios-text-muted);
   font-style: italic;
-  padding: 30px !important;
+  padding: 40px 20px !important;
+  background: transparent !important;
 }
 
 #acc-reward-history code {
+  display: inline-block;
   background: var(--helios-orange);
   color: #000;
-  padding: 3px 8px;
-  font-weight: 600;
-  font-size: 12px;
+  padding: 4px 10px;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile: Card style for history */
+@media (max-width: 600px) {
+  #acc-reward-history thead {
+    display: none;
+  }
+  
+  #acc-reward-history tbody tr {
+    display: block;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--helios-border);
+    background: transparent;
+  }
+  
+  #acc-reward-history tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.02);
+  }
+  
+  #acc-reward-history td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border: none;
+  }
+  
+  #acc-reward-history td::before {
+    content: attr(data-label);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--helios-text-muted);
+    font-weight: 600;
+  }
 }
 
 /* Modal Styles */
@@ -661,10 +760,10 @@
       if (data.history && data.history.length > 0) {
         tbody.innerHTML = data.history.map(item => `
           <tr>
-            <td>${new Date(item.date).toLocaleDateString('vi-VN')}</td>
-            <td>-${item.points_used.toLocaleString()}</td>
-            <td><code>${item.discount_code}</code></td>
-            <td>${item.amount_vnd.toLocaleString()} VND</td>
+            <td data-label="Ngày">${new Date(item.date).toLocaleDateString('vi-VN')}</td>
+            <td data-label="Điểm">-${item.points_used.toLocaleString()}</td>
+            <td data-label="Mã"><code>${item.discount_code}</code></td>
+            <td data-label="Giá trị">${item.amount_vnd.toLocaleString()} VND</td>
           </tr>
         `).join('');
         
