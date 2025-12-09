@@ -63,7 +63,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "DIAMOND",
-            "welcome_message": "<p>Chào mừng người anh em “kim cương” của Helios, top 1% khách hàng cao cấp nhất với những trải nghiệm và sản phẩm đặc quyền dành riêng cho sự đồng hành của bạn.</p>",
+            "welcome_message": "<h3>Chào mừng người anh em “kim cương” của Helios, top 1% khách hàng cao cấp nhất với những trải nghiệm và sản phẩm đặc quyền dành riêng cho sự đồng hành của bạn.</h3>",
             "benefits_content": ""
           }
         },
@@ -71,7 +71,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "PLATINUM",
-            "welcome_message": "<p>Chào mừng người anh em “bạch kim” của Helios, bạn thuộc nhóm khách hàng cao cấp với các ưu đãi và trải nghiệm luôn được ưu tiên.</p>",
+            "welcome_message": "<h3>Chào mừng người anh em “bạch kim” của Helios, bạn thuộc nhóm khách hàng cao cấp với các ưu đãi và trải nghiệm luôn được ưu tiên.</h3>",
             "benefits_content": ""
           }
         },
@@ -79,7 +79,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "GOLD",
-            "welcome_message": "<p>Chào mừng người anh em “vàng” của Helios, cảm ơn bạn đã chọn chúng tôi nhiều hơn một lần và hãy nhận lấy những đặc quyền như một lời cảm ơn.</p>",
+            "welcome_message": "<h3>Chào mừng người anh em “vàng” của Helios, cảm ơn bạn đã chọn chúng tôi nhiều hơn một lần và hãy nhận lấy những đặc quyền như một lời cảm ơn.</h3>",
             "benefits_content": ""
           }
         },
