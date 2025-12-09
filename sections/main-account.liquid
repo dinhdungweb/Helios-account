@@ -120,6 +120,16 @@
       </div>
     </div>
 
+    {% comment %}--- TAB: POINTS EXCHANGE ---{% endcomment %}
+    <div id="points" class="dashboard-tab-content">
+      <div class="dashboard-card">
+        <h3 class="card-title">Đổi Điểm Thưởng</h3>
+        <div class="card-body">
+           {% render 'account-points-tab', points: points, customer: customer %}
+        </div>
+      </div>
+    </div>
+
     {% comment %}--- TAB: COMMUNITY ---{% endcomment %}
     <div id="discord" class="dashboard-tab-content">
       <div class="dashboard-card">

@@ -1,4 +1,6 @@
 {% assign customer_points = customer.metafields.rewards.points | default: 0 %}
+{% comment %} Cấu hình API URL - Thay đổi theo URL Vercel của bạn {% endcomment %}
+{% assign rewards_api_url = 'https://helios-tier-pricing-api.vercel.app' %}
 
 <div class="customer-rewards-points">
   <h1>Chương Trình Điểm Thưởng</h1>
@@ -187,16 +189,17 @@ document.getElementById("reward-exchange-form")?.addEventListener("submit", asyn
     const discountValue = document.getElementById("discountValue").value;
 
     try {
-        const response = await fetch("https://alabaster-ivy-glove.glitch.me/apps/reward-exchange", {
+        const response = await fetch("{{ rewards_api_url }}/api/rewards/exchange", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ customerId, customerEmail, discountValue: parseInt(discountValue) })
+            body: JSON.stringify({ customer_id: customerId, discount_value: parseInt(discountValue) })
         });
 
         const data = await response.json();
         if (response.ok) {
-            alert(`Mã giảm giá của bạn: ${data.discountCode}`);
+            alert(`Mã giảm giá của bạn: ${data.discount_code}\nĐiểm còn lại: ${data.remaining_points}`);
             fetchRewardHistory(); // Cập nhật lịch sử ngay sau khi đổi điểm
+            location.reload(); // Reload để cập nhật điểm hiển thị
         } else {
             alert(`Lỗi: ${data.error}`);
         }
@@ -217,7 +220,7 @@ const itemsPerPage = 10;
 
 async function fetchRewardHistory() {
     try {
-        const response = await fetch(`https://alabaster-ivy-glove.glitch.me/customer-reward-history?customer_id={{ customer.id }}`);
+        const response = await fetch(`{{ rewards_api_url }}/api/rewards/history?customer_id={{ customer.id }}`);
         if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
 
         const data = await response.json();

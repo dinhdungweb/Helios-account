@@ -1,0 +1,409 @@
+{% comment %}
+  Snippet: Account Points Tab Content
+  Tích hợp đổi điểm vào trang Account
+{% endcomment %}
+
+{% comment %} Cấu hình API URL - Thay đổi theo URL Vercel của bạn {% endcomment %}
+{% assign rewards_api_url = 'https://helios-tier-pricing-api.vercel.app' %}
+
+<div class="points-exchange-wrapper">
+  <div class="points-balance-card">
+    <div class="points-balance-header">
+      <span class="points-icon">🎁</span>
+      <div class="points-info">
+        <span class="points-label">Điểm Thưởng Hiện Có</span>
+        <span class="points-value" id="currentPointsDisplay">{{ points }}</span>
+      </div>
+    </div>
+    <div class="points-note">
+      Đổi điểm để nhận mã giảm giá độc quyền!
+    </div>
+  </div>
+
+  {% if points >= 5000 %}
+  <div class="exchange-section">
+    <h4>Đổi Điểm Lấy Voucher</h4>
+    <form id="account-reward-exchange-form">
+      <input type="hidden" id="acc-customerId" value="{{ customer.id }}">
+      
+      <div class="exchange-options">
+        <label class="exchange-option">
+          <input type="radio" name="discount_value" value="50000" checked>
+          <div class="option-content">
+            <span class="option-value">50.000đ</span>
+            <span class="option-points">5.000 điểm</span>
+          </div>
+        </label>
+        
+        <label class="exchange-option">
+          <input type="radio" name="discount_value" value="100000">
+          <div class="option-content">
+            <span class="option-value">100.000đ</span>
+            <span class="option-points">10.000 điểm</span>
+          </div>
+        </label>
+        
+        <label class="exchange-option {% if points < 18000 %}disabled{% endif %}">
+          <input type="radio" name="discount_value" value="200000" {% if points < 18000 %}disabled{% endif %}>
+          <div class="option-content">
+            <span class="option-value">200.000đ</span>
+            <span class="option-points">18.000 điểm</span>
+            <span class="option-bonus">Tiết kiệm 2.000 điểm!</span>
+          </div>
+        </label>
+        
+        <label class="exchange-option {% if points < 40000 %}disabled{% endif %}">
+          <input type="radio" name="discount_value" value="500000" {% if points < 40000 %}disabled{% endif %}>
+          <div class="option-content">
+            <span class="option-value">500.000đ</span>
+            <span class="option-points">40.000 điểm</span>
+            <span class="option-bonus">Tiết kiệm 10.000 điểm!</span>
+          </div>
+        </label>
+      </div>
+      
+      <button type="submit" class="exchange-btn" id="acc-exchange-btn">
+        <span class="btn-text">Đổi Điểm Ngay</span>
+        <span class="btn-loading" style="display:none;">
+          <span class="loading-spinner"></span>
+        </span>
+      </button>
+    </form>
+  </div>
+  {% else %}
+  <div class="points-insufficient">
+    <p>⚠️ Bạn cần ít nhất <strong>5.000 điểm</strong> để đổi mã giảm giá.</p>
+    <p class="points-current">Điểm hiện tại: <strong>{{ points }}</strong></p>
+  </div>
+  {% endif %}
+
+  <div class="history-section">
+    <h4>Lịch Sử Đổi Điểm</h4>
+    <div class="history-table-wrapper">
+      <table id="acc-reward-history">
+        <thead>
+          <tr>
+            <th>Ngày</th>
+            <th>Điểm</th>
+            <th>Mã Giảm Giá</th>
+            <th>Giá Trị</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4" class="loading-message">Đang tải...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+.points-exchange-wrapper {
+  max-width: 800px;
+}
+
+.points-balance-card {
+  background: linear-gradient(135deg, #fab320 0%, #f5a623 100%);
+  padding: 25px;
+  margin-bottom: 30px;
+  color: #121212;
+}
+
+.points-balance-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.points-icon {
+  font-size: 40px;
+}
+
+.points-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.points-label {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.points-value {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.points-note {
+  margin-top: 15px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.exchange-section {
+  background: #1e1e1e;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.exchange-section h4 {
+  margin: 0 0 20px;
+  color: #fab320;
+  font-size: 18px;
+}
+
+.exchange-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.exchange-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.exchange-option input {
+  position: absolute;
+  opacity: 0;
+}
+
+.exchange-option .option-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #2a2a2a;
+  border: 2px solid #333;
+  transition: all 0.3s;
+}
+
+.exchange-option input:checked + .option-content {
+  border-color: #fab320;
+  background: #333;
+}
+
+.exchange-option.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.option-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.option-points {
+  font-size: 14px;
+  color: #fab320;
+  margin-top: 5px;
+}
+
+.option-bonus {
+  font-size: 11px;
+  color: #4CAF50;
+  margin-top: 5px;
+  background: rgba(76, 175, 80, 0.2);
+  padding: 3px 8px;
+}
+
+.exchange-btn {
+  width: 100%;
+  padding: 15px;
+  background: #fab320;
+  color: #121212;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.exchange-btn:hover {
+  background: #e5a31d;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #121212;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.points-insufficient {
+  background: #2a2a2a;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.points-insufficient p {
+  margin: 10px 0;
+}
+
+.history-section {
+  background: #1e1e1e;
+  padding: 25px;
+}
+
+.history-section h4 {
+  margin: 0 0 20px;
+  color: #fab320;
+  font-size: 18px;
+}
+
+.history-table-wrapper {
+  overflow-x: auto;
+}
+
+#acc-reward-history {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#acc-reward-history th,
+#acc-reward-history td {
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid #333;
+}
+
+#acc-reward-history th {
+  background: #fab320;
+  color: #121212;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+#acc-reward-history tbody tr:nth-child(even) {
+  background: #2a2a2a;
+}
+
+#acc-reward-history tbody tr:hover {
+  background: #333;
+}
+
+.loading-message,
+.empty-message {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .exchange-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .points-value {
+    font-size: 28px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const API_URL = '{{ rewards_api_url }}';
+  const customerId = document.getElementById('acc-customerId')?.value;
+  
+  // Handle exchange form
+  const form = document.getElementById('account-reward-exchange-form');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById('acc-exchange-btn');
+      const btnText = btn.querySelector('.btn-text');
+      const btnLoading = btn.querySelector('.btn-loading');
+      
+      const discountValue = form.querySelector('input[name="discount_value"]:checked')?.value;
+      if (!discountValue) {
+        alert('Vui lòng chọn mức đổi điểm!');
+        return;
+      }
+      
+      // Show loading
+      btnText.style.display = 'none';
+      btnLoading.style.display = 'inline-block';
+      btn.disabled = true;
+      
+      try {
+        const response = await fetch(`${API_URL}/api/rewards/exchange`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customer_id: customerId,
+            discount_value: parseInt(discountValue)
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          alert(`🎉 Đổi điểm thành công!\n\nMã giảm giá: ${data.discount_code}\nGiá trị: ${parseInt(discountValue).toLocaleString()}đ\nĐiểm còn lại: ${data.remaining_points}`);
+          // Update points display
+          document.getElementById('currentPointsDisplay').textContent = data.remaining_points;
+          // Reload history
+          loadHistory();
+        } else {
+          alert(`❌ Lỗi: ${data.error}`);
+        }
+      } catch (error) {
+        console.error('Exchange error:', error);
+        alert('Có lỗi xảy ra, vui lòng thử lại!');
+      }
+      
+      // Hide loading
+      btnText.style.display = 'inline';
+      btnLoading.style.display = 'none';
+      btn.disabled = false;
+    });
+  }
+  
+  // Load history
+  async function loadHistory() {
+    const tbody = document.querySelector('#acc-reward-history tbody');
+    if (!tbody || !customerId) return;
+    
+    try {
+      const response = await fetch(`${API_URL}/api/rewards/history?customer_id=${customerId}`);
+      const data = await response.json();
+      
+      if (data.history && data.history.length > 0) {
+        tbody.innerHTML = data.history.map(item => `
+          <tr>
+            <td>${new Date(item.date).toLocaleDateString('vi-VN')}</td>
+            <td>-${item.points_used.toLocaleString()}</td>
+            <td><code>${item.discount_code}</code></td>
+            <td>${item.amount_vnd.toLocaleString()}đ</td>
+          </tr>
+        `).join('');
+        
+        // Update points display if available
+        if (data.points !== undefined) {
+          const pointsDisplay = document.getElementById('currentPointsDisplay');
+          if (pointsDisplay) pointsDisplay.textContent = data.points;
+        }
+      } else {
+        tbody.innerHTML = '<tr><td colspan="4" class="empty-message">Chưa có lịch sử đổi điểm</td></tr>';
+      }
+    } catch (error) {
+      console.error('Load history error:', error);
+      tbody.innerHTML = '<tr><td colspan="4" class="empty-message">Không thể tải lịch sử</td></tr>';
+    }
+  }
+  
+  // Load on page ready
+  loadHistory();
+})();
+</script>
