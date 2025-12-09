@@ -38,7 +38,18 @@
           </div>
           <div class="stat-item">
              <span class="stat-label">Điểm thưởng</span>
-             <span class="stat-value">{{ points }}</span>
+             <span class="stat-value">
+                {% assign formatted_points = points | floor | split: '' | reverse %}
+                {% assign formatted_points_str = '' %}
+                {% for digit in formatted_points %}
+                  {% assign remainder = forloop.index0 | modulo: 3 %}
+                  {% if remainder == 0 and forloop.index0 != 0 %}
+                    {% assign formatted_points_str = formatted_points_str | append: '.' %}
+                  {% endif %}
+                  {% assign formatted_points_str = formatted_points_str | append: digit %}
+                {% endfor %}
+                {{ formatted_points_str | split: '' | reverse | join: '' }}
+             </span>
           </div>
         </div>
 
