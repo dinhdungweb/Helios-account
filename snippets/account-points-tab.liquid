@@ -132,15 +132,13 @@
 </div>
 
 <style>
-/* Points Exchange - Helios V2 Style */
 .points-exchange-wrapper {
   max-width: 100%;
 }
 
-/* Two Column Layout */
 .points-two-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 30px;
   align-items: stretch;
 }
@@ -175,7 +173,6 @@
   background: var(--helios-orange);
 }
 
-/* Points Hero Stats */
 .points-hero {
   background: rgba(255,255,255,0.02);
   border: 1px solid var(--helios-border);
@@ -216,7 +213,6 @@
   color: #ccc;
 }
 
-/* Exchange Section */
 .points-exchange-section {
   margin-bottom: 40px;
 }
@@ -439,13 +435,11 @@
   border-bottom: none;
 }
 
-/* Value column - highlight */
 #acc-reward-history td:last-child {
   color: var(--helios-orange);
   font-weight: 600;
 }
 
-/* Points column - negative */
 #acc-reward-history td:nth-child(2) {
   color: #ff6b6b;
   font-weight: 500;
@@ -470,7 +464,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Mobile: Card style for history */
 @media (max-width: 600px) {
   #acc-reward-history thead {
     display: none;
@@ -630,14 +623,12 @@
 
 /* Responsive */
 @media (min-width: 1024px) {
-  /* Desktop: 2 columns layout */
   .exchange-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 1023px) {
-  /* Tablet and below: 1 column layout */
   .points-two-columns {
     grid-template-columns: 1fr;
   }
