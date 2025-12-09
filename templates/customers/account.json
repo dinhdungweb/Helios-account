@@ -56,7 +56,7 @@
           "settings": {
             "tier_tag": "BLACK DIAMOND",
             "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
-            "benefits_content": "<p></p>"
+            "benefits_content": ""
           }
         },
         "tier_diamond": {
@@ -64,7 +64,7 @@
           "settings": {
             "tier_tag": "DIAMOND",
             "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
-            "benefits_content": "<p></p>"
+            "benefits_content": ""
           }
         },
         "tier_platinum": {
@@ -72,7 +72,7 @@
           "settings": {
             "tier_tag": "PLATINUM",
             "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
-            "benefits_content": "<p></p>"
+            "benefits_content": ""
           }
         },
         "tier_gold": {
@@ -80,23 +80,23 @@
           "settings": {
             "tier_tag": "GOLD",
             "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
-            "benefits_content": "<p></p>"
+            "benefits_content": ""
           }
         },
         "tier_silver": {
           "type": "tier_config",
           "settings": {
             "tier_tag": "SILVER",
-            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
-            "benefits_content": "<p></p>"
+            "welcome_message": "<p>Chào mừng người anh em “bạc” của Helios, nơi bạn đã tìm được thứ thuộc về mình và tiếp tục đồng hành cùng chúng tôi.</p>",
+            "benefits_content": ""
           }
         },
         "tier_member": {
           "type": "tier_config",
           "settings": {
             "tier_tag": "MEMBER",
-            "welcome_message": "<p>Chào mừng bạn đến với Helios!</p>",
-            "benefits_content": "<p></p>"
+            "welcome_message": "<p>Chào mừng người anh em, hành trình của bạn với Helios đã bắt đầu và hãy sẵn sàng cho những bất ngờ thú vị nhất.</p>",
+            "benefits_content": ""
           }
         }
       },
