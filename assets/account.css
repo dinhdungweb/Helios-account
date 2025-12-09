@@ -105,8 +105,8 @@ body {
   margin-top: 10px;
   align-self: flex-start;
   clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Stats (Right) */
