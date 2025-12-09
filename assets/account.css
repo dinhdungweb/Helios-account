@@ -99,14 +99,12 @@ body {
   color: #000;
   font-weight: 800;
   text-transform: uppercase;
-  padding: 4px 12px;
+  padding: 4px 20px;
   border-radius: 2px;
   font-size: 12px;
   margin-top: 10px;
   align-self: flex-start;
   clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 /* Stats (Right) */
