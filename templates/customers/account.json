@@ -95,7 +95,7 @@
           "type": "tier_config",
           "settings": {
             "tier_tag": "MEMBER",
-            "welcome_message": "<p>Chào mừng người anh em, hành trình của bạn với Helios đã bắt đầu và hãy sẵn sàng cho những bất ngờ thú vị nhất.</p>",
+            "welcome_message": "<h3>Chào mừng người anh em, hành trình của bạn với Helios đã bắt đầu và hãy sẵn sàng cho những bất ngờ thú vị nhất.</h3>",
             "benefits_content": ""
           }
         }
