@@ -17,7 +17,7 @@
       </div>
       <div class="points-stat">
         <span class="points-stat-label">Quy Đổi</span>
-        <span class="points-stat-info">1.000 điểm = 10.000đ</span>
+        <span class="points-stat-info">1.000 điểm = 10.000 VND</span>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@
         <label class="exchange-card">
           <input type="radio" name="discount_value" value="50000" checked>
           <div class="exchange-card-inner">
-            <span class="card-amount">50.000đ</span>
+            <span class="card-amount">50.000 VND</span>
             <span class="card-points">5.000 điểm</span>
           </div>
         </label>
@@ -40,7 +40,7 @@
         <label class="exchange-card">
           <input type="radio" name="discount_value" value="100000">
           <div class="exchange-card-inner">
-            <span class="card-amount">100.000đ</span>
+            <span class="card-amount">100.000 VND</span>
             <span class="card-points">10.000 điểm</span>
           </div>
         </label>
@@ -48,7 +48,7 @@
         <label class="exchange-card {% if points < 18000 %}is-locked{% endif %}">
           <input type="radio" name="discount_value" value="200000" {% if points < 18000 %}disabled{% endif %}>
           <div class="exchange-card-inner">
-            <span class="card-amount">200.000đ</span>
+            <span class="card-amount">200.000 VND</span>
             <span class="card-points">18.000 điểm</span>
             <span class="card-tag">SAVE 2K</span>
           </div>
@@ -57,7 +57,7 @@
         <label class="exchange-card {% if points < 40000 %}is-locked{% endif %}">
           <input type="radio" name="discount_value" value="500000" {% if points < 40000 %}disabled{% endif %}>
           <div class="exchange-card-inner">
-            <span class="card-amount">500.000đ</span>
+            <span class="card-amount">500.000 VND</span>
             <span class="card-points">40.000 điểm</span>
             <span class="card-tag">SAVE 10K</span>
           </div>
@@ -118,7 +118,6 @@
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
-    <div class="modal-icon" id="modalIcon"></div>
     <h3 class="modal-title" id="modalTitle"></h3>
     <div class="modal-body" id="modalBody"></div>
     <button class="dashboard-btn modal-action-btn" id="modalActionBtn">Đóng</button>
@@ -532,19 +531,6 @@
   
   // Show modal
   function showModal(type, title, bodyHtml) {
-    const successIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="10"></circle>
-      <polyline points="9 12 12 15 16 10"></polyline>
-    </svg>`;
-    
-    const errorIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="15" y1="9" x2="9" y2="15"></line>
-      <line x1="9" y1="9" x2="15" y2="15"></line>
-    </svg>`;
-    
-    modalIcon.className = 'modal-icon ' + type;
-    modalIcon.innerHTML = type === 'success' ? successIcon : errorIcon;
     modalTitle.textContent = title;
     modalBody.innerHTML = bodyHtml;
     modalOverlay.classList.add('is-visible');
@@ -600,7 +586,7 @@
             <div class="discount-code">${data.discount_code}</div>
             <div class="detail-row">
               <span class="detail-label">Giá trị</span>
-              <span class="detail-value">${parseInt(discountValue).toLocaleString()}đ</span>
+              <span class="detail-value">${parseInt(discountValue).toLocaleString()} VND</span>
             </div>
             <div class="detail-row">
               <span class="detail-label">Điểm đã dùng</span>
@@ -643,7 +629,7 @@
             <td>${new Date(item.date).toLocaleDateString('vi-VN')}</td>
             <td>-${item.points_used.toLocaleString()}</td>
             <td><code>${item.discount_code}</code></td>
-            <td>${item.amount_vnd.toLocaleString()}đ</td>
+            <td>${item.amount_vnd.toLocaleString()} VND</td>
           </tr>
         `).join('');
         
