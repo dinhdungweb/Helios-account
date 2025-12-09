@@ -1,19 +1,19 @@
 {% paginate customer.addresses by 10 %}
 {% comment %} Account Addresses - Helios V2 Industrial Minimalist Style {% endcomment %}
 
-<div class="addresses-page">
-  <div class="addresses-container">
+<div class="addr-page">
+  <div class="addr-container">
     
     {% comment %}--- HEADER ---{% endcomment %}
-    <div class="addresses-header">
-      <a href="{{ routes.account_url }}" class="back-link">
+    <div class="addr-header">
+      <a href="{{ routes.account_url }}" class="addr-back-link">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15,18 9,12 15,6"></polyline>
         </svg>
         Quay lại tài khoản
       </a>
-      <h1 class="addresses-title">Địa Chỉ Của Tôi</h1>
-      <button type="button" class="btn-add-address" onclick="document.getElementById('addAddressForm').classList.toggle('is-visible')">
+      <h1 class="addr-title">Địa Chỉ Của Tôi</h1>
+      <button type="button" class="addr-btn-add" onclick="document.getElementById('addAddressForm').classList.toggle('is-visible')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -23,91 +23,91 @@
     </div>
 
     {% comment %}--- ADD ADDRESS FORM ---{% endcomment %}
-    <div id="addAddressForm" class="address-form-wrapper">
-      <div class="form-card">
-        <h3 class="form-title">Thêm Địa Chỉ Mới</h3>
+    <div id="addAddressForm" class="addr-form-wrapper">
+      <div class="addr-form-card">
+        <h3 class="addr-form-title">Thêm Địa Chỉ Mới</h3>
         {% form 'customer_address', customer.new_address %}
-        <div class="form-grid">
-          <div class="form-group">
+        <div class="addr-form-grid">
+          <div class="addr-field">
             <label for="address_first_name_new">Họ</label>
             <input type="text" id="address_first_name_new" name="address[first_name]" value="{{form.first_name}}" placeholder="Nhập họ">
           </div>
-          <div class="form-group">
+          <div class="addr-field">
             <label for="address_last_name_new">Tên</label>
             <input type="text" id="address_last_name_new" name="address[last_name]" value="{{form.last_name}}" placeholder="Nhập tên">
           </div>
-          <div class="form-group full-width">
+          <div class="addr-field addr-full">
             <label for="address_company_new">Công ty (tùy chọn)</label>
             <input type="text" id="address_company_new" name="address[company]" value="{{form.company}}" placeholder="Tên công ty">
           </div>
-          <div class="form-group full-width">
+          <div class="addr-field addr-full">
             <label for="address_address1_new">Địa chỉ</label>
             <input type="text" id="address_address1_new" name="address[address1]" value="{{form.address1}}" placeholder="Số nhà, tên đường">
           </div>
-          <div class="form-group full-width">
+          <div class="addr-field addr-full">
             <label for="address_address2_new">Địa chỉ bổ sung (tùy chọn)</label>
             <input type="text" id="address_address2_new" name="address[address2]" value="{{form.address2}}" placeholder="Căn hộ, tầng...">
           </div>
-          <div class="form-group">
+          <div class="addr-field">
             <label for="address_city_new">Thành phố</label>
             <input type="text" id="address_city_new" name="address[city]" value="{{form.city}}" placeholder="Thành phố">
           </div>
-          <div class="form-group">
+          <div class="addr-field">
             <label for="address_country_new">Quốc gia</label>
             <select id="address_country_new" name="address[country]" data-default="{{form.country}}">{{ all_country_option_tags }}</select>
           </div>
-          <div class="form-group" id="address_province_container_new" style="display:none">
+          <div class="addr-field" id="address_province_container_new" style="display:none">
             <label for="address_province_new">Tỉnh/Thành</label>
             <select id="address_province_new" name="address[province]" data-default="{{form.province}}"></select>
           </div>
-          <div class="form-group">
+          <div class="addr-field">
             <label for="address_zip_new">Mã bưu điện</label>
             <input type="text" id="address_zip_new" name="address[zip]" value="{{form.zip}}" placeholder="Mã bưu điện">
           </div>
-          <div class="form-group">
+          <div class="addr-field">
             <label for="address_phone_new">Số điện thoại</label>
             <input type="text" id="address_phone_new" name="address[phone]" value="{{form.phone}}" placeholder="Số điện thoại">
           </div>
-          <div class="form-group full-width checkbox-group">
-            <label class="checkbox-label">
+          <div class="addr-field addr-full addr-checkbox">
+            <label class="addr-checkbox-label">
               {{ form.set_as_default_checkbox }}
               <span>Đặt làm địa chỉ mặc định</span>
             </label>
           </div>
         </div>
-        <div class="form-actions">
-          <button type="submit" class="btn-primary">Thêm Địa Chỉ</button>
-          <button type="button" class="btn-secondary" onclick="document.getElementById('addAddressForm').classList.remove('is-visible')">Hủy</button>
+        <div class="addr-form-actions">
+          <button type="submit" class="addr-btn-primary">Thêm Địa Chỉ</button>
+          <button type="button" class="addr-btn-secondary" onclick="document.getElementById('addAddressForm').classList.remove('is-visible')">Hủy</button>
         </div>
         {% endform %}
       </div>
     </div>
 
     {% comment %}--- ADDRESS LIST ---{% endcomment %}
-    <div class="addresses-grid">
+    <div class="addr-grid">
       {% for address in customer.addresses %}
-      <div class="address-card" data-address-id="{{ address.id }}">
-        <div class="address-view" id="view_address_{{address.id}}">
+      <div class="addr-card" data-address-id="{{ address.id }}">
+        <div class="addr-view" id="view_address_{{address.id}}">
           {% if address == customer.default_address %}
-          <span class="default-badge">Mặc định</span>
+          <span class="addr-default-badge">Mặc định</span>
           {% endif %}
-          <div class="address-content">
-            <p class="address-name">{{ address.first_name }} {{ address.last_name }}</p>
-            {% if address.company != blank %}<p class="address-company">{{ address.company }}</p>{% endif %}
-            <p class="address-street">{{ address.street }}</p>
-            <p class="address-city">{{ address.city }}{% if address.province_code %}, {{ address.province_code }}{% endif %}</p>
-            <p class="address-country">{{ address.country }} {{ address.zip }}</p>
-            {% if address.phone != blank %}<p class="address-phone">{{ address.phone }}</p>{% endif %}
+          <div class="addr-content">
+            <p class="addr-name">{{ address.first_name }} {{ address.last_name }}</p>
+            {% if address.company != blank %}<p class="addr-company">{{ address.company }}</p>{% endif %}
+            <p class="addr-street">{{ address.street }}</p>
+            <p class="addr-city">{{ address.city }}{% if address.province_code %}, {{ address.province_code }}{% endif %}</p>
+            <p class="addr-country">{{ address.country }} {{ address.zip }}</p>
+            {% if address.phone != blank %}<p class="addr-phone">{{ address.phone }}</p>{% endif %}
           </div>
-          <div class="address-actions">
-            <button type="button" class="btn-edit" onclick="toggleEditAddress('{{ address.id }}')">
+          <div class="addr-actions">
+            <button type="button" class="addr-btn-edit" onclick="toggleEditAddress('{{ address.id }}')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
               </svg>
               Sửa
             </button>
-            <button type="button" class="btn-delete" onclick="deleteAddress('{{ address.url }}')">
+            <button type="button" class="addr-btn-delete" onclick="deleteAddress('{{ address.url }}')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -117,60 +117,60 @@
           </div>
         </div>
         
-        <div class="address-edit" id="edit_address_{{address.id}}" style="display:none">
-          <h3 class="form-title">Chỉnh Sửa Địa Chỉ</h3>
+        <div class="addr-edit" id="edit_address_{{address.id}}" style="display:none">
+          <h3 class="addr-form-title">Chỉnh Sửa Địa Chỉ</h3>
           {% form 'customer_address', address %}
-          <div class="form-grid">
-            <div class="form-group">
+          <div class="addr-form-grid">
+            <div class="addr-field">
               <label for="address_first_name_{{form.id}}">Họ</label>
               <input type="text" id="address_first_name_{{form.id}}" name="address[first_name]" value="{{form.first_name}}">
             </div>
-            <div class="form-group">
+            <div class="addr-field">
               <label for="address_last_name_{{form.id}}">Tên</label>
               <input type="text" id="address_last_name_{{form.id}}" name="address[last_name]" value="{{form.last_name}}">
             </div>
-            <div class="form-group full-width">
+            <div class="addr-field addr-full">
               <label for="address_company_{{form.id}}">Công ty</label>
               <input type="text" id="address_company_{{form.id}}" name="address[company]" value="{{form.company}}">
             </div>
-            <div class="form-group full-width">
+            <div class="addr-field addr-full">
               <label for="address_address1_{{form.id}}">Địa chỉ</label>
               <input type="text" id="address_address1_{{form.id}}" name="address[address1]" value="{{form.address1}}">
             </div>
-            <div class="form-group full-width">
+            <div class="addr-field addr-full">
               <label for="address_address2_{{form.id}}">Địa chỉ bổ sung</label>
               <input type="text" id="address_address2_{{form.id}}" name="address[address2]" value="{{form.address2}}">
             </div>
-            <div class="form-group">
+            <div class="addr-field">
               <label for="address_city_{{form.id}}">Thành phố</label>
               <input type="text" id="address_city_{{form.id}}" name="address[city]" value="{{form.city}}">
             </div>
-            <div class="form-group">
+            <div class="addr-field">
               <label for="address_country_{{form.id}}">Quốc gia</label>
               <select id="address_country_{{form.id}}" name="address[country]" data-default="{{form.country}}">{{ all_country_option_tags }}</select>
             </div>
-            <div class="form-group" id="address_province_container_{{form.id}}" style="display:none">
+            <div class="addr-field" id="address_province_container_{{form.id}}" style="display:none">
               <label for="address_province_{{form.id}}">Tỉnh/Thành</label>
               <select id="address_province_{{form.id}}" name="address[province]" data-default="{{form.province}}"></select>
             </div>
-            <div class="form-group">
+            <div class="addr-field">
               <label for="address_zip_{{form.id}}">Mã bưu điện</label>
               <input type="text" id="address_zip_{{form.id}}" name="address[zip]" value="{{form.zip}}">
             </div>
-            <div class="form-group">
+            <div class="addr-field">
               <label for="address_phone_{{form.id}}">Số điện thoại</label>
               <input type="text" id="address_phone_{{form.id}}" name="address[phone]" value="{{form.phone}}">
             </div>
-            <div class="form-group full-width checkbox-group">
-              <label class="checkbox-label">
+            <div class="addr-field addr-full addr-checkbox">
+              <label class="addr-checkbox-label">
                 {{ form.set_as_default_checkbox }}
                 <span>Đặt làm địa chỉ mặc định</span>
               </label>
             </div>
           </div>
-          <div class="form-actions">
-            <button type="submit" class="btn-primary">Cập Nhật</button>
-            <button type="button" class="btn-secondary" onclick="toggleEditAddress('{{ address.id }}')">Hủy</button>
+          <div class="addr-form-actions">
+            <button type="submit" class="addr-btn-primary">Cập Nhật</button>
+            <button type="button" class="addr-btn-secondary" onclick="toggleEditAddress('{{ address.id }}')">Hủy</button>
           </div>
           {% endform %}
         </div>
@@ -178,13 +178,13 @@
       {% endfor %}
       
       {% if customer.addresses.size == 0 %}
-      <div class="no-addresses">
+      <div class="addr-empty">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
           <circle cx="12" cy="10" r="3"></circle>
         </svg>
         <p>Bạn chưa có địa chỉ nào được lưu.</p>
-        <button type="button" class="btn-primary" onclick="document.getElementById('addAddressForm').classList.add('is-visible')">
+        <button type="button" class="addr-btn-primary" onclick="document.getElementById('addAddressForm').classList.add('is-visible')">
           Thêm Địa Chỉ Đầu Tiên
         </button>
       </div>
@@ -192,7 +192,7 @@
     </div>
 
     {% if paginate.pages > 1 %}
-    <div class="addresses-pagination">
+    <div class="addr-pagination">
       {{ paginate | default_pagination }}
     </div>
     {% endif %}
@@ -202,24 +202,24 @@
 
 <style>
 /* Addresses Page - Helios V2 Industrial Minimalist */
-.addresses-page {
+.addr-page {
   background: var(--helios-black, #0a0a0a);
   color: #fff;
   min-height: 100vh;
   padding: 40px 20px;
 }
 
-.addresses-container {
+.addr-container {
   max-width: 900px;
   margin: 0 auto;
 }
 
 /* Header */
-.addresses-header {
+.addr-header {
   margin-bottom: 40px;
 }
 
-.back-link {
+.addr-back-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -230,18 +230,18 @@
   transition: color 0.2s;
 }
 
-.back-link:hover {
+.addr-back-link:hover {
   color: var(--helios-orange, #FAB320);
 }
 
-.addresses-title {
+.addr-title {
   font-size: 28px;
   font-weight: 600;
   margin: 0 0 20px;
   letter-spacing: -0.5px;
 }
 
-.btn-add-address {
+.addr-btn-add {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -255,28 +255,29 @@
   transition: all 0.2s;
 }
 
-.btn-add-address:hover {
+.addr-btn-add:hover {
   background: #e5a31c;
   transform: translateY(-2px);
 }
 
 /* Address Form */
-.address-form-wrapper {
+.addr-form-wrapper {
   display: none;
   margin-bottom: 40px;
 }
 
-.address-form-wrapper.is-visible {
+.addr-form-wrapper.is-visible {
   display: block;
 }
 
-.form-card {
+.addr-form-card,
+.addr-edit {
   background: var(--helios-dark-grey, #1a1a1a);
   border: 1px solid var(--helios-border, #2a2a2a);
   padding: 30px;
 }
 
-.form-title {
+.addr-form-title {
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 25px;
@@ -284,54 +285,56 @@
   border-bottom: 1px solid var(--helios-border, #2a2a2a);
 }
 
-.addresses-page .form-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 20px !important;
+.addr-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.addresses-page .form-group {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 8px !important;
+.addr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.addresses-page .form-group.full-width {
-  grid-column: 1 / -1 !important;
+.addr-field.addr-full {
+  grid-column: 1 / -1;
 }
 
-.form-group label {
+.addr-field label {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--helios-text-muted, #888);
 }
 
-.form-group input,
-.form-group select {
+.addr-field input,
+.addr-field select {
   background: rgba(255,255,255,0.05);
   border: 1px solid var(--helios-border, #2a2a2a);
   padding: 12px 15px;
   color: #fff;
   font-size: 14px;
   transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.form-group input:focus,
-.form-group select:focus {
+.addr-field input:focus,
+.addr-field select:focus {
   outline: none;
   border-color: var(--helios-orange, #FAB320);
 }
 
-.form-group input::placeholder {
+.addr-field input::placeholder {
   color: #555;
 }
 
-.checkbox-group {
+.addr-checkbox {
   margin-top: 10px;
 }
 
-.checkbox-label {
+.addr-checkbox-label {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -340,7 +343,7 @@
   color: #ccc;
 }
 
-.form-actions {
+.addr-form-actions {
   display: flex;
   gap: 15px;
   margin-top: 25px;
@@ -348,7 +351,7 @@
   border-top: 1px solid var(--helios-border, #2a2a2a);
 }
 
-.btn-primary {
+.addr-btn-primary {
   background: var(--helios-orange, #FAB320);
   color: #000;
   border: none;
@@ -359,11 +362,11 @@
   transition: all 0.2s;
 }
 
-.btn-primary:hover {
+.addr-btn-primary:hover {
   background: #e5a31c;
 }
 
-.btn-secondary {
+.addr-btn-secondary {
   background: transparent;
   color: #888;
   border: 1px solid var(--helios-border, #2a2a2a);
@@ -373,31 +376,34 @@
   transition: all 0.2s;
 }
 
-.btn-secondary:hover {
+.addr-btn-secondary:hover {
   color: #fff;
   border-color: #555;
 }
 
 /* Address Grid */
-.addresses-grid {
+.addr-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
-.address-card {
+.addr-card {
   background: var(--helios-dark-grey, #1a1a1a);
   border: 1px solid var(--helios-border, #2a2a2a);
-  padding: 25px;
   position: relative;
   transition: border-color 0.2s;
 }
 
-.address-card:hover {
+.addr-card:hover {
   border-color: #444;
 }
 
-.default-badge {
+.addr-view {
+  padding: 25px;
+}
+
+.addr-default-badge {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -410,33 +416,33 @@
   letter-spacing: 0.5px;
 }
 
-.address-content {
+.addr-content {
   margin-bottom: 20px;
 }
 
-.address-content p {
+.addr-content p {
   margin: 0 0 5px;
   color: #999;
   font-size: 14px;
   line-height: 1.5;
 }
 
-.address-name {
+.addr-name {
   color: #fff !important;
   font-weight: 600;
   font-size: 16px !important;
   margin-bottom: 10px !important;
 }
 
-.address-actions {
+.addr-actions {
   display: flex;
   gap: 15px;
   padding-top: 15px;
   border-top: 1px solid var(--helios-border, #2a2a2a);
 }
 
-.btn-edit,
-.btn-delete {
+.addr-btn-edit,
+.addr-btn-delete {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -449,62 +455,58 @@
   transition: color 0.2s;
 }
 
-.btn-edit:hover {
+.addr-btn-edit:hover {
   color: var(--helios-orange, #FAB320);
 }
 
-.btn-delete:hover {
+.addr-btn-delete:hover {
   color: #ff6b6b;
 }
 
 /* Edit Address */
-.address-edit {
-  background: var(--helios-dark-grey, #1a1a1a);
-}
-
-.address-edit .form-title {
-  margin-bottom: 20px;
+.addr-edit {
+  display: none;
 }
 
 /* No Addresses */
-.no-addresses {
+.addr-empty {
   grid-column: 1 / -1;
   text-align: center;
   padding: 60px 20px;
   color: #888;
 }
 
-.no-addresses svg {
+.addr-empty svg {
   opacity: 0.3;
   margin-bottom: 20px;
 }
 
-.no-addresses p {
+.addr-empty p {
   margin: 0 0 25px;
   font-size: 16px;
 }
 
 /* Pagination */
-.addresses-pagination {
+.addr-pagination {
   margin-top: 40px;
   text-align: center;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
-  .form-grid {
+  .addr-form-grid {
     grid-template-columns: 1fr;
   }
   
-  .form-group.full-width {
+  .addr-field.addr-full {
     grid-column: 1;
   }
   
-  .addresses-grid {
+  .addr-grid {
     grid-template-columns: 1fr;
   }
   
-  .form-actions {
+  .addr-form-actions {
     flex-direction: column;
   }
 }
