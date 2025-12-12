@@ -92,6 +92,85 @@
         "item_per_row_mobile": "1"
       }
     },
+    "rich_text_CbtmMU": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 20,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p><strong>Khi bạn đủ kiên định để theo đuổi điều mình yêu, đam mê sẽ không còn là thứ để đuổi theo.  Nó sẽ quay lại, ôm lấy bạn, và tiếp sức cho bạn đi tiếp.</strong></p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "shop_the_look_banner_PbjhKD": {
+      "type": "shop-the-look-banner",
+      "blocks": {
+        "product_wfN78q": {
+          "type": "product",
+          "settings": {
+            "product": "anse-chrysaber-helios-black-silver"
+          }
+        },
+        "product_FTwPwM": {
+          "type": "product",
+          "settings": {
+            "product": "aegis-chrysaber-helios-silver"
+          }
+        },
+        "product_pDda8b": {
+          "type": "product",
+          "settings": {
+            "product": "archie-helios-black-silver"
+          }
+        },
+        "product_ppTHhT": {
+          "type": "product",
+          "settings": {
+            "product": "agape-helios-silver"
+          }
+        },
+        "product_LUtfaG": {
+          "type": "product",
+          "settings": {
+            "product": "vong-tay-bac-s925-angel-heaven-helios-silver-original"
+          }
+        }
+      },
+      "block_order": [
+        "product_wfN78q",
+        "product_FTwPwM",
+        "product_pDda8b",
+        "product_ppTHhT",
+        "product_LUtfaG"
+      ],
+      "name": "Shop the look banner",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "banner_image": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_3.jpg",
+        "banner_heading": "",
+        "banner_text": "",
+        "button_label": "",
+        "button_link": "",
+        "banner_width": 40,
+        "show_secondary_image": true,
+        "padding_top": "40",
+        "padding_bottom": "40"
+      }
+    },
     "two_banner_3xH63d": {
       "type": "two-banner",
       "blocks": {
@@ -232,27 +311,6 @@
         "sticky_z_index": 1000
       }
     },
-    "background_video_responsive_Y7riqe": {
-      "type": "background-video-responsive",
-      "disabled": true,
-      "name": "Video responsive",
-      "settings": {
-        "video_full_vh": true,
-        "video_height_desktop": 700,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/Mạnh mẽ (1).mp4",
-        "video_external_desktop": "",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
     "featured_collection_cNNQdn": {
       "type": "featured-collection",
       "name": "Featured collection",
@@ -356,27 +414,6 @@
         "show_view_all": false
       }
     },
-    "background_video_responsive_WnXn74": {
-      "type": "background-video-responsive",
-      "disabled": true,
-      "name": "Video responsive",
-      "settings": {
-        "video_full_vh": true,
-        "video_height_desktop": 700,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/Slide 1 (1) (1).mp4",
-        "video_external_desktop": "",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
     "two_banner_bq4hbL": {
       "type": "two-banner",
       "blocks": {
@@ -441,14 +478,14 @@
     "background_video_responsive_ckzixV",
     "background_video_responsive_Qi9RKG",
     "grid_image_btHdbz",
+    "rich_text_CbtmMU",
+    "shop_the_look_banner_PbjhKD",
     "two_banner_3xH63d",
     "featured_collection_Tib9zr",
     "two_banner_BxwVkX",
-    "background_video_responsive_Y7riqe",
     "featured_collection_cNNQdn",
     "two_banner_VGizeM",
     "featured_collection_NMz84T",
-    "background_video_responsive_WnXn74",
     "two_banner_bq4hbL"
   ]
 }
