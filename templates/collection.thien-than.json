@@ -61,14 +61,15 @@
             "text": ""
           }
         },
-        "image_pHfFBx": {
+        "image_Vyzh3Y": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_3.jpg",
             "link": "",
             "text": ""
           }
         },
-        "image_b8dwyx": {
+        "image_pHfFBx": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_2.jpg",
@@ -79,12 +80,12 @@
       },
       "block_order": [
         "image_qUNtLx",
-        "image_pHfFBx",
-        "image_b8dwyx"
+        "image_Vyzh3Y",
+        "image_pHfFBx"
       ],
       "name": "Image Grid",
       "settings": {
-        "grid_image_full_width": false,
+        "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 3,
         "item_ratio": "3/4",
