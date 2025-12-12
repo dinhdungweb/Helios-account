@@ -45,9 +45,50 @@
         "title": "",
         "title_image": "shopify://shop_images/Font_Lordish_Viet_Hoa.png",
         "title_image_width_desktop": 160,
-        "description": "Là bộ sưu tập lớn nhất và mang yếu tố chiều sâu nhất trong năm 2025 của HELIOS. Bộ sưu tập là tổng hòa của những hình tượng signature trong 10 năm phát triển của HELIOS - Lotus, Sunflower, Chrysaber, Bushido. Đồng thời đây là BST sở hữu nhiều phong cách phối nhất từng được chế tác",
+        "description": "Đoạn này sẽ về giải thích tổng quan chiến dịch Thiên thần: sự tận hưởng của người đàn ông, thiên thần đại diện cho một\nthế lực, một sự ấp ôm lấy chính mình nhẹ nhàng mùa cuối năm, ý nghĩa nếu bạn đủ tận hưởng, đủ theo đuổi đam mê\nthì đam mê sẽ trở thành nguồn động lực ôm lấy chính bạn",
         "button_label": "",
         "button_link": ""
+      }
+    },
+    "grid_image_btHdbz": {
+      "type": "grid-image",
+      "blocks": {
+        "image_qUNtLx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_1.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_pHfFBx": {
+          "type": "image",
+          "settings": {
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_b8dwyx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_2.jpg",
+            "link": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_qUNtLx",
+        "image_pHfFBx",
+        "image_b8dwyx"
+      ],
+      "name": "Image Grid",
+      "settings": {
+        "grid_image_full_width": false,
+        "grid_image_with": 1400,
+        "item_for_row": 3,
+        "item_ratio": "3/4",
+        "item_per_row_mobile": "1"
       }
     },
     "two_banner_3xH63d": {
@@ -398,6 +439,7 @@
   "order": [
     "background_video_responsive_ckzixV",
     "background_video_responsive_Qi9RKG",
+    "grid_image_btHdbz",
     "two_banner_3xH63d",
     "featured_collection_Tib9zr",
     "two_banner_BxwVkX",
