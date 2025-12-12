@@ -1,1 +1,112 @@
-{"sections":{"title_with_button_bGEUjh":{"type":"title-with-button","blocks":{"button_P8Wzc3":{"type":"button","settings":{"button_text":"NHẪN MỚI","button_link":"shopify:\/\/collections\/nhan-bac-nam"}},"button_XbEmLV":{"type":"button","settings":{"button_text":"VÒNG TAY MỚI","button_link":"shopify:\/\/collections\/vong-tay-bac-nam"}},"button_DxHMpb":{"type":"button","settings":{"button_text":"DÂY CHUYỀN MỚI","button_link":"shopify:\/\/collections\/day-chuyen-bac-s925"}},"button_txm8VB":{"type":"button","settings":{"button_text":"MẶT DÂY CHUYỀN MỚI","button_link":"shopify:\/\/collections\/mat-day-chuyen-bac-s925"}},"button_ymRCYD":{"type":"button","settings":{"button_text":"KHUYÊN TAI MỚI","button_link":"shopify:\/\/collections\/khuyen-tai-bac-nam"}}},"block_order":["button_P8Wzc3","button_XbEmLV","button_DxHMpb","button_txm8VB","button_ymRCYD"],"name":"Title with button","settings":{"content_position":"right","text_alignment":"left","heading":"NEW IN","paragraph":"Đây là những \"Câu chuyện\" mới nhất được rèn thành chế tác."}},"main":{"type":"main-collection","settings":{"show_collection_content":false,"show_collection_image":false,"description_position":"top","layout":"rows","grid":4,"grid_mobile":"2","products_per_page":24,"featured_addtocart_hide":false,"enable_infinite_scroll":true,"show_vendor":false,"show_filter_counts":false,"show_filter_deadends":true,"ajax_products":true,"filter_mode":"drawer","sticky_sidebar":true,"collapse_filters_method":"over-6","collapse_sort_by":false,"enable_sorting":true,"show_featured_in_sort":true}}},"order":["title_with_button_bGEUjh","main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "title_with_button_bGEUjh": {
+      "type": "title-with-button",
+      "blocks": {
+        "button_P8Wzc3": {
+          "type": "button",
+          "settings": {
+            "button_text": "NHẪN MỚI",
+            "button_link": "shopify://collections/nhan-bac-nam"
+          }
+        },
+        "button_XbEmLV": {
+          "type": "button",
+          "settings": {
+            "button_text": "VÒNG TAY MỚI",
+            "button_link": "shopify://collections/vong-tay-bac-nam"
+          }
+        },
+        "button_DxHMpb": {
+          "type": "button",
+          "settings": {
+            "button_text": "DÂY CHUYỀN MỚI",
+            "button_link": "shopify://collections/day-chuyen-bac-s925"
+          }
+        },
+        "button_txm8VB": {
+          "type": "button",
+          "settings": {
+            "button_text": "MẶT DÂY CHUYỀN MỚI",
+            "button_link": "shopify://collections/mat-day-chuyen-bac-s925"
+          }
+        },
+        "button_ymRCYD": {
+          "type": "button",
+          "settings": {
+            "button_text": "KHUYÊN TAI MỚI",
+            "button_link": "shopify://collections/khuyen-tai-bac-nam"
+          }
+        }
+      },
+      "block_order": [
+        "button_P8Wzc3",
+        "button_XbEmLV",
+        "button_DxHMpb",
+        "button_txm8VB",
+        "button_ymRCYD"
+      ],
+      "name": "Title with button",
+      "settings": {
+        "content_position": "right",
+        "text_alignment": "left",
+        "heading": "NEW IN",
+        "paragraph": "Đây là những \"Câu chuyện\" mới nhất được rèn thành chế tác."
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "promotion_image_gU9AU3": {
+          "type": "promotion_image",
+          "settings": {
+            "position_in_grid": 13,
+            "desktop_size": "two-columns",
+            "image": "shopify://shop_images/3x2.jpg",
+            "mobile_image": "shopify://shop_images/z7319283438538_5feffd715d24f428c7a803a4f2b804f3.jpg",
+            "heading": "",
+            "content": "",
+            "link_url": "https://helios.vn/account/register"
+          }
+        }
+      },
+      "block_order": [
+        "promotion_image_gU9AU3"
+      ],
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    }
+  },
+  "order": [
+    "title_with_button_bGEUjh",
+    "main"
+  ]
+}
