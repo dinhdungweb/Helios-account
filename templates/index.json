@@ -30,14 +30,36 @@
         "button_link": ""
       }
     },
+    "featured_collection_WGhiFt": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "new-products",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
         "image_qbHR3Y": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/z7287629984073_3a966c3bc500e5a655e0a7b4a8e2c50c.jpg",
-            "mobile_image": "shopify://shop_images/z7287630047387_0a2c11536e641844731f96ec69295558.jpg",
+            "image": "shopify://shop_images/z7316166844305_6e6506cbd4a76260ecfb966d77d1c147.jpg",
+            "mobile_image": "shopify://shop_images/z7316166844231_2e15bf3c304c25f29317e44fed721d2a.jpg",
             "slide_link": "https://helios.vn/account",
             "subheading": "",
             "title": "",
@@ -46,13 +68,14 @@
             "heading_h1": false,
             "text": "",
             "enlarge_text": true,
-            "button_label": "TRỞ THÀNH HỘI VIÊN",
+            "button_label": "",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
         "image_KarRwm": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/z7287716314012_d99eea2754954e2c6799a73caa232861.jpg",
             "mobile_image": "shopify://shop_images/z7287630029694_f75db0dffab379f8075deb8a2138fcee.jpg",
@@ -74,7 +97,6 @@
         "image_qbHR3Y",
         "image_KarRwm"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -87,28 +109,6 @@
         "slide_navigation": "dots",
         "autoplay": true,
         "autoplay_speed": 7
-      }
-    },
-    "featured_collection_WGhiFt": {
-      "type": "featured-collection",
-      "name": "Featured collection",
-      "settings": {
-        "title": "",
-        "featured_collection_align": "left",
-        "collection": "new-products",
-        "layout": "rows",
-        "featured_addtocart_hide": false,
-        "show_add_to_cart": true,
-        "show_title": true,
-        "show_price": true,
-        "show_review": true,
-        "show_vendor": false,
-        "grid": 4,
-        "rows": 2,
-        "grid_mobile": "2",
-        "hide_swatches": false,
-        "alternate_bg_color": false,
-        "show_view_all": false
       }
     },
     "two_banner_gUWcNj": {
@@ -349,12 +349,11 @@
     },
     "popup_overlay_custom_pFebVj": {
       "type": "popup-overlay-custom",
-      "disabled": true,
       "name": "Popup Newsletter",
       "settings": {
         "image": "shopify://shop_images/z7270642210082_99c9b47b5ab8ad2b84ed7dd3aade0814.jpg",
-        "title": "Nhẫn Black Sun -  Biểu Tượng Chỉ Hội Viên HELIOS Có Cơ Hội Sở Hữu",
-        "description": "HELIOS Membership mang đến đặc quyền cho những người thực sự yêu và hiểu tinh thần HELIOS.\nĐặc biệt, hội viên của HELIOS Membership sẽ có cơ hội nhận chiếc nhẫn Black Sun - hình tượng “mặt trời đen” signature.",
+        "title": "MỞ KHOÁ ĐẶC QUYỀN KHI THAM GIA BLACK SUN CLUB",
+        "description": "Ưu đãi riêng từng hạng, sản phẩm đặc quyền chỉ cho member, xem trước sản phẩm mới và nhiều quyền lợi hơn thế nữa.",
         "button_text": "TRỞ THÀNH HỘI VIÊN",
         "button_link": "https://helios.vn/account",
         "delay": 5000,
@@ -364,8 +363,8 @@
   },
   "order": [
     "background_video_responsive_RnWgY3",
-    "slideshow_AUtEr7",
     "featured_collection_WGhiFt",
+    "slideshow_AUtEr7",
     "two_banner_gUWcNj",
     "two_banner_C3RzCw",
     "two_banner_qNEPMY",
