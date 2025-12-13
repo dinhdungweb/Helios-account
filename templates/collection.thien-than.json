@@ -204,6 +204,36 @@
         "alternate_bg_color": false,
         "show_view_all": false
       }
+    },
+    "advanced_form_to_sheet_9cfP6V": {
+      "type": "advanced-form-to-sheet",
+      "blocks": {
+        "textarea_field_wJWVB8": {
+          "type": "textarea_field",
+          "settings": {
+            "label": "Tin nhắn",
+            "entry": "",
+            "placeholder": "Nhập tin nhắn của bạn",
+            "required": false
+          }
+        }
+      },
+      "block_order": [
+        "textarea_field_wJWVB8"
+      ],
+      "name": "Advanced Form to Sheet",
+      "settings": {
+        "form-title": "ĐIỀU ƯỚC CUỐI NĂM CÙNG HELIOS",
+        "form-subtitle": "",
+        "form-description": "<p>Hãy để lại một điều ước cho chính mình vào năm tới. Không phải để mong cầu những điều xa vời, mà để nhìn thật kỹ vào những gì mình thật sự mong muốn cho hành trình sắp tới.</p><p>Khi đủ bản lĩnh để tin vào điều mình chọn, đam mê sẽ tự khắc trở thành ánh sáng dẫn lối, biến mọi ý chí thành hiện thực.</p>",
+        "banner_image": "shopify://shop_images/z7318252405146_a00706786fcd702c963c6e5a006ee9c3.jpg",
+        "banner_position": "left",
+        "form_action_url": "",
+        "success_message": "Gửi thành công! Cảm ơn bạn.",
+        "error_message": "Gửi thất bại. Vui lòng thử lại!",
+        "button_text": "Gửi",
+        "button_color": "#FAB320"
+      }
     }
   },
   "order": [
@@ -213,6 +243,7 @@
     "rich_text_CbtmMU",
     "shop_the_look_banner_PbjhKD",
     "companion_journey_section_dA8QG4",
-    "featured_collection_Tib9zr"
+    "featured_collection_Tib9zr",
+    "advanced_form_to_sheet_9cfP6V"
   ]
 }
