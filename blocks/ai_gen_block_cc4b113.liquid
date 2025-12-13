@@ -2,10 +2,10 @@
   @prompt
     Please code a timeline section for me with a vertical layout, one side for text and the other for media (which could be an image or video), with interchangeable options. Optimize the code for fast page load times. The text column should have five characters at the top and a description at the bottom. Add a line in the middle to mark the timestamps. I have about 20 timestamps, Phần video cho chọn giống như ảnh, và ở trên mobile cho hiển thị ảnh trước label và text ở dưới, Phần video cho chọn giống như ảnh, và ở trên mobile cho hiển thị ảnh trước label và text ở dưới, Thêm lại tùy chọn chọn video đi., Chọn video hoặc ảnh, Video dạng picker chứ không phải dán URL, Cho tôi thêm tùy chọn bật tắt auto play video và, tùy chỉnh độ rộng của section.
 {% enddoc %}
-{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+{% assign block_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
-  .ai-timeline-{{ ai_gen_id }} {
+  .section-timeline-{{ block_id }} {
     width: 100%;
     max-width: {{ block.settings.section_width }}px;
     margin: 0 auto;
@@ -13,31 +13,31 @@
     background-color: {{ block.settings.background_color }};
   }
 
-  .ai-timeline-header-{{ ai_gen_id }} {
+  .section-timeline-header-{{ block_id }} {
     text-align: center;
     margin-bottom: 60px;
   }
 
-  .ai-timeline-title-{{ ai_gen_id }} {
+  .section-timeline-title-{{ block_id }} {
     font-size: {{ block.settings.title_size }}px;
     color: {{ block.settings.title_color }};
     margin: 0 0 16px;
   }
 
-  .ai-timeline-subtitle-{{ ai_gen_id }} {
+  .section-timeline-subtitle-{{ block_id }} {
     font-size: {{ block.settings.subtitle_size }}px;
     color: {{ block.settings.subtitle_color }};
     margin: 0;
   }
 
-  .ai-timeline-list-{{ ai_gen_id }} {
+  .section-timeline-list-{{ block_id }} {
     position: relative;
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .ai-timeline-list-{{ ai_gen_id }}::before {
+  .section-timeline-list-{{ block_id }}::before {
     content: '';
     position: absolute;
     left: 50%;
@@ -48,7 +48,7 @@
     transform: translateX(-50%);
   }
 
-  .ai-timeline-item-{{ ai_gen_id }} {
+  .section-timeline-item-{{ block_id }} {
     position: relative;
     margin-bottom: 80px;
     display: grid;
@@ -57,15 +57,15 @@
     align-items: center;
   }
 
-  .ai-timeline-item-{{ ai_gen_id }}:nth-child(even) .ai-timeline-content-{{ ai_gen_id }} {
+  .section-timeline-item-{{ block_id }}:nth-child(even) .section-timeline-content-{{ block_id }} {
     order: 2;
   }
 
-  .ai-timeline-item-{{ ai_gen_id }}:nth-child(even) .ai-timeline-media-{{ ai_gen_id }} {
+  .section-timeline-item-{{ block_id }}:nth-child(even) .section-timeline-media-{{ block_id }} {
     order: 1;
   }
 
-  .ai-timeline-marker-{{ ai_gen_id }} {
+  .section-timeline-marker-{{ block_id }} {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -78,11 +78,11 @@
     z-index: 2;
   }
 
-  .ai-timeline-content-{{ ai_gen_id }} {
+  .section-timeline-content-{{ block_id }} {
     padding: 20px;
   }
 
-  .ai-timeline-label-{{ ai_gen_id }} {
+  .section-timeline-label-{{ block_id }} {
     font-size: {{ block.settings.label_size }}px;
     color: {{ block.settings.label_color }};
     font-weight: 600;
@@ -90,35 +90,35 @@
     letter-spacing: 0.5px;
   }
 
-  .ai-timeline-description-{{ ai_gen_id }} {
+  .section-timeline-description-{{ block_id }} {
     font-size: {{ block.settings.description_size }}px;
     color: {{ block.settings.description_color }};
     line-height: 1.6;
     margin: 0;
   }
 
-  .ai-timeline-media-{{ ai_gen_id }} {
+  .section-timeline-media-{{ block_id }} {
     position: relative;
     width: 100%;
     border-radius: {{ block.settings.media_border_radius }}px;
     overflow: hidden;
   }
 
-  .ai-timeline-media-{{ ai_gen_id }} img {
+  .section-timeline-media-{{ block_id }} img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: {{ block.settings.media_border_radius }}px;
   }
 
-  .ai-timeline-media-{{ ai_gen_id }} video {
+  .section-timeline-media-{{ block_id }} video {
     width: 100%;
     height: auto;
     display: block;
     border-radius: {{ block.settings.media_border_radius }}px;
   }
 
-  .ai-timeline-media-placeholder-{{ ai_gen_id }} {
+  .section-timeline-media-placeholder-{{ block_id }} {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -129,59 +129,59 @@
     justify-content: center;
   }
 
-  .ai-timeline-media-placeholder-{{ ai_gen_id }} svg {
+  .section-timeline-media-placeholder-{{ block_id }} svg {
     width: 60%;
     height: 60%;
     opacity: 0.3;
   }
 
   @media screen and (max-width: 768px) {
-    .ai-timeline-list-{{ ai_gen_id }}::before {
+    .section-timeline-list-{{ block_id }}::before {
       left: 0px;
     }
 
-    .ai-timeline-item-{{ ai_gen_id }} {
+    .section-timeline-item-{{ block_id }} {
       grid-template-columns: 1fr;
       gap: 20px;
       padding-left: 20px;
       margin-bottom: 60px;
     }
 
-    .ai-timeline-item-{{ ai_gen_id }}:nth-child(even) .ai-timeline-content-{{ ai_gen_id }},
-    .ai-timeline-item-{{ ai_gen_id }} .ai-timeline-content-{{ ai_gen_id }} {
+    .section-timeline-item-{{ block_id }}:nth-child(even) .section-timeline-content-{{ block_id }},
+    .section-timeline-item-{{ block_id }} .section-timeline-content-{{ block_id }} {
       order: 2;
     }
 
-    .ai-timeline-item-{{ ai_gen_id }}:nth-child(even) .ai-timeline-media-{{ ai_gen_id }},
-    .ai-timeline-item-{{ ai_gen_id }} .ai-timeline-media-{{ ai_gen_id }} {
+    .section-timeline-item-{{ block_id }}:nth-child(even) .section-timeline-media-{{ block_id }},
+    .section-timeline-item-{{ block_id }} .section-timeline-media-{{ block_id }} {
       order: 1;
     }
 
-    .ai-timeline-marker-{{ ai_gen_id }} {
+    .section-timeline-marker-{{ block_id }} {
       left: 0px;
       top: 30px;
       transform: translate(-50%, 0);
     }
 
-    .ai-timeline-content-{{ ai_gen_id }} {
+    .section-timeline-content-{{ block_id }} {
       padding: 0;
     }
   }
 {% endstyle %}
 
-<div class="ai-timeline-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+<div class="ai-timeline-{{ block_id }}" {{ block.shopify_attributes }}>
   {% if block.settings.section_title != blank or block.settings.section_subtitle != blank %}
-    <div class="ai-timeline-header-{{ ai_gen_id }}">
+    <div class="ai-timeline-header-{{ block_id }}">
       {% if block.settings.section_title != blank %}
-        <h2 class="ai-timeline-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+        <h2 class="ai-timeline-title-{{ block_id }}">{{ block.settings.section_title }}</h2>
       {% endif %}
       {% if block.settings.section_subtitle != blank %}
-        <p class="ai-timeline-subtitle-{{ ai_gen_id }}">{{ block.settings.section_subtitle }}</p>
+        <p class="ai-timeline-subtitle-{{ block_id }}">{{ block.settings.section_subtitle }}</p>
       {% endif %}
     </div>
   {% endif %}
 
-  <ul class="ai-timeline-list-{{ ai_gen_id }}">
+  <ul class="ai-timeline-list-{{ block_id }}">
     {% for i in (1..20) %}
       {% liquid
         assign item_enabled_key = 'item_' | append: i | append: '_enabled'
@@ -200,19 +200,19 @@
       %}
 
       {% if item_enabled %}
-        <li class="ai-timeline-item-{{ ai_gen_id }}">
-          <div class="ai-timeline-marker-{{ ai_gen_id }}"></div>
+        <li class="ai-timeline-item-{{ block_id }}">
+          <div class="ai-timeline-marker-{{ block_id }}"></div>
 
-          <div class="ai-timeline-content-{{ ai_gen_id }}">
+          <div class="ai-timeline-content-{{ block_id }}">
             {% if item_label != blank %}
-              <div class="ai-timeline-label-{{ ai_gen_id }}">{{ item_label }}</div>
+              <div class="ai-timeline-label-{{ block_id }}">{{ item_label }}</div>
             {% endif %}
             {% if item_description != blank %}
-              <div class="ai-timeline-description-{{ ai_gen_id }}">{{ item_description }}</div>
+              <div class="ai-timeline-description-{{ block_id }}">{{ item_description }}</div>
             {% endif %}
           </div>
 
-          <div class="ai-timeline-media-{{ ai_gen_id }}">
+          <div class="ai-timeline-media-{{ block_id }}">
             {% if item_media_type == 'video' and item_video %}
               {{
                 item_video
@@ -233,7 +233,7 @@
                 loading="lazy"
               >
             {% else %}
-              <div class="ai-timeline-media-placeholder-{{ ai_gen_id }}">
+              <div class="ai-timeline-media-placeholder-{{ block_id }}">
                 {{ 'image' | placeholder_svg_tag }}
               </div>
             {% endif %}
