@@ -211,9 +211,9 @@
         "textarea_field_wJWVB8": {
           "type": "textarea_field",
           "settings": {
-            "label": "Tin nhắn",
+            "label": "",
             "entry": "",
-            "placeholder": "Nhập tin nhắn của bạn",
+            "placeholder": "Điều ước của bạn...",
             "required": false
           }
         }
@@ -232,7 +232,7 @@
         "success_message": "Gửi thành công! Cảm ơn bạn.",
         "error_message": "Gửi thất bại. Vui lòng thử lại!",
         "button_text": "Gửi",
-        "button_color": "#FAB320"
+        "button_color": "#fab320"
       }
     }
   },
