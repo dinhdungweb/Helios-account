@@ -259,7 +259,7 @@
       "name": "Media with text",
       "settings": {
         "subheading": "",
-        "title": "<font style=\"color: #fab320\">BƯỚC TIẾN MỚI TRONG QUY TRÌNH CHẾ TÁC TẠI HELIOS</font>",
+        "title": "BƯỚC TIẾN MỚI TRONG QUY TRÌNH CHẾ TÁC TẠI HELIOS",
         "title_size": 26,
         "title_width": 22,
         "text": "<p>Trong BST lần này, HELIOS sử dụng công nghệ hàn laser hoàn toàn mới - với hơn 16 lần bắn hội tụ trên một diện tích cực nhỏ để cố định ngọc trai mà không để lộ bất kì dấu vết nào của kỹ thuật trấu truyền thống.</p><p>Kết quả là một cấu trúc hoàn mỹ: viên ngọc trai tự nhiên có thể xoay tròn ngay bên trong khung bạc chắc chắn.</p>",
@@ -268,7 +268,7 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "video_shopify": "shopify://files/videos/WebVTGlexLotus.mp4",
+        "video_shopify": "shopify://files/videos/Video chế tác sản phẩm BST Thiên thần FIX nen dung luong.mp4",
         "image_width": 100,
         "image_position": "right",
         "media_size": "contain",
