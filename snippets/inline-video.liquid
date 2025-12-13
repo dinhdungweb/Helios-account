@@ -1,18 +1,5 @@
-{%- liquid
-  if autoplay == blank
-    assign autoplay_value = true
-  else
-    assign autoplay_value = autoplay
-  endif
-  if loop == blank
-    assign loop_value = true
-  else
-    assign loop_value = loop
-  endif
--%}
-
 <div data-section-type="background-video" class="section-background-video section-background-video--inline">
-  <div class="video-container video-container--background video-lazy-load"
+  <div class="video-container video-container--background"
     {% if video_shopify != blank %}
       data-video-sources="{%- for source in video_shopify.sources -%}
         {{ source.format }} {{ source.mime_type }} {{ source.url }}
@@ -24,9 +11,8 @@
     {% elsif video != blank %}
       data-video-url="{{ video | escape }}"
     {% endif %}
-    data-video-autoplay="{{ autoplay_value }}"
-    data-video-loop="{{ loop_value }}"
-    data-video-lazy="true">
+    data-video-autoplay="true"
+    data-video-loop="true">
     <div class="video-container__video"></div>
 
     {% if image != blank %}
