@@ -1,6 +1,671 @@
+{% doc %}
+  @prompt
+    Please code a timeline section for me with a vertical layout, one side for text and the other for media (which could be an image or video), with the options interchangeable. Optimize the code for fast page load times. The text column should have five characters at the top and a description at the bottom.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-timeline-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-timeline-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-timeline-item-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    margin-bottom: {{ block.settings.item_spacing }}px;
+    align-items: center;
+  }
+
+  .ai-timeline-item-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-timeline-text-{{ ai_gen_id }} {
+    padding: 20px;
+  }
+
+  .ai-timeline-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_size }}px;
+    color: {{ block.settings.label_color }};
+    margin-bottom: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .ai-timeline-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.6;
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.media_border_radius }}px;
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-timeline-media-placeholder-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.media_border_radius }}px;
+  }
+
+  .ai-timeline-media-placeholder-{{ ai_gen_id }} svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-timeline-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-timeline-item-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-timeline-text-{{ ai_gen_id }} {
+      order: 2;
+    }
+
+    .ai-timeline-media-{{ ai_gen_id }} {
+      order: 1;
+    }
+
+    .ai-timeline-label-{{ ai_gen_id }} {
+      font-size: {{ block.settings.label_size | times: 0.9 }}px;
+    }
+
+    .ai-timeline-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-timeline-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-timeline-container-{{ ai_gen_id }}">
+    {% for i in (1..5) %}
+      {% liquid
+        assign item_enabled_key = 'item_' | append: i | append: '_enabled'
+        assign item_label_key = 'item_' | append: i | append: '_label'
+        assign item_description_key = 'item_' | append: i | append: '_description'
+        assign item_media_type_key = 'item_' | append: i | append: '_media_type'
+        assign item_image_key = 'item_' | append: i | append: '_image'
+        assign item_video_key = 'item_' | append: i | append: '_video'
+        assign item_layout_key = 'item_' | append: i | append: '_layout'
+
+        assign item_enabled = block.settings[item_enabled_key]
+        assign item_label = block.settings[item_label_key]
+        assign item_description = block.settings[item_description_key]
+        assign item_media_type = block.settings[item_media_type_key]
+        assign item_image = block.settings[item_image_key]
+        assign item_video = block.settings[item_video_key]
+        assign item_layout = block.settings[item_layout_key]
+      %}
+
+      {% if item_enabled %}
+        <div class="ai-timeline-item-{{ ai_gen_id }}">
+          {% if item_layout == 'text_left' %}
+            <div class="ai-timeline-text-{{ ai_gen_id }}">
+              {% if item_label != blank %}
+                <div class="ai-timeline-label-{{ ai_gen_id }}">{{ item_label }}</div>
+              {% endif %}
+              {% if item_description != blank %}
+                <div class="ai-timeline-description-{{ ai_gen_id }}">{{ item_description }}</div>
+              {% endif %}
+            </div>
+
+            <div class="ai-timeline-media-{{ ai_gen_id }}">
+              {% if item_media_type == 'image' %}
+                {% if item_image %}
+                  <img
+                    src="{{ item_image | image_url: width: 1200 }}"
+                    alt="{{ item_image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ item_image.width }}"
+                    height="{{ item_image.height }}"
+                  >
+                {% else %}
+                  <div class="ai-timeline-media-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                    <div class="ai-timeline-empty-state-{{ ai_gen_id }}">Add an image</div>
+                  </div>
+                {% endif %}
+              {% else %}
+                {% if item_video %}
+                  {{ item_video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+                {% else %}
+                  <div class="ai-timeline-media-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                    <div class="ai-timeline-empty-state-{{ ai_gen_id }}">Add a video</div>
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="ai-timeline-media-{{ ai_gen_id }}">
+              {% if item_media_type == 'image' %}
+                {% if item_image %}
+                  <img
+                    src="{{ item_image | image_url: width: 1200 }}"
+                    alt="{{ item_image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ item_image.width }}"
+                    height="{{ item_image.height }}"
+                  >
+                {% else %}
+                  <div class="ai-timeline-media-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                    <div class="ai-timeline-empty-state-{{ ai_gen_id }}">Add an image</div>
+                  </div>
+                {% endif %}
+              {% else %}
+                {% if item_video %}
+                  {{ item_video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+                {% else %}
+                  <div class="ai-timeline-media-placeholder-{{ ai_gen_id }}">
+                    {{ 'image' | placeholder_svg_tag }}
+                    <div class="ai-timeline-empty-state-{{ ai_gen_id }}">Add a video</div>
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+
+            <div class="ai-timeline-text-{{ ai_gen_id }}">
+              {% if item_label != blank %}
+                <div class="ai-timeline-label-{{ ai_gen_id }}">{{ item_label }}</div>
+              {% endif %}
+              {% if item_description != blank %}
+                <div class="ai-timeline-description-{{ ai_gen_id }}">{{ item_description }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Timeline",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Column gap",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Item spacing",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Label size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "range",
+      "id": "media_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Item 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_1_enabled",
+      "label": "Enable item 1",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "item_1_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "text_left",
+          "label": "Text left, media right"
+        },
+        {
+          "value": "media_left",
+          "label": "Media left, text right"
+        }
+      ],
+      "default": "text_left"
+    },
+    {
+      "type": "text",
+      "id": "item_1_label",
+      "label": "Label",
+      "default": "2020"
+    },
+    {
+      "type": "textarea",
+      "id": "item_1_description",
+      "label": "Description",
+      "default": "Our journey began with a vision to create timeless pieces that tell a story."
+    },
+    {
+      "type": "select",
+      "id": "item_1_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "item_1_video",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Item 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_2_enabled",
+      "label": "Enable item 2",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "item_2_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "text_left",
+          "label": "Text left, media right"
+        },
+        {
+          "value": "media_left",
+          "label": "Media left, text right"
+        }
+      ],
+      "default": "media_left"
+    },
+    {
+      "type": "text",
+      "id": "item_2_label",
+      "label": "Label",
+      "default": "2021"
+    },
+    {
+      "type": "textarea",
+      "id": "item_2_description",
+      "label": "Description",
+      "default": "Expanded our collection with heritage-inspired designs that celebrate craftsmanship."
+    },
+    {
+      "type": "select",
+      "id": "item_2_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "item_2_video",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Item 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_3_enabled",
+      "label": "Enable item 3",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "item_3_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "text_left",
+          "label": "Text left, media right"
+        },
+        {
+          "value": "media_left",
+          "label": "Media left, text right"
+        }
+      ],
+      "default": "text_left"
+    },
+    {
+      "type": "text",
+      "id": "item_3_label",
+      "label": "Label",
+      "default": "2022"
+    },
+    {
+      "type": "textarea",
+      "id": "item_3_description",
+      "label": "Description",
+      "default": "Launched our premium line, bringing luxury to everyday moments."
+    },
+    {
+      "type": "select",
+      "id": "item_3_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "item_3_video",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Item 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_4_enabled",
+      "label": "Enable item 4",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "item_4_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "text_left",
+          "label": "Text left, media right"
+        },
+        {
+          "value": "media_left",
+          "label": "Media left, text right"
+        }
+      ],
+      "default": "media_left"
+    },
+    {
+      "type": "text",
+      "id": "item_4_label",
+      "label": "Label",
+      "default": "2023"
+    },
+    {
+      "type": "textarea",
+      "id": "item_4_description",
+      "label": "Description",
+      "default": "Opened our flagship store, creating a space where stories and style meet."
+    },
+    {
+      "type": "select",
+      "id": "item_4_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "item_4_video",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Item 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_5_enabled",
+      "label": "Enable item 5",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "item_5_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "text_left",
+          "label": "Text left, media right"
+        },
+        {
+          "value": "media_left",
+          "label": "Media left, text right"
+        }
+      ],
+      "default": "text_left"
+    },
+    {
+      "type": "text",
+      "id": "item_5_label",
+      "label": "Label",
+      "default": "2024"
+    },
+    {
+      "type": "textarea",
+      "id": "item_5_description",
+      "label": "Description",
+      "default": "Continuing to innovate and inspire with new collections that honor tradition."
+    },
+    {
+      "type": "select",
+      "id": "item_5_media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "item_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "item_5_video",
+      "label": "Video"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Timeline"
+    }
+  ]
+}
 {% endschema %}
