@@ -359,81 +359,6 @@
         "delay": 5000,
         "show_once": true
       }
-    },
-    "blocks_Y97Yaw": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_edc1560_JkRGwQ": {
-          "type": "ai_gen_block_edc1560",
-          "settings": {
-            "container_width": 1200,
-            "column_gap": 60,
-            "item_spacing": 60,
-            "section_padding_top": 60,
-            "section_padding_bottom": 60,
-            "line_width": 2,
-            "line_color": "#fab320",
-            "dot_size": 16,
-            "dot_color": "#fab320",
-            "dot_border_width": 3,
-            "dot_ring_width": 0,
-            "dot_ring_color": "#fab320",
-            "background_color": "#000000",
-            "label_color": "#fab320",
-            "description_color": "#f2f2f2",
-            "label_size": 14,
-            "description_size": 16,
-            "media_border_radius": 8,
-            "item_1_enabled": true,
-            "item_1_layout": "text_left",
-            "item_1_label": "2020",
-            "item_1_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_1_media_type": "image",
-            "item_2_enabled": true,
-            "item_2_layout": "media_left",
-            "item_2_label": "2021",
-            "item_2_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_2_media_type": "image",
-            "item_3_enabled": true,
-            "item_3_layout": "text_left",
-            "item_3_label": "2022",
-            "item_3_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_3_media_type": "image",
-            "item_4_enabled": true,
-            "item_4_layout": "media_left",
-            "item_4_label": "2023",
-            "item_4_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_4_media_type": "image",
-            "item_5_enabled": false,
-            "item_5_layout": "text_left",
-            "item_5_label": "2024",
-            "item_5_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_5_media_type": "image",
-            "item_6_enabled": false,
-            "item_6_layout": "media_left",
-            "item_6_label": "2025",
-            "item_6_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_6_media_type": "image",
-            "item_7_enabled": false,
-            "item_7_layout": "text_left",
-            "item_7_label": "2026",
-            "item_7_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_7_media_type": "image",
-            "item_8_enabled": false,
-            "item_8_layout": "media_left",
-            "item_8_label": "2027",
-            "item_8_description": "Thêm mô tả cho mốc thời gian này.",
-            "item_8_media_type": "image"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_edc1560_JkRGwQ"
-      ],
-      "disabled": true,
-      "name": "Timeline",
-      "settings": {}
     }
   },
   "order": [
@@ -444,7 +369,6 @@
     "two_banner_C3RzCw",
     "two_banner_qNEPMY",
     "two_banner_E4NazD",
-    "popup_overlay_custom_pFebVj",
-    "blocks_Y97Yaw"
+    "popup_overlay_custom_pFebVj"
   ]
 }
