@@ -108,7 +108,9 @@
         "tier_silver",
         "tier_member"
       ],
-      "settings": {}
+      "settings": {
+        "tier_image": "shopify://shop_images/DSC08529.jpg"
+      }
     },
     "rich_text_cnY8ed": {
       "type": "rich-text",
