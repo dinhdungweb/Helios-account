@@ -1,6 +1,1178 @@
+{% doc %}
+  @prompt
+    Please code a timeline section for me with a vertical layout, one side for text and the other for media (which could be an image or video), with interchangeable options. Optimize the code for fast page load times. The text column should have five characters at the top and a description at the bottom. Also, add a line in the middle to mark the timestamps. I have about 20 timestamps.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-timeline-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-timeline-heading-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 60px;
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+  }
+
+  .ai-timeline-container-{{ ai_gen_id }} {
+    position: relative;
+    padding: 0;
+  }
+
+  .ai-timeline-line-{{ ai_gen_id }} {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: {{ block.settings.line_width }}px;
+    background-color: {{ block.settings.line_color }};
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .ai-timeline-item-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr {{ block.settings.line_width }}px 1fr;
+    gap: {{ block.settings.item_gap }}px;
+    margin-bottom: {{ block.settings.item_spacing }}px;
+    position: relative;
+  }
+
+  .ai-timeline-item-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-timeline-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.content_padding }}px;
+    background-color: {{ block.settings.content_bg_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-timeline-content-left-{{ ai_gen_id }} {
+    grid-column: 1;
+    text-align: right;
+  }
+
+  .ai-timeline-content-right-{{ ai_gen_id }} {
+    grid-column: 3;
+    text-align: left;
+  }
+
+  .ai-timeline-marker-{{ ai_gen_id }} {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+  }
+
+  .ai-timeline-dot-{{ ai_gen_id }} {
+    width: {{ block.settings.dot_size }}px;
+    height: {{ block.settings.dot_size }}px;
+    background-color: {{ block.settings.dot_color }};
+    border: {{ block.settings.dot_border_width }}px solid {{ block.settings.dot_border_color }};
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px {{ block.settings.background_color }};
+  }
+
+  .ai-timeline-timestamp-{{ ai_gen_id }} {
+    font-size: {{ block.settings.timestamp_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.timestamp_color }};
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-timeline-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.description_color }};
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} {
+    width: 100%;
+    border-radius: {{ block.settings.media_border_radius }}px;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} img,
+  .ai-timeline-media-{{ ai_gen_id }} video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-timeline-media-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.media_border_radius }}px;
+  }
+
+  .ai-timeline-media-placeholder-{{ ai_gen_id }} svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-timeline-line-{{ ai_gen_id }} {
+      left: 20px;
+    }
+
+    .ai-timeline-item-{{ ai_gen_id }} {
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+    }
+
+    .ai-timeline-content-{{ ai_gen_id }} {
+      grid-column: 2;
+      text-align: left;
+    }
+
+    .ai-timeline-content-left-{{ ai_gen_id }},
+    .ai-timeline-content-right-{{ ai_gen_id }} {
+      grid-column: 2;
+      text-align: left;
+    }
+
+    .ai-timeline-marker-{{ ai_gen_id }} {
+      grid-column: 1;
+    }
+
+    .ai-timeline-heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+      margin-bottom: 40px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-timeline-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.heading != blank %}
+    <h2 class="ai-timeline-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="ai-timeline-container-{{ ai_gen_id }}">
+    <div class="ai-timeline-line-{{ ai_gen_id }}"></div>
+
+    {% for i in (1..20) %}
+      {% liquid
+        assign timestamp_key = 'timestamp_' | append: i
+        assign description_key = 'description_' | append: i
+        assign media_type_key = 'media_type_' | append: i
+        assign image_key = 'image_' | append: i
+        assign video_key = 'video_' | append: i
+
+        assign timestamp = block.settings[timestamp_key]
+        assign description = block.settings[description_key]
+        assign media_type = block.settings[media_type_key]
+        assign image = block.settings[image_key]
+        assign video = block.settings[video_key]
+
+        assign is_left = i | modulo: 2
+      %}
+
+      {% if timestamp != blank or description != blank %}
+        <div class="ai-timeline-item-{{ ai_gen_id }}">
+          {% if is_left == 1 %}
+            <div class="ai-timeline-content-{{ ai_gen_id }} ai-timeline-content-left-{{ ai_gen_id }}">
+              {% if timestamp != blank %}
+                <div class="ai-timeline-timestamp-{{ ai_gen_id }}">{{ timestamp }}</div>
+              {% endif %}
+              {% if description != blank %}
+                <div class="ai-timeline-description-{{ ai_gen_id }}">{{ description }}</div>
+              {% endif %}
+            </div>
+
+            <div class="ai-timeline-marker-{{ ai_gen_id }}">
+              <div class="ai-timeline-dot-{{ ai_gen_id }}"></div>
+            </div>
+
+            <div class="ai-timeline-content-{{ ai_gen_id }} ai-timeline-content-right-{{ ai_gen_id }}">
+              {% if media_type == 'image' and image != blank %}
+                <div class="ai-timeline-media-{{ ai_gen_id }}">
+                  <img
+                    src="{{ image | image_url: width: 800 }}"
+                    alt="{{ image.alt | escape }}"
+                    width="{{ image.width }}"
+                    height="{{ image.height }}"
+                    loading="lazy"
+                  >
+                </div>
+              {% elsif media_type == 'video' and video != blank %}
+                <div class="ai-timeline-media-{{ ai_gen_id }}">
+                  {{ video | video_tag: autoplay: false, loop: false, controls: true, muted: false }}
+                </div>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="ai-timeline-content-{{ ai_gen_id }} ai-timeline-content-left-{{ ai_gen_id }}">
+              {% if media_type == 'image' and image != blank %}
+                <div class="ai-timeline-media-{{ ai_gen_id }}">
+                  <img
+                    src="{{ image | image_url: width: 800 }}"
+                    alt="{{ image.alt | escape }}"
+                    width="{{ image.width }}"
+                    height="{{ image.height }}"
+                    loading="lazy"
+                  >
+                </div>
+              {% elsif media_type == 'video' and video != blank %}
+                <div class="ai-timeline-media-{{ ai_gen_id }}">
+                  {{ video | video_tag: autoplay: false, loop: false, controls: true, muted: false }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="ai-timeline-marker-{{ ai_gen_id }}">
+              <div class="ai-timeline-dot-{{ ai_gen_id }}"></div>
+            </div>
+
+            <div class="ai-timeline-content-{{ ai_gen_id }} ai-timeline-content-right-{{ ai_gen_id }}">
+              {% if timestamp != blank %}
+                <div class="ai-timeline-timestamp-{{ ai_gen_id }}">{{ timestamp }}</div>
+              {% endif %}
+              {% if description != blank %}
+                <div class="ai-timeline-description-{{ ai_gen_id }}">{{ description }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Timeline",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Journey"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Item spacing",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Content gap",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Timeline line"
+    },
+    {
+      "type": "range",
+      "id": "line_width",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Line width",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Line color",
+      "default": "#fab320"
+    },
+    {
+      "type": "header",
+      "content": "Timeline dot"
+    },
+    {
+      "type": "range",
+      "id": "dot_size",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Dot size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot color",
+      "default": "#fab320"
+    },
+    {
+      "type": "range",
+      "id": "dot_border_width",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Dot border width",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "dot_border_color",
+      "label": "Dot border color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Content box"
+    },
+    {
+      "type": "color",
+      "id": "content_bg_color",
+      "label": "Background color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Timestamp"
+    },
+    {
+      "type": "range",
+      "id": "timestamp_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "timestamp_color",
+      "label": "Color",
+      "default": "#fab320"
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Color",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "range",
+      "id": "media_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Timeline 1"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_1",
+      "label": "Timestamp",
+      "default": "2020"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "Description",
+      "default": "Our journey began with a vision to create timeless pieces."
+    },
+    {
+      "type": "select",
+      "id": "media_type_1",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_1",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 2"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_2",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_2",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_2",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 3"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_3",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_3",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_3",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_3",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 4"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_4",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_4",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_4",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_4",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 5"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_5",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_5",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_5",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_5",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 6"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_6",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_6",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_6",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_6",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 7"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_7",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_7",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_7",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_7",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 8"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_8",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_8",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_8",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_8",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 9"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_9",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_9",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_9",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_9",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_9",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 10"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_10",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_10",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_10",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_10",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_10",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 11"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_11",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_11",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_11",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_11",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_11",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 12"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_12",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_12",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_12",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_12",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_12",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 13"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_13",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_13",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_13",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_13",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_13",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 14"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_14",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_14",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_14",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_14",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_14",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 15"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_15",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_15",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_15",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_15",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_15",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 16"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_16",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_16",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_16",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_16",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_16",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 17"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_17",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_17",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_17",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_17",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_17",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 18"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_18",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_18",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_18",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_18",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_18",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 19"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_19",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_19",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_19",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_19",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_19",
+      "label": "Video"
+    },
+    {
+      "type": "header",
+      "content": "Timeline 20"
+    },
+    {
+      "type": "text",
+      "id": "timestamp_20",
+      "label": "Timestamp"
+    },
+    {
+      "type": "textarea",
+      "id": "description_20",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "media_type_20",
+      "label": "Media type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_20",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_20",
+      "label": "Video"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Timeline"
+    }
+  ]
+}
 {% endschema %}
