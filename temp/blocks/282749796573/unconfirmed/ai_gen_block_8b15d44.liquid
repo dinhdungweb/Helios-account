@@ -1,6 +1,6 @@
 {% doc %}
   @prompt
-    Please code a timeline section for me with a vertical layout, one side for text and the other for media (which could be an image or video), with interchangeable options. Optimize the code for fast page load times. The text column should have five characters at the top and a description at the bottom. Add a line in the middle to mark the timestamps. I have about 20 timestamps, Phần video cho chọn giống như ảnh, và ở trên mobile cho hiển thị ảnh trước label và text ở dưới
+    Please code a timeline section for me with a vertical layout, one side for text and the other for media (which could be an image or video), with interchangeable options. Optimize the code for fast page load times. The text column should have five characters at the top and a description at the bottom. Add a line in the middle to mark the timestamps. I have about 20 timestamps, Phần video cho chọn giống như ảnh, và ở trên mobile cho hiển thị ảnh trước label và text ở dưới, Phần video cho chọn giống như ảnh, và ở trên mobile cho hiển thị ảnh trước label và text ở dưới
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
@@ -181,14 +181,12 @@
         assign item_enabled_key = 'item_' | append: i | append: '_enabled'
         assign item_label_key = 'item_' | append: i | append: '_label'
         assign item_description_key = 'item_' | append: i | append: '_description'
-        assign item_image_key = 'item_' | append: i | append: '_image'
-        assign item_video_key = 'item_' | append: i | append: '_video'
+        assign item_media_key = 'item_' | append: i | append: '_media'
 
         assign item_enabled = block.settings[item_enabled_key]
         assign item_label = block.settings[item_label_key]
         assign item_description = block.settings[item_description_key]
-        assign item_image = block.settings[item_image_key]
-        assign item_video = block.settings[item_video_key]
+        assign item_media = block.settings[item_media_key]
       %}
 
       {% if item_enabled %}
@@ -205,23 +203,20 @@
           </div>
 
           <div class="ai-timeline-media-{{ ai_gen_id }}">
-            {% if item_video %}
-              <video
-                src="{{ item_video }}"
-                controls
-                preload="metadata"
-                playsinline
-              >
-                Your browser does not support the video tag.
-              </video>
-            {% elsif item_image %}
-              <img
-                src="{{ item_image | image_url: width: 800 }}"
-                alt="{{ item_label | escape }}"
-                width="800"
-                height="{{ 800 | divided_by: item_image.aspect_ratio | round }}"
-                loading="lazy"
-              >
+            {% if item_media %}
+              {% if item_media.media_type == 'video' %}
+                {{ item_media | video_tag: controls: true, preload: 'metadata', playsinline: true }}
+              {% elsif item_media.media_type == 'external_video' %}
+                {{ item_media | external_video_tag }}
+              {% else %}
+                <img
+                  src="{{ item_media | image_url: width: 800 }}"
+                  alt="{{ item_label | escape }}"
+                  width="800"
+                  height="{{ 800 | divided_by: item_media.aspect_ratio | round }}"
+                  loading="lazy"
+                >
+              {% endif %}
             {% else %}
               <div class="ai-timeline-media-placeholder-{{ ai_gen_id }}">
                 {{ 'image' | placeholder_svg_tag }}
@@ -424,14 +419,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_1_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_1_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_1_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -457,14 +446,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_2_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_2_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_2_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -490,14 +473,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_3_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_3_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_3_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -521,14 +498,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_4_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_4_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_4_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -552,14 +523,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_5_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_5_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_5_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -583,14 +548,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_6_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_6_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_6_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -614,14 +573,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_7_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_7_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_7_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -645,14 +598,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_8_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_8_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_8_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -676,14 +623,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_9_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_9_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_9_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -707,14 +648,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_10_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_10_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_10_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -738,14 +673,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_11_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_11_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_11_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -769,14 +698,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_12_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_12_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_12_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -800,14 +723,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_13_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_13_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_13_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -831,14 +748,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_14_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_14_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_14_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -862,14 +773,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_15_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_15_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_15_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -893,14 +798,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_16_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_16_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_16_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -924,14 +823,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_17_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_17_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_17_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -955,14 +848,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_18_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_18_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_18_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -986,14 +873,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_19_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_19_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_19_media",
+      "label": "Image or video"
     },
     {
       "type": "header",
@@ -1017,14 +898,8 @@
     },
     {
       "type": "image_picker",
-      "id": "item_20_image",
-      "label": "Image"
-    },
-    {
-      "type": "video_url",
-      "id": "item_20_video",
-      "label": "Video",
-      "accept": ["youtube", "vimeo"]
+      "id": "item_20_media",
+      "label": "Image or video"
     }
   ],
   "presets": [
