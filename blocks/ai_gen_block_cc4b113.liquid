@@ -169,19 +169,19 @@
   }
 {% endstyle %}
 
-<div class="ai-timeline-{{ block_id }}" {{ block.shopify_attributes }}>
+<div class="section-timeline-{{ block_id }}" {{ block.shopify_attributes }}>
   {% if block.settings.section_title != blank or block.settings.section_subtitle != blank %}
-    <div class="ai-timeline-header-{{ block_id }}">
+    <div class="section-timeline-header-{{ block_id }}">
       {% if block.settings.section_title != blank %}
-        <h2 class="ai-timeline-title-{{ block_id }}">{{ block.settings.section_title }}</h2>
+        <h2 class="section-timeline-title-{{ block_id }}">{{ block.settings.section_title }}</h2>
       {% endif %}
       {% if block.settings.section_subtitle != blank %}
-        <p class="ai-timeline-subtitle-{{ block_id }}">{{ block.settings.section_subtitle }}</p>
+        <p class="section-timeline-subtitle-{{ block_id }}">{{ block.settings.section_subtitle }}</p>
       {% endif %}
     </div>
   {% endif %}
 
-  <ul class="ai-timeline-list-{{ block_id }}">
+  <ul class="section-timeline-list-{{ block_id }}">
     {% for i in (1..20) %}
       {% liquid
         assign item_enabled_key = 'item_' | append: i | append: '_enabled'
@@ -200,19 +200,19 @@
       %}
 
       {% if item_enabled %}
-        <li class="ai-timeline-item-{{ block_id }}">
-          <div class="ai-timeline-marker-{{ block_id }}"></div>
+        <li class="section-timeline-item-{{ block_id }}">
+          <div class="section-timeline-marker-{{ block_id }}"></div>
 
-          <div class="ai-timeline-content-{{ block_id }}">
+          <div class="section-timeline-content-{{ block_id }}">
             {% if item_label != blank %}
-              <div class="ai-timeline-label-{{ block_id }}">{{ item_label }}</div>
+              <div class="section-timeline-label-{{ block_id }}">{{ item_label }}</div>
             {% endif %}
             {% if item_description != blank %}
-              <div class="ai-timeline-description-{{ block_id }}">{{ item_description }}</div>
+              <div class="section-timeline-description-{{ block_id }}">{{ item_description }}</div>
             {% endif %}
           </div>
 
-          <div class="ai-timeline-media-{{ block_id }}">
+          <div class="section-timeline-media-{{ block_id }}">
             {% if item_media_type == 'video' and item_video %}
               {{
                 item_video
@@ -233,7 +233,7 @@
                 loading="lazy"
               >
             {% else %}
-              <div class="ai-timeline-media-placeholder-{{ block_id }}">
+              <div class="section-timeline-media-placeholder-{{ block_id }}">
                 {{ 'image' | placeholder_svg_tag }}
               </div>
             {% endif %}
