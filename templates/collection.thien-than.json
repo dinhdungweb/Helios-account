@@ -171,6 +171,18 @@
         "padding_bottom": "40"
       }
     },
+    "companion_journey_section_dA8QG4": {
+      "type": "companion-journey-section",
+      "name": "Helios Jewelry Section",
+      "settings": {
+        "background_color": "#000000",
+        "heading": "Dành tặng người đồng hành cùng bạn",
+        "text": "Cuối năm là lúc nhìn lại hành trình đã đi cùng nhau.\n\nMột chế tác từ HELIOS có thể là cách bạn gửi gắm sự tin tưởng, nhắc người bạn yêu thương rằng: hành trình phía trước vẫn có bạn ở đó.",
+        "image1": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_1.jpg",
+        "image2": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_3.jpg",
+        "image3": "shopify://shop_images/ruyi-cuff-helios-black-silver-len-mau_2.jpg"
+      }
+    },
     "featured_collection_Tib9zr": {
       "type": "featured-collection",
       "name": "Featured collection",
@@ -200,6 +212,7 @@
     "grid_image_btHdbz",
     "rich_text_CbtmMU",
     "shop_the_look_banner_PbjhKD",
+    "companion_journey_section_dA8QG4",
     "featured_collection_Tib9zr"
   ]
 }
