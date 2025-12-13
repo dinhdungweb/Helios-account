@@ -234,6 +234,29 @@
         "button_text": "Gửi",
         "button_color": "#fab320"
       }
+    },
+    "image_with_text_i9jRpb": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "Bước tiến mới trong quy trình chế tác tại HELIOS",
+        "title_size": 28,
+        "title_width": 12,
+        "text": "<p>Trong BST lần này, HELIOS sử dụng công nghệ hàn laser hoàn toàn mới - với hơn 16 lần bắn hội tụ trên một diện tích cực nhỏ để cố định ngọc trai mà không để lộ bất kì dấu vết nào của kỹ thuật trấu truyền thống.</p><p>Kết quả là một cấu trúc hoàn mỹ: viên ngọc trai tự nhiên có thể xoay tròn ngay bên trong khung bạc chắc chắn.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "video_shopify": "shopify://files/videos/Edit video ngang cho landing page Chế tác 1x1 (1).mp4",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -244,6 +267,7 @@
     "shop_the_look_banner_PbjhKD",
     "companion_journey_section_dA8QG4",
     "featured_collection_Tib9zr",
-    "advanced_form_to_sheet_9cfP6V"
+    "advanced_form_to_sheet_9cfP6V",
+    "image_with_text_i9jRpb"
   ]
 }
