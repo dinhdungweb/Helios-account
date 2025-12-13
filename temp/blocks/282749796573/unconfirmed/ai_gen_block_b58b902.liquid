@@ -1,6 +1,383 @@
+{% doc %}
+  @prompt
+    Please code a timeline section for me with a vertical layout, one side for text and the other for media (which could be an image or video), with interchangeable options. Optimize the code for fast page load times. The text column should have five characters at the top and a description at the bottom. Add a line in the middle to mark the timestamps. I have about 20 timestamps, so I want a structure where adding a new timestamp requires adding a block.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-timeline-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 2px 1fr;
+    gap: {{ block.settings.gap }}px;
+    position: relative;
+    padding: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-timeline-text-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ai-timeline-text-left-{{ ai_gen_id }} {
+    text-align: right;
+    align-items: flex-end;
+    padding-right: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-timeline-text-right-{{ ai_gen_id }} {
+    text-align: left;
+    align-items: flex-start;
+    padding-left: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-timeline-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.label_color }};
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-timeline-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.6;
+  }
+
+  .ai-timeline-line-{{ ai_gen_id }} {
+    position: relative;
+    background-color: {{ block.settings.line_color }};
+    width: 2px;
+  }
+
+  .ai-timeline-dot-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: {{ block.settings.dot_size }}px;
+    height: {{ block.settings.dot_size }}px;
+    background-color: {{ block.settings.dot_color }};
+    border-radius: 50%;
+    border: {{ block.settings.dot_border_width }}px solid {{ block.settings.background_color }};
+    z-index: 2;
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.media_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-timeline-media-{{ ai_gen_id }} video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-timeline-media-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-timeline-media-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.2;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-timeline-{{ ai_gen_id }} {
+      grid-template-columns: 2px 1fr;
+      gap: {{ block.settings.gap | times: 0.7 }}px;
+    }
+
+    .ai-timeline-text-left-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-timeline-text-right-{{ ai_gen_id }} {
+      text-align: left;
+      padding-left: {{ block.settings.content_padding | times: 0.7 }}px;
+    }
+
+    .ai-timeline-media-{{ ai_gen_id }} {
+      grid-column: 2;
+    }
+
+    .ai-timeline-label-{{ ai_gen_id }} {
+      font-size: {{ block.settings.label_size | times: 0.85 }}px;
+    }
+
+    .ai-timeline-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-timeline-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-timeline-text-{{ ai_gen_id }} ai-timeline-text-left-{{ ai_gen_id }}">
+    {% if block.settings.label != blank %}
+      <div class="ai-timeline-label-{{ ai_gen_id }}">{{ block.settings.label }}</div>
+    {% endif %}
+    {% if block.settings.description != blank %}
+      <div class="ai-timeline-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+    {% endif %}
+  </div>
+
+  <div class="ai-timeline-line-{{ ai_gen_id }}">
+    <div class="ai-timeline-dot-{{ ai_gen_id }}"></div>
+  </div>
+
+  <div class="ai-timeline-media-{{ ai_gen_id }}">
+    {% if block.settings.media_type == 'video' and block.settings.video != blank %}
+      <video
+        src="{{ block.settings.video }}"
+        {% if block.settings.video_autoplay %}autoplay{% endif %}
+        {% if block.settings.video_loop %}loop{% endif %}
+        {% if block.settings.video_muted %}muted{% endif %}
+        playsinline
+        loading="lazy"
+      ></video>
+    {% elsif block.settings.image != blank %}
+      <img
+        src="{{ block.settings.image | image_url: width: 800 }}"
+        srcset="{{ block.settings.image | image_url: width: 400 }} 400w,
+                {{ block.settings.image | image_url: width: 600 }} 600w,
+                {{ block.settings.image | image_url: width: 800 }} 800w"
+        sizes="(max-width: 749px) 100vw, 50vw"
+        alt="{{ block.settings.image.alt | escape }}"
+        width="{{ block.settings.image.width }}"
+        height="{{ block.settings.image.height }}"
+        loading="lazy"
+      >
+    {% else %}
+      <div class="ai-timeline-media-placeholder-{{ ai_gen_id }}">
+        {{ 'image' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="ai-timeline-text-{{ ai_gen_id }} ai-timeline-text-right-{{ ai_gen_id }}">
+    {% if block.settings.label != blank %}
+      <div class="ai-timeline-label-{{ ai_gen_id }}">{{ block.settings.label }}</div>
+    {% endif %}
+    {% if block.settings.description != blank %}
+      <div class="ai-timeline-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+    {% endif %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Timeline item",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "2024"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Add your timeline description here"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "label": "Autoplay video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "Loop video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "video_muted",
+      "label": "Mute video",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between columns",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Content padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Timeline line"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Line color",
+      "default": "#fab320"
+    },
+    {
+      "type": "range",
+      "id": "dot_size",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Dot size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot color",
+      "default": "#fab320"
+    },
+    {
+      "type": "range",
+      "id": "dot_border_width",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Dot border width",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Label size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#fab320"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "header",
+      "content": "Media style"
+    },
+    {
+      "type": "range",
+      "id": "media_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Timeline item"
+    }
+  ]
+}
 {% endschema %}
