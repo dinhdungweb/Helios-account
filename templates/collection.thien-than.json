@@ -275,7 +275,7 @@
         "video_shopify": "shopify://files/videos/WebVTGlexLotus.mp4",
         "image_width": 100,
         "image_position": "right",
-        "media_size": "cover",
+        "media_size": "contain",
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
