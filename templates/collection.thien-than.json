@@ -272,7 +272,7 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "video_shopify": "shopify://files/videos/Edit video ngang cho landing page Chế tác 1x1 (1).mp4",
+        "video_shopify": "shopify://files/videos/WEBVTWUKONG.mp4",
         "image_width": 100,
         "image_position": "right",
         "media_size": "contain",
@@ -285,13 +285,13 @@
   "order": [
     "background_video_responsive_ckzixV",
     "background_video_responsive_Qi9RKG",
+    "image_with_text_i9jRpb",
     "grid_image_btHdbz",
     "rich_text_qBdPLV",
     "rich_text_CbtmMU",
     "shop_the_look_banner_PbjhKD",
     "companion_journey_section_dA8QG4",
     "featured_collection_Tib9zr",
-    "advanced_form_to_sheet_9cfP6V",
-    "image_with_text_i9jRpb"
+    "advanced_form_to_sheet_9cfP6V"
   ]
 }
