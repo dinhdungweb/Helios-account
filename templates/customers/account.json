@@ -9,6 +9,27 @@
  */
 {
   "sections": {
+    "background_video_responsive_ef7t3V": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Video key BST angel ( bản ngang ) nen dung luong.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/Video key BST angel ( bản đen trắng ) nen dung luong.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
     "slideshow_mHKbXU": {
       "type": "slideshow",
       "blocks": {
@@ -34,6 +55,7 @@
       "block_order": [
         "image_AD6YEJ"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -316,6 +338,7 @@
     }
   },
   "order": [
+    "background_video_responsive_ef7t3V",
     "slideshow_mHKbXU",
     "main",
     "rich_text_cnY8ed",
