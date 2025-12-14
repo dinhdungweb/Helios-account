@@ -11,6 +11,9 @@
   "sections": {
     "background_video_responsive_ef7t3V": {
       "type": "background-video-responsive",
+      "custom_css": [
+        "#section-id-template--21001057534173__background_video_responsive_ef7t3V .video-overlay-content {bottom: 5%;}"
+      ],
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
