@@ -195,7 +195,7 @@
       "name": "Helios Jewelry Section",
       "settings": {
         "background_color": "#000000",
-        "heading": "<font style=\"color: #fab320\">DÀNH TẶNG NGƯỜI ĐỒNG HÀNH CÙNG BẠN</font>",
+        "heading": "DÀNH TẶNG NGƯỜI ĐỒNG HÀNH CÙNG BẠN",
         "text": "Cuối năm là lúc nhìn lại hành trình đã qua.\n\nMột chế tác từ HELIOS chính là lời tri ân sâu sắc cho chặng đường qua, đồng thời gửi gắm niềm tin và mong đợi rằng con đường đam mê đã chọn sẽ tiếp tục được theo đuổi đến cùng.\n\nMột chế tác từ HELIOS có thể là cách bạn gửi gắm sự tin tưởng đến người bạn yêu thương rằng: hành trình phía trước vẫn luôn có bạn ở bên.\n\nHãy để Thiên Thần đồng hành, mang lại một nguồn năng lượng trong trẻo và bền bỉ cho những bước đi đầu tiên của năm mới.",
         "image1": "shopify://shop_images/DSC08236_c577dbaa-0d45-436e-b784-b77784f4b934.jpg",
         "image2": "shopify://shop_images/DSC08424.jpg",
@@ -227,10 +227,30 @@
     "advanced_form_to_sheet_9cfP6V": {
       "type": "advanced-form-to-sheet",
       "blocks": {
+        "text_field_WzNXHN": {
+          "type": "text_field",
+          "settings": {
+            "label": "HỌ VÀ TÊN",
+            "entry": "",
+            "placeholder": "Nhập tên của bạn",
+            "required": true,
+            "input_type": "text"
+          }
+        },
+        "text_field_jpfaEJ": {
+          "type": "text_field",
+          "settings": {
+            "label": "SỐ ĐIỆN THOẠI",
+            "entry": "",
+            "placeholder": "Nhập tên của bạn",
+            "required": true,
+            "input_type": "text"
+          }
+        },
         "textarea_field_wJWVB8": {
           "type": "textarea_field",
           "settings": {
-            "label": "",
+            "label": "ĐIỀU ƯỚC CỦA BẠN",
             "entry": "",
             "placeholder": "Điều ước của bạn...",
             "required": false
@@ -238,6 +258,8 @@
         }
       },
       "block_order": [
+        "text_field_WzNXHN",
+        "text_field_jpfaEJ",
         "textarea_field_wJWVB8"
       ],
       "name": "Advanced Form to Sheet",
