@@ -117,7 +117,7 @@
         "banner_jqKwem": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/SRK09038.webp",
+            "image": "shopify://shop_images/DSC08213.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -137,13 +137,13 @@
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/SRK00414.webp",
+            "image": "shopify://shop_images/thien_th_n_k_canh.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/faith-collection",
-            "title": "BỘ SƯU TẬP \"ĐỨC TIN\"",
+            "link": "shopify://collections/angelic-collection",
+            "title": "BỘ SƯU TẬP \"ANGELIC\"",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -173,30 +173,10 @@
     "two_banner_C3RzCw": {
       "type": "two-banner",
       "blocks": {
-        "banner_wnK37c": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/SRK00737.webp",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
-            "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/mat-day-chuyen-bac-s925",
-            "title": "MẶT DÂY CHUYỀN BẠC",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        },
         "banner_CcYr6M": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/cc_vt_cuban_Serquila-2.webp",
+            "image": "shopify://shop_images/DSC08259_1b98d6c0-ba9d-4755-8bd2-1bd1c603e064.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -212,11 +192,31 @@
             "y_offset": 0,
             "padding": 12
           }
+        },
+        "banner_wnK37c": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/DSC08556.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "shopify://collections/mat-day-chuyen-bac-s925",
+            "title": "MẶT DÂY CHUYỀN BẠC",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
         }
       },
       "block_order": [
-        "banner_wnK37c",
-        "banner_CcYr6M"
+        "banner_CcYr6M",
+        "banner_wnK37c"
       ],
       "name": "Two Banners",
       "settings": {
@@ -235,7 +235,7 @@
         "banner_Nmp8fT": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/4-1.webp",
+            "image": "shopify://shop_images/DSC08609.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -255,7 +255,7 @@
         "banner_Adiycb": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/SRK00464.jpg",
+            "image": "shopify://shop_images/DSC08424_6fa9cab2-f940-4b7c-adca-0b4281e70598.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
