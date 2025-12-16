@@ -116,7 +116,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "\"KHI BẠN ĐỦ KIÊN ĐỊNH ĐỂ THEO ĐUỔI ĐIỀU MÌNH YÊU, ĐAM MÊ SẼ KHÔNG CÒN LÀ THỨ ĐỂ ĐUỔI THEO.  NÓ SẼ QUAY LẠI, ÔM LẤY BẠN, VÀ TIẾP SỨC CHO BẠN ĐI TIẾP.\"",
+        "title": "<font style=\"color: #fab320; line-height: 1.6\">\"KHI BẠN ĐỦ KIÊN ĐỊNH ĐỂ THEO ĐUỔI ĐIỀU MÌNH YÊU, ĐAM MÊ SẼ KHÔNG CÒN LÀ THỨ ĐỂ ĐUỔI THEO.  NÓ SẼ QUAY LẠI, ÔM LẤY BẠN, VÀ TIẾP SỨC CHO BẠN ĐI TIẾP.\"</font>",
         "title_size": 20,
         "title_width": 40,
         "heading_h1": false,
@@ -195,7 +195,7 @@
       "name": "Helios Jewelry Section",
       "settings": {
         "background_color": "#000000",
-        "heading": "DÀNH TẶNG NGƯỜI ĐỒNG HÀNH CÙNG BẠN",
+        "heading": "<font style=\"color: #fab320\">DÀNH TẶNG NGƯỜI ĐỒNG HÀNH CÙNG BẠN</font>",
         "text": "Cuối năm là lúc nhìn lại hành trình đã qua.\n\nMột chế tác từ HELIOS chính là lời tri ân sâu sắc cho chặng đường qua, đồng thời gửi gắm niềm tin và mong đợi rằng con đường đam mê đã chọn sẽ tiếp tục được theo đuổi đến cùng.\n\nMột chế tác từ HELIOS có thể là cách bạn gửi gắm sự tin tưởng đến người bạn yêu thương rằng: hành trình phía trước vẫn luôn có bạn ở bên.\n\nHãy để Thiên Thần đồng hành, mang lại một nguồn năng lượng trong trẻo và bền bỉ cho những bước đi đầu tiên của năm mới.",
         "image1": "shopify://shop_images/DSC08236_c577dbaa-0d45-436e-b784-b77784f4b934.jpg",
         "image2": "shopify://shop_images/DSC08424.jpg",
