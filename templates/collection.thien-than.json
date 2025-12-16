@@ -242,7 +242,7 @@
           "settings": {
             "label": "SỐ ĐIỆN THOẠI",
             "entry": "",
-            "placeholder": "Nhập tên của bạn",
+            "placeholder": "Số điện thoại",
             "required": true,
             "input_type": "tel"
           }
