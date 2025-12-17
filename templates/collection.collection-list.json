@@ -298,6 +298,14 @@
     "gallery_2_columns_VqBPxe": {
       "type": "gallery-2-columns",
       "blocks": {
+        "image_TFk7Rc": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/z7335318956959_276ade0ff9ef6b5b872b18f8f2a60cb2.jpg",
+            "block_link": "shopify://collections/angelic-collection",
+            "link_target": "_self"
+          }
+        },
         "image_Vgzdnf": {
           "type": "image",
           "settings": {
@@ -428,6 +436,7 @@
         }
       },
       "block_order": [
+        "image_TFk7Rc",
         "image_Vgzdnf",
         "image_PPpYWW",
         "image_8Utggn",
