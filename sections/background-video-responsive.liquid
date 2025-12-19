@@ -41,32 +41,54 @@
     {% endif %}
 
     {%- liquid
-      assign cover_image = section.settings.image
-      if cover_image == blank and section.settings.video_shopify_desktop
-        assign cover_image = section.settings.video_shopify_desktop.preview_image
+      assign cover_image_desktop = section.settings.image
+      if cover_image_desktop == blank and section.settings.video_shopify_desktop
+        assign cover_image_desktop = section.settings.video_shopify_desktop.preview_image
+      endif
+      
+      assign cover_image_mobile = section.settings.image
+      if cover_image_mobile == blank and section.settings.video_shopify_mobile
+        assign cover_image_mobile = section.settings.video_shopify_mobile.preview_image
+      elsif cover_image_mobile == blank and cover_image_desktop
+        assign cover_image_mobile = cover_image_desktop
       endif
     -%}
 
-    {% if cover_image %}
-      <link rel="preload" as="image" href="{{ cover_image | img_url: '1600x' }}" fetchpriority="high">
+    {% if cover_image_desktop %}
+      <link rel="preload" as="image" href="{{ cover_image_desktop | img_url: '1600x' }}" fetchpriority="high" media="(min-width: 768px)">
+    {% endif %}
+    {% if cover_image_mobile %}
+      <link rel="preload" as="image" href="{{ cover_image_mobile | img_url: '800x' }}" fetchpriority="high" media="(max-width: 767px)">
     {% endif %}
 
-    {% if cover_image %}
-      <div class="video-responsive-container__poster"
-        style="background-image: url('{{ cover_image | img_url: '1600x' }}'); background-size: cover; background-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %}; position: absolute; inset: 0; z-index: 1;">
-        <img src="{{ cover_image | img_url: '1600x' }}" 
-             alt="{{ cover_image.alt | escape }}" 
+    {% if cover_image_desktop %}
+      <div class="video-responsive-container__poster video-responsive-container__poster--desktop"
+        style="background-image: url('{{ cover_image_desktop | img_url: '1600x' }}'); background-size: cover; background-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %}; position: absolute; inset: 0; z-index: 1;">
+        <img src="{{ cover_image_desktop | img_url: '1600x' }}" 
+             alt="{{ cover_image_desktop.alt | escape }}" 
              fetchpriority="high"
-             width="{{ cover_image.width }}"
-             height="{{ cover_image.height }}"
+             width="{{ cover_image_desktop.width }}"
+             height="{{ cover_image_desktop.height }}"
              style="width: 100%; height: 100%; object-fit: cover; object-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %};">
+      </div>
+    {% endif %}
+    
+    {% if cover_image_mobile %}
+      <div class="video-responsive-container__poster video-responsive-container__poster--mobile"
+        style="background-image: url('{{ cover_image_mobile | img_url: '800x' }}'); background-size: cover; background-position: center; position: absolute; inset: 0; z-index: 1;">
+        <img src="{{ cover_image_mobile | img_url: '800x' }}" 
+             alt="{{ cover_image_mobile.alt | escape }}" 
+             fetchpriority="high"
+             width="{{ cover_image_mobile.width }}"
+             height="{{ cover_image_mobile.height }}"
+             style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
       </div>
     {% endif %}
 
     <video class="background-video-responsive desktop-video" 
            muted loop playsinline preload="none"
            data-video-src="desktop"
-           {% if cover_image %}poster="{{ cover_image | img_url: '1600x' }}"{% endif %}>
+           {% if cover_image_desktop %}poster="{{ cover_image_desktop | img_url: '1600x' }}"{% endif %}>
       {% if section.settings.video_shopify_desktop %}
         {% for source in section.settings.video_shopify_desktop.sources %}
           <source data-src="{{ source.url }}" type="{{ source.mime_type }}">
@@ -79,7 +101,7 @@
     <video class="background-video-responsive mobile-video" 
            muted loop playsinline preload="none"
            data-video-src="mobile"
-           {% if cover_image %}poster="{{ cover_image | img_url: '1200x' }}"{% endif %}>
+           {% if cover_image_mobile %}poster="{{ cover_image_mobile | img_url: '800x' }}"{% endif %}>
       {% if section.settings.video_shopify_mobile %}
         {% for source in section.settings.video_shopify_mobile.sources %}
           <source data-src="{{ source.url }}" type="{{ source.mime_type }}">
@@ -121,7 +143,8 @@
   if (!section) return;
 
   var videoContainer = section.querySelector('.video-responsive-container');
-  var poster = section.querySelector('.video-responsive-container__poster');
+  var posterDesktop = section.querySelector('.video-responsive-container__poster--desktop');
+  var posterMobile = section.querySelector('.video-responsive-container__poster--mobile');
   var desktopVideo = section.querySelector('.desktop-video');
   var mobileVideo = section.querySelector('.mobile-video');
   var videoLoaded = false;
@@ -155,7 +178,8 @@
     var playPromise = targetVideo.play();
     if (playPromise !== undefined) {
       playPromise.then(function() {
-        // Video started playing, fade out poster
+        // Video started playing, fade out the correct poster
+        var poster = isMobile() ? posterMobile : posterDesktop;
         if (poster) {
           poster.style.transition = 'opacity 0.5s ease';
           poster.style.opacity = '0';
@@ -232,6 +256,16 @@
     height: 100%;
     z-index: 1;
     pointer-events: none;
+  }
+
+  /* Desktop poster - ẩn trên mobile */
+  .video-responsive-container__poster--desktop {
+    display: block;
+  }
+  
+  /* Mobile poster - ẩn trên desktop */
+  .video-responsive-container__poster--mobile {
+    display: none;
   }
 
   .background-video-responsive {
@@ -324,6 +358,13 @@
     .mobile-video {
       display: block;
     }
+    /* Poster responsive - đổi hiển thị trên mobile */
+    .video-responsive-container__poster--desktop {
+      display: none;
+    }
+    .video-responsive-container__poster--mobile {
+      display: block;
+    }
     .video-title-image {
       max-width: 300px !important;
     }
@@ -332,6 +373,7 @@
     }
     .video-description {
       font-size: 1rem;
+    }
   }
 </style>
 
