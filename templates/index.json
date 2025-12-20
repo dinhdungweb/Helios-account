@@ -52,6 +52,27 @@
         "show_view_all": false
       }
     },
+    "background_video_responsive_aERnzb": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 910,
+        "video_height_mobile": 600,
+        "video_link": "shopify://collections/angelic-collection",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/giang sinh.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/giang sinh mobile.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
@@ -59,7 +80,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/z7316166844305_6e6506cbd4a76260ecfb966d77d1c147.jpg",
-            "mobile_image": "shopify://shop_images/z7316166844231_2e15bf3c304c25f29317e44fed721d2a.jpg",
+            "mobile_image": "shopify://shop_images/z7345892780414_d53e7a179c9625b74e5e1e7e8816943b.jpg",
             "slide_link": "https://helios.vn/account",
             "subheading": "",
             "title": "",
@@ -97,6 +118,7 @@
         "image_qbHR3Y",
         "image_KarRwm"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -364,6 +386,7 @@
   "order": [
     "background_video_responsive_RnWgY3",
     "featured_collection_WGhiFt",
+    "background_video_responsive_aERnzb",
     "slideshow_AUtEr7",
     "two_banner_gUWcNj",
     "two_banner_C3RzCw",
