@@ -97,9 +97,21 @@
 
       // Build items with tier discounts
       items = await Promise.all(cart.items.map(async (item) => {
+        // CHECK IF ITEM IS FREE GIFT - Apply 100% discount
+        const isGift = item.properties && item.properties._is_free_gift === 'true';
+        if (isGift) {
+          return {
+            variant_id: item.variant_id,
+            quantity: item.quantity,
+            price: item.price / 100,
+            discount_percent: 100, // FREE GIFT = 100% discount
+            is_gift: true
+          };
+        }
+
         let discountPercent = 0;
         let foundWrapper = false;
-        
+
         // Try to get discount from cart drawer (if available)
         // Match by variant_id, NOT by index
         const cartItems = document.querySelectorAll('.cart-drawer-item');
@@ -114,7 +126,7 @@
             }
           }
         }
-        
+
         // Only calculate discount if wrapper NOT found
         // If wrapper found with discount=0, trust Liquid's scope check
         if (!foundWrapper) {

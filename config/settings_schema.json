@@ -1169,6 +1169,112 @@
     ]
   },
   {
+    "name": "Free Gift",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Cấu hình chung"
+      },
+      {
+        "type": "checkbox",
+        "id": "free_gift_enabled",
+        "label": "Bật chức năng quà tặng",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "free_gift_mode",
+        "label": "Chế độ thêm quà",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Tự động thêm vào giỏ"
+          },
+          {
+            "value": "checkbox",
+            "label": "Hiển thị checkbox cho khách chọn"
+          }
+        ],
+        "default": "auto"
+      },
+      {
+        "type": "header",
+        "content": "Điều kiện tặng quà"
+      },
+      {
+        "type": "select",
+        "id": "free_gift_trigger",
+        "label": "Loại điều kiện",
+        "options": [
+          {
+            "value": "any",
+            "label": "Mua bất kỳ sản phẩm nào"
+          },
+          {
+            "value": "collection",
+            "label": "Mua từ collection cụ thể"
+          },
+          {
+            "value": "minimum",
+            "label": "Đơn hàng tối thiểu"
+          },
+          {
+            "value": "product",
+            "label": "Mua sản phẩm cụ thể"
+          }
+        ],
+        "default": "any"
+      },
+      {
+        "type": "collection",
+        "id": "free_gift_trigger_collection",
+        "label": "Collection kích hoạt"
+      },
+      {
+        "type": "product",
+        "id": "free_gift_trigger_product",
+        "label": "Sản phẩm kích hoạt"
+      },
+      {
+        "type": "text",
+        "id": "free_gift_minimum",
+        "label": "Đơn tối thiểu (VND)",
+        "default": "500000"
+      },
+      {
+        "type": "header",
+        "content": "Sản phẩm quà tặng"
+      },
+      {
+        "type": "product",
+        "id": "free_gift_product",
+        "label": "Sản phẩm quà tặng"
+      },
+      {
+        "type": "text",
+        "id": "free_gift_quantity",
+        "label": "Số lượng quà tặng",
+        "default": "1"
+      },
+      {
+        "type": "header",
+        "content": "Hiển thị"
+      },
+      {
+        "type": "text",
+        "id": "free_gift_label",
+        "label": "Nhãn quà tặng",
+        "default": "🎁 Quà tặng miễn phí"
+      },
+      {
+        "type": "text",
+        "id": "free_gift_message",
+        "label": "Thông báo khi được tặng",
+        "default": "Chúc mừng! Bạn được tặng quà miễn phí"
+      }
+    ]
+  },
+  {
     "name": "Lock Website Content",
     "settings": [
       {

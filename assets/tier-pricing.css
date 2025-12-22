@@ -28,7 +28,7 @@
   line-height: 1.5;
 }
 
-.product-block .price .tier-pricing-wrapper .tier-pricing-prices > * {
+.product-block .price .tier-pricing-wrapper .tier-pricing-prices>* {
   display: inline;
   /* white-space: nowrap; */
   padding-right: 3px;
@@ -213,9 +213,12 @@
    ============================================ */
 
 @keyframes tier-badge-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.05);
   }
@@ -268,3 +271,100 @@
 }
 
 /* Note: Removed aggressive display:none rules that were hiding default prices */
+
+/* ============================================
+   FREE GIFT STYLES
+   ============================================ */
+
+.cart-drawer-item--gift {
+  background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+  border: 2px dashed #ffc107 !important;
+  border-radius: 12px;
+  position: relative;
+  padding-top: 35px;
+  margin-bottom: 12px;
+}
+
+.free-gift-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #ff6b6b, #feca57);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 6px 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 10px 10px 0 0;
+}
+
+.free-gift-price {
+  color: #28a745;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.free-gift-original-price {
+  text-decoration: line-through;
+  opacity: 0.5;
+  font-size: 13px;
+  margin-left: 6px;
+  color: #999;
+}
+
+/* Hide controls for gift items */
+.cart-drawer-item--gift .cart-drawer-quantity-selector,
+.cart-drawer-item--gift .cart-drawer-remove-btn {
+  display: none !important;
+}
+
+/* Toast notification */
+.free-gift-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  opacity: 0;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.free-gift-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.free-gift-toast-icon {
+  font-size: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .free-gift-badge {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  .free-gift-toast {
+    left: 10px;
+    right: 10px;
+    transform: translateX(0) translateY(100px);
+    border-radius: 12px;
+  }
+
+  .free-gift-toast.show {
+    transform: translateX(0) translateY(0);
+  }
+}

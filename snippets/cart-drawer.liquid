@@ -1,3 +1,30 @@
+{% comment %} ========== FREE GIFT CONFIG ========== {% endcomment %}
+{% assign free_gift_enabled = settings.free_gift_enabled %}
+{% assign free_gift_product = settings.free_gift_product %}
+{% assign free_gift_product_id = nil %}
+{% assign free_gift_variant_id = nil %}
+{% if free_gift_product %}
+  {% assign free_gift_product_id = free_gift_product.id %}
+  {% assign free_gift_variant_id = free_gift_product.first_available_variant.id %}
+{% endif %}
+
+<script>
+  window.FREE_GIFT_CONFIG = {
+    enabled: {{ free_gift_enabled | default: false }},
+    mode: '{{ settings.free_gift_mode | default: "auto" }}',
+    trigger: '{{ settings.free_gift_trigger | default: "any" }}',
+    triggerCollectionId: {{ settings.free_gift_trigger_collection.id | default: 'null' }},
+    triggerCollectionHandle: '{{ settings.free_gift_trigger_collection.handle | default: "" }}',
+    triggerProductId: {{ settings.free_gift_trigger_product.id | default: 'null' }},
+    minimumAmount: {{ settings.free_gift_minimum | default: 0 | times: 100 }},
+    giftProductId: {{ free_gift_product_id | default: 'null' }},
+    giftVariantId: {{ free_gift_variant_id | default: 'null' }},
+    giftQuantity: {{ settings.free_gift_quantity | default: 1 }},
+    giftLabel: '{{ settings.free_gift_label | default: "🎁 Quà tặng miễn phí" | escape }}',
+    giftMessage: '{{ settings.free_gift_message | default: "Chúc mừng! Bạn được tặng quà miễn phí" | escape }}'
+  };
+</script>
+
 <div class="cart-drawer">
   <div class="cart-drawer-box">
     <header class="cart-drawer-header">
@@ -16,7 +43,23 @@
       {% else %}
         <div class="cart-drawer-items">
           {% for item in cart.items %}
-            <div class="cart-drawer-item" data-line-item-key="{{ item.key }}" data-variant-id="{{ item.variant_id }}">
+            {% comment %} Check if this is a free gift item {% endcomment %}
+            {% assign is_gift_item = false %}
+            {% if item.properties._is_free_gift == 'true' %}
+              {% assign is_gift_item = true %}
+            {% elsif free_gift_product_id and item.product.id == free_gift_product_id %}
+              {% assign is_gift_item = true %}
+            {% endif %}
+
+            <div class="cart-drawer-item {% if is_gift_item %}cart-drawer-item--gift{% endif %}" 
+                 data-line-item-key="{{ item.key }}" 
+                 data-variant-id="{{ item.variant_id }}"
+                 data-is-gift="{{ is_gift_item }}">
+              
+              {% if is_gift_item %}
+                <div class="free-gift-badge">{{ settings.free_gift_label | default: '🎁 Quà tặng miễn phí' }}</div>
+              {% endif %}
+
               <div class="cart-drawer-item-image">
                 <img src="{{ item.image | img_url: '200x' }}" alt="{{ item.title }}">
               </div>
@@ -28,15 +71,20 @@
                     </h3>
                     <span>{{ item.variant.title }}</span>
                     <div class="cart-price">
-                      {% comment %} Always show tier pricing if enabled {% endcomment %}
-                      {% render 'tier-price', 
-                        price: item.original_price,
-                        compare_at_price: item.variant.compare_at_price,
-                        product: item.product,
-                        customer: customer,
-                        show_original: true,
-                        show_badge: false
-                      %}
+                      {% if is_gift_item %}
+                        <span class="free-gift-price">MIỄN PHÍ</span>
+                        <span class="free-gift-original-price">{{ item.original_price | money }}</span>
+                      {% else %}
+                        {% comment %} Always show tier pricing if enabled {% endcomment %}
+                        {% render 'tier-price', 
+                          price: item.original_price,
+                          compare_at_price: item.variant.compare_at_price,
+                          product: item.product,
+                          customer: customer,
+                          show_original: true,
+                          show_badge: false
+                        %}
+                      {% endif %}
 
                     </div>
                     <div class="cart-drawer-quantity-selector">

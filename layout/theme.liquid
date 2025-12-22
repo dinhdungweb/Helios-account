@@ -336,6 +336,11 @@
   <script src="{{ 'tier-cart-drawer.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'tier-draft-order.js' | asset_url }}" defer="defer"></script>
   
+  {% comment %} Free Gift {% endcomment %}
+  {% if settings.free_gift_enabled %}
+    <script src="{{ 'free-gift.js' | asset_url }}" defer="defer"></script>
+  {% endif %}
+  
   {% comment %} Tier Auto Discount {% endcomment %}
   {% render 'tier-auto-discount' %}
 </body>
