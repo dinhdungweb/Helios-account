@@ -279,7 +279,7 @@
 .cart-drawer-item--gift {
   background: #000000;
   border: 2px dashed #fab320 !important;
-  border-radius: 12px;
+  border-radius: 5px;
   position: relative;
   padding-top: 35px;
   padding-bottom: 0 !important;
