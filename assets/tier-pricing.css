@@ -277,8 +277,8 @@
    ============================================ */
 
 .cart-drawer-item--gift {
-  background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
-  border: 2px dashed #ffc107 !important;
+  background: #000000;
+  border: 2px dashed #fab320 !important;
   border-radius: 12px;
   position: relative;
   padding-top: 35px;
@@ -290,8 +290,8 @@
   top: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(90deg, #ff6b6b, #feca57);
-  color: #fff;
+  background: #fab320;
+  color: #000000;
   font-weight: 700;
   font-size: 11px;
   padding: 6px 12px;
@@ -318,7 +318,7 @@
 }
 
 .free-gift-price {
-  color: #28a745;
+  color: #fab320;
   font-weight: 700;
   font-size: 16px;
 }
@@ -343,8 +343,8 @@
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: #fff;
+  background: #fab320;
+  color: #000000;
   padding: 14px 24px;
   border-radius: 50px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -390,8 +390,8 @@
    ============================================ */
 
 .free-gift-checkbox-section {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border: 2px solid #ffc107;
+  background: #000000;
+  border: 2px solid #fab320;
   border-radius: 12px;
   padding: 16px;
   margin: 16px 0;
@@ -406,7 +406,7 @@
   right: -20px;
   width: 100px;
   height: 100px;
-  background: linear-gradient(135deg, #ffc107, #ff6b6b);
+  background: #fab320;
   opacity: 0.1;
   border-radius: 50%;
 }
@@ -438,7 +438,7 @@
 }
 
 .free-gift-checkbox-label {
-  color: #feca57;
+  color: #fab320;
   font-weight: 700;
   font-size: 11px;
   text-transform: uppercase;
@@ -452,7 +452,7 @@
 .free-gift-checkbox-label .free-gift-icon svg {
   width: 14px;
   height: 14px;
-  stroke: #feca57;
+  stroke: #fab320;
 }
 
 .free-gift-checkbox-title {
@@ -472,7 +472,7 @@
 }
 
 .free-gift-price-free {
-  color: #28a745;
+  color: #fab320;
   font-weight: 700;
   font-size: 14px;
 }
@@ -489,8 +489,8 @@
 }
 
 .free-gift-add-btn {
-  background: linear-gradient(135deg, #ffc107, #ff9800);
-  color: #000;
+  background: #fab320;
+  color: #000000;
   border: none;
   padding: 10px 16px;
   border-radius: 8px;
@@ -503,8 +503,8 @@
 }
 
 .free-gift-add-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  opacity: 0.9;
+  box-shadow: 0 4px 15px rgba(250, 179, 32, 0.4);
 }
 
 .free-gift-add-btn:disabled {
