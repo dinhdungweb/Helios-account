@@ -98,7 +98,7 @@
     "animation_loading_animation": "fill",
     "cart_type": "",
     "free_gift_enabled": true,
-    "free_gift_mode": "auto",
+    "free_gift_mode": "checkbox",
     "free_gift_trigger_collection": "all-products",
     "free_gift_product": "agape-helios-silver",
     "enable_locked_content": true,
