@@ -393,7 +393,7 @@
 .free-gift-checkbox-section {
   background: #000000;
   border: 2px solid #fab320;
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 16px;
   margin: 16px 0;
   position: relative;
@@ -422,7 +422,7 @@
   flex-shrink: 0;
   width: 60px;
   height: 60px;
-  border-radius: 8px;
+  border-radius: 3px;
   overflow: hidden;
   background: #fff;
 }
@@ -444,7 +444,6 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 4px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -494,7 +493,7 @@
   color: #000000;
   border: none;
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 3px;
   font-weight: 700;
   font-size: 12px;
   cursor: pointer;
