@@ -335,6 +335,26 @@
       });
     }
 
+    // Listen for "Thêm quà" button click (checkbox mode)
+    document.addEventListener('click', async (e) => {
+      const addBtn = e.target.closest('.free-gift-add-btn');
+      if (addBtn) {
+        e.preventDefault();
+        const variantId = addBtn.dataset.variantId;
+        if (variantId) {
+          addBtn.disabled = true;
+          addBtn.textContent = 'Đang thêm...';
+
+          try {
+            await addGift();
+          } finally {
+            addBtn.disabled = false;
+            addBtn.textContent = 'Thêm quà';
+          }
+        }
+      }
+    });
+
     // Initial check after a short delay
     setTimeout(checkAndManageGift, 1000);
 

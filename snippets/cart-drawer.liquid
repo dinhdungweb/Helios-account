@@ -114,6 +114,68 @@
             </div>
           {% endfor %}
 
+          {% comment %} ========== FREE GIFT CHECKBOX (Mode: checkbox) ========== {% endcomment %}
+          {% if free_gift_enabled and settings.free_gift_mode == 'checkbox' and free_gift_product %}
+            {% comment %} Check if qualifies {% endcomment %}
+            {% assign gift_qualifies = false %}
+            {% assign non_gift_count = 0 %}
+            {% for item in cart.items %}
+              {% unless item.product.id == free_gift_product_id %}
+                {% assign non_gift_count = non_gift_count | plus: 1 %}
+              {% endunless %}
+            {% endfor %}
+            
+            {% case settings.free_gift_trigger %}
+              {% when 'any' %}
+                {% if non_gift_count > 0 %}
+                  {% assign gift_qualifies = true %}
+                {% endif %}
+              {% when 'minimum' %}
+                {% assign cart_total_no_gift = 0 %}
+                {% for item in cart.items %}
+                  {% unless item.product.id == free_gift_product_id %}
+                    {% assign cart_total_no_gift = cart_total_no_gift | plus: item.final_line_price %}
+                  {% endunless %}
+                {% endfor %}
+                {% assign min_amt = settings.free_gift_minimum | times: 100 %}
+                {% if cart_total_no_gift >= min_amt %}
+                  {% assign gift_qualifies = true %}
+                {% endif %}
+            {% endcase %}
+            
+            {% comment %} Check if gift already in cart {% endcomment %}
+            {% assign gift_in_cart = false %}
+            {% for item in cart.items %}
+              {% if item.product.id == free_gift_product_id %}
+                {% assign gift_in_cart = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            
+            {% if gift_qualifies and gift_in_cart == false %}
+              <div class="free-gift-checkbox-section">
+                <div class="free-gift-checkbox-inner">
+                  <div class="free-gift-checkbox-image">
+                    <img src="{{ free_gift_product.featured_image | img_url: '80x80' }}" alt="{{ free_gift_product.title }}">
+                  </div>
+                  <div class="free-gift-checkbox-content">
+                    <div class="free-gift-checkbox-label">{{ settings.free_gift_label | default: '🎁 Quà tặng miễn phí' }}</div>
+                    <div class="free-gift-checkbox-title">{{ free_gift_product.title }}</div>
+                    <div class="free-gift-checkbox-price">
+                      <span class="free-gift-price-free">MIỄN PHÍ</span>
+                      <span class="free-gift-price-original">{{ free_gift_product.price | money }}</span>
+                    </div>
+                  </div>
+                  <div class="free-gift-checkbox-action">
+                    <button type="button" class="free-gift-add-btn" data-variant-id="{{ free_gift_variant_id }}">
+                      Thêm quà
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+
           <div class="recommend-product-heading">{{ section.settings.recommend-product-heading }}</div>
           
           {% if section.settings.product-list != blank %}
