@@ -17,21 +17,18 @@
     giftProductId: null,
     giftVariantId: null,
     giftQuantity: 1,
-    giftLabel: '🎁 Quà tặng miễn phí',
+    giftLabel: 'Quà tặng miễn phí',
     giftMessage: 'Chúc mừng! Bạn được tặng quà miễn phí'
   };
 
   let isProcessing = false;
   let lastCartItemCount = -1;
 
-  console.log('[FreeGift] Config loaded:', CONFIG);
-
   /**
    * Check if cart qualifies for free gift
    */
   function checkQualification(cart) {
     if (!CONFIG.enabled || !CONFIG.giftVariantId) {
-      console.log('[FreeGift] Not enabled or no gift variant:', CONFIG.enabled, CONFIG.giftVariantId);
       return false;
     }
 
@@ -41,17 +38,13 @@
       !(item.properties && item.properties._is_free_gift === 'true')
     );
 
-    console.log('[FreeGift] Non-gift items:', nonGiftItems.length);
-
     if (nonGiftItems.length === 0) return false;
 
     switch (CONFIG.trigger) {
       case 'any':
-        console.log('[FreeGift] Trigger: any, qualifies: true');
         return nonGiftItems.length > 0;
 
       case 'collection':
-        // Check if any item is from trigger collection
         if (!CONFIG.triggerCollectionHandle) return false;
         return nonGiftItems.some(item => {
           const tags = item.properties?._collections || '';
@@ -60,7 +53,6 @@
 
       case 'minimum':
         const cartTotal = nonGiftItems.reduce((sum, item) => sum + item.final_line_price, 0);
-        console.log('[FreeGift] Trigger: minimum, total:', cartTotal, 'required:', CONFIG.minimumAmount);
         return cartTotal >= CONFIG.minimumAmount;
 
       case 'product':
@@ -75,25 +67,18 @@
    * Check if gift is already in cart
    */
   function isGiftInCart(cart) {
-    const found = cart.items.some(item =>
+    return cart.items.some(item =>
       item.variant_id == CONFIG.giftVariantId ||
       (item.properties && item.properties._is_free_gift === 'true')
     );
-    console.log('[FreeGift] Gift in cart:', found);
-    return found;
   }
 
   /**
    * Add gift to cart
    */
   async function addGift() {
-    if (isProcessing) {
-      console.log('[FreeGift] Already processing, skip');
-      return;
-    }
+    if (isProcessing) return;
     isProcessing = true;
-
-    console.log('[FreeGift] Adding gift to cart, variant:', CONFIG.giftVariantId);
 
     try {
       const response = await fetch('/cart/add.js', {
@@ -112,13 +97,10 @@
       });
 
       if (response.ok) {
-        console.log('[FreeGift] Gift added successfully');
         showToast(CONFIG.giftMessage);
-        // Refresh cart drawer
         refreshCartDrawer();
       } else {
-        const error = await response.json();
-        console.error('[FreeGift] Error adding gift:', error);
+        console.error('[FreeGift] Error adding gift');
       }
     } catch (error) {
       console.error('[FreeGift] Error adding gift:', error);
@@ -141,7 +123,6 @@
       );
 
       if (giftItem) {
-        console.log('[FreeGift] Removing gift from cart');
         await fetch('/cart/change.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -163,8 +144,6 @@
    * Refresh cart drawer content
    */
   function refreshCartDrawer() {
-    console.log('[FreeGift] Refreshing cart drawer...');
-
     // Method 1: Dispatch events
     document.dispatchEvent(new CustomEvent('cart:refresh'));
     document.dispatchEvent(new CustomEvent('cart:updated'));
@@ -174,11 +153,8 @@
       const cartDrawer = document.querySelector('.cart-drawer');
       if (!cartDrawer) return;
 
-      // Find the parent section
       const section = cartDrawer.closest('[id^="shopify-section"]');
       const sectionId = section ? section.id.replace('shopify-section-', '') : 'cart-drawer';
-
-      console.log('[FreeGift] Reloading section:', sectionId);
 
       fetch(`${window.location.pathname}?section_id=${sectionId}`)
         .then(res => res.text())
@@ -186,18 +162,14 @@
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
 
-          // Only update the cart-drawer-box content, keep drawer wrapper intact
           const newBox = doc.querySelector('.cart-drawer-box');
           const currentBox = cartDrawer.querySelector('.cart-drawer-box');
 
           if (newBox && currentBox) {
             currentBox.innerHTML = newBox.innerHTML;
-            console.log('[FreeGift] Cart drawer content refreshed successfully');
-            // Re-attach event listeners
             reinitCartDrawerEvents();
             document.dispatchEvent(new CustomEvent('cart:rendered'));
           } else {
-            // Fallback: update entire drawer but preserve active state
             const newContent = doc.querySelector('.cart-drawer');
             if (newContent) {
               const wasActive = cartDrawer.classList.contains('active');
@@ -206,7 +178,6 @@
                 cartDrawer.classList.add('active');
               }
               reinitCartDrawerEvents();
-              console.log('[FreeGift] Cart drawer refreshed (fallback)');
             }
           }
         })
@@ -218,18 +189,11 @@
 
   /**
    * Re-init cart drawer events after refresh
-   * Calls theme's addCartDrawerListeners() function
    */
   function reinitCartDrawerEvents() {
-    console.log('[FreeGift] Re-initializing cart drawer events...');
-
-    // Call theme's native addCartDrawerListeners function
     if (typeof addCartDrawerListeners === 'function') {
-      console.log('[FreeGift] Calling theme addCartDrawerListeners()');
       addCartDrawerListeners();
     } else {
-      console.warn('[FreeGift] addCartDrawerListeners not found, using fallback');
-      // Fallback: manually attach close button event
       const closeBtn = document.querySelector('#btn-close, .cart-drawer-header-right-close');
       if (closeBtn) {
         closeBtn.onclick = function () {
@@ -242,7 +206,6 @@
       }
     }
 
-    // Update cart icon count
     updateCartIconCount();
   }
 
@@ -255,13 +218,9 @@
       const cart = await response.json();
       const count = cart.item_count;
 
-      console.log('[FreeGift] Updating cart icon count:', count);
-
-      // Call theme's updateCartItemCounts if available
       if (typeof updateCartItemCounts === 'function') {
         updateCartItemCounts(count);
       } else {
-        // Fallback: directly update cart icons
         document.querySelectorAll('.cart.cart-icon--basket1 div, .cart.cart-icon--basket2 div, .cart.cart-icon--basket3 div, .cart-count, [data-cart-count]').forEach(el => {
           el.textContent = count;
         });
@@ -275,19 +234,13 @@
    * Main function to check and manage gift
    */
   async function checkAndManageGift() {
-    if (!CONFIG.enabled) {
-      console.log('[FreeGift] Feature disabled');
-      return;
-    }
+    if (!CONFIG.enabled) return;
 
     try {
-      console.log('[FreeGift] Checking cart...');
       const response = await fetch('/cart.js');
       const cart = await response.json();
 
-      // Prevent duplicate checks
       if (cart.item_count === lastCartItemCount && lastCartItemCount !== -1) {
-        console.log('[FreeGift] Cart unchanged, skip');
         return;
       }
       lastCartItemCount = cart.item_count;
@@ -295,13 +248,9 @@
       const qualifies = checkQualification(cart);
       const giftInCart = isGiftInCart(cart);
 
-      console.log('[FreeGift] Qualifies:', qualifies, 'Gift in cart:', giftInCart, 'Mode:', CONFIG.mode);
-
       if (qualifies && !giftInCart && CONFIG.mode === 'auto') {
-        console.log('[FreeGift] Adding gift...');
         await addGift();
       } else if (!qualifies && giftInCart) {
-        console.log('[FreeGift] Removing gift...');
         await removeGift(cart);
       }
     } catch (error) {
@@ -313,7 +262,6 @@
    * Show toast notification
    */
   function showToast(message) {
-    // Remove existing toast
     const existingToast = document.querySelector('.free-gift-toast');
     if (existingToast) existingToast.remove();
 
@@ -333,10 +281,7 @@
     `;
     document.body.appendChild(toast);
 
-    // Animate in
     setTimeout(() => toast.classList.add('show'), 100);
-
-    // Animate out
     setTimeout(() => {
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 300);
@@ -351,58 +296,44 @@
     window.fetch = async function (...args) {
       const response = await originalFetch.apply(this, args);
 
-      // Check if this is a cart-related request
       const url = args[0];
       if (typeof url === 'string' &&
         (url.includes('/cart/add') ||
           url.includes('/cart/change') ||
           url.includes('/cart/update') ||
           url.includes('/cart/clear'))) {
-        console.log('[FreeGift] Cart API called:', url);
-        // Wait a bit then check gift
         setTimeout(checkAndManageGift, 800);
       }
 
       return response;
     };
-    console.log('[FreeGift] Fetch hooked');
   }
 
   /**
    * Initialize event listeners
    */
   function init() {
-    console.log('[FreeGift] Initializing...');
-
-    // Hook fetch to detect cart changes
     hookFetch();
 
-    // Listen for cart events
     document.addEventListener('cart:updated', () => {
-      console.log('[FreeGift] cart:updated event received');
       setTimeout(checkAndManageGift, 500);
     });
 
     document.addEventListener('cart:refresh', () => {
-      console.log('[FreeGift] cart:refresh event received');
       setTimeout(checkAndManageGift, 500);
     });
 
-    // Listen for add to cart forms
     document.addEventListener('submit', (e) => {
       if (e.target.matches('form[action="/cart/add"]')) {
-        console.log('[FreeGift] Add to cart form submitted');
         setTimeout(checkAndManageGift, 1500);
       }
     });
 
-    // Listen for cart drawer open
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.target.classList && mutation.target.classList.contains('cart-drawer')) {
           if (mutation.target.classList.contains('active') ||
             mutation.target.style.display !== 'none') {
-            console.log('[FreeGift] Cart drawer opened');
             setTimeout(checkAndManageGift, 300);
           }
         }
@@ -419,10 +350,8 @@
 
     // Listen for "Thêm quà" button click (checkbox mode)
     document.addEventListener('click', async (e) => {
-      console.log('[FreeGift] Click event:', e.target);
       const addBtn = e.target.closest('.free-gift-add-btn');
       if (addBtn) {
-        console.log('[FreeGift] Add button clicked!');
         e.preventDefault();
         e.stopPropagation();
 
@@ -430,9 +359,7 @@
         addBtn.textContent = 'Đang thêm...';
 
         try {
-          console.log('[FreeGift] Calling addGift()...');
           await addGift();
-          console.log('[FreeGift] Gift added successfully!');
         } catch (err) {
           console.error('[FreeGift] Error:', err);
         } finally {
@@ -440,12 +367,9 @@
           addBtn.textContent = 'Thêm quà';
         }
       }
-    }, true); // Use capture phase
+    }, true);
 
-    // Initial check after a short delay
     setTimeout(checkAndManageGift, 1000);
-
-    console.log('[FreeGift] Initialized successfully');
   }
 
   // Start
@@ -455,12 +379,11 @@
     init();
   }
 
-  // Expose for external use and debugging
+  // Expose for external use
   window.FreeGift = {
     check: checkAndManageGift,
     addGift: addGift,
-    config: CONFIG,
-    debug: () => console.log('[FreeGift] Config:', CONFIG)
+    config: CONFIG
   };
 
 })();
