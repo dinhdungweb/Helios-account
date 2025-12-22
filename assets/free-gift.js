@@ -3,7 +3,7 @@
  * Automatically manages free gift in cart based on qualification conditions
  * Compatible with Tier Discount system
  */
-(function() {
+(function () {
   'use strict';
 
   // Config will be set from Liquid template
@@ -22,28 +22,36 @@
   };
 
   let isProcessing = false;
+  let lastCartItemCount = -1;
+
+  console.log('[FreeGift] Config loaded:', CONFIG);
 
   /**
    * Check if cart qualifies for free gift
    */
   function checkQualification(cart) {
-    if (!CONFIG.enabled || !CONFIG.giftVariantId) return false;
+    if (!CONFIG.enabled || !CONFIG.giftVariantId) {
+      console.log('[FreeGift] Not enabled or no gift variant:', CONFIG.enabled, CONFIG.giftVariantId);
+      return false;
+    }
 
     // Filter out gift items when calculating
-    const nonGiftItems = cart.items.filter(item => 
-      item.product_id != CONFIG.giftProductId
+    const nonGiftItems = cart.items.filter(item =>
+      item.product_id != CONFIG.giftProductId &&
+      !(item.properties && item.properties._is_free_gift === 'true')
     );
+
+    console.log('[FreeGift] Non-gift items:', nonGiftItems.length);
 
     if (nonGiftItems.length === 0) return false;
 
     switch (CONFIG.trigger) {
       case 'any':
+        console.log('[FreeGift] Trigger: any, qualifies: true');
         return nonGiftItems.length > 0;
 
       case 'collection':
         // Check if any item is from trigger collection
-        // Note: cart.items doesn't have collection info directly
-        // We rely on product tags containing collection handle
         if (!CONFIG.triggerCollectionHandle) return false;
         return nonGiftItems.some(item => {
           const tags = item.properties?._collections || '';
@@ -52,6 +60,7 @@
 
       case 'minimum':
         const cartTotal = nonGiftItems.reduce((sum, item) => sum + item.final_line_price, 0);
+        console.log('[FreeGift] Trigger: minimum, total:', cartTotal, 'required:', CONFIG.minimumAmount);
         return cartTotal >= CONFIG.minimumAmount;
 
       case 'product':
@@ -66,18 +75,25 @@
    * Check if gift is already in cart
    */
   function isGiftInCart(cart) {
-    return cart.items.some(item => 
-      item.variant_id == CONFIG.giftVariantId || 
-      item.properties?._is_free_gift === 'true'
+    const found = cart.items.some(item =>
+      item.variant_id == CONFIG.giftVariantId ||
+      (item.properties && item.properties._is_free_gift === 'true')
     );
+    console.log('[FreeGift] Gift in cart:', found);
+    return found;
   }
 
   /**
    * Add gift to cart
    */
   async function addGift() {
-    if (isProcessing) return;
+    if (isProcessing) {
+      console.log('[FreeGift] Already processing, skip');
+      return;
+    }
     isProcessing = true;
+
+    console.log('[FreeGift] Adding gift to cart, variant:', CONFIG.giftVariantId);
 
     try {
       const response = await fetch('/cart/add.js', {
@@ -96,8 +112,13 @@
       });
 
       if (response.ok) {
+        console.log('[FreeGift] Gift added successfully');
         showToast(CONFIG.giftMessage);
-        triggerCartRefresh();
+        // Refresh cart drawer
+        refreshCartDrawer();
+      } else {
+        const error = await response.json();
+        console.error('[FreeGift] Error adding gift:', error);
       }
     } catch (error) {
       console.error('[FreeGift] Error adding gift:', error);
@@ -114,12 +135,13 @@
     isProcessing = true;
 
     try {
-      const giftItem = cart.items.find(item => 
+      const giftItem = cart.items.find(item =>
         item.variant_id == CONFIG.giftVariantId ||
-        item.properties?._is_free_gift === 'true'
+        (item.properties && item.properties._is_free_gift === 'true')
       );
 
       if (giftItem) {
+        console.log('[FreeGift] Removing gift from cart');
         await fetch('/cart/change.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -128,7 +150,7 @@
             quantity: 0
           })
         });
-        triggerCartRefresh();
+        refreshCartDrawer();
       }
     } catch (error) {
       console.error('[FreeGift] Error removing gift:', error);
@@ -138,21 +160,74 @@
   }
 
   /**
+   * Refresh cart drawer content
+   */
+  function refreshCartDrawer() {
+    // Try multiple methods to refresh cart
+
+    // Method 1: Dispatch events
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
+    document.dispatchEvent(new CustomEvent('cart:updated'));
+
+    // Method 2: Trigger theme's cart refresh if available
+    if (typeof theme !== 'undefined' && theme.cart && theme.cart.refresh) {
+      theme.cart.refresh();
+    }
+
+    // Method 3: Click the cart icon to refresh (fallback)
+    // This will cause the theme to re-fetch cart data
+    setTimeout(() => {
+      const cartDrawer = document.querySelector('.cart-drawer');
+      if (cartDrawer && cartDrawer.classList.contains('active')) {
+        // Cart drawer is open, reload the page section
+        fetch('/?section_id=cart-drawer')
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newDrawer = doc.querySelector('.cart-drawer');
+            if (newDrawer && cartDrawer.parentElement) {
+              cartDrawer.parentElement.innerHTML = newDrawer.outerHTML;
+              // Re-init cart drawer events if needed
+              document.dispatchEvent(new CustomEvent('cart:rendered'));
+            }
+          })
+          .catch(err => console.error('[FreeGift] Error refreshing drawer:', err));
+      }
+    }, 300);
+  }
+
+  /**
    * Main function to check and manage gift
    */
   async function checkAndManageGift() {
-    if (!CONFIG.enabled) return;
+    if (!CONFIG.enabled) {
+      console.log('[FreeGift] Feature disabled');
+      return;
+    }
 
     try {
+      console.log('[FreeGift] Checking cart...');
       const response = await fetch('/cart.js');
       const cart = await response.json();
+
+      // Prevent duplicate checks
+      if (cart.item_count === lastCartItemCount && lastCartItemCount !== -1) {
+        console.log('[FreeGift] Cart unchanged, skip');
+        return;
+      }
+      lastCartItemCount = cart.item_count;
 
       const qualifies = checkQualification(cart);
       const giftInCart = isGiftInCart(cart);
 
+      console.log('[FreeGift] Qualifies:', qualifies, 'Gift in cart:', giftInCart, 'Mode:', CONFIG.mode);
+
       if (qualifies && !giftInCart && CONFIG.mode === 'auto') {
+        console.log('[FreeGift] Adding gift...');
         await addGift();
       } else if (!qualifies && giftInCart) {
+        console.log('[FreeGift] Removing gift...');
         await removeGift(cart);
       }
     } catch (error) {
@@ -187,35 +262,83 @@
   }
 
   /**
-   * Trigger cart refresh event
+   * Hook into fetch to detect cart changes
    */
-  function triggerCartRefresh() {
-    document.dispatchEvent(new CustomEvent('cart:refresh'));
-    document.dispatchEvent(new CustomEvent('cart:updated'));
+  function hookFetch() {
+    const originalFetch = window.fetch;
+    window.fetch = async function (...args) {
+      const response = await originalFetch.apply(this, args);
+
+      // Check if this is a cart-related request
+      const url = args[0];
+      if (typeof url === 'string' &&
+        (url.includes('/cart/add') ||
+          url.includes('/cart/change') ||
+          url.includes('/cart/update') ||
+          url.includes('/cart/clear'))) {
+        console.log('[FreeGift] Cart API called:', url);
+        // Wait a bit then check gift
+        setTimeout(checkAndManageGift, 800);
+      }
+
+      return response;
+    };
+    console.log('[FreeGift] Fetch hooked');
   }
 
   /**
    * Initialize event listeners
    */
   function init() {
-    // Listen for cart updates
+    console.log('[FreeGift] Initializing...');
+
+    // Hook fetch to detect cart changes
+    hookFetch();
+
+    // Listen for cart events
     document.addEventListener('cart:updated', () => {
+      console.log('[FreeGift] cart:updated event received');
       setTimeout(checkAndManageGift, 500);
     });
 
     document.addEventListener('cart:refresh', () => {
+      console.log('[FreeGift] cart:refresh event received');
       setTimeout(checkAndManageGift, 500);
     });
 
     // Listen for add to cart forms
     document.addEventListener('submit', (e) => {
       if (e.target.matches('form[action="/cart/add"]')) {
-        setTimeout(checkAndManageGift, 1000);
+        console.log('[FreeGift] Add to cart form submitted');
+        setTimeout(checkAndManageGift, 1500);
       }
     });
 
-    // Initial check
-    checkAndManageGift();
+    // Listen for cart drawer open
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.target.classList && mutation.target.classList.contains('cart-drawer')) {
+          if (mutation.target.classList.contains('active') ||
+            mutation.target.style.display !== 'none') {
+            console.log('[FreeGift] Cart drawer opened');
+            setTimeout(checkAndManageGift, 300);
+          }
+        }
+      });
+    });
+
+    const cartDrawer = document.querySelector('.cart-drawer');
+    if (cartDrawer) {
+      observer.observe(cartDrawer, {
+        attributes: true,
+        attributeFilter: ['class', 'style']
+      });
+    }
+
+    // Initial check after a short delay
+    setTimeout(checkAndManageGift, 1000);
+
+    console.log('[FreeGift] Initialized successfully');
   }
 
   // Start
@@ -225,11 +348,12 @@
     init();
   }
 
-  // Expose for external use
+  // Expose for external use and debugging
   window.FreeGift = {
     check: checkAndManageGift,
     addGift: addGift,
-    config: CONFIG
+    config: CONFIG,
+    debug: () => console.log('[FreeGift] Config:', CONFIG)
   };
 
 })();
