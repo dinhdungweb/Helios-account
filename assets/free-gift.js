@@ -218,41 +218,28 @@
 
   /**
    * Re-init cart drawer events after refresh
+   * Calls theme's addCartDrawerListeners() function
    */
   function reinitCartDrawerEvents() {
     console.log('[FreeGift] Re-initializing cart drawer events...');
 
-    // Close button
-    const closeBtn = document.querySelector('#btn-close, .cart-drawer-header-right-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        const drawer = document.querySelector('.cart-drawer');
-        if (drawer) {
-          drawer.classList.remove('active');
-        }
-      });
-    }
-
-    // Quantity buttons
-    document.querySelectorAll('.cart-drawer-quantity-selector-minus, .cart-drawer-quantity-selector-plus').forEach(btn => {
-      btn.addEventListener('click', function () {
-        // Trigger theme's existing quantity handler if available
-        const event = new Event('click', { bubbles: true });
-        this.dispatchEvent(event);
-      });
-    });
-
-    // Remove buttons
-    document.querySelectorAll('.cart-drawer-remove-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-        const event = new Event('click', { bubbles: true });
-        this.dispatchEvent(event);
-      });
-    });
-
-    // Dispatch event for theme to re-init
-    if (typeof theme !== 'undefined' && theme.initCartDrawer) {
-      theme.initCartDrawer();
+    // Call theme's native addCartDrawerListeners function
+    if (typeof addCartDrawerListeners === 'function') {
+      console.log('[FreeGift] Calling theme addCartDrawerListeners()');
+      addCartDrawerListeners();
+    } else {
+      console.warn('[FreeGift] addCartDrawerListeners not found, using fallback');
+      // Fallback: manually attach close button event
+      const closeBtn = document.querySelector('#btn-close, .cart-drawer-header-right-close');
+      if (closeBtn) {
+        closeBtn.onclick = function () {
+          const drawer = document.querySelector('.cart-drawer');
+          if (drawer) {
+            drawer.classList.remove('cart-drawer--active');
+            drawer.classList.remove('active');
+          }
+        };
+      }
     }
   }
 
