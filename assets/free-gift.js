@@ -337,23 +337,28 @@
 
     // Listen for "Thêm quà" button click (checkbox mode)
     document.addEventListener('click', async (e) => {
+      console.log('[FreeGift] Click event:', e.target);
       const addBtn = e.target.closest('.free-gift-add-btn');
       if (addBtn) {
+        console.log('[FreeGift] Add button clicked!');
         e.preventDefault();
-        const variantId = addBtn.dataset.variantId;
-        if (variantId) {
-          addBtn.disabled = true;
-          addBtn.textContent = 'Đang thêm...';
+        e.stopPropagation();
 
-          try {
-            await addGift();
-          } finally {
-            addBtn.disabled = false;
-            addBtn.textContent = 'Thêm quà';
-          }
+        addBtn.disabled = true;
+        addBtn.textContent = 'Đang thêm...';
+
+        try {
+          console.log('[FreeGift] Calling addGift()...');
+          await addGift();
+          console.log('[FreeGift] Gift added successfully!');
+        } catch (err) {
+          console.error('[FreeGift] Error:', err);
+        } finally {
+          addBtn.disabled = false;
+          addBtn.textContent = 'Thêm quà';
         }
       }
-    });
+    }, true); // Use capture phase
 
     // Initial check after a short delay
     setTimeout(checkAndManageGift, 1000);
