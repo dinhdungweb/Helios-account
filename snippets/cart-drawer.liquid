@@ -20,7 +20,7 @@
     giftProductId: {{ free_gift_product_id | default: 'null' }},
     giftVariantId: {{ free_gift_variant_id | default: 'null' }},
     giftQuantity: {{ settings.free_gift_quantity | default: 1 }},
-    giftLabel: '{{ settings.free_gift_label | default: "🎁 Quà tặng miễn phí" | escape }}',
+    giftLabel: '{{ settings.free_gift_label | default: "Quà tặng miễn phí" | escape }}',
     giftMessage: '{{ settings.free_gift_message | default: "Chúc mừng! Bạn được tặng quà miễn phí" | escape }}'
   };
 </script>
