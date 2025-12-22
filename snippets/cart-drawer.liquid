@@ -355,6 +355,12 @@
             
             {% comment %} Loop through cart items and apply tier only to eligible products {% endcomment %}
             {% for item in cart.items %}
+              {% comment %} Skip free gift items from tier calculation {% endcomment %}
+              {% if item.properties._is_free_gift == 'true' or item.product.id == free_gift_product_id %}
+                {% comment %} Gift items are FREE, don't count them in total {% endcomment %}
+                {% continue %}
+              {% endif %}
+              
               {% assign item_applies = false %}
               
               {% comment %} Check if tier pricing applies to this product {% endcomment %}
@@ -458,11 +464,19 @@
             {% assign cart_tier_discount = 0 %}
           {% endif %}
           
+          {% comment %} Calculate subtotal excluding gift items {% endcomment %}
+          {% assign cart_subtotal_no_gift = 0 %}
+          {% for item in cart.items %}
+            {% unless item.properties._is_free_gift == 'true' or item.product.id == free_gift_product_id %}
+              {% assign cart_subtotal_no_gift = cart_subtotal_no_gift | plus: item.original_line_price %}
+            {% endunless %}
+          {% endfor %}
+          
           {% comment %} Show price breakdown {% endcomment %}
           {% if has_tier and tier_discount_percent > 0 %}
             <div class="cart-drawer-footer-row">
               <h3>Tổng phụ</h3>
-              <span>{{ cart.original_total_price | money }}</span>
+              <span>{{ cart_subtotal_no_gift | money }}</span>
             </div>
             <div class="cart-drawer-footer-row">
               {% comment %} Don't show percentage as it may not be accurate with product-specific discounts {% endcomment %}
@@ -475,7 +489,7 @@
             {% unless has_tier and tier_discount_percent > 0 %}
               <div class="cart-drawer-footer-row">
                 <h3>Tổng phụ</h3>
-                <span>{{ cart.original_total_price | money }}</span>
+                <span>{{ cart_subtotal_no_gift | money }}</span>
               </div>
             {% endunless %}
             <div class="cart-drawer-footer-row">
@@ -489,7 +503,14 @@
             {% if has_tier and tier_discount_percent > 0 %}
               <span>{{ cart_tier_total | money }}</span>
             {% else %}
-              <span>{{ cart.total_price | money }}</span>
+              {% comment %} Calculate total without gift for non-tier customers {% endcomment %}
+              {% assign cart_total_no_gift = 0 %}
+              {% for item in cart.items %}
+                {% unless item.properties._is_free_gift == 'true' or item.product.id == free_gift_product_id %}
+                  {% assign cart_total_no_gift = cart_total_no_gift | plus: item.final_line_price %}
+                {% endunless %}
+              {% endfor %}
+              <span>{{ cart_total_no_gift | money }}</span>
             {% endif %}
           </div>
           <div class="cart-drawer-item-main-grid">
