@@ -299,6 +299,22 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 10px 10px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.free-gift-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.free-gift-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  flex-shrink: 0;
 }
 
 .free-gift-price {
@@ -384,12 +400,15 @@
 }
 
 .free-gift-checkbox-section::before {
-  content: '🎁';
+  content: '';
   position: absolute;
   top: -20px;
   right: -20px;
-  font-size: 80px;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #ffc107, #ff6b6b);
   opacity: 0.1;
+  border-radius: 50%;
 }
 
 .free-gift-checkbox-inner {
@@ -419,15 +438,21 @@
 }
 
 .free-gift-checkbox-label {
-  background: linear-gradient(90deg, #ff6b6b, #feca57);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #feca57;
   font-weight: 700;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.free-gift-checkbox-label .free-gift-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: #feca57;
 }
 
 .free-gift-checkbox-title {

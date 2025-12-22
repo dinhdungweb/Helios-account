@@ -57,7 +57,7 @@
                  data-is-gift="{{ is_gift_item }}">
               
               {% if is_gift_item %}
-                <div class="free-gift-badge">{{ settings.free_gift_label | default: '🎁 Quà tặng miễn phí' }}</div>
+                <div class="free-gift-badge"><span class="free-gift-icon">{% render 'svg-gift' %}</span> Quà tặng miễn phí</div>
               {% endif %}
 
               <div class="cart-drawer-item-image">
@@ -159,7 +159,7 @@
                     <img src="{{ free_gift_product.featured_image | img_url: '80x80' }}" alt="{{ free_gift_product.title }}">
                   </div>
                   <div class="free-gift-checkbox-content">
-                    <div class="free-gift-checkbox-label">{{ settings.free_gift_label | default: '🎁 Quà tặng miễn phí' }}</div>
+                    <div class="free-gift-checkbox-label"><span class="free-gift-icon">{% render 'svg-gift' %}</span> Quà tặng miễn phí</div>
                     <div class="free-gift-checkbox-title">{{ free_gift_product.title }}</div>
                     <div class="free-gift-checkbox-price">
                       <span class="free-gift-price-free">MIỄN PHÍ</span>
