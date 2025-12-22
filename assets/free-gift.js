@@ -193,6 +193,8 @@
           if (newBox && currentBox) {
             currentBox.innerHTML = newBox.innerHTML;
             console.log('[FreeGift] Cart drawer content refreshed successfully');
+            // Re-attach event listeners
+            reinitCartDrawerEvents();
             document.dispatchEvent(new CustomEvent('cart:rendered'));
           } else {
             // Fallback: update entire drawer but preserve active state
@@ -203,6 +205,7 @@
               if (wasActive) {
                 cartDrawer.classList.add('active');
               }
+              reinitCartDrawerEvents();
               console.log('[FreeGift] Cart drawer refreshed (fallback)');
             }
           }
@@ -211,6 +214,46 @@
           console.error('[FreeGift] Error refreshing drawer:', err);
         });
     }, 500);
+  }
+
+  /**
+   * Re-init cart drawer events after refresh
+   */
+  function reinitCartDrawerEvents() {
+    console.log('[FreeGift] Re-initializing cart drawer events...');
+
+    // Close button
+    const closeBtn = document.querySelector('#btn-close, .cart-drawer-header-right-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        const drawer = document.querySelector('.cart-drawer');
+        if (drawer) {
+          drawer.classList.remove('active');
+        }
+      });
+    }
+
+    // Quantity buttons
+    document.querySelectorAll('.cart-drawer-quantity-selector-minus, .cart-drawer-quantity-selector-plus').forEach(btn => {
+      btn.addEventListener('click', function () {
+        // Trigger theme's existing quantity handler if available
+        const event = new Event('click', { bubbles: true });
+        this.dispatchEvent(event);
+      });
+    });
+
+    // Remove buttons
+    document.querySelectorAll('.cart-drawer-remove-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const event = new Event('click', { bubbles: true });
+        this.dispatchEvent(event);
+      });
+    });
+
+    // Dispatch event for theme to re-init
+    if (typeof theme !== 'undefined' && theme.initCartDrawer) {
+      theme.initCartDrawer();
+    }
   }
 
   /**
