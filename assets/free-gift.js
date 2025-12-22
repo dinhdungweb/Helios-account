@@ -168,15 +168,8 @@
     // Method 1: Dispatch events
     document.dispatchEvent(new CustomEvent('cart:refresh'));
     document.dispatchEvent(new CustomEvent('cart:updated'));
-    console.log('[FreeGift] cart:refresh event received');
-    console.log('[FreeGift] cart:updated event received');
 
-    // Method 2: Try theme's updateCart if available
-    if (typeof theme !== 'undefined' && theme.cart && typeof theme.cart.updateCart === 'function') {
-      theme.cart.updateCart();
-    }
-
-    // Method 3: Force reload cart drawer using Shopify's Section Rendering API
+    // Method 2: Force reload cart drawer content using Section Rendering API
     setTimeout(() => {
       const cartDrawer = document.querySelector('.cart-drawer');
       if (!cartDrawer) return;
@@ -192,26 +185,30 @@
         .then(html => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
-          const newContent = doc.querySelector('.cart-drawer');
 
-          if (newContent) {
-            // Replace cart drawer content
-            cartDrawer.innerHTML = newContent.innerHTML;
+          // Only update the cart-drawer-box content, keep drawer wrapper intact
+          const newBox = doc.querySelector('.cart-drawer-box');
+          const currentBox = cartDrawer.querySelector('.cart-drawer-box');
 
-            // Copy classes
-            cartDrawer.className = newContent.className;
-
-            // Make sure drawer stays open
-            cartDrawer.classList.add('active');
-
-            console.log('[FreeGift] Cart drawer refreshed successfully');
+          if (newBox && currentBox) {
+            currentBox.innerHTML = newBox.innerHTML;
+            console.log('[FreeGift] Cart drawer content refreshed successfully');
             document.dispatchEvent(new CustomEvent('cart:rendered'));
+          } else {
+            // Fallback: update entire drawer but preserve active state
+            const newContent = doc.querySelector('.cart-drawer');
+            if (newContent) {
+              const wasActive = cartDrawer.classList.contains('active');
+              cartDrawer.innerHTML = newContent.innerHTML;
+              if (wasActive) {
+                cartDrawer.classList.add('active');
+              }
+              console.log('[FreeGift] Cart drawer refreshed (fallback)');
+            }
           }
         })
         .catch(err => {
           console.error('[FreeGift] Error refreshing drawer:', err);
-          // Fallback: reload page
-          window.location.reload();
         });
     }, 500);
   }
