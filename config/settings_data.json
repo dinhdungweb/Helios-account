@@ -97,6 +97,8 @@
     "animation_loading": false,
     "animation_loading_animation": "fill",
     "cart_type": "",
+    "free_gift_enabled": true,
+    "free_gift_product": "khuyen-tai-bac-nam-nu-baca-s925-ktb325",
     "enable_locked_content": true,
     "lock_all_product_prices": false,
     "hide_cart_icon": false,
