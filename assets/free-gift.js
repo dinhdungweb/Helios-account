@@ -241,6 +241,34 @@
         };
       }
     }
+
+    // Update cart icon count
+    updateCartIconCount();
+  }
+
+  /**
+   * Update cart icon count from current cart state
+   */
+  async function updateCartIconCount() {
+    try {
+      const response = await fetch('/cart.js');
+      const cart = await response.json();
+      const count = cart.item_count;
+
+      console.log('[FreeGift] Updating cart icon count:', count);
+
+      // Call theme's updateCartItemCounts if available
+      if (typeof updateCartItemCounts === 'function') {
+        updateCartItemCounts(count);
+      } else {
+        // Fallback: directly update cart icons
+        document.querySelectorAll('.cart.cart-icon--basket1 div, .cart.cart-icon--basket2 div, .cart.cart-icon--basket3 div, .cart-count, [data-cart-count]').forEach(el => {
+          el.textContent = count;
+        });
+      }
+    } catch (error) {
+      console.error('[FreeGift] Error updating cart icon:', error);
+    }
   }
 
   /**
