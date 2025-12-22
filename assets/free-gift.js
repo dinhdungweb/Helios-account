@@ -163,38 +163,57 @@
    * Refresh cart drawer content
    */
   function refreshCartDrawer() {
-    // Try multiple methods to refresh cart
+    console.log('[FreeGift] Refreshing cart drawer...');
 
     // Method 1: Dispatch events
     document.dispatchEvent(new CustomEvent('cart:refresh'));
     document.dispatchEvent(new CustomEvent('cart:updated'));
+    console.log('[FreeGift] cart:refresh event received');
+    console.log('[FreeGift] cart:updated event received');
 
-    // Method 2: Trigger theme's cart refresh if available
-    if (typeof theme !== 'undefined' && theme.cart && theme.cart.refresh) {
-      theme.cart.refresh();
+    // Method 2: Try theme's updateCart if available
+    if (typeof theme !== 'undefined' && theme.cart && typeof theme.cart.updateCart === 'function') {
+      theme.cart.updateCart();
     }
 
-    // Method 3: Click the cart icon to refresh (fallback)
-    // This will cause the theme to re-fetch cart data
+    // Method 3: Force reload cart drawer using Shopify's Section Rendering API
     setTimeout(() => {
       const cartDrawer = document.querySelector('.cart-drawer');
-      if (cartDrawer && cartDrawer.classList.contains('active')) {
-        // Cart drawer is open, reload the page section
-        fetch('/?section_id=cart-drawer')
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const newDrawer = doc.querySelector('.cart-drawer');
-            if (newDrawer && cartDrawer.parentElement) {
-              cartDrawer.parentElement.innerHTML = newDrawer.outerHTML;
-              // Re-init cart drawer events if needed
-              document.dispatchEvent(new CustomEvent('cart:rendered'));
-            }
-          })
-          .catch(err => console.error('[FreeGift] Error refreshing drawer:', err));
-      }
-    }, 300);
+      if (!cartDrawer) return;
+
+      // Find the parent section
+      const section = cartDrawer.closest('[id^="shopify-section"]');
+      const sectionId = section ? section.id.replace('shopify-section-', '') : 'cart-drawer';
+
+      console.log('[FreeGift] Reloading section:', sectionId);
+
+      fetch(`${window.location.pathname}?section_id=${sectionId}`)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const newContent = doc.querySelector('.cart-drawer');
+
+          if (newContent) {
+            // Replace cart drawer content
+            cartDrawer.innerHTML = newContent.innerHTML;
+
+            // Copy classes
+            cartDrawer.className = newContent.className;
+
+            // Make sure drawer stays open
+            cartDrawer.classList.add('active');
+
+            console.log('[FreeGift] Cart drawer refreshed successfully');
+            document.dispatchEvent(new CustomEvent('cart:rendered'));
+          }
+        })
+        .catch(err => {
+          console.error('[FreeGift] Error refreshing drawer:', err);
+          // Fallback: reload page
+          window.location.reload();
+        });
+    }, 500);
   }
 
   /**
