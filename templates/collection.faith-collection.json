@@ -102,8 +102,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
-        "sticky_desktop": false,
-        "sticky_mobile_item": false,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
         "sticky_offset_desktop": 0,
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
@@ -184,8 +184,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
-        "sticky_desktop": false,
-        "sticky_mobile_item": false,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
         "sticky_offset_desktop": 0,
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
@@ -287,8 +287,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
-        "sticky_desktop": false,
-        "sticky_mobile_item": false,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
         "sticky_offset_desktop": 0,
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
@@ -390,8 +390,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
-        "sticky_desktop": false,
-        "sticky_mobile_item": false,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
         "sticky_offset_desktop": 0,
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
