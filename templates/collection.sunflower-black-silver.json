@@ -9,6 +9,63 @@
  */
 {
   "sections": {
+    "two_banner_b4eyjq": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_AqNyqq": {
+          "type": "banner",
+          "settings": {
+            "image_desktop": "shopify://shop_images/z7364183845058_c2da7c550ba1e7797db32d3561dcdaab.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_tUyhwV": {
+          "type": "banner",
+          "settings": {
+            "video": "shopify://files/videos/Quay video Tiktok Sunflower Black SIlver 19.12.2024 10mb (1).mp4",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_AqNyqq",
+        "banner_tUyhwV"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": false,
+        "gap": 0,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
+    },
     "slideshow_mjCVPk": {
       "type": "slideshow",
       "blocks": {
@@ -73,6 +130,7 @@
     }
   },
   "order": [
+    "two_banner_b4eyjq",
     "slideshow_mjCVPk",
     "main"
   ]
