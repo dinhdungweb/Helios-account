@@ -59,11 +59,58 @@
       "settings": {
         "overlap_header": false,
         "gap": 0,
-        "sticky_desktop": true,
-        "sticky_mobile_item": true,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
         "sticky_offset_desktop": 0,
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
+      }
+    },
+    "rich_text_iMGUVk": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color:#fab320\">SUNFLOWER BLACK SILVER</font>",
+        "title_size": 48,
+        "title_width": 30,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 12,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": false,
+        "show_vendor": false,
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
       }
     },
     "slideshow_mjCVPk": {
@@ -90,6 +137,7 @@
       "block_order": [
         "image_J8CRzq"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "fixed",
@@ -104,34 +152,35 @@
         "autoplay_speed": 7
       }
     },
-    "main": {
-      "type": "main-collection",
+    "rich_text_Lez9Lg": {
+      "type": "rich-text",
+      "name": "Rich text",
       "settings": {
-        "show_collection_content": false,
-        "show_collection_image": false,
-        "description_position": "top",
-        "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
-        "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
-        "show_vendor": false,
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
+        "subheading": "",
+        "title": "<font style=\"color:#fab320;letter-spacing:.8px\">GIỮA MUÔN VÀN NGÃ RẼ, ĐÂU LÀ VẬT CHỨNG CHO SỰ KIÊN ĐỊNH CỦA BẠN?</font>",
+        "title_size": 36,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>Luôn hướng về phía Mặt Trời, loài hoa Hướng Dương mang trong mình ý chí vươn mình mãnh liệt. </p><p>Sự phá cách trong <strong>BST SUNFLOWER</strong> nằm ở những đường nét gai góc nhưng vẫn thanh thoát - một sự<br/>cân bằng hoàn hảo giữa sức mạnh nội tại và vẻ ngoài lịch lãm.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
       }
     }
   },
   "order": [
     "two_banner_b4eyjq",
+    "rich_text_iMGUVk",
+    "main",
     "slideshow_mjCVPk",
-    "main"
+    "rich_text_Lez9Lg"
   ]
 }
