@@ -174,6 +174,29 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "image_with_text_7Qy3Ei": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 24,
+        "title_width": 40,
+        "text": "<p>Dưới bàn tay tỉ mỉ của những người thợ lành nghề, BST Sunflower được hoàn thiện thành những chế tác sắc sảo, mang nét bụi bặm riêng nhưng vẫn giữ trọn sự thanh thoát.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "center",
+        "text_width": 50,
+        "button_style": "auto",
+        "video_shopify": "shopify://files/videos/Edit vid xưởng Sonian - bản ads 1x1 10mb.mp4",
+        "image_width": 100,
+        "image_position": "left",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -181,6 +204,7 @@
     "rich_text_iMGUVk",
     "main",
     "slideshow_mjCVPk",
-    "rich_text_Lez9Lg"
+    "rich_text_Lez9Lg",
+    "image_with_text_7Qy3Ei"
   ]
 }
