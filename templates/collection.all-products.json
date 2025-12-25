@@ -14,6 +14,7 @@
       "blocks": {
         "button_D3k84m": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "GỢI Ý MÙA THU",
             "button_link": "shopify://collections/goi-y-cho-mua-thu"
