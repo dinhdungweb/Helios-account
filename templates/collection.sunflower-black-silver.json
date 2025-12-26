@@ -15,7 +15,7 @@
         "banner_AqNyqq": {
           "type": "banner",
           "settings": {
-            "image_desktop": "shopify://shop_images/z7364183845058_c2da7c550ba1e7797db32d3561dcdaab.jpg",
+            "image": "shopify://shop_images/z7366913204437_93070aa5a4c409abb10bcb8a333672a7.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
@@ -281,6 +281,7 @@
           "type": "banner",
           "settings": {
             "video": "shopify://files/videos/Edit vid xưởng Sonian - bản ads 1x1 10mb.mp4",
+            "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
@@ -300,6 +301,7 @@
           "type": "banner",
           "settings": {
             "video": "shopify://files/videos/copy_7DCD343A-05E5-4810-B7F2-651DBC2269EE.MOV",
+            "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
@@ -378,6 +380,7 @@
           "type": "banner",
           "settings": {
             "video": "shopify://files/videos/copy_7DCD343A-05E5-4810-B7F2-651DBC2269EE.MOV",
+            "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
@@ -397,6 +400,7 @@
           "type": "banner",
           "settings": {
             "image": "shopify://shop_images/Helios_18.jpg",
+            "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
