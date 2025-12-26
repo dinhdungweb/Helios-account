@@ -178,6 +178,27 @@
         "color_text": ""
       }
     },
+    "1766714743f736dddb": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d3b865_NUztTD": {
+          "type": "ai_gen_block_1d3b865",
+          "settings": {
+            "image": "shopify://shop_images/D_nh_d_ng_web_1.jpg",
+            "image_fit": "contain",
+            "image_position": "center",
+            "desktop_height": 800,
+            "mobile_height": 400,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d3b865_NUztTD"
+      ],
+      "settings": {}
+    },
     "image_with_text_7Qy3Ei": {
       "type": "image-with-text",
       "name": "Media with text",
@@ -265,6 +286,7 @@
     "main",
     "slideshow_mjCVPk",
     "rich_text_Lez9Lg",
+    "1766714743f736dddb",
     "image_with_text_7Qy3Ei",
     "two_banner_YCHKmq"
   ]
