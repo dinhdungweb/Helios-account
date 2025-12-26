@@ -160,7 +160,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "<font style=\"color:#fab320;letter-spacing:.8px\">GIỮA MUÔN VÀN NGÃ RẼ, ĐÂU LÀ VẬT CHỨNG CHO SỰ KIÊN ĐỊNH CỦA BẠN?</font>",
+        "title": "<font style=\"color:#fab320; letter-spacing: .5\">SUNFLOWER - BỘ SƯU TẬP DÀNH CHỈ CHO NGƯỜI ĐÀN ÔNG KIÊN ĐỊNH</font>",
         "title_size": 36,
         "title_width": 40,
         "heading_h1": false,
@@ -196,6 +196,33 @@
       },
       "block_order": [
         "ai_gen_block_1d3b865_NUztTD"
+      ],
+      "settings": {}
+    },
+    "17667150485be27939": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_b77b2e4_JrRT4V": {
+          "type": "ai_gen_block_b77b2e4",
+          "settings": {
+            "text": "GIỮA MUÔN VÀN NGÃ RẼ, ĐÂU LÀ VẬT CHỨNG CHO SỰ KIÊN ĐỊNH CỦA BẠN?",
+            "text_alignment": "left",
+            "font_size": 100,
+            "font_size_mobile": 50,
+            "font_weight": "900",
+            "line_height": 1.3,
+            "background_image": "shopify://shop_images/Upbai_1900x900px_1080x1350px_18.jpg",
+            "fallback_color": "#fab320",
+            "max_width": 1600,
+            "section_padding": 60,
+            "section_padding_mobile": 40,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_b77b2e4_JrRT4V"
       ],
       "settings": {}
     },
@@ -287,6 +314,7 @@
     "slideshow_mjCVPk",
     "rich_text_Lez9Lg",
     "1766714743f736dddb",
+    "17667150485be27939",
     "image_with_text_7Qy3Ei",
     "two_banner_YCHKmq"
   ]
