@@ -160,7 +160,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "<font style=\"color:#fab320; letter-spacing: .5\">SUNFLOWER - BỘ SƯU TẬP DÀNH CHỈ CHO NGƯỜI ĐÀN ÔNG KIÊN ĐỊNH</font>",
+        "title": "SUNFLOWER - BỘ SƯU TẬP DÀNH CHỈ CHO NGƯỜI ĐÀN ÔNG KIÊN ĐỊNH",
         "title_size": 36,
         "title_width": 40,
         "heading_h1": false,
@@ -224,6 +224,7 @@
       "block_order": [
         "ai_gen_block_b77b2e4_JrRT4V"
       ],
+      "disabled": true,
       "settings": {}
     },
     "image_with_text_7Qy3Ei": {
@@ -234,7 +235,7 @@
         "title": "",
         "title_size": 24,
         "title_width": 40,
-        "text": "<p>Dưới bàn tay tỉ mỉ của những người thợ lành nghề, BST Sunflower được hoàn thiện thành những chế tác sắc sảo, mang nét bụi bặm riêng nhưng vẫn giữ trọn sự thanh thoát.</p>",
+        "text": "",
         "button_label": "",
         "button_link": "",
         "text_alignment": "center",
@@ -305,6 +306,29 @@
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
       }
+    },
+    "rich_text_LJU6M8": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Dưới bàn tay tỉ mỉ của những người thợ lành nghề, BST Sunflower được hoàn thiện thành những chế tác sắc sảo, mang nét bụi bặm riêng nhưng vẫn giữ trọn sự thanh thoát.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -315,6 +339,7 @@
     "rich_text_Lez9Lg",
     "1766714743f736dddb",
     "17667150485be27939",
+    "rich_text_LJU6M8",
     "image_with_text_7Qy3Ei",
     "two_banner_YCHKmq"
   ]
