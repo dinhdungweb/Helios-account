@@ -227,8 +227,32 @@
       "disabled": true,
       "settings": {}
     },
+    "rich_text_LJU6M8": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Dưới bàn tay tỉ mỉ của những người thợ lành nghề, BST Sunflower được hoàn thiện thành những chế tác sắc sảo, mang nét bụi bặm riêng nhưng vẫn giữ trọn sự thanh thoát.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "image_with_text_7Qy3Ei": {
       "type": "image-with-text",
+      "disabled": true,
       "name": "Media with text",
       "settings": {
         "subheading": "",
@@ -256,7 +280,7 @@
         "banner_czRttp": {
           "type": "banner",
           "settings": {
-            "video": "shopify://files/videos/copy_7DCD343A-05E5-4810-B7F2-651DBC2269EE.MOV",
+            "video": "shopify://files/videos/Edit vid xưởng Sonian - bản ads 1x1 10mb.mp4",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
@@ -274,6 +298,7 @@
         },
         "banner_FeAN3Q": {
           "type": "banner",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Helios_18.jpg",
             "video_loop": false,
@@ -307,27 +332,61 @@
         "sticky_z_index": 1000
       }
     },
-    "rich_text_LJU6M8": {
-      "type": "rich-text",
-      "name": "Rich text",
+    "two_banner_nKPqbU": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_AixAeL": {
+          "type": "banner",
+          "settings": {
+            "video": "shopify://files/videos/copy_7DCD343A-05E5-4810-B7F2-651DBC2269EE.MOV",
+            "video_loop": false,
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_LkkGDH": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/Helios_18.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_AixAeL",
+        "banner_LkkGDH"
+      ],
+      "name": "Two Banners",
       "settings": {
-        "subheading": "",
-        "title": "",
-        "title_size": 48,
-        "title_width": 12,
-        "heading_h1": false,
-        "text": "<p>Dưới bàn tay tỉ mỉ của những người thợ lành nghề, BST Sunflower được hoàn thiện thành những chế tác sắc sảo, mang nét bụi bặm riêng nhưng vẫn giữ trọn sự thanh thoát.</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
+        "overlap_header": false,
+        "gap": 0,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
       }
     }
   },
@@ -341,6 +400,7 @@
     "17667150485be27939",
     "rich_text_LJU6M8",
     "image_with_text_7Qy3Ei",
-    "two_banner_YCHKmq"
+    "two_banner_YCHKmq",
+    "two_banner_nKPqbU"
   ]
 }
