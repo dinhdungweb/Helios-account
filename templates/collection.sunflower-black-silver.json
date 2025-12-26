@@ -16,6 +16,7 @@
           "type": "banner",
           "settings": {
             "image_desktop": "shopify://shop_images/z7364183845058_c2da7c550ba1e7797db32d3561dcdaab.jpg",
+            "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
@@ -35,6 +36,7 @@
           "type": "banner",
           "settings": {
             "video": "shopify://files/videos/Quay video Tiktok Sunflower Black SIlver 19.12.2024 10mb (1).mp4",
+            "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
@@ -68,10 +70,11 @@
     },
     "rich_text_iMGUVk": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "<font style=\"color:#fab320\">SUNFLOWER BLACK SILVER</font>",
+        "title": "SUNFLOWER BLACK SILVER",
         "title_size": 48,
         "title_width": 30,
         "heading_h1": false,
@@ -197,6 +200,63 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "two_banner_YCHKmq": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_czRttp": {
+          "type": "banner",
+          "settings": {
+            "video": "shopify://files/videos/copy_7DCD343A-05E5-4810-B7F2-651DBC2269EE.MOV",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_FeAN3Q": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/Helios_18.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_czRttp",
+        "banner_FeAN3Q"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": false,
+        "gap": 0,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
     }
   },
   "order": [
@@ -205,6 +265,7 @@
     "main",
     "slideshow_mjCVPk",
     "rich_text_Lez9Lg",
-    "image_with_text_7Qy3Ei"
+    "image_with_text_7Qy3Ei",
+    "two_banner_YCHKmq"
   ]
 }
