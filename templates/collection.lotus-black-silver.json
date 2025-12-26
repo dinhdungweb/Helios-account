@@ -30,67 +30,6 @@
         "button_link": ""
       }
     },
-    "two_banner_GPmBEg": {
-      "type": "two-banner",
-      "blocks": {
-        "banner_zXKjG8": {
-          "type": "banner",
-          "settings": {
-            "video": "shopify://files/videos/Quá trình hoàn thành 1 chế tác MICHIGAN 26.6 1x1 ADS.mp4",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "1_1",
-            "aspect_ratio_desktop": "1_1",
-            "link": "",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        },
-        "banner_chRJgK": {
-          "type": "banner",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/z7359500824406_776d85f7d666699d4474ce216602aab8.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "1_1",
-            "aspect_ratio_desktop": "1_1",
-            "link": "",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        }
-      },
-      "block_order": [
-        "banner_zXKjG8",
-        "banner_chRJgK"
-      ],
-      "disabled": true,
-      "name": "Two Banners",
-      "settings": {
-        "overlap_header": false,
-        "gap": 0,
-        "sticky_desktop": false,
-        "sticky_mobile_item": false,
-        "sticky_offset_desktop": 0,
-        "sticky_offset_mobile": 0,
-        "sticky_z_index": 1000
-      }
-    },
     "slideshow_beFcYc": {
       "type": "slideshow",
       "blocks": {
@@ -215,9 +154,8 @@
       "blocks": {
         "promotion_image_LYkMiK": {
           "type": "promotion_image",
-          "disabled": true,
           "settings": {
-            "position_in_grid": 1,
+            "position_in_grid": 11,
             "desktop_size": "two-columns",
             "image": "shopify://shop_images/Untitled_design_5e7f93f2-9035-4311-911e-9ed3335faf93.jpg",
             "heading": "Lotus Black Silver - Sự hữu hình  của trải nghiệm nâng cấp!",
@@ -236,7 +174,7 @@
         "layout": "rows",
         "grid": 4,
         "grid_mobile": "2",
-        "products_per_page": 12,
+        "products_per_page": 18,
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": false,
         "show_vendor": false,
@@ -413,7 +351,6 @@
   },
   "order": [
     "background_video_responsive_3zB8pc",
-    "two_banner_GPmBEg",
     "slideshow_beFcYc",
     "rich_text_mMeyBr",
     "text_columns_with_images_4HKqNx",
