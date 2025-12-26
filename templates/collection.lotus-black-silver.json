@@ -9,29 +9,30 @@
  */
 {
   "sections": {
+    "background_video_responsive_3zB8pc": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 860,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Quá trình hoàn thành 1 chế tác MICHIGAN 26.6 1x1 ADS.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/Quá trình hoàn thành 1 chế tác MICHIGAN 26.6 1x1 ADS.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
     "two_banner_GPmBEg": {
       "type": "two-banner",
       "blocks": {
-        "banner_chRJgK": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/z7359500824406_776d85f7d666699d4474ce216602aab8.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "1_1",
-            "aspect_ratio_desktop": "1_1",
-            "link": "",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        },
         "banner_zXKjG8": {
           "type": "banner",
           "settings": {
@@ -51,12 +52,34 @@
             "y_offset": 0,
             "padding": 12
           }
+        },
+        "banner_chRJgK": {
+          "type": "banner",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/z7359500824406_776d85f7d666699d4474ce216602aab8.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
         }
       },
       "block_order": [
-        "banner_chRJgK",
-        "banner_zXKjG8"
+        "banner_zXKjG8",
+        "banner_chRJgK"
       ],
+      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": false,
@@ -389,6 +412,7 @@
     }
   },
   "order": [
+    "background_video_responsive_3zB8pc",
     "two_banner_GPmBEg",
     "slideshow_beFcYc",
     "rich_text_mMeyBr",
