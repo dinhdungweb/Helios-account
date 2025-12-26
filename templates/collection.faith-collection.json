@@ -35,7 +35,7 @@
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
-        "video_height_desktop": 580,
+        "video_height_desktop": 440,
         "video_height_mobile": 420,
         "video_link": "",
         "video_link_new_tab": false,
@@ -50,13 +50,35 @@
         "button_link": ""
       }
     },
-    "two_banner_3xH63d": {
+    "featured_collection_Tib9zr": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "mạnh-mẽ",
+        "layout": "columns",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "two_banner_bq4hbL": {
       "type": "two-banner",
       "blocks": {
-        "banner_PY4DrE": {
+        "banner_irfXQY": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/Artboard_5.jpg",
+            "image": "shopify://shop_images/Artboard_11.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
@@ -73,10 +95,10 @@
             "padding": 12
           }
         },
-        "banner_RDTW83": {
+        "banner_GkKJDW": {
           "type": "banner",
           "settings": {
-            "video": "shopify://files/videos/Slide 1-Mobile (1).mp4",
+            "video": "shopify://files/videos/Slide 5-mobile.mp4",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
@@ -95,8 +117,8 @@
         }
       },
       "block_order": [
-        "banner_PY4DrE",
-        "banner_RDTW83"
+        "banner_irfXQY",
+        "banner_GkKJDW"
       ],
       "name": "Two Banners",
       "settings": {
@@ -109,14 +131,14 @@
         "sticky_z_index": 1000
       }
     },
-    "featured_collection_Tib9zr": {
+    "featured_collection_cNNQdn": {
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
         "title": "",
         "featured_collection_align": "left",
-        "collection": "mạnh-mẽ",
-        "layout": "columns",
+        "collection": "kien-dịnh",
+        "layout": "rows",
         "featured_addtocart_hide": false,
         "show_add_to_cart": true,
         "show_title": true,
@@ -211,13 +233,13 @@
         "button_link": ""
       }
     },
-    "featured_collection_cNNQdn": {
+    "featured_collection_NMz84T": {
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
         "title": "",
         "featured_collection_align": "left",
-        "collection": "kien-dịnh",
+        "collection": "vươn-len",
         "layout": "rows",
         "featured_addtocart_hide": false,
         "show_add_to_cart": true,
@@ -231,6 +253,65 @@
         "hide_swatches": false,
         "alternate_bg_color": false,
         "show_view_all": false
+      }
+    },
+    "two_banner_3xH63d": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_PY4DrE": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/Artboard_5.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_RDTW83": {
+          "type": "banner",
+          "settings": {
+            "video": "shopify://files/videos/Slide 1-Mobile (1).mp4",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_PY4DrE",
+        "banner_RDTW83"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": true,
+        "gap": 0,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
       }
     },
     "two_banner_VGizeM": {
@@ -292,28 +373,6 @@
         "sticky_z_index": 1000
       }
     },
-    "featured_collection_NMz84T": {
-      "type": "featured-collection",
-      "name": "Featured collection",
-      "settings": {
-        "title": "",
-        "featured_collection_align": "left",
-        "collection": "vươn-len",
-        "layout": "rows",
-        "featured_addtocart_hide": false,
-        "show_add_to_cart": true,
-        "show_title": true,
-        "show_price": true,
-        "show_review": true,
-        "show_vendor": false,
-        "grid": 4,
-        "rows": 2,
-        "grid_mobile": "2",
-        "hide_swatches": false,
-        "alternate_bg_color": false,
-        "show_view_all": false
-      }
-    },
     "background_video_responsive_WnXn74": {
       "type": "background-video-responsive",
       "disabled": true,
@@ -333,65 +392,6 @@
         "description": "",
         "button_label": "",
         "button_link": ""
-      }
-    },
-    "two_banner_bq4hbL": {
-      "type": "two-banner",
-      "blocks": {
-        "banner_irfXQY": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/Artboard_11.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "1_1",
-            "aspect_ratio_desktop": "1_1",
-            "link": "",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        },
-        "banner_GkKJDW": {
-          "type": "banner",
-          "settings": {
-            "video": "shopify://files/videos/Slide 5-mobile.mp4",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "1_1",
-            "aspect_ratio_desktop": "1_1",
-            "link": "",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        }
-      },
-      "block_order": [
-        "banner_irfXQY",
-        "banner_GkKJDW"
-      ],
-      "name": "Two Banners",
-      "settings": {
-        "overlap_header": true,
-        "gap": 0,
-        "sticky_desktop": true,
-        "sticky_mobile_item": true,
-        "sticky_offset_desktop": 0,
-        "sticky_offset_mobile": 0,
-        "sticky_z_index": 1000
       }
     },
     "main_collection_TgiNKN": {
