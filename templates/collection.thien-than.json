@@ -50,6 +50,28 @@
         "button_link": ""
       }
     },
+    "featured_collection_Tib9zr": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "angelic-collection",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "slideshow_Kbg8bq": {
       "type": "slideshow",
       "blocks": {
@@ -202,28 +224,6 @@
         "image3": "shopify://shop_images/DSC08451.jpg"
       }
     },
-    "featured_collection_Tib9zr": {
-      "type": "featured-collection",
-      "name": "Featured collection",
-      "settings": {
-        "title": "",
-        "featured_collection_align": "left",
-        "collection": "angelic-collection",
-        "layout": "carousel",
-        "featured_addtocart_hide": false,
-        "show_add_to_cart": true,
-        "show_title": true,
-        "show_price": true,
-        "show_review": true,
-        "show_vendor": false,
-        "grid": 4,
-        "rows": 2,
-        "grid_mobile": "2",
-        "hide_swatches": false,
-        "alternate_bg_color": false,
-        "show_view_all": false
-      }
-    },
     "advanced_form_to_sheet_9cfP6V": {
       "type": "advanced-form-to-sheet",
       "blocks": {
@@ -303,12 +303,12 @@
   "order": [
     "background_video_responsive_ckzixV",
     "background_video_responsive_Qi9RKG",
+    "featured_collection_Tib9zr",
     "slideshow_Kbg8bq",
     "rich_text_qBdPLV",
     "rich_text_CbtmMU",
     "shop_the_look_banner_PbjhKD",
     "companion_journey_section_dA8QG4",
-    "featured_collection_Tib9zr",
     "advanced_form_to_sheet_9cfP6V",
     "image_with_text_i9jRpb"
   ]
