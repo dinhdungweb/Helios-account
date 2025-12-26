@@ -160,7 +160,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "SUNFLOWER - BỘ SƯU TẬP DÀNH CHỈ CHO NGƯỜI ĐÀN ÔNG KIÊN ĐỊNH",
+        "title": "SUNFLOWER - BỘ SƯU TẬP CHỈ DÀNH CHO NGƯỜI ĐÀN ÔNG KIÊN ĐỊNH",
         "title_size": 36,
         "title_width": 40,
         "heading_h1": false,
@@ -298,9 +298,8 @@
         },
         "banner_FeAN3Q": {
           "type": "banner",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Helios_18.jpg",
+            "image": "shopify://shop_images/eb9832f12ae120af58fe2417200891a3.jpg",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
@@ -330,6 +329,45 @@
         "sticky_offset_desktop": 0,
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
+      }
+    },
+    "slideshow_Ax9A3c": {
+      "type": "slideshow",
+      "blocks": {
+        "image_fWPbNA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/HELIOS_9.png",
+            "mobile_image": "shopify://shop_images/HELIOS_8.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_fWPbNA"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "fixed",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "two_banner_nKPqbU": {
@@ -401,6 +439,7 @@
     "rich_text_LJU6M8",
     "image_with_text_7Qy3Ei",
     "two_banner_YCHKmq",
+    "slideshow_Ax9A3c",
     "two_banner_nKPqbU"
   ]
 }
