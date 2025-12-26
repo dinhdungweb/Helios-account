@@ -36,7 +36,7 @@
       "settings": {
         "video_full_vh": false,
         "video_height_desktop": 580,
-        "video_height_mobile": 500,
+        "video_height_mobile": 420,
         "video_link": "",
         "video_link_new_tab": false,
         "video_external_desktop": "",
