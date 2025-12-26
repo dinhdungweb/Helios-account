@@ -299,7 +299,7 @@
         "banner_FeAN3Q": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/eb9832f12ae120af58fe2417200891a3.jpg",
+            "video": "shopify://files/videos/copy_7DCD343A-05E5-4810-B7F2-651DBC2269EE.MOV",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
@@ -356,6 +356,7 @@
       "block_order": [
         "image_fWPbNA"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "fixed",
@@ -416,6 +417,7 @@
         "banner_AixAeL",
         "banner_LkkGDH"
       ],
+      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": false,
