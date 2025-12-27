@@ -255,72 +255,13 @@
         "show_view_all": false
       }
     },
-    "two_banner_3xH63d": {
-      "type": "two-banner",
-      "blocks": {
-        "banner_PY4DrE": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/Artboard_5.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "1_1",
-            "aspect_ratio_desktop": "1_1",
-            "link": "",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        },
-        "banner_RDTW83": {
-          "type": "banner",
-          "settings": {
-            "video": "shopify://files/videos/Slide 1-Mobile (1).mp4",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "1_1",
-            "aspect_ratio_desktop": "1_1",
-            "link": "",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12
-          }
-        }
-      },
-      "block_order": [
-        "banner_PY4DrE",
-        "banner_RDTW83"
-      ],
-      "name": "Two Banners",
-      "settings": {
-        "overlap_header": true,
-        "gap": 0,
-        "sticky_desktop": true,
-        "sticky_mobile_item": true,
-        "sticky_offset_desktop": 0,
-        "sticky_offset_mobile": 0,
-        "sticky_z_index": 1000
-      }
-    },
     "two_banner_VGizeM": {
       "type": "two-banner",
       "blocks": {
         "banner_z9xc3B": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/Artboard_1.jpg",
+            "image": "shopify://shop_images/Helios_19_1.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "1_1",
@@ -430,7 +371,6 @@
     "two_banner_BxwVkX",
     "background_video_responsive_Y7riqe",
     "featured_collection_NMz84T",
-    "two_banner_3xH63d",
     "two_banner_VGizeM",
     "background_video_responsive_WnXn74",
     "main_collection_TgiNKN"
