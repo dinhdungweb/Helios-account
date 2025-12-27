@@ -224,58 +224,6 @@
         "image3": "shopify://shop_images/DSC08451.jpg"
       }
     },
-    "advanced_form_to_sheet_9cfP6V": {
-      "type": "advanced-form-to-sheet",
-      "blocks": {
-        "text_field_WzNXHN": {
-          "type": "text_field",
-          "settings": {
-            "label": "HỌ VÀ TÊN",
-            "entry": "",
-            "placeholder": "Nhập tên của bạn",
-            "required": true,
-            "input_type": "text"
-          }
-        },
-        "text_field_jpfaEJ": {
-          "type": "text_field",
-          "settings": {
-            "label": "SỐ ĐIỆN THOẠI",
-            "entry": "",
-            "placeholder": "Số điện thoại",
-            "required": true,
-            "input_type": "tel"
-          }
-        },
-        "textarea_field_wJWVB8": {
-          "type": "textarea_field",
-          "settings": {
-            "label": "ĐIỀU ƯỚC CỦA BẠN",
-            "entry": "",
-            "placeholder": "Điều ước của bạn...",
-            "required": false
-          }
-        }
-      },
-      "block_order": [
-        "text_field_WzNXHN",
-        "text_field_jpfaEJ",
-        "textarea_field_wJWVB8"
-      ],
-      "name": "Advanced Form to Sheet",
-      "settings": {
-        "form-title": "ĐIỀU ƯỚC CUỐI NĂM CÙNG HELIOS",
-        "form-subtitle": "",
-        "form-description": "<p>Hãy để lại một điều ước cho chính mình vào năm tới. Không phải để mong cầu những điều xa vời, mà để nhìn thật kỹ vào những gì mình thật sự mong muốn cho hành trình sắp tới.</p><p>Khi đủ bản lĩnh để tin vào điều mình chọn, đam mê sẽ tự khắc trở thành ánh sáng dẫn lối, biến mọi ý chí thành hiện thực.</p>",
-        "banner_image": "shopify://shop_images/z7329672989488_bdeb45381a9e55681e72caf2fb5864eb.jpg",
-        "banner_position": "left",
-        "form_action_url": "",
-        "success_message": "Gửi thành công! Cảm ơn bạn.",
-        "error_message": "Gửi thất bại. Vui lòng thử lại!",
-        "button_text": "Gửi",
-        "button_color": "#fab320"
-      }
-    },
     "image_with_text_i9jRpb": {
       "type": "image-with-text",
       "name": "Media with text",
@@ -309,7 +257,6 @@
     "rich_text_CbtmMU",
     "shop_the_look_banner_PbjhKD",
     "companion_journey_section_dA8QG4",
-    "advanced_form_to_sheet_9cfP6V",
     "image_with_text_i9jRpb"
   ]
 }
