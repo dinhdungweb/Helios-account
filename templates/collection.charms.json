@@ -17,7 +17,7 @@
           "settings": {
             "image": "shopify://shop_images/160.jpg",
             "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
             "link": "",
             "title": "",
@@ -36,7 +36,7 @@
           "settings": {
             "video": "shopify://files/videos/1x1 nén.mov",
             "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
             "link": "",
             "title": "",
@@ -137,7 +137,7 @@
           "settings": {
             "image": "shopify://shop_images/z7371325524929_b48e818e0af739c7d4d21e460dc9d86f.jpg",
             "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
             "link": "",
             "title": "",
@@ -194,7 +194,7 @@
           "settings": {
             "image": "shopify://shop_images/162.jpg",
             "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_mobile": "1_1",
             "aspect_ratio_desktop": "1_1",
             "link": "",
             "title": "",
