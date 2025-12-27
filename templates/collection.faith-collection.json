@@ -222,7 +222,7 @@
         "title": "",
         "featured_collection_align": "left",
         "collection": "kien-dịnh",
-        "layout": "columns",
+        "layout": "rows",
         "featured_addtocart_hide": false,
         "show_add_to_cart": true,
         "show_title": true,
