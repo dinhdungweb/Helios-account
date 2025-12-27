@@ -138,7 +138,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "<font style=\"color: #fab320; line-height: 1.6\">\"KHI BẠN ĐỦ KIÊN ĐỊNH ĐỂ THEO ĐUỔI ĐIỀU MÌNH YÊU, ĐAM MÊ SẼ KHÔNG CÒN LÀ THỨ ĐỂ ĐUỔI THEO.  NÓ SẼ QUAY LẠI, ÔM LẤY BẠN, VÀ TIẾP SỨC CHO BẠN ĐI TIẾP.\"</font>",
+        "title": "<font style=\"color: #fab320; letter-spacing: .8px\">\"KHI BẠN ĐỦ KIÊN ĐỊNH ĐỂ THEO ĐUỔI ĐIỀU MÌNH YÊU, ĐAM MÊ SẼ KHÔNG CÒN LÀ THỨ ĐỂ ĐUỔI THEO.  NÓ SẼ QUAY LẠI, ÔM LẤY BẠN, VÀ TIẾP SỨC CHO BẠN ĐI TIẾP.\"</font>",
         "title_size": 20,
         "title_width": 40,
         "heading_h1": false,
@@ -150,7 +150,30 @@
         "text_alignment": "center",
         "enlarge_text": true,
         "full_width": false,
-        "no_padding_bottom": true,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "image_with_text_i9jRpb": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color: #fab320\">HELIOS HƯỚNG ĐẾN SỰ KHÁC BIỆT HÀNG NGÀY</font>",
+        "title_size": 26,
+        "title_width": 22,
+        "text": "<p>Mỗi viên ngọc trai tự nhiên trong BST Angelic mang một hình hài và sắc độ riêng, không viên nào giống viên nào - cũng như chính bạn, một bản thể độc bản không thể sao chép.<br/><br/>Để giữ trọn vẻ đẹp nguyên bản ấy, lần này HELIOS ứng dụng công nghệ hàn laser hoàn toàn mới, với hơn 16 lần bắn hội tụ trên một diện tích cực nhỏ để cố định ngọc trai mà không để lộ bất kì dấu vết nào của kỹ thuật trấu truyền thống.<br/></p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "video_shopify": "shopify://files/videos/Video chế tác sản phẩm BST Thiên thần FIX 1x1 10mb.mp4",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "contain",
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
@@ -223,29 +246,6 @@
         "image2": "shopify://shop_images/DSC08424.jpg",
         "image3": "shopify://shop_images/DSC08451.jpg"
       }
-    },
-    "image_with_text_i9jRpb": {
-      "type": "image-with-text",
-      "name": "Media with text",
-      "settings": {
-        "subheading": "",
-        "title": "<font style=\"color: #fab320\">HELIOS HƯỚNG ĐẾN SỰ KHÁC BIỆT HÀNG NGÀY</font>",
-        "title_size": 26,
-        "title_width": 22,
-        "text": "<p>Mỗi viên ngọc trai tự nhiên trong BST Angelic mang một hình hài và sắc độ riêng, không viên nào giống viên nào - cũng như chính bạn, một bản thể độc bản không thể sao chép.<br/><br/>Để giữ trọn vẻ đẹp nguyên bản ấy, lần này HELIOS ứng dụng công nghệ hàn laser hoàn toàn mới, với hơn 16 lần bắn hội tụ trên một diện tích cực nhỏ để cố định ngọc trai mà không để lộ bất kì dấu vết nào của kỹ thuật trấu truyền thống.<br/></p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "video_shopify": "shopify://files/videos/Video chế tác sản phẩm BST Thiên thần FIX 1x1 10mb.mp4",
-        "image_width": 100,
-        "image_position": "right",
-        "media_size": "contain",
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
     }
   },
   "order": [
@@ -255,8 +255,8 @@
     "slideshow_Kbg8bq",
     "rich_text_qBdPLV",
     "rich_text_CbtmMU",
+    "image_with_text_i9jRpb",
     "shop_the_look_banner_PbjhKD",
-    "companion_journey_section_dA8QG4",
-    "image_with_text_i9jRpb"
+    "companion_journey_section_dA8QG4"
   ]
 }
