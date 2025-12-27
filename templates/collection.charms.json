@@ -9,11 +9,107 @@
  */
 {
   "sections": {
+    "two_banner_rqk9hA": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_HENBxT": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/160.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_GmJRgG": {
+          "type": "banner",
+          "settings": {
+            "video": "shopify://files/videos/1x1 nén.mov",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_HENBxT",
+        "banner_GmJRgG"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": false,
+        "gap": 0,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
+    },
+    "rich_text_9MzYLe": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color: #fab320\">CHARMS</font>",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>HELIOS mang đến những mẫu charms với thông điệp riêng. Mỗi chi tiết được tạo ra để bạn tự tay kết hợp và hoàn thiện nên một câu chuyện khác biệt – câu chuyện mang dấu ấn của chính bạn.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "main": {
       "type": "main-collection",
+      "blocks": {
+        "promotion_image_CrLqAx": {
+          "type": "promotion_image",
+          "settings": {
+            "position_in_grid": 7,
+            "desktop_size": "two-columns",
+            "image": "shopify://shop_images/D_nh_d_ng_web_4.jpg",
+            "heading": "",
+            "content": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "promotion_image_CrLqAx"
+      ],
       "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
+        "show_collection_content": false,
+        "show_collection_image": false,
         "description_position": "top",
         "layout": "rows",
         "grid": 4,
@@ -35,6 +131,8 @@
     }
   },
   "order": [
+    "two_banner_rqk9hA",
+    "rich_text_9MzYLe",
     "main"
   ]
 }
