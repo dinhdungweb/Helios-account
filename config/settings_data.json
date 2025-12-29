@@ -97,7 +97,7 @@
     "animation_loading": false,
     "animation_loading_animation": "fill",
     "cart_type": "",
-    "free_gift_enabled": true,
+    "free_gift_enabled": false,
     "free_gift_mode": "auto",
     "free_gift_trigger_collection": "all-products",
     "free_gift_product": "free-gifts",
