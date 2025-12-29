@@ -157,7 +157,7 @@
           "settings": {
             "position_in_grid": 11,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/z7370712214422_be92c3696c748b37ffa87343f3ab12c6.jpg",
+            "image": "shopify://shop_images/D_nh_d_ng_web_5.jpg",
             "heading": "",
             "content": "",
             "link_url": ""
@@ -174,7 +174,7 @@
         "layout": "rows",
         "grid": 4,
         "grid_mobile": "2",
-        "products_per_page": 18,
+        "products_per_page": 12,
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": false,
         "show_vendor": false,
