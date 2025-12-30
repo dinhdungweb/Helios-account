@@ -1074,7 +1074,59 @@
                             {% endfor %}
                           </select>
                           <div class="error-message"></div>
-                          {% render 'product-form-buttons', product: product, current_variant: current_variant, is_preorder_product: is_preorder_product %}
+                          
+                          {%- liquid
+                            assign gift_card_recipient_feature_active = false
+                            if block.settings.show_gift_card_recipient and product.gift_card?
+                              assign gift_card_recipient_feature_active = true
+                            endif
+      
+                            assign enable_dynamic_payment_button = false
+                            if block.settings.enable_payment_button and product.selling_plan_groups == empty and is_preorder_product == false and gift_card_recipient_feature_active == false
+                              assign enable_dynamic_payment_button = true
+                            endif
+                          -%}
+      
+                          {% if gift_card_recipient_feature_active %}
+                            {% render 'gift-card-recipient', product: product, form: form, section: section %}
+                          {% endif %}
+      
+                          <div class="product-detail__form__action product-detail__gap-lg
+                            {% if block.settings.show_quantity_selector %}product-detail__form__options--with-quantity{% endif %}
+                            {% if enable_dynamic_payment_button %}with-payment-button{% endif %}">
+      
+                            {% if block.settings.show_quantity_selector %}
+                              <div class="quantity-wrapper border-radius-{{ settings.buttons_shape }}">
+                                <a href="#" data-quantity="down">&minus;</a>
+                                <input aria-label="{{ 'products.product.quantity' | t }}" class="select-on-focus" name="quantity" value="1" />
+                                <a href="#" data-quantity="up">&plus;</a>
+                              </div>
+                            {% else %}
+                              <input type="hidden" name="quantity" value="1" />
+                            {% endif %}
+      
+                            <button class="button {% if enable_dynamic_payment_button %}alt{% endif %}" type="submit" name="add">
+                              {%- if is_preorder_product -%}
+                                {{ 'products.product.preorder' | t }}
+                              {%- else -%}
+                                {{ 'products.product.add_to_cart' | t }}
+                              {%- endif -%}
+                            </button>
+      
+                            {% if enable_dynamic_payment_button %}
+                              {{ form | payment_button }}
+                            {% endif %}
+                          </div>
+      
+                          {{ form | payment_terms }}
+      
+                          {% if block.settings.show_pickup_availability %}
+                            {% render 'store-availability', product: product, current_variant: current_variant %}
+                          {% endif %}
+      
+                          {% if section.settings.show_backorder_text %}
+                            {% render 'backorder', variant: product.selected_variant %}
+                          {% endif %}
                       {% endform %}
                     {% endif %}
                   {% endif %}
