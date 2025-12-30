@@ -53,7 +53,7 @@
         "promotion_image_ahahKA": {
           "type": "promotion_image",
           "settings": {
-            "position_in_grid": 4,
+            "position_in_grid": 5,
             "desktop_size": "two-columns",
             "image": "shopify://shop_images/3x2.jpg",
             "mobile_image": "shopify://shop_images/z7319283438538_5feffd715d24f428c7a803a4f2b804f3.jpg",
