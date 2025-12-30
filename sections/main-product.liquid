@@ -1055,8 +1055,8 @@
                     {% assign lock_message = lock_parts[2] %}
                     
                     {% if lock_status == 2 %}
-                      {% comment %} Special case: Giá liên hệ - không hiển thị nút mua {% endcomment %}
-                      <a href="#" class="button" style="width: 100%; margin: 20px 0; text-align: center; pointer-events: none;">{{ lock_message }}</a>
+                      {% comment %} Special case: Giá liên hệ - hiển thị nút liên hệ {% endcomment %}
+                      <a href="/pages/lien-he" class="button" style="width: 100%; margin: 20px 0; text-align: center;">Liên hệ</a>
                     {% elsif lock_status == 1 %}
                       {% comment %} Content is locked {% endcomment %}
                       <a href="{{ routes.account_url }}" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ lock_message }}</a>
