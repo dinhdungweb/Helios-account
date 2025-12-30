@@ -1,0 +1,74 @@
+{% comment %}
+  Snippet: Check Content Lock (Unified)
+  Usage: {% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}
+  
+  Outputs (via capture):
+    - lock_status: 0 (unlocked) or 1 (locked)
+    - lock_type: 'none', 'guest', 'tier', 'total_spent'
+    - lock_message: Text to display
+  
+  Logic (Độc lập - 1 điều kiện đủ để khóa):
+    1. Sản phẩm có tag "angia" → Giá liên hệ (đặc biệt)
+    2. Sản phẩm KHÔNG trong metaobject → KHÔNG khóa
+    3. Guest + enable_locked_content → Khóa (yêu cầu đăng nhập)
+    4. Total Spent Lock bật + total_spent = 0 → Khóa
+    5. Tier Lock bật + tier thấp hơn min → Khóa
+    6. Mặc định → KHÔNG khóa
+{% endcomment %}
+
+{% assign lock_status = 0 %}
+{% assign lock_type = 'none' %}
+{% assign lock_message = '' %}
+
+{% comment %} 1. Sản phẩm có tag "angia" - Giá liên hệ (đặc biệt, không phải lock) {% endcomment %}
+{% if product.tags contains 'angia' %}
+  {% assign lock_status = 2 %}
+  {% assign lock_type = 'angia' %}
+  {% assign lock_message = 'Giá liên hệ' %}
+
+{% comment %} 2. Sản phẩm KHÔNG trong metaobject → Không khóa {% endcomment %}
+{% elsif locked_product_ids contains product.id %}
+  
+  {% comment %} 3. Guest Lock - Chưa đăng nhập {% endcomment %}
+  {% if customer == nil and settings.enable_locked_content %}
+    {% assign lock_status = 1 %}
+    {% assign lock_type = 'guest' %}
+    {% assign lock_message = settings.price_locked_text %}
+  
+  {% comment %} 4. Total Spent Lock {% endcomment %}
+  {% elsif settings.lock_pages_total_spent_enable %}
+    {% if customer %}
+      {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+        {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+      {% else %}
+        {% assign total_spent = customer.total_spent | plus: 0 %}
+      {% endif %}
+      
+      {% if total_spent <= 0 %}
+        {% assign lock_status = 1 %}
+        {% assign lock_type = 'total_spent' %}
+        {% assign lock_message = settings.lock_pages_total_spent_text %}
+      {% endif %}
+    {% else %}
+      {% comment %} Guest khi Total Spent Lock bật {% endcomment %}
+      {% assign lock_status = 1 %}
+      {% assign lock_type = 'total_spent' %}
+      {% assign lock_message = settings.lock_pages_total_spent_text %}
+    {% endif %}
+  
+  {% comment %} 5. Tier Lock {% endcomment %}
+  {% elsif settings.lock_pages_tier_enable and customer %}
+    {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
+    {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
+    {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
+    
+    {% if current_tier_index > min_tier %}
+      {% assign lock_status = 1 %}
+      {% assign lock_type = 'tier' %}
+      {% assign lock_message = settings.atc_tier_locked_text %}
+    {% endif %}
+  
+  {% endif %}
+{% endif %}
+
+{{ lock_status }}|{{ lock_type }}|{{ lock_message }}

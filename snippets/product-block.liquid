@@ -296,173 +296,32 @@
 
       {% if show_price %}
       <div class="price">
-        {% if product.tags contains 'angia' %}
-          <!-- Nếu sản phẩm có tag "angia" thì hiển thị "Giá liên hệ" -->
-          <b style="color:#FAB320">Giá liên hệ</b>
-
-        {% elsif settings.lock_pages_total_spent_enable and locked_product_ids contains product.id %}
-          {% comment %} LOCK CONTENT BY TOTAL SPENT {% endcomment %}
-          {% capture is_locked_by_spent_captured %}{% render 'check-total-spent-lock', customer: customer %}{% endcapture %}
-          {% assign is_locked_by_spent = is_locked_by_spent_captured | strip | plus: 0 %}
-          {% if is_locked_by_spent == 1 %}
-             <b style="color:#FAB320">{{ settings.lock_pages_total_spent_text }}</b>
-          {% else %}
-            {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-            {% render 'tier-price', 
-              price: cheapest_variant.price,
-              compare_at_price: cheapest_variant.compare_at_price,
-              product: product,
-              customer: customer,
-              show_original: true,
-              show_badge: true
-            %}
-            {% render 'unit-price', variant: cheapest_variant %}
-          {% endif %}
-
-        {% elsif settings.lock_pages_tag_enable %}
-
-          {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
-            <!-- Nếu khách chưa đăng nhập và giá bị khóa hoàn toàn -->
-            <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-          
-          {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
-            <!-- Nếu khách chưa đăng nhập và sản phẩm cụ thể này bị khóa giá -->
-            <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-          
-          {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
-            {% comment %} Khách đăng nhập có tag - Kiểm tra thêm Tier Lock {% endcomment %}
-            {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
-              {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
-              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
-              {% if current_tier_index > min_tier %}
-                 {% assign is_content_locked = true %}
-              {% endif %}
-            {% endif %}
-            
-            {% if is_content_locked %}
-               <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-            {% else %}
-              {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-              {% render 'tier-price', 
-                price: cheapest_variant.price,
-                compare_at_price: cheapest_variant.compare_at_price,
-                product: product,
-                customer: customer,
-                show_original: true,
-                show_badge: true
-              %}
-              {% render 'unit-price', variant: cheapest_variant %}
-            {% endif %}
-          
-          {% elsif settings.enable_locked_content %}
-            {% if settings.lock_all_product_prices %}
-              <!-- Nếu tất cả sản phẩm bị khóa giá -->
-              <b style="color:#FF0000">Bạn không có quyền xem giá sản phẩm này</b>
-            {% elsif locked_product_ids contains product.id %}
-              <!-- Nếu sản phẩm cụ thể này bị khóa giá -->
-              <b style="color:#FF0000">Sản phẩm dành cho khách đặc biệt</b>
-            {% else %}
-              {% comment %} Sản phẩm không bị khóa cá nhân - Kiểm tra Tier Lock {% endcomment %}
-              {% assign is_content_locked = false %}
-              {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
-                {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-                {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
-                {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
-                {% if current_tier_index > min_tier %}
-                   {% assign is_content_locked = true %}
-                {% endif %}
-              {% endif %}
-
-              {% if is_content_locked %}
-                 <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-              {% else %}
-                <!-- Nếu sản phẩm không bị khóa, hiển thị giá với tier discount -->
-                {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-                {% render 'tier-price', 
-                  price: cheapest_variant.price,
-                  compare_at_price: cheapest_variant.compare_at_price,
-                  product: product,
-                  customer: customer,
-                  show_original: true,
-                  show_badge: true
-                %}
-                {% render 'unit-price', variant: cheapest_variant %}
-              {% endif %}
-            {% endif %}
-          
-          {% else %}
-            {% comment %} LOCK CONTENT BY TIER {% endcomment %}
-            {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
-              {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
-              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
-              {% if current_tier_index > min_tier %}
-                 {% assign is_content_locked = true %}
-              {% endif %}
-            {% endif %}
-
-            {% if is_content_locked %}
-               <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-            {% else %}
-              <!-- Nếu không có bất kỳ điều kiện nào bị khóa -->
-              {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-              {% render 'tier-price', 
-                price: cheapest_variant.price,
-                compare_at_price: cheapest_variant.compare_at_price,
-                product: product,
-                customer: customer,
-                show_original: true,
-                show_badge: true
-              %}
-              {% render 'unit-price', variant: cheapest_variant %}
-            {% endif %}
-          {% endif %}
-          
-        {% else %}
-          
-          {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
-            <!-- Nếu khách chưa đăng nhập và giá bị khóa hoàn toàn -->
-            <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-          
-          {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
-            <!-- Nếu khách chưa đăng nhập và sản phẩm cụ thể này bị khóa giá -->
-            <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-    
-          {% else %}
-            {% comment %} LOCK CONTENT BY TIER (lock_pages_tag_enable=FALSE branch) {% endcomment %}
-            {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
-              {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
-              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
-              {% if current_tier_index > min_tier %}
-                 {% assign is_content_locked = true %}
-              {% endif %}
-            {% endif %}
-
-            {% if is_content_locked %}
-               <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
-            {% else %}
-              <!-- Nếu không có bất kỳ điều kiện nào bị khóa, hiển thị giá với tier discount -->
-              {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-              {% render 'tier-price', 
-                price: cheapest_variant.price,
-                compare_at_price: cheapest_variant.compare_at_price,
-                product: product,
-                customer: customer,
-                show_original: true,
-                show_badge: true
-              %}
-              {% render 'unit-price', variant: cheapest_variant %}
-            {% endif %}
-          {% endif %}
-          
-        {% endif %}
+        {% comment %} === UNIFIED CONTENT LOCK CHECK === {% endcomment %}
+        {% capture lock_result %}{% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}{% endcapture %}
+        {% assign lock_parts = lock_result | strip | split: '|' %}
+        {% assign lock_status = lock_parts[0] | plus: 0 %}
+        {% assign lock_type = lock_parts[1] %}
+        {% assign lock_message = lock_parts[2] %}
         
-
+        {% if lock_status == 2 %}
+          {% comment %} Special case: Giá liên hệ {% endcomment %}
+          <b style="color:#FAB320">{{ lock_message }}</b>
+        {% elsif lock_status == 1 %}
+          {% comment %} Content is locked {% endcomment %}
+          <b style="color:#FAB320">{{ lock_message }}</b>
+        {% else %}
+          {% comment %} Content is unlocked - show price {% endcomment %}
+          {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
+          {% render 'tier-price', 
+            price: cheapest_variant.price,
+            compare_at_price: cheapest_variant.compare_at_price,
+            product: product,
+            customer: customer,
+            show_original: true,
+            show_badge: true
+          %}
+          {% render 'unit-price', variant: cheapest_variant %}
+        {% endif %}
       </div>
       {% endif %}
     </a>
@@ -506,97 +365,23 @@
   {% else %}
     {% if settings.addtocart_enabled %}
       
-      {% if settings.lock_pages_total_spent_enable and locked_product_ids contains product.id %}
-        {% comment %} LOCK CONTENT BY TOTAL SPENT - ATC {% endcomment %}
-        {% capture is_locked_by_spent_captured %}{% render 'check-total-spent-lock', customer: customer %}{% endcapture %}
-        {% assign is_locked_by_spent = is_locked_by_spent_captured | strip | plus: 0 %}
-        {% if is_locked_by_spent == 1 %}
-           <a href="{{ routes.account_url }}" class="button alt">{{ settings.lock_pages_total_spent_text }}</a>
-        {% else %}
-          <a href="{{ product_url }}" class="button alt">
-            {{ 'products.listing.buy_now' | t }}
-          </a>
-        {% endif %}
-      {% elsif settings.lock_pages_tag_enable %}
-        {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
-          <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
-        {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
-          <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
-        {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
-          {% comment %} LOCK CONTENT BY TIER - Customer has tag {% endcomment %}
-          {% assign is_content_locked = false %}
-          {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
-            {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-            {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
-            {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
-            {% if current_tier_index > min_tier %}
-               {% assign is_content_locked = true %}
-            {% endif %}
-          {% endif %}
-          
-          {% if is_content_locked %}
-             <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_tier_locked_text }}</a>
-          {% else %}
-            <a href="{{ product_url }}" class="button alt">
-              {{ 'products.listing.buy_now' | t }}
-            </a>
-          {% endif %}
-        {% elsif settings.enable_locked_content %}
-          {% if settings.lock_all_product_prices %}
-            <a href="{{ routes.account_url }}" style="pointer-events: none" class="button alt">{{ settings.atc_locked_text_tag }}</a>
-          {% elsif locked_product_ids contains product.id %}
-            <a href="{{ routes.account_url }}" style="pointer-events: none" class="button alt">{{ settings.atc_locked_text_tag }}</a>
-          {% else %}
-            {% comment %} Sản phẩm không bị khóa cá nhân - Kiểm tra Tier Lock {% endcomment %}
-            {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
-              {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
-              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
-              {% if current_tier_index > min_tier %}
-                 {% assign is_content_locked = true %}
-              {% endif %}
-            {% endif %}
-
-            {% if is_content_locked %}
-               <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_tier_locked_text }}</a>
-            {% else %}
-              <!-- Nếu sản phẩm không bị khóa, hiển thị giá bình thường -->
-              <a href="{{ product_url }}" class="button alt">
-                {{ 'products.listing.buy_now' | t }}
-              </a>
-            {% endif %}
-          {% endif %}
-        {% else %}
-          <a href="{{ product_url }}" class="button alt">
-            {{ 'products.listing.buy_now' | t }}
-          </a>
-        {% endif %}
+      {% comment %} === UNIFIED CONTENT LOCK CHECK FOR ATC === {% endcomment %}
+      {% capture lock_result %}{% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}{% endcapture %}
+      {% assign lock_parts = lock_result | strip | split: '|' %}
+      {% assign lock_status = lock_parts[0] | plus: 0 %}
+      {% assign lock_type = lock_parts[1] %}
+      {% assign lock_message = lock_parts[2] %}
+      
+      {% if lock_status == 2 %}
+        {% comment %} Special case: Giá liên hệ - không hiển thị nút mua {% endcomment %}
+      {% elsif lock_status == 1 %}
+        {% comment %} Content is locked {% endcomment %}
+        <a href="{{ routes.account_url }}" class="button alt">{{ lock_message }}</a>
       {% else %}
-        {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
-          <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
-        {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
-          <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
-        {% else %}
-          {% comment %} LOCK CONTENT BY TIER {% endcomment %}
-            {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
-              {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
-              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
-              {% if current_tier_index > min_tier %}
-                 {% assign is_content_locked = true %}
-              {% endif %}
-            {% endif %}
-
-            {% if is_content_locked %}
-               <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_tier_locked_text }}</a>
-            {% else %}
-              <a href="{{ product_url }}" class="button alt">
-                {{ 'products.listing.buy_now' | t }}
-              </a>
-            {% endif %}
-        {% endif %}
+        {% comment %} Content is unlocked - show buy button {% endcomment %}
+        <a href="{{ product_url }}" class="button alt">
+          {{ 'products.listing.buy_now' | t }}
+        </a>
       {% endif %}
       
     {% endif %}
