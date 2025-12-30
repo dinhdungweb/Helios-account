@@ -313,7 +313,7 @@
           {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
             {% comment %} Khách đăng nhập có tag - Kiểm tra thêm Tier Lock {% endcomment %}
             {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable %}
+            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
               {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
               {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
               {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
@@ -361,7 +361,7 @@
           {% else %}
             {% comment %} LOCK CONTENT BY TIER {% endcomment %}
             {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable %}
+            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
               {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
               {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
               {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
@@ -400,7 +400,7 @@
           {% else %}
             {% comment %} LOCK CONTENT BY TIER (lock_pages_tag_enable=FALSE branch) {% endcomment %}
             {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable %}
+            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
               {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
               {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
               {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
@@ -480,7 +480,7 @@
         {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
           {% comment %} LOCK CONTENT BY TIER - Customer has tag {% endcomment %}
           {% assign is_content_locked = false %}
-          {% if settings.lock_pages_tier_enable %}
+          {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
             {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
             {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
             {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
@@ -520,7 +520,7 @@
         {% else %}
           {% comment %} LOCK CONTENT BY TIER {% endcomment %}
             {% assign is_content_locked = false %}
-            {% if settings.lock_pages_tier_enable %}
+            {% if settings.lock_pages_tier_enable and locked_product_ids contains product.id %}
               {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
               {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
               {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
