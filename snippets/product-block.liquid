@@ -348,7 +348,8 @@
             {% comment %} LOCK CONTENT BY TIER {% endcomment %}
             {% assign is_content_locked = false %}
             {% if settings.lock_pages_tier_enable %}
-              {% render 'check-tier-hierarchy', customer: customer %}
+              {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
+              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
               {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
               {% if current_tier_index > min_tier %}
                  {% assign is_content_locked = true %}
@@ -477,7 +478,7 @@
             {% assign is_content_locked = false %}
             {% if settings.lock_pages_tier_enable %}
               {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
-              {% assign current_tier_index = current_tier_index_captured | plus: 0 %}
+              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
               {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
               {% if current_tier_index > min_tier %}
                  {% assign is_content_locked = true %}
