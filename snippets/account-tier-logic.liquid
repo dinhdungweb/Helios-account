@@ -104,38 +104,38 @@
 {% endcomment %}
 
 {% if tier == tier_6_name %}
-  {% assign next_tier = "MAX LEVEL" %}
-  {% assign next_tier_amount = total_spent %}
-  
-{% elsif tier == tier_5_name %}
-  {% assign next_tier = tier_6_name %}
-  {% assign next_tier_amount = tier_6_threshold %}
-  
-{% elsif tier == tier_4_name %}
   {% assign next_tier = tier_5_name %}
   {% assign next_tier_amount = tier_5_threshold %}
   
-{% elsif tier == tier_3_name %}
+{% elsif tier == tier_5_name %}
   {% assign next_tier = tier_4_name %}
   {% assign next_tier_amount = tier_4_threshold %}
   
-{% elsif tier == tier_2_name %}
+{% elsif tier == tier_4_name %}
   {% assign next_tier = tier_3_name %}
   {% assign next_tier_amount = tier_3_threshold %}
   
-{% elsif tier == tier_1_name %}
+{% elsif tier == tier_3_name %}
   {% assign next_tier = tier_2_name %}
   {% assign next_tier_amount = tier_2_threshold %}
   
-{% else %}
-  {% comment %} Trường hợp MEMBER / Chưa đạt Tier 1 {% endcomment %}
+{% elsif tier == tier_2_name %}
   {% assign next_tier = tier_1_name %}
   {% assign next_tier_amount = tier_1_threshold %}
   
-  {% comment %} Fallback nếu Tier 1 cũng là 0 hoặc chưa set {% endcomment %}
+{% elsif tier == tier_1_name %}
+  {% assign next_tier = "MAX LEVEL" %}
+  {% assign next_tier_amount = total_spent %}
+  
+{% else %}
+  {% comment %} Trường hợp chưa đạt Tier nào (ví dụ thấp hơn cả Tier 6 nếu Tier 6 có threshold > 0) {% endcomment %}
+  {% assign next_tier = tier_6_name %}
+  {% assign next_tier_amount = tier_6_threshold %}
+  
+  {% comment %} Fallback nếu Tier 6 là 0 thì target Tier 5 {% endcomment %}
   {% if next_tier_amount == 0 %}
-     {% assign next_tier = "SILVER" %}
-     {% assign next_tier_amount = 3000000 %}
+     {% assign next_tier = tier_5_name %}
+     {% assign next_tier_amount = tier_5_threshold %}
   {% endif %}
 {% endif %}
 
