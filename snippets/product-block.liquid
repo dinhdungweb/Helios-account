@@ -398,17 +398,32 @@
             <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
     
           {% else %}
-            <!-- Nếu không có bất kỳ điều kiện nào bị khóa, hiển thị giá với tier discount -->
-            {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-            {% render 'tier-price', 
-              price: cheapest_variant.price,
-              compare_at_price: cheapest_variant.compare_at_price,
-              product: product,
-              customer: customer,
-              show_original: true,
-              show_badge: true
-            %}
-            {% render 'unit-price', variant: cheapest_variant %}
+            {% comment %} LOCK CONTENT BY TIER (lock_pages_tag_enable=FALSE branch) {% endcomment %}
+            {% assign is_content_locked = false %}
+            {% if settings.lock_pages_tier_enable %}
+              {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
+              {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
+              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
+              {% if current_tier_index > min_tier %}
+                 {% assign is_content_locked = true %}
+              {% endif %}
+            {% endif %}
+
+            {% if is_content_locked %}
+               <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
+            {% else %}
+              <!-- Nếu không có bất kỳ điều kiện nào bị khóa, hiển thị giá với tier discount -->
+              {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
+              {% render 'tier-price', 
+                price: cheapest_variant.price,
+                compare_at_price: cheapest_variant.compare_at_price,
+                product: product,
+                customer: customer,
+                show_original: true,
+                show_badge: true
+              %}
+              {% render 'unit-price', variant: cheapest_variant %}
+            {% endif %}
           {% endif %}
           
         {% endif %}
