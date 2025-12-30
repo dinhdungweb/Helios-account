@@ -38,12 +38,8 @@
   {% comment %} 4. Total Spent Lock {% endcomment %}
   {% elsif settings.lock_pages_total_spent_enable %}
     {% if customer %}
-      {% comment %} Ưu tiên dùng metafield nếu có, fallback sang Shopify total_spent {% endcomment %}
-      {% if customer.metafields.custom.total_spent != blank %}
-        {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
-      {% else %}
-        {% assign total_spent = customer.total_spent | plus: 0 %}
-      {% endif %}
+      {% comment %} Chỉ dùng custom metafield total_spent {% endcomment %}
+      {% assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0 %}
       
       {% if total_spent <= 0 %}
         {% assign lock_status = 1 %}
