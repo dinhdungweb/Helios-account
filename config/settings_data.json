@@ -102,7 +102,7 @@
     "free_gift_trigger_collection": "all-products",
     "free_gift_product": "free-gifts",
     "free_gift_label": "Quà tặng miễn phí",
-    "enable_locked_content": false,
+    "enable_locked_content": true,
     "lock_all_product_prices": false,
     "hide_cart_icon": false,
     "price_locked_text": "Dành riêng cho MEMBERSHIP",
