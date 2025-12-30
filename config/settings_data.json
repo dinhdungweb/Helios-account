@@ -107,6 +107,7 @@
     "hide_cart_icon": false,
     "price_locked_text": "Dành riêng cho MEMBERSHIP",
     "lock_pages_tier_enable": true,
+    "lock_pages_min_tier": "5",
     "atc_locked_text": "Đăng nhập để mua hàng",
     "lock_text_on_pp": "Dành riêng cho MEMBERSHIP",
     "lock_pages_tag_enable": false,
