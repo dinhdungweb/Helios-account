@@ -1319,27 +1319,27 @@
         "options": [
           {
             "value": "1",
-            "label": "Tier 1 (Highest)"
+            "label": "Tier 1 (Black Diamond)"
           },
           {
             "value": "2",
-            "label": "Tier 2"
+            "label": "Tier 2 (Diamond)"
           },
           {
             "value": "3",
-            "label": "Tier 3"
+            "label": "Tier 3 (Platinum)"
           },
           {
             "value": "4",
-            "label": "Tier 4"
+            "label": "Tier 4 (Gold)"
           },
           {
             "value": "5",
-            "label": "Tier 5"
+            "label": "Tier 5 (Silver)"
           },
           {
             "value": "6",
-            "label": "Tier 6 (Lowest)"
+            "label": "Tier 6 (Member)"
           }
         ],
         "default": "6"
