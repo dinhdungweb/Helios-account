@@ -1,5 +1,5 @@
 {% comment %}
-  Snippet: Check Total Spent Lock
+  Snippet: Check Total Spent Lock (DEPRECATED - use check-content-lock instead)
   Usage: {% render 'check-total-spent-lock', customer: customer %}
   Outputs: 1 (locked) or 0 (unlocked)
   
@@ -11,17 +11,10 @@
 {% assign is_locked = 1 %}
 
 {% if customer %}
-  {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
-    {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
-    {% if total_spent > 0 %}
-      {% assign is_locked = 0 %}
-    {% endif %}
-  {% else %}
-    {% comment %} Fallback to Shopify total_spent (in cents) {% endcomment %}
-    {% assign total_spent = customer.total_spent | plus: 0 %}
-    {% if total_spent > 0 %}
-      {% assign is_locked = 0 %}
-    {% endif %}
+  {% comment %} Chỉ dùng custom metafield total_spent {% endcomment %}
+  {% assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0 %}
+  {% if total_spent > 0 %}
+    {% assign is_locked = 0 %}
   {% endif %}
 {% endif %}
 
