@@ -481,33 +481,47 @@
                       Đăng nhập để hiện giá
       
                     {% else %}
-                      <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
-                          {% render 'tier-price', 
-                            price: current_variant.price,
-                            compare_at_price: current_variant.compare_at_price,
-                            product: product,
-                            customer: customer,
-                            show_original: true,
-                            show_badge: true
-                          %}
-      
-                          {% render 'unit-price', variant: current_variant %}
-                        </div>
-      
-                        {%- if block.settings.show_tax_and_shipping -%}
-                          {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
-                            <div class="rte product-policies">
-                              <p>
-                                {%- if cart.taxes_included -%}
-                                  {{ 'products.general.include_taxes' | t }}
+                         {% comment %} LOCK CONTENT BY TIER {% endcomment %}
+                          {% assign is_content_locked = false %}
+                          {% if settings.lock_pages_tier_enable %}
+                            {% render 'check-tier-hierarchy', customer: customer %}
+                            {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
+                            {% if current_tier_index > min_tier %}
+                              {% assign is_content_locked = true %}
+                            {% endif %}
+                          {% endif %}
+
+                          {% if is_content_locked %}
+                             <div class="price theme-money" style="color:#FAB320; font-weight: bold">{{ settings.price_locked_text }}</div>
+                          {% else %}
+                              <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
+                                  {% render 'tier-price', 
+                                    price: current_variant.price,
+                                    compare_at_price: current_variant.compare_at_price,
+                                    product: product,
+                                    customer: customer,
+                                    show_original: true,
+                                    show_badge: true
+                                  %}
+              
+                                  {% render 'unit-price', variant: current_variant %}
+                                </div>
+              
+                                {%- if block.settings.show_tax_and_shipping -%}
+                                  {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+                                    <div class="rte product-policies">
+                                      <p>
+                                        {%- if cart.taxes_included -%}
+                                          {{ 'products.general.include_taxes' | t }}
+                                        {%- endif -%}
+                                        {%- if shop.shipping_policy.body != blank -%}
+                                          {{ 'products.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                                        {%- endif -%}
+                                      </p>
+                                    </div>
+                                  {%- endif -%}
                                 {%- endif -%}
-                                {%- if shop.shipping_policy.body != blank -%}
-                                  {{ 'products.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                                {%- endif -%}
-                              </p>
-                            </div>
-                          {%- endif -%}
-                        {%- endif -%}
+                          {% endif %}
                     {% endif %}
                   {% endif %}
 
@@ -1044,6 +1058,21 @@
                     {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}   
                       <a href="{{ routes.account_url }}" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ settings.lock_text_on_pp }}</a>
                     {% else %}
+                      {% comment %} LOCK CONTENT BY TIER {% endcomment %}
+                      {% assign is_content_locked = false %}
+                      {% if settings.lock_pages_tier_enable %}
+                        {% render 'check-tier-hierarchy', customer: customer %}
+                        {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
+                        {% if current_tier_index > min_tier %}
+                          {% assign is_content_locked = true %}
+                        {% endif %}
+                      {% endif %}
+
+                      {% if is_content_locked %}
+                          <div class="button" style="width: 100%; margin: 20px 0; text-align: center;">
+                              {{ settings.atc_locked_text }}
+                          </div>
+                      {% else %}
                       {% form 'product', product, id: product_form_id, class: product_form_class %}
                           <select name="id" class="original-selector" aria-label="{{ 'products.product.selector_label' | t | escape }}">
                             {% for variant in product.variants %}
@@ -1112,6 +1141,7 @@
                           {% endif %}
       
                         {% endform %}
+                      {% endif %}
                     {% endif %}
                   {% endif %}
 

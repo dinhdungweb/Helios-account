@@ -1298,8 +1298,51 @@
       {
         "type": "text",
         "id": "price_locked_text",
-        "label": "Text For Price Locking",
-        "default": "Please log in to see pricing"
+        "label": "Price Locked Text",
+        "default": "Liên hệ để biết giá"
+      },
+      {
+        "type": "header",
+        "content": "Lock by Member Tier"
+      },
+      {
+        "type": "checkbox",
+        "id": "lock_pages_tier_enable",
+        "label": "Enable Lock by Tier",
+        "default": false,
+        "info": "Only allow customers with a certain tier (or higher) to view prices."
+      },
+      {
+        "type": "select",
+        "id": "lock_pages_min_tier",
+        "label": "Minimum Tier to Unlock",
+        "options": [
+          {
+            "value": "1",
+            "label": "Tier 1 (Highest)"
+          },
+          {
+            "value": "2",
+            "label": "Tier 2"
+          },
+          {
+            "value": "3",
+            "label": "Tier 3"
+          },
+          {
+            "value": "4",
+            "label": "Tier 4"
+          },
+          {
+            "value": "5",
+            "label": "Tier 5"
+          },
+          {
+            "value": "6",
+            "label": "Tier 6 (Lowest)"
+          }
+        ],
+        "default": "6"
       },
       {
         "type": "text",

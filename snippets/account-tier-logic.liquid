@@ -12,6 +12,7 @@
 {% endcomment %}
 
 {% comment %} Tính tổng chi tiêu {% endcomment %}
+{% comment %} Tính tổng chi tiêu {% endcomment %}
 {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
   {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
 {% else %}
@@ -20,57 +21,134 @@
 
 {% assign points = customer.metafields.rewards.points | default: 0 %}
 
-{% comment %} Kiểm tra tag khách hàng {% endcomment %}
-{% if customer.tags contains "BLACK DIAMOND" %}
-  {% assign tier = "BLACK DIAMOND" %}
-  {% assign next_tier = "MAX LEVEL" %}
-  {% assign next_tier_amount = total_spent %}
-{% elsif customer.tags contains "DIAMOND" %}
-  {% assign tier = "DIAMOND" %}
-  {% assign next_tier = "BLACK DIAMOND" %}
-  {% assign next_tier_amount = 100000000 %}
-{% elsif customer.tags contains "PLATINUM" %}
-  {% assign tier = "PLATINUM" %}
-  {% assign next_tier = "DIAMOND" %}
-  {% assign next_tier_amount = 20000000 %}
-{% elsif customer.tags contains "GOLD" %}
-  {% assign tier = "GOLD" %}
-  {% assign next_tier = "PLATINUM" %}
-  {% assign next_tier_amount = 10000000 %}
-{% elsif customer.tags contains "SILVER" %}
-  {% assign tier = "SILVER" %}
-  {% assign next_tier = "GOLD" %}
-  {% assign next_tier_amount = 6000000 %}
-{% else %}
+{% comment %} 
+  Lấy thông tin từ Settings 
+  Mặc định 6 cấp độ như tier-auto-discount.liquid
+{% endcomment %}
 
-  {% comment %} Nếu không có tag, xác định cấp bậc bằng tổng tiền đã chi {% endcomment %}
-  {% if total_spent < 3000000 %}
-    {% assign tier = "MEMBER" %}
-    {% assign next_tier = "SILVER" %}
-    {% assign next_tier_amount = 3000000 %}
-  {% elsif total_spent >= 3000000 and total_spent < 6000000 %}
-    {% assign tier = "SILVER" %}
-    {% assign next_tier = "GOLD" %}
-    {% assign next_tier_amount = 6000000 %}
-  {% elsif total_spent >= 6000000 and total_spent < 10000000 %}
-    {% assign tier = "GOLD" %}
-    {% assign next_tier = "PLATINUM" %}
-    {% assign next_tier_amount = 10000000 %}
-  {% elsif total_spent >= 10000000 and total_spent < 20000000 %}
-    {% assign tier = "PLATINUM" %}
-    {% assign next_tier = "DIAMOND" %}
-    {% assign next_tier_amount = 20000000 %}
-  {% elsif total_spent >= 20000000 and total_spent < 100000000 %}
-    {% assign tier = "DIAMOND" %}
-    {% assign next_tier = "BLACK DIAMOND" %}
-    {% assign next_tier_amount = 100000000 %}
-  {% else %}
-    {% assign tier = "BLACK DIAMOND" %}
-    {% assign next_tier = "MAX LEVEL" %}
-    {% assign next_tier_amount = total_spent %}
+{% assign tier_1_name = settings.tier_1_name %}
+{% assign tier_1_tag = settings.tier_1_tag %}
+{% assign tier_1_threshold = settings.tier_1_threshold | plus: 0 %}
+
+{% assign tier_2_name = settings.tier_2_name %}
+{% assign tier_2_tag = settings.tier_2_tag %}
+{% assign tier_2_threshold = settings.tier_2_threshold | plus: 0 %}
+
+{% assign tier_3_name = settings.tier_3_name %}
+{% assign tier_3_tag = settings.tier_3_tag %}
+{% assign tier_3_threshold = settings.tier_3_threshold | plus: 0 %}
+
+{% assign tier_4_name = settings.tier_4_name %}
+{% assign tier_4_tag = settings.tier_4_tag %}
+{% assign tier_4_threshold = settings.tier_4_threshold | plus: 0 %}
+
+{% assign tier_5_name = settings.tier_5_name %}
+{% assign tier_5_tag = settings.tier_5_tag %}
+{% assign tier_5_threshold = settings.tier_5_threshold | plus: 0 %}
+
+{% assign tier_6_name = settings.tier_6_name %}
+{% assign tier_6_tag = settings.tier_6_tag %}
+{% assign tier_6_threshold = settings.tier_6_threshold | plus: 0 %}
+
+{% assign prioritize_tags = settings.tier_prioritize_tags | default: true %}
+
+{% assign tier = "" %}
+{% assign next_tier = "" %}
+{% assign next_tier_amount = 0 %}
+
+{% comment %} 
+  LOGIC XÁC ĐỊNH TIER HIỆN TẠI 
+{% endcomment %}
+
+{% comment %} 1. Kiểm tra Tag (Nếu được ưu tiên hoặc mặc định) {% endcomment %}
+{% if prioritize_tags %}
+  {% if tier_1_tag != blank and customer.tags contains tier_1_tag %}
+    {% assign tier = tier_1_name %}
+  {% elsif tier_2_tag != blank and customer.tags contains tier_2_tag %}
+    {% assign tier = tier_2_name %}
+  {% elsif tier_3_tag != blank and customer.tags contains tier_3_tag %}
+    {% assign tier = tier_3_name %}
+  {% elsif tier_4_tag != blank and customer.tags contains tier_4_tag %}
+    {% assign tier = tier_4_name %}
+  {% elsif tier_5_tag != blank and customer.tags contains tier_5_tag %}
+    {% assign tier = tier_5_name %}
+  {% elsif tier_6_tag != blank and customer.tags contains tier_6_tag %}
+    {% assign tier = tier_6_name %}
   {% endif %}
 {% endif %}
 
+{% comment %} 2. Nếu chưa có Tier từ Tag, kiểm tra theo Threshold chi tiêu {% endcomment %}
+{% if tier == "" %}
+  {% if total_spent >= tier_6_threshold %}
+    {% assign tier = tier_6_name %}
+  {% elsif total_spent >= tier_5_threshold %}
+    {% assign tier = tier_5_name %}
+  {% elsif total_spent >= tier_4_threshold %}
+    {% assign tier = tier_4_name %}
+  {% elsif total_spent >= tier_3_threshold %}
+    {% assign tier = tier_3_name %}
+  {% elsif total_spent >= tier_2_threshold %}
+    {% assign tier = tier_2_name %}
+  {% elsif total_spent >= tier_1_threshold %}
+    {% assign tier = tier_1_name %}
+  {% else %}
+    {% assign tier = "MEMBER" %}
+    {% comment %} Giả định cấp thấp nhất là Helper/Member nếu chưa đạt Tier 1 {% endcomment %}
+  {% endif %}
+{% endif %}
+
+
+{% comment %} 
+  LOGIC XÁC ĐỊNH NEXT TIER 
+  Dựa trên tier hiện tại để xác định mục tiêu tiếp theo
+{% endcomment %}
+
+{% if tier == tier_6_name %}
+  {% assign next_tier = "MAX LEVEL" %}
+  {% assign next_tier_amount = total_spent %}
+  
+{% elsif tier == tier_5_name %}
+  {% assign next_tier = tier_6_name %}
+  {% assign next_tier_amount = tier_6_threshold %}
+  
+{% elsif tier == tier_4_name %}
+  {% assign next_tier = tier_5_name %}
+  {% assign next_tier_amount = tier_5_threshold %}
+  
+{% elsif tier == tier_3_name %}
+  {% assign next_tier = tier_4_name %}
+  {% assign next_tier_amount = tier_4_threshold %}
+  
+{% elsif tier == tier_2_name %}
+  {% assign next_tier = tier_3_name %}
+  {% assign next_tier_amount = tier_3_threshold %}
+  
+{% elsif tier == tier_1_name %}
+  {% assign next_tier = tier_2_name %}
+  {% assign next_tier_amount = tier_2_threshold %}
+  
+{% else %}
+  {% comment %} Trường hợp MEMBER / Chưa đạt Tier 1 {% endcomment %}
+  {% assign next_tier = tier_1_name %}
+  {% assign next_tier_amount = tier_1_threshold %}
+  
+  {% comment %} Fallback nếu Tier 1 cũng là 0 hoặc chưa set {% endcomment %}
+  {% if next_tier_amount == 0 %}
+     {% assign next_tier = "SILVER" %}
+     {% assign next_tier_amount = 3000000 %}
+  {% endif %}
+{% endif %}
+
+
 {% comment %} Tính phần trăm tiến trình {% endcomment %}
-{% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
-{% assign remaining_amount = next_tier_amount | minus: total_spent %}
+{% if next_tier == "MAX LEVEL" %}
+  {% assign progress_percentage = 100 %}
+  {% assign remaining_amount = 0 %}
+{% else %}
+  {% if next_tier_amount > 0 %}
+    {% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
+  {% else %}
+    {% assign progress_percentage = 0 %}
+  {% endif %}
+  {% assign remaining_amount = next_tier_amount | minus: total_spent %}
+{% endif %}

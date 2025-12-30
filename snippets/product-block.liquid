@@ -345,17 +345,31 @@
             {% endif %}
           
           {% else %}
-            <!-- Nếu không có bất kỳ điều kiện nào bị khóa -->
-            {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-            {% render 'tier-price', 
-              price: cheapest_variant.price,
-              compare_at_price: cheapest_variant.compare_at_price,
-              product: product,
-              customer: customer,
-              show_original: true,
-              show_badge: true
-            %}
-            {% render 'unit-price', variant: cheapest_variant %}
+            {% comment %} LOCK CONTENT BY TIER {% endcomment %}
+            {% assign is_content_locked = false %}
+            {% if settings.lock_pages_tier_enable %}
+              {% render 'check-tier-hierarchy', customer: customer %}
+              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
+              {% if current_tier_index > min_tier %}
+                 {% assign is_content_locked = true %}
+              {% endif %}
+            {% endif %}
+
+            {% if is_content_locked %}
+               <b style="color:#FAB320">{{ settings.price_locked_text }}</b>
+            {% else %}
+              <!-- Nếu không có bất kỳ điều kiện nào bị khóa -->
+              {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
+              {% render 'tier-price', 
+                price: cheapest_variant.price,
+                compare_at_price: cheapest_variant.compare_at_price,
+                product: product,
+                customer: customer,
+                show_original: true,
+                show_badge: true
+              %}
+              {% render 'unit-price', variant: cheapest_variant %}
+            {% endif %}
           {% endif %}
           
         {% else %}
@@ -459,9 +473,23 @@
         {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
           <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
         {% else %}
-          <a href="{{ product_url }}" class="button alt">
-            {{ 'products.listing.buy_now' | t }}
-          </a>
+          {% comment %} LOCK CONTENT BY TIER {% endcomment %}
+            {% assign is_content_locked = false %}
+            {% if settings.lock_pages_tier_enable %}
+              {% render 'check-tier-hierarchy', customer: customer %}
+              {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
+              {% if current_tier_index > min_tier %}
+                 {% assign is_content_locked = true %}
+              {% endif %}
+            {% endif %}
+
+            {% if is_content_locked %}
+               <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
+            {% else %}
+              <a href="{{ product_url }}" class="button alt">
+                {{ 'products.listing.buy_now' | t }}
+              </a>
+            {% endif %}
         {% endif %}
       {% endif %}
       

@@ -1,0 +1,87 @@
+{% comment %}
+  Snippet: Check Tier Hierarchy
+  Usage: {% render 'check-tier-hierarchy', customer: customer %}
+  Outputs: current_tier_index (1 to 6)
+  
+  Logic: 
+  - Checks tags in order 1 -> 6 (Highest to Lowest).
+  - If no tag, checks spend thresholds 1 -> 6.
+  - Returns 6 (Member) if no match.
+{% endcomment %}
+
+{% assign tier_1_tag = settings.tier_1_tag %}
+{% assign tier_2_tag = settings.tier_2_tag %}
+{% assign tier_3_tag = settings.tier_3_tag %}
+{% assign tier_4_tag = settings.tier_4_tag %}
+{% assign tier_5_tag = settings.tier_5_tag %}
+{% assign tier_6_tag = settings.tier_6_tag %}
+
+{% assign tier_1_threshold = settings.tier_1_threshold | plus: 0 %}
+{% assign tier_2_threshold = settings.tier_2_threshold | plus: 0 %}
+{% assign tier_3_threshold = settings.tier_3_threshold | plus: 0 %}
+{% assign tier_4_threshold = settings.tier_4_threshold | plus: 0 %}
+{% assign tier_5_threshold = settings.tier_5_threshold | plus: 0 %}
+{% assign tier_6_threshold = settings.tier_6_threshold | plus: 0 %}
+
+{% assign current_tier_index = 6 %}
+
+{% if customer %}
+  {% if settings.tier_prioritize_tags %}
+    {% if tier_1_tag != blank and customer.tags contains tier_1_tag %}
+      {% assign current_tier_index = 1 %}
+    {% elsif tier_2_tag != blank and customer.tags contains tier_2_tag %}
+      {% assign current_tier_index = 2 %}
+    {% elsif tier_3_tag != blank and customer.tags contains tier_3_tag %}
+      {% assign current_tier_index = 3 %}
+    {% elsif tier_4_tag != blank and customer.tags contains tier_4_tag %}
+      {% assign current_tier_index = 4 %}
+    {% elsif tier_5_tag != blank and customer.tags contains tier_5_tag %}
+      {% assign current_tier_index = 5 %}
+    {% elsif tier_6_tag != blank and customer.tags contains tier_6_tag %}
+      {% assign current_tier_index = 6 %}
+    {% endif %}
+  {% endif %}
+
+  {% comment %} If still default (6) and no tag match (or tags not prioritized), check spend {% endcomment %}
+  {% assign check_spend = false %}
+  
+  {% comment %} 
+    Chỉ check spend nếu chưa tìm thấy tier bằng TAG
+    Hoặc nếu tags không được ưu tiên 
+    Nhưng logic thực tế: Nếu đã tìm thấy tag ở trên thì current_tier_index < 6 hoặc = 6 (nếu match tier 6). 
+    Để đơn giản, ta check lại total_spent nếu chưa xác định được tier cao hơn (ví dụ đang là 6).
+    Tuy nhiên, logic ở đây cần chính xác: Tag override Spend. 
+    Nếu có tag Tier 1 -> Index 1.
+    Nếu không có tag nào -> Index vẫn là 6 -> Check Spend.
+  {% endcomment %}
+
+  {% if current_tier_index == 6 and settings.tier_prioritize_tags %}
+     {% unless tier_6_tag != blank and customer.tags contains tier_6_tag %}
+        {% assign check_spend = true %}
+     {% endunless %}
+  {% endif %}
+  
+  {% if settings.tier_prioritize_tags == false %}
+    {% assign check_spend = true %}
+  {% endif %}
+
+  {% if check_spend %}
+    {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+      {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+    {% else %}
+      {% assign total_spent = customer.total_spent | divided_by: 100 %}
+    {% endif %}
+
+    {% if total_spent >= tier_1_threshold %}
+      {% assign current_tier_index = 1 %}
+    {% elsif total_spent >= tier_2_threshold %}
+      {% assign current_tier_index = 2 %}
+    {% elsif total_spent >= tier_3_threshold %}
+      {% assign current_tier_index = 3 %}
+    {% elsif total_spent >= tier_4_threshold %}
+      {% assign current_tier_index = 4 %}
+    {% elsif total_spent >= tier_5_threshold %}
+      {% assign current_tier_index = 5 %}
+    {% endif %}
+  {% endif %}
+{% endif %}
