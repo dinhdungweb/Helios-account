@@ -475,7 +475,26 @@
                     
                   {% else %}
                     
-                    {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
+                    {% if settings.lock_pages_total_spent_enable and locked_product_ids contains product.id %}
+                      {% comment %} LOCK CONTENT BY TOTAL SPENT - PRICE {% endcomment %}
+                      {% capture is_locked_by_spent_captured %}{% render 'check-total-spent-lock', customer: customer %}{% endcapture %}
+                      {% assign is_locked_by_spent = is_locked_by_spent_captured | strip | plus: 0 %}
+                      {% if is_locked_by_spent == 1 %}
+                         <div class="price theme-money" style="color:#FAB320; font-weight: bold">{{ settings.lock_pages_total_spent_text }}</div>
+                      {% else %}
+                        <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
+                            {% render 'tier-price', 
+                              price: current_variant.price,
+                              compare_at_price: current_variant.compare_at_price,
+                              product: product,
+                              customer: customer,
+                              show_original: true,
+                              show_badge: true
+                            %}
+                            {% render 'unit-price', variant: current_variant %}
+                          </div>
+                      {% endif %}
+                    {% elsif customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
                       Đăng nhập để hiện giá
                     {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}   
                       Đăng nhập để hiện giá
@@ -1054,7 +1073,29 @@
                     {% endif %}
                     
                   {% else %}
-                    {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
+                    {% if settings.lock_pages_total_spent_enable and locked_product_ids contains product.id %}
+                      {% comment %} LOCK CONTENT BY TOTAL SPENT - ATC {% endcomment %}
+                      {% capture is_locked_by_spent_captured %}{% render 'check-total-spent-lock', customer: customer %}{% endcapture %}
+                      {% assign is_locked_by_spent = is_locked_by_spent_captured | strip | plus: 0 %}
+                      {% if is_locked_by_spent == 1 %}
+                         <a href="{{ routes.account_url }}" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ settings.lock_pages_total_spent_text }}</a>
+                      {% else %}
+                        {% form 'product', product, id: product_form_id, class: product_form_class %}
+                            <select name="id" class="original-selector" aria-label="{{ 'products.product.selector_label' | t | escape }}">
+                              {% for variant in product.variants %}
+                                <option value="{{ variant.id }}"
+                                        {% if variant == current_variant %} selected="selected"{% endif %}
+                                        {% if variant.inventory_management != blank %}
+                                          data-inventory="{{ variant.inventory_quantity }}"
+                                        {% endif %}
+                                        data-stock="{% if variant.inventory_management != blank and variant.inventory_quantity <= 0 %}out{% endif %}">{{ variant.title | escape }}</option>
+                              {% endfor %}
+                            </select>
+                            <div class="error-message"></div>
+                            {% render 'product-form-buttons', product: product, current_variant: current_variant, is_preorder_product: is_preorder_product %}
+                        {% endform %}
+                      {% endif %}
+                    {% elsif customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
                       <a href="{{ routes.account_url }}" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ settings.lock_text_on_pp }}</a>
                     {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}   
                       <a href="{{ routes.account_url }}" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ settings.lock_text_on_pp }}</a>

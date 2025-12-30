@@ -300,6 +300,25 @@
           <!-- Nếu sản phẩm có tag "angia" thì hiển thị "Giá liên hệ" -->
           <b style="color:#FAB320">Giá liên hệ</b>
 
+        {% elsif settings.lock_pages_total_spent_enable and locked_product_ids contains product.id %}
+          {% comment %} LOCK CONTENT BY TOTAL SPENT {% endcomment %}
+          {% capture is_locked_by_spent_captured %}{% render 'check-total-spent-lock', customer: customer %}{% endcapture %}
+          {% assign is_locked_by_spent = is_locked_by_spent_captured | strip | plus: 0 %}
+          {% if is_locked_by_spent == 1 %}
+             <b style="color:#FAB320">{{ settings.lock_pages_total_spent_text }}</b>
+          {% else %}
+            {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
+            {% render 'tier-price', 
+              price: cheapest_variant.price,
+              compare_at_price: cheapest_variant.compare_at_price,
+              product: product,
+              customer: customer,
+              show_original: true,
+              show_badge: true
+            %}
+            {% render 'unit-price', variant: cheapest_variant %}
+          {% endif %}
+
         {% elsif settings.lock_pages_tag_enable %}
 
           {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
@@ -487,7 +506,18 @@
   {% else %}
     {% if settings.addtocart_enabled %}
       
-      {% if settings.lock_pages_tag_enable %}
+      {% if settings.lock_pages_total_spent_enable and locked_product_ids contains product.id %}
+        {% comment %} LOCK CONTENT BY TOTAL SPENT - ATC {% endcomment %}
+        {% capture is_locked_by_spent_captured %}{% render 'check-total-spent-lock', customer: customer %}{% endcapture %}
+        {% assign is_locked_by_spent = is_locked_by_spent_captured | strip | plus: 0 %}
+        {% if is_locked_by_spent == 1 %}
+           <a href="{{ routes.account_url }}" class="button alt">{{ settings.lock_pages_total_spent_text }}</a>
+        {% else %}
+          <a href="{{ product_url }}" class="button alt">
+            {{ 'products.listing.buy_now' | t }}
+          </a>
+        {% endif %}
+      {% elsif settings.lock_pages_tag_enable %}
         {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
           <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
         {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}

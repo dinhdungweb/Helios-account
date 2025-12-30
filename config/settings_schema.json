@@ -1358,6 +1358,24 @@
         "info": "Hiển thị khi khách đã đăng nhập nhưng hạng không đủ"
       },
       {
+        "type": "header",
+        "content": "Lock by Total Spent"
+      },
+      {
+        "type": "checkbox",
+        "id": "lock_pages_total_spent_enable",
+        "label": "Enable Lock by Total Spent",
+        "default": false,
+        "info": "Mở khóa nội dung khi total_spent > 0 (chỉ khách đã mua hàng mới thấy giá/ATC)"
+      },
+      {
+        "type": "text",
+        "id": "lock_pages_total_spent_text",
+        "label": "Text For Total Spent Lock",
+        "default": "Dành riêng cho khách hàng thân thiết",
+        "info": "Hiển thị cho khách chưa mua hàng"
+      },
+      {
         "type": "text",
         "id": "lock_pages_metaobject",
         "label": "Lock Pages Metaobject Handle",
