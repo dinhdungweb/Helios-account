@@ -64,7 +64,7 @@
         "show_filter_counts": false,
         "show_filter_deadends": false,
         "ajax_products": false,
-        "filter_mode": "none",
+        "filter_mode": "drawer",
         "sticky_sidebar": false,
         "collapse_filters_method": "over-6",
         "collapse_sort_by": false,
@@ -756,6 +756,7 @@
     },
     "rich_text_y9VMY6": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
