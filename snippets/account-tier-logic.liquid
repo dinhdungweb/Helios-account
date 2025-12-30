@@ -11,13 +11,8 @@
     - remaining_amount
 {% endcomment %}
 
-{% comment %} Tính tổng chi tiêu {% endcomment %}
-{% comment %} Tính tổng chi tiêu {% endcomment %}
-{% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
-  {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
-{% else %}
-  {% assign total_spent = customer.total_spent | divided_by: 100 %}
-{% endif %}
+{% comment %} Tính tổng chi tiêu - chỉ dùng custom metafield {% endcomment %}
+{% assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0 %}
 
 {% assign points = customer.metafields.rewards.points | default: 0 %}
 

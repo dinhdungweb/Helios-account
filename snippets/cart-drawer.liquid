@@ -286,11 +286,7 @@
             assign total_spent = 0
             
             if tier_enabled and customer
-              if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
-                assign total_spent = customer.metafields.custom.total_spent | plus: 0
-              else
-                assign total_spent = customer.total_spent | divided_by: 100
-              endif
+              assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0
               
               if prioritize_tags
                 if customer.tags contains tier_1_tag

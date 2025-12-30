@@ -198,13 +198,9 @@
   assign total_spent = 0
   
   if tier_enabled and customer
-    comment Tính tổng chi tiêu
+    comment Tính tổng chi tiêu - chỉ dùng custom metafield
     endcomment
-    if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
-      assign total_spent = customer.metafields.custom.total_spent | plus: 0
-    else
-      assign total_spent = customer.total_spent | divided_by: 100
-    endif
+    assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0
     
     comment Ưu tiên tags nếu bật trong settings
     endcomment

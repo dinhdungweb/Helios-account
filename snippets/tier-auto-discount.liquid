@@ -6,12 +6,8 @@
 {% endcomment %}
 
 {% if customer %}
-  {% comment %} Tính total_spent {% endcomment %}
-  {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
-    {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
-  {% else %}
-    {% assign total_spent = customer.total_spent | divided_by: 100 %}
-  {% endif %}
+  {% comment %} Tính total_spent - chỉ dùng custom metafield {% endcomment %}
+  {% assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0 %}
   
   {% comment %} Xác định discount code từ settings {% endcomment %}
   {% liquid
