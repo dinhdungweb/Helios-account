@@ -77,23 +77,23 @@
   {% endif %}
 {% endif %}
 
-{% comment %} 2. Nếu chưa có Tier từ Tag, kiểm tra theo Threshold chi tiêu {% endcomment %}
+{% comment %} 2. Nếu chưa có Tier từ Tag, kiểm tra theo Threshold chi tiêu (Từ CAO đến THẤP) {% endcomment %}
 {% if tier == "" %}
-  {% if total_spent >= tier_6_threshold %}
-    {% assign tier = tier_6_name %}
-  {% elsif total_spent >= tier_5_threshold %}
-    {% assign tier = tier_5_name %}
-  {% elsif total_spent >= tier_4_threshold %}
-    {% assign tier = tier_4_name %}
-  {% elsif total_spent >= tier_3_threshold %}
-    {% assign tier = tier_3_name %}
+  {% if total_spent >= tier_1_threshold %}
+    {% assign tier = tier_1_name %}
   {% elsif total_spent >= tier_2_threshold %}
     {% assign tier = tier_2_name %}
-  {% elsif total_spent >= tier_1_threshold %}
-    {% assign tier = tier_1_name %}
+  {% elsif total_spent >= tier_3_threshold %}
+    {% assign tier = tier_3_name %}
+  {% elsif total_spent >= tier_4_threshold %}
+    {% assign tier = tier_4_name %}
+  {% elsif total_spent >= tier_5_threshold %}
+    {% assign tier = tier_5_name %}
+  {% elsif total_spent >= tier_6_threshold %}
+    {% assign tier = tier_6_name %}
   {% else %}
-    {% assign tier = "MEMBER" %}
-    {% comment %} Giả định cấp thấp nhất là Helper/Member nếu chưa đạt Tier 1 {% endcomment %}
+    {% assign tier = tier_6_name %}
+    {% comment %} Mặc định là Tier 6 (Member) nếu chưa đạt bất kỳ threshold nào {% endcomment %}
   {% endif %}
 {% endif %}
 
