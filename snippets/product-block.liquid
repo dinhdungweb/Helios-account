@@ -478,9 +478,24 @@
         {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}
           <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
         {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
-          <a href="{{ product_url }}" class="button alt">
-            {{ 'products.listing.buy_now' | t }}
-          </a>
+          {% comment %} LOCK CONTENT BY TIER - Customer has tag {% endcomment %}
+          {% assign is_content_locked = false %}
+          {% if settings.lock_pages_tier_enable %}
+            {% capture current_tier_index_captured %}{% render 'check-tier-hierarchy', customer: customer %}{% endcapture %}
+            {% assign current_tier_index = current_tier_index_captured | strip | plus: 0 %}
+            {% assign min_tier = settings.lock_pages_min_tier | plus: 0 %}
+            {% if current_tier_index > min_tier %}
+               {% assign is_content_locked = true %}
+            {% endif %}
+          {% endif %}
+          
+          {% if is_content_locked %}
+             <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_tier_locked_text }}</a>
+          {% else %}
+            <a href="{{ product_url }}" class="button alt">
+              {{ 'products.listing.buy_now' | t }}
+            </a>
+          {% endif %}
         {% elsif settings.enable_locked_content %}
           {% if settings.lock_all_product_prices %}
             <a href="{{ routes.account_url }}" style="pointer-events: none" class="button alt">{{ settings.atc_locked_text_tag }}</a>
@@ -515,7 +530,7 @@
             {% endif %}
 
             {% if is_content_locked %}
-               <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_locked_text }}</a>
+               <a href="{{ routes.account_url }}" class="button alt">{{ settings.atc_tier_locked_text }}</a>
             {% else %}
               <a href="{{ product_url }}" class="button alt">
                 {{ 'products.listing.buy_now' | t }}

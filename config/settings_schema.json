@@ -1352,6 +1352,13 @@
       },
       {
         "type": "text",
+        "id": "atc_tier_locked_text",
+        "label": "Text For Tier-Locked ATC",
+        "default": "Nâng cấp hạng để mua hàng",
+        "info": "Hiển thị khi khách đã đăng nhập nhưng hạng không đủ"
+      },
+      {
+        "type": "text",
         "id": "lock_pages_metaobject",
         "label": "Lock Pages Metaobject Handle",
         "default": "lock-pages"
