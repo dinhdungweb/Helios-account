@@ -109,7 +109,7 @@
     "lock_pages_tier_enable": false,
     "lock_pages_min_tier": "4",
     "atc_locked_text": "Đăng nhập để mua hàng",
-    "lock_pages_total_spent_enable": false,
+    "lock_pages_total_spent_enable": true,
     "lock_pages_total_spent_text": "Dành riêng cho MEMBERSHIP",
     "lock_text_on_pp": "Dành riêng cho MEMBERSHIP",
     "lock_pages_tag_enable": false,
