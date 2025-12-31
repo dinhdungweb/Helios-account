@@ -27,6 +27,33 @@
           </div>
         </div>
       </div>
+
+      {% comment %}--- SECTION: SẢN PHẨM THEO COLLECTION ---{% endcomment %}
+      {% if section.settings.welcome_collection != blank %}
+        {% assign welcome_collection = collections[section.settings.welcome_collection] %}
+        {% if welcome_collection != blank and welcome_collection.products.size > 0 %}
+          <div class="dashboard-card welcome-products-section">
+            <h3 class="card-title">{{ section.settings.welcome_collection_title | default: 'Sản Phẩm Dành Cho Bạn' }}</h3>
+            <div class="card-body">
+              <div class="welcome-products-grid">
+                {% assign products_limit = section.settings.welcome_products_limit | default: 4 %}
+                {% for product in welcome_collection.products limit: products_limit %}
+                  <div class="welcome-product-item">
+                    {% render 'product-block', product: product, show_vendor: false, animate: true, i: forloop.index %}
+                  </div>
+                {% endfor %}
+              </div>
+              {% if welcome_collection.products.size > products_limit %}
+                <div class="welcome-products-more">
+                  <a href="{{ welcome_collection.url }}" class="dashboard-btn outline">
+                    Xem tất cả {{ welcome_collection.title }}
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
     </div>
 
     {% comment %}--- TAB: ACCOUNT INFO ---{% endcomment %}
@@ -197,6 +224,31 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
       "type": "image_picker",
       "id": "tier_image",
       "label": "Ảnh trang chủ Hạng (Mặc định)"
+    },
+    {
+      "type": "header",
+      "content": "Section Sản Phẩm"
+    },
+    {
+      "type": "collection",
+      "id": "welcome_collection",
+      "label": "Collection sản phẩm"
+    },
+    {
+      "type": "text",
+      "id": "welcome_collection_title",
+      "label": "Tiêu đề section",
+      "default": "Sản Phẩm Dành Cho Bạn"
+    },
+    {
+      "type": "range",
+      "id": "welcome_products_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "unit": "sp",
+      "label": "Số lượng sản phẩm hiển thị",
+      "default": 4
     }
   ],
   "blocks": [
