@@ -135,9 +135,9 @@
       ],
       "settings": {
         "tier_image": "shopify://shop_images/DSC08529.jpg",
-        "welcome_collection": "all-products",
+        "welcome_collection": "membership-product",
         "welcome_collection_title": "Sản Phẩm Dành Cho Bạn",
-        "welcome_products_limit": 4
+        "welcome_products_limit": 2
       }
     },
     "rich_text_cnY8ed": {
