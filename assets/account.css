@@ -449,6 +449,10 @@ body {
     gap: 30px;
   }
 
+  .card-body {
+    padding: 15px;
+  }
+  
   .hero-stats-container {
     width: 100%;
     max-width: none;
