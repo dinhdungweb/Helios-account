@@ -1302,6 +1302,13 @@
         "default": "Liên hệ để biết giá"
       },
       {
+        "type": "text",
+        "id": "button_locked_text",
+        "label": "Button Locked Text",
+        "default": "Đăng nhập",
+        "info": "Text hiển thị trên nút bấm khi sản phẩm bị khóa"
+      },
+      {
         "type": "header",
         "content": "Lock by Member Tier"
       },
