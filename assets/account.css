@@ -494,7 +494,6 @@ body {
 }
 
 .welcome-product-item .product-block__inner {
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
