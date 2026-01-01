@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_ef7t3V": {
       "type": "background-video-responsive",
+      "disabled": true,
       "custom_css": [
         "#section-id-template--21001057534173__background_video_responsive_ef7t3V .video-overlay-content {bottom: 5%;}"
       ],
@@ -39,8 +40,8 @@
         "image_AD6YEJ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/z7260074937732_5bbf18147c1c56fa33a84a6df5925607.jpg",
-            "mobile_image": "shopify://shop_images/z7260074937684_80ac5b40974e5451a6742c97f59f4c35.jpg",
+            "image": "shopify://shop_images/z7387147170642_12fea0800a3f7f62306a38790b775845.jpg",
+            "mobile_image": "shopify://shop_images/z7387147166044_697a3e0e9ffa44c43a697de5d2ef7d1e.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -58,7 +59,6 @@
       "block_order": [
         "image_AD6YEJ"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
