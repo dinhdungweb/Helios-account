@@ -115,7 +115,7 @@
         "custom_liquid_FW6ge8": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<a href=\"https://helios.vn/pages/helios-private-call\" style=\"color: #fab320\">ĐĂNG KÝ TƯ VẤN 1:1 ĐỂ TRẢI NGHIỆM TRỰC TIẾP SẢN PHẨM</a>"
+            "custom_liquid": "<div style=\"color: #fab320\">Lưu ý: Do sử dụng đá tự nhiên, mỗi sản phẩm sẽ có sự khác biệt nhẹ về màu sắc và vân đá. Vậy nên sản phẩm thực tế có thể khác sản phẩm chụp ảnh và sẽ được giao ngẫu nhiên.</div>"
           }
         },
         "text_HiAnXA": {
