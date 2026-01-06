@@ -458,5 +458,30 @@
       "pick_up_currently_unavailable": "Pickup currently unavailable",
       "invalid_location_address": "Contact store to confirm address"
     }
+  },
+  "shopify": {
+    "checkout": {
+      "shipping": {
+        "address_form": {
+          "max_address": "The {{max_addresses}} address limit has been reached. Please delete an address to add a new one."
+        }
+      },
+      "payment": {
+        "saved_addresses": "Saved address",
+        "save_this_address": "Save this address"
+      },
+      "shipping_errors": {
+        "must_use_address_banner": {
+          "one": "Orders can only be shipped to the address of %{name}.",
+          "other": "Orders can only be shipped to one of these addresses."
+        }
+      },
+      "billing": {
+        "update_address_banner": "Update this address to see delivery options."
+      },
+      "address_management": {
+        "confirm_address_deletion": "Are you sure you want to delete the address {{address}} ?"
+      }
+    }
   }
 }
