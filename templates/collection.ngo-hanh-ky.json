@@ -9,6 +9,87 @@
  */
 {
   "sections": {
+    "background_video_responsive_KB9jPw": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Video recap hành trình thú vị trong một năm 29.12.2025 VER 2 16x9 10mb.mp4",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "slideshow_Mb4Frd": {
+      "type": "slideshow",
+      "blocks": {
+        "image_KXRzXq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7393929813467_cdd59b4fd7254f968889a8d971c12ef8.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_KXRzXq"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "rich_text_YTyx7f": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Khai xuân bằng một tinh thần bứt phá, HELIOS ra mắt BST đầu tiên của năm Bính Ngọ 2026 - năm của chuyển động, bản lĩnh và chinh phục không ngừng nghỉ. BST này dành riêng cho những người đàn ông đang trên \"đường đua\" của chính mình - nơi ta khẳng định ý chí không khuất phục trên suốt chặng đường dài.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "main": {
       "type": "main-collection",
       "settings": {
@@ -35,6 +116,9 @@
     }
   },
   "order": [
+    "background_video_responsive_KB9jPw",
+    "slideshow_Mb4Frd",
+    "rich_text_YTyx7f",
     "main"
   ]
 }
