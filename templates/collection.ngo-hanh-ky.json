@@ -84,7 +84,7 @@
         "text_alignment": "center",
         "enlarge_text": false,
         "full_width": false,
-        "no_padding_bottom": false,
+        "no_padding_bottom": true,
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
@@ -92,6 +92,7 @@
     },
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": false,
         "show_collection_image": false,
@@ -172,6 +173,57 @@
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
       }
+    },
+    "rich_text_wfLYFP": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "MỘT HÌNH TƯỢNG NGỰA ĐẶC BIỆT TẠI HELIOS",
+        "title_size": 32,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>Trong văn hoá phương Đông, ngựa không chỉ tượng trưng cho tốc độ hay sức mạnh, mà còn là hình ảnh của người đàn ông biết đi xa, bền bỉ trên hành trình dài và không quay đầu khi đã chọn hướng.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "shop_the_look_banner_JMtw3C": {
+      "type": "shop-the-look-banner",
+      "blocks": {
+        "product_7PKL8q": {
+          "type": "product",
+          "settings": {
+            "product": "aerion-helios-black-silver"
+          }
+        }
+      },
+      "block_order": [
+        "product_7PKL8q"
+      ],
+      "name": "Shop the look banner",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "banner_image": "shopify://shop_images/noxtilmembership-1-2.jpg",
+        "banner_heading": "",
+        "banner_text": "",
+        "button_label": "",
+        "button_link": "",
+        "banner_width": 50,
+        "show_secondary_image": true,
+        "padding_top": "0",
+        "padding_bottom": "40"
+      }
     }
   },
   "order": [
@@ -179,6 +231,8 @@
     "slideshow_Mb4Frd",
     "rich_text_YTyx7f",
     "main",
-    "two_banner_KmC9x6"
+    "two_banner_KmC9x6",
+    "rich_text_wfLYFP",
+    "shop_the_look_banner_JMtw3C"
   ]
 }
