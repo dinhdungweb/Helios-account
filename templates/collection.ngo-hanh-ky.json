@@ -18,7 +18,7 @@
         "video_height_mobile": 560,
         "video_link": "",
         "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/Video recap hành trình thú vị trong một năm 29.12.2025 VER 2 16x9 10mb.mp4",
+        "video_shopify_desktop": "shopify://files/videos/QUAY NGOÀI BỘ TẾT NGỰA LIL KIM LOẠI 3.1.2025 TỔNG 16x9 Dưới 10MB.mp4",
         "video_external_desktop": "",
         "video_external_mobile": "",
         "subtitle": "",
@@ -35,7 +35,7 @@
         "image_KXRzXq": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/z7393929813467_cdd59b4fd7254f968889a8d971c12ef8.jpg",
+            "image": "shopify://shop_images/z7409302168829_8713d9e0c61505d6954f1694942534c9.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -92,6 +92,7 @@
     },
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": false,
         "show_collection_image": false,
@@ -112,6 +113,44 @@
         "collapse_sort_by": false,
         "enable_sorting": true,
         "show_featured_in_sort": true
+      }
+    },
+    "slideshow_xBYRmm": {
+      "type": "slideshow",
+      "blocks": {
+        "image_yiRm7E": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/D_nh_d_ng_web_8.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_yiRm7E"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "two_banner_KmC9x6": {
@@ -456,6 +495,7 @@
     "slideshow_Mb4Frd",
     "rich_text_YTyx7f",
     "main",
+    "slideshow_xBYRmm",
     "two_banner_KmC9x6",
     "rich_text_wfLYFP",
     "shop_the_look_banner_JMtw3C",
