@@ -217,8 +217,8 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "",
-        "title_size": 32,
+        "title": "MỘT HÌNH TƯỢNG NGỰA ĐẶC BIỆT TẠI HELIOS",
+        "title_size": 28,
         "title_width": 40,
         "heading_h1": false,
         "text": "<p>Lần đầu tiên, HELIOS thử nghiệm với gốm – một chất liệu đòi hỏi sự kiên nhẫn và tĩnh tại tuyệt đối. Ngựa Gốm HELIOS hiện diện với dáng hình tròn đầy, vững chãi, là hiện thân của sự sung túc và thành quả tích lũy sau những hành trình dài.</p>",
@@ -291,9 +291,9 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "",
-        "title_size": 48,
-        "title_width": 12,
+        "title": "XÁO LẠI NHỊP CŨ, KHAI MỞ HÀNH TRÌNH MỚI",
+        "title_size": 28,
+        "title_width": 40,
         "heading_h1": false,
         "text": "<p>Khai xuân Bính Ngọ 2026, HELIOS ra mắt bộ bài Ngọ – nơi 54 lá bài là những hình tượng ngựa được vẽ tay tỉ mỉ, riêng biệt - từ những chiến mã bất kham trên thảo nguyên đến những linh vật trong huyền thoại.</p>",
         "image_width": 120,
