@@ -72,9 +72,9 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "",
-        "title_size": 48,
-        "title_width": 12,
+        "title": "BƯỚC VÀO HÀNH TRÌNH MỚI ĐẦY THÚ VỊ",
+        "title_size": 30,
+        "title_width": 40,
         "heading_h1": false,
         "text": "<p>Khai xuân bằng một tinh thần bứt phá, HELIOS ra mắt BST đầu tiên của năm Bính Ngọ 2026 - năm của chuyển động, bản lĩnh và chinh phục không ngừng nghỉ. BST này dành riêng cho những người đàn ông đang trên \"đường đua\" của chính mình - nơi ta khẳng định ý chí không khuất phục trên suốt chặng đường dài.</p>",
         "image_width": 120,
@@ -152,6 +152,14 @@
         "autoplay_speed": 7
       }
     },
+    "custom_liquid_gmVEhj": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "<div style=\"margin-bottom: 70px\"></div>"
+      }
+    },
     "two_banner_KmC9x6": {
       "type": "two-banner",
       "blocks": {
@@ -214,6 +222,7 @@
     },
     "rich_text_wfLYFP": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -258,7 +267,7 @@
         "color_text": ""
       }
     },
-    "custom_liquid_gmVEhj": {
+    "custom_liquid_U7HHeB": {
       "type": "custom-liquid",
       "name": "Custom Liquid/HTML",
       "settings": {
@@ -317,6 +326,7 @@
       "block_order": [
         "product_7PKL8q"
       ],
+      "disabled": true,
       "name": "Shop the look banner",
       "settings": {
         "title": "",
@@ -337,11 +347,11 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "XÁO LẠI NHỊP CŨ, KHAI MỞ HÀNH TRÌNH MỚI",
+        "title": "LỜI CAM KẾT TỪ HELIOS",
         "title_size": 28,
         "title_width": 40,
         "heading_h1": false,
-        "text": "<p>Khai xuân Bính Ngọ 2026, HELIOS ra mắt bộ bài Ngọ – nơi 54 lá bài là những hình tượng ngựa được vẽ tay tỉ mỉ, riêng biệt - từ những chiến mã bất kham trên thảo nguyên đến những linh vật trong huyền thoại.</p>",
+        "text": "<p>Tại HELIOS, thủ công không chỉ là phương thức chế tác, đó là một lời cam kết. Trong BST Ngọ Hành Ký, mỗi chi tiết dù là nhỏ nhất, mỗi đường nét tạo hình trên thân chiến mã - đều là kết quả hàng giờ của đôi bàn tay tỉ mỉ những người thợ lành nghề</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
@@ -421,10 +431,11 @@
     "rich_text_YTyx7f",
     "main",
     "slideshow_xBYRmm",
+    "custom_liquid_gmVEhj",
     "two_banner_KmC9x6",
     "rich_text_wfLYFP",
     "image_with_text_7jWQU6",
-    "custom_liquid_gmVEhj",
+    "custom_liquid_U7HHeB",
     "slideshow_VpHBh9",
     "shop_the_look_banner_JMtw3C",
     "rich_text_HyQEJD",
