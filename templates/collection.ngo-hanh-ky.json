@@ -152,44 +152,6 @@
         "autoplay_speed": 7
       }
     },
-    "slideshow_VpHBh9": {
-      "type": "slideshow",
-      "blocks": {
-        "image_DgArAp": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/z7412529847841_9bf8595ce7c63fe0f6736285a0508ef7.jpg",
-            "slide_link": "",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        }
-      },
-      "block_order": [
-        "image_DgArAp"
-      ],
-      "name": "Slideshow",
-      "settings": {
-        "height": "adapt",
-        "height_desktop": 600,
-        "height_mobile": 500,
-        "full_width": true,
-        "mobile_overlay_under": false,
-        "overlay_style_tint": false,
-        "slide_transition": "slide",
-        "slide_navigation": "dots",
-        "autoplay": true,
-        "autoplay_speed": 7
-      }
-    },
     "two_banner_KmC9x6": {
       "type": "two-banner",
       "blocks": {
@@ -294,6 +256,52 @@
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
+      }
+    },
+    "custom_liquid_gmVEhj": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "<div style=\"margin-bottom: 70px\"></div>"
+      }
+    },
+    "slideshow_VpHBh9": {
+      "type": "slideshow",
+      "blocks": {
+        "image_DgArAp": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7412529867146_a703bccd41118e05e8101c10cd901c1f.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_DgArAp"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "shop_the_look_banner_JMtw3C": {
@@ -416,6 +424,7 @@
     "two_banner_KmC9x6",
     "rich_text_wfLYFP",
     "image_with_text_7jWQU6",
+    "custom_liquid_gmVEhj",
     "slideshow_VpHBh9",
     "shop_the_look_banner_JMtw3C",
     "rich_text_HyQEJD",
