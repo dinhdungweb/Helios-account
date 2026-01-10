@@ -118,7 +118,7 @@
         "banner_jqKwem": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/DSC08213.jpg",
+            "image": "shopify://shop_images/181.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -138,13 +138,13 @@
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/thien_th_n_k_canh.jpg",
+            "image": "shopify://shop_images/182.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/angelic-collection",
-            "title": "BỘ SƯU TẬP \"ANGELIC\"",
+            "link": "shopify://collections/ngo-hanh-ky",
+            "title": "BỘ SƯU TẬP \"NGỌ HÀNH KÝ\"",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -177,7 +177,7 @@
         "banner_CcYr6M": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/DSC08259_1b98d6c0-ba9d-4755-8bd2-1bd1c603e064.jpg",
+            "image": "shopify://shop_images/183.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -197,7 +197,7 @@
         "banner_wnK37c": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/DSC08556.jpg",
+            "image": "shopify://shop_images/184.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
