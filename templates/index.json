@@ -295,7 +295,7 @@
         "banner_d3ddye": {
           "type": "banner",
           "settings": {
-            "video": "shopify://files/videos/Video chế tác sản phẩm BST Thiên thần FIX 1x1 10mb.mp4",
+            "video": "shopify://files/videos/Chế tác BST NGỰA 1x1 DƯỚI 10MB.mp4",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -315,7 +315,7 @@
         "banner_bVTGHD": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/IMG_0710.webp",
+            "image": "shopify://shop_images/DSC0190-3.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
