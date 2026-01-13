@@ -298,6 +298,14 @@
     "gallery_2_columns_VqBPxe": {
       "type": "gallery-2-columns",
       "blocks": {
+        "image_KgcQq9": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/BANNER_SHOPEE.jpg",
+            "block_link": "shopify://collections/ngo-hanh-ky",
+            "link_target": "_self"
+          }
+        },
         "image_TFk7Rc": {
           "type": "image",
           "settings": {
@@ -436,6 +444,7 @@
         }
       },
       "block_order": [
+        "image_KgcQq9",
         "image_TFk7Rc",
         "image_Vgzdnf",
         "image_PPpYWW",
