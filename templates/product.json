@@ -42,10 +42,10 @@
           "type": "rating",
           "settings": {}
         },
-        "richtext_3YiAcR": {
+        "richtext_3g4Dzi": {
           "type": "richtext",
           "settings": {
-            "text": "{{ product.metafields.custom.short_description | metafield_tag }}"
+            "text": "{{ product.metafields.custom.why_should_you_buy | metafield_tag }}"
           }
         },
         "variant_picker": {
@@ -112,10 +112,10 @@
             "icon4": "check_mark"
           }
         },
-        "richtext_3g4Dzi": {
+        "richtext_3YiAcR": {
           "type": "richtext",
           "settings": {
-            "text": "{{ product.metafields.custom.why_should_you_buy | metafield_tag }}"
+            "text": "{{ product.metafields.custom.short_description | metafield_tag }}"
           }
         },
         "custom_liquid_FW6ge8": {
@@ -168,13 +168,13 @@
         "title",
         "price",
         "rating",
-        "richtext_3YiAcR",
+        "richtext_3g4Dzi",
         "variant_picker",
         "inventory_level",
         "buy_buttons",
         "complementary_pwBz8L",
         "trust_icons_TyrExf",
-        "richtext_3g4Dzi",
+        "richtext_3YiAcR",
         "custom_liquid_FW6ge8",
         "text_HiAnXA",
         "accordion_9czNHQ",
