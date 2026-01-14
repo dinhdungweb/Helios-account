@@ -21,9 +21,8 @@
       "blocks": {
         "vendor_and_type": {
           "type": "vendor_and_type",
-          "disabled": true,
           "settings": {
-            "show_vendor": true,
+            "show_vendor": false,
             "show_type": false
           }
         },
@@ -180,12 +179,12 @@
       ],
       "settings": {
         "media_style": "one-column",
-        "sticky_behaviour": "none",
+        "sticky_behaviour": "top",
         "full_width": false,
         "show_backorder_text": true,
         "slide_nav_style": "arrows",
         "media_crop": "center",
-        "enable_zoom": false,
+        "enable_zoom": true,
         "zoom_cursor": "plus-light",
         "show_thumbnails": true,
         "enable_video_looping": false,
