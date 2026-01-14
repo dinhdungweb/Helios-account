@@ -21,6 +21,7 @@
       "blocks": {
         "vendor_and_type": {
           "type": "vendor_and_type",
+          "disabled": true,
           "settings": {
             "show_vendor": true,
             "show_type": false
