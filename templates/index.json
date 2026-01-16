@@ -350,6 +350,7 @@
     },
     "popup_overlay_custom_pFebVj": {
       "type": "popup-overlay-custom",
+      "disabled": true,
       "name": "Popup Newsletter",
       "settings": {
         "image": "shopify://shop_images/z7270642210082_99c9b47b5ab8ad2b84ed7dd3aade0814.jpg",
