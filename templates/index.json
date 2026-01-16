@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_RnWgY3": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -30,36 +31,14 @@
         "button_link": ""
       }
     },
-    "featured_collection_WGhiFt": {
-      "type": "featured-collection",
-      "name": "Featured collection",
-      "settings": {
-        "title": "",
-        "featured_collection_align": "left",
-        "collection": "new-products",
-        "layout": "rows",
-        "featured_addtocart_hide": false,
-        "show_add_to_cart": true,
-        "show_title": true,
-        "show_price": true,
-        "show_review": true,
-        "show_vendor": false,
-        "grid": 4,
-        "rows": 2,
-        "grid_mobile": "2",
-        "hide_swatches": false,
-        "alternate_bg_color": false,
-        "show_view_all": false
-      }
-    },
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
         "image_qbHR3Y": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/z7316166844305_6e6506cbd4a76260ecfb966d77d1c147.jpg",
-            "mobile_image": "shopify://shop_images/z7345892780414_d53e7a179c9625b74e5e1e7e8816943b.jpg",
+            "image": "shopify://shop_images/19X9_BANNER.jpg",
+            "mobile_image": "shopify://shop_images/16X9_1.jpg",
             "slide_link": "https://helios.vn/account",
             "subheading": "",
             "title": "",
@@ -97,7 +76,6 @@
         "image_qbHR3Y",
         "image_KarRwm"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -110,6 +88,28 @@
         "slide_navigation": "dots",
         "autoplay": true,
         "autoplay_speed": 7
+      }
+    },
+    "featured_collection_WGhiFt": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "new-products",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
       }
     },
     "two_banner_gUWcNj": {
@@ -365,8 +365,8 @@
   },
   "order": [
     "background_video_responsive_RnWgY3",
-    "featured_collection_WGhiFt",
     "slideshow_AUtEr7",
+    "featured_collection_WGhiFt",
     "two_banner_gUWcNj",
     "two_banner_C3RzCw",
     "two_banner_qNEPMY",
