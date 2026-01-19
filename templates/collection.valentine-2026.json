@@ -105,7 +105,7 @@
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "4_5",
-            "aspect_ratio_desktop": "1_1",
+            "aspect_ratio_desktop": "4_5",
             "title": "",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
