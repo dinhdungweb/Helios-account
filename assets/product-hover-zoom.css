@@ -15,8 +15,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: var(--list-width, 80%);
-    max-width: 1400px;
+    width: var(--list-width, 1200px);
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 20px 60px;
     list-style: none;
