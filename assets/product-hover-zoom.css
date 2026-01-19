@@ -148,7 +148,7 @@
     }
 
     .product-hover-zoom__thumb {
-        max-width: 150px;
+        max-width: 100%;
     }
 
     .product-hover-zoom__name {
