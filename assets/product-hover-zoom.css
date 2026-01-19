@@ -106,8 +106,8 @@
         opacity: 1;
     }
 
-    /* Ẩn thumbnail khi hover */
-    .product-hover-zoom__item:hover .product-hover-zoom__thumb {
+    /* Ẩn TẤT CẢ thumbnail khi hover vào list */
+    .product-hover-zoom__list:hover .product-hover-zoom__thumb {
         opacity: 0;
     }
 
