@@ -207,6 +207,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/DSC2957_1.jpg",
+            "zoom_image_pc": "shopify://shop_images/19X9_BANNER.jpg",
             "product_name": "Tên sản phẩm",
             "product_link": ""
           }
@@ -244,7 +245,8 @@
       ],
       "name": "Product Hover Zoom",
       "settings": {
-        "section_title": ""
+        "section_height": 1080,
+        "list_width": 80
       }
     }
   },
