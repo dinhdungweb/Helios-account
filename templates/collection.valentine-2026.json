@@ -199,11 +199,59 @@
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
       }
+    },
+    "product_hover_zoom_QBxk7j": {
+      "type": "product-hover-zoom",
+      "blocks": {
+        "product_nRVt76": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/DSC2957_1.jpg",
+            "product_name": "Tên sản phẩm",
+            "product_link": ""
+          }
+        },
+        "product_iXCdyY": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/DSC3167.jpg",
+            "product_name": "Tên sản phẩm",
+            "product_link": ""
+          }
+        },
+        "product_39VjVH": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/IMG_9806.jpg",
+            "product_name": "Tên sản phẩm",
+            "product_link": ""
+          }
+        },
+        "product_rbFnrb": {
+          "type": "product",
+          "settings": {
+            "product_image": "shopify://shop_images/kinh-helios-faliraki_15.jpg",
+            "product_name": "Tên sản phẩm",
+            "product_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_nRVt76",
+        "product_iXCdyY",
+        "product_39VjVH",
+        "product_rbFnrb"
+      ],
+      "name": "Product Hover Zoom",
+      "settings": {
+        "section_title": ""
+      }
     }
   },
   "order": [
     "main",
     "background_video_responsive_Uf9e3M",
-    "two_banner_p9JjQW"
+    "two_banner_p9JjQW",
+    "product_hover_zoom_QBxk7j"
   ]
 }
