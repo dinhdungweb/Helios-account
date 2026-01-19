@@ -14,20 +14,20 @@
 .product-hover-zoom__list {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     width: var(--list-width, 80%);
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px 60px;
     list-style: none;
-    position: relative;
+    position: static;
     z-index: 10;
 }
 
 .product-hover-zoom__item {
     flex: 1;
     text-align: center;
-    position: relative;
+    position: static;
 }
 
 /* Thumbnail và tên sản phẩm */
