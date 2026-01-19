@@ -122,7 +122,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/nhan-bac-nam",
             "title": "NHẪN BẠC NAM",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -131,7 +130,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 0,
+            "link": "shopify://collections/nhan-bac-nam"
           }
         },
         "banner_jAMpJq": {
@@ -142,7 +142,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/ngo-hanh-ky",
             "title": "BỘ SƯU TẬP \"NGỌ HÀNH KÝ\"",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -151,7 +150,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/ngo-hanh-ky"
           }
         }
       },
@@ -163,6 +163,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
+        "columns_mobile": "1",
+        "columns_desktop": 2,
         "sticky_desktop": false,
         "sticky_mobile_item": false,
         "sticky_offset_desktop": 0,
@@ -181,7 +183,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/new-in",
             "title": "NEW IN",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -190,7 +191,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/new-in"
           }
         },
         "banner_wnK37c": {
@@ -201,7 +203,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/mat-day-chuyen-bac-s925",
             "title": "MẶT DÂY CHUYỀN BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -210,7 +211,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/mat-day-chuyen-bac-s925"
           }
         }
       },
@@ -222,6 +224,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
+        "columns_mobile": "1",
+        "columns_desktop": 2,
         "sticky_desktop": false,
         "sticky_mobile_item": false,
         "sticky_offset_desktop": 0,
@@ -240,7 +244,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/vong-tay-bac-nam",
             "title": "VÒNG TAY BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -249,7 +252,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/vong-tay-bac-nam"
           }
         },
         "banner_Adiycb": {
@@ -260,7 +264,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/khuyen-tai-bac-nam",
             "title": "KHUYÊN TAI BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -269,7 +272,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/khuyen-tai-bac-nam"
           }
         }
       },
@@ -281,6 +285,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
+        "columns_mobile": "1",
+        "columns_desktop": 2,
         "sticky_desktop": false,
         "sticky_mobile_item": false,
         "sticky_offset_desktop": 0,
@@ -299,7 +305,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/all-products",
             "title": "CHẾ TÁC THỦ CÔNG",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -308,7 +313,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/all-products"
           }
         },
         "banner_bVTGHD": {
@@ -319,7 +325,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "link": "shopify://collections/accessories",
             "title": "ACCESSORIES",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -328,7 +333,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/accessories"
           }
         }
       },
@@ -340,6 +346,8 @@
       "settings": {
         "overlap_header": true,
         "gap": 0,
+        "columns_mobile": "1",
+        "columns_desktop": 2,
         "sticky_desktop": false,
         "sticky_mobile_item": false,
         "sticky_offset_desktop": 0,
