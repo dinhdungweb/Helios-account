@@ -7,7 +7,7 @@
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
-    background: #fff;
+    background: transparent;
 }
 
 /* Danh sách sản phẩm */
