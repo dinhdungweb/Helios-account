@@ -1,0 +1,90 @@
+{{ 'product-hover-zoom.css' | asset_url | stylesheet_tag }}
+
+<div class="product-hover-zoom-section page-width">
+  {% if section.settings.section_title != blank %}
+    <h2 class="product-hover-zoom__title">{{ section.settings.section_title }}</h2>
+  {% endif %}
+  
+  <div class="product-hover-zoom__container">
+    {%- for block in section.blocks -%}
+      <div class="product-hover-zoom__item" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.product_link }}" class="product-hover-zoom__link">
+          <div class="product-hover-zoom__image-wrapper">
+            {%- if block.settings.product_image != blank -%}
+              <img 
+                src="{{ block.settings.product_image | image_url: width: 600 }}"
+                alt="{{ block.settings.product_name | escape }}"
+                class="product-hover-zoom__image"
+                loading="lazy"
+                width="300"
+                height="300"
+              >
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'product-hover-zoom__placeholder' }}
+            {%- endif -%}
+          </div>
+          <h3 class="product-hover-zoom__name">{{ block.settings.product_name }}</h3>
+        </a>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Hover Zoom",
+  "class": "section-product-hover-zoom",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Tiêu đề section",
+      "default": ""
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Sản phẩm",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Ảnh sản phẩm"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Tên sản phẩm",
+          "default": "Tên sản phẩm"
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "Link sản phẩm"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Hover Zoom",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
