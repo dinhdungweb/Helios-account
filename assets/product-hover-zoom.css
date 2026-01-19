@@ -40,8 +40,9 @@
 .product-hover-zoom__thumb {
     width: var(--thumb-size, 200px);
     max-width: var(--thumb-size, 200px);
+    aspect-ratio: var(--image-ratio, 1/1);
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
     transition: opacity 0.3s ease;
 }
 

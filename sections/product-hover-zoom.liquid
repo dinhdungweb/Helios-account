@@ -1,6 +1,6 @@
 {{ 'product-hover-zoom.css' | asset_url | stylesheet_tag }}
 
-<section class="product-hover-zoom-section" style="--section-height: {{ section.settings.section_height }}px; --list-width: {{ section.settings.list_width_px }}px; --thumb-size: {{ section.settings.thumb_size }}px;">
+<section class="product-hover-zoom-section" style="--section-height: {{ section.settings.section_height }}px; --list-width: {{ section.settings.list_width_px }}px; --thumb-size: {{ section.settings.thumb_size }}px; --image-ratio: {{ section.settings.image_ratio }};">
   <ul class="product-hover-zoom__list" id="goods-list">
     {%- for block in section.blocks -%}
       <li class="product-hover-zoom__item" {{ block.shopify_attributes }}>
@@ -73,12 +73,36 @@
     {
       "type": "range",
       "id": "thumb_size",
-      "label": "Kích thước ảnh sản phẩm (px)",
+      "label": "Chiều rộng ảnh sản phẩm (px)",
       "min": 50,
       "max": 400,
       "step": 5,
       "default": 200,
       "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Tỷ lệ ảnh",
+      "options": [
+        {
+          "value": "1/1",
+          "label": "Vuông (1:1)"
+        },
+        {
+          "value": "2/3",
+          "label": "Dọc (2:3)"
+        },
+        {
+          "value": "4/3",
+          "label": "Ngang (4:3)"
+        },
+        {
+          "value": "16/9",
+          "label": "Rộng (16:9)"
+        }
+      ],
+      "default": "1/1"
     }
   ],
   "blocks": [
