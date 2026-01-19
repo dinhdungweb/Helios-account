@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": true,
         "show_collection_image": true,
@@ -32,9 +33,101 @@
         "enable_sorting": true,
         "show_featured_in_sort": true
       }
+    },
+    "background_video_responsive_Uf9e3M": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 920,
+        "video_height_mobile": 560,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/QUAY NGOÀI BỘ TẾT NGỰA LIL KIM LOẠI 3.1.2025 TỔNG 16x9 Dưới 10MB.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/QUAY NGOÀI BỘ TẾT NGỰA LIL KIM LOẠI 3.1.2025 TỔNG 9x16 DƯỚI 10mb.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "grid_image_bEUbT6": {
+      "type": "grid-image",
+      "blocks": {
+        "image_QmkTqe": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9806.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_GLCEpP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9655.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_TMYNhj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9651.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_ad6i8k": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9655.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_BfnK6z": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9651.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_Bpndm7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9806.jpg",
+            "link": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_QmkTqe",
+        "image_GLCEpP",
+        "image_TMYNhj",
+        "image_ad6i8k",
+        "image_BfnK6z",
+        "image_Bpndm7"
+      ],
+      "name": "Image Grid",
+      "settings": {
+        "grid_image_full_width": true,
+        "grid_image_with": 1400,
+        "item_for_row": 3,
+        "item_ratio": "3/4",
+        "item_per_row_mobile": "2"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "background_video_responsive_Uf9e3M",
+    "grid_image_bEUbT6"
   ]
 }
