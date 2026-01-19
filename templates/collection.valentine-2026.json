@@ -123,11 +123,153 @@
         "item_ratio": "3/4",
         "item_per_row_mobile": "2"
       }
+    },
+    "two_banner_p9JjQW": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_pdnh3m": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9651.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_TR3bLf": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9852.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_nH3j7i": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9853.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_aXwiiA": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/IMG_9806.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0.4)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_wxTb3E": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/kinh-helios-faliraki-concept.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        },
+        "banner_zwPz8G": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/kinh-helios-faliraki_14.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "link": "",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_pdnh3m",
+        "banner_TR3bLf",
+        "banner_nH3j7i",
+        "banner_aXwiiA",
+        "banner_wxTb3E",
+        "banner_zwPz8G"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": false,
+        "gap": 0,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
     }
   },
   "order": [
     "main",
     "background_video_responsive_Uf9e3M",
-    "grid_image_bEUbT6"
+    "grid_image_bEUbT6",
+    "two_banner_p9JjQW"
   ]
 }
