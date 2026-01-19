@@ -1,34 +1,49 @@
 {{ 'product-hover-zoom.css' | asset_url | stylesheet_tag }}
 
-<div class="product-hover-zoom-section page-width">
-  {% if section.settings.section_title != blank %}
-    <h2 class="product-hover-zoom__title">{{ section.settings.section_title }}</h2>
-  {% endif %}
-  
-  <div class="product-hover-zoom__container">
+<section class="product-hover-zoom-section" style="--section-height: {{ section.settings.section_height }}px; --list-width: {{ section.settings.list_width }}%;">
+  <ul class="product-hover-zoom__list" id="goods-list">
     {%- for block in section.blocks -%}
-      <div class="product-hover-zoom__item" {{ block.shopify_attributes }}>
-        <a href="{{ block.settings.product_link }}" class="product-hover-zoom__link">
-          <div class="product-hover-zoom__image-wrapper">
-            {%- if block.settings.product_image != blank -%}
-              <img 
-                src="{{ block.settings.product_image | image_url: width: 600 }}"
-                alt="{{ block.settings.product_name | escape }}"
-                class="product-hover-zoom__image"
-                loading="lazy"
-                width="300"
-                height="300"
-              >
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'product-hover-zoom__placeholder' }}
-            {%- endif -%}
-          </div>
-          <h3 class="product-hover-zoom__name">{{ block.settings.product_name }}</h3>
-        </a>
-      </div>
+      <li class="product-hover-zoom__item" {{ block.shopify_attributes }}>
+        <div class="product-hover-zoom__goods">
+          {%- if block.settings.product_image != blank -%}
+            <img 
+              src="{{ block.settings.product_image | image_url: width: 400 }}"
+              alt="{{ block.settings.product_name | escape }}"
+              class="product-hover-zoom__thumb"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'product-hover-zoom__placeholder' }}
+          {%- endif -%}
+          <p class="product-hover-zoom__name">
+            <a href="{{ block.settings.product_link }}">{{ block.settings.product_name }}</a>
+          </p>
+        </div>
+        
+        <div class="product-hover-zoom__zoom">
+          {%- if block.settings.zoom_image_pc != blank -%}
+            <img 
+              class="product-hover-zoom__zoom-pc"
+              src="{{ block.settings.zoom_image_pc | image_url: width: 1920 }}"
+              alt="{{ block.settings.product_name | escape }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+          {%- if block.settings.zoom_image_mobile != blank -%}
+            <img 
+              class="product-hover-zoom__zoom-mo"
+              src="{{ block.settings.zoom_image_mobile | image_url: width: 800 }}"
+              alt="{{ block.settings.product_name | escape }}"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+        
+        <div class="product-hover-zoom__detail"></div>
+      </li>
     {%- endfor -%}
-  </div>
-</div>
+  </ul>
+</section>
 
 {% schema %}
 {
@@ -36,9 +51,24 @@
   "class": "section-product-hover-zoom",
   "settings": [
     {
-      "type": "text",
-      "id": "section_title",
-      "label": "Tiêu đề section"
+      "type": "range",
+      "id": "section_height",
+      "label": "Chiều cao section (px)",
+      "min": 600,
+      "max": 1200,
+      "step": 10,
+      "default": 1080,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "list_width",
+      "label": "Chiều rộng danh sách sản phẩm (%)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 80,
+      "unit": "%"
     }
   ],
   "blocks": [
@@ -50,7 +80,17 @@
         {
           "type": "image_picker",
           "id": "product_image",
-          "label": "Ảnh sản phẩm"
+          "label": "Ảnh thumbnail"
+        },
+        {
+          "type": "image_picker",
+          "id": "zoom_image_pc",
+          "label": "Ảnh zoom - Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "zoom_image_mobile",
+          "label": "Ảnh zoom - Mobile"
         },
         {
           "type": "text",
@@ -70,18 +110,10 @@
     {
       "name": "Product Hover Zoom",
       "blocks": [
-        {
-          "type": "product"
-        },
-        {
-          "type": "product"
-        },
-        {
-          "type": "product"
-        },
-        {
-          "type": "product"
-        }
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
       ]
     }
   ]
