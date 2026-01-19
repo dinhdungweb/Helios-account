@@ -191,10 +191,10 @@
       "settings": {
         "overlap_header": false,
         "gap": 0,
-        "columns_mobile": "1",
+        "columns_mobile": "2",
         "columns_desktop": 3,
-        "sticky_desktop": true,
-        "sticky_mobile_item": true,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
         "sticky_offset_desktop": 0,
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
