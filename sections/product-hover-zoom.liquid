@@ -1,6 +1,6 @@
 {{ 'product-hover-zoom.css' | asset_url | stylesheet_tag }}
 
-<section class="product-hover-zoom-section" style="--section-height: {{ section.settings.section_height }}px; --list-width: {{ section.settings.list_width_px }}px;">
+<section class="product-hover-zoom-section" style="--section-height: {{ section.settings.section_height }}px; --list-width: {{ section.settings.list_width_px }}px; --thumb-size: {{ section.settings.thumb_size }}px;">
   <ul class="product-hover-zoom__list" id="goods-list">
     {%- for block in section.blocks -%}
       <li class="product-hover-zoom__item" {{ block.shopify_attributes }}>
@@ -68,6 +68,16 @@
       "max": 1600,
       "step": 20,
       "default": 1200,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "thumb_size",
+      "label": "Kích thước ảnh sản phẩm (px)",
+      "min": 50,
+      "max": 400,
+      "step": 5,
+      "default": 200,
       "unit": "px"
     }
   ],

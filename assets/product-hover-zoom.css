@@ -38,8 +38,8 @@
 }
 
 .product-hover-zoom__thumb {
-    width: 100%;
-    max-width: 200px;
+    width: var(--thumb-size, 200px);
+    max-width: var(--thumb-size, 200px);
     height: auto;
     object-fit: contain;
     transition: opacity 0.3s ease;
