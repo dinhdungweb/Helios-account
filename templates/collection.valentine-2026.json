@@ -239,6 +239,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/DSC3167.jpg",
+            "zoom_image_pc": "shopify://shop_images/BANNER_SHOPEE.jpg",
             "product_name": "Tên sản phẩm",
             "product_link": ""
           }
@@ -247,6 +248,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/IMG_9806.jpg",
+            "zoom_image_pc": "shopify://shop_images/z7393929813467_cdd59b4fd7254f968889a8d971c12ef8.jpg",
             "product_name": "Tên sản phẩm",
             "product_link": ""
           }
@@ -255,6 +257,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/kinh-helios-faliraki_15.jpg",
+            "zoom_image_pc": "shopify://shop_images/z7412529847841_9bf8595ce7c63fe0f6736285a0508ef7.jpg",
             "product_name": "Tên sản phẩm",
             "product_link": ""
           }
