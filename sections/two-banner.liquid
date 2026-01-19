@@ -28,7 +28,6 @@
       grid-template-columns: repeat({{ cols_mobile }}, minmax(0, 1fr));
       gap: {{ section.settings.gap | default: 16 }}px;
     }
-
     @media (min-width: 750px) {
       .two-banner--{{ section.id }} .two-banner__grid {
         grid-template-columns: repeat({{ cols_desktop }}, minmax(0, 1fr));
@@ -37,6 +36,15 @@
 
     .two-banner--{{ section.id }} .two-banner__item { position: relative; overflow: hidden; }
 
+    .two-banner--{{ section.id }} .two-banner__media {
+      aspect-ratio: var(--ratio-mobile, 1.7778);
+    }
+    @media (min-width: 769px) {
+      .two-banner--{{ section.id }} .two-banner__media {
+        aspect-ratio: var(--ratio-desktop, var(--ratio-mobile, 1.7778));
+      }
+    }
+
     .two-banner--{{ section.id }} .two-banner__media img,
     .two-banner--{{ section.id }} .two-banner__media video,
     .two-banner--{{ section.id }} .two-banner__media iframe {
@@ -44,16 +52,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    .two-banner--{{ section.id }} .two-banner__media {
-      aspect-ratio: var(--ratio-mobile, 1.7778);
-    }
-
-    @media (min-width: 769px) {
-      .two-banner--{{ section.id }} .two-banner__media {
-        aspect-ratio: var(--ratio-desktop, var(--ratio-mobile, 1.7778));
-      }
     }
 
     @media (min-width: 769px) {
@@ -81,7 +79,6 @@
       z-index: 5;
       pointer-events: none;
     }
-
     .two-banner--{{ section.id }} .two-banner__overlay.h-left { justify-content: flex-start; }
     .two-banner--{{ section.id }} .two-banner__overlay.h-right { justify-content: flex-end; }
     .two-banner--{{ section.id }} .two-banner__overlay.v-top { align-items: flex-start; }
@@ -104,20 +101,50 @@
     {%- for block in section.blocks -%}
       {%- liquid
         assign img_desktop = block.settings.image_desktop | default: block.settings.image
-        assign img_mobile = block.settings.image_mobile | default: block.settings.image
-        assign vid = block.settings.video
+        assign img_mobile  = block.settings.image_mobile  | default: block.settings.image
+        assign vid  = block.settings.video
         assign vurl = block.settings.video_url
-        assign external_url = ''
         assign poster_image = img_desktop
+
+        assign ar_mobile = block.settings.aspect_ratio_mobile
+        assign ar_desktop = block.settings.aspect_ratio_desktop
+
+        assign ratio_mobile = ''
+        if ar_mobile == '1_1'
+          assign ratio_mobile = '1/1'
+        elsif ar_mobile == '2_3'
+          assign ratio_mobile = '2/3'
+        elsif ar_mobile == '3_2'
+          assign ratio_mobile = '3/2'
+        elsif ar_mobile == '4_3'
+          assign ratio_mobile = '4/3'
+        elsif ar_mobile == '16_9'
+          assign ratio_mobile = '16/9'
+        else
+          assign ratio_mobile = img_mobile.aspect_ratio | default: 1.7778
+        endif
+
+        assign ratio_desktop = ''
+        if ar_desktop == '1_1'
+          assign ratio_desktop = '1/1'
+        elsif ar_desktop == '2_3'
+          assign ratio_desktop = '2/3'
+        elsif ar_desktop == '3_2'
+          assign ratio_desktop = '3/2'
+        elsif ar_desktop == '4_3'
+          assign ratio_desktop = '4/3'
+        elsif ar_desktop == '16_9'
+          assign ratio_desktop = '16/9'
+        else
+          assign ratio_desktop = img_desktop.aspect_ratio | default: ratio_mobile
+        endif
       -%}
 
       <div class="two-banner__item" {{ block.shopify_attributes }}>
-        <div class="two-banner__media">
-          {%- if vid != blank -%}
-            {%- render 'inline-video', video_shopify: vid, image: poster_image, autoplay: false, loop: block.settings.video_loop -%}
-          {%- elsif vurl.id != blank -%}
-            {%- render 'inline-video', video_external: vurl.url, image: poster_image, autoplay: false, loop: block.settings.video_loop -%}
-          {%- elsif img_desktop != blank or img_mobile != blank -%}
+        <div class="two-banner__media" style="--ratio-mobile: {{ ratio_mobile }}; --ratio-desktop: {{ ratio_desktop }};">
+          {% if vid != blank %}
+            {% render 'inline-video', video_shopify: vid, image: poster_image, autoplay: false, loop: block.settings.video_loop %}
+          {% elsif img_desktop != blank or img_mobile != blank %}
             <picture>
               {% if img_mobile != blank %}
                 <source media="(max-width: 768px)"
@@ -133,7 +160,7 @@
                    alt="{{ block.settings.title | escape }}"
                    loading="lazy">
             </picture>
-          {%- endif -%}
+          {% endif %}
         </div>
 
         <div class="two-banner__overlay h-{{ block.settings.h_align }} v-{{ block.settings.v_align }}">
@@ -141,10 +168,10 @@
                style="
                  --title-color: {{ block.settings.title_color }};
                  --bg-color: {{ block.settings.title_bg }};
-                 --x: {{ block.settings.x_offset | default: 0 }}px;
-                 --y: {{ block.settings.y_offset | default: 0 }}px;
+                 --x: {{ block.settings.x_offset }}px;
+                 --y: {{ block.settings.y_offset }}px;
                  text-align: {{ block.settings.text_align }};
-                 padding: {{ block.settings.padding | default: 12 }}px;
+                 padding: {{ block.settings.padding }}px;
                ">
             {% if block.settings.title != blank %}
               <div class="two-banner__title">{{ block.settings.title }}</div>
@@ -207,27 +234,66 @@
         { "type": "video", "id": "video", "label": "Shopify Video" },
         { "type": "video_url", "id": "video_url", "label": "Video Youtube/Vimeo", "accept": ["youtube", "vimeo"] },
         { "type": "checkbox", "id": "video_loop", "label": "Loop Video", "default": false },
+
+        {
+          "type": "select",
+          "id": "aspect_ratio_mobile",
+          "label": "Aspect ratio (mobile)",
+          "default": "2_3",
+          "options": [
+            { "label": "Auto (image)", "value": "auto" },
+            { "label": "1:1", "value": "1_1" },
+            { "label": "2:3", "value": "2_3" },
+            { "label": "3:2", "value": "3_2" },
+            { "label": "4:3", "value": "4_3" },
+            { "label": "16:9", "value": "16_9" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "aspect_ratio_desktop",
+          "label": "Aspect ratio (desktop)",
+          "default": "1_1",
+          "options": [
+            { "label": "Auto (image)", "value": "auto" },
+            { "label": "1:1", "value": "1_1" },
+            { "label": "2:3", "value": "2_3" },
+            { "label": "3:2", "value": "3_2" },
+            { "label": "4:3", "value": "4_3" },
+            { "label": "16:9", "value": "16_9" }
+          ]
+        },
+
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "color", "id": "title_color", "label": "Color", "default": "#ffffff" },
         { "type": "color", "id": "title_bg", "label": "Background", "default": "rgba(0,0,0,0.4)" },
-        { "type": "select", "id": "h_align", "label": "Horizontal Align", "default": "center", "options": [
-          { "label": "Left", "value": "left" },
-          { "label": "Center", "value": "center" },
-          { "label": "Right", "value": "right" }
-        ]},
-        { "type": "select", "id": "v_align", "label": "Vertical Align", "default": "middle", "options": [
-          { "label": "Top", "value": "top" },
-          { "label": "Middle", "value": "middle" },
-          { "label": "Bottom", "value": "bottom" }
-        ]},
-        { "type": "select", "id": "text_align", "label": "Text Align", "default": "center", "options": [
-          { "label": "Left", "value": "left" },
-          { "label": "Center", "value": "center" },
-          { "label": "Right", "value": "right" }
-        ]},
+
+        { "type": "select", "id": "h_align", "label": "Horizontal Align", "default": "center",
+          "options": [
+            { "label": "Left", "value": "left" },
+            { "label": "Center", "value": "center" },
+            { "label": "Right", "value": "right" }
+          ]
+        },
+        { "type": "select", "id": "v_align", "label": "Vertical Align", "default": "middle",
+          "options": [
+            { "label": "Top", "value": "top" },
+            { "label": "Middle", "value": "middle" },
+            { "label": "Bottom", "value": "bottom" }
+          ]
+        },
+        { "type": "select", "id": "text_align", "label": "Text Align", "default": "center",
+          "options": [
+            { "label": "Left", "value": "left" },
+            { "label": "Center", "value": "center" },
+            { "label": "Right", "value": "right" }
+          ]
+        },
+
         { "type": "range", "id": "x_offset", "label": "X offset", "min": -200, "max": 200, "step": 5, "default": 0 },
         { "type": "range", "id": "y_offset", "label": "Y offset", "min": -200, "max": 200, "step": 5, "default": 0 },
         { "type": "range", "id": "padding", "label": "Padding", "min": 0, "max": 60, "step": 1, "default": 12 },
+
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
