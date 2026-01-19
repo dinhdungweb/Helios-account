@@ -248,12 +248,36 @@
         "section_height": 1080,
         "list_width": 80
       }
+    },
+    "rich_text_nTjFQL": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "Rich text",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Use this text to share information about your store with your customers. Describe products, share announcements, or welcome customers to your store. Add <strong>bold</strong>, <em>italic</em> and <a href=\"/\" title=\"/\">hyperlinks</a>.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
     "main",
     "background_video_responsive_Uf9e3M",
     "two_banner_p9JjQW",
+    "rich_text_nTjFQL",
     "product_hover_zoom_QBxk7j"
   ]
 }
