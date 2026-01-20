@@ -134,7 +134,7 @@
         "banner_pdnh3m": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/DSC3150_2.jpg",
+            "image": "shopify://shop_images/DSC3150_1.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "4_5",
