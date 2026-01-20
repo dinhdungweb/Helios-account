@@ -60,7 +60,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "Valentine Drop",
+        "title": "<font style=\"color: #fab320\">Valentine Drop</font>",
         "title_size": 48,
         "title_width": 12,
         "heading_h1": false,
