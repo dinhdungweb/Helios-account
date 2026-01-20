@@ -54,12 +54,23 @@
     max-width: 230px;
 }
 
+.product-hover-zoom__info {
+    margin-top: 15px;
+    transition: opacity 0.3s ease;
+}
+
 .product-hover-zoom__name {
     font-size: 14px;
     font-weight: 400;
-    margin-top: 15px;
+    margin-bottom: 5px;
     color: #f2f2f2;
-    transition: opacity 0.3s ease;
+}
+
+.product-hover-zoom__price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fab320;
+    /* Brand color yellow */
 }
 
 .product-hover-zoom__goods:hover .product-hover-zoom__name {
@@ -110,12 +121,12 @@
         opacity: 0;
     }
 
-    /* Làm mờ các tên sản phẩm khác */
-    .product-hover-zoom__list:hover .product-hover-zoom__name {
+    /* Làm mờ các thông tin sản phẩm khác */
+    .product-hover-zoom__list:hover .product-hover-zoom__info {
         opacity: 0.3;
     }
 
-    .product-hover-zoom__list:hover .product-hover-zoom__item:hover .product-hover-zoom__name {
+    .product-hover-zoom__list:hover .product-hover-zoom__item:hover .product-hover-zoom__info {
         opacity: 1;
     }
 }
@@ -143,9 +154,17 @@
         max-width: 100%;
     }
 
+    .product-hover-zoom__info {
+        margin-top: 10px;
+    }
+
     .product-hover-zoom__name {
         font-size: 12px;
-        margin-top: 10px;
+        margin-bottom: 3px;
+    }
+
+    .product-hover-zoom__price {
+        font-size: 13px;
     }
 
     /* Ảnh zoom trên mobile */

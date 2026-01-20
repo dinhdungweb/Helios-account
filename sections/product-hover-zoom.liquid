@@ -3,21 +3,32 @@
 <section class="product-hover-zoom-section" style="--section-height: {{ section.settings.section_height }}px; --list-width: {{ section.settings.list_width_px }}px; --thumb-size: {{ section.settings.thumb_size }}px; --image-ratio: {{ section.settings.image_ratio }};">
   <ul class="product-hover-zoom__list" id="goods-list">
     {%- for block in section.blocks -%}
+      {%- assign product = block.settings.product -%}
       <li class="product-hover-zoom__item" {{ block.shopify_attributes }}>
-        <a href="{{ block.settings.product_link }}" class="product-hover-zoom__goods">
-          {%- if block.settings.product_image != blank -%}
+        <a href="{{ product.url | default: '#' }}" class="product-hover-zoom__goods">
+          {%- assign thumb_image = block.settings.product_image | default: product.featured_image -%}
+          {%- if thumb_image != blank -%}
             <img 
-              src="{{ block.settings.product_image | image_url: width: 400 }}"
-              alt="{{ block.settings.product_name | escape }}"
+              src="{{ thumb_image | image_url: width: 400 }}"
+              alt="{{ product.title | escape }}"
               class="product-hover-zoom__thumb"
               loading="lazy"
             >
           {%- else -%}
             {{ 'product-1' | placeholder_svg_tag: 'product-hover-zoom__placeholder' }}
           {%- endif -%}
-          <p class="product-hover-zoom__name">
-            {{ block.settings.product_name }}
-          </p>
+          <div class="product-hover-zoom__info">
+            <p class="product-hover-zoom__name">
+              {{ product.title | default: 'Tên sản phẩm' }}
+            </p>
+            <p class="product-hover-zoom__price">
+              {%- if product != blank -%}
+                {{ product.price | money }}
+              {%- else -%}
+                {{ 0 | money }}
+              {%- endif -%}
+            </p>
+          </div>
         </a>
         
         <div class="product-hover-zoom__zoom">
@@ -25,7 +36,7 @@
             <img 
               class="product-hover-zoom__zoom-pc"
               src="{{ block.settings.zoom_image_pc | image_url: width: 1920 }}"
-              alt="{{ block.settings.product_name | escape }}"
+              alt="{{ product.title | default: block.settings.product_name | escape }}"
               loading="lazy"
             >
           {%- endif -%}
@@ -33,7 +44,7 @@
             <img 
               class="product-hover-zoom__zoom-mo"
               src="{{ block.settings.zoom_image_mobile | image_url: width: 800 }}"
-              alt="{{ block.settings.product_name | escape }}"
+              alt="{{ product.title | default: block.settings.product_name | escape }}"
               loading="lazy"
             >
           {%- endif -%}
@@ -116,9 +127,14 @@
       "limit": 4,
       "settings": [
         {
+          "type": "product",
+          "id": "product",
+          "label": "Sản phẩm"
+        },
+        {
           "type": "image_picker",
           "id": "product_image",
-          "label": "Ảnh thumbnail"
+          "label": "Ảnh thumbnail (Ghi đè - Mặc định lấy từ sản phẩm)"
         },
         {
           "type": "image_picker",
@@ -129,17 +145,6 @@
           "type": "image_picker",
           "id": "zoom_image_mobile",
           "label": "Ảnh zoom - Mobile"
-        },
-        {
-          "type": "text",
-          "id": "product_name",
-          "label": "Tên sản phẩm",
-          "default": "Tên sản phẩm"
-        },
-        {
-          "type": "url",
-          "id": "product_link",
-          "label": "Link sản phẩm"
         }
       ]
     }
