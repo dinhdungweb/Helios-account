@@ -188,8 +188,8 @@
       "name": "Product Hover Zoom",
       "settings": {
         "section_height": 1080,
-        "list_width_px": 1400,
-        "thumb_size": 250,
+        "list_width_px": 1600,
+        "thumb_size": 300,
         "image_ratio": "4/5"
       }
     }
