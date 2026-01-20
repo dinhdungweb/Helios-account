@@ -97,95 +97,11 @@
             "padding": 12,
             "link": ""
           }
-        },
-        "banner_nH3j7i": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/IMG_9853.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "4_5",
-            "aspect_ratio_desktop": "4_5",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": ""
-          }
-        },
-        "banner_aXwiiA": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/IMG_9806.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "4_5",
-            "aspect_ratio_desktop": "4_5",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "#00000066",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": ""
-          }
-        },
-        "banner_wxTb3E": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/kinh-helios-faliraki-concept.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "4_5",
-            "aspect_ratio_desktop": "4_5",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": ""
-          }
-        },
-        "banner_zwPz8G": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/kinh-helios-faliraki_14.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "4_5",
-            "aspect_ratio_desktop": "4_5",
-            "title": "",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": ""
-          }
         }
       },
       "block_order": [
         "banner_pdnh3m",
-        "banner_TR3bLf",
-        "banner_nH3j7i",
-        "banner_aXwiiA",
-        "banner_wxTb3E",
-        "banner_zwPz8G"
+        "banner_TR3bLf"
       ],
       "name": "Two Banners",
       "settings": {
@@ -229,36 +145,36 @@
         "product_nRVt76": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/DSC2957_1.jpg",
+            "product_image": "shopify://shop_images/sunpack-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/19X9_BANNER.jpg",
-            "product_name": "Tên sản phẩm",
+            "product_name": "Sunpack Helios Black Silver",
             "product_link": ""
           }
         },
         "product_iXCdyY": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/DSC3167.jpg",
+            "product_image": "shopify://shop_images/suncrest-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/BANNER_SHOPEE.jpg",
-            "product_name": "Tên sản phẩm",
+            "product_name": "Suncrest Helios Black Silver",
             "product_link": ""
           }
         },
         "product_39VjVH": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/IMG_9806.jpg",
+            "product_image": "shopify://shop_images/tide-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/z7393929813467_cdd59b4fd7254f968889a8d971c12ef8.jpg",
-            "product_name": "Tên sản phẩm",
+            "product_name": "Tide Helios Black Silver",
             "product_link": ""
           }
         },
         "product_rbFnrb": {
           "type": "product",
           "settings": {
-            "product_image": "shopify://shop_images/kinh-helios-faliraki_15.jpg",
+            "product_image": "shopify://shop_images/ripple-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/z7412529847841_9bf8595ce7c63fe0f6736285a0508ef7.jpg",
-            "product_name": "Tên sản phẩm",
+            "product_name": "Ripple Helios Black Silver",
             "product_link": ""
           }
         }
