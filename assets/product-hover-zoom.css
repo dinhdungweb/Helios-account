@@ -73,9 +73,9 @@
     margin: 0;
 }
 
-.product-hover-zoom__goods:hover .product-hover-zoom__name {
+/* .product-hover-zoom__goods:hover .product-hover-zoom__name {
     text-decoration: underline;
-}
+} */
 
 /* Ảnh zoom - mặc định ẩn */
 .product-hover-zoom__zoom {
