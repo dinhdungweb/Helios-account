@@ -173,7 +173,6 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/ripple-helios-black-silver-collection-good.png",
-            "zoom_image_pc": "shopify://shop_images/tide-helios-black-silver-collection.png",
             "product_name": "Ripple Helios Black Silver",
             "product_link": ""
           }
