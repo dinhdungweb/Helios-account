@@ -70,7 +70,7 @@
     font-size: 16px;
     font-weight: 600;
     color: #fab320;
-    /* Brand color yellow */
+    margin: 0;
 }
 
 .product-hover-zoom__goods:hover .product-hover-zoom__name {
