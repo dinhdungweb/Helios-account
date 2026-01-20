@@ -45,7 +45,7 @@
         "video_link_new_tab": false,
         "video_shopify_desktop": "shopify://files/videos/19.1_video key valentine 19x9 - fix 19.1 (1).mp4",
         "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/teaser valentine - fix 19.1.mp4",
+        "video_shopify_mobile": "shopify://files/videos/video valentine key - VN - 9x16.mp4",
         "video_external_mobile": "",
         "subtitle": "",
         "title": "",
@@ -84,6 +84,7 @@
         "product_nRVt76": {
           "type": "product",
           "settings": {
+            "product": "",
             "product_image": "shopify://shop_images/sunpack-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/valentine-a1.webp"
           }
@@ -91,6 +92,7 @@
         "product_iXCdyY": {
           "type": "product",
           "settings": {
+            "product": "",
             "product_image": "shopify://shop_images/suncrest-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/valentine-b1.webp"
           }
@@ -98,6 +100,7 @@
         "product_39VjVH": {
           "type": "product",
           "settings": {
+            "product": "",
             "product_image": "shopify://shop_images/tide-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/valentine-c1.webp"
           }
@@ -105,6 +108,7 @@
         "product_rbFnrb": {
           "type": "product",
           "settings": {
+            "product": "",
             "product_image": "shopify://shop_images/ripple-helios-black-silver-collection-good.png",
             "zoom_image_pc": "shopify://shop_images/valentine-d3.webp"
           }
