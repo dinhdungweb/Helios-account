@@ -120,12 +120,6 @@
     .product-hover-zoom__list:hover .product-hover-zoom__item:hover .product-hover-zoom__name {
         opacity: 1;
     }
-
-    /* Thêm dấu + sau tên sản phẩm được hover */
-    .product-hover-zoom__item:hover .product-hover-zoom__name a::after {
-        content: ' +';
-        display: inline;
-    }
 }
 
 /* Mobile - 2 cột, không hiệu ứng */
