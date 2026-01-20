@@ -146,7 +146,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/sunpack-helios-black-silver-collection-good.png",
-            "zoom_image_pc": "shopify://shop_images/19X9_BANNER.jpg",
+            "zoom_image_pc": "shopify://shop_images/valentine-a1.webp",
             "product_name": "Sunpack Helios Black Silver",
             "product_link": ""
           }
@@ -155,7 +155,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/suncrest-helios-black-silver-collection-good.png",
-            "zoom_image_pc": "shopify://shop_images/BANNER_SHOPEE.jpg",
+            "zoom_image_pc": "shopify://shop_images/valentine-b1.webp",
             "product_name": "Suncrest Helios Black Silver",
             "product_link": ""
           }
@@ -164,7 +164,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/tide-helios-black-silver-collection-good.png",
-            "zoom_image_pc": "shopify://shop_images/tide-black-collection-zoom-pc_5f1e56e9-d504-4726-a9f7-ca114a0b60cc.png",
+            "zoom_image_pc": "shopify://shop_images/valentine-c1.webp",
             "product_name": "Tide Helios Black Silver",
             "product_link": ""
           }
@@ -173,6 +173,7 @@
           "type": "product",
           "settings": {
             "product_image": "shopify://shop_images/ripple-helios-black-silver-collection-good.png",
+            "zoom_image_pc": "shopify://shop_images/valentine-d3.webp",
             "product_name": "Ripple Helios Black Silver",
             "product_link": ""
           }
