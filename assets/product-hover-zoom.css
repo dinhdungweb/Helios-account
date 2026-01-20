@@ -35,6 +35,9 @@
     position: relative;
     z-index: 20;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 .product-hover-zoom__thumb {
@@ -59,12 +62,7 @@
     transition: opacity 0.3s ease;
 }
 
-.product-hover-zoom__name a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.product-hover-zoom__name a:hover {
+.product-hover-zoom__goods:hover .product-hover-zoom__name {
     text-decoration: underline;
 }
 

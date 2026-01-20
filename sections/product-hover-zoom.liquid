@@ -4,7 +4,7 @@
   <ul class="product-hover-zoom__list" id="goods-list">
     {%- for block in section.blocks -%}
       <li class="product-hover-zoom__item" {{ block.shopify_attributes }}>
-        <div class="product-hover-zoom__goods">
+        <a href="{{ block.settings.product_link }}" class="product-hover-zoom__goods">
           {%- if block.settings.product_image != blank -%}
             <img 
               src="{{ block.settings.product_image | image_url: width: 400 }}"
@@ -16,9 +16,9 @@
             {{ 'product-1' | placeholder_svg_tag: 'product-hover-zoom__placeholder' }}
           {%- endif -%}
           <p class="product-hover-zoom__name">
-            <a href="{{ block.settings.product_link }}">{{ block.settings.product_name }}</a>
+            {{ block.settings.product_name }}
           </p>
-        </div>
+        </a>
         
         <div class="product-hover-zoom__zoom">
           {%- if block.settings.zoom_image_pc != blank -%}
