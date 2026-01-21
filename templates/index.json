@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_RnWgY3": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -34,6 +35,24 @@
       "type": "slideshow",
       "blocks": {
         "image_qbHR3Y": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/19X9_BANNER_ban_mau.jpg",
+            "mobile_image": "shopify://shop_images/9X16_1.jpg",
+            "slide_link": "shopify://collections/valentine-2026",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_3Aawga": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/19X9_BANNER.jpg",
@@ -72,9 +91,9 @@
       },
       "block_order": [
         "image_qbHR3Y",
+        "image_3Aawga",
         "image_KarRwm"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
