@@ -376,13 +376,12 @@
     },
     "popup_overlay_custom_pFebVj": {
       "type": "popup-overlay-custom",
-      "disabled": true,
       "name": "Popup Newsletter",
       "settings": {
-        "image": "shopify://shop_images/z7270642210082_99c9b47b5ab8ad2b84ed7dd3aade0814.jpg",
-        "title": "MỞ KHOÁ ĐẶC QUYỀN KHI THAM GIA BLACK SUN CLUB",
-        "description": "Ưu đãi riêng từng hạng, sản phẩm đặc quyền chỉ cho member, xem trước sản phẩm mới và nhiều quyền lợi hơn thế nữa.",
-        "button_text": "TRỞ THÀNH HỘI VIÊN",
+        "image": "shopify://shop_images/POS-FB_01_2.jpg",
+        "title": "",
+        "description": "",
+        "button_text": "",
         "button_link": "https://helios.vn/account",
         "delay": 5000,
         "show_once": true
