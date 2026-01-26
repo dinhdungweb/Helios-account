@@ -376,14 +376,13 @@
     },
     "popup_overlay_custom_pFebVj": {
       "type": "popup-overlay-custom",
-      "disabled": true,
       "name": "Popup Newsletter",
       "settings": {
         "image": "shopify://shop_images/POS-FB_01_2.jpg",
-        "title": "",
+        "title": "Theo dấu chân ngựa mở hành trình mới cùng HELIOS.",
         "description": "",
-        "button_text": "",
-        "button_link": "https://helios.vn/account",
+        "button_text": "Khám phá BST Ngọ Hành Ký",
+        "button_link": "shopify://collections/ngo-hanh-ky",
         "delay": 5000,
         "show_once": true
       }
