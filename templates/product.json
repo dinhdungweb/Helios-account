@@ -118,12 +118,6 @@
             "text": "{{ product.metafields.custom.short_description | metafield_tag }}"
           }
         },
-        "custom_liquid_FW6ge8": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<a href=\"https://helios.vn/pages/helios-private-call\" style=\"color: #fab320\">ĐĂNG KÝ TƯ VẤN 1:1 ĐỂ TRẢI NGHIỆM TRỰC TIẾP SẢN PHẨM</a>"
-          }
-        },
         "text_HiAnXA": {
           "type": "text",
           "disabled": true,
@@ -175,7 +169,6 @@
         "complementary_pwBz8L",
         "trust_icons_TyrExf",
         "richtext_3YiAcR",
-        "custom_liquid_FW6ge8",
         "text_HiAnXA",
         "accordion_9czNHQ",
         "accordion_RN6Adz",
