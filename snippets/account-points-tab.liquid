@@ -21,7 +21,7 @@
           </div>
           <div class="points-stat">
             <span class="points-stat-label">Quy Đổi</span>
-            <span class="points-stat-info">1.000 điểm = 10.000 VND</span>
+            <span class="points-stat-info">1.000 điểm = 10.000 VND (Gift Card)</span>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
         </div>
-        <p>Bạn cần ít nhất <strong>5.000 điểm</strong> để đổi mã giảm giá.</p>
+        <p>Bạn cần ít nhất <strong>5.000 điểm</strong> để đổi thẻ quà tặng.</p>
         <p class="current-points">Điểm hiện tại: <strong>{{ points }}</strong></p>
       </div>
       {% endif %}
@@ -101,7 +101,7 @@
               <tr>
                 <th>Ngày</th>
                 <th>Điểm</th>
-                <th>Mã Giảm Giá</th>
+                <th>Mã Thẻ Quà Tặng</th>
                 <th>Giá Trị</th>
               </tr>
             </thead>
@@ -760,7 +760,7 @@
         
         if (response.ok) {
           const successHtml = `
-            <p>Bạn đã đổi điểm thành công!</p>
+            <p>Bạn đã đổi quà thành công! Dưới đây là mã thẻ quà tặng của bạn.</p>
             <div class="discount-code">${data.discount_code}</div>
             <div class="detail-row">
               <span class="detail-label">Giá trị</span>
