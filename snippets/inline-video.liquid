@@ -1,4 +1,5 @@
-<div data-section-type="background-video" class="section-background-video section-background-video--inline">
+<div data-section-type="background-video" class="section-background-video section-background-video--inline"
+  {% if image != blank %}style="padding-top: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;"{% endif %}>
   <div class="video-container video-container--background"
     {% if video_shopify != blank %}
       data-video-sources="{%- for source in video_shopify.sources -%}
@@ -11,8 +12,9 @@
     {% elsif video != blank %}
       data-video-url="{{ video | escape }}"
     {% endif %}
-    data-video-autoplay="true"
-    data-video-loop="true">
+    data-video-autoplay="{% if autoplay != nil %}{{ autoplay }}{% else %}true{% endif %}"
+    data-video-loop="{% if loop != nil %}{{ loop }}{% else %}true{% endif %}"
+    {% if image != blank %}style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"{% endif %}>
     <div class="video-container__video"></div>
 
     {% if image != blank %}

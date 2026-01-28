@@ -2,7 +2,7 @@
  * Lazy Load Video Handler
  * Optimizes video loading for better PageSpeed performance
  */
-(function() {
+(function () {
   'use strict';
 
   if (!('IntersectionObserver' in window)) {
@@ -10,26 +10,26 @@
     return;
   }
 
-  var videoObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
+  var videoObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         var videoContainer = entry.target;
-        
+
         // Check if video should be lazy loaded
         if (videoContainer.getAttribute('data-video-lazy') !== 'true') {
           return;
         }
 
         // Mark as loading to prevent duplicate loads
-        if (videoContainer.classList.contains('video-loading') || 
-            videoContainer.classList.contains('video-loaded')) {
+        if (videoContainer.classList.contains('video-loading') ||
+          videoContainer.classList.contains('video-loaded')) {
           return;
         }
 
         videoContainer.classList.add('video-loading');
 
         // Delay video load slightly to prioritize other content
-        setTimeout(function() {
+        setTimeout(function () {
           loadVideoContent(videoContainer);
         }, 300);
 
@@ -59,8 +59,8 @@
       video.playsInline = true;
       video.loop = loop;
       video.preload = 'metadata';
-      
-      sources.forEach(function(sourceStr) {
+
+      sources.forEach(function (sourceStr) {
         var parts = sourceStr.trim().split(' ');
         if (parts.length >= 3) {
           var source = document.createElement('source');
@@ -73,16 +73,37 @@
       videoWrapper.appendChild(video);
 
       if (autoplay) {
-        video.addEventListener('loadeddata', function() {
-          video.play().catch(function(error) {
-            console.log('Video autoplay prevented:', error);
-          });
+        video.addEventListener('loadeddata', function () {
+          var playPromise = video.play();
+
+          if (playPromise !== undefined) {
+            playPromise.then(function () {
+              // Video started playing
+              container.classList.add('video-loaded');
+              container.classList.remove('video-loading');
+
+              var fallback = container.querySelector('.video-container__fallback');
+              if (fallback) {
+                fallback.style.transition = 'opacity 0.5s ease';
+                fallback.style.opacity = '0';
+                setTimeout(function () {
+                  fallback.style.display = 'none';
+                }, 500);
+              }
+            }).catch(function (error) {
+              console.log('Video autoplay prevented:', error);
+              // Show video anyway if autoplay fails (user can click play)
+              container.classList.add('video-loaded');
+              container.classList.remove('video-loading');
+            });
+          }
         }, { once: true });
+      } else {
+        container.classList.add('video-loaded');
+        container.classList.remove('video-loading');
       }
 
       video.load();
-      container.classList.add('video-loaded');
-      container.classList.remove('video-loading');
 
     } else if (videoUrl) {
       // External video (YouTube/Vimeo) - handled by theme.js
@@ -94,7 +115,7 @@
   // Initialize observer when DOM is ready
   function initLazyVideo() {
     var lazyVideos = document.querySelectorAll('.video-container--background[data-video-lazy="true"]');
-    lazyVideos.forEach(function(video) {
+    lazyVideos.forEach(function (video) {
       videoObserver.observe(video);
     });
   }

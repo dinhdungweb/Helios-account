@@ -159,11 +159,11 @@
 
           {%- if show_video_enabled and has_video_source -%}
             {%- if external_video_url != blank -%}
-              {% render 'inline-video', video_external: external_video_url, image: primary_image, autoplay: false, loop: false %}
+              {% render 'inline-video', video_external: external_video_url, image: primary_image, autoplay: true, loop: true %}
             {%- elsif mp4_url != blank -%}
-              {% render 'inline-video', video: mp4_url, image: primary_image, autoplay: false, loop: false %}
+              {% render 'inline-video', video: mp4_url, image: primary_image, autoplay: true, loop: true %}
             {%- else -%}
-              {% render 'inline-video', video_shopify: product.featured_media, image: primary_image, autoplay: false, loop: false %}
+              {% render 'inline-video', video_shopify: product.featured_media, image: primary_image, autoplay: true, loop: true %}
             {%- endif -%}
           {%- else -%}
             {%- if custom_card_image_file_field != blank -%}
