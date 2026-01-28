@@ -22,12 +22,12 @@
           </div>
           <div class="points-stat">
             <span class="points-stat-label">Quy Đổi</span>
-            <span class="points-stat-info">1.000 điểm = 10.000 VND (Gift Card)</span>
+            <span class="points-stat-info">1.000 điểm = 1.000 VND (Gift Card)</span>
           </div>
         </div>
       </div>
 
-      {% if points >= 5000 %}
+      {% if points >= 50000 %}
       {% comment %}--- EXCHANGE FORM ---{% endcomment %}
       <div class="points-exchange-section">
         <form id="account-reward-exchange-form">
@@ -37,7 +37,7 @@
               <input type="radio" name="discount_value" value="50000" checked>
               <div class="exchange-card-inner">
                 <span class="card-amount">50.000 VND</span>
-                <span class="card-points">5.000 điểm</span>
+                <span class="card-points">50.000 điểm</span>
               </div>
             </label>
             
@@ -45,23 +45,23 @@
               <input type="radio" name="discount_value" value="100000">
               <div class="exchange-card-inner">
                 <span class="card-amount">100.000 VND</span>
-                <span class="card-points">10.000 điểm</span>
+                <span class="card-points">100.000 điểm</span>
               </div>
             </label>
             
-            <label class="exchange-card {% if points < 20000 %}is-locked{% endif %}">
-              <input type="radio" name="discount_value" value="200000" {% if points < 20000 %}disabled{% endif %}>
+            <label class="exchange-card {% if points < 200000 %}is-locked{% endif %}">
+              <input type="radio" name="discount_value" value="200000" {% if points < 200000 %}disabled{% endif %}>
               <div class="exchange-card-inner">
                 <span class="card-amount">200.000 VND</span>
-                <span class="card-points">20.000 điểm</span>
+                <span class="card-points">200.000 điểm</span>
               </div>
             </label>
             
-            <label class="exchange-card {% if points < 50000 %}is-locked{% endif %}">
-              <input type="radio" name="discount_value" value="500000" {% if points < 50000 %}disabled{% endif %}>
+            <label class="exchange-card {% if points < 500000 %}is-locked{% endif %}">
+              <input type="radio" name="discount_value" value="500000" {% if points < 500000 %}disabled{% endif %}>
               <div class="exchange-card-inner">
                 <span class="card-amount">500.000 VND</span>
-                <span class="card-points">50.000 điểm</span>
+                <span class="card-points">500.000 điểm</span>
               </div>
             </label>
           </div>
@@ -84,7 +84,7 @@
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
         </div>
-        <p>Bạn cần ít nhất <strong>5.000 điểm</strong> để đổi thẻ quà tặng.</p>
+        <p>Bạn cần ít nhất <strong>50.000 điểm</strong> để đổi thẻ quà tặng.</p>
         <p class="current-points">Điểm hiện tại: <strong>{{ points }}</strong></p>
       </div>
       {% endif %}
