@@ -802,7 +802,7 @@
     if (!tbody || !customerId) return;
     
     try {
-      const response = await fetch(`${API_URL}/api/rewards/history?customer_id=${customerId}`);
+      const response = await fetch(`${API_URL}/api/rewards/history?customer_id=${customerId}&_t=${Date.now()}`);
       const data = await response.json();
       
       if (data.history && data.history.length > 0) {
