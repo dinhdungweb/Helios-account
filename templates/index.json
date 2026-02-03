@@ -37,6 +37,24 @@
         "image_qbHR3Y": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/19X9_BANNER_NQSH_2.jpg",
+            "mobile_image": "shopify://shop_images/9x16_2.jpg",
+            "slide_link": "shopify://products/nam-quoc-son-ha-pendant-helios-silver",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_nw333M": {
+          "type": "image",
+          "settings": {
             "image": "shopify://shop_images/19X9_BANNER_ban_mau.jpg",
             "mobile_image": "shopify://shop_images/9X16_WEB.jpg",
             "slide_link": "shopify://collections/valentine-2026",
@@ -91,6 +109,7 @@
       },
       "block_order": [
         "image_qbHR3Y",
+        "image_nw333M",
         "image_3Aawga",
         "image_KarRwm"
       ],
