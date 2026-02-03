@@ -72,6 +72,7 @@
         },
         "image_3Aawga": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/19X9_BANNER.jpg",
             "mobile_image": "shopify://shop_images/16X9_NEW_1.jpg",
