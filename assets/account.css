@@ -25,7 +25,7 @@ body {
 /* --- HERO SECTION --- */
 .account-hero {
   position: relative;
-  background-color: #fff;
+  background-color: var(--helios-dark-grey);
   border-bottom: 1px solid var(--helios-border);
   padding: 40px 0;
   background-image: linear-gradient(to bottom, #000000, #111111);
