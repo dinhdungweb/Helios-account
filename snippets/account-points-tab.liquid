@@ -103,10 +103,11 @@
                 <th>Điểm</th>
                 <th>Mã Thẻ Quà Tặng</th>
                 <th>Giá Trị</th>
+                <th>Hạn SD</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td colspan="4" class="loading-cell">Chưa có lịch sử đổi điểm</td></tr>
+              <tr><td colspan="5" class="loading-cell">Chưa có lịch sử đổi điểm</td></tr>
             </tbody>
           </table>
         </div>
@@ -774,6 +775,10 @@
               <span class="detail-label">Điểm còn lại</span>
               <span class="detail-value">${formatNumber(data.remaining_points)}</span>
             </div>
+            <div class="detail-row">
+              <span class="detail-label">Hạn sử dụng</span>
+              <span class="detail-value">${new Date(data.expires_on).toLocaleDateString('vi-VN')}</span>
+            </div>
           `;
           showModal('success', 'Đổi Điểm Thành Công', successHtml);
           // Update points in tab
@@ -812,6 +817,7 @@
             <td data-label="Điểm">-${formatNumber(item.points_used)}</td>
             <td data-label="Mã"><code>${item.discount_code}</code></td>
             <td data-label="Giá trị">${formatNumber(item.amount_vnd)} VND</td>
+            <td data-label="Hạn SD">${item.expires_on ? new Date(item.expires_on).toLocaleDateString('vi-VN') : '-'}</td>
           </tr>
         `).join('');
         
