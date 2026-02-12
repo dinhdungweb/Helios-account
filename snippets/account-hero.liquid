@@ -36,7 +36,7 @@
                 {{ formatted_number | split: '' | reverse | join: '' }} VND
             </span>
           </div>
-          <div class="stat-item">
+          {% comment %} <div class="stat-item">
              <span class="stat-label">Điểm thưởng</span>
              {%- assign formatted_points = points | floor | split: '' | reverse -%}
              {%- assign formatted_points_str = '' -%}
@@ -48,7 +48,7 @@
                {%- assign formatted_points_str = formatted_points_str | append: digit -%}
              {%- endfor -%}
              <span class="stat-value" id="heroPointsDisplay" data-points="{{ points | default: 0 }}">{{ formatted_points_str | split: '' | reverse | join: '' }}</span>
-          </div>
+          </div> {% endcomment %}
         </div>
 
         <div class="hero-progress-wrapper">
