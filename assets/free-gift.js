@@ -234,8 +234,6 @@
    * Main function to check and manage gift
    */
   async function checkAndManageGift() {
-    if (!CONFIG.enabled) return;
-
     try {
       const response = await fetch('/cart.js');
       const cart = await response.json();
@@ -244,6 +242,15 @@
         return;
       }
       lastCartItemCount = cart.item_count;
+
+      if (!CONFIG.enabled) {
+        // Cập nhật: xoá quà nếu chương trình đã bị tắt nhưng quà vẫn còn trong giỏ hàng
+        const giftInCart = cart.items.some(item => item.properties && item.properties._is_free_gift === 'true');
+        if (giftInCart) {
+          await removeGift(cart);
+        }
+        return;
+      }
 
       const qualifies = checkQualification(cart);
       const giftInCart = isGiftInCart(cart);
