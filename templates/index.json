@@ -34,11 +34,31 @@
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
+        "image_3Aawga": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/GIF_Lotus_19x9_895519c6-c32e-4058-8e2e-6113e8d80b53.gif",
+            "mobile_image": "shopify://shop_images/GIF_Lotus_16x9_b8f6d796-ff73-4aeb-8448-9664dac3a013.gif",
+            "slide_link": "shopify://collections/ngo-hanh-ky",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_nw333M": {
           "type": "image",
+          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/19X9_BANNER_ban_mau.jpg",
-            "mobile_image": "shopify://shop_images/9X16_WEB.jpg",
+            "image": "shopify://shop_images/1900X900_2TR.jpg",
+            "mobile_image": "shopify://shop_images/9X16_2TR.jpg",
             "slide_link": "shopify://collections/valentine-2026",
             "subheading": "",
             "title": "",
@@ -54,29 +74,11 @@
         },
         "image_qbHR3Y": {
           "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/19X9_BANNER_NQSH_2.jpg",
-            "mobile_image": "shopify://shop_images/9x16_2.jpg",
-            "slide_link": "shopify://products/nam-quoc-son-ha-pendant-helios-silver",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        },
-        "image_3Aawga": {
-          "type": "image",
           "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/19X9_BANNER.jpg",
-            "mobile_image": "shopify://shop_images/16X9_NEW_1.jpg",
-            "slide_link": "shopify://products/kinh-helios-faliraki",
+            "image": "shopify://shop_images/1900X900_2.jpg",
+            "mobile_image": "shopify://shop_images/9X16_3.jpg",
+            "slide_link": "https://helios.vn/account",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -92,9 +94,28 @@
         "image_KarRwm": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/z7409302168829_8713d9e0c61505d6954f1694942534c9_8bf667f2-faa9-4851-a9a4-67819e983cdc.jpg",
-            "mobile_image": "shopify://shop_images/9X16_1ff3379e-4412-474e-950e-d3ebda14097f.jpg",
-            "slide_link": "shopify://collections/ngo-hanh-ky",
+            "image": "shopify://shop_images/z7558911542444_1933576f3cc1cdb3bf66c3ccd491effc.jpg",
+            "mobile_image": "shopify://shop_images/9x16_2_7cb48247-a8e8-43a9-9989-1df06149bd9a.jpg",
+            "slide_link": "shopify://products/solar-warden-helios-black-silver",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_hgGRLc": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/19X9_BANNER_NQSH_2.jpg",
+            "mobile_image": "shopify://shop_images/9x16_2.jpg",
+            "slide_link": "shopify://products/nam-quoc-son-ha-pendant-helios-silver",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -109,10 +130,11 @@
         }
       },
       "block_order": [
+        "image_3Aawga",
         "image_nw333M",
         "image_qbHR3Y",
-        "image_3Aawga",
-        "image_KarRwm"
+        "image_KarRwm",
+        "image_hgGRLc"
       ],
       "name": "Slideshow",
       "settings": {
@@ -150,33 +172,113 @@
         "show_view_all": false
       }
     },
+    "slideshow_iTKm3K": {
+      "type": "slideshow",
+      "blocks": {
+        "image_LFgXam": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/GIF_Lotus_19x9_895519c6-c32e-4058-8e2e-6113e8d80b53.gif",
+            "mobile_image": "shopify://shop_images/GIF_Lotus_16x9_b8f6d796-ff73-4aeb-8448-9664dac3a013.gif",
+            "slide_link": "shopify://collections/ngo-hanh-ky",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_EG46et": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/1900X900_2TR.jpg",
+            "mobile_image": "shopify://shop_images/9X16_2TR.jpg",
+            "slide_link": "shopify://collections/valentine-2026",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_UjkVQM": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/19X9_BANNER_NQSH_2.jpg",
+            "mobile_image": "shopify://shop_images/9x16_2.jpg",
+            "slide_link": "shopify://products/nam-quoc-son-ha-pendant-helios-silver",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_NgjnLA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1900X900_39d223da-9f0b-49e1-b6cf-70bf5a4963fa.jpg",
+            "mobile_image": "shopify://shop_images/IMG_1356.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_LFgXam",
+        "image_EG46et",
+        "image_UjkVQM",
+        "image_NgjnLA"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
     "two_banner_gUWcNj": {
       "type": "two-banner",
       "blocks": {
         "banner_jqKwem": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/181.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
-            "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC NAM",
-            "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "middle",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": 0,
-            "padding": 0,
-            "link": "shopify://collections/nhan-bac-nam"
-          }
-        },
-        "banner_jAMpJq": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/182.jpg",
+            "image": "shopify://shop_images/z7528384487264_741c9827216ba2c1d4714f317bb74a3e.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -189,8 +291,28 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 0,
-            "padding": 12,
+            "padding": 0,
             "link": "shopify://collections/ngo-hanh-ky"
+          }
+        },
+        "banner_jAMpJq": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/z7528384449884_c0ea84b1f087c4041a51cf30f1a0fbae.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "title": "NHẪN BẠC NAM",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12,
+            "link": "shopify://collections/nhan-bac-nam"
           }
         }
       },
@@ -217,7 +339,7 @@
         "banner_CcYr6M": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/183.jpg",
+            "image": "shopify://shop_images/z7528384382413_cdb34ffe0e62b040f9336df2f6ec61fc.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -237,12 +359,12 @@
         "banner_wnK37c": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/184.jpg",
+            "image": "shopify://shop_images/z7528384416731_ebb0873b485eae71f23acdf5e0d9ecff.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "MẶT DÂY CHUYỀN BẠC",
+            "title": "PHÚC CỬU HỒNG MÃ",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -251,7 +373,7 @@
             "x_offset": 0,
             "y_offset": 0,
             "padding": 12,
-            "link": "shopify://collections/mat-day-chuyen-bac-s925"
+            "link": "shopify://products/ngua-gom-helios-phuc-cuu-hong-ma"
           }
         }
       },
@@ -278,12 +400,12 @@
         "banner_Nmp8fT": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/185.jpg",
+            "image": "shopify://shop_images/z7528384382427_3c15a94f4207f86e139440b1d7ec0ad3.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "VÒNG TAY BẠC",
+            "title": "MẶT DÂY CHUYỀN BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -292,18 +414,18 @@
             "x_offset": 0,
             "y_offset": 0,
             "padding": 12,
-            "link": "shopify://collections/vong-tay-bac-nam"
+            "link": "shopify://collections/mat-day-chuyen-bac-s925"
           }
         },
         "banner_Adiycb": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/186.jpg",
+            "image": "shopify://shop_images/z7528384449884_c0ea84b1f087c4041a51cf30f1a0fbae.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "KHUYÊN TAI BẠC",
+            "title": "NHẪN BẠC NAM",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -312,7 +434,7 @@
             "x_offset": 0,
             "y_offset": 0,
             "padding": 12,
-            "link": "shopify://collections/khuyen-tai-bac-nam"
+            "link": "shopify://collections/nhan-bac-nam"
           }
         }
       },
@@ -396,14 +518,15 @@
     },
     "popup_overlay_custom_pFebVj": {
       "type": "popup-overlay-custom",
+      "disabled": true,
       "name": "Popup Newsletter",
       "settings": {
-        "image": "shopify://shop_images/POS-FB_01_2.jpg",
-        "title": "Theo dấu chân ngựa mở hành trình mới cùng HELIOS.",
+        "image": "shopify://shop_images/4X5_2TR_VER2.jpg",
+        "title": "",
         "description": "",
-        "button_text": "Khám phá BST Ngọ Hành Ký",
-        "button_link": "shopify://collections/ngo-hanh-ky",
-        "delay": 5000,
+        "button_text": "",
+        "button_link": "",
+        "delay": 3000,
         "show_once": true
       }
     }
@@ -412,6 +535,7 @@
     "background_video_responsive_RnWgY3",
     "slideshow_AUtEr7",
     "featured_collection_WGhiFt",
+    "slideshow_iTKm3K",
     "two_banner_gUWcNj",
     "two_banner_C3RzCw",
     "two_banner_qNEPMY",
