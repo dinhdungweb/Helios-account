@@ -344,7 +344,7 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC NAM",
+            "title": "NHẪN BẠC",
             "title_color": "#000000",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -503,6 +503,7 @@
         "banner_d3ddye",
         "banner_bVTGHD"
       ],
+      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": true,
