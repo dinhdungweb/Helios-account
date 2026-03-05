@@ -278,41 +278,41 @@
         "banner_jqKwem": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/z7528384487264_741c9827216ba2c1d4714f317bb74a3e.jpg",
+            "image": "shopify://shop_images/s_n_ph_m_m_i.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "BỘ SƯU TẬP \"NGỌ HÀNH KÝ\"",
+            "title": "SẢN PHẨM MỚI",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
+            "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/ngo-hanh-ky"
+            "link": "shopify://collections/new-in"
           }
         },
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/z7528384449884_c0ea84b1f087c4041a51cf30f1a0fbae.jpg",
+            "image": "shopify://shop_images/vong_tay_b_c.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC NAM",
+            "title": "VÒNG TAY BẠC NAM",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": "shopify://collections/nhan-bac-nam"
+            "y_offset": -40,
+            "padding": 0,
+            "link": "shopify://collections/vong-tay-bac-nam"
           }
         }
       },
@@ -339,40 +339,40 @@
         "banner_CcYr6M": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/z7528384382413_cdb34ffe0e62b040f9336df2f6ec61fc.jpg",
+            "image": "shopify://shop_images/nh_n_b_c_2.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "NEW IN",
-            "title_color": "#ffffff",
+            "title": "NHẪN BẠC NAM",
+            "title_color": "#000000",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": "shopify://collections/new-in"
+            "y_offset": -40,
+            "padding": 0,
+            "link": "shopify://collections/nhan-bac-nam"
           }
         },
         "banner_wnK37c": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/z7528384416731_ebb0873b485eae71f23acdf5e0d9ecff.jpg",
+            "image": "shopify://shop_images/m_t_day_chuy_n_b_c.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "PHÚC CỬU HỒNG MÃ",
+            "title": "MẶT DÂY CHUYỀN BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
+            "y_offset": -40,
+            "padding": 0,
             "link": "shopify://products/ngua-gom-helios-phuc-cuu-hong-ma"
           }
         }
@@ -400,41 +400,41 @@
         "banner_Nmp8fT": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/z7528384382427_3c15a94f4207f86e139440b1d7ec0ad3.jpg",
+            "image": "shopify://shop_images/accessories.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "MẶT DÂY CHUYỀN BẠC",
+            "title": "ACCESSORIES",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": "shopify://collections/mat-day-chuyen-bac-s925"
+            "y_offset": -40,
+            "padding": 0,
+            "link": "shopify://collections/accessories"
           }
         },
         "banner_Adiycb": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/z7528384449884_c0ea84b1f087c4041a51cf30f1a0fbae.jpg",
+            "image": "shopify://shop_images/nh_n_b_c_1.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC NAM",
+            "title": "KHUYÊN TAI BẠC NAM",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
-            "link": "shopify://collections/nhan-bac-nam"
+            "y_offset": -40,
+            "padding": 0,
+            "link": "shopify://collections/khuyen-tai-bac-nam"
           }
         }
       },
@@ -470,11 +470,11 @@
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
+            "y_offset": -40,
+            "padding": 0,
             "link": "shopify://collections/all-products"
           }
         },
@@ -490,11 +490,11 @@
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "middle",
+            "v_align": "bottom",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": 0,
-            "padding": 12,
+            "y_offset": -40,
+            "padding": 0,
             "link": "shopify://collections/accessories"
           }
         }
