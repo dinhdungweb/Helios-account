@@ -36,11 +36,10 @@
       "blocks": {
         "image_3Aawga": {
           "type": "image",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/GIF_Lotus_19x9_895519c6-c32e-4058-8e2e-6113e8d80b53.gif",
-            "mobile_image": "shopify://shop_images/GIF_Lotus_16x9_b8f6d796-ff73-4aeb-8448-9664dac3a013.gif",
-            "slide_link": "shopify://collections/ngo-hanh-ky",
+            "image": "shopify://shop_images/thanhpho_19x9_e52284f7-4cfb-48c9-b325-b6e783f60cdf.jpg",
+            "mobile_image": "shopify://shop_images/Thanh_pho_2_Gen.jpg",
+            "slide_link": "shopify://collections/all-products",
             "subheading": "",
             "title": "",
             "title_size": 60,
