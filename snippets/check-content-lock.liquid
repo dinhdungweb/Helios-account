@@ -20,11 +20,15 @@
 {% assign lock_type = 'none' %}
 {% assign lock_message = '' %}
 
-{% comment %} 1. Sản phẩm có tag "khongban" - Không bán (đặc biệt) {% endcomment %}
-{% if product.tags contains 'khongban' %}
+{% comment %} 1. Sản phẩm có tag "khongban" hoặc "dungban" - Không bán / Dừng bán {% endcomment %}
+{% if product.tags contains 'khongban' or product.tags contains 'dungban' %}
   {% assign lock_status = 3 %}
   {% assign lock_type = 'khongban' %}
-  {% assign lock_message = 'Không bán' %}
+  {% if product.tags contains 'dungban' %}
+    {% assign lock_message = 'Dừng bán' %}
+  {% else %}
+    {% assign lock_message = 'Không bán' %}
+  {% endif %}
 
 {% comment %} 2. Sản phẩm có tag "angia" - Giá liên hệ (đặc biệt, không phải lock) {% endcomment %}
 {% elsif product.tags contains 'angia' %}
