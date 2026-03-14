@@ -24,7 +24,7 @@
 {% if product.tags contains 'khongban' %}
   {% assign lock_status = 3 %}
   {% assign lock_type = 'khongban' %}
-  {% assign lock_message = 'không bán' %}
+  {% assign lock_message = 'Không bán' %}
 
 {% comment %} 2. Sản phẩm có tag "angia" - Giá liên hệ (đặc biệt, không phải lock) {% endcomment %}
 {% elsif product.tags contains 'angia' %}
