@@ -303,7 +303,10 @@
         {% assign lock_type = lock_parts[1] %}
         {% assign lock_message = lock_parts[2] %}
         
-        {% if lock_status == 2 %}
+        {% if lock_status == 3 %}
+          {% comment %} Special case: Không bán {% endcomment %}
+          <b style="color:#FAB320">{{ lock_message }}</b>
+        {% elsif lock_status == 2 %}
           {% comment %} Special case: Giá liên hệ {% endcomment %}
           <b style="color:#FAB320">{{ lock_message }}</b>
         {% elsif lock_status == 1 %}
@@ -372,7 +375,10 @@
       {% assign lock_type = lock_parts[1] %}
       {% assign lock_message = lock_parts[2] %}
       
-      {% if lock_status == 2 %}
+      {% if lock_status == 3 %}
+        {% comment %} Special case: Không bán {% endcomment %}
+        <span class="button alt disabled" style="opacity: 0.7; cursor: not-allowed;">{{ lock_message }}</span>
+      {% elsif lock_status == 2 %}
         {% comment %} Special case: Giá liên hệ - hiển thị nút liên hệ {% endcomment %}
         <a href="{{ product_url }}" class="button alt">Liên hệ</a>
       {% elsif lock_status == 1 %}

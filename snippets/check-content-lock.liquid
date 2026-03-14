@@ -20,8 +20,14 @@
 {% assign lock_type = 'none' %}
 {% assign lock_message = '' %}
 
-{% comment %} 1. Sản phẩm có tag "angia" - Giá liên hệ (đặc biệt, không phải lock) {% endcomment %}
-{% if product.tags contains 'angia' %}
+{% comment %} 1. Sản phẩm có tag "khongban" - Không bán (đặc biệt) {% endcomment %}
+{% if product.tags contains 'khongban' %}
+  {% assign lock_status = 3 %}
+  {% assign lock_type = 'khongban' %}
+  {% assign lock_message = 'không bán' %}
+
+{% comment %} 2. Sản phẩm có tag "angia" - Giá liên hệ (đặc biệt, không phải lock) {% endcomment %}
+{% elsif product.tags contains 'angia' %}
   {% assign lock_status = 2 %}
   {% assign lock_type = 'angia' %}
   {% assign lock_message = 'Giá liên hệ' %}
