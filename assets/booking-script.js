@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     modalTitle.textContent = title;
     modalMessage.textContent = message;
     
-    // Hiển thị icon phù hợp
     if (modalSuccessIcon && modalErrorIcon) {
       if (isSuccess) {
         modalSuccessIcon.style.display = 'block';
@@ -44,7 +43,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     modal.style.display = 'block';
   }
   
-  // Event listeners cho modal
   if (closeModalBtn) {
     closeModalBtn.addEventListener('click', function() {
       modal.style.display = 'none';
@@ -57,7 +55,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   }
   
-  // Đóng modal khi nhấn bên ngoài modal
   window.addEventListener('click', function(event) {
     if (event.target === modal) {
       modal.style.display = 'none';
@@ -68,7 +65,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   let bookedSlots = {};
   let availableSlots = {};
 
-  // Load dữ liệu slots với error handling
   try {
     console.log('Loading slots data...');
     allSlots = await getAvailableSlots();
@@ -87,7 +83,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     return;
   }
 
-  // Hàm kiểm tra thời gian đã qua chưa - yêu cầu đặt lịch trước ít nhất 12 giờ
 function isTimeExpired(dateString, timeString) {
   try {
     const now = new Date();
@@ -101,7 +96,7 @@ function isTimeExpired(dateString, timeString) {
     };
     const month = monthMap[dateParts[2]];
 
-    if (month === undefined) return true; // Nếu không parse được thì coi như đã qua
+    if (month === undefined) return true; 
 
     const bookingDate = new Date(now.getFullYear(), month, day, parseInt(timeParts[0]), parseInt(timeParts[1]));
     
@@ -112,11 +107,10 @@ function isTimeExpired(dateString, timeString) {
     return bookingDate <= minimumBookingTime;
   } catch (error) {
     console.error('Error parsing date:', error);
-    return true; // Nếu có lỗi thì coi như đã qua để an toàn
+    return true;
   }
 }
 
-  // Hàm chuyển đổi ngày sang tiếng Việt
   function formatDateToVietnamese(dateString) {
     try {
       const parts = dateString.split(' ');
@@ -135,7 +129,6 @@ function isTimeExpired(dateString, timeString) {
     }
   }
 
-  // Hàm phân tích ngày thành Date object
   function parseDateKey(dateString) {
     try {
       const parts = dateString.split(' ');
@@ -149,11 +142,10 @@ function isTimeExpired(dateString, timeString) {
       return new Date(year, month, day);
     } catch (error) {
       console.error('Error parsing date key:', error);
-      return new Date(); // Fallback to current date
+      return new Date();
     }
   }
 
-  // Hàm lấy ngày bắt đầu tuần
   function getStartOfWeek(date) {
     const dayOfWeek = date.getDay();
     const diff = (dayOfWeek === 0 ? -6 : 1 - dayOfWeek);
@@ -163,7 +155,6 @@ function isTimeExpired(dateString, timeString) {
     return startOfWeek;
   }
 
-  // Hàm tính nhãn tuần
   function getWeekLabel(dateString) {
     try {
       const today = new Date();
@@ -181,7 +172,6 @@ function isTimeExpired(dateString, timeString) {
     }
   }
 
-  // Event listener cho nút đặt lịch
   bookButtons.forEach(button => {
     button.addEventListener('click', function () {
       const type = this.getAttribute('data-type');
@@ -225,7 +215,6 @@ function isTimeExpired(dateString, timeString) {
             timeSlot.classList.add('time-slot');
             timeSlot.textContent = time;
 
-            // Kiểm tra xem thời gian đã qua chưa và ẩn nếu đã qua
             if (isTimeExpired(date, time)) {
               timeSlot.style.display = 'none';
             } else {
@@ -240,7 +229,6 @@ function isTimeExpired(dateString, timeString) {
             column.appendChild(timeSlot);
           });
 
-          // Chỉ thêm cột nếu có khung giờ khả dụng
           if (hasAvailableTime) {
             scheduleGrid.appendChild(column);
           }
@@ -248,7 +236,6 @@ function isTimeExpired(dateString, timeString) {
     });
   });
 
-  // Event listener cho nút tiếp tục
   if (nextButton) {
     nextButton.addEventListener('click', function () {
       if (selectedTimeSlot) {
@@ -264,56 +251,48 @@ function isTimeExpired(dateString, timeString) {
   bookingForm.addEventListener('submit', async function (e) {
     e.preventDefault();
     
-    // Kiểm tra xem bookingForm có phải là HTMLFormElement không
     if (!(bookingForm instanceof HTMLFormElement)) {
       console.error('bookingForm is not a valid form element:', bookingForm);
       showModal(false, 'Lỗi hệ thống', 'Không thể xử lý form. Vui lòng tải lại trang.');
       return;
     }
     
-    // Kiểm tra selectedTimeSlot
     if (!selectedTimeSlot) {
       showModal(false, 'Lỗi', 'Vui lòng chọn khung giờ trước khi gửi form.');
       return;
     }
     
     const formData = new FormData(bookingForm);
-    
-    // Lấy các checkbox đã chọn - sử dụng cách an toàn hơn
+  
     const getCheckboxValues = (name) => {
       const checkboxes = bookingForm.querySelectorAll(`input[name="${name}"]:checked`);
       return Array.from(checkboxes).map(cb => cb.value);
     };
     
-    // Xử lý các trường "Khác" - kiểm tra null/undefined
     const handleOtherField = (checkboxName, inputName) => {
       const checkboxValue = formData.get(checkboxName);
       const inputValue = formData.get(inputName);
       return (checkboxValue === 'Khác' && inputValue) ? inputValue.trim() : '';
     };
     
-    // Xử lý dữ liệu sản phẩm
     const productTypes = getCheckboxValues('product_type[]');
     const otherProduct = handleOtherField('product_type_other_check', 'product_type_other');
     if (otherProduct) {
       productTypes.push(`Khác: ${otherProduct}`);
     }
     
-    // Xử lý dữ liệu nhu cầu
     const needs = getCheckboxValues('needs[]');
     const otherNeeds = handleOtherField('needs_other_check', 'needs_other');
     if (otherNeeds) {
       needs.push(`Khác: ${otherNeeds}`);
     }
     
-    // Xử lý dữ liệu phong cách
     const styles = getCheckboxValues('style[]');
     const collectionStyle = handleOtherField('style_collection_check', 'style_collection');
     if (collectionStyle) {
       styles.push(`Theo BST cụ thể: ${collectionStyle}`);
     }
     
-    // Kiểm tra dữ liệu bắt buộc
     const firstName = formData.get('first_name');
     const lastName = formData.get('last_name');
     const phone = formData.get('phone');
@@ -332,7 +311,6 @@ function isTimeExpired(dateString, timeString) {
       notes: formData.get('notes') || '',
       date: selectedTimeSlot.date,
       time: selectedTimeSlot.time,
-      // Thêm các trường mới
       specific_product: formData.get('specific_product') || '',
       product_types: productTypes,
       needs: needs,
@@ -347,7 +325,6 @@ function isTimeExpired(dateString, timeString) {
       if (result.success) {
         showModal(true, 'BẠN ĐÃ ĐẶT LỊCH THÀNH CÔNG', 'Helios đã nhận được thông tin đăng ký từ bạn – Đừng quên kiểm tra email để xem lại chi tiết cuộc hẹn!');
         
-        // Gửi email xác nhận
         try {
           if (typeof emailjs !== 'undefined') {
             await emailjs.send('service_w0wqg3o', 'booking_confirmation', {
@@ -368,7 +345,6 @@ function isTimeExpired(dateString, timeString) {
           }
         } catch (emailError) {
           console.warn('Email sending failed:', emailError);
-          // Không hiển thị lỗi email cho user vì booking đã thành công
         }
         
         // Reset form và UI
