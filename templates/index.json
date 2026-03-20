@@ -39,7 +39,7 @@
           "settings": {
             "image": "shopify://shop_images/Banner_ra_m_t_m_t_day_Lotus_Sainte_Croix_PC_19x9_45ebd970-cf2c-4940-80a0-4e787cdcbb3c.jpg",
             "mobile_image": "shopify://shop_images/Banner_ra_m_t_m_t_day_Lotus_Sainte_Croix_mobile_9x16_48a46688-b069-4d79-8fc3-2f93edcfb527.jpg",
-            "slide_link": "https://helios.vn/account",
+            "slide_link": "shopify://products/lotus-sainte-croix-helios-silver",
             "subheading": "",
             "title": "",
             "title_size": 60,
