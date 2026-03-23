@@ -113,6 +113,9 @@
     },
     "rich_text_whj4Hk": {
       "type": "rich-text",
+      "custom_css": [
+        "#section-id-template--21909838954717__rich_text_whj4Hk .reading-width {max-width: 1000px;}"
+      ],
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -355,7 +358,7 @@
         "text_block_iJkEhD"
       ],
       "custom_css": [
-        "#section-id-template--21909838954717__text_columns_with_images_yhLLUW {padding-bottom: 0!important;}"
+        "#section-id-template--21909838954717__text_columns_with_images_yhLLUW {padding-bottom: 0 !important;}"
       ],
       "name": "Text columns with media",
       "settings": {
