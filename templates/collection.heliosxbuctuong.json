@@ -303,7 +303,7 @@
         "text_alignment": "center",
         "enlarge_text": false,
         "full_width": false,
-        "no_padding_bottom": false,
+        "no_padding_bottom": true,
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
@@ -360,6 +360,29 @@
         "alternate_bg_color": false,
         "full_width": false
       }
+    },
+    "rich_text_C9pTFy": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Một mặt dây mang “khối lượng” của rock — không nằm ở âm lượng, mà ở thứ đã được dựng lên qua năm tháng. Nền gạch như dấu vết của hành trình, logo hiện rõ như một tuyên ngôn: đứng vững, đi tiếp, hành trình còn đó, thứ đặc biệt nó có thể ở bên trong lớp đất đá vô tri. Hoàn thiện thủ công trên bạc S925 từ tay nghề thợ kim hoàn tại Hà Nội. Hãy để từng vết xước ghi lại hành trình thú vị của bạn. </p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -373,6 +396,7 @@
     "rich_text_VVYMQG",
     "timeline_XUxCWG",
     "rich_text_37pKtT",
-    "text_columns_with_images_yhLLUW"
+    "text_columns_with_images_yhLLUW",
+    "rich_text_C9pTFy"
   ]
 }
