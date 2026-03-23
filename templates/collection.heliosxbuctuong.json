@@ -111,6 +111,28 @@
         "autoplay_speed": 7
       }
     },
+    "featured_collection_UmpANW": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "center",
+        "collection": "helios-x-buc-tuong",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "rich_text_whj4Hk": {
       "type": "rich-text",
       "custom_css": [
@@ -401,6 +423,7 @@
     "main",
     "slideshow_hDp3B3",
     "slideshow_mGRznq",
+    "featured_collection_UmpANW",
     "rich_text_whj4Hk",
     "background_video_responsive_Ex7pEQ",
     "rich_text_ta46Lj",
