@@ -307,6 +307,59 @@
         "alternate_bg_color": false,
         "full_width": false
       }
+    },
+    "timeline_XUxCWG": {
+      "type": "timeline",
+      "blocks": {
+        "milestone_LTWYN3": {
+          "type": "milestone",
+          "settings": {
+            "date": "23/03/2026",
+            "title": "Ra mắt BST đầu tiên",
+            "description": ""
+          }
+        },
+        "milestone_gQz68T": {
+          "type": "milestone",
+          "settings": {
+            "date": "Tháng 5/2026",
+            "title": "BST thứ hai",
+            "description": ""
+          }
+        },
+        "milestone_cb9edt": {
+          "type": "milestone",
+          "settings": {
+            "date": "Tháng 9/2026",
+            "title": "Ra mắt sản phẩm ...",
+            "description": ""
+          }
+        },
+        "milestone_eD6TJw": {
+          "type": "milestone",
+          "settings": {
+            "date": "Tháng 10/2026",
+            "title": "Ra mắt sản phẩm",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "milestone_LTWYN3",
+        "milestone_gQz68T",
+        "milestone_cb9edt",
+        "milestone_eD6TJw"
+      ],
+      "name": "Timeline",
+      "settings": {
+        "heading": "Lộ trình phát triển",
+        "bg_color": "#111111",
+        "overlay_opacity": 55,
+        "dot_color": "#ffffff",
+        "line_color": "#ffffff",
+        "text_color": "#ffffff",
+        "date_color": "#cccccc"
+      }
     }
   },
   "order": [
@@ -319,6 +372,7 @@
     "slideshow_mYpMHz",
     "rich_text_VVYMQG",
     "rich_text_37pKtT",
-    "text_columns_with_images_yhLLUW"
+    "text_columns_with_images_yhLLUW",
+    "timeline_XUxCWG"
   ]
 }
