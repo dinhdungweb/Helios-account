@@ -349,6 +349,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
+            "image": "shopify://shop_images/DSC9592.jpg",
             "image_width": 700,
             "title": "",
             "text": "",
@@ -360,6 +361,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
+            "image": "shopify://shop_images/DSC9635.jpg",
             "image_width": 700,
             "title": "",
             "text": "",
@@ -371,6 +373,7 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
+            "image": "shopify://shop_images/DSC9647.jpg",
             "image_width": 700,
             "title": "",
             "text": "",
