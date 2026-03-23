@@ -164,7 +164,7 @@
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
-        "video_height_desktop": 700,
+        "video_height_desktop": 300,
         "video_height_mobile": 450,
         "video_link": "",
         "video_link_new_tab": false,
@@ -172,7 +172,8 @@
         "video_external_mobile": "",
         "subtitle": "",
         "title": "",
-        "title_image_width_desktop": 800,
+        "title_image": "shopify://shop_images/helios_x_bt.png",
+        "title_image_width_desktop": 440,
         "description": "",
         "button_label": "",
         "button_link": ""
