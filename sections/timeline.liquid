@@ -1,6 +1,7 @@
 {% comment %}
   Timeline Section - Shopify Liquid
-  Zigzag dashed lines drawn via JS SVG overlay
+  Layout: text label sits ABOVE each dot, alternating left/right
+  Center vertical dashed line connects all dots — pure CSS, no JS, no SVG
 {% endcomment %}
 
 <section class="tl-section" id="tl-{{ section.id }}">
@@ -11,28 +12,28 @@
       <h2 class="tl-heading">{{ section.settings.heading }}</h2>
     {% endif %}
 
-    <div class="tl-track" id="tl-track-{{ section.id }}">
-      <!-- SVG lines injected by JS -->
-      <svg class="tl-svg" id="tl-svg-{{ section.id }}" aria-hidden="true"></svg>
-
+    <div class="tl-track">
       {% for block in section.blocks %}
         {% assign is_right = forloop.index | modulo: 2 %}
-        <div
-          class="tl-item {% if is_right == 0 %}tl-item--right{% else %}tl-item--left{% endif %}"
-          {{ block.shopify_attributes }}
-        >
-          <div class="tl-dot" data-tl-dot></div>
-          <div class="tl-content">
+        <div class="tl-item {% if is_right == 0 %}tl-item--right{% else %}tl-item--left{% endif %}"
+             {{ block.shopify_attributes }}>
+
+          <!-- Label: floats above the dot on the correct side -->
+          <div class="tl-label">
             {% if block.settings.date != blank %}
               <span class="tl-date">{{ block.settings.date }}</span>
             {% endif %}
             {% if block.settings.title != blank %}
-              <h3 class="tl-title">{{ block.settings.title }}</h3>
+              <strong class="tl-title">{{ block.settings.title }}</strong>
             {% endif %}
             {% if block.settings.description != blank %}
               <p class="tl-desc">{{ block.settings.description }}</p>
             {% endif %}
           </div>
+
+          <!-- Dot sits on the center axis -->
+          <div class="tl-dot"></div>
+
         </div>
       {% endfor %}
     </div>
@@ -46,12 +47,14 @@
     --tl-line:    {{ section.settings.line_color }};
     --tl-text:    {{ section.settings.text_color }};
     --tl-date-cl: {{ section.settings.date_color }};
-    --tl-dot-sz:  52px;
+    --tl-dot-sz:  48px;
+    --tl-axis:    50%;    /* center axis */
   }
 
+  /* ── Section ── */
   .tl-section {
     position: relative;
-    padding: 80px 24px 100px;
+    padding: 72px 24px 88px;
     overflow: hidden;
     background-color: var(--tl-bg);
     {% if section.settings.bg_image != blank %}
@@ -84,176 +87,142 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: 56px;
+    margin-bottom: 64px;
   }
 
-  /* Track: relative so SVG overlay positions correctly */
+  /* ── Track: vertical center line ── */
   .tl-track {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 40px;
   }
 
-  /* SVG stretches to cover whole track */
-  .tl-svg {
+  /* The vertical dashed center line */
+  .tl-track::before {
+    content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    pointer-events: none;
+    bottom: 0;
+    left: var(--tl-axis);
+    transform: translateX(-50%);
+    border-left: 2px dashed var(--tl-line);
+    opacity: 0.5;
     z-index: 0;
   }
 
+  /* ── Item: 2-col grid. Dot always on center axis ── */
   .tl-item {
+    display: grid;
+    grid-template-columns: 1fr var(--tl-dot-sz) 1fr;
+    align-items: center;
+    min-height: 100px;
     position: relative;
     z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 20px;
   }
 
-  .tl-item--left {
-    flex-direction: row;
-    padding-right: 45%;
-  }
-
-  .tl-item--right {
-    flex-direction: row-reverse;
-    padding-left: 45%;
-    text-align: right;
-  }
-
+  /* dot is always column 2 */
   .tl-dot {
-    flex-shrink: 0;
+    grid-column: 2;
+    justify-self: center;
     width: var(--tl-dot-sz);
     height: var(--tl-dot-sz);
     border-radius: 50%;
     border: 3px solid var(--tl-dot);
-    background: transparent;
+    background: var(--tl-bg);
     box-sizing: border-box;
     transition: background 0.3s;
+    z-index: 2;
+    position: relative;
   }
 
   .tl-item:hover .tl-dot {
     background: rgba(255,255,255,0.12);
   }
 
-  .tl-content {
+  /* ── Label ── */
+  .tl-label {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    padding: 12px 24px;
   }
 
+  /* LEFT item: label on column 1 (left), dot on col 2 */
+  .tl-item--left .tl-label {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: right;
+    align-items: flex-end;
+  }
+  .tl-item--left .tl-dot {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* RIGHT item: dot on col 2, label on column 3 (right) */
+  .tl-item--right .tl-label {
+    grid-column: 3;
+    grid-row: 1;
+    text-align: left;
+    align-items: flex-start;
+  }
+  .tl-item--right .tl-dot {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* ── Text styles ── */
   .tl-date {
     color: var(--tl-date-cl);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    display: block;
   }
 
   .tl-title {
     color: var(--tl-text);
-    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
     font-weight: 700;
-    margin: 0;
     line-height: 1.3;
+    display: block;
   }
 
   .tl-desc {
     color: var(--tl-text);
-    font-size: 0.88rem;
-    opacity: 0.7;
+    font-size: 0.85rem;
+    opacity: 0.65;
     margin: 0;
     line-height: 1.5;
   }
 
-  /* Mobile: stack vertically, hide SVG, use simple pseudo-line */
+  /* ── Mobile: single column, dot on left ── */
   @media (max-width: 600px) {
+    .tl-track::before { left: calc(var(--tl-dot-sz) / 2); }
+
+    .tl-item,
     .tl-item--left,
     .tl-item--right {
-      flex-direction: row;
-      padding-left: 0;
-      padding-right: 0;
+      grid-template-columns: var(--tl-dot-sz) 1fr;
+      min-height: 80px;
+    }
+
+    .tl-item--left .tl-dot,
+    .tl-item--right .tl-dot {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .tl-item--left .tl-label,
+    .tl-item--right .tl-label {
+      grid-column: 2;
+      grid-row: 1;
       text-align: left;
-    }
-    .tl-svg {
-      display: none;
-    }
-    .tl-item:not(:last-child) {
-      padding-bottom: 32px;
-    }
-    .tl-item:not(:last-child) .tl-dot {
-      position: relative;
-    }
-    .tl-item:not(:last-child) .tl-dot::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 100%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 32px;
-      border-left: 3px dashed var(--tl-line);
+      align-items: flex-start;
     }
   }
 </style>
-
-<script>
-(function () {
-  var SID = '{{ section.id }}';
-
-  function drawLines() {
-    var track = document.getElementById('tl-track-' + SID);
-    var svg   = document.getElementById('tl-svg-'   + SID);
-    if (!track || !svg) return;
-
-    // Skip on mobile (SVG is hidden anyway)
-    if (window.innerWidth <= 600) { svg.innerHTML = ''; return; }
-
-    var dots = track.querySelectorAll('[data-tl-dot]');
-    if (dots.length < 2) return;
-
-    var trackRect = track.getBoundingClientRect();
-
-    // Center of each dot relative to the track element
-    var pts = Array.from(dots).map(function (dot) {
-      var r = dot.getBoundingClientRect();
-      return (r.left - trackRect.left + r.width / 2).toFixed(1) + ','
-           + (r.top  - trackRect.top  + r.height / 2).toFixed(1);
-    }).join(' ');
-
-    // Read --tl-line CSS variable for colour
-    var color = getComputedStyle(track.closest('[id^="tl-"]'))
-                  .getPropertyValue('--tl-line').trim() || '#ffffff';
-
-    svg.innerHTML =
-      '<polyline' +
-        ' points="'        + pts     + '"' +
-        ' fill="none"' +
-        ' stroke="'        + color   + '"' +
-        ' stroke-width="2.5"' +
-        ' stroke-dasharray="8 6"' +
-        ' stroke-linecap="round"' +
-      '/>';
-  }
-
-  function init() {
-    drawLines();
-    window.addEventListener('resize', drawLines);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    // Slight delay so Shopify editor reflow finishes
-    setTimeout(init, 120);
-  }
-})();
-</script>
 
 {% schema %}
 {
@@ -297,7 +266,7 @@
     {
       "type": "color",
       "id": "line_color",
-      "label": "Màu đường dashed",
+      "label": "Màu đường nối",
       "default": "#ffffff"
     },
     {
@@ -310,7 +279,7 @@
       "type": "color",
       "id": "date_color",
       "label": "Màu ngày tháng",
-      "default": "#cccccc"
+      "default": "#aaaaaa"
     }
   ],
   "blocks": [
