@@ -256,58 +256,6 @@
         "color_text": ""
       }
     },
-    "text_columns_with_images_yhLLUW": {
-      "type": "text-columns-with-images",
-      "blocks": {
-        "text_block_b94jjp": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image_width": 700,
-            "title": "Column",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
-            "button_label": "",
-            "link": ""
-          }
-        },
-        "text_block_rV6CDn": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image_width": 700,
-            "title": "Column",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
-            "button_label": "",
-            "link": ""
-          }
-        },
-        "text_block_iJkEhD": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image_width": 700,
-            "title": "Column",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
-            "button_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "text_block_b94jjp",
-        "text_block_rV6CDn",
-        "text_block_iJkEhD"
-      ],
-      "name": "Text columns with media",
-      "settings": {
-        "title": "",
-        "text_alignment": "left",
-        "button_style": "primary",
-        "media_shape": "natural",
-        "alternate_bg_color": false,
-        "full_width": false
-      }
-    },
     "timeline_XUxCWG": {
       "type": "timeline",
       "blocks": {
@@ -360,6 +308,58 @@
         "text_color": "#ffffff",
         "date_color": "#cccccc"
       }
+    },
+    "text_columns_with_images_yhLLUW": {
+      "type": "text-columns-with-images",
+      "blocks": {
+        "text_block_b94jjp": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 700,
+            "title": "Column",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_rV6CDn": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 700,
+            "title": "Column",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_iJkEhD": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image_width": 700,
+            "title": "Column",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_block_b94jjp",
+        "text_block_rV6CDn",
+        "text_block_iJkEhD"
+      ],
+      "name": "Text columns with media",
+      "settings": {
+        "title": "",
+        "text_alignment": "left",
+        "button_style": "primary",
+        "media_shape": "natural",
+        "alternate_bg_color": false,
+        "full_width": false
+      }
     }
   },
   "order": [
@@ -371,8 +371,8 @@
     "rich_text_ta46Lj",
     "slideshow_mYpMHz",
     "rich_text_VVYMQG",
+    "timeline_XUxCWG",
     "rich_text_37pKtT",
-    "text_columns_with_images_yhLLUW",
-    "timeline_XUxCWG"
+    "text_columns_with_images_yhLLUW"
   ]
 }
