@@ -309,8 +309,9 @@
       "name": "Timeline",
       "settings": {
         "heading": "Lộ trình ra mắt",
+        "bg_image": "shopify://shop_images/n_n_1.jpg",
         "bg_color": "#111111",
-        "overlay_opacity": 55,
+        "overlay_opacity": 0,
         "dot_color": "#ffffff",
         "line_color": "#ffffff",
         "text_color": "#ffffff",
