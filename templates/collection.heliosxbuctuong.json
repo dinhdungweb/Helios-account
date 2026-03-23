@@ -263,7 +263,7 @@
         "milestone_eD6TJw": {
           "type": "milestone",
           "settings": {
-            "date": "???",
+            "date": "Tháng 10/2026",
             "title": "Ra mắt sản phẩm Nhẫn HELIOS x BỨC TƯỜNG",
             "description": ""
           }
@@ -277,7 +277,7 @@
       ],
       "name": "Timeline",
       "settings": {
-        "heading": "Lộ trình phát triển",
+        "heading": "Lộ trình ra mắt",
         "bg_color": "#111111",
         "overlay_opacity": 55,
         "dot_color": "#ffffff",
