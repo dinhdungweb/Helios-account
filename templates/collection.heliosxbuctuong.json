@@ -158,6 +158,9 @@
     },
     "rich_text_ta46Lj": {
       "type": "rich-text",
+      "custom_css": [
+        "#section-id-template--21909838954717__rich_text_ta46Lj .reading-width {max-width: 1000px;}"
+      ],
       "name": "Rich text",
       "settings": {
         "subheading": "",
