@@ -1,35 +1,36 @@
 {% comment %}
   Timeline Section - Shopify Liquid
-  Dark industrial aesthetic with zigzag dashed line
+  Zigzag dashed lines drawn via JS SVG overlay
 {% endcomment %}
 
-<section class="timeline-section" id="timeline-{{ section.id }}">
-  <div class="timeline-bg-overlay"></div>
+<section class="tl-section" id="tl-{{ section.id }}">
+  <div class="tl-overlay"></div>
 
-  <div class="timeline-container">
+  <div class="tl-container">
     {% if section.settings.heading != blank %}
-      <h2 class="timeline-heading">{{ section.settings.heading }}</h2>
+      <h2 class="tl-heading">{{ section.settings.heading }}</h2>
     {% endif %}
 
-    <div class="timeline-track">
+    <div class="tl-track" id="tl-track-{{ section.id }}">
+      <!-- SVG lines injected by JS -->
+      <svg class="tl-svg" id="tl-svg-{{ section.id }}" aria-hidden="true"></svg>
+
       {% for block in section.blocks %}
         {% assign is_right = forloop.index | modulo: 2 %}
         <div
-          class="timeline-item {% if is_right == 0 %}timeline-item--right{% else %}timeline-item--left{% endif %}"
+          class="tl-item {% if is_right == 0 %}tl-item--right{% else %}tl-item--left{% endif %}"
           {{ block.shopify_attributes }}
         >
-          <div class="timeline-dot">
-            <span class="timeline-dot__inner"></span>
-          </div>
-          <div class="timeline-content">
+          <div class="tl-dot" data-tl-dot></div>
+          <div class="tl-content">
             {% if block.settings.date != blank %}
-              <span class="timeline-date">{{ block.settings.date }}</span>
+              <span class="tl-date">{{ block.settings.date }}</span>
             {% endif %}
             {% if block.settings.title != blank %}
-              <h3 class="timeline-title">{{ block.settings.title }}</h3>
+              <h3 class="tl-title">{{ block.settings.title }}</h3>
             {% endif %}
             {% if block.settings.description != blank %}
-              <p class="timeline-desc">{{ block.settings.description }}</p>
+              <p class="tl-desc">{{ block.settings.description }}</p>
             {% endif %}
           </div>
         </div>
@@ -39,21 +40,18 @@
 </section>
 
 <style>
-  /* ── Variables ── */
-  #timeline-{{ section.id }} {
-    --tl-bg:        {{ section.settings.bg_color }};
-    --tl-dot:       {{ section.settings.dot_color }};
-    --tl-line:      {{ section.settings.line_color }};
-    --tl-text:      {{ section.settings.text_color }};
-    --tl-date:      {{ section.settings.date_color }};
-    --tl-dot-size:  52px;
-    --tl-gap:       64px;
+  #tl-{{ section.id }} {
+    --tl-bg:      {{ section.settings.bg_color }};
+    --tl-dot:     {{ section.settings.dot_color }};
+    --tl-line:    {{ section.settings.line_color }};
+    --tl-text:    {{ section.settings.text_color }};
+    --tl-date-cl: {{ section.settings.date_color }};
+    --tl-dot-sz:  52px;
   }
 
-  /* ── Section wrapper ── */
-  .timeline-section {
+  .tl-section {
     position: relative;
-    padding: 80px 24px;
+    padding: 80px 24px 100px;
     overflow: hidden;
     background-color: var(--tl-bg);
     {% if section.settings.bg_image != blank %}
@@ -64,23 +62,22 @@
     {% endif %}
   }
 
-  .timeline-bg-overlay {
+  .tl-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    background: rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }});
     pointer-events: none;
     z-index: 0;
   }
 
-  /* ── Container ── */
-  .timeline-container {
+  .tl-container {
     position: relative;
     z-index: 1;
-    max-width: 860px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
-  .timeline-heading {
+  .tl-heading {
     text-align: center;
     color: var(--tl-text);
     font-size: clamp(1.6rem, 4vw, 2.6rem);
@@ -90,164 +87,173 @@
     margin-bottom: 56px;
   }
 
-  /* ── Track ── */
-  .timeline-track {
+  /* Track: relative so SVG overlay positions correctly */
+  .tl-track {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 40px;
   }
 
-  /* ── Draw the zigzag dashed SVG line behind items ── */
-  .timeline-track::before {
-    content: '';
+  /* SVG stretches to cover whole track */
+  .tl-svg {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
     pointer-events: none;
     z-index: 0;
   }
 
-  /* ── Each item ── */
-  .timeline-item {
+  .tl-item {
     position: relative;
     z-index: 1;
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding: 12px 0;
-    min-height: calc(var(--tl-dot-size) + 40px);
+    gap: 20px;
   }
 
-  /* LEFT item: dot on left, content on right */
-  .timeline-item--left {
+  .tl-item--left {
     flex-direction: row;
-    padding-left: 0;
-    padding-right: 40%;
+    padding-right: 45%;
   }
 
-  /* RIGHT item: content on left side (mirrored), dot on right */
-  .timeline-item--right {
+  .tl-item--right {
     flex-direction: row-reverse;
-    padding-right: 0;
-    padding-left: 40%;
+    padding-left: 45%;
     text-align: right;
   }
 
-  /* ── Dot ── */
-  .timeline-dot {
+  .tl-dot {
     flex-shrink: 0;
-    width: var(--tl-dot-size);
-    height: var(--tl-dot-size);
+    width: var(--tl-dot-sz);
+    height: var(--tl-dot-sz);
     border-radius: 50%;
     border: 3px solid var(--tl-dot);
     background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    box-sizing: border-box;
+    transition: background 0.3s;
   }
 
-  .timeline-dot__inner {
-    width: calc(var(--tl-dot-size) * 0.35);
-    height: calc(var(--tl-dot-size) * 0.35);
-    border-radius: 50%;
-    background: var(--tl-dot);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  .tl-item:hover .tl-dot {
+    background: rgba(255,255,255,0.12);
   }
 
-  .timeline-item:hover .timeline-dot__inner {
-    opacity: 1;
-  }
-
-  /* ── Content ── */
-  .timeline-content {
+  .tl-content {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
-  .timeline-date {
-    color: var(--tl-date);
-    font-size: 0.85rem;
+  .tl-date {
+    color: var(--tl-date-cl);
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
-  .timeline-title {
+  .tl-title {
     color: var(--tl-text);
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
     font-weight: 700;
     margin: 0;
     line-height: 1.3;
   }
 
-  .timeline-desc {
+  .tl-desc {
     color: var(--tl-text);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     opacity: 0.7;
     margin: 0;
     line-height: 1.5;
   }
 
-  /* ── Zigzag connector lines via SVG overlay ── */
-  .timeline-track {
-    --dot-half: calc(var(--tl-dot-size) / 2);
-  }
-
-  /* We draw lines between dots using pseudo-elements on the items */
-  .timeline-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    bottom: calc(-1 * var(--tl-gap) / 2 - var(--tl-dot-size) / 2 + 6px);
-    width: 2px;
-    height: var(--tl-gap);
-    background: transparent;
-    border-left: 3px dashed var(--tl-line);
-    z-index: 0;
-    transform-origin: top center;
-  }
-
-  /* Line from LEFT item's dot to next RIGHT item's dot — goes down-right */
-  .timeline-item--left:not(:last-child)::after {
-    left: calc(var(--tl-dot-size) / 2 - 1px);
-    transform: rotate(25deg);
-  }
-
-  /* Line from RIGHT item's dot to next LEFT item's dot — goes down-left */
-  .timeline-item--right:not(:last-child)::after {
-    right: calc(var(--tl-dot-size) / 2 - 1px);
-    left: auto;
-    border-left: none;
-    border-right: 3px dashed var(--tl-line);
-    transform: rotate(-25deg);
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 640px) {
-    .timeline-item--left,
-    .timeline-item--right {
+  /* Mobile: stack vertically, hide SVG, use simple pseudo-line */
+  @media (max-width: 600px) {
+    .tl-item--left,
+    .tl-item--right {
       flex-direction: row;
       padding-left: 0;
       padding-right: 0;
       text-align: left;
     }
-
-    .timeline-item--left:not(:last-child)::after,
-    .timeline-item--right:not(:last-child)::after {
-      left: calc(var(--tl-dot-size) / 2 - 1px);
-      right: auto;
-      border-left: 3px dashed var(--tl-line);
-      border-right: none;
-      transform: none;
+    .tl-svg {
+      display: none;
     }
-
-    .timeline-heading {
-      font-size: 1.4rem;
+    .tl-item:not(:last-child) {
+      padding-bottom: 32px;
+    }
+    .tl-item:not(:last-child) .tl-dot {
+      position: relative;
+    }
+    .tl-item:not(:last-child) .tl-dot::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 32px;
+      border-left: 3px dashed var(--tl-line);
     }
   }
 </style>
+
+<script>
+(function () {
+  var SID = '{{ section.id }}';
+
+  function drawLines() {
+    var track = document.getElementById('tl-track-' + SID);
+    var svg   = document.getElementById('tl-svg-'   + SID);
+    if (!track || !svg) return;
+
+    // Skip on mobile (SVG is hidden anyway)
+    if (window.innerWidth <= 600) { svg.innerHTML = ''; return; }
+
+    var dots = track.querySelectorAll('[data-tl-dot]');
+    if (dots.length < 2) return;
+
+    var trackRect = track.getBoundingClientRect();
+
+    // Center of each dot relative to the track element
+    var pts = Array.from(dots).map(function (dot) {
+      var r = dot.getBoundingClientRect();
+      return (r.left - trackRect.left + r.width / 2).toFixed(1) + ','
+           + (r.top  - trackRect.top  + r.height / 2).toFixed(1);
+    }).join(' ');
+
+    // Read --tl-line CSS variable for colour
+    var color = getComputedStyle(track.closest('[id^="tl-"]'))
+                  .getPropertyValue('--tl-line').trim() || '#ffffff';
+
+    svg.innerHTML =
+      '<polyline' +
+        ' points="'        + pts     + '"' +
+        ' fill="none"' +
+        ' stroke="'        + color   + '"' +
+        ' stroke-width="2.5"' +
+        ' stroke-dasharray="8 6"' +
+        ' stroke-linecap="round"' +
+      '/>';
+  }
+
+  function init() {
+    drawLines();
+    window.addEventListener('resize', drawLines);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    // Slight delay so Shopify editor reflow finishes
+    setTimeout(init, 120);
+  }
+})();
+</script>
 
 {% schema %}
 {
