@@ -1108,13 +1108,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      "@media (max-width: 767.8px) {.product-label {font-size: 9px !important; padding: 4px 6px !important; } .product-label span {line-height: 20px; }}",
-      ".shopify-buy__carousel {min-height: 50px !important;}",
-      ".wheel-item {font-size: 13px;}",
-      "button.chat-toggle.chat-toggle--text-button {border-radius: 99px !important; height: 50px !important;}",
-      "button.chat-toggle {margin: 0 !important;}",
-      "#site-control .featured-link > a,#page-menu .featured-link > a {color: #111 !important; background: #fab320;}"
-    ]
+    "custom_css": []
   }
 }
