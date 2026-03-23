@@ -90,7 +90,6 @@
         },
         "image_3Aawga": {
           "type": "image",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Silver_wall_16x9_83ba2b2c-c602-45c0-944b-694fca28ebc9.jpg",
             "mobile_image": "shopify://shop_images/Silver_wall_4x5_02bfa8ce-639d-4892-ace6-f13a3d5b2717.jpg",
