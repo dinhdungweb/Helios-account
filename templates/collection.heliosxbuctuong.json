@@ -215,11 +215,11 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "",
+        "title": "Về Bức Tường",
         "title_size": 48,
         "title_width": 12,
         "heading_h1": false,
-        "text": "<p>Thành lập năm 1995 tại Hà Nội — Bức Tường là một trong những ban nhạc Rock có ảnh hưởng lớn và bền bỉ nhất trong lịch sử âm nhạc Việt Nam.<br/>Hơn 3 thập kỷ. 7 album phòng thu. Hàng trăm đêm diễn trên khắp cả nước.<br/>Năm 2021, Billboard (Mỹ) vinh danh Bức Tường là ban nhạc tiên phong có vai trò đặc biệt quan trọng trong lịch sử Rock Việt.<br/>Thành viên hiện tại:<br/><strong>Trần Tuấn Hùng</strong> — Guitar, trưởng nhóm<br/><strong>Vũ Hà </strong>— Guitar<br/><strong>Phạm Trung Hiếu</strong> — Drums<br/><strong>Tăng Xuân Kiên</strong> — Bass<br/><br/></p>",
+        "text": "<p>Thành lập năm 1995 tại Hà Nội — Bức Tường là một trong những ban nhạc Rock có ảnh hưởng lớn và bền bỉ nhất trong lịch sử âm nhạc Việt Nam.</p><p>Hơn 3 thập kỷ. 7 album phòng thu. Hàng trăm đêm diễn trên khắp cả nước.</p><p>Năm 2021, Billboard (Mỹ) vinh danh Bức Tường là ban nhạc tiên phong có vai trò đặc biệt quan trọng trong lịch sử Rock Việt. </p><p><strong>Thành viên hiện tại:</strong></p><p><strong>Trần Tuấn Hùng</strong> — Guitar, trưởng nhóm</p><p><strong>Vũ Hà </strong>— Guitar</p><p><strong>Phạm Trung Hiếu</strong> — Drums</p><p><strong>Tăng Xuân Kiên</strong> — Bass</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
@@ -240,31 +240,31 @@
           "type": "milestone",
           "settings": {
             "date": "23/03/2026",
-            "title": "Ra mắt BST đầu tiên",
+            "title": "Ra mắt sản phẩm WEIGHT OF SOUND & INNER WALL",
             "description": ""
           }
         },
         "milestone_gQz68T": {
           "type": "milestone",
           "settings": {
-            "date": "Tháng 5/2026",
-            "title": "BST thứ hai",
+            "date": "???",
+            "title": "Ra mắt sản phẩm Mũ HELIOS x BỨC TƯỜNG",
             "description": ""
           }
         },
         "milestone_cb9edt": {
           "type": "milestone",
           "settings": {
-            "date": "Tháng 9/2026",
-            "title": "Ra mắt sản phẩm ...",
+            "date": "???",
+            "title": "Ra mắt sản phẩm Móc khoá HELIOS x BỨC TƯỜNG",
             "description": ""
           }
         },
         "milestone_eD6TJw": {
           "type": "milestone",
           "settings": {
-            "date": "Tháng 10/2026",
-            "title": "Ra mắt sản phẩm",
+            "date": "???",
+            "title": "Ra mắt sản phẩm Nhẫn HELIOS x BỨC TƯỜNG",
             "description": ""
           }
         }
