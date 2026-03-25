@@ -396,7 +396,7 @@
         "title": "",
         "text_alignment": "left",
         "button_style": "primary",
-        "media_shape": "natural",
+        "media_shape": "portrait_tall",
         "alternate_bg_color": false,
         "full_width": false
       }
