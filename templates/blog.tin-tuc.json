@@ -26,7 +26,7 @@
       "name": "Custom Liquid/HTML",
       "settings": {
         "no_margins": true,
-        "custom_liquid": "{% render \"tin-tuc-tap-chi\" %}"
+        "custom_liquid": "{% render \"tap-chi\" %}"
       }
     }
   },
