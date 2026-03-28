@@ -25,7 +25,7 @@
       "type": "custom-liquid",
       "name": "Custom Liquid/HTML",
       "settings": {
-        "no_margins": false,
+        "no_margins": true,
         "custom_liquid": "{% render \"tin-tuc\" %}"
       }
     }
