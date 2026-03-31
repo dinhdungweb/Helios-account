@@ -441,6 +441,7 @@
     },
     "rich_text_Hy4w8R": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -504,6 +505,7 @@
         "image_kCzVqq",
         "image_Ae9tQE"
       ],
+      "disabled": true,
       "custom_css": [
         "#section-id-template--20686354350301__grid_image_KpbGfQ {padding: 20px !important;}"
       ],
@@ -518,6 +520,7 @@
     },
     "rich_text_fDwPzE": {
       "type": "rich-text",
+      "disabled": true,
       "custom_css": [
         ".section-spacing {padding-top: 0 !important;}"
       ],
