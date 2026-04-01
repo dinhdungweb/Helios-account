@@ -55,8 +55,8 @@
         "text_alignment": "left",
         "desktop_video_url": "",
         "mobile_video_url": "",
-        "desktop_image_url": "shopify://shop_images/3x2.jpg",
-        "mobile_image_url": "shopify://shop_images/z7319283438538_5feffd715d24f428c7a803a4f2b804f3.jpg",
+        "desktop_image_url": "shopify://shop_images/Resize_Sainte_croix_Banner_web_2x3_cd4cf16e-9b78-41cf-b3e0-0f143562c556.jpg",
+        "mobile_image_url": "shopify://shop_images/Resize_Sainte_Croix_Banner_web_1x1_bddc678e-69e6-47c7-8610-5a94fc18871f.jpg",
         "heading": "ALL PRODUCTS",
         "paragraph": "Mọi sản phẩm bạn đang tìm kiếm đều ở đây. Nếu bạn gặp khó khăn, chúng tôi có vài gợi ý"
       }
@@ -108,11 +108,11 @@
           "settings": {
             "position_in_grid": 7,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/z7211707051522_85ef01237e8c48d084cb1f99fa7a4bc0.jpg",
-            "mobile_image": "shopify://shop_images/z7211707051522_85ef01237e8c48d084cb1f99fa7a4bc0_3b157b5d-648e-4189-ace3-ad993258e172.jpg",
-            "heading": "HELIOS PRIVATE CALL",
+            "image": "shopify://shop_images/Resize_pusi_Banner_web_2x3_9f663dd8-23ad-4977-ba19-0a3445b7b804.jpg",
+            "mobile_image": "shopify://shop_images/Resize_pusi_Banner_web_1x1_bfa9a4db-0cc2-4f55-9601-75b57d0cbc46.jpg",
+            "heading": "",
             "content": "",
-            "link_url": "shopify://pages/helios-private-call"
+            "link_url": "shopify://products/pusi-helios-silver"
           }
         },
         "promotion_image_egT8fp": {
