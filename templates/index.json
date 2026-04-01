@@ -91,6 +91,24 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
+        "image_hgGRLc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/loi_cam_on_le_thanh_nghi_19x9_0a110a3a-12f1-40b1-9cb4-a96c23fd0317.jpg",
+            "mobile_image": "shopify://shop_images/loi_cam_on_le_thanh_nghi_9x16_1204042a-e6c8-46f7-b4d6-10994e9e959e.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_3Aawga": {
           "type": "image",
           "settings": {
@@ -108,33 +126,14 @@
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
-        },
-        "image_hgGRLc": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/19X9_BANNER_NQSH_2.jpg",
-            "mobile_image": "shopify://shop_images/9x16_2.jpg",
-            "slide_link": "shopify://products/nam-quoc-son-ha-pendant-helios-silver",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
         }
       },
       "block_order": [
         "image_qbHR3Y",
         "image_nw333M",
         "image_KarRwm",
-        "image_3Aawga",
-        "image_hgGRLc"
+        "image_hgGRLc",
+        "image_3Aawga"
       ],
       "name": "Slideshow",
       "settings": {
