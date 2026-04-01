@@ -37,6 +37,24 @@
     "slideshow_hDp3B3": {
       "type": "slideshow",
       "blocks": {
+        "image_7wwQMB": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/loi_cam_on_le_thanh_nghi_19x9_0a110a3a-12f1-40b1-9cb4-a96c23fd0317.jpg",
+            "mobile_image": "shopify://shop_images/loi_cam_on_le_thanh_nghi_9x16_1204042a-e6c8-46f7-b4d6-10994e9e959e.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_EqjBCF": {
           "type": "image",
           "settings": {
@@ -57,6 +75,7 @@
         }
       },
       "block_order": [
+        "image_7wwQMB",
         "image_EqjBCF"
       ],
       "name": "Slideshow",
@@ -66,7 +85,7 @@
         "height_mobile": 500,
         "full_width": true,
         "mobile_overlay_under": false,
-        "overlay_style_tint": true,
+        "overlay_style_tint": false,
         "slide_transition": "slide",
         "slide_navigation": "dots",
         "autoplay": true,
