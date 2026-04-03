@@ -14,33 +14,29 @@
     <li><a href="/blogs/collab" target="_blank">Collab</a></li>
   </ul>
 <!-- Featured blog -->
-{% assign tag = 'featured' %}
+<!-- Featured blog -->
 {% assign articles_found = 0 %}
 {% assign blog_handles = 'nhan,bac,day-chuyen,khuyen,qua,trang-suc,thoi-trang,collab' | split: ',' %} 
 <section class="featured-blog">
 {% for handle in blog_handles %}
   {% assign blog = blogs[handle] %}
-  {% for article in blog.articles %}
-    {% if article.tags contains tag %}
-        <div class="blog-post">
-          {% if article.image %}
-            <img src="{{ article.image.src | img_url: '480x480' }}" alt="{{ article.title | escape }}" loading="lazy">
-          {% endif %}
-          <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
-        </div>
+  {% assign latest_article = blog.articles | first %}
+  {% if latest_article %}
+      <div class="blog-post">
+        {% if latest_article.image %}
+          <img src="{{ latest_article.image.src | img_url: '600x600' }}" alt="{{ latest_article.title | escape }}" loading="lazy">
+        {% endif %}
+        <h2><a href="{{ latest_article.url }}">{{ latest_article.title }}</a></h2>
+      </div>
       {% assign articles_found = articles_found | plus: 1 %}
       {% if articles_found >= 5 %}
         {% break %}
       {% endif %}
-    {% endif %}
-  {% endfor %}
-  {% if articles_found >= 5 %}
-    {% break %}
   {% endif %}
 {% endfor %}
 </section>
 {% if articles_found == 0 %}
-  <p>No articles found with the tag "{{ tag }}"</p>
+  <p>No articles found in the specified blogs.</p>
 {% endif %}
 
 <!-- end futured blog -->
@@ -225,7 +221,7 @@
               {% if article.tags contains tag %}
                   <div class="flex">
                     {% if article.image %}
-                      <img src="{{ article.image.src | img_url: '480x480' }}" alt="{{ article.title | escape }} loading="lazy"">
+                      <img src="{{ article.image.src | img_url: '480x480' }}" alt="{{ article.title | escape }}" loading="lazy">
                     {% endif %}
                     <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
                   </div>
