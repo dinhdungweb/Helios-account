@@ -298,6 +298,14 @@
     "gallery_2_columns_VqBPxe": {
       "type": "gallery-2-columns",
       "blocks": {
+        "image_wVQMU8": {
+          "type": "image",
+          "settings": {
+            "block_image": "shopify://shop_images/Silver_wall_16x9_83ba2b2c-c602-45c0-944b-694fca28ebc9.jpg",
+            "block_link": "shopify://collections/helios-x-buc-tuong",
+            "link_target": "_self"
+          }
+        },
         "image_KgcQq9": {
           "type": "image",
           "settings": {
@@ -444,6 +452,7 @@
         }
       },
       "block_order": [
+        "image_wVQMU8",
         "image_KgcQq9",
         "image_TFk7Rc",
         "image_Vgzdnf",
