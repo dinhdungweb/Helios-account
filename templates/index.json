@@ -74,11 +74,10 @@
         },
         "image_KarRwm": {
           "type": "image",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/z7558911542444_1933576f3cc1cdb3bf66c3ccd491effc.jpg",
-            "mobile_image": "shopify://shop_images/9x16_2_7cb48247-a8e8-43a9-9989-1df06149bd9a.jpg",
-            "slide_link": "shopify://products/solar-warden-helios-black-silver",
+            "image": "shopify://shop_images/Banner_ngua_19x9_d1671502-2d3d-471a-b8d1-fce355959f16.jpg",
+            "mobile_image": "shopify://shop_images/Banner_ngua_9x16_3bba2558-54bf-4bc9-bacd-233b57a7c02c.jpg",
+            "slide_link": "shopify://products/ngua-gom-helios-phuc-cuu-hong-ma",
             "subheading": "",
             "title": "",
             "title_size": 60,
