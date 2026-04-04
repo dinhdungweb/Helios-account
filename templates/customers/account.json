@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_ef7t3V": {
       "type": "background-video-responsive",
+      "disabled": true,
       "custom_css": [
         "#section-id-template--21001057534173__background_video_responsive_ef7t3V .video-overlay-content {bottom: 5%;}"
       ],
@@ -39,8 +40,8 @@
         "image_AD6YEJ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/tranh_giay_do_16x9_1.jpg",
-            "mobile_image": "shopify://shop_images/tranh_giay_do_4x5_d5efb66e-c880-4c4f-92d9-8b16aaec1d5d.jpg",
+            "image": "shopify://shop_images/banner_tui_Trinity_Vault_19x9_dfa07dc8-fc77-49fa-9bd7-e92aefb5e88d.jpg",
+            "mobile_image": "shopify://shop_images/banner_tui_Trinity_Vault_4x5_5195118c-a898-49dd-882b-183494d69e3c.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -58,7 +59,6 @@
       "block_order": [
         "image_AD6YEJ"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
