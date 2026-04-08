@@ -110,6 +110,7 @@
         },
         "image_hgGRLc": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/loi_cam_on_le_thanh_nghi_19x9_0a110a3a-12f1-40b1-9cb4-a96c23fd0317.jpg",
             "mobile_image": "shopify://shop_images/loi_cam_on_le_thanh_nghi_9x16_1204042a-e6c8-46f7-b4d6-10994e9e959e.jpg",
