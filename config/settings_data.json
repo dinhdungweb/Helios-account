@@ -413,7 +413,7 @@
       },
       "14273995685951697397": {
         "type": "shopify://apps/geo-redirect-country-block/blocks/geolocation-popup/019b96c0-7d7c-7338-be9f-1147dd22a014",
-        "disabled": true,
+        "disabled": false,
         "settings": {
           "enabled": true
         }
