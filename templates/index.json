@@ -55,11 +55,10 @@
         },
         "image_nw333M": {
           "type": "image",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/file_thiet_ke_nhan_Polaris_Voyage_v2_19x9_31129b03-7322-472f-8ce0-d576c23560c5.jpg",
             "mobile_image": "shopify://shop_images/file_thiet_ke_nhan_Polaris_Voyage_v2_9x16_a2b311d6-72c5-4234-a75e-2c35855f6c6b.jpg",
-            "slide_link": "shopify://products/pusi-helios-silver",
+            "slide_link": "shopify://products/polaris-voyage-helios-black-silver",
             "subheading": "",
             "title": "",
             "title_size": 60,
