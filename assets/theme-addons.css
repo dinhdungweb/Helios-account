@@ -859,3 +859,6 @@ button.book-btn-sticky {
 .mb-20 {
   margin-bottom: 20px;
 }
+.product-block__inner .price {
+  font-size: 0.9em;
+}
