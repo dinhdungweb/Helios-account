@@ -1108,6 +1108,8 @@
     }
   },
   "platform_customizations": {
-    "custom_css": []
+    "custom_css": [
+      ".overlay .inner {padding-right: 0px;}"
+    ]
   }
 }
