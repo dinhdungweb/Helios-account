@@ -288,9 +288,14 @@
     position: relative;
     z-index: 2;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
     min-height: var(--mtb-section-height, auto);
+    box-sizing: border-box;
+    gap: 40px;
   }
   .mtb-container--reverse {
     flex-direction: row-reverse;
@@ -302,10 +307,10 @@
     max-width: 50%;
     position: relative;
     overflow: hidden;
+    border-radius: 8px;
   }
   .mtb-media__item {
     width: 100%;
-    height: 100%;
     position: relative;
     overflow: hidden;
   }
@@ -315,15 +320,20 @@
   .mtb-media__img,
   .mtb-media__poster {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
+    border-radius: 8px;
   }
   .mtb-media__video-wrap {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 8px;
   }
   .mtb-media__video-wrap video {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -358,18 +368,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--mtb-content-padding, 40px);
+    padding: var(--mtb-content-padding, 40px) 0;
     box-sizing: border-box;
   }
   .mtb-text__inner {
     max-width: 560px;
     width: 100%;
   }
-  .mtb-text.align-left { text-align: left; }
+  .mtb-text.align-left,
+  .mtb-text.align-left .mtb-description,
+  .mtb-text.align-left .mtb-description p,
+  .mtb-text.align-left .rte,
+  .mtb-text.align-left .rte p { text-align: left !important; }
   .mtb-text.align-left .mtb-btn-wrap { justify-content: flex-start; }
-  .mtb-text.align-center { text-align: center; }
+
+  .mtb-text.align-center,
+  .mtb-text.align-center .mtb-description,
+  .mtb-text.align-center .mtb-description p,
+  .mtb-text.align-center .rte,
+  .mtb-text.align-center .rte p { text-align: center !important; }
   .mtb-text.align-center .mtb-btn-wrap { justify-content: center; }
-  .mtb-text.align-right { text-align: right; }
+
+  .mtb-text.align-right,
+  .mtb-text.align-right .mtb-description,
+  .mtb-text.align-right .mtb-description p,
+  .mtb-text.align-right .rte,
+  .mtb-text.align-right .rte p { text-align: right !important; }
   .mtb-text.align-right .mtb-btn-wrap { justify-content: flex-end; }
 
   .mtb-subheading {
@@ -451,6 +475,8 @@
     .mtb-container,
     .mtb-container--reverse {
       flex-direction: column !important;
+      padding: 24px 16px;
+      gap: 24px;
     }
     .mtb-media,
     .mtb-text {
@@ -468,7 +494,7 @@
       display: block;
     }
     .mtb-text {
-      padding: 24px 16px;
+      padding: 0;
     }
     .mtb-heading {
       font-size: var(--mtb-heading-size-mb, 24px);
@@ -478,8 +504,12 @@
     }
   }
   @media (min-width: 769px) and (max-width: 1024px) {
+    .mtb-container {
+      padding: 30px 20px;
+      gap: 24px;
+    }
     .mtb-text {
-      padding: 24px;
+      padding: 20px 0;
     }
     .mtb-heading {
       font-size: calc(var(--mtb-heading-size, 32px) * 0.85);
