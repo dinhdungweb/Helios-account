@@ -349,13 +349,11 @@
     flex: 1 1 50%;
     max-width: 50%;
     position: relative;
-    border-radius: 8px;
   }
   .mtb-media__item {
     width: 100%;
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
   }
   .mtb-media__item--mobile {
     display: none;
@@ -395,18 +393,15 @@
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 8px;
   }
   .mtb-media__poster {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 8px;
   }
   .mtb-media__video-wrap {
     position: relative;
     width: 100%;
-    border-radius: 8px;
   }
   .mtb-media__video-wrap video {
     width: 100%;
@@ -554,15 +549,13 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .mtb-container,
-    .mtb-container--reverse {
+    .mtb-container--reverse,
+    .mtb-container--full,
+    .mtb-container--full.mtb-container--reverse {
       flex-direction: column !important;
       padding: 24px 16px;
       gap: 24px;
-    }
-    .mtb-container--full,
-    .mtb-container--full.mtb-container--reverse {
-      padding: 0;
-      gap: 0;
+      align-items: center;
     }
     .mtb-media,
     .mtb-text {
