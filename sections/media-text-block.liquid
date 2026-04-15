@@ -553,8 +553,8 @@
     .mtb-container--full,
     .mtb-container--full.mtb-container--reverse {
       flex-direction: column !important;
-      padding: 24px 16px;
-      gap: 24px;
+      padding: 0 !important;
+      gap: 0 !important;
       align-items: center;
     }
     .mtb-media,
@@ -573,7 +573,9 @@
       display: block;
     }
     .mtb-text {
-      padding: 0;
+      padding: 32px 20px !important;
+      width: 100%;
+      box-sizing: border-box;
     }
     .mtb-heading {
       font-size: var(--mtb-heading-size-mb, 24px);
