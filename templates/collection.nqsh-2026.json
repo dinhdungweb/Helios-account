@@ -150,12 +150,49 @@
         "autoplay": true,
         "autoplay_speed": 7
       }
+    },
+    "media_text_block_PP7AJC": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "Tinh thần Việt Nam",
+        "heading_tag": "h2",
+        "heading_size": 32,
+        "description": "<p>Không hô hào. Chỉ giữ lại.</p><p>Yêu nước không phải lúc nào cũng ồn ào. Đủ lặng — nhưng đủ nặng để bên mình mỗi ngày.</p><p>Bộ sưu tập Nam Quốc Sơn Hà ra đời từ tinh thần đó: </p><p><em>“Đúc non sông vào bạc. Mang hành trình lên tay. Để mỗi lần nhìn xuống — biết mình là ai.”</em></p>",
+        "text_alignment": "left",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "video",
+        "media_position": "left",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "section_height": "auto",
+        "bg_image": "shopify://shop_images/3.section_3_nen_video_4x3_6b3417b0-289f-4861-9765-c13ca0afed54.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#111111",
+        "text_color": "#444444",
+        "button_bg": "#111111",
+        "button_text_color": "#ffffff",
+        "button_bg_hover": "#333333",
+        "button_text_color_hover": "#ffffff"
+      }
     }
   },
   "order": [
     "main",
     "slideshow_6VV9j6",
     "slideshow_xUFiLE",
-    "slideshow_KFBPBt"
+    "slideshow_KFBPBt",
+    "media_text_block_PP7AJC"
   ]
 }
