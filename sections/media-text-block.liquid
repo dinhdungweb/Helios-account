@@ -218,7 +218,7 @@
         {%- endif -%}
 
         {%- if section.settings.heading != blank -%}
-          <{{ section.settings.heading_tag }} class="mtb-heading">
+          <{{ section.settings.heading_tag }} class="mtb-heading{% if section.settings.heading_alignment != 'inherit' %} mtb-heading--{{ section.settings.heading_alignment }}{% endif %}">
             {{ section.settings.heading }}
           </{{ section.settings.heading_tag }}>
         {%- endif -%}
@@ -387,6 +387,9 @@
     color: var(--mtb-heading-color);
     font-weight: 700;
   }
+  .mtb-heading--left { text-align: left; }
+  .mtb-heading--center { text-align: center; }
+  .mtb-heading--right { text-align: right; }
   .mtb-description {
     font-size: 1em;
     line-height: 1.65;
@@ -620,6 +623,18 @@
       "default": 32
     },
     {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "default": "inherit",
+      "options": [
+        { "value": "inherit", "label": "Theo text alignment" },
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
       "type": "richtext",
       "id": "description",
       "label": "Description",
@@ -806,31 +821,31 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading color",
-      "default": "#111111"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#444444"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "button_bg",
       "label": "Button background",
-      "default": "#111111"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "button_text_color",
       "label": "Button text color",
-      "default": "#ffffff"
+      "default": "#111111"
     },
     {
       "type": "color",
       "id": "button_bg_hover",
       "label": "Button hover background",
-      "default": "#333333"
+      "default": "#eeeeee"
     },
     {
       "type": "color",
