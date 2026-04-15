@@ -180,7 +180,7 @@
         "video_url_mobile": "",
         "video_loop": true,
         "media_ratio": "auto",
-        "section_height": "100vh",
+        "section_height": "auto",
         "bg_image": "shopify://shop_images/3.section_3_nen_video_4x3_6b3417b0-289f-4861-9765-c13ca0afed54.jpg",
         "overlay_color": "#000000",
         "overlay_opacity": 0,
