@@ -30,9 +30,20 @@
     --mtb-overlay-color: {{ section.settings.overlay_color }};
     --mtb-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     --mtb-content-padding: {{ section.settings.content_padding }}px;
-    --mtb-media-ratio: {{ section.settings.media_ratio | replace: ':', ' / ' }};
     --mtb-section-height: {{ section.settings.section_height }};
   }
+  {% if section.settings.media_ratio != 'auto' %}
+    #{{ section_id }} .mtb-media__video-wrap {
+      aspect-ratio: {{ section.settings.media_ratio | replace: ':', ' / ' }};
+    }
+    #{{ section_id }} .mtb-media__video-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  {% endif %}
 {% endstyle %}
 
 <section id="{{ section_id }}" class="mtb-section" aria-label="{{ section.settings.heading | escape }}">
@@ -357,16 +368,12 @@
   .mtb-media__video-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: var(--mtb-media-ratio, auto);
     overflow: hidden;
     border-radius: 8px;
   }
   .mtb-media__video-wrap video {
-    position: absolute;
-    inset: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
   }
   /* Poster fade-out khi video loaded */
