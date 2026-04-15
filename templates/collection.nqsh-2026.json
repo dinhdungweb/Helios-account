@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": true,
         "show_collection_image": true,
@@ -32,9 +33,129 @@
         "enable_sorting": true,
         "show_featured_in_sort": true
       }
+    },
+    "slideshow_6VV9j6": {
+      "type": "slideshow",
+      "blocks": {
+        "image_jPgrxY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_4x3_c6629e4f-7c79-4bb8-8d47-2d5e2fb43528.jpg",
+            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_jPgrxY"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_xUFiLE": {
+      "type": "slideshow",
+      "blocks": {
+        "image_7rJ3Ld": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2._nen_section_2_19x9_590e7e24-d326-4c9a-9f42-de66e81171e3.jpg",
+            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "NAM QUỐC SƠN HÀ",
+            "title_size": 30,
+            "title_width": 40,
+            "heading_h1": false,
+            "text": "<p><em>“Tiệt nhiên định phận tại thiên thư”.</em></p><p>Có những điều không cần chứng minh. </p><p>Hành trình - Danh phận</p><p>Việt Nam đang bước vào kỷ nguyên của mình — Trong hành trình đó, người đàn ông trưởng thành biết mình thuộc về đâu.</p>",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_7rJ3Ld"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_KFBPBt": {
+      "type": "slideshow",
+      "blocks": {
+        "image_7fdgAb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2._nen_section_2_19x9_590e7e24-d326-4c9a-9f42-de66e81171e3.jpg",
+            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "Hai chiếc nhẫn - Một tinh thần",
+            "title_size": 32,
+            "title_width": 38,
+            "heading_h1": false,
+            "text": "<p>Sơn Hà Ấn Ký hỏi: <em>Mình đã đi qua những gì?</em> </p><p>Thiên Thư Định Phận trả lời: <em>Mình là ai, thuộc về đâu.</em></p><p>Một chiếc là vòng ký ức của non sông. Một chiếc là con dấu của danh phận.</p><p>Đeo một — để nhớ hành trình. Đeo cả hai — để biết mình đứng ở đâu trong hành trình đó.</p>",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_7fdgAb"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "slideshow_6VV9j6",
+    "slideshow_xUFiLE",
+    "slideshow_KFBPBt"
   ]
 }
