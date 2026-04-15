@@ -32,18 +32,6 @@
     --mtb-content-padding: {{ section.settings.content_padding }}px;
     --mtb-section-height: {{ section.settings.section_height }};
   }
-  {% if section.settings.media_ratio != 'auto' %}
-    #{{ section_id }} .mtb-media__video-wrap {
-      aspect-ratio: {{ section.settings.media_ratio | replace: ':', ' / ' }};
-    }
-    #{{ section_id }} .mtb-media__video-wrap video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  {% endif %}
 {% endstyle %}
 
 <section id="{{ section_id }}" class="mtb-section" aria-label="{{ section.settings.heading | escape }}">
@@ -94,7 +82,7 @@
                 class="mtb-media__poster"
               >
             {%- endif -%}
-            <div class="mtb-media__video-wrap">
+            <div class="mtb-media__video-wrap{% if section.settings.media_ratio != 'auto' %} mtb-media__video-wrap--ratio{% endif %}"{% if section.settings.media_ratio != 'auto' %} style="aspect-ratio: {{ section.settings.media_ratio | replace: ':', '/' }};"{% endif %}>
               {%- for source in section.settings.video_shopify.sources -%}
                 <template data-src="{{ source.url }}" data-type="{{ source.mime_type }}"></template>
               {%- endfor -%}
@@ -150,7 +138,7 @@
                 class="mtb-media__poster"
               >
             {%- endif -%}
-            <div class="mtb-media__video-wrap">
+            <div class="mtb-media__video-wrap{% if section.settings.media_ratio != 'auto' %} mtb-media__video-wrap--ratio{% endif %}"{% if section.settings.media_ratio != 'auto' %} style="aspect-ratio: {{ section.settings.media_ratio | replace: ':', '/' }};"{% endif %}>
               {%- for source in section.settings.video_shopify_mobile.sources -%}
                 <template data-src="{{ source.url }}" data-type="{{ source.mime_type }}"></template>
               {%- endfor -%}
@@ -388,6 +376,17 @@
     width: 100%;
     height: auto;
     display: block;
+  }
+  /* Khi có ratio cố định */
+  .mtb-media__video-wrap--ratio {
+    position: relative;
+  }
+  .mtb-media__video-wrap--ratio video {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
   /* Poster fade-out khi video loaded */
   .mtb-media__item[data-mtb-loaded] .mtb-media__poster {
