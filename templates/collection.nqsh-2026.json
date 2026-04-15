@@ -186,6 +186,43 @@
         "button_bg_hover": "#333333",
         "button_text_color_hover": "#ffffff"
       }
+    },
+    "media_text_block_aKVYPD": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "SƠN HÀ ẤN KÝ",
+        "heading_tag": "h2",
+        "heading_size": 32,
+        "description": "<p><em>Một vòng nhẫn — cả hành trình non sông.</em></p><p>Thân nhẫn chạy như một dải phù điêu không ngắt quãng. Kiến trúc. Mái ngói. Sóng nước. Rồng thời Lý. Sáu địa danh. Một vòng tròn. </p><p>Xoay nhẫn — Chợ Bến Thành hiện ra. Văn Miếu Quốc Tử Giám hiện ra. Cảng Hải Phòng. Cung đình Huế. Chợ Nổi Cần Thơ. Cầu Bàn Tay Vàng.</p><p>Không phải bản đồ. Là ký ức của một người đã đi — để không quên.</p><p>Chất liệu: Bạc S925 + Đồng </p><p>Chế tác: Thủ công</p><p>Packaging: Phiên bản đặc biệt 30/4 — 1/5</p>",
+        "text_alignment": "right",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "image",
+        "media_position": "right",
+        "media_image": "shopify://shop_images/4.Infographic_Son_Ha_An_Ky.jpg",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "section_height": "auto",
+        "bg_image": "shopify://shop_images/3.section_3_nen_video_4x3_6b3417b0-289f-4861-9765-c13ca0afed54.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#111111",
+        "text_color": "#444444",
+        "button_bg": "#111111",
+        "button_text_color": "#ffffff",
+        "button_bg_hover": "#333333",
+        "button_text_color_hover": "#ffffff"
+      }
     }
   },
   "order": [
@@ -193,6 +230,7 @@
     "slideshow_6VV9j6",
     "slideshow_xUFiLE",
     "slideshow_KFBPBt",
-    "media_text_block_PP7AJC"
+    "media_text_block_PP7AJC",
+    "media_text_block_aKVYPD"
   ]
 }
