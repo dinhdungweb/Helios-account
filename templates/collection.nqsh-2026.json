@@ -112,6 +112,28 @@
         "autoplay_speed": 7
       }
     },
+    "featured_collection_jNCRQc": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "nam-quoc-son-ha-chuong-2",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 2,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "media_text_block_PP7AJC": {
       "type": "media-text-block",
       "name": "Media Text Block",
@@ -276,6 +298,7 @@
     "main",
     "slideshow_6VV9j6",
     "slideshow_xUFiLE",
+    "featured_collection_jNCRQc",
     "media_text_block_PP7AJC",
     "media_text_block_aKVYPD",
     "media_text_block_HP8LEi",
