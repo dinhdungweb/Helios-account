@@ -57,7 +57,7 @@
     <div class="mtb-overlay" aria-hidden="true"></div>
   {%- endif -%}
 
-  <div class="mtb-container{% if layout_reverse %} mtb-container--reverse{% endif %}{% if section.settings.media_layout == 'full' %} mtb-container--full{% endif %}">
+  <div class="mtb-container{% if section.settings.media_layout != 'full' %} page-width{% endif %}{% if layout_reverse %} mtb-container--reverse{% endif %}{% if section.settings.media_layout == 'full' %} mtb-container--full{% endif %}">
     {%- comment -%} ===== MEDIA COLUMN ===== {%- endcomment -%}
     <div class="mtb-media">
       {%- if section.settings.media_type == 'video' -%}
@@ -290,12 +290,11 @@
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
     min-height: var(--mtb-section-height, auto);
     box-sizing: border-box;
     gap: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
   .mtb-container--reverse {
     flex-direction: row-reverse;
