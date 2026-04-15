@@ -170,7 +170,7 @@
 
         {%- comment -%} Desktop Image {%- endcomment -%}
         {%- if section.settings.media_image != blank -%}
-          <div class="mtb-media__item mtb-media__item--desktop">
+          <div class="mtb-media__item mtb-media__item--desktop{% if section.settings.media_ratio != 'auto' %} mtb-media__item--ratio{% endif %}"{% if section.settings.media_ratio != 'auto' %} style="aspect-ratio: {{ section.settings.media_ratio | replace: ':', ' / ' }};"{% endif %}>
             <img
               src="{{ section.settings.media_image | image_url: width: 800 }}"
               srcset="{%- if section.settings.media_image.width >= 400 -%}{{ section.settings.media_image | image_url: width: 400 }} 400w,{%- endif -%}
@@ -194,7 +194,7 @@
 
         {%- comment -%} Mobile Image (nếu có) {%- endcomment -%}
         {%- if section.settings.media_image_mobile != blank -%}
-          <div class="mtb-media__item mtb-media__item--mobile">
+          <div class="mtb-media__item mtb-media__item--mobile{% if section.settings.media_ratio != 'auto' %} mtb-media__item--ratio{% endif %}"{% if section.settings.media_ratio != 'auto' %} style="aspect-ratio: {{ section.settings.media_ratio | replace: ':', ' / ' }};"{% endif %}>
             <img
               src="{{ section.settings.media_image_mobile | image_url: width: 400 }}"
               srcset="{%- if section.settings.media_image_mobile.width >= 300 -%}{{ section.settings.media_image_mobile | image_url: width: 300 }} 300w,{%- endif -%}
@@ -371,6 +371,13 @@
     height: 100%;
     object-fit: cover;
     z-index: 1;
+  }
+  .mtb-media__item--ratio .mtb-media__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .mtb-media__item--ratio .mtb-media__video-wrap {
     position: absolute;
@@ -907,7 +914,7 @@
     {
       "type": "select",
       "id": "media_ratio",
-      "label": "Media ratio (Video)",
+      "label": "Media ratio",
       "default": "auto",
       "options": [
         { "value": "auto", "label": "Auto (kích thước gốc)" },
@@ -917,7 +924,7 @@
         { "value": "9:16", "label": "9:16 (Dọc)" },
         { "value": "3:4", "label": "3:4 (Dọc)" }
       ],
-      "info": "Chỉ áp dụng cho video. Auto = giữ kích thước gốc"
+      "info": "Áp dụng cho cả Image & Video. Auto = giữ kích thước gốc"
     },
     {
       "type": "header",
