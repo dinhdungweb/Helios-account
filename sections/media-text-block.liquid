@@ -30,7 +30,7 @@
     --mtb-overlay-color: {{ section.settings.overlay_color }};
     --mtb-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     --mtb-content-padding: {{ section.settings.content_padding }}px;
-    --mtb-media-ratio: {{ section.settings.media_ratio }};
+    --mtb-media-ratio: {{ section.settings.media_ratio | replace: ':', ' / ' }};
     --mtb-section-height: {{ section.settings.section_height }};
   }
 {% endstyle %}
@@ -357,7 +357,7 @@
   .mtb-media__video-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: var(--mtb-media-ratio, auto);
     overflow: hidden;
     border-radius: 8px;
   }
@@ -859,6 +859,21 @@
       "id": "video_loop",
       "label": "Loop video",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "Media ratio (Video)",
+      "default": "auto",
+      "options": [
+        { "value": "auto", "label": "Auto (kích thước gốc)" },
+        { "value": "16:9", "label": "16:9 (Widescreen)" },
+        { "value": "4:3", "label": "4:3" },
+        { "value": "1:1", "label": "1:1 (Vuông)" },
+        { "value": "9:16", "label": "9:16 (Dọc)" },
+        { "value": "3:4", "label": "3:4 (Dọc)" }
+      ],
+      "info": "Chỉ áp dụng cho video. Auto = giữ kích thước gốc"
     },
     {
       "type": "header",
