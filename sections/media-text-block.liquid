@@ -316,30 +316,39 @@
     max-width: 100%;
     padding: 0;
     gap: 0;
+    align-items: stretch;
   }
   .mtb-container--full .mtb-media {
     border-radius: 0;
+    overflow: hidden;
   }
   .mtb-container--full .mtb-media__img,
   .mtb-container--full .mtb-media__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 0;
   }
   .mtb-container--full .mtb-media__item {
-    height: 100%;
+    position: relative;
+    min-height: 300px;
   }
   .mtb-container--full .mtb-media__video-wrap {
     position: absolute;
     inset: 0;
-    aspect-ratio: auto;
     border-radius: 0;
+  }
+  .mtb-container--full .mtb-media__video-wrap video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .mtb-container--full .mtb-text {
     padding: var(--mtb-content-padding, 40px);
-  }
-  .mtb-container--full {
-    align-items: stretch;
   }
 
   /* ===== MEDIA ===== */
@@ -347,18 +356,21 @@
     flex: 1 1 50%;
     max-width: 50%;
     position: relative;
-    overflow: hidden;
     border-radius: 8px;
   }
   .mtb-media__item {
     width: 100%;
     position: relative;
-    overflow: hidden;
   }
   .mtb-media__item--mobile {
     display: none;
   }
-  .mtb-media__img,
+  .mtb-media__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
   .mtb-media__poster {
     width: 100%;
     height: auto;
@@ -384,6 +396,8 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
+    height: 100%;
+    object-fit: cover;
   }
   .mtb-media__placeholder {
     display: flex;
