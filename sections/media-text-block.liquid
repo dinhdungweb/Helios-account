@@ -57,7 +57,7 @@
     <div class="mtb-overlay" aria-hidden="true"></div>
   {%- endif -%}
 
-  <div class="mtb-container{% if layout_reverse %} mtb-container--reverse{% endif %}">
+  <div class="mtb-container{% if layout_reverse %} mtb-container--reverse{% endif %}{% if section.settings.media_layout == 'full' %} mtb-container--full{% endif %}">
     {%- comment -%} ===== MEDIA COLUMN ===== {%- endcomment -%}
     <div class="mtb-media">
       {%- if section.settings.media_type == 'video' -%}
@@ -301,6 +301,37 @@
     flex-direction: row-reverse;
   }
 
+  /* === Full-bleed layout === */
+  .mtb-container--full {
+    max-width: 100%;
+    padding: 0;
+    gap: 0;
+  }
+  .mtb-container--full .mtb-media {
+    border-radius: 0;
+  }
+  .mtb-container--full .mtb-media__img,
+  .mtb-container--full .mtb-media__poster {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+  }
+  .mtb-container--full .mtb-media__item {
+    height: 100%;
+  }
+  .mtb-container--full .mtb-media__video-wrap {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+  .mtb-container--full .mtb-text {
+    padding: var(--mtb-content-padding, 40px);
+  }
+  .mtb-container--full {
+    align-items: stretch;
+  }
+
   /* ===== MEDIA ===== */
   .mtb-media {
     flex: 1 1 50%;
@@ -477,6 +508,11 @@
       flex-direction: column !important;
       padding: 24px 16px;
       gap: 24px;
+    }
+    .mtb-container--full,
+    .mtb-container--full.mtb-container--reverse {
+      padding: 0;
+      gap: 0;
     }
     .mtb-media,
     .mtb-text {
@@ -773,6 +809,16 @@
       "options": [
         { "value": "left", "label": "Media Left — Text Right" },
         { "value": "right", "label": "Text Left — Media Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "media_layout",
+      "label": "Media layout",
+      "default": "contained",
+      "options": [
+        { "value": "contained", "label": "Contained (trong khung)" },
+        { "value": "full", "label": "Full (tràn viền)" }
       ]
     },
     {
