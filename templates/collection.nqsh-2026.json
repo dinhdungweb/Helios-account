@@ -112,45 +112,6 @@
         "autoplay_speed": 7
       }
     },
-    "slideshow_KFBPBt": {
-      "type": "slideshow",
-      "blocks": {
-        "image_7fdgAb": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/5._nen_ending_19x9_2.jpg",
-            "mobile_image": "shopify://shop_images/5._nen_ending_9x16_2.jpg",
-            "slide_link": "",
-            "subheading": "",
-            "title": "Hai chiếc nhẫn - Một tinh thần",
-            "title_size": 32,
-            "title_width": 38,
-            "heading_h1": false,
-            "text": "<p>Sơn Hà Ấn Ký hỏi: <em>Mình đã đi qua những gì?</em> </p><p>Thiên Thư Định Phận trả lời: <em>Mình là ai, thuộc về đâu.</em></p><p>Một chiếc là vòng ký ức của non sông. Một chiếc là con dấu của danh phận.</p><p>Đeo một — để nhớ hành trình. Đeo cả hai — để biết mình đứng ở đâu trong hành trình đó.</p>",
-            "enlarge_text": false,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        }
-      },
-      "block_order": [
-        "image_7fdgAb"
-      ],
-      "name": "Slideshow",
-      "settings": {
-        "height": "adapt",
-        "height_desktop": 600,
-        "height_mobile": 500,
-        "full_width": true,
-        "mobile_overlay_under": false,
-        "overlay_style_tint": true,
-        "slide_transition": "slide",
-        "slide_navigation": "dots",
-        "autoplay": true,
-        "autoplay_speed": 7
-      }
-    },
     "media_text_block_PP7AJC": {
       "type": "media-text-block",
       "name": "Media Text Block",
@@ -267,15 +228,54 @@
         "button_bg_hover": "#333333",
         "button_text_color_hover": "#ffffff"
       }
+    },
+    "slideshow_KFBPBt": {
+      "type": "slideshow",
+      "blocks": {
+        "image_7fdgAb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5._nen_ending_19x9_2.jpg",
+            "mobile_image": "shopify://shop_images/5._nen_ending_9x16_2.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "Hai chiếc nhẫn - Một tinh thần",
+            "title_size": 32,
+            "title_width": 38,
+            "heading_h1": false,
+            "text": "<p>Sơn Hà Ấn Ký hỏi: <em>Mình đã đi qua những gì?</em> </p><p>Thiên Thư Định Phận trả lời: <em>Mình là ai, thuộc về đâu.</em></p><p>Một chiếc là vòng ký ức của non sông. Một chiếc là con dấu của danh phận.</p><p>Đeo một — để nhớ hành trình. Đeo cả hai — để biết mình đứng ở đâu trong hành trình đó.</p>",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_7fdgAb"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
     }
   },
   "order": [
     "main",
     "slideshow_6VV9j6",
     "slideshow_xUFiLE",
-    "slideshow_KFBPBt",
     "media_text_block_PP7AJC",
     "media_text_block_aKVYPD",
-    "media_text_block_HP8LEi"
+    "media_text_block_HP8LEi",
+    "slideshow_KFBPBt"
   ]
 }
