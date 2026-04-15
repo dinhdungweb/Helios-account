@@ -292,6 +292,26 @@
         "autoplay": true,
         "autoplay_speed": 7
       }
+    },
+    "background_video_responsive_GmPHMR": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/SHAK 19x9 (1).mp4",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -302,6 +322,7 @@
     "media_text_block_PP7AJC",
     "media_text_block_aKVYPD",
     "media_text_block_HP8LEi",
-    "slideshow_KFBPBt"
+    "slideshow_KFBPBt",
+    "background_video_responsive_GmPHMR"
   ]
 }
