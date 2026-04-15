@@ -53,6 +53,24 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
+        "image_KarRwm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_4x3_b97583b0-23ab-4502-80d2-6933d024bcd1.jpg",
+            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
+            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_nw333M": {
           "type": "image",
           "settings": {
@@ -89,24 +107,6 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
-        "image_KarRwm": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Banner_ngua_19x9_d1671502-2d3d-471a-b8d1-fce355959f16.jpg",
-            "mobile_image": "shopify://shop_images/Banner_ngua_9x16_3bba2558-54bf-4bc9-bacd-233b57a7c02c.jpg",
-            "slide_link": "shopify://products/ngua-gom-helios-phuc-cuu-hong-ma",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        },
         "image_hgGRLc": {
           "type": "image",
           "disabled": true,
@@ -129,9 +129,9 @@
       },
       "block_order": [
         "image_qbHR3Y",
+        "image_KarRwm",
         "image_nw333M",
         "image_3Aawga",
-        "image_KarRwm",
         "image_hgGRLc"
       ],
       "name": "Slideshow",
