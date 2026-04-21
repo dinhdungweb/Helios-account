@@ -4,14 +4,18 @@
   {% if section.settings.blog_ads_img %}
   <div class="ads-img">
     <a href="{{ section.settings.blog_ads_link }}">
-      <img src="{{ section.settings.blog_ads_img | image_url }}" alt="HELIOS JEWELS" loading="lazy">
+      <img src="{{ section.settings.blog_ads_img | image_url: width: 1200 }}" 
+           alt="HELIOS JEWELS" 
+           loading="lazy"
+           width="1200"
+           height="{{ 1200 | divided_by: section.settings.blog_ads_img.aspect_ratio | round }}">
     </a>
   </div>
   {% endif %}
   
+  {% paginate article.comments by 50 %}
   <div class="leftcolumn">
     <div class="blog-container">
-    {% paginate article.comments by 50 %}
     {% if article.image and section.settings.featured_image == "wide" %}
     <div class="article-header image-overlay image-overlay--bg-full needs-alt-logo" data-cc-animate>
       <div class="rimage-outer-wrapper rimage-background lazyload fade-in"
@@ -21,7 +25,7 @@
            data-parent-fit="cover">
         <noscript>
           <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%">
-            <img src="{{ article.image | img_url: '1024x1024' }}" alt="{{ article.image.alt | escape }}" class="rimage__image">
+            <img src="{{ article.image | image_url: width: 1024 }}" alt="{{ article.image.alt | escape }}" class="rimage__image" width="1024" height="{{ 1024 | divided_by: article.image.aspect_ratio | round }}">
           </div>
         </noscript>
       </div>
@@ -48,9 +52,7 @@
     </div>
   {% endif %}
 
-  {% if article.image and section.settings.featured_image == "wide" %}
-    <div class="central content">
-  {% endif %}
+  <div class="{% if article.image and section.settings.featured_image == 'wide' %}central content{% endif %}">
 
   {% comment %}
   When a comment has just been submitted, it's not shown right away.
@@ -101,10 +103,8 @@
       {% endif %}
     {% endunless %}
     
-    <div class="article-template__content page-width page-width--narrow rte" itemprop="articleBody" {{ block.shopify_attributes }}>
-         {% render 'toc', block : block %}
-
-
+    <div class="article-template__content page-width page-width--narrow rte" itemprop="articleBody">
+         {% render 'toc', block : section %}
   </div>
 
     
@@ -221,15 +221,13 @@
 </div>
 <div class="rightcolumn">
   {% comment %} <div class="recent-post">
-    {% include 'careabout' %}
+    {% render 'careabout' %}
   </div> {% endcomment %}
   <div class="recent-post">
-    {% include 'relatedblogs' %}
+    {% render 'relatedblogs' %}
   </div>
 </div>  
-  {% if article.image and section.settings.featured_image == "wide" %}
   </div>
-  {% endif %}
 
   {% endpaginate %}
 </div>

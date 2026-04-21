@@ -78,13 +78,13 @@
   </div>
   <div class="sticky-right">
     {% if section.settings.image_1 != blank %}
-      <img src="{{ section.settings.image_1 | img_url: 'master' }}" alt="Image 1">
+      <img src="{{ section.settings.image_1 | image_url }}" alt="Image 1" width="{{ section.settings.image_1.width }}" height="{{ section.settings.image_1.height }}">
     {% endif %}
     {% if section.settings.image_2 != blank %}
-      <img src="{{ section.settings.image_2 | img_url: 'master' }}" alt="Image 2">
+      <img src="{{ section.settings.image_2 | image_url }}" alt="Image 2" width="{{ section.settings.image_2.width }}" height="{{ section.settings.image_2.height }}">
     {% endif %}
     {% if section.settings.image_3 != blank %}
-      <img src="{{ section.settings.image_3 | img_url: 'master' }}" alt="Image 3">
+      <img src="{{ section.settings.image_3 | image_url }}" alt="Image 3" width="{{ section.settings.image_3.width }}" height="{{ section.settings.image_3.height }}">
     {% endif %}
   </div>
 </div>

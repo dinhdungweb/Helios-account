@@ -138,6 +138,8 @@
                 src="{{ section.settings.media_image | image_url: width: 400 }}"
                 alt="{{ section.settings.heading | escape }}"
                 loading="lazy"
+                width="{{ section.settings.media_image.width }}"
+                height="{{ section.settings.media_image.height }}"
                 class="mtb-media__poster"
               >
             {%- endif -%}
@@ -159,6 +161,8 @@
                 src="{{ section.settings.media_image_mobile | image_url: width: 400 }}"
                 alt="{{ section.settings.heading | escape }}"
                 loading="lazy"
+                width="{{ section.settings.media_image_mobile.width }}"
+                height="{{ section.settings.media_image_mobile.height }}"
                 class="mtb-media__poster"
               >
             {%- endif -%}

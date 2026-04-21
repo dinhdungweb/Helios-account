@@ -42,10 +42,10 @@
       {% assign url = block.settings.block_link | default: '' %}
       {% if url != '' %}
         <a href="{{ url }}" target="{{ block.settings.link_target }}" rel="noopener noreferrer">
-          <img src="{{ block.settings.block_image | img_url: 'master' }}" loading="lazy" alt="Gallery image {{ forloop.index }}" />
+          <img src="{{ block.settings.block_image | image_url }}" loading="lazy" alt="Gallery image {{ forloop.index }}" width="{{ block.settings.block_image.width }}" height="{{ block.settings.block_image.height }}" />
         </a>
       {% else %}
-        <img src="{{ block.settings.block_image | img_url: 'master' }}" loading="lazy" alt="Gallery image {{ forloop.index }}" />
+        <img src="{{ block.settings.block_image | image_url }}" loading="lazy" alt="Gallery image {{ forloop.index }}" width="{{ block.settings.block_image.width }}" height="{{ block.settings.block_image.height }}" />
       {% endif %}
     {% endif %}
   {% endfor %}

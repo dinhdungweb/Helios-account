@@ -13,6 +13,8 @@
               alt="{{ product.title | escape }}"
               class="product-hover-zoom__thumb"
               loading="lazy"
+              width="{{ thumb_image.width }}"
+              height="{{ thumb_image.height }}"
             >
           {%- else -%}
             {{ 'product-1' | placeholder_svg_tag: 'product-hover-zoom__placeholder' }}
@@ -38,6 +40,8 @@
               src="{{ block.settings.zoom_image_pc | image_url: width: 1920 }}"
               alt="{{ product.title | default: block.settings.product_name | escape }}"
               loading="lazy"
+              width="{{ block.settings.zoom_image_pc.width }}"
+              height="{{ block.settings.zoom_image_pc.height }}"
             >
           {%- endif -%}
           {%- if block.settings.zoom_image_mobile != blank -%}
@@ -46,6 +50,8 @@
               src="{{ block.settings.zoom_image_mobile | image_url: width: 800 }}"
               alt="{{ product.title | default: block.settings.product_name | escape }}"
               loading="lazy"
+              width="{{ block.settings.zoom_image_mobile.width }}"
+              height="{{ block.settings.zoom_image_mobile.height }}"
             >
           {%- endif -%}
         </div>

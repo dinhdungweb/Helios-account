@@ -81,7 +81,7 @@
             {% for media in product.media %}
               <div class="product-area__thumbs__thumb product-area__thumbs__thumb-{{ forloop.index }} theme-gallery-thumb"
                    data-media-thumb-id="{{ media.id }}">
-                <a href="{{ media.preview_image.src | product_img_url: 'master' }}"
+                <a href="{{ media.preview_image | image_url: width: 1200 }}"
                         {% if forloop.first %} class="thumb-active"{% endif %}
                    aria-label="{{ media.alt | escape }}"
                 >
@@ -127,7 +127,7 @@
             {% for media in product.media %}
               <div class="theme-img theme-img-{{ forloop.index }} swiper-slide {% if featured_media == media %}current-img{% endif %}"
                       {% if media.media_type == "image" %}
-                        data-full-size="{{ media.preview_image | img_url: 'master' }}"
+                        data-full-size="{{ media.preview_image | image_url: width: 1200 }}"
                       {% endif %}
               >
                 {%- if media_columns_to_show != 1 -%}
@@ -187,9 +187,9 @@
           {% if product != blank %}
             {% capture product_form_class %}product-purchase-form feedback-{{ settings.cart_type }}{% endcapture %}
             {%- if product.featured_image == blank -%}
-              {%- assign image_thumb = product.media[0].preview_image.src | img_url: '300x300' %}
+              {%- assign image_thumb = product.media[0].preview_image.src | image_url: width: 300 %}
             {%- else -%}
-              {% assign image_thumb = product.featured_image.src | img_url: '300x300' %}
+              {% assign image_thumb = product.featured_image.src | image_url: width: 300 %}
             {%- endif -%}
 
             {%- if settings.swatch_enabled and settings.swatch_method == "image" and settings.swatch_use_prod_images == false -%}
@@ -199,8 +199,9 @@
                     {% assign product_option_name_lowercase = product_option.name | downcase %}
                     {%- if product_option_name_lowercase == swatch_option_name_lowercase -%}
                       {%- for value in product_option.values -%}
+                        {%- assign swatch_file_name = value | handle | append: '.png' -%}
                         .option--{{ swatch_option_name_lowercase | handle }} select[data-colour-swatch="true"] + .clickyboxes [data-value="{{ value | replace: '"', '\"' }}"]::before {
-                          background-image: url({{ value | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }});
+                          background-image: url({{ images[swatch_file_name] | image_url: width: 48, height: 48, crop: 'center' }});
                         }
                       {%- endfor -%}
                     {%- endif -%}
@@ -215,8 +216,9 @@
                     endfor
                   -%}
 
+                  {%- assign swatch_file_name = current_variant[opt_idx] | handle | append: '.png' -%}
                   .option--{{ swatch_option_name_lowercase | handle }} select[data-colour-swatch="true"] + .clickyboxes [data-value="{{ current_variant.id }}"]::before {
-                    background-image: url({{ current_variant[opt_idx] | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }});
+                    background-image: url({{ images[swatch_file_name] | image_url: width: 48, height: 48, crop: 'center' }});
                   }
                 {%- endif -%}
               {% endstyle %}
@@ -249,11 +251,11 @@
 
                             {% if product.variants.size > 1 %}
                               .product-area[data-product-id="{{ product.id }}"] .option--{{ swatch_option_name_lowercase | handle }} select[data-colour-swatch="true"] + .clickyboxes [data-value="{{ swatch_value }}"]::before {
-                                background-image: url({{ variant.featured_media.preview_image | img_url: '180x', crop: 'center' }});
+                                background-image: url({{ variant.featured_media.preview_image | image_url: width: 180, height: 180, crop: 'center' }});
                               }
                             {%- else -%}
                               .product-area[data-product-id="{{ product.id }}"] .option--{{ swatch_option_name_lowercase | handle }} select[data-colour-swatch="true"] + .clickyboxes [data-value="{{ current_variant.id }}"]::before {
-                                background-image: url({{ current_variant.featured_media.preview_image | img_url: '180x', crop: 'center' }});
+                                background-image: url({{ current_variant.featured_media.preview_image | image_url: width: 180, height: 180, crop: 'center' }});
                               }
                             {%- endif -%}
 
@@ -828,8 +830,8 @@
                       <figure class="product-detail__trust-icon">
                         <div class="product-detail__trust-img" style="height: {{ block.settings.icon_size }}px;width: {{ block.settings.icon_size }}px;">
                           {% if block.settings.image1 %}
-                            {%- assign image_width = block.settings.icon_size | times: 2 | append: "x" -%}
-                            <img class="cc-icon" src="{{ block.settings.image1 | img_url: image_width }}" alt="{{ block.settings.image1.alt }}" width="{{ block.settings.icon_size }}"/>
+                            {%- assign image_width_num = block.settings.icon_size | times: 2 -%}
+                            <img class="cc-icon" src="{{ block.settings.image1 | image_url: width: image_width_num }}" alt="{{ block.settings.image1.alt }}" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}"/>
                           {% else %}
                             {% render 'icon', icon: block.settings.icon1, width: block.settings.icon_size %}
                           {% endif %}
@@ -847,8 +849,8 @@
                       <figure class="product-detail__trust-icon">
                         <div class="product-detail__trust-img" style="height: {{ block.settings.icon_size }}px;width: {{ block.settings.icon_size }}px;">
                           {% if block.settings.image2 %}
-                            {%- assign image_width = block.settings.icon_size | times: 2 | append: "x" -%}
-                            <img class="cc-icon" src="{{ block.settings.image2 | img_url: image_width }}" alt="{{ block.settings.image2.alt }}" width="{{ block.settings.icon_size }}"/>
+                            {%- assign image_width_num = block.settings.icon_size | times: 2 -%}
+                            <img class="cc-icon" src="{{ block.settings.image2 | image_url: width: image_width_num }}" alt="{{ block.settings.image2.alt }}" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}"/>
                           {% else %}
                             {% render 'icon', icon: block.settings.icon2, width: block.settings.icon_size %}
                           {% endif %}
@@ -866,8 +868,8 @@
                       <figure class="product-detail__trust-icon">
                         <div class="product-detail__trust-img" style="height: {{ block.settings.icon_size }}px;width: {{ block.settings.icon_size }}px;">
                           {% if block.settings.image3 %}
-                            {%- assign image_width = block.settings.icon_size | times: 2 | append: "x" -%}
-                            <img class="cc-icon" src="{{ block.settings.image3 | img_url: image_width }}" alt="{{ block.settings.image3.alt }}" width="{{ block.settings.icon_size }}"/>
+                            {%- assign image_width_num = block.settings.icon_size | times: 2 -%}
+                            <img class="cc-icon" src="{{ block.settings.image3 | image_url: width: image_width_num }}" alt="{{ block.settings.image3.alt }}" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}"/>
                           {% else %}
                             {% render 'icon', icon: block.settings.icon3, width: block.settings.icon_size %}
                           {% endif %}
@@ -885,8 +887,8 @@
                       <figure class="product-detail__trust-icon">
                         <div class="product-detail__trust-img" style="height: {{ block.settings.icon_size }}px;width: {{ block.settings.icon_size }}px;">
                           {% if block.settings.image4 %}
-                            {%- assign image_width = block.settings.icon_size | times: 2 | append: "x" -%}
-                            <img class="cc-icon" src="{{ block.settings.image4 | img_url: image_width }}" alt="{{ block.settings.image4.alt }}" width="{{ block.settings.icon_size }}"/>
+                            {%- assign image_width_num = block.settings.icon_size | times: 2 -%}
+                            <img class="cc-icon" src="{{ block.settings.image4 | image_url: width: image_width_num }}" alt="{{ block.settings.image4.alt }}" width="{{ block.settings.icon_size }}" height="{{ block.settings.icon_size }}"/>
                           {% else %}
                             {% render 'icon', icon: block.settings.icon4, width: block.settings.icon_size %}
                           {% endif %}
@@ -1117,7 +1119,9 @@
   {
     "name": "Featured product",
     "class": "section-featured-product",
-    "templates": ["404", "article", "blog", "collection", "cart", "index", "list-collections", "page", "product", "search", "customers/account", "customers/activate_account", "customers/addresses", "customers/login", "customers/order", "customers/register", "customers/reset_password"],
+    "enabled_on": {
+      "templates": ["404", "article", "blog", "collection", "cart", "index", "list-collections", "page", "product", "search", "customers/account", "customers/activate_account", "customers/addresses", "customers/login", "customers/order", "customers/register", "customers/reset_password"]
+    },
     "blocks": [
       {
         "type": "title",

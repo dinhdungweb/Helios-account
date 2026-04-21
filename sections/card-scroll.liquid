@@ -177,28 +177,34 @@
           {% endif %}
           {% if block.settings.card_image != blank and block.settings.image_position == 'top' %}
             <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
-              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+              <img src="{{ block.settings.card_image | image_url }}"
                    alt="{{ block.settings.card_title }}"
                    class="card-image"
-                   style="width: {{ block.settings.image_width }}%;">
+                   style="width: {{ block.settings.image_width }}%;"
+                   width="{{ block.settings.card_image.width }}"
+                   height="{{ block.settings.card_image.height }}">
             </div>
           {% endif %}
           <h3 class="card-title">{{ block.settings.card_title }}</h3>
           {% if block.settings.card_image != blank and block.settings.image_position == 'middle' %}
             <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
-              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+              <img src="{{ block.settings.card_image | image_url }}"
                    alt="{{ block.settings.card_title }}"
                    class="card-image"
-                   style="width: {{ block.settings.image_width }}%;">
+                   style="width: {{ block.settings.image_width }}%;"
+                   width="{{ block.settings.card_image.width }}"
+                   height="{{ block.settings.card_image.height }}">
             </div>
           {% endif %}
           <p class="card-description">{{ block.settings.card_description }}</p>
           {% if block.settings.card_image != blank and block.settings.image_position == 'bottom' %}
             <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
-              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+              <img src="{{ block.settings.card_image | image_url }}"
                    alt="{{ block.settings.card_title }}"
                    class="card-image"
-                   style="width: {{ block.settings.image_width }}%;">
+                   style="width: {{ block.settings.image_width }}%;"
+                   width="{{ block.settings.card_image.width }}"
+                   height="{{ block.settings.card_image.height }}">
             </div>
           {% endif %}
           {% if block.settings.card_link != blank %}
@@ -216,28 +222,34 @@
           {% endif %}
           {% if block.settings.card_image != blank and block.settings.image_position == 'top' %}
             <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
-              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+              <img src="{{ block.settings.card_image | image_url }}"
                    alt="{{ block.settings.card_title }}"
                    class="card-image"
-                   style="width: {{ block.settings.image_width }}%;">
+                   style="width: {{ block.settings.image_width }}%;"
+                   width="{{ block.settings.card_image.width }}"
+                   height="{{ block.settings.card_image.height }}">
             </div>
           {% endif %}
           <h3 class="card-title">{{ block.settings.card_title }}</h3>
           {% if block.settings.card_image != blank and block.settings.image_position == 'middle' %}
             <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
-              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+              <img src="{{ block.settings.card_image | image_url }}"
                    alt="{{ block.settings.card_title }}"
                    class="card-image"
-                   style="width: {{ block.settings.image_width }}%;">
+                   style="width: {{ block.settings.image_width }}%;"
+                   width="{{ block.settings.card_image.width }}"
+                   height="{{ block.settings.card_image.height }}">
             </div>
           {% endif %}
           <p class="card-description">{{ block.settings.card_description }}</p>
           {% if block.settings.card_image != blank and block.settings.image_position == 'bottom' %}
             <div class="image-container" style="justify-content: {% if block.settings.image_align == 'left' %}flex-start{% elsif block.settings.image_align == 'right' %}flex-end{% else %}center{% endif %};">
-              <img src="{{ block.settings.card_image | img_url: 'original' }}"
+              <img src="{{ block.settings.card_image | image_url }}"
                    alt="{{ block.settings.card_title }}"
                    class="card-image"
-                   style="width: {{ block.settings.image_width }}%;">
+                   style="width: {{ block.settings.image_width }}%;"
+                   width="{{ block.settings.card_image.width }}"
+                   height="{{ block.settings.card_image.height }}">
             </div>
           {% endif %}
           {% if block.settings.card_link != blank %}

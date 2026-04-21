@@ -28,8 +28,8 @@ endif
 <meta property="og:description" content="{{ og_description }}">
 
 {%- if page_image -%}
-  <meta property="og:image" content="http:{{ page_image | img_url: '1200x1200' }}">
-  <meta property="og:image:secure_url" content="https:{{ page_image | img_url: '1200x1200' }}">
+  <meta property="og:image" content="http:{{ page_image | image_url: width: 1200 }}">
+  <meta property="og:image:secure_url" content="https:{{ page_image | image_url: width: 1200 }}">
   <meta property="og:image:width" content="{{ page_image.width }}">
   <meta property="og:image:height" content="{{ page_image.height }}">
 {%- endif -%}

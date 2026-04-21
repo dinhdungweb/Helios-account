@@ -77,7 +77,7 @@
             {% if section.settings.image %} style="background-position: {{ section.settings.image.presentation.focal_point }}"{% endif %}>
           <noscript>
             <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: cover_image.aspect_ratio | times: 100 }}%">
-              <img src="{{ cover_image | img_url: '1024x1024' }}" alt="{{ cover_image.alt | escape }}" class="rimage__image">
+              <img src="{{ cover_image | image_url: width: 1024 }}" alt="{{ cover_image.alt | escape }}" class="rimage__image" width="1024" height="{{ 1024 | divided_by: cover_image.aspect_ratio | round }}">
             </div>
           </noscript>
         </div>

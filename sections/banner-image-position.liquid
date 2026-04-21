@@ -115,7 +115,7 @@
 }
 {% endschema %}
 
-<div class="custom-banner-section" style="background-image: url({{ section.settings.banner_image | img_url: 'original' }});">
+<div class="custom-banner-section" style="background-image: url({{ section.settings.banner_image | image_url }});">
   {% for block in section.blocks %}
     <div class="image-wrapper" 
          style="position: absolute; 
@@ -125,16 +125,20 @@
                 height: auto;">
       {% if block.settings.child_image_1_link != blank %}
         <a href="{{ block.settings.child_image_1_link }}" class="child-image-link">
-          <img src="{{ block.settings.child_image_1 | img_url: 'original' }}" 
+          <img src="{{ block.settings.child_image_1 | image_url }}" 
                alt="Child Image" 
                class="fade-in-image {{ block.settings.child_image_1_animation }}"
-               data-animation="{{ block.settings.child_image_1_animation }}">
+               data-animation="{{ block.settings.child_image_1_animation }}"
+               width="{{ block.settings.child_image_1.width }}"
+               height="{{ block.settings.child_image_1.height }}">
         </a>
       {% else %}
-        <img src="{{ block.settings.child_image_1 | img_url: 'original' }}" 
+        <img src="{{ block.settings.child_image_1 | image_url }}" 
              alt="Child Image" 
              class="fade-in-image {{ block.settings.child_image_1_animation }}"
-             data-animation="{{ block.settings.child_image_1_animation }}">
+             data-animation="{{ block.settings.child_image_1_animation }}"
+             width="{{ block.settings.child_image_1.width }}"
+             height="{{ block.settings.child_image_1.height }}">
       {% endif %}
     </div>
   {% endfor %}

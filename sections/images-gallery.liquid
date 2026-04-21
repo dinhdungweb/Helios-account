@@ -1,28 +1,28 @@
 <div
   id="section-id-{{ section.id }}"
   class="side-gallery-grid"
-  style="{% if section.settings.background_image %}background-image: url('{{ section.settings.background_image | img_url: 'master' }}'); background-size: cover; background-position: center;{% endif %}"
+  style="{% if section.settings.background_image %}background-image: url('{{ section.settings.background_image | image_url: width: 2048 }}'); background-size: cover; background-position: center;{% endif %}"
 >
   <div class="gallery-grid">
     <div class="side-images left">
       {% if section.settings.corner_image_1 %}
-        <img src="{{ section.settings.corner_image_1 | img_url: '300x300' }}" loading="lazy" alt="Left Top">
+        <img src="{{ section.settings.corner_image_1 | image_url: width: 300, height: 300 }}" loading="lazy" alt="Left Top" width="300" height="300">
       {% endif %}
       {% if section.settings.corner_image_2 %}
-        <img src="{{ section.settings.corner_image_2 | img_url: '300x300' }}" loading="lazy" alt="Left Bottom">
+        <img src="{{ section.settings.corner_image_2 | image_url: width: 300, height: 300 }}" loading="lazy" alt="Left Bottom" width="300" height="300">
       {% endif %}
     </div>
     <div class="main-image">
       {% if section.settings.main_image %}
-        <img src="{{ section.settings.main_image | img_url: '800x800' }}" loading="lazy" alt="Main Image">
+        <img src="{{ section.settings.main_image | image_url: width: 800, height: 800 }}" loading="lazy" alt="Main Image" width="800" height="800">
       {% endif %}
     </div>
     <div class="side-images right">
       {% if section.settings.corner_image_3 %}
-        <img src="{{ section.settings.corner_image_3 | img_url: '300x300' }}" loading="lazy" alt="Right Top">
+        <img src="{{ section.settings.corner_image_3 | image_url: width: 300, height: 300 }}" loading="lazy" alt="Right Top" width="300" height="300">
       {% endif %}
       {% if section.settings.corner_image_4 %}
-        <img src="{{ section.settings.corner_image_4 | img_url: '300x300' }}" loading="lazy" alt="Right Bottom">
+        <img src="{{ section.settings.corner_image_4 | image_url: width: 300, height: 300 }}" loading="lazy" alt="Right Bottom" width="300" height="300">
       {% endif %}
     </div>
   </div>

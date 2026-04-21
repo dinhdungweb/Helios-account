@@ -13,11 +13,14 @@
 >
   <div class="rimage-wrapper lazyload--placeholder" style="padding-top:{{ 1 | divided_by: aspect_ratio | times: 100 }}%">
     {% if initial %}
-      <img class="rimage__image lazyload fade-in {% if cover %}cover{% endif %}" data-src="{{ image | img_url: initial }}" alt="{{ image.alt | escape }}">
+      <img class="rimage__image lazyload fade-in {% if cover %}cover{% endif %}" data-src="{{ image | image_url: width: 300 }}" alt="{{ image.alt | escape }}" width="300" height="{{ 300 | divided_by: image.aspect_ratio | round }}" {% if image.presentation %}style="object-position: {{ image.presentation.focal_point }}"{% endif %}>
       {% assign initial = false %}
     {% endif %}
-    {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-    <img class="rimage__image lazyload{% if manual_image_load %}--manual{% endif %} fade-in {% if cover %}cover{% endif %}"
+    {% assign img_url = image | image_url: width: 10 | replace: 'width=10', 'width={width}' %}
+    <img class="rimage__image {% unless loading == 'eager' %}lazyload{% endunless %}{% if manual_image_load %}--manual{% endif %} fade-in {% if cover %}cover{% endif %}"
+      {% if loading == 'eager' %}
+        src="{{ image | image_url: width: 1080 }}"
+      {% endif %}
       data-src="{{ img_url }}"
       data-widths="[460, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
       data-aspectratio="{{ image.aspect_ratio }}"
@@ -26,11 +29,13 @@
       width="{{ image.width }}"
       height="{{ image.height }}"
       {% if cover %}data-parent-fit="cover"{% endif %}
+      {% if loading %}loading="{{ loading }}"{% endif %}
+      {% if fetchpriority %}fetchpriority="{{ fetchpriority }}"{% endif %}
       {% if image.presentation %}style="object-position: {{ image.presentation.focal_point }}"{% endif %}>
 
     <noscript>
-      {% assign img_url = image | img_url: '1024x1024' %}
-      <img src="{{ img_url }}" alt="{{ image.alt | escape }}" class="rimage__image">
+      {% assign img_url = image | image_url: width: 1024 %}
+      <img src="{{ img_url }}" alt="{{ image.alt | escape }}" class="rimage__image" width="1024" height="{{ 1024 | divided_by: image.aspect_ratio | round }}">
     </noscript>
   </div>
 </div>

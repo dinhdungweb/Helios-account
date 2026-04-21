@@ -14,13 +14,17 @@
       {% elsif section.settings.media_type == 'image' %}
         <img
           class="desktop-media"
-          src="{{ section.settings.desktop_image_url | img_url: 'master' }}"
+          src="{{ section.settings.desktop_image_url | image_url }}"
           alt="{{ section.settings.heading }}"
+          width="{{ section.settings.desktop_image_url.width }}"
+          height="{{ section.settings.desktop_image_url.height }}"
         >
         <img
           class="mobile-media"
-          src="{{ section.settings.mobile_image_url | img_url: 'master' }}"
+          src="{{ section.settings.mobile_image_url | image_url }}"
           alt="{{ section.settings.heading }}"
+          width="{{ section.settings.mobile_image_url.width }}"
+          height="{{ section.settings.mobile_image_url.height }}"
         >
       {% endif %}
     </div>

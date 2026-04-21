@@ -19,7 +19,7 @@
       {%- if match_found and related_articles_count < max_related_articles -%}
         <li>
           <div class="rb_image_wrap">
-        <a href="{{ other_article.url }}"><img src="{{ other_article.image.src | img_url: '' }}" alt="{{ other_article.title }}" class="rb_image" /></a>
+        <a href="{{ other_article.url }}"><img src="{{ other_article.image.src | image_url: width: 300 }}" alt="{{ other_article.title }}" class="rb_image" width="300" height="225" /></a>
           </div>
           <h5 class="rb_title"><a href="{{ other_article.url }}">{{ other_article.title }}</a></h5>
         </li>

@@ -10,14 +10,16 @@
       <div class="new-collections__image-large">
         {%- if section.settings.main_image != blank -%}
           <img 
-            src="{{ section.settings.main_image | img_url: '800x' }}"
-            srcset="{{ section.settings.main_image | img_url: '400x' }} 400w,
-                    {{ section.settings.main_image | img_url: '600x' }} 600w,
-                    {{ section.settings.main_image | img_url: '800x' }} 800w"
+            src="{{ section.settings.main_image | image_url: width: 800 }}"
+            srcset="{{ section.settings.main_image | image_url: width: 400 }} 400w,
+                    {{ section.settings.main_image | image_url: width: 600 }} 600w,
+                    {{ section.settings.main_image | image_url: width: 800 }} 800w"
             sizes="(max-width: 768px) 100vw, 33vw"
             alt="{{ section.settings.main_image.alt | escape }}"
             loading="lazy"
             class="new-collections__img"
+            width="800"
+            height="{{ 800 | divided_by: section.settings.main_image.aspect_ratio | round }}"
           >
         {%- else -%}
           <div class="new-collections__placeholder">
@@ -34,14 +36,16 @@
         <div class="new-collections__image-medium">
           {%- if section.settings.medium_image != blank -%}
             <img 
-              src="{{ section.settings.medium_image | img_url: '500x' }}"
-              srcset="{{ section.settings.medium_image | img_url: '300x' }} 300w,
-                      {{ section.settings.medium_image | img_url: '400x' }} 400w,
-                      {{ section.settings.medium_image | img_url: '500x' }} 500w"
+              src="{{ section.settings.medium_image | image_url: width: 500 }}"
+              srcset="{{ section.settings.medium_image | image_url: width: 300 }} 300w,
+                      {{ section.settings.medium_image | image_url: width: 400 }} 400w,
+                      {{ section.settings.medium_image | image_url: width: 500 }} 500w"
               sizes="(max-width: 768px) 80vw, 33vw"
               alt="{{ section.settings.medium_image.alt | escape }}"
               loading="lazy"
               class="new-collections__img"
+              width="500"
+              height="{{ 500 | divided_by: section.settings.medium_image.aspect_ratio | round }}"
             >
           {%- else -%}
             <div class="new-collections__placeholder">
@@ -56,14 +60,16 @@
         <div class="new-collections__image-small">
           {%- if section.settings.small_image != blank -%}
             <img 
-              src="{{ section.settings.small_image | img_url: '400x' }}"
-              srcset="{{ section.settings.small_image | img_url: '200x' }} 200w,
-                      {{ section.settings.small_image | img_url: '300x' }} 300w,
-                      {{ section.settings.small_image | img_url: '400x' }} 400w"
+              src="{{ section.settings.small_image | image_url: width: 400 }}"
+              srcset="{{ section.settings.small_image | image_url: width: 200 }} 200w,
+                      {{ section.settings.small_image | image_url: width: 300 }} 300w,
+                      {{ section.settings.small_image | image_url: width: 400 }} 400w"
               sizes="(max-width: 768px) 60vw, 33vw"
               alt="{{ section.settings.small_image.alt | escape }}"
               loading="lazy"
               class="new-collections__img"
+              width="400"
+              height="{{ 400 | divided_by: section.settings.small_image.aspect_ratio | round }}"
             >
           {%- else -%}
             <div class="new-collections__placeholder">

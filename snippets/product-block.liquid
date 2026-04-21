@@ -74,7 +74,7 @@
         assign active_media_found = true
       endif
 
-      assign image_placeholder = media | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+      assign image_placeholder = media | image_url: width: 10 | replace: 'width=10', 'width={width}'
       if active_media_found
         assign images_after_featured = images_after_featured | append: "," | append: image_placeholder
       else
@@ -157,6 +157,15 @@
             {%- assign has_video_source = true -%}
           {%- endif -%}
 
+          {%- liquid
+            assign loading = "lazy"
+            assign fetchpriority = "auto"
+            if i != blank and i < 5
+              assign loading = "eager"
+              assign fetchpriority = "high"
+            endif
+          -%}
+
           {%- if show_video_enabled and has_video_source -%}
             {%- if external_video_url != blank -%}
               {% render 'inline-video', video_external: external_video_url, image: primary_image, autoplay: true, loop: true %}
@@ -167,12 +176,12 @@
             {%- endif -%}
           {%- else -%}
             {%- if custom_card_image_file_field != blank -%}
-              <img class="rimage__image" src="{{ custom_card_image_file_field | file_url }}" alt="{{ product.title | escape }}" loading="lazy">
+              <img class="rimage__image" src="{{ images[custom_card_image_file_field] | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="{{ loading }}" fetchpriority="{{ fetchpriority }}" width="600" height="{{ 600 | divided_by: images[custom_card_image_file_field].aspect_ratio | round }}">
             {%- elsif custom_card_image_url_field != blank -%}
               {% assign custom_card_image_url = custom_card_image_url_field.value | default: custom_card_image_url_field | strip %}
-              <img class="rimage__image" src="{{ custom_card_image_url }}" alt="{{ product.title | escape }}" loading="lazy">
+              <img class="rimage__image" src="{{ custom_card_image_url }}" alt="{{ product.title | escape }}" loading="{{ loading }}" fetchpriority="{{ fetchpriority }}" width="600" height="600">
             {%- else -%}
-              {% render 'responsive-image', image: primary_image, min_aspect_ratio: 0.6 %}
+              {% render 'responsive-image', image: primary_image, min_aspect_ratio: 0.6, loading: loading, fetchpriority: fetchpriority %}
             {%- endif -%}
           {%- endif -%}
 
@@ -196,7 +205,7 @@
           <ul class="cc-swatches {% if settings.swatch_use_prod_images == true %}cc-swatches-prod-img cc-swatches-prod-img-{{ settings.swatch_prod_images_shape }}{% endif %}" data-option-name="{{ product_option.name | escape }}">
             {%- if product.options.size == 1 -%}
               {%- for variant in product.variants -%}
-                {%- assign variant_image = variant.featured_media.preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                {%- assign variant_image = variant.featured_media.preview_image | image_url: width: 10 | replace: 'width=10', 'width={width}' -%}
                 {% if forloop.index <= option_limit %}
                   <li>
                     <a rel="nofollow"
@@ -209,9 +218,10 @@
                           data-option-item="{{ variant.title | downcase | escape }}"
                           {% if variant.featured_media %}data-media="{{ variant.featured_media.id }}"{% endif %}
                     {% if settings.swatch_method == "image" and settings.swatch_use_prod_images == false  %}
-                      data-bgset="{{ variant.title | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }}"
+                      {%- assign swatch_file_name = variant.title | handle | append: '.png' -%}
+                      data-bgset="{{ images[swatch_file_name] | image_url: width: 48, height: 48, crop: 'center' }}"
                     {% elsif settings.swatch_use_prod_images == true %}
-                      data-bgset="{{ variant.featured_media.preview_image | img_url: '72x', crop: 'center' }}"
+                      data-bgset="{{ variant.featured_media.preview_image | image_url: width: 72, height: 72, crop: 'center' }}"
                       style="{% if settings.swatch_prod_images_shape == "natural" %}padding-top: {{ 1 | divided_by: variant.featured_media.preview_image.aspect_ratio | times: 100 }}%;{% endif %}"
                     {% else %}
                       style="background-color:{{ variant.title | downcase | remove: ' ' | escape }}"
@@ -242,7 +252,7 @@
                       break
                     endif
                   endfor
-                  assign variant_image = option_value_variant.featured_media.preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.'
+                  assign variant_image = option_value_variant.featured_media.preview_image | image_url: width: 10 | replace: 'width=10', 'width={width}'
                 -%}
                 {% if forloop.index <= option_limit %}
                   <li>
@@ -256,9 +266,10 @@
                         data-option-item="{{ product_option_value | downcase | escape }}"
                         {% if option_value_variant.featured_media %}data-media="{{ option_value_variant.featured_media.id }}"{% endif %}
                       {% if settings.swatch_method == "image" and settings.swatch_use_prod_images == false  %}
-                        data-bgset="{{ product_option_value | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }}"
+                        {%- assign swatch_file_name = product_option_value | handle | append: '.png' -%}
+                        data-bgset="{{ images[swatch_file_name] | image_url: width: 48, height: 48, crop: 'center' }}"
                       {% elsif settings.swatch_use_prod_images == true %}
-                        data-bgset="{{ option_value_variant.featured_media.preview_image | img_url: '72x', crop: 'center' }}"
+                        data-bgset="{{ option_value_variant.featured_media.preview_image | image_url: width: 72, height: 72, crop: 'center' }}"
                         style="{% if settings.swatch_prod_images_shape == "natural" %}padding-top: {{ 1 | divided_by: option_value_variant.featured_media.preview_image.aspect_ratio | times: 100 }}%;{% endif %}"
                       {% else %}
                         style="background-color:{{ product_option_value | downcase | remove: ' ' | escape }}"

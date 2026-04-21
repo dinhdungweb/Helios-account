@@ -181,10 +181,12 @@
     
     {% if section.settings.image != blank %}
       <img 
-        data-popup-image="{{ section.settings.image | img_url: '800x' }}" 
+        src="{{ section.settings.image | image_url: width: 800 }}" 
         alt="{{ section.settings.title }}"
         class="popup-image"
         loading="lazy"
+        width="800"
+        height="{{ 800 | divided_by: section.settings.image.aspect_ratio | round }}"
       >
     {% endif %}
 

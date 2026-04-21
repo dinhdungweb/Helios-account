@@ -33,7 +33,7 @@
               style="background-position: {{ section.settings.image.presentation.focal_point }}">
           </div>
           <noscript>
-            <div class="map-section__image  map-section__image--{{ section.id }}" style="background-image: url({{ section.settings.image | img_url: '400x400'}});"></div>
+            <div class="map-section__image  map-section__image--{{ section.id }}" style="background-image: url({{ section.settings.image | image_url: width: 400, height: 400}});"></div>
           </noscript>
         {% else %}
           <div class="map-section__placeholder placeholder-image">

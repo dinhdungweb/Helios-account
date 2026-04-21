@@ -30,11 +30,11 @@
              data-parent-fit="cover">
           <noscript>
             <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: collection.featured_image.aspect_ratio | times: 100 }}%">
-              <img src="{{ collection.featured_image | img_url: '1024x1024' }}" 
+              <img src="{{ collection.featured_image | image_url: width: 1024 }}" 
                    alt="{{ collection.featured_image.alt | escape }}" 
                    class="rimage__image"
-                   width="{{ collection.featured_image.width }}"
-                   height="{{ collection.featured_image.height }}">
+                   width="1024"
+                   height="{{ 1024 | divided_by: collection.featured_image.aspect_ratio | round }}">
             </div>
           </noscript>
         </div>

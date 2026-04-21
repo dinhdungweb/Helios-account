@@ -17,9 +17,9 @@
 
   <div class="giftcard__illustration">
     {% if section.settings.image == blank %}
-      <img src="{{ 'gift-card/card.jpg' | shopify_asset_url }}" alt="Gift card illustration">
+      <img src="{{ 'gift-card/card.jpg' | shopify_asset_url }}" alt="Gift card illustration" width="920" height="600">
     {% else %}
-      <img src="{{ section.settings.image | image_url: width: 920 }}" alt="Gift card illustration">
+      <img src="{{ section.settings.image | image_url: width: 920 }}" alt="Gift card illustration" width="920" height="{{ 920 | divided_by: section.settings.image.aspect_ratio | round }}">
     {% endif %}
 
     {%- assign code_size = gift_card.code | format_code | size -%}

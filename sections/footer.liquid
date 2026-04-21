@@ -47,7 +47,8 @@
                   <div class="rimage-outer-wrapper" style="width: {{ block.settings.image_width }}px">
                     <div class="rimage-wrapper lazyload--placeholder" style="padding-top:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%">
                       <a href="{{ block.settings.bct-url }}">
-                        <img class="rimage__image lazyload fade-in" data-src="{{ block.settings.image | img_url: double_image_width }}" alt="{{ shop.name | escape }}" />
+                        {%- assign footer_img_width = block.settings.image_width | times: 2 -%}
+                        <img class="rimage__image lazyload fade-in" data-src="{{ block.settings.image | image_url: width: footer_img_width }}" alt="{{ shop.name | escape }}" width="{{ block.settings.image_width }}" height="{{ block.settings.image_width | divided_by: block.settings.image.aspect_ratio | round }}" />
                       </a>
                     </div>
                   </div>
@@ -140,10 +141,10 @@
 
             {% if section.settings.custom_payment_icon %}
               <img class="section-footer__payment-icon payment-icon--custom"
-                   src="{{ section.settings.custom_payment_icon | img_url: '120x' }}"
+                   src="{{ section.settings.custom_payment_icon | image_url: width: 120 }}"
                    alt="{{ section.settings.custom_payment_icon.alt }}"
-                   width="{{ section.settings.custom_payment_icon.width }}"
-                   height="{{ section.settings.custom_payment_icon.height }}"
+                   width="120"
+                   height="{{ 120 | divided_by: section.settings.custom_payment_icon.aspect_ratio | round }}"
               />
             {% endif %}
           </div>

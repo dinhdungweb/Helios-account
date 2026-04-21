@@ -15,7 +15,7 @@
     </li>
     {% if share_image %}
     <li class="pinterest">
-      <a class="sharing-link" target="_blank" rel="noopener" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}">
+      <a class="sharing-link" target="_blank" rel="noopener" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | image_url: width: 1024 }}&amp;description={{ share_title | url_param_escape }}">
         <span aria-hidden="true">{% render 'svg-pinterest' %}</span>
         <span class="visually-hidden">{{ 'general.social.share_on_pinterest' | t }}</span>
       </a>

@@ -72,7 +72,7 @@
 
                   <noscript>
                     <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%">
-                      <img src="{{ article.image | img_url: '1024x1024' }}" alt="{{ article.image.alt | escape }}" class="rimage__image"/>
+                      <img src="{{ article.image | image_url: width: 1024 }}" alt="{{ article.image.alt | escape }}" class="rimage__image" width="1024" height="{{ 1024 | divided_by: article.image.aspect_ratio | round }}"/>
                     </div>
                   </noscript>
                 </div>

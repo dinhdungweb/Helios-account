@@ -8,7 +8,7 @@
         {% if article.image %}
           <div class="article-image-blog">
             <a href="{{ article.url }}">
-              <img src="{{ article.image.src | img_url: 'medium' }}" alt="{{ article.title }}" />
+              <img src="{{ article.image.src | image_url: width: 300 }}" alt="{{ article.title }}" width="300" height="{{ 300 | divided_by: article.image.aspect_ratio | round }}" />
             </a>
           </div>
         {% endif %}

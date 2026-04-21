@@ -16,9 +16,9 @@
       "description": {{ article.excerpt | strip_html | json }},
     {%- endif -%}
     {%- if article_image -%}
-      {%- assign image_size = article_image.width | append: 'x' -%}
+      {%- assign image_width = article_image.width -%}
       "image": [
-        {{ article_image | img_url: image_size | prepend: "https:" | json }}
+        {{ article_image | image_url: width: image_width | prepend: "https:" | json }}
       ],
     {%- endif -%}
     "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
@@ -33,11 +33,11 @@
     "publisher": {
       "@type": "Organization",
       {%- if page_image -%}
-        {%- assign image_size = page_image.width | append: 'x' -%}
+        {%- assign image_width = page_image.width -%}
         "logo": {
           "@type": "ImageObject",
           "height": {{ page_image.height | json }},
-          "url": {{ page_image | img_url: image_size | prepend: "https:" | json }},
+          "url": {{ page_image | image_url: width: image_width | prepend: "https:" | json }},
           "width": {{ page_image.width | json }}
         },
       {%- endif -%}

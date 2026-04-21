@@ -53,8 +53,8 @@
     <a data-cc-animate-click class="logo" href="{{ shop.url }}" itemprop="url">
       {% if section.settings.logo != blank %}
         {% assign double_logo_width = section.settings.logo_width | default: 250 | times: 2 %}
-        {% capture img_size %}{% if double_logo_width > 2048 %}2048{% else %}{{ double_logo_width }}{% endif %}x{% endcapture %}
-        <img src="{{ section.settings.logo | img_url: img_size }}" alt="{{ shop.name | escape }}" itemprop="logo" />
+        {%- if double_logo_width > 2048 -%}{%- assign logo_width_final = 2048 -%}{%- else -%}{%- assign logo_width_final = double_logo_width -%}{%- endif -%}
+        <img src="{{ section.settings.logo | image_url: width: logo_width_final }}" alt="{{ shop.name | escape }}" itemprop="logo" width="{{ section.settings.logo_width | default: 250 }}" height="{{ section.settings.logo_width | default: 250 | divided_by: section.settings.logo.aspect_ratio | round }}"/>
       {% else %}
         {{ shop.name | escape }}
       {% endif %}
@@ -75,13 +75,13 @@
     <meta itemprop="name" content="{{ shop.name }}">
     {% if section.settings.logo != blank %}
       {% assign double_logo_width = section.settings.logo_width | default: 250 | times: 2 %}
-      {% capture img_size %}{% if double_logo_width > 2048 %}2048{% else %}{{ double_logo_width }}{% endif %}x{% endcapture %}
-      <img src="{{ section.settings.logo | img_url: img_size }}" alt="{{ shop.name | escape }}" itemprop="logo"
+      {%- if double_logo_width > 2048 -%}{%- assign logo_width_final = 2048 -%}{%- else -%}{%- assign logo_width_final = double_logo_width -%}{%- endif -%}
+      <img src="{{ section.settings.logo | image_url: width: logo_width_final }}" alt="{{ shop.name | escape }}" itemprop="logo"
            width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}"/>
 
       {% if section.settings.alt_logo != blank %}
       <span class="alt-logo">
-        <img src="{{ section.settings.alt_logo | img_url: img_size }}" alt="{{ shop.name | escape }}" itemprop="logo"
+        <img src="{{ section.settings.alt_logo | image_url: width: logo_width_final }}" alt="{{ shop.name | escape }}" itemprop="logo"
              width="{{ section.settings.alt_logo.width }}" height="{{ section.settings.alt_logo.height }}"/>
       </span>
       {% endif %}

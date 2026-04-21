@@ -1,13 +1,119 @@
 {{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
 
 {% comment %}Import Logic{% endcomment %}
-{% include 'account-tier-logic' %}
+{% comment %}Import Logic{% endcomment %}
+{%- liquid
+  assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0
+  assign points = customer.metafields.rewards.points | default: 0
+
+  assign tier_1_name = settings.tier_1_name
+  assign tier_1_tag = settings.tier_1_tag
+  assign tier_1_threshold = settings.tier_1_threshold | plus: 0
+  assign tier_2_name = settings.tier_2_name
+  assign tier_2_tag = settings.tier_2_tag
+  assign tier_2_threshold = settings.tier_2_threshold | plus: 0
+  assign tier_3_name = settings.tier_3_name
+  assign tier_3_tag = settings.tier_3_tag
+  assign tier_3_threshold = settings.tier_3_threshold | plus: 0
+  assign tier_4_name = settings.tier_4_name
+  assign tier_4_tag = settings.tier_4_tag
+  assign tier_4_threshold = settings.tier_4_threshold | plus: 0
+  assign tier_5_name = settings.tier_5_name
+  assign tier_5_tag = settings.tier_5_tag
+  assign tier_5_threshold = settings.tier_5_threshold | plus: 0
+  assign tier_6_name = settings.tier_6_name
+  assign tier_6_tag = settings.tier_6_tag
+  assign tier_6_threshold = settings.tier_6_threshold | plus: 0
+  assign prioritize_tags = settings.tier_prioritize_tags | default: true
+
+  assign tier = ""
+  if prioritize_tags
+    if tier_1_tag != blank and customer.tags contains tier_1_tag
+      assign tier = tier_1_name
+    elsif tier_2_tag != blank and customer.tags contains tier_2_tag
+      assign tier = tier_2_name
+    elsif tier_3_tag != blank and customer.tags contains tier_3_tag
+      assign tier = tier_3_name
+    elsif tier_4_tag != blank and customer.tags contains tier_4_tag
+      assign tier = tier_4_name
+    elsif tier_5_tag != blank and customer.tags contains tier_5_tag
+      assign tier = tier_5_name
+    elsif tier_6_tag != blank and customer.tags contains tier_6_tag
+      assign tier = tier_6_name
+    endif
+  endif
+
+  if tier == ""
+    if total_spent >= tier_1_threshold
+      assign tier = tier_1_name
+    elsif total_spent >= tier_2_threshold
+      assign tier = tier_2_name
+    elsif total_spent >= tier_3_threshold
+      assign tier = tier_3_name
+    elsif total_spent >= tier_4_threshold
+      assign tier = tier_4_name
+    elsif total_spent >= tier_5_threshold
+      assign tier = tier_5_name
+    elsif total_spent >= tier_6_threshold
+      assign tier = tier_6_name
+    else
+      assign tier = tier_6_name
+    endif
+  endif
+
+  if tier == tier_6_name
+    assign next_tier = tier_5_name
+    assign next_tier_amount = tier_5_threshold
+  elsif tier == tier_5_name
+    assign next_tier = tier_4_name
+    assign next_tier_amount = tier_4_threshold
+  elsif tier == tier_4_name
+    assign next_tier = tier_3_name
+    assign next_tier_amount = tier_3_threshold
+  elsif tier == tier_3_name
+    assign next_tier = tier_2_name
+    assign next_tier_amount = tier_2_threshold
+  elsif tier == tier_2_name
+    assign next_tier = tier_1_name
+    assign next_tier_amount = tier_1_threshold
+  elsif tier == tier_1_name
+    assign next_tier = "MAX LEVEL"
+    assign next_tier_amount = total_spent
+  else
+    assign next_tier = tier_6_name
+    assign next_tier_amount = tier_6_threshold
+    if next_tier_amount == 0
+       assign next_tier = tier_5_name
+       assign next_tier_amount = tier_5_threshold
+    endif
+  endif
+
+  if next_tier == "MAX LEVEL"
+    assign progress_percentage = 100
+    assign remaining_amount = 0
+  else
+    if next_tier_amount > 0
+      assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount
+    else
+      assign progress_percentage = 0
+    endif
+    assign remaining_amount = next_tier_amount | minus: total_spent
+  endif
+-%}
 
 {% comment %}--- DASHBOARD HERO (V2) ---{% endcomment %}
-{% include 'account-hero' %}
+{% render 'account-hero', 
+  customer: customer, 
+  tier: tier, 
+  points: points, 
+  total_spent: total_spent, 
+  progress_percentage: progress_percentage, 
+  next_tier: next_tier, 
+  remaining_amount: remaining_amount 
+%}
 
 {% comment %}--- DASHBOARD NAV (V2) ---{% endcomment %}
-{% include 'account-nav' %}
+{% render 'account-nav' %}
 
 <div class="account-container account-dashboard-body">
   {% comment %}--- TAB CONTENT AREA ---{% endcomment %}
@@ -20,9 +126,20 @@
           {% render 'account-tier-content', tier: tier, type: 'welcome' %}
           <div class="tier-image-container">
             {% if section.settings.tier_image != blank %}
-              <img src="{{ section.settings.tier_image | image_url: width: 1200 }}" alt="Tier Image" loading="lazy"/>
+              <img 
+                src="{{ section.settings.tier_image | image_url: width: 1200 }}" 
+                alt="Tier Image" 
+                loading="lazy"
+                width="{{ section.settings.tier_image.width }}"
+                height="{{ section.settings.tier_image.height }}"
+              />
             {% else %}
-               <img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/SRK00644-2.jpg?v=1764068164" alt=""/>
+               <img 
+                 src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/SRK00644-2.jpg?v=1764068164" 
+                 alt=""
+                 width="1200"
+                 height="800"
+               />
             {% endif %}
           </div>
         </div>
@@ -163,7 +280,12 @@
         <h3 class="card-title">Helios Community</h3>
         <div class="card-body community-layout">
            <div class="community-img">
-             <img src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z6465765703069_030e64083cc975d6127ff8a441409631_95f8c0e0-1f78-4f16-b036-4de58aa1d26c.jpg?v=1743569814" alt="Helios Community"/>
+             <img 
+               src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z6465765703069_030e64083cc975d6127ff8a441409631_95f8c0e0-1f78-4f16-b036-4de58aa1d26c.jpg?v=1743569814" 
+               alt="Helios Community"
+               width="1200"
+               height="800"
+             />
            </div>
            <div class="community-text">
               <p>Helios Club là cộng đồng dành riêng cho những người ‘khác biệt’– những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê ‘màu’ Helios.</p>

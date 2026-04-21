@@ -5,9 +5,9 @@
   "name": {{ product.title | json }},
   "url": {{ shop.url | append: product.url | json }},
   {%- if product.featured_media.preview_image -%}
-    {%- assign image_size = product.featured_media.preview_image.width | append: 'x' -%}
+    {%- assign image_width = product.featured_media.preview_image.width -%}
     "image": [
-      {{ product.featured_media.preview_image.src | img_url: image_size | prepend: "https:" | json }}
+      {{ product.featured_media.preview_image.src | image_url: width: image_width | prepend: "https:" | json }}
     ],
   {%- endif -%}
   "description": {{ product.description | strip_html | json }},

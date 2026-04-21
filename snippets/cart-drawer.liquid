@@ -61,7 +61,7 @@
               {% endif %}
 
               <div class="cart-drawer-item-image">
-                <img src="{{ item.image | img_url: '200x' }}" alt="{{ item.title }}">
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title }}" width="200" height="{{ 200 | divided_by: item.image.aspect_ratio | round }}">
               </div>
               <div class="cart-drawer-item-main">
                 <div class="cart-drawer-item-main-flex">
@@ -156,7 +156,7 @@
               <div class="free-gift-checkbox-section">
                 <div class="free-gift-checkbox-inner">
                   <div class="free-gift-checkbox-image">
-                    <img src="{{ free_gift_product.featured_image | img_url: '80x80' }}" alt="{{ free_gift_product.title }}">
+                    <img src="{{ free_gift_product.featured_image | image_url: width: 80, height: 80 }}" alt="{{ free_gift_product.title }}" width="80" height="80">
                   </div>
                   <div class="free-gift-checkbox-content">
                     <div class="free-gift-checkbox-label"><span class="free-gift-icon">{% render 'svg-gift' %}</span> Quà tặng miễn phí</div>

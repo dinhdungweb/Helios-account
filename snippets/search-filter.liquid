@@ -284,9 +284,10 @@
                                   {%- endif -%}
                                 </label>
                                 {% if settings.swatch_method == "image" %}
+                                  {%- assign swatch_file_name = value.label | handle | append: '.png' -%}
                                   {% style %}
                                     .cc-swatches [data-tag="{{ value.label | handle }}"]:not([data-swatch-native]) .cc-checkbox::before {
-                                    background-image: url({{ value.label | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }});
+                                    background-image: url({{ images[swatch_file_name] | image_url: width: 48, height: 48, crop: 'center' }});
                                     }
                                   {% endstyle %}
                                 {% endif %}
@@ -483,9 +484,10 @@
                                 {%- endif -%}
                               </label>
                               {% if settings.swatch_method == "image" %}
+                                {%- assign swatch_file_name = value.label | handle | append: '.png' -%}
                                 {% style %}
                                   .cc-swatches [data-tag="{{ value.label | handle }}"]:not([data-swatch-native]) .cc-checkbox::before {
-                                  background-image: url({{ value.label | handle | append: '.png' | file_img_url: '48x48', crop: 'center' }});
+                                  background-image: url({{ images[swatch_file_name] | image_url: width: 48, height: 48, crop: 'center' }});
                                   }
                                 {% endstyle %}
                               {% endif %}
@@ -704,27 +706,27 @@
                         {% if block.settings.image != blank %}
                           <div class="promotion-image-container">
                             <a href="{{ block.settings.link_url }}" class="promotion-link">
-                              <div class="responsive-image-wrapper">
-                                {% if block.settings.mobile_image != blank %}
-                                  <img src="{{ block.settings.image | img_url: '1600x' }}" 
-                                    alt="{{ block.settings.image.alt | escape }}"
-                                    class="hide-on-mobile"
-                                    width="{{ block.settings.image.width }}"
-                                    height="{{ block.settings.image.height }}"
-                                    loading="lazy">
-                                  <img src="{{ block.settings.mobile_image | img_url: '1000x' }}" 
-                                    alt="{{ block.settings.mobile_image.alt | escape }}"
-                                    class="show-on-mobile"
-                                    width="{{ block.settings.mobile_image.width }}"
-                                    height="{{ block.settings.mobile_image.height }}"
-                                    loading="lazy">
-                                {% else %}
-                                  <img src="{{ block.settings.image | img_url: '1600x' }}" 
-                                    alt="{{ block.settings.image.alt | escape }}"
-                                    width="{{ block.settings.image.width }}"
-                                    height="{{ block.settings.image.height }}"
-                                    loading="lazy">
-                                {% endif %}
+                                <div class="responsive-image-wrapper">
+                                  {% if block.settings.mobile_image != blank %}
+                                    <img src="{{ block.settings.image | image_url: width: 1600 }}" 
+                                      alt="{{ block.settings.image.alt | escape }}"
+                                      class="hide-on-mobile"
+                                      width="1600"
+                                      height="{{ 1600 | divided_by: block.settings.image.aspect_ratio | round }}"
+                                      loading="lazy">
+                                    <img src="{{ block.settings.mobile_image | image_url: width: 1000 }}" 
+                                      alt="{{ block.settings.mobile_image.alt | escape }}"
+                                      class="show-on-mobile"
+                                      width="1000"
+                                      height="{{ 1000 | divided_by: block.settings.mobile_image.aspect_ratio | round }}"
+                                      loading="lazy">
+                                  {% else %}
+                                    <img src="{{ block.settings.image | image_url: width: 1600 }}" 
+                                      alt="{{ block.settings.image.alt | escape }}"
+                                      width="1600"
+                                      height="{{ 1600 | divided_by: block.settings.image.aspect_ratio | round }}"
+                                      loading="lazy">
+                                  {% endif %}
                               
                                 {% if block.settings.heading != blank or block.settings.content != blank %}
                                   <div class="promotion-content">
@@ -748,7 +750,7 @@
                                 {% if block.settings.video_poster != blank %}
                                   <video 
                                     src="{{ block.settings.video | file_url }}" 
-                                    poster="{{ block.settings.video_poster | img_url: '1600x' }}"
+                                    poster="{{ block.settings.video_poster | image_url: width: 1600 }}"
                                     controls
                                     {% if block.settings.autoplay %}autoplay muted loop{% endif %}>
                                   </video>

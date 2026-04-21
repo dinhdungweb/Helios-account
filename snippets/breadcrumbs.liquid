@@ -71,6 +71,116 @@
 
   </ol>
 </nav>
+
+{%- comment -%} SEO Breadcrumb JSON-LD {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ shop.url }}"
+    }
+    {%- if t == 'page' -%}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ page.title }}",
+        "item": "{{ shop.url }}{{ page.url }}"
+      }
+    {%- elsif t == 'product' -%}
+      {%- if collection.url -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ collection.title }}",
+          "item": "{{ shop.url }}{{ collection.url }}"
+        }
+        ,{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ product.title }}",
+          "item": "{{ shop.url }}{{ product.url }}"
+        }
+      {%- else -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ product.title }}",
+          "item": "{{ shop.url }}{{ product.url }}"
+        }
+      {%- endif -%}
+    {%- elsif t == 'collection' and collection.handle -%}
+      {%- if current_tags -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ collection.title }}",
+          "item": "{{ shop.url }}{{ collection.url }}"
+        }
+        ,{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ current_tags | join: " + " }}",
+          "item": "{{ shop.url }}{{ collection.url }}/{{ current_tags | join: "+" }}"
+        }
+      {%- else -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ collection.title }}",
+          "item": "{{ shop.url }}{{ collection.url }}"
+        }
+      {%- endif -%}
+    {%- elsif t == 'blog' -%}
+      {%- if current_tags -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ blog.title }}",
+          "item": "{{ shop.url }}{{ blog.url }}"
+        }
+        ,{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ current_tags | join: " + " }}",
+          "item": "{{ shop.url }}{{ blog.url }}/tagged/{{ current_tags | join: "+" }}"
+        }
+      {%- else -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ blog.title }}",
+          "item": "{{ shop.url }}{{ blog.url }}"
+        }
+      {%- endif -%}
+    {%- elsif t == 'article' -%}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ blog.title }}",
+        "item": "{{ shop.url }}{{ blog.url }}"
+      }
+      ,{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{ article.title }}",
+        "item": "{{ shop.url }}{{ article.url }}"
+      }
+    {%- else -%}
+      ,{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ page_title }}",
+        "item": "{{ shop.url }}{{ request.path }}"
+      }
+    {%- endif -%}
+  ]
+}
+</script>
 <script defer>
     const breadCrumbLinks = document.querySelectorAll(".breadcrumbs a")
     const lastLink = breadCrumbLinks[breadCrumbLinks.length - 1]

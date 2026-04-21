@@ -78,7 +78,7 @@
             {%- endif -%}
               <noscript>
                 <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%">
-                  <img src="{{ block.settings.image | img_url: '1024x1024' }}" alt="{{ block.settings.image.alt | escape }}" class="rimage__image"/>
+                  <img src="{{ block.settings.image | image_url: width: 1024 }}" alt="{{ block.settings.image.alt | escape }}" class="rimage__image" width="1024" height="{{ 1024 | divided_by: block.settings.image.aspect_ratio | round }}"/>
                 </div>
               </noscript>
           </div>
@@ -94,7 +94,7 @@
               {%- endif -%}
                 <noscript>
                   <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: block.settings.mobile_image.aspect_ratio | times: 100 }}%">
-                    <img src="{{ block.settings.mobile_image | img_url: '1024x1024' }}" alt="{{ block.settings.mobile_image.alt | escape }}" class="rimage__image"/>
+                    <img src="{{ block.settings.mobile_image | image_url: width: 1024 }}" alt="{{ block.settings.mobile_image.alt | escape }}" class="rimage__image" width="1024" height="{{ 1024 | divided_by: block.settings.mobile_image.aspect_ratio | round }}"/>
                   </div>
                 </noscript>
             </div>

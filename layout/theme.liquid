@@ -28,6 +28,15 @@
   </title>
 
   {% render 'social-meta-tags' %}
+  
+  {%- comment -%} Preload LCP Images {%- endcomment -%}
+  {% if template contains 'product' %}
+    <link rel="preload" as="image" href="{{ product.featured_media | image_url: width: 1000 }}">
+  {% elsif template contains 'collection' %}
+    <link rel="preload" as="image" href="{{ collection.products.first.featured_media | image_url: width: 800 }}">
+  {% elsif template contains 'article' %}
+    <link rel="preload" as="image" href="{{ article.image | image_url: width: 1000 }}">
+  {% endif %}
 
   {% style %}
     :root {
@@ -269,10 +278,10 @@
 
         {% if settings.animation_loading_image != blank %}
           <img class="cc-veil-loader__image"
-              src="{{ settings.animation_loading_image | img_url: '500x500' }}"
+              src="{{ settings.animation_loading_image | image_url: width: 500, height: 500 }}"
               alt="{{ settings.animation_loading_image.alt | escape }}"
-              width="{{ settings.animation_loading_image.width }}"
-              height="{{ settings.animation_loading_image.height }}">
+              width="500"
+              height="500">
         {% endif %}
 
         {% if settings.animation_loading_message != blank %}

@@ -1,7 +1,7 @@
 <div class="form-to-sheet-wrapper d-flex">
     {% if cf-banner-left %}
     <div class="form-image">
-      <img src="{{ cf-banner-left | img_url: 'original' }}" alt="Right Image" id="zoomableImage">
+      <img src="{{ cf-banner-left | image_url }}" alt="Right Image" id="zoomableImage" width="{{ cf-banner-left.width }}" height="{{ cf-banner-left.height }}">
     </div>
     {% endif %}
     <article class="form-to-sheet-letter">
@@ -41,7 +41,7 @@
   </div>
 <div class="image-zoom-overlay" id="imageZoomOverlay">
     <button class="close-btn" id="closeZoom">&times;</button>
-    <img src="" alt="Zoomed Image" id="zoomedImage">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Zoomed Image" id="zoomedImage" width="1000" height="1000">
   </div>
 <script>
 document.getElementById("ajax-form").addEventListener("submit", function (e) {

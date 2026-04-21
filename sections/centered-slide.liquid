@@ -5,8 +5,8 @@
       <div class="item">
         <a href="{{ block.settings.link }}">
           <picture>
-            <source media="(min-width:768px)" srcset="{{ block.settings.desktop_image | img_url: 'master' }}">
-            <img src="{{ block.settings.mobile_image | img_url: '1024x1024' }}" alt="{{ block.settings.mobile_image.alt }}">
+            <source media="(min-width:768px)" srcset="{{ block.settings.desktop_image | image_url }}">
+            <img src="{{ block.settings.mobile_image | image_url: width: 1024 }}" alt="{{ block.settings.mobile_image.alt }}" width="1024" height="{{ 1024 | divided_by: block.settings.mobile_image.aspect_ratio | round }}">
           </picture>
         </a>
       </div>

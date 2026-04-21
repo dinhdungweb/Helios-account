@@ -24,7 +24,7 @@
   {% if latest_article %}
       <div class="blog-post">
         {% if latest_article.image %}
-          <img src="{{ latest_article.image.src | img_url: '600x600' }}" alt="{{ latest_article.title | escape }}" loading="lazy">
+          <img src="{{ latest_article.image.src | image_url: width: 600 }}" alt="{{ latest_article.title | escape }}" loading="lazy" width="600" height="600">
         {% endif %}
         <h2><a href="{{ latest_article.url }}">{{ latest_article.title }}</a></h2>
       </div>
@@ -48,15 +48,15 @@
   <div class="article-titles">Nhẫn</div>
     
   <section class="">
-    <div class="flex">
          {% assign blog_handle = 'nhan' %}
 {% assign articles_per_page = 6 %}
 
 {% paginate blogs[blog_handle].articles by articles_per_page %}
+    <div class="flex">
   {% for article in blogs[blog_handle].articles %}
     {% if forloop.first %}
     <div class="first-article">
-      <a href="{{ article.url }}"><img src="{{ article.image.src | img_url: '1000x1000' }}" alt="{{ article.title }}" loading="lazy"></a>
+      <a href="{{ article.url }}"><img src="{{ article.image.src | image_url: width: 1000 }}" alt="{{ article.title }}" loading="lazy" width="1000" height="1000"></a>
        <a href="{{ article.url }}"><h2>{{ article.title }}</h2></a>
       <p>{{ article.content | strip_html | truncatewords: 30 }}</p>
       <a href="{{ article.url }}" class="underline">Đọc thêm</a>
@@ -65,7 +65,7 @@
     <div class="article-blog">
       <div class="article-img">
           {% if article.image %}
-          <a href="{{ article.url }}"><img src="{{ article.image.src | img_url: '800x800' }}" alt="{{ article.title | escape }}" loading="lazy"></a>
+          <a href="{{ article.url }}"><img src="{{ article.image.src | image_url: width: 800 }}" alt="{{ article.title | escape }}" loading="lazy" width="800" height="800"></a>
         {% endif %}
       </div>
       <div class="article-des">
@@ -101,8 +101,8 @@
   </section>
 
   <section class="ads2">
-    <a href="/collections/all-products">
-      <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="HELIOS JEWELS" loading="lazy">
+    <a href="{{ routes.all_products_collection_url }}">
+      <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="HELIOS JEWELS" loading="lazy" width="1000" height="200">
     </a>
   </section>
 
@@ -114,7 +114,7 @@
            {% assign articles_per_page = 5 %}
   {% if forloop.first %}
     <div class="first-article-2">
-      <img src="{{ article.image.src | img_url: '720x720' }}" alt="{{ article.title }}" loading="lazy">
+      <img src="{{ article.image.src | image_url: width: 720 }}" alt="{{ article.title }}" loading="lazy" width="720" height="{{ 720 | divided_by: article.image.aspect_ratio | round }}">
       <h2>{{ article.title }}</h2>
       <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
       <a href="{{ article.url }}">Đọc thêm</a>
@@ -123,7 +123,7 @@
     <div class="article-blog">
       <div class="article-img">
           {% if article.image %}
-          <a href="{{ article.url }}"><img src="{{ article.image.src | img_url: '800x800' }}" alt="{{ article.title | escape }}" loading="lazy"></a>
+          <a href="{{ article.url }}"><img src="{{ article.image.src | image_url: width: 800 }}" alt="{{ article.title | escape }}" loading="lazy" width="800" height="{{ 800 | divided_by: article.image.aspect_ratio | round }}"></a>
         {% endif %}
       </div>
       <div class="article-des">
@@ -144,7 +144,7 @@
            {% assign articles_per_page = 5 %}
   {% if forloop.first %}
     <div class="first-article-2">
-      <img src="{{ article.image.src | img_url: '720x720' }}" alt="{{ article.title }}" loading="lazy">
+      <img src="{{ article.image.src | image_url: width: 720 }}" alt="{{ article.title }}" loading="lazy" width="720" height="{{ 720 | divided_by: article.image.aspect_ratio | round }}">
       <h2>{{ article.title }}</h2>
       <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
       <a href="{{ article.url }}">Đọc thêm</a>
@@ -153,7 +153,7 @@
     <div class="article-blog">
       <div class="article-img">
           {% if article.image %}
-          <a href="{{ article.url }}"><img src="{{ article.image.src | img_url: '800x800' }}" alt="{{ article.title | escape }}" loading="lazy"></a>
+          <a href="{{ article.url }}"><img src="{{ article.image.src | image_url: width: 800 }}" alt="{{ article.title | escape }}" loading="lazy" width="800" height="{{ 800 | divided_by: article.image.aspect_ratio | round }}"></a>
         {% endif %}
       </div>
       <div class="article-des">
@@ -206,8 +206,8 @@
         </a>
       </section>
       <section class="advertisement">
-        <a href="/collections/all-products">
-          <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="HELIOS JEWELS" loading="lazy">
+        <a href="{{ routes.all_products_collection_url }}">
+          <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="HELIOS JEWELS" loading="lazy" width="1000" height="200">
         </a>
       </section>
       <section class="xem-nhieu">
@@ -221,7 +221,7 @@
               {% if article.tags contains tag %}
                   <div class="flex">
                     {% if article.image %}
-                      <img src="{{ article.image.src | img_url: '480x480' }}" alt="{{ article.title | escape }}" loading="lazy">
+                      <img src="{{ article.image.src | image_url: width: 480 }}" alt="{{ article.title | escape }}" loading="lazy" width="480" height="480">
                     {% endif %}
                     <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
                   </div>
@@ -241,6 +241,7 @@
       </section>
     </div>
   </div>
+</div>
 </div>
 </div>
 <style>

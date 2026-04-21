@@ -25,7 +25,7 @@
             style="background-position: {{ image.presentation.focal_point }}">
         <noscript>
           <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100 }}%">
-            <img src="{{ image | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}" class="rimage__image">
+            <img src="{{ image | image_url: width: 1024 }}" alt="{{ image.alt | escape }}" class="rimage__image" width="1024" height="{{ 1024 | divided_by: image.aspect_ratio | round }}">
           </div>
         </noscript>
       </div>

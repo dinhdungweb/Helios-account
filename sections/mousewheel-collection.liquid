@@ -26,20 +26,24 @@
                     <!-- Desktop Image -->
                     {% if desktop_image != blank %}
                       <img 
-                        src="{{ desktop_image | img_url: 'master' }}"
+                        src="{{ desktop_image | image_url }}"
                         alt="{{ desktop_image.alt | escape }}"
                         loading="lazy"
                         class="full-width-image desktop-media"
+                        width="{{ desktop_image.width }}"
+                        height="{{ desktop_image.height }}"
                       >
                     {% endif %}
                     
                     <!-- Mobile Image -->
                     {% if mobile_image != blank and mobile_image != desktop_image %}
                       <img 
-                        src="{{ mobile_image | img_url: 'master' }}"
+                        src="{{ mobile_image | image_url }}"
                         alt="{{ mobile_image.alt | escape }}"
                         loading="lazy"
                         class="full-width-image mobile-media"
+                        width="{{ mobile_image.width }}"
+                        height="{{ mobile_image.height }}"
                       >
                     {% endif %}
                     
@@ -202,20 +206,24 @@
                         <!-- Desktop Banner Left -->
                         {% if desktop_banner_left != blank %}
                           <img 
-                            src="{{ desktop_banner_left | img_url: 'master' }}"
+                            src="{{ desktop_banner_left | image_url }}"
                             alt="{{ desktop_banner_left.alt | escape }}"
                             loading="lazy"
                             class="full-width-banner desktop-media"
+                            width="{{ desktop_banner_left.width }}"
+                            height="{{ desktop_banner_left.height }}"
                           >
                         {% endif %}
                         
                         <!-- Mobile Banner Left -->
                         {% if mobile_banner_left != blank and mobile_banner_left != desktop_banner_left %}
                           <img 
-                            src="{{ mobile_banner_left | img_url: 'master' }}"
+                            src="{{ mobile_banner_left | image_url }}"
                             alt="{{ mobile_banner_left.alt | escape }}"
                             loading="lazy"
                             class="full-width-banner mobile-media"
+                            width="{{ mobile_banner_left.width }}"
+                            height="{{ mobile_banner_left.height }}"
                           >
                         {% endif %}
                         
@@ -266,20 +274,24 @@
                         <!-- Desktop Banner Right -->
                         {% if desktop_banner_right != blank %}
                           <img 
-                            src="{{ desktop_banner_right | img_url: 'master' }}"
+                            src="{{ desktop_banner_right | image_url }}"
                             alt="{{ desktop_banner_right.alt | escape }}"
                             loading="lazy"
                             class="full-width-banner desktop-media"
+                            width="{{ desktop_banner_right.width }}"
+                            height="{{ desktop_banner_right.height }}"
                           >
                         {% endif %}
                         
                         <!-- Mobile Banner Right -->
                         {% if mobile_banner_right != blank and mobile_banner_right != desktop_banner_right %}
                           <img 
-                            src="{{ mobile_banner_right | img_url: 'master' }}"
+                            src="{{ mobile_banner_right | image_url }}"
                             alt="{{ mobile_banner_right.alt | escape }}"
                             loading="lazy"
                             class="full-width-banner mobile-media"
+                            width="{{ mobile_banner_right.width }}"
+                            height="{{ mobile_banner_right.height }}"
                           >
                         {% endif %}
                         
@@ -340,20 +352,24 @@
                           <!-- Desktop Image -->
                           {% if desktop_image_1 != blank %}
                             <img 
-                              src="{{ desktop_image_1 | img_url: 'master' }}"
+                              src="{{ desktop_image_1 | image_url }}"
                               alt="{{ desktop_image_1.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image desktop-media"
+                              width="{{ desktop_image_1.width }}"
+                              height="{{ desktop_image_1.height }}"
                             >
                           {% endif %}
                           
                           <!-- Mobile Image -->
                           {% if mobile_image_1 != blank and mobile_image_1 != desktop_image_1 %}
                             <img 
-                              src="{{ mobile_image_1 | img_url: 'master' }}"
+                              src="{{ mobile_image_1 | image_url }}"
                               alt="{{ mobile_image_1.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image mobile-media"
+                              width="{{ mobile_image_1.width }}"
+                              height="{{ mobile_image_1.height }}"
                             >
                           {% endif %}
                         </div>
@@ -403,20 +419,24 @@
                           <!-- Desktop Image -->
                           {% if desktop_image_2 != blank %}
                             <img 
-                              src="{{ desktop_image_2 | img_url: 'master' }}"
+                              src="{{ desktop_image_2 | image_url }}"
                               alt="{{ desktop_image_2.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image desktop-media"
+                              width="{{ desktop_image_2.width }}"
+                              height="{{ desktop_image_2.height }}"
                             >
                           {% endif %}
                           
                           <!-- Mobile Image -->
                           {% if mobile_image_2 != blank and mobile_image_2 != desktop_image_2 %}
                             <img 
-                              src="{{ mobile_image_2 | img_url: 'master' }}"
+                              src="{{ mobile_image_2 | image_url }}"
                               alt="{{ mobile_image_2.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image mobile-media"
+                              width="{{ mobile_image_2.width }}"
+                              height="{{ mobile_image_2.height }}"
                             >
                           {% endif %}
                         </div>
@@ -466,20 +486,24 @@
                           <!-- Desktop Image -->
                           {% if desktop_image_3 != blank %}
                             <img 
-                              src="{{ desktop_image_3 | img_url: 'master' }}"
+                              src="{{ desktop_image_3 | image_url }}"
                               alt="{{ desktop_image_3.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image desktop-media"
+                              width="{{ desktop_image_3.width }}"
+                              height="{{ desktop_image_3.height }}"
                             >
                           {% endif %}
                           
                           <!-- Mobile Image -->
                           {% if mobile_image_3 != blank and mobile_image_3 != desktop_image_3 %}
                             <img 
-                              src="{{ mobile_image_3 | img_url: 'master' }}"
+                              src="{{ mobile_image_3 | image_url }}"
                               alt="{{ mobile_image_3.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image mobile-media"
+                              width="{{ mobile_image_3.width }}"
+                              height="{{ mobile_image_3.height }}"
                             >
                           {% endif %}
                         </div>
@@ -529,20 +553,24 @@
                           <!-- Desktop Image -->
                           {% if desktop_image_4 != blank %}
                             <img 
-                              src="{{ desktop_image_4 | img_url: 'master' }}"
+                              src="{{ desktop_image_4 | image_url }}"
                               alt="{{ desktop_image_4.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image desktop-media"
+                              width="{{ desktop_image_4.width }}"
+                              height="{{ desktop_image_4.height }}"
                             >
                           {% endif %}
                           
                           <!-- Mobile Image -->
                           {% if mobile_image_4 != blank and mobile_image_4 != desktop_image_4 %}
                             <img 
-                              src="{{ mobile_image_4 | img_url: 'master' }}"
+                              src="{{ mobile_image_4 | image_url }}"
                               alt="{{ mobile_image_4.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image mobile-media"
+                              width="{{ mobile_image_4.width }}"
+                              height="{{ mobile_image_4.height }}"
                             >
                           {% endif %}
                         </div>
@@ -592,20 +620,24 @@
                           <!-- Desktop Image -->
                           {% if desktop_image_5 != blank %}
                             <img 
-                              src="{{ desktop_image_5 | img_url: 'master' }}"
+                              src="{{ desktop_image_5 | image_url }}"
                               alt="{{ desktop_image_5.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image desktop-media"
+                              width="{{ desktop_image_5.width }}"
+                              height="{{ desktop_image_5.height }}"
                             >
                           {% endif %}
                           
                           <!-- Mobile Image -->
                           {% if mobile_image_5 != blank and mobile_image_5 != desktop_image_5 %}
                             <img 
-                              src="{{ mobile_image_5 | img_url: 'master' }}"
+                              src="{{ mobile_image_5 | image_url }}"
                               alt="{{ mobile_image_5.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image mobile-media"
+                              width="{{ mobile_image_5.width }}"
+                              height="{{ mobile_image_5.height }}"
                             >
                           {% endif %}
                         </div>
@@ -655,20 +687,24 @@
                           <!-- Desktop Image -->
                           {% if desktop_image_6 != blank %}
                             <img 
-                              src="{{ desktop_image_6 | img_url: 'master' }}"
+                              src="{{ desktop_image_6 | image_url }}"
                               alt="{{ desktop_image_6.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image desktop-media"
+                              width="{{ desktop_image_6.width }}"
+                              height="{{ desktop_image_6.height }}"
                             >
                           {% endif %}
                           
                           <!-- Mobile Image -->
                           {% if mobile_image_6 != blank and mobile_image_6 != desktop_image_6 %}
                             <img 
-                              src="{{ mobile_image_6 | img_url: 'master' }}"
+                              src="{{ mobile_image_6 | image_url }}"
                               alt="{{ mobile_image_6.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image mobile-media"
+                              width="{{ mobile_image_6.width }}"
+                              height="{{ mobile_image_6.height }}"
                             >
                           {% endif %}
                         </div>
@@ -718,20 +754,24 @@
                           <!-- Desktop Image -->
                           {% if desktop_image_7 != blank %}
                             <img 
-                              src="{{ desktop_image_7 | img_url: 'master' }}"
+                              src="{{ desktop_image_7 | image_url }}"
                               alt="{{ desktop_image_7.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image desktop-media"
+                              width="{{ desktop_image_7.width }}"
+                              height="{{ desktop_image_7.height }}"
                             >
                           {% endif %}
                           
                           <!-- Mobile Image -->
                           {% if mobile_image_7 != blank and mobile_image_7 != desktop_image_7 %}
                             <img 
-                              src="{{ mobile_image_7 | img_url: 'master' }}"
+                              src="{{ mobile_image_7 | image_url }}"
                               alt="{{ mobile_image_7.alt | escape }}"
                               loading="lazy"
                               class="slideshow-image mobile-media"
+                              width="{{ mobile_image_7.width }}"
+                              height="{{ mobile_image_7.height }}"
                             >
                           {% endif %}
                         </div>
