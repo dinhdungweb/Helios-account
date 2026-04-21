@@ -203,16 +203,16 @@
               "menu_item": "MENU",
               "image1": "shopify://shop_images/new_in.jpg",
               "subheading1": "",
-              "title1": "New in",
-              "text1": "<p>Sản phẩm mới</p>",
-              "button_label1": "Shop now",
+              "title1": "Khám phá chế tác",
+              "text1": "",
+              "button_label1": "Khám phá",
               "cta_link1": "shopify://collections/new-in",
               "image2": "shopify://shop_images/best_seller.jpg",
               "subheading2": "",
-              "title2": "Best seller",
-              "text2": "<p>Sản phẩm bán chạy</p>",
-              "button_label2": "Shop now",
-              "cta_link2": "shopify://collections/best-sellers"
+              "title2": "Hệ thống cửa hàng",
+              "text2": "",
+              "button_label2": "Tìm ngay",
+              "cta_link2": "shopify://pages/he-thong-cua-hang"
             }
           }
         },
