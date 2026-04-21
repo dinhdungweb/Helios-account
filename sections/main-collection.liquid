@@ -74,7 +74,8 @@
       results_url: results_url,
       paginate: paginate,
       current_sort_by: current_sort_by,
-      promotion_blocks: promotion_blocks
+      promotion_blocks: promotion_blocks,
+      quick_links_menu: section.settings.quick_links
     %}
 
     {% if collection.description != blank and section.settings.description_position == "bottom" and section.settings.show_collection_content == true %}
@@ -277,6 +278,62 @@
   .product-list .product-block .image .image__first {
     height: 100%;
   }
+  
+  /* Quick links row styling */
+  .footer-button-xs {
+    display: flex !important;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .collection-quick-links {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 10px;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .collection-quick-links::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .collection-quick-link {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid #333;
+    font-size: 13px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    background: transparent;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  
+  .collection-quick-link:hover, .collection-quick-link.active {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .footer-button-xs {
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: nowrap;
+      overflow: hidden;
+    }
+    .collection-quick-link {
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+  }
 </style>
 
 
@@ -397,6 +454,12 @@
       {
         "type": "paragraph",
         "content": "To create the collection filters, go to your [navigation](\/admin\/menus) page."
+      },
+      {
+        "type": "link_list",
+        "id": "quick_links",
+        "label": "Quick links menu",
+        "info": "Display links on the same row as filters"
       },
       {
         "type": "checkbox",
