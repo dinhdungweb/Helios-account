@@ -304,22 +304,31 @@
   
   .collection-quick-link {
     display: inline-block;
-    padding: 10px 18px;
-    border: 1px solid #333;
+    padding: 5px 0;
+    margin: 0 10px;
     font-size: 13px;
     text-transform: uppercase;
     text-decoration: none;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.6);
     background: transparent;
     transition: all 0.3s ease;
     letter-spacing: 1px;
     flex-shrink: 0;
+    position: relative;
   }
   
   .collection-quick-link:hover, .collection-quick-link.active {
+    color: #fff;
+  }
+
+  .collection-quick-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
     background: #fff;
-    color: #000;
-    border-color: #fff;
   }
   
   @media screen and (max-width: 768px) {
@@ -330,7 +339,6 @@
       overflow: hidden;
     }
     .collection-quick-link {
-      padding: 8px 14px;
       font-size: 12px;
     }
   }
