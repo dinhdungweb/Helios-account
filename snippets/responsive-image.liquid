@@ -17,7 +17,7 @@
       {% assign initial = false %}
     {% endif %}
     {% assign img_url = image | image_url: width: 10 | replace: 'width=10', 'width={width}' %}
-    <img class="rimage__image {% unless loading == 'eager' %}lazyload{% endunless %}{% if manual_image_load %}--manual{% endif %} fade-in {% if cover %}cover{% endif %}"
+    <img class="rimage__image lazyload{% if manual_image_load %}--manual{% endif %} fade-in {% if cover %}cover{% endif %}"
       {% if loading == 'eager' %}
         src="{{ image | image_url: width: 1080 }}"
       {% endif %}
