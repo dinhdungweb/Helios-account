@@ -77,6 +77,7 @@
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": true,
         "show_vendor": false,
+        "quick_links": "quicklink-collection",
         "show_filter_counts": false,
         "show_filter_deadends": false,
         "ajax_products": false,
