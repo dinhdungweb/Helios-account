@@ -14,6 +14,7 @@
       "blocks": {
         "button_P8Wzc3": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "NHẪN MỚI",
             "button_link": "shopify://collections/nhan-bac-nam"
@@ -21,6 +22,7 @@
         },
         "button_XbEmLV": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "VÒNG TAY MỚI",
             "button_link": "shopify://collections/vong-tay-bac-nam"
@@ -28,6 +30,7 @@
         },
         "button_DxHMpb": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "DÂY CHUYỀN MỚI",
             "button_link": "shopify://collections/day-chuyen-bac-s925"
@@ -35,6 +38,7 @@
         },
         "button_txm8VB": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "MẶT DÂY CHUYỀN MỚI",
             "button_link": "shopify://collections/mat-day-chuyen-bac-s925"
@@ -42,6 +46,7 @@
         },
         "button_ymRCYD": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "KHUYÊN TAI MỚI",
             "button_link": "shopify://collections/khuyen-tai-bac-nam"
@@ -59,8 +64,8 @@
       "settings": {
         "content_position": "right",
         "text_alignment": "left",
-        "heading": "NEW IN",
-        "paragraph": "Đây là những \"Câu chuyện\" mới nhất được rèn thành chế tác."
+        "heading": "KHÁM PHÁ CHẾ TÁC",
+        "paragraph": "Trang sức bạc thủ công cho nam. Dấu ấn của bản lĩnh và hành trình trưởng thành. Hoàn thiện bằng tay bởi nghệ nhân Việt."
       }
     },
     "main": {
@@ -93,6 +98,7 @@
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": true,
         "show_vendor": false,
+        "quick_links": "quicklink-collection",
         "show_filter_counts": false,
         "show_filter_deadends": true,
         "ajax_products": true,
