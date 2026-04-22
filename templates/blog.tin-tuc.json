@@ -13,12 +13,9 @@
       "type": "main-blog",
       "disabled": true,
       "settings": {
-        "blog_layout": "collage",
         "blog_posts_per_page": 10,
-        "blog_posts_per_row_mobile": "2",
         "blog_show_title": true,
-        "blog_show_filter": false,
-        "blog_show_rss_link": false
+        "blog_show_filter": false
       }
     },
     "custom_liquid_MQhrdN": {
