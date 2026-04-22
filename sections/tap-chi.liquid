@@ -23,6 +23,9 @@
 -%}
 
 <div class="helios-blog-wrapper" data-section-id="{{ section.id }}">
+  <!-- Background Text -->
+  <div class="blog-bg-text">HELIOS</div>
+
   <!-- Hero Section -->
   {% if featured_article %}
     <section class="helios-blog-hero">
@@ -30,150 +33,71 @@
         {% if featured_article.image %}
           <img src="{{ featured_article.image.src | image_url: width: 1920 }}" alt="{{ featured_article.title | escape }}" class="hero__image" loading="eager">
         {% endif %}
-        <div class="hero__overlay"></div>
       </div>
-      <div class="hero__content wide-container">
+      <div class="hero__content">
         <div class="hero__meta" data-cc-animate="fade-in">
           <span class="hero__tag">{{ featured_article.tags | first }}</span>
-          <span class="hero__divider">/</span>
+          <span>•</span>
           <span class="hero__date">{{ featured_article.published_at | date: "%d.%m.%Y" }}</span>
         </div>
         <h1 class="hero__title" data-cc-animate="fade-up">
           <a href="{{ featured_article.url }}">{{ featured_article.title }}</a>
         </h1>
-        <p class="hero__excerpt" data-cc-animate="fade-up" data-cc-animate-delay="0.1s">
-          {{ featured_article.excerpt_or_content | strip_html | truncatewords: 30 }}
-        </p>
         <a href="{{ featured_article.url }}" class="hero__btn" data-cc-animate="fade-up" data-cc-animate-delay="0.2s">
-          Khám phá ngay
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.16666 10H15.8333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10.8333 5L15.8333 10L10.8333 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          Vào trang lưu trữ
         </a>
       </div>
     </section>
   {% endif %}
 
-  <!-- Sticky Navigation -->
-  <nav class="helios-blog-nav" id="blog-sticky-nav">
+  <!-- Main Content - Asymmetric Grid -->
+  <main class="helios-blog-main">
     <div class="wide-container">
-      <ul class="blog-nav__list">
-        <li class="active"><a href="#all">Tất cả</a></li>
+      
+      <!-- Section 1: Latest -->
+      <div class="helios-grid--asymmetric">
+        <header class="section__header">
+          <h2 class="section__title">Ấn phẩm mới nhất</h2>
+        </header>
+
+        {% assign count = 0 %}
         {% for handle in blog_handles %}
-          <li><a href="/blogs/{{ handle }}">{{ blogs[handle].title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </nav>
-
-  <div class="wide-container">
-    <div class="helios-blog-main">
-      <div class="helios-blog-left">
-        
-        <!-- Trending Section (Phần Xem nhiều/Nổi bật) -->
-        <section class="helios-blog-section">
-          <div class="section__header">
-            <h2 class="section__title">Ấn phẩm mới</h2>
-            <div class="section__line"></div>
-          </div>
-          <div class="helios-grid helios-grid--featured">
-            {% assign count = 0 %}
-            {% for handle in blog_handles %}
-              {% for article in blogs[handle].articles %}
-                {% if article.id != featured_article.id %}
-                  {% render 'blog-card', article: article, class: 'grid-item' %}
-                  {% assign count = count | plus: 1 %}
-                {% endif %}
-                {% if count >= 6 %}{% break %}{% endif %}
-              {% endfor %}
-              {% if count >= 6 %}{% break %}{% endif %}
-            {% endfor %}
-          </div>
-        </section>
-
-        <!-- Banner Quảng cáo 1 -->
-        <section class="helios-blog-ad">
-          <a href="{{ routes.all_products_collection_url }}">
-            <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="HELIOS JEWELS" loading="lazy">
-          </a>
-        </section>
-
-        <!-- Các Section theo Blog (Ví dụ: Nhẫn, Dây chuyền) -->
-        {% assign category_blogs = 'nhan,day-chuyen,khuyen' | split: ',' %}
-        {% for cat_handle in category_blogs %}
-          <section class="helios-blog-section">
-            <div class="section__header">
-              <h2 class="section__title">{{ blogs[cat_handle].title }}</h2>
-              <div class="section__line"></div>
-              <a href="/blogs/{{ cat_handle }}" class="section__more">Xem tất cả</a>
-            </div>
-            <div class="helios-grid helios-grid--3-col">
-              {% for article in blogs[cat_handle].articles limit: 3 %}
+          {% for article in blogs[handle].articles %}
+            {% if article.id != featured_article.id %}
+              <div class="grid-item" data-cc-animate="fade-up">
                 {% render 'blog-card', article: article %}
-              {% endfor %}
-            </div>
-          </section>
+              </div>
+              {% assign count = count | plus: 1 %}
+            {% endif %}
+            {% if count >= 12 %}{% break %}{% endif %}
+          {% endfor %}
+          {% if count >= 12 %}{% break %}{% endif %}
         {% endfor %}
-
       </div>
 
-      <!-- Sidebar -->
-      <aside class="helios-blog-sidebar">
-        <div class="sidebar__sticky">
-          <!-- Social Follow -->
-          <div class="sidebar__section">
-            <h3 class="sidebar__title">Theo dõi Helios</h3>
-            <div class="sidebar__social">
-              <a href="https://facebook.com/Official.Heliosvn" target="_blank" class="social-item">
-                <span class="social-icon">{% render 'svg-facebook' %}</span>
-                <span class="social-count">1.4M+</span>
-              </a>
-              <a href="https://instagram.com/heliosofficial__" target="_blank" class="social-item">
-                <span class="social-icon">{% render 'svg-instagram' %}</span>
-                <span class="social-count">51K+</span>
-              </a>
-              <a href="https://tiktok.com/@heliosjewels" target="_blank" class="social-item">
-                <span class="social-icon">{% render 'svg-tiktok' %}</span>
-                <span class="social-count">95K+</span>
-              </a>
-            </div>
-          </div>
+      <!-- Banner Break -->
+      <section class="helios-blog-ad" style="margin: 150px 0;">
+        <a href="{{ routes.all_products_collection_url }}">
+          <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="HELIOS JEWELS" loading="lazy" style="width: 100%; filter: brightness(0.8);">
+        </a>
+      </section>
 
-          <!-- Popular Posts -->
-          <div class="sidebar__section">
-            <h3 class="sidebar__title">Xem nhiều nhất</h3>
-            <div class="popular-list">
-              {% assign pop_count = 0 %}
-              {% for handle in blog_handles %}
-                {% for article in blogs[handle].articles %}
-                  {% if article.tags contains 'Xem nhiều' %}
-                    <div class="popular-item">
-                      <div class="popular-item__img">
-                        <img src="{{ article.image | image_url: width: 150 }}" alt="{{ article.title }}" loading="lazy">
-                      </div>
-                      <div class="popular-item__info">
-                        <a href="{{ article.url }}">{{ article.title }}</a>
-                      </div>
-                    </div>
-                    {% assign pop_count = pop_count | plus: 1 %}
-                  {% endif %}
-                  {% if pop_count >= 5 %}{% break %}{% endif %}
-                {% endfor %}
-                {% if pop_count >= 5 %}{% break %}{% endif %}
-              {% endfor %}
-            </div>
+      <!-- Section 2: Selected Categories -->
+      <div class="helios-grid--asymmetric">
+        <header class="section__header">
+          <h2 class="section__title">Bộ sưu tập Nhẫn</h2>
+        </header>
+        {% for article in blogs['nhan'].articles limit: 6 %}
+          <div class="grid-item" data-cc-animate="fade-up">
+            {% render 'blog-card', article: article %}
           </div>
-          
-          <!-- Banner Quảng cáo Sidebar -->
-          <div class="sidebar__ad">
-            <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="Ad">
-          </div>
-        </div>
-      </aside>
+        {% endfor %}
+      </div>
+
     </div>
-  </div>
+  </main>
 </div>
+
 
 {% render 'blog-styles-helper' %}
 

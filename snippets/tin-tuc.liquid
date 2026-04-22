@@ -23,6 +23,9 @@
 -%}
 
 <div class="helios-blog-wrapper">
+  <!-- Background Text -->
+  <div class="blog-bg-text">ARCHIVE</div>
+
   <!-- Hero Section -->
   {% if featured_article %}
     <section class="helios-blog-hero">
@@ -30,91 +33,48 @@
         {% if featured_article.image %}
           <img src="{{ featured_article.image.src | image_url: width: 1920 }}" alt="{{ featured_article.title | escape }}" class="hero__image" loading="eager">
         {% endif %}
-        <div class="hero__overlay"></div>
       </div>
-      <div class="hero__content wide-container">
+      <div class="hero__content">
         <div class="hero__meta">
           <span class="hero__tag">{{ featured_article.tags | first }}</span>
-          <span class="hero__divider">/</span>
+          <span>•</span>
           <span class="hero__date">{{ featured_article.published_at | date: "%d.%m.%Y" }}</span>
         </div>
         <h1 class="hero__title">
           <a href="{{ featured_article.url }}">{{ featured_article.title }}</a>
         </h1>
-        <p class="hero__excerpt">
-          {{ featured_article.excerpt_or_content | strip_html | truncatewords: 30 }}
-        </p>
         <a href="{{ featured_article.url }}" class="hero__btn">
           Xem chi tiết
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.16666 10H15.8333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10.8333 5L15.8333 10L10.8333 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
         </a>
       </div>
     </section>
   {% endif %}
 
-  <!-- Main Grid Content (Similar to tap-chi.liquid) -->
+  <!-- Asymmetric Grid Content -->
   <div class="wide-container">
     <div class="helios-blog-main">
-      <div class="helios-blog-left">
-        <section class="helios-blog-section">
-          <div class="section__header">
-            <h2 class="section__title">Mới nhất</h2>
-            <div class="section__line"></div>
-          </div>
-          <div class="helios-grid helios-grid--featured">
-            {% assign count = 0 %}
-            {% for handle in blog_handles %}
-              {% for article in blogs[handle].articles %}
-                {% if article.id != featured_article.id %}
-                  {% render 'blog-card', article: article, class: 'grid-item' %}
-                  {% assign count = count | plus: 1 %}
-                {% endif %}
-                {% if count >= 10 %}{% break %}{% endif %}
-              {% endfor %}
-              {% if count >= 10 %}{% break %}{% endif %}
-            {% endfor %}
-          </div>
-        </section>
-      </div>
+      <div class="helios-grid--asymmetric">
+        <header class="section__header">
+          <h2 class="section__title">Ấn phẩm mới nhất</h2>
+        </header>
 
-      <aside class="helios-blog-sidebar">
-        <!-- Sidebar content can be reused or simplified here -->
-        <div class="sidebar__sticky">
-           <div class="sidebar__section">
-            <h3 class="sidebar__title">Xem nhiều</h3>
-            <div class="popular-list">
-              {% assign pop_count = 0 %}
-              {% for handle in blog_handles %}
-                {% for article in blogs[handle].articles %}
-                  {% if article.tags contains 'Xem nhiều' %}
-                    <div class="popular-item">
-                      <div class="popular-item__img">
-                        <img src="{{ article.image | image_url: width: 150 }}" alt="{{ article.title }}" loading="lazy">
-                      </div>
-                      <div class="popular-item__info">
-                        <a href="{{ article.url }}">{{ article.title }}</a>
-                      </div>
-                    </div>
-                    {% assign pop_count = pop_count | plus: 1 %}
-                  {% endif %}
-                  {% if pop_count >= 5 %}{% break %}{% endif %}
-                {% endfor %}
-                {% if pop_count >= 5 %}{% break %}{% endif %}
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </aside>
+        {% assign count = 0 %}
+        {% for handle in blog_handles %}
+          {% for article in blogs[handle].articles %}
+            {% if article.id != featured_article.id %}
+              <div class="grid-item" data-cc-animate="fade-up">
+                {% render 'blog-card', article: article %}
+              </div>
+              {% assign count = count | plus: 1 %}
+            {% endif %}
+            {% if count >= 12 %}{% break %}{% endif %}
+          {% endfor %}
+          {% if count >= 12 %}{% break %}{% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </div>
 
-<style>
-  /* Reuse styles from tap-chi.liquid or include them in a shared asset */
-  /* For simplicity and performance in this specific theme, we duplicate necessary styles or assume they are in tap-chi.liquid */
-  /* If this snippet is used on a page without tap-chi.liquid section, we need these styles: */
-  {% render 'blog-styles-helper' %}
-</style>
+{% render 'blog-styles-helper' %}
+
