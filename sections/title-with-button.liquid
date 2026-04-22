@@ -4,13 +4,15 @@
     <div class="title-with-button-content align-{{ section.settings.text_alignment }}">
       <h2>{{ section.settings.heading }}</h2>
       <p>{{ section.settings.paragraph }}</p>
-      <div class="title-with-button-buttons">
-        {% for block in section.blocks %}
-          <a href="{{ block.settings.button_link }}" class="title-with-button-btn" target="_blank" rel="noopener">
-            {{ block.settings.button_text }}
-          </a>
-        {% endfor %}
-      </div>
+      {% if block.settings.button_link %}
+        <div class="title-with-button-buttons">
+          {% for block in section.blocks %}
+            <a href="{{ block.settings.button_link }}" class="title-with-button-btn" target="_blank" rel="noopener">
+              {{ block.settings.button_text }}
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
