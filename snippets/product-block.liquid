@@ -289,53 +289,15 @@
     {%- endif -%}
 
 
-    <a data-cc-animate-click href="{{ product_url }}" class="caption upper">
-      {% if show_title %}
-      <span class="card-title-ellipsis">{{ product.title }}</span>
-      {% endif %}
-
-      {% if show_vendor %}
-        <span class="vendor">{{ product.vendor }}</span>
-      {% endif %}
-
-      <div class="product-block__price-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-        {% if show_price %}
-          <div class="price" style="margin: 0;">
-            {% comment %} === UNIFIED CONTENT LOCK CHECK === {% endcomment %}
-            {% capture lock_result %}{% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}{% endcapture %}
-            {% assign lock_parts = lock_result | strip | split: '|' %}
-            {% assign lock_status = lock_parts[0] | plus: 0 %}
-            {% assign lock_type = lock_parts[1] %}
-            {% assign lock_message = lock_parts[2] %}
-            
-            {% if lock_status == 3 %}
-              {% comment %} Special case: Không bán {% endcomment %}
-              <b style="color:#FAB320">{{ lock_message }}</b>
-            {% elsif lock_status == 2 %}
-              {% comment %} Special case: Giá liên hệ {% endcomment %}
-              <b style="color:#FAB320">{{ lock_message }}</b>
-            {% elsif lock_status == 1 %}
-              {% comment %} Content is locked {% endcomment %}
-              <b style="color:#FAB320">{{ lock_message }}</b>
-            {% else %}
-              {% comment %} Content is unlocked - show price {% endcomment %}
-              {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-              {% render 'tier-price', 
-                price: cheapest_variant.price,
-                compare_at_price: cheapest_variant.compare_at_price,
-                product: product,
-                customer: customer,
-                show_original: true,
-                show_badge: true
-              %}
-              {% render 'unit-price', variant: cheapest_variant %}
-            {% endif %}
-          </div>
+    <a data-cc-animate-click href="{{ product_url }}" class="caption upper" style="display: block;">
+      <div class="product-block__title-row" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin-bottom: 5px;">
+        {% if show_title %}
+          <span class="card-title-ellipsis" style="flex: 1; margin: 0;">{{ product.title }}</span>
         {% endif %}
 
         {% if show_review and settings.show_product_block_reviews and product.metafields.reviews != blank %}
-          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 4px;">
-            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 12px; color: #fff; opacity: 1; font-weight: 500; text-transform: none; letter-spacing: 0;">
+          <div class="themed-product-reviews" style="display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-top: 2px;">
+            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 12px; color: #fff; opacity: 1; font-weight: 500; letter-spacing: 0;">
               {{ product.metafields.reviews.rating.value | default: 0 }}
             </span>
             <div style="color: #fff; width: 12px; height: 12px; display: flex; align-items: center;">
@@ -343,16 +305,50 @@
             </div>
           </div>
         {% elsif show_review %}
-          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 4px;">
-            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 12px; color: #fff; opacity: 0.6; font-weight: 500; text-transform: none; letter-spacing: 0;">
+          <div class="themed-product-reviews" style="display: flex; align-items: center; gap: 4px; white-space: nowrap; margin-top: 2px;">
+            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 12px; color: #fff; opacity: 0.5; font-weight: 500; letter-spacing: 0;">
               0
             </span>
-            <div style="color: #fff; opacity: 0.6; width: 12px; height: 12px; display: flex; align-items: center;">
+            <div style="color: #fff; opacity: 0.5; width: 12px; height: 12px; display: flex; align-items: center;">
               {% render 'svg-star' %}
             </div>
           </div>
         {% endif %}
       </div>
+
+      {% if show_vendor %}
+        <span class="vendor" style="display: block; margin-bottom: 4px;">{{ product.vendor }}</span>
+      {% endif %}
+
+      {% if show_price %}
+        <div class="price" style="display: block; margin: 0;">
+          {% comment %} === UNIFIED CONTENT LOCK CHECK === {% endcomment %}
+          {% capture lock_result %}{% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}{% endcapture %}
+          {% assign lock_parts = lock_result | strip | split: '|' %}
+          {% assign lock_status = lock_parts[0] | plus: 0 %}
+          {% assign lock_type = lock_parts[1] %}
+          {% assign lock_message = lock_parts[2] %}
+          
+          {% if lock_status == 3 %}
+            <b style="color:#FAB320">{{ lock_message }}</b>
+          {% elsif lock_status == 2 %}
+            <b style="color:#FAB320">{{ lock_message }}</b>
+          {% elsif lock_status == 1 %}
+            <b style="color:#FAB320">{{ lock_message }}</b>
+          {% else %}
+            {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
+            {% render 'tier-price', 
+              price: cheapest_variant.price,
+              compare_at_price: cheapest_variant.compare_at_price,
+              product: product,
+              customer: customer,
+              show_original: true,
+              show_badge: true
+            %}
+            {% render 'unit-price', variant: cheapest_variant %}
+          {% endif %}
+        </div>
+      {% endif %}
     </a>
   </div>
 </div>
