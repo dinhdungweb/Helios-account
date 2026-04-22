@@ -17,9 +17,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 44px; /* Align with header margin */
-    gap: 30px; /* Add space between banners */
-    margin-top: 40px;
+    padding: 0 20px; /* Fixed 20px margin as requested */
+    gap: 30px; 
+    margin-top: 0; /* Remove top margin */
   }
 
   /* Each Banner Section */
@@ -32,7 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px; /* Optional: adds a refined touch */
+    border-radius: 0; /* Remove border radius */
   }
 
   .banner__image-link {
@@ -49,11 +49,12 @@
     height: 100%;
     object-fit: cover;
     filter: brightness(0.7);
-    transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* Transition removed or kept for brightness only */
+    transition: filter 0.5s ease;
   }
 
   .helios-blog-banner:hover .banner__image {
-    transform: scale(1.05);
+    /* Zoom effect removed */
     filter: brightness(0.6);
   }
 
@@ -120,6 +121,7 @@
     .banner__title { font-size: 1.8rem; }
     .banner__meta { margin-bottom: 15px; }
   }
+
 
 </style>
 
