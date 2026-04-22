@@ -17,19 +17,22 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 0 44px; /* Align with header margin */
+    gap: 30px; /* Add space between banners */
+    margin-top: 40px;
   }
 
   /* Each Banner Section */
   .helios-blog-banner {
     position: relative;
     width: 100%;
-    height: 90vh; /* High-end editorial height */
-    min-height: 600px;
+    height: 80vh; 
+    min-height: 500px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-radius: 4px; /* Optional: adds a refined touch */
   }
 
   .banner__image-link {
@@ -109,11 +112,15 @@
 
   /* Responsive Adjustments */
   @media (max-width: 768px) {
-
-    .helios-blog-banner { height: 70vh; }
-    .banner__title { font-size: 2rem; }
+    .helios-banner-stack {
+      padding: 0 20px;
+      gap: 20px;
+    }
+    .helios-blog-banner { height: 60vh; }
+    .banner__title { font-size: 1.8rem; }
     .banner__meta { margin-bottom: 15px; }
   }
+
 </style>
 
 
