@@ -232,30 +232,32 @@
     }
   }
 
-  /* Đảm bảo Banner có chiều cao bằng Product Block */
-  .promotion-block.one-column .responsive-image-wrapper {
-    aspect-ratio: 1 / 1;
-  }
-  .promotion-block.two-columns .responsive-image-wrapper {
-    aspect-ratio: 2 / 1;
-  }
-  
+  /* Để đảm bảo chiều cao bằng nhau */
   .promotion-image-container,
   .promotion-video-container {
     height: 100%;
+    width: 100%;
   }
 
-  .responsive-image-wrapper {
+  .promotion-block .responsive-image-wrapper,
+  .promotion-block .responsive-video-wrapper {
+    height: 0;
+    padding-top: 130%; /* Tỉ lệ khoảng 3:4 hoặc 4:5 để khớp với ảnh sản phẩm */
     position: relative;
     border-radius: 3px;
     overflow: hidden;
+    background: #1a1a1a;
   }
 
-  .responsive-image-wrapper img,
-  .responsive-video-wrapper video {
-    object-fit: cover;
-    height: 100%;
+  .promotion-block .responsive-image-wrapper img,
+  .promotion-block .responsive-video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .product-block.promotion-block {
@@ -274,7 +276,7 @@
     flex-direction: column;
   }
 
-  /* Đảm bảo phần ảnh không bị giãn theo chiều cao của hàng khi có banner */
+  /* Đảm bảo phần ảnh chiếm toàn bộ không gian */
   .product-list .product-block {
     display: flex;
     flex-direction: column;
@@ -283,19 +285,20 @@
   .product-list .product-block .product-block__inner {
     display: flex;
     flex-direction: column;
+    flex: 1;
   }
 
   .product-list .product-block .image {
-    height: auto;
-    margin-bottom: 10px;
+    flex: 1;
+    height: 100%;
   }
 
   .product-list .product-block .image .image-inner {
-    height: auto;
+    height: 100%;
   }
 
   .product-list .product-block .image .image__first {
-    height: auto;
+    height: 100%;
   }
 
   /* Quick links row styling */
