@@ -239,10 +239,20 @@
     width: 100%;
   }
 
-  .promotion-block .responsive-image-wrapper,
-  .promotion-block .responsive-video-wrapper {
+  .promotion-block.one-column .responsive-image-wrapper,
+  .promotion-block.one-column .responsive-video-wrapper {
     height: 0;
-    padding-top: 130%; /* Tỉ lệ khoảng 3:4 hoặc 4:5 để khớp với ảnh sản phẩm */
+    padding-top: 130%; /* Khớp với ảnh sản phẩm đơn */
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .promotion-block.two-columns .responsive-image-wrapper,
+  .promotion-block.two-columns .responsive-video-wrapper {
+    height: 0;
+    padding-top: 64%; /* Một nửa của 130% (có trừ hao gutter) để cao bằng sản phẩm đơn */
     position: relative;
     border-radius: 3px;
     overflow: hidden;
