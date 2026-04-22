@@ -1,1 +1,38 @@
-{"sections":{"custom_liquid_gDKyhx":{"type":"custom-liquid","settings":{"no_margins":true,"custom_liquid":"{% render \"breadcrumbs\" %}"}},"main":{"type":"main-article","settings":{"show_toc":true,"toc_hd":"Table of Content","toc-hd-sz":18,"toc-ctn-bk":"#f2f2f2","toc-btn-bk":"#3fb9fc","toc-btn-txt":"#FFFFFF","toc-btn-hvr-bk":"#0E32C7","toc-btn-hvr-txt":"#FFFFFF","blog_ads_link":""}}},"order":["custom_liquid_gDKyhx","main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_gDKyhx": {
+      "type": "custom-liquid",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "{% render \"breadcrumbs\" %}"
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "show_toc": true,
+        "toc_hd": "Table of Content",
+        "toc-hd-sz": 18,
+        "toc-ctn-bk": "rgba(0,0,0,0)",
+        "toc-btn-bk": "#3fb9fc",
+        "toc-btn-txt": "#ffffff",
+        "toc-btn-hvr-bk": "#0e32c7",
+        "toc-btn-hvr-txt": "#ffffff",
+        "blog_ads_link": ""
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_gDKyhx",
+    "main"
+  ]
+}
