@@ -267,7 +267,7 @@
     flex-direction: column;
   }
 
-  /* Đảm bảo phần ảnh chiếm toàn bộ không gian */
+  /* Đảm bảo phần ảnh không bị giãn theo chiều cao của hàng khi có banner */
   .product-list .product-block {
     display: flex;
     flex-direction: column;
@@ -276,20 +276,19 @@
   .product-list .product-block .product-block__inner {
     display: flex;
     flex-direction: column;
-    flex: 1;
   }
 
   .product-list .product-block .image {
-    flex: 1;
-    height: 100%;
+    height: auto;
+    margin-bottom: 10px;
   }
 
   .product-list .product-block .image .image-inner {
-    height: 100%;
+    height: auto;
   }
 
   .product-list .product-block .image .image__first {
-    height: 100%;
+    height: auto;
   }
 
   /* Quick links row styling */
