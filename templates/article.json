@@ -26,7 +26,7 @@
         "toc-btn-bk": "#3fb9fc",
         "toc-btn-txt": "#ffffff",
         "toc-btn-hvr-bk": "#0e32c7",
-        "toc-btn-hvr-txt": "#ffffff",
+        "toc-btn-hvr-txt": "#000000",
         "blog_ads_link": ""
       }
     }
