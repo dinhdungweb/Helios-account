@@ -19,7 +19,7 @@
   data-section-type="collection-template"
   data-ajax-filtering="{{ section.settings.ajax_products }}"
   data-components="tabs,product-block,price-range,accordion,sticky-scroll-direction"
-  class="pb-medium {% if section.settings.show_collection_image and collection.featured_image %}header-overlap-section{% elsif section.settings.show_collection_content %}pt-medium{% else %}sm:pt-medium{% endif %}"
+  class="{% if section.settings.show_collection_image and collection.featured_image %}header-overlap-section{% endif %}"
   data-cc-animate
 >
   {% paginate collection.products by section.settings.products_per_page %}
