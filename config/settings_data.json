@@ -244,7 +244,7 @@
           "announcement_email": "support@helios.vn",
           "announcement_custom": "Hệ thống cửa hàng",
           "announcement_custom_link": "shopify://pages/he-thong-cua-hang",
-          "nav_cart_icon": "basket2",
+          "nav_cart_icon": "basket1",
           "show_country_selector": true,
           "show_language_selector": true
         }
