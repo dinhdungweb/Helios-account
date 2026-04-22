@@ -6,7 +6,6 @@
 -%}
 
 <div class="helios-blog-wrapper" data-section-id="{{ section.id }}">
-  
   <header class="blog-page-header">
     <h1 class="blog-page-header__title">{{ blog.title }}</h1>
     <nav class="blog-page-header__nav">
@@ -14,7 +13,10 @@
         assign nav_handles = 'tin-tuc,nhan,day-chuyen,vong-tay,bac,da,kinh' | split: ','
       -%}
       {% for handle in nav_handles %}
-        <a href="{{ blogs[handle].url }}" class="blog-page-header__link {% if blog.handle == handle %}is-active{% endif %}">
+        <a
+          href="{{ blogs[handle].url }}"
+          class="blog-page-header__link {% if blog.handle == handle %}is-active{% endif %}"
+        >
           {{ blogs[handle].title }}
         </a>
       {% endfor %}
@@ -26,12 +28,17 @@
       {% for article in blog.articles %}
         {% render 'blog-card', article: article %}
       {% else %}
-        <p class="align-centre" style="padding: 100px 0; opacity: 0.5;"><em>{{ 'blogs.general.no_matches' | t }}</em></p>
+        <p class="align-centre" style="padding: 100px 0; opacity: 0.5;">
+          <em>{{ 'blogs.general.no_matches' | t }}</em>
+        </p>
       {% endfor %}
     </div>
 
     {% if paginate.pages > 1 %}
-      <div class="pagination-container" style="padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+      <div
+        class="pagination-container"
+        style="padding: 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);"
+      >
         <div class="pagination central content">
           {% assign older_articles = 'blogs.pagination.older_articles' | t %}
           {% assign newer_articles = 'blogs.pagination.newer_articles' | t %}
@@ -49,30 +56,30 @@
 {% render 'blog-styles-helper' %}
 
 {% schema %}
-  {
-    "name": "Blog pages",
-    "settings": [
-      {
-        "type": "range",
-        "id": "blog_posts_per_page",
-        "label": "Posts per page",
-        "min": 6,
-        "max": 24,
-        "step": 1,
-        "default": 12
-      },
-      {
-        "type": "checkbox",
-        "id": "blog_show_title",
-        "label": "Show page title",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "blog_show_filter",
-        "label": "Show tag filter",
-        "default": false
-      }
-    ]
-  }
+{
+  "name": "Blog pages",
+  "settings": [
+    {
+      "type": "range",
+      "id": "blog_posts_per_page",
+      "label": "Posts per page",
+      "min": 6,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_title",
+      "label": "Show page title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_filter",
+      "label": "Show tag filter",
+      "default": false
+    }
+  ]
+}
 {% endschema %}
