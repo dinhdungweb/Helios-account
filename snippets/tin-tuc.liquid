@@ -23,58 +23,23 @@
 -%}
 
 <div class="helios-blog-wrapper">
-  <!-- Background Text -->
-  <div class="blog-bg-text">ARCHIVE</div>
+  <div class="helios-banner-stack">
+    {%- liquid
+      assign all_articles = blogs['tin-tuc'].articles | concat: blogs['nhan'].articles | concat: blogs['day-chuyen'].articles
+      # Sắp xếp theo ngày xuất bản giảm dần
+      assign all_articles = all_articles | sort: 'published_at' | reverse
+    -%}
+    
+    {% for article in all_articles limit: 12 %}
+      {% render 'blog-card', article: article %}
+    {% endfor %}
+  </div>
 
-  <!-- Hero Section -->
-  {% if featured_article %}
-    <section class="helios-blog-hero">
-      <div class="hero__image-container">
-        {% if featured_article.image %}
-          <img src="{{ featured_article.image.src | image_url: width: 1920 }}" alt="{{ featured_article.title | escape }}" class="hero__image" loading="eager">
-        {% endif %}
-      </div>
-      <div class="hero__content">
-        <div class="hero__meta">
-          <span class="hero__tag">{{ featured_article.tags | first }}</span>
-          <span>•</span>
-          <span class="hero__date">{{ featured_article.published_at | date: "%d.%m.%Y" }}</span>
-        </div>
-        <h1 class="hero__title">
-          <a href="{{ featured_article.url }}">{{ featured_article.title }}</a>
-        </h1>
-        <a href="{{ featured_article.url }}" class="hero__btn">
-          Xem chi tiết
-        </a>
-      </div>
-    </section>
-  {% endif %}
-
-  <!-- Asymmetric Grid Content -->
-  <div class="wide-container">
-    <div class="helios-blog-main">
-      <div class="helios-grid--asymmetric">
-        <header class="section__header">
-          <h2 class="section__title">Ấn phẩm mới nhất</h2>
-        </header>
-
-        {% assign count = 0 %}
-        {% for handle in blog_handles %}
-          {% for article in blogs[handle].articles %}
-            {% if article.id != featured_article.id %}
-              <div class="grid-item" data-cc-animate="fade-up">
-                {% render 'blog-card', article: article %}
-              </div>
-              {% assign count = count | plus: 1 %}
-            {% endif %}
-            {% if count >= 12 %}{% break %}{% endif %}
-          {% endfor %}
-          {% if count >= 12 %}{% break %}{% endif %}
-        {% endfor %}
-      </div>
-    </div>
+  <div class="banner-stack__footer" style="padding: 100px 0; text-align: center;">
+    <p style="font-size: 11px; letter-spacing: 0.3em; opacity: 0.5;">END OF JOURNAL</p>
   </div>
 </div>
 
 {% render 'blog-styles-helper' %}
+
 
