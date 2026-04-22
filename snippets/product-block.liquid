@@ -334,17 +334,11 @@
         {% endif %}
 
         {% if show_review and settings.show_product_block_reviews and product.metafields.reviews != blank %}
-          <div class="themed-product-reviews" style="margin: 0;">
+          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 5px;">
             {% render 'rating', rating_value: product.metafields.reviews.rating.value %}
-            {%- assign rating_count = product.metafields.reviews.rating_count | plus: 0 -%}
-            {% if rating_count != blank and rating_count > 0 %}
-              <span class="cc-rating-custom-caption">
-                {{ rating_count }}
-              </span>
-            {% endif %}
           </div>
         {% elsif show_review %}
-          <div class="themed-product-reviews" style="margin: 0;">
+          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 5px;">
             <div class="cc-rating" role="img" aria-label="No reviews">
               <span aria-hidden="true" class="cc-rating-stars">
                 <span class="cc-rating-stars--inactive">
@@ -356,7 +350,9 @@
                 </span>
               </span>
             </div>
-            <span class="cc-rating-custom-caption">0</span>
+            <p class="cc-rating-text" style="margin: 0; font-size: 11px; opacity: 0.6;">
+              <span aria-hidden="true">0 / 5</span>
+            </p>
           </div>
         {% endif %}
       </div>
