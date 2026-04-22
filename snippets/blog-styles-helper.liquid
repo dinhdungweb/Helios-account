@@ -30,7 +30,7 @@
     min-height: 500px;
     overflow: hidden;
     display: flex;
-    align-items: center;
+    /* align-items: center; removed */
     justify-content: center;
     border-radius: 0; /* Remove border radius */
   }
@@ -64,14 +64,14 @@
     z-index: 2;
     text-align: center;
     max-width: 900px;
-    padding: 0 40px;
+    padding: 80px 40px; /* Added top padding since we removed center alignment */
     pointer-events: none;
   }
 
   .banner__title--small {
     font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
+    font-weight: 400; /* Adjusted from 600 */
+    letter-spacing: 0.1em; /* Adjusted from 0.2em */
     text-transform: uppercase;
     margin-bottom: 20px;
     opacity: 0.8;
