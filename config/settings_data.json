@@ -1111,7 +1111,8 @@
     "custom_css": [
       ".overlay .inner {padding-right: 0px;}",
       ".product-block .product-block__price-row {padding-top: 5px;}",
-      ".product-block .card-title-ellipsis {padding: 0;}"
+      ".product-block .card-title-ellipsis {padding: 0;}",
+      ".announcement-slider .swiper-button-next, .announcement-slider .swiper-button-prev {width: 15px;}"
     ]
   }
 }
