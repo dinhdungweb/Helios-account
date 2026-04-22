@@ -334,42 +334,22 @@
         {% endif %}
 
         {% if show_review and settings.show_product_block_reviews and product.metafields.reviews != blank %}
-          {%- liquid
-            assign rating_val = product.metafields.reviews.rating.value
-            assign rating_decimal = 0
-            assign decimal = rating_val.rating | modulo: 1
-            if decimal > 0 and decimal <= 0.5
-              assign rating_decimal = 0.5
-            endif
-            assign rating_ceiling = rating_val.rating | ceil
-          -%}
-          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 5px;">
-            <div class="cc-rating" role="img" data-rating-decimal="{{ rating_decimal }}">
-              <span aria-hidden="true" class="cc-rating-stars">
-                <span class="cc-rating-stars--inactive">
-                  {%- for i in (1..5) -%}{% render 'rating-star-icon' %}{%- endfor -%}
-                </span>
-                <span class="cc-rating-stars--active">
-                  {%- for i in (1..rating_ceiling) -%}{% render 'rating-star-icon' %}{%- endfor -%}
-                </span>
-              </span>
-            </div>
-            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 11px; color: #fff; opacity: 0.9; font-weight: 400; text-transform: none; letter-spacing: 0;">
-              {{ rating_val | default: 0 }} <span style="color: #fff; font-size: 10px; margin-left: 2px;">★</span>
+          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 4px;">
+            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 12px; color: #fff; opacity: 1; font-weight: 500; text-transform: none; letter-spacing: 0;">
+              {{ product.metafields.reviews.rating.value | default: 0 }}
             </span>
+            <div style="color: #fff; width: 12px; height: 12px; display: flex; align-items: center;">
+              {% render 'svg-star' %}
+            </div>
           </div>
         {% elsif show_review %}
-          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 5px;">
-            <div class="cc-rating" role="img">
-              <span aria-hidden="true" class="cc-rating-stars">
-                <span class="cc-rating-stars--inactive">
-                  {%- for i in (1..5) -%}{% render 'rating-star-icon' %}{%- endfor -%}
-                </span>
-              </span>
-            </div>
-            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 11px; color: #fff; opacity: 0.6; font-weight: 400; text-transform: none; letter-spacing: 0;">
-              0 <span style="color: #fff; font-size: 10px; margin-left: 2px;">★</span>
+          <div class="themed-product-reviews" style="margin: 0; display: flex; align-items: center; gap: 4px;">
+            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 12px; color: #fff; opacity: 0.6; font-weight: 500; text-transform: none; letter-spacing: 0;">
+              0
             </span>
+            <div style="color: #fff; opacity: 0.6; width: 12px; height: 12px; display: flex; align-items: center;">
+              {% render 'svg-star' %}
+            </div>
           </div>
         {% endif %}
       </div>
