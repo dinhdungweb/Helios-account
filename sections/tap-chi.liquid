@@ -23,86 +23,23 @@
 -%}
 
 <div class="helios-blog-wrapper" data-section-id="{{ section.id }}">
-  <div class="wide-container">
+  <div class="helios-banner-stack">
+    {%- liquid
+      assign all_articles = blogs['nhan'].articles | concat: blogs['tin-tuc'].articles | concat: blogs['day-chuyen'].articles
+      # Sắp xếp theo ngày xuất bản giảm dần
+      assign all_articles = all_articles | sort: 'published_at' | reverse
+    -%}
     
-    <header class="bento-section-header">
-      <h2>Chronicle</h2>
-      <div class="line"></div>
-      <div class="bento-meta">JOURNAL BY HELIOS</div>
-    </header>
+    {% for article in all_articles limit: 10 %}
+      {% render 'blog-card', article: article %}
+    {% endfor %}
+  </div>
 
-    <div class="helios-bento-grid">
-      {% assign all_articles = blogs['nhan'].articles | concat: blogs['tin-tuc'].articles %}
-      
-      <!-- Article 1: Large -->
-      <div class="bento-item bento-item--large">
-        {% render 'blog-card', article: all_articles[0] %}
-      </div>
-
-      <!-- Artistic Block 1 -->
-      <div class="bento-item bento-item--text">
-        <div class="bento__number">01</div>
-        <div class="bento__quote">Chế tác thủ công</div>
-      </div>
-
-      <!-- Article 2: Small -->
-      <div class="bento-item bento-item--small">
-        {% render 'blog-card', article: all_articles[1] %}
-      </div>
-
-      <!-- Article 3: Tall -->
-      <div class="bento-item bento-item--tall">
-        {% render 'blog-card', article: all_articles[2] %}
-      </div>
-
-      <!-- Article 4: Wide -->
-      <div class="bento-item bento-item--wide">
-        {% render 'blog-card', article: all_articles[3] %}
-      </div>
-
-      <!-- Artistic Block 2 -->
-      <div class="bento-item bento-item--text">
-        <div class="bento__number">02</div>
-        <div class="bento__quote">Độc bản & Cá tính</div>
-      </div>
-
-      <!-- Article 5: Small -->
-      <div class="bento-item bento-item--small">
-        {% render 'blog-card', article: all_articles[4] %}
-      </div>
-
-      <!-- Article 6: Wide -->
-      <div class="bento-item bento-item--wide">
-        {% render 'blog-card', article: all_articles[5] %}
-      </div>
-
-      <!-- Article 7: Small -->
-      <div class="bento-item bento-item--small">
-        {% render 'blog-card', article: all_articles[6] %}
-      </div>
-
-      <!-- Article 8: Small -->
-      <div class="bento-item bento-item--small">
-        {% render 'blog-card', article: all_articles[7] %}
-      </div>
-    </div>
-
-    <!-- Second Section: Catalog -->
-    <header class="bento-section-header">
-      <h2>Nhẫn</h2>
-      <div class="line"></div>
-    </header>
-
-    <div class="helios-bento-grid">
-      {% for article in blogs['nhan'].articles limit: 6 %}
-        <div class="bento-item {% if forloop.first %}bento-item--wide{% else %}bento-item--small{% endif %}">
-          {% render 'blog-card', article: article %}
-        </div>
-      {% endfor %}
-    </div>
-
+  <div class="banner-stack__footer" style="padding: 100px 0; text-align: center;">
+    <p style="font-size: 11px; letter-spacing: 0.3em; opacity: 0.5;">END OF JOURNAL</p>
   </div>
 </div>
+
 
 
 

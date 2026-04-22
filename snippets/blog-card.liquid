@@ -1,27 +1,24 @@
-<div class="helios-blog-card {{ class }}">
-  <a href="{{ article.url }}" class="blog-card__image-link">
-    <div class="blog-card__image-wrapper">
-      {% if article.image %}
-        <img 
-          src="{{ article.image.src | image_url: width: 1200 }}" 
-          alt="{{ article.title | escape }}" 
-          loading="lazy" 
-          width="1200" 
-          height="{{ 1200 | divided_by: article.image.aspect_ratio | round }}"
-          class="blog-card__image"
-        >
-      {% endif %}
-      
-      <div class="blog-card__overlay">
-        <div class="blog-card__meta">
-          <span class="blog-card__date">{{ article.published_at | date: "%d.%m.%Y" }}</span>
-        </div>
-        <h3 class="blog-card__title">
-          <a href="{{ article.url }}">{{ article.title }}</a>
-        </h3>
-      </div>
-    </div>
+<section class="helios-blog-banner {{ class }}" data-cc-animate="fade-up">
+  <a href="{{ article.url }}" class="banner__image-link">
+    {% if article.image %}
+      <img 
+        src="{{ article.image.src | image_url: width: 2000 }}" 
+        alt="{{ article.title | escape }}" 
+        loading="lazy" 
+        width="2000" 
+        height="{{ 2000 | divided_by: article.image.aspect_ratio | round }}"
+        class="banner__image"
+      >
+    {% endif %}
   </a>
-</div>
-
-
+  
+  <div class="banner__content">
+    <div class="banner__meta">
+      {{ article.tags | first | default: 'Journal' }} — {{ article.published_at | date: "%B %d, %Y" }}
+    </div>
+    <h2 class="banner__title">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h2>
+    <a href="{{ article.url }}" class="banner__link">Read more</a>
+  </div>
+</section>
