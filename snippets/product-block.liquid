@@ -298,74 +298,68 @@
         <span class="vendor">{{ product.vendor }}</span>
       {% endif %}
 
-      {% if show_price %}
-      <div class="price">
-        {% comment %} === UNIFIED CONTENT LOCK CHECK === {% endcomment %}
-        {% capture lock_result %}{% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}{% endcapture %}
-        {% assign lock_parts = lock_result | strip | split: '|' %}
-        {% assign lock_status = lock_parts[0] | plus: 0 %}
-        {% assign lock_type = lock_parts[1] %}
-        {% assign lock_message = lock_parts[2] %}
-        
-        {% if lock_status == 3 %}
-          {% comment %} Special case: Không bán {% endcomment %}
-          <b style="color:#FAB320">{{ lock_message }}</b>
-        {% elsif lock_status == 2 %}
-          {% comment %} Special case: Giá liên hệ {% endcomment %}
-          <b style="color:#FAB320">{{ lock_message }}</b>
-        {% elsif lock_status == 1 %}
-          {% comment %} Content is locked {% endcomment %}
-          <b style="color:#FAB320">{{ lock_message }}</b>
-        {% else %}
-          {% comment %} Content is unlocked - show price {% endcomment %}
-          {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
-          {% render 'tier-price', 
-            price: cheapest_variant.price,
-            compare_at_price: cheapest_variant.compare_at_price,
-            product: product,
-            customer: customer,
-            show_original: true,
-            show_badge: true
-          %}
-          {% render 'unit-price', variant: cheapest_variant %}
+      <div class="product-block__price-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        {% if show_price %}
+          <div class="price" style="margin: 0;">
+            {% comment %} === UNIFIED CONTENT LOCK CHECK === {% endcomment %}
+            {% capture lock_result %}{% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}{% endcapture %}
+            {% assign lock_parts = lock_result | strip | split: '|' %}
+            {% assign lock_status = lock_parts[0] | plus: 0 %}
+            {% assign lock_type = lock_parts[1] %}
+            {% assign lock_message = lock_parts[2] %}
+            
+            {% if lock_status == 3 %}
+              {% comment %} Special case: Không bán {% endcomment %}
+              <b style="color:#FAB320">{{ lock_message }}</b>
+            {% elsif lock_status == 2 %}
+              {% comment %} Special case: Giá liên hệ {% endcomment %}
+              <b style="color:#FAB320">{{ lock_message }}</b>
+            {% elsif lock_status == 1 %}
+              {% comment %} Content is locked {% endcomment %}
+              <b style="color:#FAB320">{{ lock_message }}</b>
+            {% else %}
+              {% comment %} Content is unlocked - show price {% endcomment %}
+              {% if product.price_varies %}{{ 'products.listing.from' | t }}{% endif %}
+              {% render 'tier-price', 
+                price: cheapest_variant.price,
+                compare_at_price: cheapest_variant.compare_at_price,
+                product: product,
+                customer: customer,
+                show_original: true,
+                show_badge: true
+              %}
+              {% render 'unit-price', variant: cheapest_variant %}
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if show_review and settings.show_product_block_reviews and product.metafields.reviews != blank %}
+          <div class="themed-product-reviews" style="margin: 0;">
+            {% render 'rating', rating_value: product.metafields.reviews.rating.value %}
+            {%- assign rating_count = product.metafields.reviews.rating_count | plus: 0 -%}
+            {% if rating_count != blank and rating_count > 0 %}
+              <span class="cc-rating-custom-caption">
+                {{ rating_count }}
+              </span>
+            {% endif %}
+          </div>
+        {% elsif show_review %}
+          <div class="themed-product-reviews" style="margin: 0;">
+            <div class="cc-rating" role="img" aria-label="No reviews">
+              <span aria-hidden="true" class="cc-rating-stars">
+                <span class="cc-rating-stars--inactive">
+                  {%- liquid
+                    for i in (1..5)
+                      render 'rating-star-icon'
+                    endfor
+                  -%}
+                </span>
+              </span>
+            </div>
+            <span class="cc-rating-custom-caption">0</span>
+          </div>
         {% endif %}
       </div>
-      {% endif %}
     </a>
-
-    {% if show_review and settings.show_product_block_reviews and product.metafields.reviews != blank %}
-      <a data-cc-animate-click href="{{ product_url }}" class="themed-product-reviews" tabindex="-1">
-        {% render 'rating', rating_value: product.metafields.reviews.rating.value %}
-        {%- assign rating_count = product.metafields.reviews.rating_count | plus: 0 -%}
-        {% if rating_count != blank and rating_count > 0 %}
-          <span class="cc-rating-custom-caption">
-            {{ rating_count }} {{ 'products.product.reviews_link' | t: count: rating_count }}
-          </span>
-        {% endif %}
-      </a>
-      {% elsif show_review %}
-      <a data-cc-animate-click href="{{ product_url }}" class="themed-product-reviews" tabindex="-1">
-        <div class="cc-rating" role="img" data-rating-decimal="{{ rating_decimal }}" aria-label="{{ 'general.accessibility_labels.star_reviews_info' | t: rating_value: rating_value, rating_max: rating_value.scale_max }}">
-          <span aria-hidden="true" class="cc-rating-stars">
-            <span class="cc-rating-stars--inactive">
-              {%- liquid
-                for i in (1..5)
-                  render 'rating-star-icon'
-                endfor
-              -%}
-            </span>
-            <span class="cc-rating-stars--active">
-              {%- liquid
-                for i in (1..rating_ceiling)
-                  render 'rating-star-icon'
-                endfor
-              -%}
-            </span>
-          </span>
-        </div><span class="cc-rating-custom-caption">
-            0 Đánh giá
-          </span>
-      </a>
-    {% endif %}
   </div>
 </div>
