@@ -354,8 +354,8 @@
                 </span>
               </span>
             </div>
-            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 11px; color: #fff; opacity: 0.8; font-weight: 400; text-transform: none; letter-spacing: 0;">
-              {{ rating_val }} / 5 sao
+            <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 11px; color: #fff; opacity: 0.9; font-weight: 400; text-transform: none; letter-spacing: 0;">
+              {{ rating_val | default: 0 }} <span style="color: #fff; font-size: 10px; margin-left: 2px;">★</span>
             </span>
           </div>
         {% elsif show_review %}
@@ -368,7 +368,7 @@
               </span>
             </div>
             <span class="cc-rating-text-manual" style="display: inline-block !important; font-size: 11px; color: #fff; opacity: 0.6; font-weight: 400; text-transform: none; letter-spacing: 0;">
-              0 / 5 sao
+              0 <span style="color: #fff; font-size: 10px; margin-left: 2px;">★</span>
             </span>
           </div>
         {% endif %}
