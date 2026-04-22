@@ -11,13 +11,26 @@
   "sections": {
     "main": {
       "type": "main-blog",
+      "blocks": {
+        "banner_video_qWE7XC": {
+          "type": "banner_video",
+          "settings": {
+            "insert_after": 3,
+            "video": "shopify://files/videos/SHAK 19x9 (1).mp4",
+            "sub_title": "STORY",
+            "title": "The Art of Jewelry Making",
+            "link_text": "WATCH STORY",
+            "link_url": "shopify://collections/all-products"
+          }
+        }
+      },
+      "block_order": [
+        "banner_video_qWE7XC"
+      ],
       "settings": {
-        "blog_layout": "rows",
         "blog_posts_per_page": 10,
-        "blog_posts_per_row_mobile": "2",
         "blog_show_title": true,
-        "blog_show_filter": false,
-        "blog_show_rss_link": true
+        "blog_show_filter": false
       }
     }
   },
