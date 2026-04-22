@@ -232,20 +232,27 @@
     }
   }
 
-  /* Để đảm bảo chiều cao bằng nhau */
+  /* Đảm bảo Banner có chiều cao bằng Product Block */
+  .promotion-block.one-column .responsive-image-wrapper {
+    aspect-ratio: 1 / 1;
+  }
+  .promotion-block.two-columns .responsive-image-wrapper {
+    aspect-ratio: 2 / 1;
+  }
+  
   .promotion-image-container,
   .promotion-video-container {
     height: 100%;
   }
 
   .responsive-image-wrapper {
-    height: 100%;
     position: relative;
     border-radius: 3px;
     overflow: hidden;
   }
 
-  .responsive-image-wrapper img {
+  .responsive-image-wrapper img,
+  .responsive-video-wrapper video {
     object-fit: cover;
     height: 100%;
     width: 100%;
