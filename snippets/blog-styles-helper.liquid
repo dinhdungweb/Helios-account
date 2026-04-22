@@ -1,242 +1,166 @@
 <style>
   :root {
     --blog-black: #000000;
-    --blog-dark: #050505;
-    --blog-gray: #111111;
+    --blog-dark: #0A0A0A;
+    --blog-gray: #151515;
     --blog-text: #FFFFFF;
-    --blog-text-muted: #666666;
+    --blog-text-muted: #888888;
     --blog-accent: #C39D6F;
-    --blog-border: rgba(255, 255, 255, 0.08);
-    --blog-line: rgba(255, 255, 255, 0.15);
+    --blog-border: rgba(255, 255, 255, 0.05);
   }
 
   .helios-blog-wrapper {
     background-color: var(--blog-black);
     color: var(--blog-text);
     font-family: 'Futura', sans-serif;
-    position: relative;
-    overflow-x: hidden;
+    padding-bottom: 100px;
   }
 
-  /* Background Typography */
-  .blog-bg-text {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 25vw;
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.02);
-    z-index: 0;
-    pointer-events: none;
-    text-transform: uppercase;
-    white-space: nowrap;
-    letter-spacing: -0.05em;
-  }
-
-  /* Hero Section - Editorial Style */
-  .helios-blog-hero {
-    position: relative;
-    height: 90vh;
-    min-height: 700px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-bottom: 1px solid var(--blog-line);
-  }
-
-  .hero__image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-
-  .hero__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.5) contrast(1.1);
-    transition: transform 10s linear;
-  }
-  
-  .helios-blog-hero:hover .hero__image { transform: scale(1.1); }
-
-  .hero__content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 1000px;
-    padding: 0 20px;
-  }
-
-  .hero__meta {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 30px;
-    font-family: monospace;
-    font-size: 14px;
-    color: var(--blog-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-  }
-
-  .hero__title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.9;
-    font-weight: 800;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-  }
-  
-  .hero__title a { color: #fff; text-decoration: none; }
-
-  .hero__btn {
-    display: inline-block;
-    padding: 20px 40px;
-    border: 1px solid #fff;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-
-  .hero__btn:hover { background: #fff; color: #000; }
-
-  /* Asymmetric Grid Layout */
-  .helios-blog-main {
-    position: relative;
-    z-index: 1;
-    padding: 100px 0;
-  }
-
-  .helios-grid--asymmetric {
+  /* Bento Grid Container */
+  .helios-bento-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 60px 40px;
-    align-items: start;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 280px;
+    gap: 15px;
+    margin-top: 40px;
   }
 
-  /* Define Asymmetric Pattern */
-  .grid-item:nth-child(6n+1) { grid-column: span 7; }
-  .grid-item:nth-child(6n+2) { grid-column: span 5; margin-top: 100px; }
-  .grid-item:nth-child(6n+3) { grid-column: span 4; }
-  .grid-item:nth-child(6n+4) { grid-column: span 8; margin-top: -50px; }
-  .grid-item:nth-child(6n+5) { grid-column: 2 / span 5; }
-  .grid-item:nth-child(6n+6) { grid-column: span 6; margin-top: 50px; }
+  /* Bento Item Variants */
+  .bento-item {
+    background: var(--blog-gray);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-  /* Section Headers */
-  .section__header {
-    grid-column: 1 / -1;
+  .bento-item--large { grid-column: span 2; grid-row: span 2; }
+  .bento-item--wide { grid-column: span 2; }
+  .bento-item--tall { grid-row: span 2; }
+  .bento-item--small { grid-column: span 1; grid-row: span 1; }
+
+  /* Artistic Text Block */
+  .bento-item--text {
     display: flex;
     flex-direction: column;
-    margin-bottom: 60px;
-    position: relative;
+    justify-content: center;
+    padding: 40px;
+    border: 1px solid var(--blog-border);
   }
 
-  .section__header::before {
-    content: "";
-    position: absolute;
-    top: -20px;
-    left: 0;
-    width: 40px;
-    height: 1px;
-    background: var(--blog-accent);
-  }
-
-  .section__title {
-    font-size: 48px;
+  .bento__number {
+    font-size: 60px;
     font-weight: 800;
+    color: rgba(255, 255, 255, 0.05);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .bento__quote {
+    font-size: 18px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.1em;
+    color: var(--blog-accent);
   }
 
-  /* Architectural Lines */
-  .architectural-line {
-    position: absolute;
-    background: var(--blog-line);
-    z-index: 0;
-  }
-  .line-v { width: 1px; height: 100%; top: 0; }
-  .line-h { height: 1px; width: 100%; left: 0; }
-
-  /* Article Card - Cyber Style */
+  /* Blog Card in Bento */
   .helios-blog-card {
-    position: relative;
-    transition: all 0.5s ease;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card__image-link {
+    flex-grow: 1;
+    display: block;
+    height: 100%;
   }
 
   .blog-card__image-wrapper {
+    height: 100%;
+    width: 100%;
     position: relative;
-    overflow: hidden;
-    background: var(--blog-dark);
-    margin-bottom: 25px;
   }
 
   .blog-card__image {
     width: 100%;
-    height: auto;
-    display: block;
-    filter: grayscale(0.5);
-    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
   }
 
-  .helios-blog-card:hover .blog-card__image {
-    filter: grayscale(0);
-    transform: scale(1.05);
+  .bento-item:hover .blog-card__image {
+    transform: scale(1.1);
   }
 
-  .blog-card__content {
-    padding-left: 10px;
-    border-left: 1px solid var(--blog-border);
+  .blog-card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 2;
   }
 
   .blog-card__meta {
-    display: flex;
-    flex-direction: column; /* Vertical feel */
-    gap: 5px;
     font-family: monospace;
     font-size: 11px;
     color: var(--blog-accent);
-    margin-bottom: 15px;
     text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
   }
 
   .blog-card__title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
     text-transform: uppercase;
-    letter-spacing: -0.01em;
+    margin: 0;
   }
-  
-  .blog-card__title a { color: #fff; text-decoration: none; transition: color 0.3s; }
-  .blog-card__title a:hover { color: var(--blog-accent); }
 
-  .blog-card__link {
-    display: none; /* Let the title be the link */
+  .bento-item--large .blog-card__title { font-size: 32px; }
+  
+  .blog-card__title a { color: #fff; text-decoration: none; }
+
+  /* Section Headers */
+  .bento-section-header {
+    margin-top: 80px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+
+  .bento-section-header h2 {
+    font-size: 40px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .bento-section-header .line {
+    flex-grow: 1;
+    height: 1px;
+    background: var(--blog-border);
   }
 
   /* Responsive */
-  @media (max-width: 1024px) {
-    .helios-grid--asymmetric { gap: 40px 20px; }
-    .grid-item:nth-child(n) { grid-column: span 6 !important; margin-top: 0 !important; }
-    .hero__title { font-size: 4rem; }
+  @media (max-width: 1200px) {
+    .helios-bento-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   @media (max-width: 768px) {
-    .grid-item:nth-child(n) { grid-column: 1 / -1 !important; }
-    .hero__title { font-size: 2.5rem; }
-    .section__title { font-size: 32px; }
-    .blog-bg-text { display: none; }
+    .helios-bento-grid { 
+      grid-template-columns: repeat(2, 1fr); 
+      grid-auto-rows: 200px;
+      gap: 10px;
+    }
+    .bento-item--large, .bento-item--wide { grid-column: span 2; }
+    .bento-section-header h2 { font-size: 24px; }
   }
 </style>
+
 

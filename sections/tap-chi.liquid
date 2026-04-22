@@ -23,80 +23,87 @@
 -%}
 
 <div class="helios-blog-wrapper" data-section-id="{{ section.id }}">
-  <!-- Background Text -->
-  <div class="blog-bg-text">HELIOS</div>
+  <div class="wide-container">
+    
+    <header class="bento-section-header">
+      <h2>Chronicle</h2>
+      <div class="line"></div>
+      <div class="bento-meta">JOURNAL BY HELIOS</div>
+    </header>
 
-  <!-- Hero Section -->
-  {% if featured_article %}
-    <section class="helios-blog-hero">
-      <div class="hero__image-container">
-        {% if featured_article.image %}
-          <img src="{{ featured_article.image.src | image_url: width: 1920 }}" alt="{{ featured_article.title | escape }}" class="hero__image" loading="eager">
-        {% endif %}
-      </div>
-      <div class="hero__content">
-        <div class="hero__meta" data-cc-animate="fade-in">
-          <span class="hero__tag">{{ featured_article.tags | first }}</span>
-          <span>•</span>
-          <span class="hero__date">{{ featured_article.published_at | date: "%d.%m.%Y" }}</span>
-        </div>
-        <h1 class="hero__title" data-cc-animate="fade-up">
-          <a href="{{ featured_article.url }}">{{ featured_article.title }}</a>
-        </h1>
-        <a href="{{ featured_article.url }}" class="hero__btn" data-cc-animate="fade-up" data-cc-animate-delay="0.2s">
-          Vào trang lưu trữ
-        </a>
-      </div>
-    </section>
-  {% endif %}
-
-  <!-- Main Content - Asymmetric Grid -->
-  <main class="helios-blog-main">
-    <div class="wide-container">
+    <div class="helios-bento-grid">
+      {% assign all_articles = blogs['nhan'].articles | concat: blogs['tin-tuc'].articles %}
       
-      <!-- Section 1: Latest -->
-      <div class="helios-grid--asymmetric">
-        <header class="section__header">
-          <h2 class="section__title">Ấn phẩm mới nhất</h2>
-        </header>
-
-        {% assign count = 0 %}
-        {% for handle in blog_handles %}
-          {% for article in blogs[handle].articles %}
-            {% if article.id != featured_article.id %}
-              <div class="grid-item" data-cc-animate="fade-up">
-                {% render 'blog-card', article: article %}
-              </div>
-              {% assign count = count | plus: 1 %}
-            {% endif %}
-            {% if count >= 12 %}{% break %}{% endif %}
-          {% endfor %}
-          {% if count >= 12 %}{% break %}{% endif %}
-        {% endfor %}
+      <!-- Article 1: Large -->
+      <div class="bento-item bento-item--large">
+        {% render 'blog-card', article: all_articles[0] %}
       </div>
 
-      <!-- Banner Break -->
-      <section class="helios-blog-ad" style="margin: 150px 0;">
-        <a href="{{ routes.all_products_collection_url }}">
-          <img src="//helios.vn/cdn/shop/files/banner_helios_24.10-01_1.gif?v=1730360013" alt="HELIOS JEWELS" loading="lazy" style="width: 100%; filter: brightness(0.8);">
-        </a>
-      </section>
-
-      <!-- Section 2: Selected Categories -->
-      <div class="helios-grid--asymmetric">
-        <header class="section__header">
-          <h2 class="section__title">Bộ sưu tập Nhẫn</h2>
-        </header>
-        {% for article in blogs['nhan'].articles limit: 6 %}
-          <div class="grid-item" data-cc-animate="fade-up">
-            {% render 'blog-card', article: article %}
-          </div>
-        {% endfor %}
+      <!-- Artistic Block 1 -->
+      <div class="bento-item bento-item--text">
+        <div class="bento__number">01</div>
+        <div class="bento__quote">Chế tác thủ công</div>
       </div>
 
+      <!-- Article 2: Small -->
+      <div class="bento-item bento-item--small">
+        {% render 'blog-card', article: all_articles[1] %}
+      </div>
+
+      <!-- Article 3: Tall -->
+      <div class="bento-item bento-item--tall">
+        {% render 'blog-card', article: all_articles[2] %}
+      </div>
+
+      <!-- Article 4: Wide -->
+      <div class="bento-item bento-item--wide">
+        {% render 'blog-card', article: all_articles[3] %}
+      </div>
+
+      <!-- Artistic Block 2 -->
+      <div class="bento-item bento-item--text">
+        <div class="bento__number">02</div>
+        <div class="bento__quote">Độc bản & Cá tính</div>
+      </div>
+
+      <!-- Article 5: Small -->
+      <div class="bento-item bento-item--small">
+        {% render 'blog-card', article: all_articles[4] %}
+      </div>
+
+      <!-- Article 6: Wide -->
+      <div class="bento-item bento-item--wide">
+        {% render 'blog-card', article: all_articles[5] %}
+      </div>
+
+      <!-- Article 7: Small -->
+      <div class="bento-item bento-item--small">
+        {% render 'blog-card', article: all_articles[6] %}
+      </div>
+
+      <!-- Article 8: Small -->
+      <div class="bento-item bento-item--small">
+        {% render 'blog-card', article: all_articles[7] %}
+      </div>
     </div>
-  </main>
+
+    <!-- Second Section: Catalog -->
+    <header class="bento-section-header">
+      <h2>Nhẫn</h2>
+      <div class="line"></div>
+    </header>
+
+    <div class="helios-bento-grid">
+      {% for article in blogs['nhan'].articles limit: 6 %}
+        <div class="bento-item {% if forloop.first %}bento-item--wide{% else %}bento-item--small{% endif %}">
+          {% render 'blog-card', article: article %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
 </div>
+
 
 
 {% render 'blog-styles-helper' %}

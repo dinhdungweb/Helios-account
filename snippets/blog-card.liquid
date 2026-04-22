@@ -3,26 +3,25 @@
     <div class="blog-card__image-wrapper">
       {% if article.image %}
         <img 
-          src="{{ article.image.src | image_url: width: 1000 }}" 
+          src="{{ article.image.src | image_url: width: 1200 }}" 
           alt="{{ article.title | escape }}" 
           loading="lazy" 
-          width="1000" 
-          height="{{ 1000 | divided_by: article.image.aspect_ratio | round }}"
+          width="1200" 
+          height="{{ 1200 | divided_by: article.image.aspect_ratio | round }}"
           class="blog-card__image"
         >
       {% endif %}
+      
+      <div class="blog-card__overlay">
+        <div class="blog-card__meta">
+          <span class="blog-card__date">{{ article.published_at | date: "%d.%m.%Y" }}</span>
+        </div>
+        <h3 class="blog-card__title">
+          <a href="{{ article.url }}">{{ article.title }}</a>
+        </h3>
+      </div>
     </div>
   </a>
-
-  <div class="blog-card__content">
-    <div class="blog-card__meta">
-      <span class="blog-card__date">{{ article.published_at | date: "%d.%m.%Y" }}</span>
-      <span class="blog-card__category">{{ article.tags | first }}</span>
-    </div>
-    
-    <h3 class="blog-card__title">
-      <a href="{{ article.url }}">{{ article.title }}</a>
-    </h3>
-  </div>
 </div>
+
 
