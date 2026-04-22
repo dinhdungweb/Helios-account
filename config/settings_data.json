@@ -1109,7 +1109,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".overlay .inner {padding-right: 0px;}"
+      ".overlay .inner {padding-right: 0px;}",
+      ".product-block .price, .collection-block .price {padding: 0;}"
     ]
   }
 }
