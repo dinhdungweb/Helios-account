@@ -84,10 +84,14 @@
     letter-spacing: 0.02em;
     color: #fff;
     /* Improved 1-line truncation */
+    display: block;
+    width: 100%;
+    max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 10px 10px; /* Added padding to give space for marks */
+    box-sizing: border-box;
   }
 
   .banner__link {
