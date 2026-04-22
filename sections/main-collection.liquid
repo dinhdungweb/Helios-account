@@ -236,38 +236,19 @@
   .promotion-image-container,
   .promotion-video-container {
     height: 100%;
-    width: 100%;
   }
 
-  .promotion-block.one-column .responsive-image-wrapper,
-  .promotion-block.one-column .responsive-video-wrapper {
-    height: 0;
-    padding-top: 130%; /* Khớp với ảnh sản phẩm đơn */
-    position: relative;
-    border-radius: 3px;
-    overflow: hidden;
-    background: #1a1a1a;
-  }
-
-  .promotion-block.two-columns .responsive-image-wrapper,
-  .promotion-block.two-columns .responsive-video-wrapper {
-    height: 0;
-    padding-top: 54.5%; /* Tỉ lệ chính xác cho banner 2 cột */
-    position: relative;
-    border-radius: 3px;
-    overflow: hidden;
-    background: #1a1a1a;
-  }
-
-  .promotion-block .responsive-image-wrapper img,
-  .promotion-block .responsive-video-wrapper video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+  .responsive-image-wrapper {
     height: 100%;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .responsive-image-wrapper img {
     object-fit: cover;
-    display: block;
+    height: 100%;
+    width: 100%;
   }
 
   .product-block.promotion-block {
