@@ -1,0 +1,51 @@
+{% comment %}
+  Renders an article card for the blog page.
+  Accepts:
+  - article: {Object} Article object
+  - show_excerpt: {Boolean} Show excerpt (default: false)
+  - class: {String} Additional classes
+{% endcomment %}
+
+<div class="helios-blog-card {{ class }}">
+  <a href="{{ article.url }}" class="blog-card__image-link">
+    <div class="blog-card__image-wrapper">
+      {% if article.image %}
+        <img 
+          src="{{ article.image.src | image_url: width: 800 }}" 
+          alt="{{ article.title | escape }}" 
+          loading="lazy" 
+          width="800" 
+          height="{{ 800 | divided_by: article.image.aspect_ratio | round }}"
+          class="blog-card__image"
+        >
+      {% else %}
+        <div class="blog-card__image-placeholder"></div>
+      {% endif %}
+    </div>
+  </a>
+
+  <div class="blog-card__content">
+    <div class="blog-card__meta">
+      <span class="blog-card__category">{{ article.tags | first | default: 'Tin tức' }}</span>
+      <span class="blog-card__divider">/</span>
+      <span class="blog-card__date">{{ article.published_at | date: "%d.%m.%Y" }}</span>
+    </div>
+    
+    <h3 class="blog-card__title">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h3>
+
+    {% if show_excerpt and article.excerpt_or_content != blank %}
+      <div class="blog-card__excerpt">
+        {{ article.excerpt_or_content | strip_html | truncatewords: 20 }}
+      </div>
+    {% endif %}
+
+    <a href="{{ article.url }}" class="blog-card__link">
+      <span>Đọc thêm</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</div>
