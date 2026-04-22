@@ -6,6 +6,7 @@
 -%}
 
 <div class="helios-blog-wrapper" data-section-id="{{ section.id }}">
+  
   <header class="blog-page-header">
     <h1 class="blog-page-header__title">{{ blog.title }}</h1>
     <nav class="blog-page-header__nav">
@@ -27,6 +28,42 @@
     <div class="helios-banner-stack">
       {% for article in blog.articles %}
         {% render 'blog-card', article: article %}
+
+        {%- comment -%} Check for in-feed blocks after this article {%- endcomment -%}
+        {% for block in section.blocks %}
+          {% if block.settings.insert_after == forloop.index %}
+            <div class="helios-blog-banner in-feed-banner" {{ block.shopify_attributes }}>
+              {% if block.type == 'banner_image' %}
+                {% if block.settings.image != blank %}
+                  <div class="banner__image-container" style="position: absolute; top:0; left:0; width:100%; height:100%;">
+                    <img src="{{ block.settings.image | image_url: width: 2000 }}" alt="{{ block.settings.title }}" class="banner__image" style="width:100%; height:100%; object-fit:cover;">
+                  </div>
+                {% endif %}
+              {% elsif block.type == 'banner_video' %}
+                {% if block.settings.video_url != blank %}
+                   <div class="banner__video-container" style="position: absolute; top:0; left:0; width:100%; height:100%;">
+                     <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+                        <source src="{{ block.settings.video_url }}" type="video/mp4">
+                     </video>
+                   </div>
+                {% endif %}
+              {% endif %}
+
+              <div class="banner__content">
+                {% if block.settings.sub_title != blank %}
+                  <div class="banner__title--small">{{ block.settings.sub_title }}</div>
+                {% endif %}
+                {% if block.settings.title != blank %}
+                  <div class="banner__highlight">{{ block.settings.title }}</div>
+                {% endif %}
+                {% if block.settings.link_text != blank %}
+                   <a href="{{ block.settings.link_url | default: '#' }}" class="banner__link">{{ block.settings.link_text }}</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+
       {% else %}
         <p class="align-centre" style="padding: 100px 0; opacity: 0.5;">
           <em>{{ 'blogs.general.no_matches' | t }}</em>
@@ -79,6 +116,89 @@
       "id": "blog_show_filter",
       "label": "Show tag filter",
       "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner_image",
+      "name": "In-feed Banner Image",
+      "settings": [
+        {
+          "type": "number",
+          "id": "insert_after",
+          "label": "Insert after post number",
+          "default": 3
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner Image"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title",
+          "default": "PROMOTION"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Main Title",
+          "default": "Special Offer for Helios Members"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "DISCOVER NOW"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "banner_video",
+      "name": "In-feed Banner Video",
+      "settings": [
+        {
+          "type": "number",
+          "id": "insert_after",
+          "label": "Insert after post number",
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "MP4 Video URL",
+          "info": "Upload to Files and paste URL here"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title",
+          "default": "STORY"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Main Title",
+          "default": "The Art of Jewelry Making"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "WATCH STORY"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
     }
   ]
 }
