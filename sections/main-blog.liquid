@@ -27,11 +27,12 @@
   {% paginate blog.articles by section.settings.blog_posts_per_page %}
     <div class="helios-banner-stack">
       {% for article in blog.articles %}
+        {% assign article_index = forloop.index %}
         {% render 'blog-card', article: article %}
 
         {%- comment -%} Check for in-feed blocks after this article {%- endcomment -%}
         {% for block in section.blocks %}
-          {% if block.settings.insert_after == forloop.index %}
+          {% if block.settings.insert_after == article_index %}
             <div class="helios-blog-banner in-feed-banner" {{ block.shopify_attributes }}>
               {% if block.type == 'banner_image' %}
                 {% if block.settings.image != blank %}
