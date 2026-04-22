@@ -23,6 +23,21 @@
 -%}
 
 <div class="helios-blog-wrapper">
+  
+  <header class="blog-page-header">
+    <h1 class="blog-page-header__title">{{ blog.title | default: 'JOURNAL' }}</h1>
+    <nav class="blog-page-header__nav">
+      {%- liquid
+        assign nav_handles = 'tin-tuc,nhan,day-chuyen,vong-tay,bac,da,kinh' | split: ','
+      -%}
+      {% for handle in nav_handles %}
+        <a href="{{ blogs[handle].url }}" class="blog-page-header__link {% if blog.handle == handle %}is-active{% endif %}">
+          {{ blogs[handle].title }}
+        </a>
+      {% endfor %}
+    </nav>
+  </header>
+
   <div class="helios-banner-stack">
     {%- liquid
       assign all_articles = blogs['tin-tuc'].articles | concat: blogs['nhan'].articles | concat: blogs['day-chuyen'].articles

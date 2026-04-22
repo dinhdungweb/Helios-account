@@ -6,6 +6,14 @@
         alt="{{ article.title | escape }}" 
         loading="lazy" 
         width="2000" 
+<section class="helios-blog-banner {{ class }}" data-cc-animate="fade-up">
+  <a href="{{ article.url }}" class="banner__image-link">
+    {% if article.image %}
+      <img 
+        src="{{ article.image.src | image_url: width: 2000 }}" 
+        alt="{{ article.title | escape }}" 
+        loading="lazy" 
+        width="2000" 
         height="{{ 2000 | divided_by: article.image.aspect_ratio | round }}"
         class="banner__image"
       >
@@ -13,12 +21,13 @@
   </a>
   
   <div class="banner__content">
-    <div class="banner__meta">
-      {{ article.tags | first | default: 'Journal' }} — {{ article.published_at | date: "%B %d, %Y" }}
-    </div>
-    <h2 class="banner__title">
+    <h3 class="banner__title--small">
       <a href="{{ article.url }}">{{ article.title }}</a>
-    </h2>
+    </h3>
+    <div class="banner__highlight">
+      {{ article.metafields.custom.highlight | default: article.excerpt_or_content | strip_html | truncatewords: 20 }}
+    </div>
     <a href="{{ article.url }}" class="banner__link">Read more</a>
   </div>
+
 </section>

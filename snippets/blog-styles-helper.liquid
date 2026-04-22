@@ -63,34 +63,30 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    max-width: 800px;
+    max-width: 900px;
     padding: 0 40px;
-    pointer-events: none; /* Let the link through */
+    pointer-events: none;
   }
 
-  .banner__meta {
-    font-size: 12px;
+  .banner__title--small {
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 25px;
-    color: var(--blog-text);
+    margin-bottom: 20px;
     opacity: 0.8;
   }
-
-  .banner__title {
-    font-size: clamp(2rem, 5vw, 4.5rem);
-    line-height: 1.1;
-    font-weight: 400;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    letter-spacing: 0.05em;
-  }
   
-  .banner__title a { 
-    color: #fff; 
-    text-decoration: none; 
-    pointer-events: auto;
+  .banner__title--small a { color: #fff; text-decoration: none; pointer-events: auto; }
+
+  .banner__highlight {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    letter-spacing: 0.02em;
+    color: #fff;
   }
 
   .banner__link {
@@ -104,6 +100,42 @@
     padding-bottom: 5px;
     transition: all 0.3s ease;
     pointer-events: auto;
+  }
+
+  /* Blog Page Header Navigation */
+  .blog-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .blog-page-header__title {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .blog-page-header__nav {
+    display: flex;
+    gap: 30px;
+  }
+
+  .blog-page-header__link {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .blog-page-header__link:hover,
+  .blog-page-header__link.is-active {
+    color: #fff;
   }
 
   .banner__link:hover {
