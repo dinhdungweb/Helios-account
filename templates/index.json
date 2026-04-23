@@ -362,7 +362,7 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "MẶT DÂY CHUYỀN BẠC",
+            "title": "NHẪN BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -371,7 +371,7 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/mat-day-chuyen-bac-s925"
+            "link": "shopify://collections/nhan-bac-nam"
           }
         }
       },
