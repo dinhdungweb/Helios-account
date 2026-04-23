@@ -15,15 +15,15 @@
         "button_WN9CJa": {
           "type": "button",
           "settings": {
-            "button_text": "Lotus Black Silver",
-            "button_link": "shopify://collections/lotus-black-silver"
+            "button_text": "SẢN PHẨM MỚI",
+            "button_link": "shopify://collections/new-in"
           }
         },
         "button_tHG78t": {
           "type": "button",
           "settings": {
-            "button_text": "Sunflower Black Silver",
-            "button_link": "shopify://collections/sunflower-black-silver"
+            "button_text": "SẢN PHẨM BÁN CHẠY",
+            "button_link": "shopify://collections/best-sellers"
           }
         }
       },
