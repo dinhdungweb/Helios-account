@@ -342,8 +342,8 @@
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC",
-            "title_color": "#000000",
+            "title": "TẤT CẢ SẢN PHẨM",
+            "title_color": "#f2f2f2",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
             "v_align": "bottom",
@@ -351,7 +351,7 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/nhan-bac-nam"
+            "link": "shopify://collections/all-products"
           }
         },
         "banner_wnK37c": {
