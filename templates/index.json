@@ -276,10 +276,10 @@
         "banner_jqKwem": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/s_n_ph_m_m_i.webp",
+            "image": "shopify://shop_images/1_034d0c0f-5b8b-4879-9493-96f3491fe1f7.jpg",
             "video_url": "",
             "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_mobile": "4_5",
             "aspect_ratio_desktop": "1_1",
             "title": "SẢN PHẨM MỚI",
             "title_color": "#ffffff",
@@ -296,10 +296,10 @@
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/vong_tay_b_c.webp",
+            "image": "shopify://shop_images/2_128bf7ab-3faa-40d2-bdcf-182079267558.jpg",
             "video_url": "",
             "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_mobile": "4_5",
             "aspect_ratio_desktop": "1_1",
             "title": "VÒNG TAY BẠC",
             "title_color": "#ffffff",
@@ -337,7 +337,7 @@
         "banner_CcYr6M": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/nh_n_b_c_2.webp",
+            "image": "shopify://shop_images/3_e1b13cb5-9bc0-4b59-8517-e5a9f98ef25e.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -357,7 +357,7 @@
         "banner_wnK37c": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/m_t_day_chuy_n_b_c.webp",
+            "image": "shopify://shop_images/4_dc2c53ba-1d41-40cc-8686-9fc9f09cfecc.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -398,12 +398,12 @@
         "banner_Nmp8fT": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/accessories.webp",
+            "image": "shopify://shop_images/5_84379e8a-0b71-4bfa-aad7-e416d8882fce.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "ACCESSORIES",
+            "title": "KHÁM PHÁ CHẾ TÁC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -412,18 +412,18 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/accessories"
+            "link": "shopify://collections/new-in"
           }
         },
         "banner_Adiycb": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/nh_n_b_c_1.webp",
+            "image": "shopify://shop_images/6_77c98720-fcde-4d0d-8062-9c0b4d812ac9.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "KHUYÊN TAI BẠC",
+            "title": "NHẪN BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -432,7 +432,7 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/khuyen-tai-bac-nam"
+            "link": "shopify://collections/nhan-bac-nam"
           }
         }
       },
