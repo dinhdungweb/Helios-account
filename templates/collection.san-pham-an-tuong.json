@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "video_with_text_WYVaXC": {
+      "type": "video-with-text",
+      "blocks": {
+        "button_WN9CJa": {
+          "type": "button",
+          "settings": {
+            "button_text": "SẢN PHẨM MỚI",
+            "button_link": "shopify://collections/new-in"
+          }
+        },
+        "button_tHG78t": {
+          "type": "button",
+          "settings": {
+            "button_text": "SẢN PHẨM BÁN CHẠY",
+            "button_link": "shopify://collections/best-sellers"
+          }
+        }
+      },
+      "block_order": [
+        "button_WN9CJa",
+        "button_tHG78t"
+      ],
+      "name": "Media with Text Custom",
+      "settings": {
+        "media_type": "image",
+        "content_position": "left",
+        "text_alignment": "left",
+        "desktop_video_url": "",
+        "mobile_video_url": "",
+        "desktop_image_url": "shopify://shop_images/651867429_1353699090121784_394824391919241025_n.jpg",
+        "mobile_image_url": "shopify://shop_images/651867429_1353699090121784_394824391919241025_n_220232af-bc89-490b-b0f2-ff816150d0d8.jpg",
+        "heading": "NGƯỜI MỚI NÊN CHỌN",
+        "paragraph": "Những sản phẩm lần đầu được lựa chọn nhiều nhất tại Helios, nếu bạn mới biết tới chúng tôi và vẫn còn đắn đo - đây chính là những lựa chọn chất lượng bạn có thể thử",
+        "padding-bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "quick_links": "quicklink-collection",
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    }
+  },
+  "order": [
+    "video_with_text_WYVaXC",
+    "main"
+  ]
+}
