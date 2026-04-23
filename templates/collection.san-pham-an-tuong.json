@@ -15,15 +15,15 @@
         "button_WN9CJa": {
           "type": "button",
           "settings": {
-            "button_text": "SẢN PHẨM MỚI",
-            "button_link": "shopify://collections/new-in"
+            "button_text": "LOTUS BLACK SILVER",
+            "button_link": "shopify://collections/lotus-black-silver"
           }
         },
         "button_tHG78t": {
           "type": "button",
           "settings": {
-            "button_text": "SẢN PHẨM BÁN CHẠY",
-            "button_link": "shopify://collections/best-sellers"
+            "button_text": "SUNFLOWER BLACK SILVER",
+            "button_link": "shopify://collections/sunflower-black-silver"
           }
         }
       },
@@ -40,8 +40,8 @@
         "mobile_video_url": "",
         "desktop_image_url": "shopify://shop_images/651867429_1353699090121784_394824391919241025_n.jpg",
         "mobile_image_url": "shopify://shop_images/651867429_1353699090121784_394824391919241025_n_220232af-bc89-490b-b0f2-ff816150d0d8.jpg",
-        "heading": "NGƯỜI MỚI NÊN CHỌN",
-        "paragraph": "Những sản phẩm lần đầu được lựa chọn nhiều nhất tại Helios, nếu bạn mới biết tới chúng tôi và vẫn còn đắn đo - đây chính là những lựa chọn chất lượng bạn có thể thử",
+        "heading": "SẢN PHẨM ẤN TƯỢNG",
+        "paragraph": "Đây là nơi bạn tìm thấy những món trang sức signature có độ hoàn thiện cao và mang dấu ấn riêng của HELIOS.",
         "padding-bottom": 0
       }
     },
