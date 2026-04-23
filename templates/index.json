@@ -531,12 +531,11 @@
     },
     "newsletter_DpyaEH": {
       "type": "newsletter",
-      "disabled": true,
       "name": "Newsletter",
       "settings": {
         "subheading": "",
         "title": "Đăng ký nhận Email",
-        "text": "<p>Sign up to our newsletter and we'll keep you up to date with the latest arrivals</p>",
+        "text": "<p>Đăng ký nhận thông tin và các chương trình mới nhất từ chúng tôi!</p>",
         "height_desktop": 400,
         "height_mobile": 300,
         "image": "shopify://shop_images/che-tac-thu-cong.webp",
