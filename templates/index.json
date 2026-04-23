@@ -531,6 +531,7 @@
     },
     "newsletter_DpyaEH": {
       "type": "newsletter",
+      "disabled": true,
       "name": "Newsletter",
       "settings": {
         "subheading": "",
