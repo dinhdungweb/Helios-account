@@ -53,6 +53,24 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
+        "image_nw333M": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_BST_Thang_5_19x9_1.jpg",
+            "mobile_image": "shopify://shop_images/Banner_BST_Thang_5_9x16_1.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_KarRwm": {
           "type": "image",
           "settings": {
@@ -68,24 +86,6 @@
             "enlarge_text": true,
             "button_label": "",
             "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        },
-        "image_nw333M": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Banner_BST_Thang_5_19x9_ca588df4-9100-4879-b0c0-a0910f4102ca.jpg",
-            "mobile_image": "shopify://shop_images/Banner_BST_Thang_5_9x16_3c2da322-9468-4c5d-865c-3ae6f95ac048.jpg",
-            "slide_link": "",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
@@ -129,8 +129,8 @@
       },
       "block_order": [
         "image_qbHR3Y",
-        "image_KarRwm",
         "image_nw333M",
+        "image_KarRwm",
         "image_3Aawga",
         "image_hgGRLc"
       ],
