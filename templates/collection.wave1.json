@@ -252,8 +252,48 @@
         "autoplay_speed": 7
       }
     },
+    "slideshow_eCaWgx": {
+      "type": "slideshow",
+      "blocks": {
+        "image_RbhFGY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/download.gif",
+            "mobile_image": "shopify://shop_images/landingpage-anh-4_1.gif",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 30,
+            "title_width": 40,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_RbhFGY"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
     "media_text_block_aKVYPD": {
       "type": "media-text-block",
+      "disabled": true,
       "name": "Media Text Block",
       "settings": {
         "subheading": "",
@@ -380,6 +420,7 @@
     "video_NgCpTj",
     "background_video_responsive_wV7FRG",
     "slideshow_xm9YhJ",
+    "slideshow_eCaWgx",
     "media_text_block_aKVYPD",
     "slideshow_B9V8Vm",
     "slideshow_KFBPBt"
