@@ -1,0 +1,329 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "disabled": true,
+      "settings": {
+        "show_collection_content": true,
+        "show_collection_image": true,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    },
+    "slideshow_6VV9j6": {
+      "type": "slideshow",
+      "blocks": {
+        "image_jPgrxY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_4x3_c6629e4f-7c79-4bb8-8d47-2d5e2fb43528.jpg",
+            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_jPgrxY"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_xUFiLE": {
+      "type": "slideshow",
+      "blocks": {
+        "image_7rJ3Ld": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2._nen_section_2_19x9_590e7e24-d326-4c9a-9f42-de66e81171e3.jpg",
+            "mobile_image": "shopify://shop_images/2._nen_section_2_9x16_b2635759-d5b1-4cb7-b170-10e0084c977c.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 30,
+            "title_width": 40,
+            "heading_h1": false,
+            "text": "<p><em>“Tiệt nhiên định phận tại thiên thư”.</em></p><p>Có những điều không cần chứng minh. </p><p>Hành trình - Danh phận</p><p>Việt Nam đang bước vào kỷ nguyên của mình — Trong hành trình đó, người đàn ông trưởng thành biết mình thuộc về đâu.</p>",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_7rJ3Ld"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "featured_collection_jNCRQc": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "nam-quoc-son-ha-chuong-2",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 2,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "media_text_block_PP7AJC": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "Tinh thần Việt Nam",
+        "heading_tag": "h2",
+        "heading_size": 32,
+        "heading_alignment": "left",
+        "description": "<p>Không hô hào. Chỉ giữ lại.</p><p>Yêu nước không phải lúc nào cũng ồn ào. Đủ lặng — nhưng đủ nặng để bên mình mỗi ngày.</p><p>Bộ sưu tập Nam Quốc Sơn Hà ra đời từ tinh thần đó: </p><p><em>“Đúc non sông vào bạc. Mang hành trình lên tay. Để mỗi lần nhìn xuống — biết mình là ai.”</em></p>",
+        "text_alignment": "left",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "video",
+        "media_position": "left",
+        "media_layout": "contained",
+        "video_shopify": "shopify://files/videos/2 vid chế tác SHAK-TTDP(11MB).mp4",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "media_ratio": "1:1",
+        "section_height": "auto",
+        "bg_image": "shopify://shop_images/3.section_3_nen_video_4x3_6b3417b0-289f-4861-9765-c13ca0afed54.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#fab320",
+        "text_color": "#f2f2f2",
+        "button_bg": "#111111",
+        "button_text_color": "#ffffff",
+        "button_bg_hover": "#333333",
+        "button_text_color_hover": "#ffffff"
+      }
+    },
+    "media_text_block_aKVYPD": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "SƠN HÀ ẤN KÝ",
+        "heading_tag": "h2",
+        "heading_size": 32,
+        "heading_alignment": "right",
+        "description": "<p><em>Một vòng nhẫn — cả hành trình non sông.</em></p><p>Thân nhẫn chạy như một dải phù điêu không ngắt quãng. Kiến trúc. Mái ngói. Sóng nước. Rồng thời Lý. Sáu địa danh. Một vòng tròn. </p><p>Xoay nhẫn — Chợ Bến Thành hiện ra. Văn Miếu Quốc Tử Giám hiện ra. Cảng Hải Phòng. Cung đình Huế. Chợ Nổi Cần Thơ. Cầu Bàn Tay Vàng.</p><p>Không phải bản đồ. Là ký ức của một người đã đi — để không quên.</p><p>Chất liệu: Bạc S925 + Đồng </p><p>Chế tác: Thủ công</p><p>Packaging: Phiên bản đặc biệt 30/4 — 1/5</p>",
+        "text_alignment": "right",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "image",
+        "media_position": "right",
+        "media_layout": "contained",
+        "media_image": "shopify://shop_images/4.Infographic_Son_Ha_An_Ky.jpg",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "media_ratio": "1:1",
+        "section_height": "auto",
+        "bg_image": "shopify://shop_images/4.TTDP_nen_mo_19x9_ca0cc291-eac7-422b-9a3c-1719a687a6fd.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#fab320",
+        "text_color": "#f2f2f2",
+        "button_bg": "#111111",
+        "button_text_color": "#ffffff",
+        "button_bg_hover": "#333333",
+        "button_text_color_hover": "#ffffff"
+      }
+    },
+    "media_text_block_HP8LEi": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "THIÊN THƯ ĐỊNH PHẬN",
+        "heading_tag": "h2",
+        "heading_size": 32,
+        "heading_alignment": "left",
+        "description": "<p><em>Để biết mình là ai.</em></p><p>Một chiếc signet đúng nghĩa, như một con dấu.</p><p>Ở tâm nhẫn — ngôi sao vàng năm cánh. Biểu trưng cho quốc kỳ Việt Nam. </p><p>Xung quanh là những biểu tượng đã thành dấu ấn đất nước Việt Nam: Phở. Bánh mì. Hoa sen. Áo dài. Địa danh. </p><p>Bản black silver làm mọi thứ trầm xuống — để ngôi sao bật lên như một điểm neo không lay chuyển.</p><p>Càng đeo, càng thấy Việt Nam đẹp và thiêng liêng ra sao.</p><p>Chất liệu: Bạc S925 + Đồng </p><p>Chế tác: Thủ công </p><p>Packaging: Phiên bản đặc biệt 30/4 — 1/5</p>",
+        "text_alignment": "left",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "image",
+        "media_position": "left",
+        "media_layout": "contained",
+        "media_image": "shopify://shop_images/4.Infographic_Thien_Thu_Dinh_Phan.jpg",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "media_ratio": "1:1",
+        "section_height": "auto",
+        "bg_image": "shopify://shop_images/4.SHAK_nen_mo_19x9_486eb764-f709-4486-b680-75d8b1f3141d.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#fab320",
+        "text_color": "#f2f2f2",
+        "button_bg": "#111111",
+        "button_text_color": "#ffffff",
+        "button_bg_hover": "#333333",
+        "button_text_color_hover": "#ffffff"
+      }
+    },
+    "slideshow_KFBPBt": {
+      "type": "slideshow",
+      "blocks": {
+        "image_7fdgAb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5._nen_ending_19x9_2.jpg",
+            "mobile_image": "shopify://shop_images/5._nen_ending_9x16_2.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "<font style=\"color: #fab320\">HAI CHIẾC NHẪN - MỘT TINH THẦN</font>",
+            "title_size": 32,
+            "title_width": 40,
+            "heading_h1": false,
+            "text": "<p>Sơn Hà Ấn Ký hỏi: <em>Mình đã đi qua những gì?</em> </p><p>Thiên Thư Định Phận trả lời: <em>Mình là ai, thuộc về đâu.</em></p><p>Một chiếc là vòng ký ức của non sông. Một chiếc là con dấu của danh phận.</p><p>Đeo một — để nhớ hành trình. Đeo cả hai — để biết mình đứng ở đâu trong hành trình đó.</p>",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_7fdgAb"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "background_video_responsive_GmPHMR": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 700,
+        "video_height_mobile": 350,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/SHAK 19x9 (1).mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/SHAK 19x9 (1).mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "slideshow_6VV9j6",
+    "slideshow_xUFiLE",
+    "featured_collection_jNCRQc",
+    "media_text_block_PP7AJC",
+    "media_text_block_aKVYPD",
+    "media_text_block_HP8LEi",
+    "slideshow_KFBPBt",
+    "background_video_responsive_GmPHMR"
+  ]
+}
