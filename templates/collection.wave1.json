@@ -174,8 +174,26 @@
         "autoplay_speed": 7
       }
     },
+    "video_NgCpTj": {
+      "type": "video",
+      "name": "Video",
+      "settings": {
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "subheading": "",
+        "video_title": "Video",
+        "title_size": 60,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Pair text with a video to draw attention to an important detail of your brand or product line.</p>",
+        "enlarge_text": false,
+        "overlay_position": "position--hcenter position--vcenter",
+        "full_width": false,
+        "overlay_style_tint": false
+      }
+    },
     "background_video_responsive_GmPHMR": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -321,6 +339,7 @@
     "slideshow_xUFiLE",
     "featured_collection_jNCRQc",
     "slideshow_zA7zbR",
+    "video_NgCpTj",
     "background_video_responsive_GmPHMR",
     "slideshow_xm9YhJ",
     "media_text_block_aKVYPD",
