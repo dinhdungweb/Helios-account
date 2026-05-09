@@ -41,8 +41,8 @@
         "image_jPgrxY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Landingpage_pc_01.jpg",
-            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
+            "image": "shopify://shop_images/Landingpage_pc_01_1ce72cc9-426e-4a68-941f-0f3f1ecf134f.jpg",
+            "mobile_image": "shopify://shop_images/Landingpage_mobile_01.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -198,7 +198,7 @@
       "settings": {
         "video_full_vh": false,
         "video_height_desktop": 920,
-        "video_height_mobile": 550,
+        "video_height_mobile": 500,
         "video_link": "",
         "video_link_new_tab": false,
         "video_shopify_desktop": "shopify://files/videos/hero flim-16.9- 720- 9MB.mp4",
