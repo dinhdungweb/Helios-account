@@ -135,18 +135,117 @@
         "show_view_all": false
       }
     },
-    "media_text_block_PP7AJC": {
+    "slideshow_zA7zbR": {
+      "type": "slideshow",
+      "blocks": {
+        "image_AtBbDx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Landingpage_pc_04.jpg",
+            "mobile_image": "shopify://shop_images/Landingpage_mobile_04.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 30,
+            "title_width": 40,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_AtBbDx"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "background_video_responsive_GmPHMR": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 700,
+        "video_height_mobile": 350,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/SHAK 19x9 (1).mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/SHAK 19x9 (1).mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "slideshow_xm9YhJ": {
+      "type": "slideshow",
+      "blocks": {
+        "image_Kqg6yC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Landingpage_pc_06_7ec331c6-7003-431f-b62f-dfce0cf8dc1d.jpg",
+            "mobile_image": "shopify://shop_images/Landingpage_mobile_04.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 30,
+            "title_width": 40,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_Kqg6yC"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "media_text_block_aKVYPD": {
       "type": "media-text-block",
       "name": "Media Text Block",
       "settings": {
         "subheading": "",
-        "heading": "Tinh thần Việt Nam",
+        "heading": "",
         "heading_tag": "h2",
         "heading_size": 32,
-        "heading_alignment": "left",
-        "description": "<p>Không hô hào. Chỉ giữ lại.</p><p>Yêu nước không phải lúc nào cũng ồn ào. Đủ lặng — nhưng đủ nặng để bên mình mỗi ngày.</p><p>Bộ sưu tập Nam Quốc Sơn Hà ra đời từ tinh thần đó: </p><p><em>“Đúc non sông vào bạc. Mang hành trình lên tay. Để mỗi lần nhìn xuống — biết mình là ai.”</em></p>",
-        "text_alignment": "left",
-        "content_padding": 40,
+        "heading_alignment": "right",
+        "description": "",
+        "text_alignment": "right",
+        "content_padding": 16,
         "button_label": "",
         "button_link": "",
         "button_style": "solid",
@@ -156,55 +255,16 @@
         "button_style_2": "outline",
         "button_open_new_2": false,
         "media_type": "video",
-        "media_position": "left",
-        "media_layout": "contained",
-        "video_shopify": "shopify://files/videos/2 vid chế tác SHAK-TTDP(11MB).mp4",
-        "video_url": "",
-        "video_url_mobile": "",
-        "video_loop": true,
-        "media_ratio": "1:1",
-        "section_height": "auto",
-        "bg_image": "shopify://shop_images/3.section_3_nen_video_4x3_6b3417b0-289f-4861-9765-c13ca0afed54.jpg",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0,
-        "heading_color": "#fab320",
-        "text_color": "#f2f2f2",
-        "button_bg": "#111111",
-        "button_text_color": "#ffffff",
-        "button_bg_hover": "#333333",
-        "button_text_color_hover": "#ffffff"
-      }
-    },
-    "media_text_block_aKVYPD": {
-      "type": "media-text-block",
-      "name": "Media Text Block",
-      "settings": {
-        "subheading": "",
-        "heading": "SƠN HÀ ẤN KÝ",
-        "heading_tag": "h2",
-        "heading_size": 32,
-        "heading_alignment": "right",
-        "description": "<p><em>Một vòng nhẫn — cả hành trình non sông.</em></p><p>Thân nhẫn chạy như một dải phù điêu không ngắt quãng. Kiến trúc. Mái ngói. Sóng nước. Rồng thời Lý. Sáu địa danh. Một vòng tròn. </p><p>Xoay nhẫn — Chợ Bến Thành hiện ra. Văn Miếu Quốc Tử Giám hiện ra. Cảng Hải Phòng. Cung đình Huế. Chợ Nổi Cần Thơ. Cầu Bàn Tay Vàng.</p><p>Không phải bản đồ. Là ký ức của một người đã đi — để không quên.</p><p>Chất liệu: Bạc S925 + Đồng </p><p>Chế tác: Thủ công</p><p>Packaging: Phiên bản đặc biệt 30/4 — 1/5</p>",
-        "text_alignment": "right",
-        "content_padding": 40,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "solid",
-        "button_open_new": false,
-        "button_label_2": "",
-        "button_link_2": "",
-        "button_style_2": "outline",
-        "button_open_new_2": false,
-        "media_type": "image",
         "media_position": "right",
         "media_layout": "contained",
         "media_image": "shopify://shop_images/4.Infographic_Son_Ha_An_Ky.jpg",
+        "video_shopify": "shopify://files/videos/videowebkhuyentaiKhuvsgulSunflowerStud.mp4",
         "video_url": "",
         "video_url_mobile": "",
         "video_loop": true,
-        "media_ratio": "1:1",
+        "media_ratio": "auto",
         "section_height": "auto",
-        "bg_image": "shopify://shop_images/4.TTDP_nen_mo_19x9_ca0cc291-eac7-422b-9a3c-1719a687a6fd.jpg",
+        "bg_image": "shopify://shop_images/Landingpage_pc_06_c600709f-550a-4bda-b8c5-9983d50b6829.jpg",
         "overlay_color": "#000000",
         "overlay_opacity": 0,
         "heading_color": "#fab320",
@@ -293,27 +353,6 @@
         "autoplay": true,
         "autoplay_speed": 7
       }
-    },
-    "background_video_responsive_GmPHMR": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "video_full_vh": false,
-        "video_height_desktop": 700,
-        "video_height_mobile": 350,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/SHAK 19x9 (1).mp4",
-        "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/SHAK 19x9 (1).mp4",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
     }
   },
   "order": [
@@ -321,10 +360,11 @@
     "slideshow_6VV9j6",
     "slideshow_xUFiLE",
     "featured_collection_jNCRQc",
-    "media_text_block_PP7AJC",
+    "slideshow_zA7zbR",
+    "background_video_responsive_GmPHMR",
+    "slideshow_xm9YhJ",
     "media_text_block_aKVYPD",
     "media_text_block_HP8LEi",
-    "slideshow_KFBPBt",
-    "background_video_responsive_GmPHMR"
+    "slideshow_KFBPBt"
   ]
 }
