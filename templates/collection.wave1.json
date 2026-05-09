@@ -192,13 +192,13 @@
         "overlay_style_tint": false
       }
     },
-    "background_video_responsive_GmPHMR": {
+    "background_video_responsive_wV7FRG": {
       "type": "background-video-responsive",
       "name": "Video responsive",
       "settings": {
-        "video_full_vh": true,
-        "video_height_desktop": 890,
-        "video_height_mobile": 350,
+        "video_full_vh": false,
+        "video_height_desktop": 920,
+        "video_height_mobile": 650,
         "video_link": "",
         "video_link_new_tab": false,
         "video_shopify_desktop": "shopify://files/videos/hero flim-16.9- 720- 9MB.mp4",
@@ -339,7 +339,7 @@
     "featured_collection_jNCRQc",
     "slideshow_zA7zbR",
     "video_NgCpTj",
-    "background_video_responsive_GmPHMR",
+    "background_video_responsive_wV7FRG",
     "slideshow_xm9YhJ",
     "media_text_block_aKVYPD",
     "slideshow_KFBPBt"
