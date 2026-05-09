@@ -275,61 +275,21 @@
         "button_text_color_hover": "#ffffff"
       }
     },
-    "media_text_block_HP8LEi": {
-      "type": "media-text-block",
-      "name": "Media Text Block",
-      "settings": {
-        "subheading": "",
-        "heading": "THIÊN THƯ ĐỊNH PHẬN",
-        "heading_tag": "h2",
-        "heading_size": 32,
-        "heading_alignment": "left",
-        "description": "<p><em>Để biết mình là ai.</em></p><p>Một chiếc signet đúng nghĩa, như một con dấu.</p><p>Ở tâm nhẫn — ngôi sao vàng năm cánh. Biểu trưng cho quốc kỳ Việt Nam. </p><p>Xung quanh là những biểu tượng đã thành dấu ấn đất nước Việt Nam: Phở. Bánh mì. Hoa sen. Áo dài. Địa danh. </p><p>Bản black silver làm mọi thứ trầm xuống — để ngôi sao bật lên như một điểm neo không lay chuyển.</p><p>Càng đeo, càng thấy Việt Nam đẹp và thiêng liêng ra sao.</p><p>Chất liệu: Bạc S925 + Đồng </p><p>Chế tác: Thủ công </p><p>Packaging: Phiên bản đặc biệt 30/4 — 1/5</p>",
-        "text_alignment": "left",
-        "content_padding": 40,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "solid",
-        "button_open_new": false,
-        "button_label_2": "",
-        "button_link_2": "",
-        "button_style_2": "outline",
-        "button_open_new_2": false,
-        "media_type": "image",
-        "media_position": "left",
-        "media_layout": "contained",
-        "media_image": "shopify://shop_images/4.Infographic_Thien_Thu_Dinh_Phan.jpg",
-        "video_url": "",
-        "video_url_mobile": "",
-        "video_loop": true,
-        "media_ratio": "1:1",
-        "section_height": "auto",
-        "bg_image": "shopify://shop_images/4.SHAK_nen_mo_19x9_486eb764-f709-4486-b680-75d8b1f3141d.jpg",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0,
-        "heading_color": "#fab320",
-        "text_color": "#f2f2f2",
-        "button_bg": "#111111",
-        "button_text_color": "#ffffff",
-        "button_bg_hover": "#333333",
-        "button_text_color_hover": "#ffffff"
-      }
-    },
     "slideshow_KFBPBt": {
       "type": "slideshow",
       "blocks": {
         "image_7fdgAb": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/5._nen_ending_19x9_2.jpg",
+            "image": "shopify://shop_images/Landingpage_pc_08.jpg",
             "mobile_image": "shopify://shop_images/5._nen_ending_9x16_2.jpg",
             "slide_link": "",
             "subheading": "",
-            "title": "<font style=\"color: #fab320\">HAI CHIẾC NHẪN - MỘT TINH THẦN</font>",
+            "title": "",
             "title_size": 32,
             "title_width": 40,
             "heading_h1": false,
-            "text": "<p>Sơn Hà Ấn Ký hỏi: <em>Mình đã đi qua những gì?</em> </p><p>Thiên Thư Định Phận trả lời: <em>Mình là ai, thuộc về đâu.</em></p><p>Một chiếc là vòng ký ức của non sông. Một chiếc là con dấu của danh phận.</p><p>Đeo một — để nhớ hành trình. Đeo cả hai — để biết mình đứng ở đâu trong hành trình đó.</p>",
+            "text": "",
             "enlarge_text": false,
             "button_label": "",
             "overlay_position": "position--hcenter position--vcenter",
@@ -347,7 +307,7 @@
         "height_mobile": 500,
         "full_width": true,
         "mobile_overlay_under": false,
-        "overlay_style_tint": true,
+        "overlay_style_tint": false,
         "slide_transition": "slide",
         "slide_navigation": "dots",
         "autoplay": true,
@@ -364,7 +324,6 @@
     "background_video_responsive_GmPHMR",
     "slideshow_xm9YhJ",
     "media_text_block_aKVYPD",
-    "media_text_block_HP8LEi",
     "slideshow_KFBPBt"
   ]
 }
