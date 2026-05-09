@@ -280,7 +280,7 @@
         "video_url_mobile": "",
         "video_loop": true,
         "media_ratio": "1:1",
-        "section_height": "0vh",
+        "section_height": "90vh",
         "bg_image": "shopify://shop_images/Landingpage_pc_06_c600709f-550a-4bda-b8c5-9983d50b6829.jpg",
         "overlay_color": "#000000",
         "overlay_opacity": 0,
@@ -290,6 +290,45 @@
         "button_text_color": "#ffffff",
         "button_bg_hover": "#333333",
         "button_text_color_hover": "#ffffff"
+      }
+    },
+    "slideshow_B9V8Vm": {
+      "type": "slideshow",
+      "blocks": {
+        "image_TExj6b": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Landingpage_pc_07.gif",
+            "mobile_image": "shopify://shop_images/Landingpage_mobile_06-1.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 30,
+            "title_width": 40,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_TExj6b"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "slideshow_KFBPBt": {
@@ -342,6 +381,7 @@
     "background_video_responsive_wV7FRG",
     "slideshow_xm9YhJ",
     "media_text_block_aKVYPD",
+    "slideshow_B9V8Vm",
     "slideshow_KFBPBt"
   ]
 }
