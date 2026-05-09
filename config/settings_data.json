@@ -407,7 +407,7 @@
       },
       "1536251165049345536": {
         "type": "shopify://apps/linkify-product-variants/blocks/app-card-injector/019c2ccf-d77b-791c-90ab-910f5942c557",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     }
