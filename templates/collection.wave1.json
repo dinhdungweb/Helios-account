@@ -322,7 +322,7 @@
         "height": "adapt",
         "height_desktop": 600,
         "height_mobile": 500,
-        "full_width": true,
+        "full_width": false,
         "mobile_overlay_under": false,
         "overlay_style_tint": false,
         "slide_transition": "slide",
