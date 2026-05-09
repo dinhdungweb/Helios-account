@@ -23,6 +23,7 @@
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": true,
         "show_vendor": false,
+        "quick_links": "",
         "show_filter_counts": false,
         "show_filter_deadends": true,
         "ajax_products": true,
@@ -40,7 +41,7 @@
         "image_jPgrxY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_4x3_c6629e4f-7c79-4bb8-8d47-2d5e2fb43528.jpg",
+            "image": "shopify://shop_images/Landingpage_pc_01.jpg",
             "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
             "slide_link": "",
             "subheading": "",
@@ -79,15 +80,15 @@
         "image_7rJ3Ld": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/2._nen_section_2_19x9_590e7e24-d326-4c9a-9f42-de66e81171e3.jpg",
-            "mobile_image": "shopify://shop_images/2._nen_section_2_9x16_b2635759-d5b1-4cb7-b170-10e0084c977c.jpg",
+            "image": "shopify://shop_images/Landingpage_pc_02.jpg",
+            "mobile_image": "shopify://shop_images/Landingpage_mobile_02.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
             "title_size": 30,
             "title_width": 40,
             "heading_h1": false,
-            "text": "<p><em>“Tiệt nhiên định phận tại thiên thư”.</em></p><p>Có những điều không cần chứng minh. </p><p>Hành trình - Danh phận</p><p>Việt Nam đang bước vào kỷ nguyên của mình — Trong hành trình đó, người đàn ông trưởng thành biết mình thuộc về đâu.</p>",
+            "text": "",
             "enlarge_text": true,
             "button_label": "",
             "overlay_position": "position--hcenter position--vcenter",
@@ -118,7 +119,7 @@
       "settings": {
         "title": "",
         "featured_collection_align": "left",
-        "collection": "nam-quoc-son-ha-chuong-2",
+        "collection": "the-gioi-di-cung-khang-dinh-gu-mo-rong-ban-sac",
         "layout": "rows",
         "featured_addtocart_hide": false,
         "show_add_to_cart": true,
