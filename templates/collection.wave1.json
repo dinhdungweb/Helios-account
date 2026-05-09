@@ -299,7 +299,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Landingpage_pc_07.gif",
-            "mobile_image": "shopify://shop_images/Landingpage_mobile_06-1.jpg",
+            "mobile_image": "shopify://shop_images/Landingpage_pc_07.gif",
             "slide_link": "",
             "subheading": "",
             "title": "",
