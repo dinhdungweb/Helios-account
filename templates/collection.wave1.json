@@ -9,32 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-collection",
-      "disabled": true,
-      "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
-        "description_position": "top",
-        "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
-        "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
-        "show_vendor": false,
-        "quick_links": "",
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
-      }
-    },
     "slideshow_6VV9j6": {
       "type": "slideshow",
       "blocks": {
@@ -115,6 +89,7 @@
     },
     "featured_collection_jNCRQc": {
       "type": "featured-collection",
+      "disabled": true,
       "name": "Featured collection",
       "settings": {
         "title": "",
@@ -133,6 +108,31 @@
         "hide_swatches": false,
         "alternate_bg_color": false,
         "show_view_all": false
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 3,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "quick_links": "",
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
       }
     },
     "slideshow_zA7zbR": {
@@ -412,10 +412,10 @@
     }
   },
   "order": [
-    "main",
     "slideshow_6VV9j6",
     "slideshow_xUFiLE",
     "featured_collection_jNCRQc",
+    "main",
     "slideshow_zA7zbR",
     "video_NgCpTj",
     "background_video_responsive_wV7FRG",
