@@ -125,14 +125,14 @@
         "show_vendor": false,
         "quick_links": "",
         "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
+        "show_filter_deadends": false,
+        "ajax_products": false,
+        "filter_mode": "none",
+        "sticky_sidebar": false,
         "collapse_filters_method": "over-6",
         "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
+        "enable_sorting": false,
+        "show_featured_in_sort": false
       }
     },
     "slideshow_zA7zbR": {
