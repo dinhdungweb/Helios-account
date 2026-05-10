@@ -127,7 +127,7 @@
         "show_price": true,
         "show_review": true,
         "show_vendor": false,
-        "grid": 2,
+        "grid": 3,
         "rows": 2,
         "grid_mobile": "2",
         "hide_swatches": false,
