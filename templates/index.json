@@ -56,9 +56,9 @@
         "image_nw333M": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Banner_BST_Thang_5_19x9_1.jpg",
-            "mobile_image": "shopify://shop_images/Banner_BST_Thang_5_9x16_1.jpg",
-            "slide_link": "",
+            "image": "shopify://shop_images/Landingpage_pc_01_1ce72cc9-426e-4a68-941f-0f3f1ecf134f-done.jpg",
+            "mobile_image": "shopify://shop_images/BeautyPlus-image-extender.jpg",
+            "slide_link": "shopify://collections/the-gioi-di-cung-khang-dinh-gu-mo-rong-ban-sac",
             "subheading": "",
             "title": "",
             "title_size": 60,
