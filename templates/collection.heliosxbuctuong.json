@@ -23,6 +23,7 @@
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": true,
         "show_vendor": false,
+        "quick_links": "",
         "show_filter_counts": false,
         "show_filter_deadends": true,
         "ajax_products": true,
@@ -280,7 +281,7 @@
         "milestone_gQz68T": {
           "type": "milestone",
           "settings": {
-            "date": "???",
+            "date": "25/05/2026",
             "title": "Ra mắt sản phẩm Mũ HELIOS x BỨC TƯỜNG",
             "description": ""
           }
@@ -288,7 +289,7 @@
         "milestone_cb9edt": {
           "type": "milestone",
           "settings": {
-            "date": "???",
+            "date": "25/05/2026",
             "title": "Ra mắt sản phẩm Móc khoá HELIOS x BỨC TƯỜNG",
             "description": ""
           }
@@ -296,7 +297,7 @@
         "milestone_eD6TJw": {
           "type": "milestone",
           "settings": {
-            "date": "???",
+            "date": "25/05/2026",
             "title": "Ra mắt sản phẩm Nhẫn HELIOS x BỨC TƯỜNG",
             "description": ""
           }
