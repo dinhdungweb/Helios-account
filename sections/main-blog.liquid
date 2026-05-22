@@ -11,7 +11,7 @@
     <h1 class="blog-page-header__title">{{ blog.title }}</h1>
     <nav class="blog-page-header__nav">
       {%- liquid
-        assign nav_handles = 'nhan,day-chuyen,vong-tay,bac,da,kinh' | split: ','
+        assign nav_handles = 'world-of-helios,nhan,day-chuyen,vong-tay,bac,da,kinh' | split: ','
       -%}
       {% for handle in nav_handles %}
         <a
