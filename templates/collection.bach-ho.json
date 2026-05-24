@@ -85,32 +85,6 @@
         "autoplay_speed": 7
       }
     },
-    "main": {
-      "type": "main-collection",
-      "disabled": true,
-      "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
-        "description_position": "top",
-        "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
-        "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
-        "show_vendor": false,
-        "quick_links": "quicklink-collection",
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
-      }
-    },
     "background_video_responsive_rFkPjY": {
       "type": "background-video-responsive",
       "name": "Video responsive",
@@ -208,6 +182,31 @@
         "autoplay_speed": 7
       }
     },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_content": true,
+        "show_collection_image": true,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "quick_links": "quicklink-collection",
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    },
     "slideshow_aYYNwe": {
       "type": "slideshow",
       "blocks": {
@@ -250,10 +249,10 @@
   "order": [
     "slideshow_Hhkq6N",
     "slideshow_RQEnza",
-    "main",
     "background_video_responsive_rFkPjY",
     "slideshow_6Qwabw",
     "slideshow_pdkY7C",
+    "main",
     "slideshow_aYYNwe"
   ]
 }
