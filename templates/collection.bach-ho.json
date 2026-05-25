@@ -183,8 +183,31 @@
         "autoplay_speed": 7
       }
     },
+    "featured_collection_fUdLqT": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "bach-ho",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 2,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": true,
         "show_collection_image": true,
@@ -253,6 +276,7 @@
     "background_video_responsive_rFkPjY",
     "slideshow_6Qwabw",
     "slideshow_pdkY7C",
+    "featured_collection_fUdLqT",
     "main",
     "slideshow_aYYNwe"
   ]
