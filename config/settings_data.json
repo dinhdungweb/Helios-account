@@ -106,7 +106,7 @@
     "enable_locked_content": false,
     "lock_all_product_prices": false,
     "hide_cart_icon": false,
-    "price_locked_text": "Dành cho member đã từng mua hàng",
+    "price_locked_text": "Dành cho Membership",
     "button_locked_text": "Sản phẩm đặc quyền",
     "lock_pages_tier_enable": false,
     "lock_pages_min_tier": "5",
@@ -403,11 +403,6 @@
       "14273995685951697397": {
         "type": "shopify://apps/geo-redirect-country-block/blocks/geolocation-popup/019b96c0-7d7c-7338-be9f-1147dd22a014",
         "disabled": false,
-        "settings": {}
-      },
-      "1536251165049345536": {
-        "type": "shopify://apps/linkify-product-variants/blocks/app-card-injector/019c2ccf-d77b-791c-90ab-910f5942c557",
-        "disabled": true,
         "settings": {}
       }
     }
