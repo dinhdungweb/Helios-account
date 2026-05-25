@@ -3,11 +3,44 @@
   if section.settings.heading_h1
     assign heading_tag = "h1"
   endif
+
+  assign video_size = section.settings.video_size | default: 'cover'
+  assign video_object_fit = 'cover'
+  if video_size == 'original'
+    assign video_object_fit = 'contain'
+  endif
+
+  assign cover_image_desktop = section.settings.image
+  if cover_image_desktop == blank and section.settings.video_shopify_desktop
+    assign cover_image_desktop = section.settings.video_shopify_desktop.preview_image
+  endif
+
+  assign cover_image_mobile = section.settings.image
+  if cover_image_mobile == blank and section.settings.video_shopify_mobile
+    assign cover_image_mobile = section.settings.video_shopify_mobile.preview_image
+  elsif cover_image_mobile == blank and cover_image_desktop
+    assign cover_image_mobile = cover_image_desktop
+  endif
+
+  assign desktop_aspect_ratio = 1.7777778
+  if cover_image_desktop.aspect_ratio != blank
+    assign desktop_aspect_ratio = cover_image_desktop.aspect_ratio
+  endif
+
+  assign mobile_aspect_ratio = desktop_aspect_ratio
+  if cover_image_mobile.aspect_ratio != blank
+    assign mobile_aspect_ratio = cover_image_mobile.aspect_ratio
+  endif
 -%}
 
 <div id="section-id-{{ section.id }}" class="{% if section.settings.full_width == false %}section-spacing wide-container{% else %}header-overlap-section needs-alt-logo{% endif %}" data-section-type="background-video-responsive">
   {% style %}
-    {% if section.settings.video_full_vh %}
+    {% if video_size == 'original' %}
+    #section-id-{{ section.id }} .video-responsive-container {
+      aspect-ratio: {{ mobile_aspect_ratio }};
+      height: auto;
+    }
+    {% elsif section.settings.video_full_vh %}
     #section-id-{{ section.id }} .video-responsive-container { height: var(--viewport-height); }
     {% else %}
     #section-id-{{ section.id }} .video-responsive-container { height: {{ section.settings.video_height_mobile }}px; }
@@ -17,9 +50,16 @@
     }
 
     @media (min-width: 768px) {
-      {% unless section.settings.video_full_vh %}
+      {% if video_size == 'original' %}
+      #section-id-{{ section.id }} .video-responsive-container {
+        aspect-ratio: {{ desktop_aspect_ratio }};
+        height: auto;
+      }
+      {% else %}
+        {% unless section.settings.video_full_vh %}
       #section-id-{{ section.id }} .video-responsive-container { height: {{ section.settings.video_height_desktop }}px; }
-      {% endunless %}
+        {% endunless %}
+      {% endif %}
 
       #section-id-{{ section.id }} .line-1 {
         font-size: {{ section.settings.title_size | times: 0.7 }}px;
@@ -33,26 +73,12 @@
     }
   {% endstyle %}
 
-  <div class="video-responsive-container video-responsive-container--background image-overlay
+  <div class="video-responsive-container video-responsive-container--background video-responsive-container--{{ video_size }} image-overlay
     {% if section.settings.overlay_style_tint %} image-overlay--bg-full{% endif %}">
 
     {% if section.settings.video_link != blank %}
       <a class="video-link-overlay" href="{{ section.settings.video_link }}" {% if section.settings.video_link_new_tab %}target="_blank" rel="noopener"{% endif %} aria-label="{{ section.settings.title | default: section.settings.subtitle | default: 'Video link' | escape }}"></a>
     {% endif %}
-
-    {%- liquid
-      assign cover_image_desktop = section.settings.image
-      if cover_image_desktop == blank and section.settings.video_shopify_desktop
-        assign cover_image_desktop = section.settings.video_shopify_desktop.preview_image
-      endif
-      
-      assign cover_image_mobile = section.settings.image
-      if cover_image_mobile == blank and section.settings.video_shopify_mobile
-        assign cover_image_mobile = section.settings.video_shopify_mobile.preview_image
-      elsif cover_image_mobile == blank and cover_image_desktop
-        assign cover_image_mobile = cover_image_desktop
-      endif
-    -%}
 
     {% if cover_image_desktop %}
       <link rel="preload" as="image" href="{{ cover_image_desktop | image_url: width: 1600 }}" fetchpriority="high" media="(min-width: 768px)">
@@ -63,25 +89,25 @@
 
     {% if cover_image_desktop %}
       <div class="video-responsive-container__poster video-responsive-container__poster--desktop"
-        style="background-image: url('{{ cover_image_desktop | image_url: width: 1600 }}'); background-size: cover; background-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %}; position: absolute; inset: 0; z-index: 1;">
+        style="background-image: url('{{ cover_image_desktop | image_url: width: 1600 }}'); background-size: {{ video_object_fit }}; background-repeat: no-repeat; background-color: #000; background-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %}; position: absolute; inset: 0; z-index: 1;">
         <img src="{{ cover_image_desktop | image_url: width: 1600 }}" 
              alt="{{ cover_image_desktop.alt | escape }}" 
              fetchpriority="high"
              width="1600"
              height="{{ 1600 | divided_by: cover_image_desktop.aspect_ratio | round }}"
-             style="width: 100%; height: 100%; object-fit: cover; object-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %};">
+             style="width: 100%; height: 100%; object-fit: {{ video_object_fit }}; object-position: {% if section.settings.image %}{{ section.settings.image.presentation.focal_point }}{% else %}center{% endif %};">
       </div>
     {% endif %}
     
     {% if cover_image_mobile %}
       <div class="video-responsive-container__poster video-responsive-container__poster--mobile"
-        style="background-image: url('{{ cover_image_mobile | image_url: width: 800 }}'); background-size: cover; background-position: center; position: absolute; inset: 0; z-index: 1;">
+        style="background-image: url('{{ cover_image_mobile | image_url: width: 800 }}'); background-size: {{ video_object_fit }}; background-repeat: no-repeat; background-color: #000; background-position: center; position: absolute; inset: 0; z-index: 1;">
         <img src="{{ cover_image_mobile | image_url: width: 800 }}" 
              alt="{{ cover_image_mobile.alt | escape }}" 
              fetchpriority="high"
              width="800"
              height="{{ 800 | divided_by: cover_image_mobile.aspect_ratio | round }}"
-             style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+             style="width: 100%; height: 100%; object-fit: {{ video_object_fit }}; object-position: center;">
       </div>
     {% endif %}
 
@@ -291,7 +317,13 @@
     display: none;
   }
 
-  /* Removed full-width/original-size/full-screen variants to simplify */
+  .video-responsive-container--original {
+    background-color: #000;
+  }
+
+  .video-responsive-container--original .background-video-responsive {
+    object-fit: contain;
+  }
 
   .video-overlay-content {
     position: absolute;
@@ -389,6 +421,23 @@
       "type": "checkbox",
       "label": "Chiều cao 100vh toàn màn hình",
       "default": false
+    },
+    {
+      "id": "video_size",
+      "type": "select",
+      "label": "Video size",
+      "info": "Original keeps the video aspect ratio and avoids cropping.",
+      "default": "cover",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Fill / crop"
+        },
+        {
+          "value": "original",
+          "label": "Original"
+        }
+      ]
     },
     {
       "id": "video_height_desktop",
