@@ -198,12 +198,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $editAddress.toggle();
     $editButton.attr('aria-expanded', !isExpanded).focus();
   });
-});
 
-// initialize observers on address selectors
-new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address_province_container_new'});
-{% for address in customer.addresses %}
-new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address_province_container_{{address.id}}'});
-{% endfor %}
+  // Fix country selector default value localization bug
+  document.querySelectorAll('select[data-default]').forEach(function(select) {
+    var defaultVal = select.getAttribute('data-default');
+    if (defaultVal) {
+      for (var i = 0; i < select.options.length; i++) {
+        var opt = select.options[i];
+        if (opt.value === defaultVal || opt.text === defaultVal) {
+          select.setAttribute('data-default', opt.value);
+          break;
+        }
+      }
+    }
+  });
+
+  // initialize observers on address selectors
+  new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address_province_container_new'});
+  {% for address in customer.addresses %}
+  new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address_province_container_{{address.id}}'});
+  {% endfor %}
+});
 </script>
 {% endpaginate %}
