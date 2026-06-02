@@ -231,6 +231,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
       select.dispatchEvent(new Event('change'));
     }
   });
+
+  // Intercept form submit to force English country name "Vietnam" to prevent Shopify +1 phone formatting bug
+  $(document).on('submit', 'form[action^="/account/addresses"]', function(e) {
+    var $form = $(this);
+    var $countrySelect = $form.find('select[name="address[country]"]');
+    if ($countrySelect.length > 0) {
+      var selectEl = $countrySelect[0];
+      var selectedOption = selectEl.options[selectEl.selectedIndex];
+      if (selectedOption) {
+        var text = selectedOption.text.normalize('NFC').trim().toLowerCase();
+        var val = selectedOption.value.normalize('NFC').trim().toLowerCase();
+        if (text.indexOf('việt nam') > -1 || text.indexOf('vietnam') > -1 || val.indexOf('vietnam') > -1 || val.indexOf('việt nam') > -1) {
+          // Force value to "Vietnam" before form submission
+          $countrySelect.val('Vietnam');
+        }
+      }
+    }
+  });
 });
 </script>
 {% endpaginate %}
