@@ -199,14 +199,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $editButton.attr('aria-expanded', !isExpanded).focus();
   });
 
-  // Fix country selector default value localization bug
+  // Fix country selector default value localization bug (including Unicode normalize)
   document.querySelectorAll('select[data-default]').forEach(function(select) {
     var defaultVal = select.getAttribute('data-default');
     if (defaultVal) {
+      var normDefault = defaultVal.normalize('NFC').trim().toLowerCase();
       for (var i = 0; i < select.options.length; i++) {
         var opt = select.options[i];
-        if (opt.value === defaultVal || opt.text === defaultVal) {
+        var normValue = opt.value.normalize('NFC').trim().toLowerCase();
+        var normText = opt.text.normalize('NFC').trim().toLowerCase();
+        if (normValue === normDefault || normText === normDefault) {
           select.setAttribute('data-default', opt.value);
+          select.selectedIndex = i;
           break;
         }
       }
@@ -218,6 +222,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
   {% for address in customer.addresses %}
   new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address_province_container_{{address.id}}'});
   {% endfor %}
+
+  // Trigger change event to sync custom dropdown wrapper
+  document.querySelectorAll('select[data-default]').forEach(function(select) {
+    if (typeof jQuery !== 'undefined') {
+      $(select).trigger('change');
+    } else {
+      select.dispatchEvent(new Event('change'));
+    }
+  });
 });
 </script>
 {% endpaginate %}
