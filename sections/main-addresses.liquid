@@ -138,14 +138,14 @@
             <td class="value"><input type="text" id="address_city_{{form.id}}" class="address_form" name="address[city]" value="{{form.city}}" size="40" /></td>
           </tr>
           <tr>
-            <td class="label"><label for="address_country_{{form.id}}">{{ 'customer.addresses.country' | t }}</label></td>
+            <td class="label"><label for="address_country_{{address.id}}">{{ 'customer.addresses.country' | t }}</label></td>
             <td class="value">
-              <select id="address_country_{{form.id}}" name="address[country]" data-default="{{form.country}}">{{ all_country_option_tags }}</select>
+              <select id="address_country_{{address.id}}" name="address[country]" data-default="{{address.country}}">{{ all_country_option_tags }}</select>
             </td>
           </tr>
-          <tr id="address_province_container_{{form.id}}" style="display:none">
-            <td class="label"><label for="address_province_{{form.id}}">{{ 'customer.addresses.province' | t }}</label></td>
-            <td class="value"><select id="address_province_{{form.id}}" class="address_form" name="address[province]" data-default="{{form.province}}"></select></td>
+          <tr id="address_province_container_{{address.id}}" style="display:none">
+            <td class="label"><label for="address_province_{{address.id}}">{{ 'customer.addresses.province' | t }}</label></td>
+            <td class="value"><select id="address_province_{{address.id}}" class="address_form" name="address[province]" data-default="{{address.province}}"></select></td>
           </tr>
           <tr>
             <td class="label"><label for="address_zip_{{form.id}}">{{ 'customer.addresses.zip' | t }}</label></td>
