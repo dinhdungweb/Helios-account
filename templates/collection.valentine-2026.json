@@ -9,43 +9,19 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-collection",
-      "disabled": true,
-      "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
-        "description_position": "top",
-        "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
-        "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
-        "show_vendor": false,
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
-      }
-    },
     "background_video_responsive_Uf9e3M": {
       "type": "background-video-responsive",
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
+        "video_size": "cover",
         "video_height_desktop": 920,
         "video_height_mobile": 620,
         "video_link": "",
         "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/video valentine key - VN - 19x9 (1).mp4",
+        "video_shopify_desktop": "shopify://files/videos/banner Nhẫn đôi.mp4",
         "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/video valentine key - VN - 9x16.mp4",
+        "video_shopify_mobile": "shopify://files/videos/banner Nhẫn đôi.mp4",
         "video_external_mobile": "",
         "subtitle": "",
         "title": "",
@@ -60,11 +36,11 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "<font style=\"color: #fab320\">Valentine Drop</font>",
-        "title_size": 48,
+        "title": "<font style=\"color: #fab320\">MÓN QUÀ Ý NGHĨA CHO BẠN ĐỒNG HÀNH</font>",
+        "title_size": 30,
         "title_width": 12,
         "heading_h1": false,
-        "text": "<p>Lấy cảm hứng từ sóng biển và mặt trời - những biểu tượng của chuyển động và sự bền bỉ - những sản phẩm ra mắt đợt Valentine 2026 kể câu chuyện về hai nguồn năng lượng luôn song hành. Dịu dàng nhưng gắn kết, như cách ghi dấu tình yêu ở lại qua năm tháng.<br/><br/>Mỗi thiết kế là một kỷ vật nhỏ, dành cho những mối quan hệ chọn đồng hành lâu dài.</p>",
+        "text": "<p>Như hai thái cực tìm về điểm cân bằng</p><p>Không phô trương nhưng cũng không thể tách rời</p><p>Biến tình yêu thành một “Thế giới đi cùng”</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
@@ -120,6 +96,7 @@
         "product_39VjVH",
         "product_rbFnrb"
       ],
+      "disabled": true,
       "name": "Product Hover Zoom",
       "settings": {
         "section_height": 1080,
@@ -128,17 +105,42 @@
         "image_ratio": "4/5"
       }
     },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "quick_links": "",
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    },
     "two_banner_p9JjQW": {
       "type": "two-banner",
       "blocks": {
         "banner_pdnh3m": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/DSC3150_1.jpg",
+            "image": "shopify://shop_images/1_1_89aa2519-4dc5-4dfb-9b6a-eda5c22fc82a.jpg",
             "video_url": "",
             "video_loop": false,
-            "aspect_ratio_mobile": "4_5",
-            "aspect_ratio_desktop": "4_5",
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
             "title": "",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -154,11 +156,11 @@
         "banner_TR3bLf": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/DSC1905.jpg",
+            "image": "shopify://shop_images/2_2_ae9b604f-c4b6-47df-bb23-e7009e3e2bea.jpg",
             "video_url": "",
             "video_loop": false,
-            "aspect_ratio_mobile": "4_5",
-            "aspect_ratio_desktop": "4_5",
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
             "title": "",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -188,13 +190,75 @@
         "sticky_offset_mobile": 0,
         "sticky_z_index": 1000
       }
+    },
+    "two_banner_DgEJyw": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_VKtUkF": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/DSC3150_1.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12,
+            "link": ""
+          }
+        },
+        "banner_igf9mM": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/DSC1905.jpg",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "1_1",
+            "aspect_ratio_desktop": "1_1",
+            "title": "",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "middle",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 0,
+            "padding": 12,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "banner_VKtUkF",
+        "banner_igf9mM"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": false,
+        "gap": 0,
+        "columns_mobile": "2",
+        "columns_desktop": 3,
+        "sticky_desktop": false,
+        "sticky_mobile_item": false,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
     }
   },
   "order": [
-    "main",
     "background_video_responsive_Uf9e3M",
     "rich_text_nTjFQL",
     "product_hover_zoom_QBxk7j",
-    "two_banner_p9JjQW"
+    "main",
+    "two_banner_p9JjQW",
+    "two_banner_DgEJyw"
   ]
 }

@@ -15,9 +15,10 @@
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
+        "video_size": "cover",
         "video_height_desktop": 910,
         "video_height_mobile": 640,
-        "video_link": "shopify://collections/valentine-2026",
+        "video_link": "shopify://collections/nhan-doi-2026",
         "video_link_new_tab": false,
         "video_shopify_desktop": "shopify://files/videos/19.1_video key valentine 19x9 - fix 19.1 (1).mp4",
         "video_external_desktop": "",
@@ -36,11 +37,28 @@
       "blocks": {
         "image_qbHR3Y": {
           "type": "image",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Banner_ra_m_t_m_t_day_Lotus_Sainte_Croix_PC_19x9_45ebd970-cf2c-4940-80a0-4e787cdcbb3c.jpg",
-            "mobile_image": "shopify://shop_images/Banner_ra_m_t_m_t_day_Lotus_Sainte_Croix_mobile_9x16_48a46688-b069-4d79-8fc3-2f93edcfb527.jpg",
-            "slide_link": "shopify://products/lotus-sainte-croix-helios-silver",
+            "image": "shopify://shop_images/banner_web_19x9_1.jpg",
+            "mobile_image": "shopify://shop_images/banner_web_9x16_1.jpg",
+            "slide_link": "shopify://collections/bach-ho",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_3Aawga": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Silver_wall_16x9_83ba2b2c-c602-45c0-944b-694fca28ebc9.jpg",
+            "mobile_image": "shopify://shop_images/Silver_wall_4x5_02bfa8ce-639d-4892-ace6-f13a3d5b2717.jpg",
+            "slide_link": "shopify://collections/helios-x-buc-tuong",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -55,6 +73,7 @@
         },
         "image_nw333M": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Landingpage_pc_01_1ce72cc9-426e-4a68-941f-0f3f1ecf134f-done.jpg",
             "mobile_image": "shopify://shop_images/BeautyPlus-image-extender.jpg",
@@ -107,32 +126,14 @@
             "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
-        },
-        "image_3Aawga": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Silver_wall_16x9_83ba2b2c-c602-45c0-944b-694fca28ebc9.jpg",
-            "mobile_image": "shopify://shop_images/Silver_wall_4x5_02bfa8ce-639d-4892-ace6-f13a3d5b2717.jpg",
-            "slide_link": "shopify://collections/helios-x-buc-tuong",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
         }
       },
       "block_order": [
         "image_qbHR3Y",
+        "image_3Aawga",
         "image_nw333M",
         "image_hgGRLc",
-        "image_KarRwm",
-        "image_3Aawga"
+        "image_KarRwm"
       ],
       "name": "Slideshow",
       "settings": {
@@ -198,7 +199,7 @@
           "settings": {
             "image": "shopify://shop_images/1900X900_2TR.jpg",
             "mobile_image": "shopify://shop_images/9X16_2TR.jpg",
-            "slide_link": "shopify://collections/valentine-2026",
+            "slide_link": "shopify://collections/nhan-doi-2026",
             "subheading": "",
             "title": "",
             "title_size": 60,
