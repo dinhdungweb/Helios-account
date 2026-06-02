@@ -199,6 +199,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $editButton.attr('aria-expanded', !isExpanded).focus();
   });
 
+  // Force the value of the option corresponding to Vietnam to always be "Vietnam" (English)
+  document.querySelectorAll('select[name="address[country]"]').forEach(function(select) {
+    for (var i = 0; i < select.options.length; i++) {
+      var opt = select.options[i];
+      var text = opt.text.normalize('NFC').trim().toLowerCase();
+      var val = opt.value.normalize('NFC').trim().toLowerCase();
+      if (text.indexOf('việt nam') > -1 || text.indexOf('vietnam') > -1 || val.indexOf('vietnam') > -1 || val.indexOf('việt nam') > -1) {
+        opt.value = 'Vietnam';
+      }
+    }
+  });
+
   // Fix country selector default value localization bug (including Unicode normalize)
   document.querySelectorAll('select[data-default]').forEach(function(select) {
     var defaultVal = select.getAttribute('data-default');
@@ -232,8 +244,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   });
 
-  // Intercept form submit to force English country name "Vietnam" to prevent Shopify +1 phone formatting bug
-  $(document).on('submit', 'form[action^="/account/addresses"]', function(e) {
+  // Intercept form submit to force English country name "Vietnam" to prevent Shopify +1 phone formatting bug (general form selector to bypass locale prefix url)
+  $(document).on('submit', 'form', function(e) {
     var $form = $(this);
     var $countrySelect = $form.find('select[name="address[country]"]');
     if ($countrySelect.length > 0) {
