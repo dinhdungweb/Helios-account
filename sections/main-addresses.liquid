@@ -138,14 +138,14 @@
             <td class="value"><input type="text" id="address_city_{{form.id}}" class="address_form" name="address[city]" value="{{form.city}}" size="40" /></td>
           </tr>
           <tr>
-            <td class="label"><label for="address_country_{{address.id}}">{{ 'customer.addresses.country' | t }}</label></td>
+            <td class="label"><label for="address_country_{{form.id}}">{{ 'customer.addresses.country' | t }}</label></td>
             <td class="value">
-              <select id="address_country_{{address.id}}" name="address[country]" data-default="{{address.country}}">{{ all_country_option_tags }}</select>
+              <select id="address_country_{{form.id}}" name="address[country]" data-default="{{form.country}}">{{ all_country_option_tags }}</select>
             </td>
           </tr>
-          <tr id="address_province_container_{{address.id}}" style="display:none">
-            <td class="label"><label for="address_province_{{address.id}}">{{ 'customer.addresses.province' | t }}</label></td>
-            <td class="value"><select id="address_province_{{address.id}}" class="address_form" name="address[province]" data-default="{{address.province}}"></select></td>
+          <tr id="address_province_container_{{form.id}}" style="display:none">
+            <td class="label"><label for="address_province_{{form.id}}">{{ 'customer.addresses.province' | t }}</label></td>
+            <td class="value"><select id="address_province_{{form.id}}" class="address_form" name="address[province]" data-default="{{form.province}}"></select></td>
           </tr>
           <tr>
             <td class="label"><label for="address_zip_{{form.id}}">{{ 'customer.addresses.zip' | t }}</label></td>
@@ -198,69 +198,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $editAddress.toggle();
     $editButton.attr('aria-expanded', !isExpanded).focus();
   });
-
-  // Force the value of the option corresponding to Vietnam to always be "Vietnam" (English)
-  document.querySelectorAll('select[name="address[country]"]').forEach(function(select) {
-    for (var i = 0; i < select.options.length; i++) {
-      var opt = select.options[i];
-      var text = opt.text.normalize('NFC').trim().toLowerCase();
-      var val = opt.value.normalize('NFC').trim().toLowerCase();
-      if (text.indexOf('việt nam') > -1 || text.indexOf('vietnam') > -1 || val.indexOf('vietnam') > -1 || val.indexOf('việt nam') > -1) {
-        opt.value = 'Vietnam';
-      }
-    }
-  });
-
-  // Fix country selector default value localization bug (including Unicode normalize)
-  document.querySelectorAll('select[data-default]').forEach(function(select) {
-    var defaultVal = select.getAttribute('data-default');
-    if (defaultVal) {
-      var normDefault = defaultVal.normalize('NFC').trim().toLowerCase();
-      for (var i = 0; i < select.options.length; i++) {
-        var opt = select.options[i];
-        var normValue = opt.value.normalize('NFC').trim().toLowerCase();
-        var normText = opt.text.normalize('NFC').trim().toLowerCase();
-        if (normValue === normDefault || normText === normDefault) {
-          select.setAttribute('data-default', opt.value);
-          select.selectedIndex = i;
-          break;
-        }
-      }
-    }
-  });
-
-  // initialize observers on address selectors
-  new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address_province_container_new'});
-  {% for address in customer.addresses %}
-  new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address_province_container_{{address.id}}'});
-  {% endfor %}
-
-  // Trigger change event to sync custom dropdown wrapper
-  document.querySelectorAll('select[data-default]').forEach(function(select) {
-    if (typeof jQuery !== 'undefined') {
-      $(select).trigger('change');
-    } else {
-      select.dispatchEvent(new Event('change'));
-    }
-  });
-
-  // Intercept form submit to force English country name "Vietnam" to prevent Shopify +1 phone formatting bug (general form selector to bypass locale prefix url)
-  $(document).on('submit', 'form', function(e) {
-    var $form = $(this);
-    var $countrySelect = $form.find('select[name="address[country]"]');
-    if ($countrySelect.length > 0) {
-      var selectEl = $countrySelect[0];
-      var selectedOption = selectEl.options[selectEl.selectedIndex];
-      if (selectedOption) {
-        var text = selectedOption.text.normalize('NFC').trim().toLowerCase();
-        var val = selectedOption.value.normalize('NFC').trim().toLowerCase();
-        if (text.indexOf('việt nam') > -1 || text.indexOf('vietnam') > -1 || val.indexOf('vietnam') > -1 || val.indexOf('việt nam') > -1) {
-          // Force value to "Vietnam" before form submission
-          $countrySelect.val('Vietnam');
-        }
-      }
-    }
-  });
 });
+
+// initialize observers on address selectors
+new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address_province_container_new'});
+{% for address in customer.addresses %}
+new Shopify.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address_province_container_{{address.id}}'});
+{% endfor %}
 </script>
 {% endpaginate %}
