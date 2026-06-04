@@ -277,13 +277,13 @@
         "banner_jqKwem": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/1_034d0c0f-5b8b-4879-9493-96f3491fe1f7.jpg",
+            "image": "shopify://shop_images/p22.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "4_5",
             "aspect_ratio_desktop": "1_1",
             "title": "SẢN PHẨM MỚI",
-            "title_color": "#ffffff",
+            "title_color": "#f2f2f2",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
             "v_align": "bottom",
@@ -297,12 +297,12 @@
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/2_128bf7ab-3faa-40d2-bdcf-182079267558.jpg",
+            "image": "shopify://shop_images/p4.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "4_5",
             "aspect_ratio_desktop": "1_1",
-            "title": "VÒNG TAY BẠC",
+            "title": "KHUYÊN TAI BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -311,7 +311,7 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/vong-tay-bac-nam"
+            "link": "shopify://collections/khuyen-tai-bac-nam"
           }
         }
       },
@@ -338,12 +338,12 @@
         "banner_CcYr6M": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/3_e1b13cb5-9bc0-4b59-8517-e5a9f98ef25e.jpg",
+            "image": "shopify://shop_images/p5.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "TẤT CẢ SẢN PHẨM",
+            "title": "NHẪN BẠC",
             "title_color": "#f2f2f2",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -352,18 +352,18 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/all-products"
+            "link": "shopify://collections/nhan-bac-nam"
           }
         },
         "banner_wnK37c": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/4_dc2c53ba-1d41-40cc-8686-9fc9f09cfecc.jpg",
+            "image": "shopify://shop_images/p3_e1323a37-2a9f-4570-94b4-5aba97e0d80d.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC",
+            "title": "MẶT DÂY CHUYỀN BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -372,7 +372,7 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/nhan-bac-nam"
+            "link": "shopify://collections/mat-day-chuyen-bac-s925"
           }
         }
       },
@@ -399,12 +399,12 @@
         "banner_Nmp8fT": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/5_84379e8a-0b71-4bfa-aad7-e416d8882fce.jpg",
+            "image": "shopify://shop_images/p12.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "KHÁM PHÁ CHẾ TÁC",
+            "title": "TẤT CẢ SẢN PHẨM",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -413,18 +413,18 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/new-in"
+            "link": "shopify://collections/all-products"
           }
         },
         "banner_Adiycb": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/6_77c98720-fcde-4d0d-8062-9c0b4d812ac9.jpg",
+            "image": "shopify://shop_images/P6.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
             "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC",
+            "title": "VÒNG TAY BẠC",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -433,7 +433,7 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/nhan-bac-nam"
+            "link": "shopify://collections/vong-tay-bac-nam"
           }
         }
       },
