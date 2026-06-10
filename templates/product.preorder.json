@@ -114,6 +114,7 @@
         },
         "custom_liquid_FW6ge8": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": "<a href=\"https://helios.vn/pages/helios-private-call\" style=\"color: #fab320\">ĐĂNG KÝ TƯ VẤN 1:1 ĐỂ TRẢI NGHIỆM TRỰC TIẾP SẢN PHẨM</a>"
           }
