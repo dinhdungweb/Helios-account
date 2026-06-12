@@ -18,6 +18,7 @@
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
+        "video_size": "cover",
         "video_height_desktop": 900,
         "video_height_mobile": 600,
         "video_link": "shopify://blogs/tin-tuc/khep-lai-hanh-trinh-gan-10-nam-tai-helios-le-thanh-nghi",
@@ -40,9 +41,9 @@
         "image_AD6YEJ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Banner_web_NQSH_19x9_c8cd3e1d-dcd1-4edc-9328-c9ddf4a39b65.jpg",
-            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
-            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "image": "shopify://shop_images/banner_web_19x9_1.jpg",
+            "mobile_image": "shopify://shop_images/banner_web_9x16_1.jpg",
+            "slide_link": "shopify://collections/bach-ho",
             "subheading": "",
             "title": "",
             "title_size": 60,
