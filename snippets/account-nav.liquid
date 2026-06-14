@@ -27,9 +27,17 @@
       {% comment %}Render Custom Tabs from Blocks{% endcomment %}
       {% for block in section.blocks %}
         {% if block.type == 'custom_tab' %}
-          <li class="nav-tab" data-tab="custom-tab-{{ block.id }}">
-            <span class="nav-text">{{ block.settings.title }}</span>
-          </li>
+          {% if block.settings.enable_link and block.settings.tab_url != blank %}
+            <li class="nav-tab link-tab">
+              <a href="{{ block.settings.tab_url }}" {% if block.settings.open_in_new_tab %}target="_blank"{% endif %} class="nav-text">
+                {{ block.settings.title }}
+              </a>
+            </li>
+          {% else %}
+            <li class="nav-tab" data-tab="custom-tab-{{ block.id }}">
+              <span class="nav-text">{{ block.settings.title }}</span>
+            </li>
+          {% endif %}
         {% endif %}
       {% endfor %}
       

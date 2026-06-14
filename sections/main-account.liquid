@@ -300,20 +300,22 @@
     {% comment %}--- CUSTOM TABS ---{% endcomment %}
     {% for block in section.blocks %}
       {% if block.type == 'custom_tab' %}
-        <div id="custom-tab-{{ block.id }}" class="dashboard-tab-content">
-           <div class="dashboard-card">
-             <h3 class="card-title">{{ block.settings.title }}</h3>
-             <div class="card-body">
-               {% if block.settings.page_content != blank %}
-                 {{ pages[block.settings.page_content].content }}
-               {% else %}
-                 <div class="rte">
-                   {{ block.settings.richtext_content }}
-                 </div>
-               {% endif %}
+        {% unless block.settings.enable_link and block.settings.tab_url != blank %}
+          <div id="custom-tab-{{ block.id }}" class="dashboard-tab-content">
+             <div class="dashboard-card">
+               <h3 class="card-title">{{ block.settings.title }}</h3>
+               <div class="card-body">
+                 {% if block.settings.page_content != blank %}
+                   {{ pages[block.settings.page_content].content }}
+                 {% else %}
+                   <div class="rte">
+                     {{ block.settings.richtext_content }}
+                   </div>
+                 {% endif %}
+               </div>
              </div>
-           </div>
-        </div>
+          </div>
+        {% endunless %}
       {% endif %}
     {% endfor %}
 
@@ -322,7 +324,7 @@
 <script>
 document.querySelectorAll('.nav-tab').forEach(tab => {
   tab.addEventListener('click', function () {
-    if(this.classList.contains('logout-tab')) return; // Allow normal link for logout
+    if(this.classList.contains('logout-tab') || this.classList.contains('link-tab')) return; // Allow normal link for logout/custom links
     
     const tabId = this.dataset.tab;
     
@@ -416,6 +418,23 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
           "type": "richtext",
           "id": "richtext_content",
           "label": "Nội dung văn bản"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_link",
+          "label": "Gắn link trực tiếp cho Tab",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "tab_url",
+          "label": "Đường dẫn liên kết"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Mở trong tab mới",
+          "default": false
         }
       ]
     },
