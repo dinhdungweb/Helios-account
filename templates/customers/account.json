@@ -82,7 +82,10 @@
           "settings": {
             "title": "BLACKSUN CLUB",
             "page_content": "",
-            "richtext_content": "<p><a href=\"https://blacksun.club\" title=\"https://blacksun.club\">Blacksun Club </a></p>"
+            "richtext_content": "<p><a href=\"https://blacksun.club\" title=\"https://blacksun.club\">Blacksun Club </a></p>",
+            "enable_link": true,
+            "tab_url": "https://blacksun.club",
+            "open_in_new_tab": false
           }
         },
         "tier_black_diamond": {
