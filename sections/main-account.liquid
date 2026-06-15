@@ -251,27 +251,121 @@
             <a class="db-card-action" href="#">Xem tất cả quyền lợi →</a>
           </div>
           <div class="db-card-body">
+            {%- liquid
+              assign current_tier = tier | upcase
+            -%}
             <ul class="db-benefits-list">
-              <li>
-                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                Tích lũy 1 điểm cho mỗi 10.000đ chi tiêu
-              </li>
-              <li>
-                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                Ưu đãi sinh nhật 200.000đ
-              </li>
-              <li>
-                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                Giảm 10% cho bộ sưu tập giới hạn
-              </li>
-              <li>
-                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                Truy cập sớm các bộ sưu tập mới
-              </li>
-              <li>
-                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                Miễn phí giao hàng toàn quốc
-              </li>
+              {% if current_tier contains 'BLACK DIAMOND' %}
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 10% sản phẩm Bạc & Hợp kim
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 5% sản phẩm Vàng & Kim cương
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Ưu đãi miễn phí vận chuyển (Freeship)
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Đặt trước 1 tuần khi ra mắt BST mới
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Quà sinh nhật khách hàng đặc biệt
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Sản phẩm quà tặng đặc biệt dành riêng cho khách hàng
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Hỗ trợ 100% chi phí vận chuyển khi đổi sản phẩm
+                </li>
+              {% elsif current_tier contains 'DIAMOND' %}
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 8% sản phẩm Bạc & Hợp kim
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 4% sản phẩm Vàng & Kim cương
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Ưu đãi miễn phí vận chuyển (Freeship)
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Đặt trước 1 tuần khi ra mắt BST mới
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Quà sinh nhật khách hàng đặc biệt
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Hỗ trợ 100% chi phí vận chuyển khi đổi sản phẩm
+                </li>
+              {% elsif current_tier contains 'PLATINUM' %}
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 6% sản phẩm Bạc & Hợp kim
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 3% sản phẩm Vàng & Kim cương
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Ưu đãi miễn phí vận chuyển (Freeship)
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Đặt trước 1 tuần khi ra mắt BST mới
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Quà sinh nhật khách hàng đặc biệt
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Hỗ trợ 100% chi phí vận chuyển khi đổi sản phẩm
+                </li>
+              {% elsif current_tier contains 'GOLD' %}
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 4% sản phẩm Bạc & Hợp kim
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 2% sản phẩm Vàng & Kim cương
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Ưu đãi miễn phí vận chuyển (Freeship)
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Hỗ trợ 50% chi phí vận chuyển khi đổi sản phẩm
+                </li>
+              {% else %}
+                {% comment %}Mặc định cho Silver hoặc các hạng thấp hơn{% endcomment %}
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Chiết khấu 2% sản phẩm Bạc & Hợp kim
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Ưu đãi Freeship tùy theo chương trình từng thời điểm
+                </li>
+                <li>
+                  <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                  Hỗ trợ 50% chi phí vận chuyển khi đổi sản phẩm
+                </li>
+              {% endif %}
             </ul>
           </div>
         </div>
