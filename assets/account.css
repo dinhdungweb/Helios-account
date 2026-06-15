@@ -125,7 +125,7 @@ body {
   padding: 13px 24px;
   color: var(--db-text-muted);
   text-decoration: none;
-  font-size: 13px;
+  font-size: inherit;
   font-weight: 500;
   transition: all 0.2s;
   cursor: pointer;
