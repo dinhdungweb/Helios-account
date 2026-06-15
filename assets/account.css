@@ -44,6 +44,19 @@ body {
 
 
 
+.db-wrapper h1,
+.db-wrapper h2,
+.db-wrapper h3,
+.db-wrapper h4,
+.db-wrapper h5,
+.db-wrapper h6 {
+  text-align: left;
+}
+
+.db-sidebar-logo h2 {
+  text-align: center !important;
+}
+
 /* ==========================================================================
    LAYOUT WRAPPER
    ========================================================================== */
