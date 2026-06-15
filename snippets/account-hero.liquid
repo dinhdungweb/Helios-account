@@ -1,10 +1,9 @@
 {% comment %}
-  Snippet: Account Hero Section
+  Snippet: Account Hero Section — Flat Dashboard Design
   Usage: {% render 'account-hero', customer: customer, tier: tier, points: points, total_spent: total_spent, progress_percentage: progress_percentage, next_tier: next_tier, remaining_amount: remaining_amount %}
 {% endcomment %}
 
 <div class="account-hero">
-  <div class="hero-bg"></div>
   <div class="hero-content account-container">
     <div class="hero-profile-flex">
       <div class="hero-identity">
@@ -15,7 +14,10 @@
         <div class="hero-text">
           <div class="hero-name">{{ customer.name }}</div>
           <div class="hero-email">{{ customer.email }}</div>
-          <div class="hero-tier-badge">{{ tier }} TIER</div>
+          <div class="hero-tier-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            {{ tier }} TIER
+          </div>
         </div>
       </div>
 
@@ -33,22 +35,13 @@
                   {% endif %}
                   {% assign formatted_number = formatted_number | append: digit %}
                 {% endfor %}
-                {{ formatted_number | split: '' | reverse | join: '' }} VND
+                {{ formatted_number | split: '' | reverse | join: '' }}đ
             </span>
           </div>
-          {% comment %} <div class="stat-item">
-             <span class="stat-label">Điểm thưởng</span>
-             {%- assign formatted_points = points | floor | split: '' | reverse -%}
-             {%- assign formatted_points_str = '' -%}
-             {%- for digit in formatted_points -%}
-               {%- assign remainder = forloop.index0 | modulo: 3 -%}
-               {%- if remainder == 0 and forloop.index0 != 0 -%}
-                 {%- assign formatted_points_str = formatted_points_str | append: '.' -%}
-               {%- endif -%}
-               {%- assign formatted_points_str = formatted_points_str | append: digit -%}
-             {%- endfor -%}
-             <span class="stat-value" id="heroPointsDisplay" data-points="{{ points | default: 0 }}">{{ formatted_points_str | split: '' | reverse | join: '' }}</span>
-          </div> {% endcomment %}
+          <div class="stat-item">
+            <span class="stat-label">Đơn hàng</span>
+            <span class="stat-value">{{ customer.orders_count }}</span>
+          </div>
         </div>
 
         <div class="hero-progress-wrapper">
@@ -72,9 +65,49 @@
                  {% endif %}
                  {% assign formatted_remaining = formatted_remaining | append: digit %}
                {% endfor %}
-               Còn <strong>{{ formatted_remaining | split: '' | reverse | join: '' }} VND</strong> để lên hạng <strong>{{ next_tier }}</strong>
+               Còn <strong>{{ formatted_remaining | split: '' | reverse | join: '' }}đ</strong> để lên hạng <strong>{{ next_tier }}</strong>
             {% endif %}
           </p>
+        </div>
+      </div>
+    </div>
+
+    {% comment %}--- Quick Stats Cards ---{% endcomment %}
+    <div class="hero-quick-stats">
+      <div class="quick-stat-card">
+        <div class="quick-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+        </div>
+        <div class="quick-stat-info">
+          <span class="quick-stat-number">{{ customer.orders_count }}</span>
+          <span class="quick-stat-label">Tổng đơn hàng</span>
+        </div>
+      </div>
+      <div class="quick-stat-card">
+        <div class="quick-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="quick-stat-info">
+          <span class="quick-stat-number">{{ customer.tags | size }}</span>
+          <span class="quick-stat-label">Thẻ thành viên</span>
+        </div>
+      </div>
+      <div class="quick-stat-card">
+        <div class="quick-stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="quick-stat-info">
+          <span class="quick-stat-number">{{ customer.created_at | date: "%d/%m/%Y" }}</span>
+          <span class="quick-stat-label">Ngày tham gia</span>
         </div>
       </div>
     </div>

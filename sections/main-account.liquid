@@ -101,7 +101,7 @@
   endif
 -%}
 
-{% comment %}--- DASHBOARD HERO (V2) ---{% endcomment %}
+{% comment %}--- DASHBOARD HERO ---{% endcomment %}
 {% render 'account-hero', 
   customer: customer, 
   tier: tier, 
@@ -112,7 +112,7 @@
   remaining_amount: remaining_amount 
 %}
 
-{% comment %}--- DASHBOARD NAV (V2) ---{% endcomment %}
+{% comment %}--- DASHBOARD NAV ---{% endcomment %}
 {% render 'account-nav' %}
 
 <div class="account-container account-dashboard-body">
@@ -180,16 +180,20 @@
           <h3 class="card-title">Thông Tin Cá Nhân</h3>
           <div class="card-body info-list">
              <div class="info-row">
-               <span class="info-label">Họ và tên:</span>
+               <span class="info-label">Họ và tên</span>
                <span class="info-value">{{ customer.name }}</span>
              </div>
              <div class="info-row">
-               <span class="info-label">Email:</span>
+               <span class="info-label">Email</span>
                <span class="info-value">{{ customer.email }}</span>
              </div>
              <div class="info-row">
-               <span class="info-label">Số điện thoại:</span>
+               <span class="info-label">Số điện thoại</span>
                <span class="info-value">{{ customer.default_address.phone | default: 'Chưa cập nhật' }}</span>
+             </div>
+             <div class="info-row">
+               <span class="info-label">Hạng thành viên</span>
+               <span class="info-value">{{ tier }}</span>
              </div>
           </div>
         </div>
@@ -199,16 +203,30 @@
           <div class="card-body">
             {% if customer.default_address %}
               <div class="address-display">
-                <p>{{ customer.default_address.company }}</p>
+                {% if customer.default_address.company != blank %}<p>{{ customer.default_address.company }}</p>{% endif %}
                 <p>{{ customer.default_address.street }}</p>
-                <p>{{ customer.default_address.city }} {% if customer.default_address.province_code %}, {{ customer.default_address.province_code }}{% endif %}</p>
+                <p>{{ customer.default_address.city }}{% if customer.default_address.province_code %}, {{ customer.default_address.province_code }}{% endif %}</p>
                 <p>{{ customer.default_address.country }}</p>
-                <p>{{ customer.default_address.zip }}</p>
+                {% if customer.default_address.zip != blank %}<p>{{ customer.default_address.zip }}</p>{% endif %}
               </div>
             {% else %}
-              <p>Chưa có địa chỉ mặc định</p>
+              <div class="empty-state">
+                <div class="empty-state-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <p>Chưa có địa chỉ mặc định</p>
+              </div>
             {% endif %}
-             <a class="dashboard-btn outline mt-20" href="{{ routes.account_addresses_url }}">Quản Lý Địa Chỉ</a>
+             <a class="dashboard-btn outline mt-20" href="{{ routes.account_addresses_url }}">
+               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px;">
+                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                 <circle cx="12" cy="10" r="3"></circle>
+               </svg>
+               Quản Lý Địa Chỉ
+             </a>
           </div>
         </div>
       </div>
@@ -217,7 +235,7 @@
     {% comment %}--- TAB: ORDERS ---{% endcomment %}
     <div id="orders" class="dashboard-tab-content">
       <div class="dashboard-card">
-        <h3 class="card-title">Lịch Sử Mua Hàng</h3>
+        <h3 class="card-title">Lịch Sử Đơn Hàng</h3>
         <div class="card-body">
           {% paginate customer.orders by 20 %}
           {% if customer.orders.size != 0 %}
@@ -234,10 +252,10 @@
               <tbody>
                 {% for order in customer.orders %}
                 <tr>
-                  <td><a href="{{ order.customer_url }}" class="order-link">{{ order.name }}</a></td>
-                  <td>{{ order.created_at | date: format: 'month_date_year' }}</td>
-                  <td><span class="status-badge {{ order.financial_status_label | handle }}">{{ order.financial_status_label }}</span></td>
-                  <td class="order-total">{{ order.total_price | money }}</td>
+                  <td data-label="Mã đơn"><a href="{{ order.customer_url }}" class="order-link">{{ order.name }}</a></td>
+                  <td data-label="Ngày đặt">{{ order.created_at | date: format: 'month_date_year' }}</td>
+                  <td data-label="Trạng thái"><span class="status-badge {{ order.financial_status_label | handle }}">{{ order.financial_status_label }}</span></td>
+                  <td data-label="Tổng tiền" class="order-total">{{ order.total_price | money }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -245,6 +263,13 @@
           </div>
           {% else %}
             <div class="empty-state">
+              <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+              </div>
               <p>Bạn chưa có đơn hàng nào.</p>
               <a href="{{ routes.all_products_collection_url }}" class="dashboard-btn">Mua Sắm Ngay</a>
             </div>
@@ -285,13 +310,22 @@
                alt="Helios Community"
                width="1200"
                height="800"
+               loading="lazy"
              />
            </div>
            <div class="community-text">
-              <p>Helios Club là cộng đồng dành riêng cho những người ‘khác biệt’– những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê ‘màu’ Helios.</p>
+              <p>Helios Club là cộng đồng dành riêng cho những người 'khác biệt'– những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê 'màu' Helios.</p>
               <p>Đây là nơi để anh em chia sẻ trải nghiệm, kinh nghiệm sử dụng phụ kiện, những câu chuyện phía sau món đồ; đồng thời là không gian mở để đặt câu hỏi, tư vấn, trao đổi và thảo luận một cách thẳng thắn và chân thành.</p>
               <p>Nếu bạn yêu thích sự khác biệt: Chào mừng bạn đến với Helios Club!</p>
-              <a href="https://www.facebook.com/groups/508707569692422" target="_blank" class="dashboard-btn" style="margin-top:20px;">Tham gia ngay</a>
+              <a href="https://www.facebook.com/groups/508707569692422" target="_blank" class="dashboard-btn" style="margin-top:12px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px;">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Tham gia ngay
+              </a>
            </div>
         </div>
       </div>
