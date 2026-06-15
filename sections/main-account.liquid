@@ -1,7 +1,6 @@
 {{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
 
-{% comment %}Import Logic{% endcomment %}
-{% comment %}Import Logic{% endcomment %}
+{% comment %}--- TIER LOGIC (unchanged) ---{% endcomment %}
 {%- liquid
   assign total_spent = customer.metafields.custom.total_spent | default: 0 | plus: 0
   assign points = customer.metafields.rewards.points | default: 0
@@ -101,277 +100,476 @@
   endif
 -%}
 
-{% comment %}--- DASHBOARD HERO ---{% endcomment %}
-{% render 'account-hero', 
-  customer: customer, 
-  tier: tier, 
-  points: points, 
-  total_spent: total_spent, 
-  progress_percentage: progress_percentage, 
-  next_tier: next_tier, 
-  remaining_amount: remaining_amount 
-%}
+{% comment %}--- FORMAT NUMBERS ---{% endcomment %}
+{%- liquid
+  assign fmt_total_spent = total_spent | floor | split: '' | reverse
+  assign fmt_ts = ''
+  for digit in fmt_total_spent
+    assign r = forloop.index0 | modulo: 3
+    if r == 0 and forloop.index0 != 0
+      assign fmt_ts = fmt_ts | append: '.'
+    endif
+    assign fmt_ts = fmt_ts | append: digit
+  endfor
+  assign fmt_ts = fmt_ts | split: '' | reverse | join: ''
 
-{% comment %}--- DASHBOARD NAV ---{% endcomment %}
-{% render 'account-nav' %}
+  assign fmt_remaining = remaining_amount | floor | split: '' | reverse
+  assign fmt_rem = ''
+  for digit in fmt_remaining
+    assign r = forloop.index0 | modulo: 3
+    if r == 0 and forloop.index0 != 0
+      assign fmt_rem = fmt_rem | append: '.'
+    endif
+    assign fmt_rem = fmt_rem | append: digit
+  endfor
+  assign fmt_rem = fmt_rem | split: '' | reverse | join: ''
 
-<div class="account-container account-dashboard-body">
-  {% comment %}--- TAB CONTENT AREA ---{% endcomment %}
+  assign fmt_points = points | floor | split: '' | reverse
+  assign fmt_pts = ''
+  for digit in fmt_points
+    assign r = forloop.index0 | modulo: 3
+    if r == 0 and forloop.index0 != 0
+      assign fmt_pts = fmt_pts | append: '.'
+    endif
+    assign fmt_pts = fmt_pts | append: digit
+  endfor
+  assign fmt_pts = fmt_pts | split: '' | reverse | join: ''
+-%}
 
-    {% comment %}--- TAB: WELCOME ---{% endcomment %}
-    <div id="rewards" class="dashboard-tab-content active">
-      <div class="dashboard-card welcome-card">
-        <h3 class="card-title">Welcome</h3>
-        <div class="card-body">
-          {% render 'account-tier-content', tier: tier, type: 'welcome' %}
-          <div class="tier-image-container">
-            {% if section.settings.tier_image != blank %}
-              <img 
-                src="{{ section.settings.tier_image | image_url: width: 1200 }}" 
-                alt="Tier Image" 
-                loading="lazy"
-                width="{{ section.settings.tier_image.width }}"
-                height="{{ section.settings.tier_image.height }}"
-              />
-            {% else %}
-               <img 
-                 src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/SRK00644-2.jpg?v=1764068164" 
-                 alt=""
-                 width="1200"
-                 height="800"
-               />
-            {% endif %}
+{% comment %}=== DASHBOARD WRAPPER ==={% endcomment %}
+<div class="db-wrapper">
+
+  {% comment %}--- SIDEBAR ---{% endcomment %}
+  {% render 'account-nav' %}
+
+  {% comment %}--- MAIN AREA ---{% endcomment %}
+  <div class="db-main">
+
+    {% comment %}--- HEADER BAR ---{% endcomment %}
+    {% render 'account-hero', customer: customer, tier: tier %}
+
+    {% comment %}--- DASHBOARD CONTENT ---{% endcomment %}
+    <div class="db-content">
+
+      {% comment %}========== ROW 1: WELCOME + STATS =========={% endcomment %}
+      <div class="db-welcome-row">
+        <div class="db-welcome-card">
+          <div class="db-welcome-avatar" style="background-image: url('https://cdn.shopify.com/s/files/1/0644/2958/8701/files/464413022_945803257578038_2084379289906124096_n.jpg?v=1764122552');"></div>
+          <div class="db-welcome-info">
+            <p class="db-welcome-label">Chào mừng trở lại,</p>
+            <h2 class="db-welcome-name">{{ customer.name }}</h2>
+            <p class="db-welcome-msg">
+              {% render 'account-tier-content', tier: tier, type: 'welcome' %}
+            </p>
+          </div>
+        </div>
+
+        <div class="db-stats-grid">
+          <div class="db-stat-card">
+            <div class="db-stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            </div>
+            <div class="db-stat-info">
+              <div class="db-stat-title">Hạng thành viên</div>
+              <div class="db-stat-value">{{ tier }}</div>
+              <span class="db-stat-badge">CAO CẤP</span>
+            </div>
+          </div>
+
+          <div class="db-stat-card">
+            <div class="db-stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </div>
+            <div class="db-stat-info">
+              <div class="db-stat-title">Điểm tích lũy</div>
+              <div class="db-stat-value">{{ fmt_pts }}</div>
+              <div class="db-stat-sub">Điểm</div>
+            </div>
+          </div>
+
+          <div class="db-stat-card">
+            <div class="db-stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+            </div>
+            <div class="db-stat-info">
+              <div class="db-stat-title">Tổng chi tiêu</div>
+              <div class="db-stat-value">{{ fmt_ts }}đ</div>
+              <div class="db-stat-sub">VND</div>
+            </div>
+          </div>
+
+          <div class="db-stat-card">
+            <div class="db-stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+            <div class="db-stat-info">
+              <div class="db-stat-title">Tổng đơn hàng</div>
+              <div class="db-stat-value">{{ customer.orders_count }}</div>
+              <div class="db-stat-sub">Đơn hàng</div>
+            </div>
           </div>
         </div>
       </div>
 
-      {% comment %}--- SECTION: SẢN PHẨM THEO COLLECTION ---{% endcomment %}
+      {% comment %}========== ROW 2: TIER + BENEFITS + ACCOUNT INFO =========={% endcomment %}
+      <div class="db-info-row" id="section-account">
+
+        {% comment %}--- Tier Card ---{% endcomment %}
+        <div class="db-card">
+          <div class="db-card-header">
+            <h3 class="db-card-title">{{ tier }} Club</h3>
+          </div>
+          <div class="db-card-body">
+            <div class="db-tier-sub">Hạng hiện tại</div>
+            <div class="db-tier-name">{{ tier }}</div>
+            <span class="db-tier-badge">CAO CẤP</span>
+
+            <div class="db-tier-points-label">Điểm hiện có</div>
+            <div class="db-tier-points-value">{{ fmt_pts }} <span class="db-tier-points-unit">điểm</span></div>
+
+            <p class="db-tier-progress-msg">
+              {% if next_tier == "MAX LEVEL" %}
+                Bạn đã đạt hạng cao nhất!
+              {% else %}
+                Còn <strong>{{ fmt_rem }}đ</strong> để lên hạng <strong>{{ next_tier }}</strong>
+              {% endif %}
+            </p>
+            <div class="db-tier-progress-bar">
+              <div class="db-tier-progress-fill" style="width: {{ progress_percentage }}%;"></div>
+            </div>
+            <div class="db-tier-progress-text">
+              <span>{{ fmt_ts }}</span>
+              <span>{% if next_tier != "MAX LEVEL" %}{{ next_tier_amount | divided_by: 1000000 }}M{% else %}MAX{% endif %}</span>
+            </div>
+          </div>
+        </div>
+
+        {% comment %}--- Benefits Card ---{% endcomment %}
+        <div class="db-card">
+          <div class="db-card-header">
+            <h3 class="db-card-title">Quyền lợi hạng {{ tier }}</h3>
+            <a class="db-card-action" href="#">Xem tất cả quyền lợi →</a>
+          </div>
+          <div class="db-card-body">
+            <ul class="db-benefits-list">
+              <li>
+                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Tích lũy 1 điểm cho mỗi 10.000đ chi tiêu
+              </li>
+              <li>
+                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Ưu đãi sinh nhật 200.000đ
+              </li>
+              <li>
+                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Giảm 10% cho bộ sưu tập giới hạn
+              </li>
+              <li>
+                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Truy cập sớm các bộ sưu tập mới
+              </li>
+              <li>
+                <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                Miễn phí giao hàng toàn quốc
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {% comment %}--- Account Info + Address Card ---{% endcomment %}
+        <div class="db-card">
+          <div class="db-card-header">
+            <h3 class="db-card-title">Thông tin tài khoản</h3>
+            <a class="db-card-action" href="#">Chỉnh sửa</a>
+          </div>
+          <div class="db-card-body">
+            <div class="db-info-item">
+              <span class="db-info-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Họ và tên
+              </span>
+              <span class="db-info-value">{{ customer.name }}</span>
+            </div>
+            <div class="db-info-item">
+              <span class="db-info-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Email
+              </span>
+              <span class="db-info-value">{{ customer.email }}</span>
+            </div>
+            <div class="db-info-item">
+              <span class="db-info-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                Số điện thoại
+              </span>
+              <span class="db-info-value">{{ customer.default_address.phone | default: 'Chưa cập nhật' }}</span>
+            </div>
+
+            {% comment %}--- Address Sub-section ---{% endcomment %}
+            <div class="db-address-section">
+              <div class="db-address-head">
+                <h4>Địa chỉ của tôi</h4>
+                <a class="db-card-action" href="{{ routes.account_addresses_url }}">Quản lý</a>
+              </div>
+              {% if customer.default_address %}
+                <div class="db-address-text">
+                  <p><strong>Địa chỉ mặc định</strong></p>
+                  <p>{{ customer.default_address.street }}</p>
+                  <p>{{ customer.default_address.city }}{% if customer.default_address.province_code %}, {{ customer.default_address.province_code }}{% endif %}</p>
+                  <p>{{ customer.default_address.country }}</p>
+                </div>
+              {% endif %}
+              <a class="db-add-address" href="{{ routes.account_addresses_url }}">
+                + Thêm địa chỉ mới
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% comment %}========== ROW 3: QUICK ACTIONS =========={% endcomment %}
+      <div class="db-quick-actions">
+        <a class="db-action-btn" data-scroll="section-account" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          Chỉnh sửa hồ sơ
+        </a>
+        <a class="db-action-btn" data-scroll="section-orders" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          Xem đơn hàng
+        </a>
+        <a class="db-action-btn" data-scroll="section-community" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+          Đổi ưu đãi
+        </a>
+        <a class="db-action-btn" href="{{ routes.account_addresses_url }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Quản lý địa chỉ
+        </a>
+      </div>
+
+      {% comment %}========== ROW 4: RECENT ORDERS + POINTS HISTORY =========={% endcomment %}
+      <div class="db-data-row" id="section-orders">
+
+        {% comment %}--- Recent Orders ---{% endcomment %}
+        <div class="db-card">
+          <div class="db-card-header">
+            <h3 class="db-card-title">Đơn hàng gần đây</h3>
+            {% if customer.orders.size > 5 %}
+              <span class="db-card-action">Xem tất cả đơn hàng</span>
+            {% endif %}
+          </div>
+          <div class="db-card-body" style="padding: 0;">
+            {% if customer.orders.size > 0 %}
+              <table class="db-mini-table">
+                <thead>
+                  <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Trạng thái</th>
+                    <th>Tổng tiền</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in customer.orders limit: 5 %}
+                  <tr>
+                    <td data-label="Mã đơn"><a href="{{ order.customer_url }}" class="order-link">{{ order.name }}</a></td>
+                    <td data-label="Ngày đặt">{{ order.created_at | date: "%d/%m/%Y" }}</td>
+                    <td data-label="Trạng thái"><span class="db-status-badge {{ order.financial_status_label | handle }}">{{ order.financial_status_label }}</span></td>
+                    <td data-label="Tổng tiền" class="order-total">{{ order.total_price | money }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <div class="db-empty">Bạn chưa có đơn hàng nào.</div>
+            {% endif %}
+          </div>
+        </div>
+
+        {% comment %}--- Lịch sử điểm (simplified) ---{% endcomment %}
+        <div class="db-card">
+          <div class="db-card-header">
+            <h3 class="db-card-title">Lịch sử điểm</h3>
+            <span class="db-card-action">Xem tất cả</span>
+          </div>
+          <div class="db-card-body">
+            <ul class="db-points-list" id="dbPointsList">
+              {% for order in customer.orders limit: 5 %}
+                <li class="db-points-item">
+                  <div class="db-points-desc">Mua hàng {{ order.name }}</div>
+                  <div class="db-points-right">
+                    <div class="db-points-value">+{{ order.total_price | divided_by: 10000 | floor }} điểm</div>
+                    <div class="db-points-date">{{ order.created_at | date: "%d/%m/%Y" }}</div>
+                  </div>
+                </li>
+              {% endfor %}
+              {% if customer.orders.size == 0 %}
+                <li class="db-points-item">
+                  <div class="db-points-desc db-empty">Chưa có lịch sử điểm</div>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {% comment %}========== ROW 5: PRODUCTS =========={% endcomment %}
       {% if section.settings.welcome_collection != blank %}
         {% assign welcome_collection = collections[section.settings.welcome_collection] %}
         {% if welcome_collection != blank and welcome_collection.products.size > 0 %}
-          <div class="dashboard-card welcome-products-section">
-            <h3 class="card-title">{{ section.settings.welcome_collection_title | default: 'Sản Phẩm Dành Cho Bạn' }}</h3>
-            <div class="card-body">
-              <div class="welcome-products-grid">
-                {% assign products_limit = section.settings.welcome_products_limit | default: 4 %}
-                {% for product in welcome_collection.products limit: products_limit %}
-                  <div class="welcome-product-item">
-                    {% render 'product-block', product: product, show_vendor: false, animate: true, i: forloop.index %}
-                  </div>
-                {% endfor %}
+          <div class="db-products-row">
+            <div class="db-card">
+              <div class="db-card-header">
+                <h3 class="db-card-title">{{ section.settings.welcome_collection_title | default: 'Sản Phẩm Đặc Quyền' }}</h3>
+                <a class="db-card-action" href="{{ welcome_collection.url }}">Xem tất cả →</a>
               </div>
-              {% if welcome_collection.products.size > products_limit %}
-                <div class="welcome-products-more">
-                  <a href="{{ welcome_collection.url }}" class="dashboard-btn outline">
-                    Xem tất cả {{ welcome_collection.title }}
-                  </a>
+              <div class="db-card-body">
+                <div class="db-products-grid">
+                  {% assign products_limit = section.settings.welcome_products_limit | default: 4 %}
+                  {% for product in welcome_collection.products limit: products_limit %}
+                    <div class="db-product-item">
+                      {% render 'product-block', product: product, show_vendor: false, animate: true, i: forloop.index %}
+                    </div>
+                  {% endfor %}
                 </div>
-              {% endif %}
+                {% if welcome_collection.products.size > products_limit %}
+                  <div class="db-products-more">
+                    <a href="{{ welcome_collection.url }}" class="dashboard-btn outline">
+                      Xem tất cả {{ welcome_collection.title }}
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
             </div>
           </div>
         {% endif %}
       {% endif %}
-    </div>
 
-    {% comment %}--- TAB: ACCOUNT INFO ---{% endcomment %}
-    <div id="account" class="dashboard-tab-content">
-      <div class="dashboard-grid">
-        <div class="dashboard-card">
-          <h3 class="card-title">Thông Tin Cá Nhân</h3>
-          <div class="card-body info-list">
-             <div class="info-row">
-               <span class="info-label">Họ và tên</span>
-               <span class="info-value">{{ customer.name }}</span>
-             </div>
-             <div class="info-row">
-               <span class="info-label">Email</span>
-               <span class="info-value">{{ customer.email }}</span>
-             </div>
-             <div class="info-row">
-               <span class="info-label">Số điện thoại</span>
-               <span class="info-value">{{ customer.default_address.phone | default: 'Chưa cập nhật' }}</span>
-             </div>
-             <div class="info-row">
-               <span class="info-label">Hạng thành viên</span>
-               <span class="info-value">{{ tier }}</span>
-             </div>
-          </div>
+      {% comment %}========== ROW 6: COMMUNITY =========={% endcomment %}
+      <div class="db-card" id="section-community">
+        <div class="db-card-header">
+          <h3 class="db-card-title">Helios Community</h3>
         </div>
-        
-        <div class="dashboard-card">
-          <h3 class="card-title">Địa Chỉ Mặc Định</h3>
-          <div class="card-body">
-            {% if customer.default_address %}
-              <div class="address-display">
-                {% if customer.default_address.company != blank %}<p>{{ customer.default_address.company }}</p>{% endif %}
-                <p>{{ customer.default_address.street }}</p>
-                <p>{{ customer.default_address.city }}{% if customer.default_address.province_code %}, {{ customer.default_address.province_code }}{% endif %}</p>
-                <p>{{ customer.default_address.country }}</p>
-                {% if customer.default_address.zip != blank %}<p>{{ customer.default_address.zip }}</p>{% endif %}
-              </div>
-            {% else %}
-              <div class="empty-state">
-                <div class="empty-state-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <p>Chưa có địa chỉ mặc định</p>
-              </div>
-            {% endif %}
-             <a class="dashboard-btn outline mt-20" href="{{ routes.account_addresses_url }}">
-               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px;">
-                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                 <circle cx="12" cy="10" r="3"></circle>
-               </svg>
-               Quản Lý Địa Chỉ
-             </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {% comment %}--- TAB: ORDERS ---{% endcomment %}
-    <div id="orders" class="dashboard-tab-content">
-      <div class="dashboard-card">
-        <h3 class="card-title">Lịch Sử Đơn Hàng</h3>
-        <div class="card-body">
-          {% paginate customer.orders by 20 %}
-          {% if customer.orders.size != 0 %}
-          <div class="table-responsive">
-            <table class="dashboard-table">
-              <thead>
-                <tr>
-                  <th>Mã Đơn</th>
-                  <th>Ngày Đặt</th>
-                  <th>Trạng Thái</th>
-                  <th>Tổng Tiền</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for order in customer.orders %}
-                <tr>
-                  <td data-label="Mã đơn"><a href="{{ order.customer_url }}" class="order-link">{{ order.name }}</a></td>
-                  <td data-label="Ngày đặt">{{ order.created_at | date: format: 'month_date_year' }}</td>
-                  <td data-label="Trạng thái"><span class="status-badge {{ order.financial_status_label | handle }}">{{ order.financial_status_label }}</span></td>
-                  <td data-label="Tổng tiền" class="order-total">{{ order.total_price | money }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-          {% else %}
-            <div class="empty-state">
-              <div class="empty-state-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-              </div>
-              <p>Bạn chưa có đơn hàng nào.</p>
-              <a href="{{ routes.all_products_collection_url }}" class="dashboard-btn">Mua Sắm Ngay</a>
+        <div class="db-card-body">
+          <div class="db-community-layout">
+            <div class="db-community-img">
+              <img 
+                src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z6465765703069_030e64083cc975d6127ff8a441409631_95f8c0e0-1f78-4f16-b036-4de58aa1d26c.jpg?v=1743569814" 
+                alt="Helios Community"
+                width="1200"
+                height="800"
+                loading="lazy"
+              />
             </div>
-          {% endif %}
-          {% endpaginate %}
-        </div>
-      </div>
-    </div>
-
-    {% comment %}--- TAB: BENEFITS ---{% endcomment %}
-    <div id="benefits" class="dashboard-tab-content">
-      <div class="dashboard-card">
-        <h3 class="card-title">Quyền Lợi & Ưu Đãi</h3>
-        <div class="card-body">
-           {% render 'account-tier-content', tier: tier, type: 'benefits' %}
-        </div>
-      </div>
-    </div>
-
-    {% comment %}--- TAB: POINTS EXCHANGE ---{% endcomment %}
-    <div id="points" class="dashboard-tab-content">
-      <div class="dashboard-card">
-        <h3 class="card-title">Đổi Điểm Thưởng</h3>
-        <div class="card-body">
-           {% render 'account-points-tab', points: points, customer: customer %}
-        </div>
-      </div>
-    </div>
-
-    {% comment %}--- TAB: COMMUNITY ---{% endcomment %}
-    <div id="discord" class="dashboard-tab-content">
-      <div class="dashboard-card">
-        <h3 class="card-title">Helios Community</h3>
-        <div class="card-body community-layout">
-           <div class="community-img">
-             <img 
-               src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z6465765703069_030e64083cc975d6127ff8a441409631_95f8c0e0-1f78-4f16-b036-4de58aa1d26c.jpg?v=1743569814" 
-               alt="Helios Community"
-               width="1200"
-               height="800"
-               loading="lazy"
-             />
-           </div>
-           <div class="community-text">
+            <div class="db-community-text">
               <p>Helios Club là cộng đồng dành riêng cho những người 'khác biệt'– những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê 'màu' Helios.</p>
-              <p>Đây là nơi để anh em chia sẻ trải nghiệm, kinh nghiệm sử dụng phụ kiện, những câu chuyện phía sau món đồ; đồng thời là không gian mở để đặt câu hỏi, tư vấn, trao đổi và thảo luận một cách thẳng thắn và chân thành.</p>
+              <p>Đây là nơi để anh em chia sẻ trải nghiệm, kinh nghiệm sử dụng phụ kiện, những câu chuyện phía sau món đồ; đồng thời là không gian mở để đặt câu hỏi, tư vấn, trao đổi và thảo luận.</p>
               <p>Nếu bạn yêu thích sự khác biệt: Chào mừng bạn đến với Helios Club!</p>
-              <a href="https://www.facebook.com/groups/508707569692422" target="_blank" class="dashboard-btn" style="margin-top:12px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px;">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
+              <a href="https://www.facebook.com/groups/508707569692422" target="_blank" class="dashboard-btn" style="margin-top:8px; align-self: flex-start;">
                 Tham gia ngay
               </a>
-           </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    {% comment %}--- CUSTOM TABS ---{% endcomment %}
-    {% for block in section.blocks %}
-      {% if block.type == 'custom_tab' %}
-        {% unless block.settings.enable_link and block.settings.tab_url != blank %}
-          <div id="custom-tab-{{ block.id }}" class="dashboard-tab-content">
-             <div class="dashboard-card">
-               <h3 class="card-title">{{ block.settings.title }}</h3>
-               <div class="card-body">
-                 {% if block.settings.page_content != blank %}
-                   {{ pages[block.settings.page_content].content }}
-                 {% else %}
-                   <div class="rte">
-                     {{ block.settings.richtext_content }}
-                   </div>
-                 {% endif %}
-               </div>
-             </div>
+      {% comment %}--- TIER IMAGE ---{% endcomment %}
+      {% if section.settings.tier_image != blank %}
+        <div class="db-card" style="margin-top: 20px;">
+          <div class="db-card-body" style="padding: 0;">
+            <div class="db-tier-image">
+              <img src="{{ section.settings.tier_image | image_url: width: 1400 }}" alt="Tier" loading="lazy" width="{{ section.settings.tier_image.width }}" height="{{ section.settings.tier_image.height }}" />
+            </div>
           </div>
-        {% endunless %}
+        </div>
       {% endif %}
-    {% endfor %}
 
+      {% comment %}--- CUSTOM TAB CONTENT (from blocks) ---{% endcomment %}
+      {% for block in section.blocks %}
+        {% if block.type == 'custom_tab' %}
+          {% unless block.settings.enable_link and block.settings.tab_url != blank %}
+            <div class="db-card" id="custom-tab-{{ block.id }}" style="margin-top: 20px;">
+              <div class="db-card-header">
+                <h3 class="db-card-title">{{ block.settings.title }}</h3>
+              </div>
+              <div class="db-card-body">
+                {% if block.settings.page_content != blank %}
+                  {{ pages[block.settings.page_content].content }}
+                {% else %}
+                  <div class="rte">
+                    {{ block.settings.richtext_content }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
 </div>
 
+{% comment %}--- JAVASCRIPT ---{% endcomment %}
 <script>
-document.querySelectorAll('.nav-tab').forEach(tab => {
-  tab.addEventListener('click', function () {
-    if(this.classList.contains('logout-tab') || this.classList.contains('link-tab')) return; // Allow normal link for logout/custom links
-    
-    const tabId = this.dataset.tab;
-    
-    // Deactivate all
-    document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.dashboard-tab-content').forEach(el => el.classList.remove('active'));
-    
-    // Activate clicked
-    this.classList.add('active');
-    const content = document.getElementById(tabId);
-    if(content) content.classList.add('active');
+(function() {
+  // Sidebar toggle (mobile)
+  const sidebar = document.getElementById('dbSidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const menuToggle = document.getElementById('dbMenuToggle');
+
+  function openSidebar() {
+    if (sidebar) sidebar.classList.add('is-open');
+    if (overlay) overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    if (sidebar) sidebar.classList.remove('is-open');
+    if (overlay) overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  if (menuToggle) menuToggle.addEventListener('click', openSidebar);
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+
+  // Sidebar nav: scroll to section
+  document.querySelectorAll('.db-nav-item[data-scroll]').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('data-scroll');
+
+      // Update active state
+      document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Scroll
+      if (targetId === 'top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      // Close sidebar on mobile
+      closeSidebar();
+    });
   });
-});
+
+  // Quick action scroll
+  document.querySelectorAll('.db-action-btn[data-scroll]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('data-scroll');
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
 </script>
 
 {% schema %}

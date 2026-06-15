@@ -1,115 +1,27 @@
 {% comment %}
-  Snippet: Account Hero Section — Flat Dashboard Design
-  Usage: {% render 'account-hero', customer: customer, tier: tier, points: points, total_spent: total_spent, progress_percentage: progress_percentage, next_tier: next_tier, remaining_amount: remaining_amount %}
+  Snippet: Account Header Bar — Dashboard Layout
+  Usage: {% render 'account-hero', customer: customer, tier: tier %}
 {% endcomment %}
 
-<div class="account-hero">
-  <div class="hero-content account-container">
-    <div class="hero-profile-flex">
-      <div class="hero-identity">
-        <div class="hero-avatar">
-            <div class="avatar-ring"></div>
-            <div class="avatar-img" style="background-image: url('https://cdn.shopify.com/s/files/1/0644/2958/8701/files/464413022_945803257578038_2084379289906124096_n.jpg?v=1764122552');"></div>
-        </div>
-        <div class="hero-text">
-          <div class="hero-name">{{ customer.name }}</div>
-          <div class="hero-email">{{ customer.email }}</div>
-          <div class="hero-tier-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-            {{ tier }} TIER
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-stats-container">
-        <div class="hero-stats-grid">
-          <div class="stat-item">
-            <span class="stat-label">Tổng chi tiêu</span>
-            <span class="stat-value">
-                {% assign formatted_total_spent = total_spent | floor | split: '' | reverse %}
-                {% assign formatted_number = '' %}
-                {% for digit in formatted_total_spent %}
-                  {% assign remainder = forloop.index0 | modulo: 3 %}
-                  {% if remainder == 0 and forloop.index0 != 0 %}
-                    {% assign formatted_number = formatted_number | append: '.' %}
-                  {% endif %}
-                  {% assign formatted_number = formatted_number | append: digit %}
-                {% endfor %}
-                {{ formatted_number | split: '' | reverse | join: '' }}đ
-            </span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Đơn hàng</span>
-            <span class="stat-value">{{ customer.orders_count }}</span>
-          </div>
-        </div>
-
-        <div class="hero-progress-wrapper">
-          <div class="progress-info">
-             <span>Tiến trình thăng hạng</span>
-             <span>{{ progress_percentage }}%</span>
-          </div>
-          <div class="hero-progress-bar">
-            <div class="hero-progress-fill" style="width: {{ progress_percentage }}%;"></div>
-          </div>
-          <p class="hero-next-tier-msg">
-            {% if tier == "BLACK DIAMOND" %}
-              Bạn đã đạt hạng cao nhất!
-            {% else %}
-               {% assign formatted_remaining_amount = remaining_amount | floor | split: '' | reverse %}
-               {% assign formatted_remaining = '' %}
-               {% for digit in formatted_remaining_amount %}
-                 {% assign remainder = forloop.index0 | modulo: 3 %}
-                 {% if remainder == 0 and forloop.index0 != 0 %}
-                   {% assign formatted_remaining = formatted_remaining | append: '.' %}
-                 {% endif %}
-                 {% assign formatted_remaining = formatted_remaining | append: digit %}
-               {% endfor %}
-               Còn <strong>{{ formatted_remaining | split: '' | reverse | join: '' }}đ</strong> để lên hạng <strong>{{ next_tier }}</strong>
-            {% endif %}
-          </p>
-        </div>
-      </div>
-    </div>
-
-    {% comment %}--- Quick Stats Cards ---{% endcomment %}
-    <div class="hero-quick-stats">
-      <div class="quick-stat-card">
-        <div class="quick-stat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-            <line x1="1" y1="10" x2="23" y2="10"></line>
-          </svg>
-        </div>
-        <div class="quick-stat-info">
-          <span class="quick-stat-number">{{ customer.orders_count }}</span>
-          <span class="quick-stat-label">Tổng đơn hàng</span>
-        </div>
-      </div>
-      <div class="quick-stat-card">
-        <div class="quick-stat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </div>
-        <div class="quick-stat-info">
-          <span class="quick-stat-number">{{ customer.tags | size }}</span>
-          <span class="quick-stat-label">Thẻ thành viên</span>
-        </div>
-      </div>
-      <div class="quick-stat-card">
-        <div class="quick-stat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-        </div>
-        <div class="quick-stat-info">
-          <span class="quick-stat-number">{{ customer.created_at | date: "%d/%m/%Y" }}</span>
-          <span class="quick-stat-label">Ngày tham gia</span>
-        </div>
-      </div>
+<header class="db-header">
+  <div class="db-header-left">
+    <button class="db-menu-toggle" id="dbMenuToggle" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <div>
+      <h1 class="db-header-title">Tài khoản của tôi</h1>
+      <p class="db-header-subtitle">Thông tin tài khoản & chương trình thành viên</p>
     </div>
   </div>
-</div>
+  <div class="db-header-right">
+    <div class="db-header-user-info">
+      <div class="db-header-user-name">{{ customer.name }}</div>
+      <div class="db-header-user-email">{{ customer.email }}</div>
+    </div>
+    <div class="db-header-avatar" style="background-image: url('https://cdn.shopify.com/s/files/1/0644/2958/8701/files/464413022_945803257578038_2084379289906124096_n.jpg?v=1764122552');"></div>
+  </div>
+</header>
