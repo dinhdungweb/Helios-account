@@ -19,8 +19,6 @@
   --db-text-muted: #777777;
   --db-success: #2ecc71;
   --db-error: #e74c3c;
-  --db-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-
   /* Legacy compat for account-points-tab.liquid */
   --helios-black: #000000;
   --helios-dark-grey: #141414;
@@ -35,13 +33,12 @@
 body {
   background-color: var(--db-bg);
   color: var(--db-text);
-  font-family: var(--db-font);
   -webkit-font-smoothing: antialiased;
 }
 
 .db-wrapper,
 .db-wrapper * {
-  font-family: var(--db-font) !important;
+  font-family: inherit !important;
 }
 
 
@@ -327,7 +324,7 @@ body {
 .db-welcome-info h2,
 .db-welcome-info span {
   text-align: left !important;
-  font-family: var(--db-font) !important;
+  font-family: inherit !important;
 }
 
 .db-welcome-label {
@@ -357,7 +354,7 @@ body {
 .welcome-tier,
 .welcome-tier * {
   text-align: left !important;
-  font-family: var(--db-font) !important;
+  font-family: inherit !important;
   color: var(--db-text-2) !important;
   font-size: 15px !important;
   line-height: 1.6 !important;
@@ -703,7 +700,7 @@ body {
   letter-spacing: 0.5px;
   transition: all 0.2s;
   cursor: pointer;
-  font-family: var(--db-font);
+  font-family: inherit;
 }
 
 .db-action-btn:hover {
@@ -938,7 +935,7 @@ body {
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s;
-  font-family: var(--db-font);
+  font-family: inherit;
 }
 
 .dashboard-btn:hover,
@@ -1264,7 +1261,7 @@ body {
   color: var(--db-text);
   padding: 10px 14px;
   font-size: 13px;
-  font-family: var(--db-font);
+  font-family: inherit;
   outline: none;
   transition: border-color 0.2s;
   width: 100%;
