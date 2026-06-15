@@ -1040,20 +1040,63 @@ body {
   }
 
   .db-sidebar {
-    position: fixed;
-    left: -260px;
-    top: 0;
-    width: var(--db-sidebar-w);
-    transition: left 0.3s ease;
-    z-index: 1000;
+    position: relative;
+    height: auto;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--db-border);
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    z-index: 99;
   }
 
-  .db-sidebar.is-open {
-    left: 0;
+  .db-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .db-sidebar-logo {
+    display: none;
+  }
+
+  .db-sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    flex: 1;
+  }
+
+  .db-nav-item {
+    padding: 14px 18px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .db-nav-item.active {
+    border-bottom-color: var(--db-accent);
+    background: none;
+  }
+
+  .db-sidebar-footer {
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    border-top: none;
+    border-left: 1px solid var(--db-border);
+    margin-left: auto;
+  }
+
+  .db-sidebar-footer a {
+    white-space: nowrap;
   }
 
   .db-menu-toggle {
-    display: block;
+    display: none !important;
   }
 
   .db-welcome-row {
