@@ -39,6 +39,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.db-wrapper,
+.db-wrapper * {
+  font-family: var(--db-font) !important;
+}
+
 
 /* ==========================================================================
    LAYOUT WRAPPER
@@ -393,7 +398,7 @@ body {
 .db-stat-info { min-width: 0; }
 
 .db-stat-title {
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--db-text-muted);
@@ -402,7 +407,7 @@ body {
 }
 
 .db-stat-value {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--db-text);
   line-height: 1.2;
@@ -413,7 +418,7 @@ body {
   display: inline-block;
   background: var(--db-accent);
   color: var(--db-black);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   padding: 2px 8px;
   text-transform: uppercase;
@@ -422,7 +427,7 @@ body {
 }
 
 .db-stat-sub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--db-text-muted);
   margin-top: 2px;
 }
@@ -458,7 +463,7 @@ body {
 }
 
 .db-card-title {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -467,7 +472,7 @@ body {
 }
 
 .db-card-action {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--db-accent);
   text-decoration: none;
   font-weight: 600;
@@ -484,7 +489,7 @@ body {
 
 /* Tier Card */
 .db-tier-name {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -492,7 +497,7 @@ body {
 }
 
 .db-tier-sub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--db-text-muted);
   margin-bottom: 4px;
 }
@@ -501,7 +506,7 @@ body {
   display: inline-block;
   background: var(--db-accent);
   color: var(--db-black);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 800;
   padding: 2px 10px;
   text-transform: uppercase;
@@ -510,7 +515,7 @@ body {
 }
 
 .db-tier-points-label {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--db-text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -518,19 +523,19 @@ body {
 }
 
 .db-tier-points-value {
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 700;
   margin: 0 0 2px;
 }
 
 .db-tier-points-unit {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--db-text-muted);
   font-weight: 400;
 }
 
 .db-tier-progress-msg {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--db-text-muted);
   margin: 14px 0 8px;
 }
@@ -555,7 +560,7 @@ body {
 .db-tier-progress-text {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--db-text-muted);
 }
 
@@ -572,7 +577,7 @@ body {
   gap: 10px;
   padding: 9px 0;
   border-bottom: 1px solid var(--db-border);
-  font-size: 13px;
+  font-size: 15px;
   color: var(--db-text-2);
   line-height: 1.5;
 }
@@ -597,7 +602,7 @@ body {
   align-items: center;
   padding: 9px 0;
   border-bottom: 1px solid var(--db-border);
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .db-info-item:last-child { border-bottom: none; }
@@ -636,7 +641,7 @@ body {
 }
 
 .db-address-head h4 {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -644,7 +649,7 @@ body {
 }
 
 .db-address-text {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--db-text-2);
   line-height: 1.6;
 }
@@ -660,7 +665,7 @@ body {
   border: 1px dashed var(--db-border);
   color: var(--db-text-muted);
   text-decoration: none;
-  font-size: 12px;
+  font-size: 14px;
   transition: all 0.2s;
   margin-top: 10px;
   cursor: pointer;
@@ -693,7 +698,7 @@ body {
   border: 1px solid var(--db-border);
   color: var(--db-text-2);
   text-decoration: none;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
   transition: all 0.2s;
@@ -733,7 +738,7 @@ body {
 .db-mini-table th {
   text-align: left;
   padding: 10px 14px;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--db-text-muted);
@@ -743,7 +748,7 @@ body {
 
 .db-mini-table td {
   padding: 10px 14px;
-  font-size: 13px;
+  font-size: 15px;
   border-bottom: 1px solid var(--db-border);
   color: var(--db-text-2);
 }
@@ -776,7 +781,7 @@ body {
 .db-status-badge {
   display: inline-block;
   padding: 3px 8px;
-  font-size: 9px;
+  font-size: 11px;
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.5px;
