@@ -309,26 +309,53 @@ body {
   background-color: var(--db-surface-2);
 }
 
-.db-welcome-info { flex: 1; }
+.db-welcome-info {
+  flex: 1;
+  text-align: left !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.db-welcome-info *,
+.db-welcome-info p,
+.db-welcome-info h2,
+.db-welcome-info span {
+  text-align: left !important;
+  font-family: var(--db-font) !important;
+}
 
 .db-welcome-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--db-text-muted);
-  margin: 0 0 2px;
+  margin: 0 0 4px !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .db-welcome-name {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 8px !important;
   letter-spacing: 0.5px;
+  color: var(--db-text);
+  line-height: 1.2;
 }
 
 .db-welcome-msg {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--db-text-2);
-  margin: 0;
-  line-height: 1.5;
+  margin: 0 !important;
+  line-height: 1.6;
+}
+
+.welcome-tier,
+.welcome-tier * {
+  text-align: left !important;
+  font-family: var(--db-font) !important;
+  color: var(--db-text-2) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
 }
 
 /* Stats */
@@ -1104,6 +1131,19 @@ body {
   .db-welcome-card {
     flex-direction: column;
     text-align: center;
+  }
+
+  .db-welcome-info {
+    text-align: center !important;
+  }
+
+  .db-welcome-info *,
+  .db-welcome-info p,
+  .db-welcome-info h2,
+  .db-welcome-info span,
+  .welcome-tier,
+  .welcome-tier * {
+    text-align: center !important;
   }
 
   .db-stats-grid {
