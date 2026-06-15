@@ -326,24 +326,24 @@ body {
 }
 
 .db-welcome-label {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--db-text-muted);
-  margin: 0 0 4px !important;
+  margin: 0 0 6px !important;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 .db-welcome-name {
-  font-size: 26px;
+  font-size: 36px;
   font-weight: 800;
-  margin: 0 0 8px !important;
+  margin: 0 0 10px !important;
   letter-spacing: 0.5px;
   color: var(--db-text);
   line-height: 1.2;
 }
 
 .db-welcome-msg {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--db-text-2);
   margin: 0 !important;
   line-height: 1.6;
@@ -354,7 +354,7 @@ body {
   text-align: left !important;
   font-family: var(--db-font) !important;
   color: var(--db-text-2) !important;
-  font-size: 13px !important;
+  font-size: 15px !important;
   line-height: 1.6 !important;
 }
 
@@ -1144,6 +1144,22 @@ body {
   .welcome-tier,
   .welcome-tier * {
     text-align: center !important;
+  }
+
+  .db-welcome-name {
+    font-size: 24px !important;
+    margin: 0 0 6px !important;
+  }
+
+  .db-welcome-label {
+    font-size: 11px !important;
+    margin: 0 0 2px !important;
+  }
+
+  .db-welcome-msg,
+  .welcome-tier,
+  .welcome-tier * {
+    font-size: 13px !important;
   }
 
   .db-stats-grid {
