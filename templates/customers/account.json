@@ -336,6 +336,7 @@
     },
     "featured_collection_EGhrVE": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "title": "Sản Phẩm Mới",
         "featured_collection_align": "center",
