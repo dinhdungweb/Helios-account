@@ -36,6 +36,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.db-wrapper svg,
+.db-wrapper svg * {
+  fill: none !important;
+}
+
 
 
 
