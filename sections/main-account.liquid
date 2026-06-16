@@ -539,6 +539,36 @@
         {% endif %}
       {% endif %}
 
+      {% comment %}========== ROW 5B: BLACKSUN CLUB BLOG =========={% endcomment %}
+      {% if section.settings.blacksun_blog != blank %}
+        {% assign bs_blog = blogs[section.settings.blacksun_blog] %}
+        {% if bs_blog.articles.size > 0 %}
+          <div class="db-card" style="margin-top: 20px;">
+            <div class="db-card-header">
+              <h3 class="db-card-title">{{ section.settings.blacksun_blog_title | default: 'Blacksun Club' }}</h3>
+              <a class="db-card-action" href="{{ bs_blog.url }}">Xem tất cả →</a>
+            </div>
+            <div class="db-card-body">
+              <div class="db-blog-grid">
+                {% assign blog_limit = section.settings.blacksun_blog_limit | default: 4 %}
+                {% for article in bs_blog.articles limit: blog_limit %}
+                  <div class="db-blog-item">
+                     <a href="{{ article.url }}" class="db-blog-link">
+                       <div class="db-blog-image">
+                         {% if article.image %}
+                           <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title }}" loading="lazy" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+                         {% endif %}
+                       </div>
+                       <h4 class="db-blog-title">{{ article.title }}</h4>
+                     </a>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+
       {% comment %}========== ROW 6: COMMUNITY =========={% endcomment %}
       <div class="db-card" id="section-community">
         <div class="db-card-header">
@@ -698,6 +728,30 @@
       "step": 1,
       "unit": "sp",
       "label": "Số lượng sản phẩm hiển thị",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Section Blacksun Club Blog"
+    },
+    {
+      "type": "blog",
+      "id": "blacksun_blog",
+      "label": "Chọn Blog"
+    },
+    {
+      "type": "text",
+      "id": "blacksun_blog_title",
+      "label": "Tiêu đề section blog",
+      "default": "Blacksun Club"
+    },
+    {
+      "type": "range",
+      "id": "blacksun_blog_limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Số lượng bài viết",
       "default": 4
     }
   ],
