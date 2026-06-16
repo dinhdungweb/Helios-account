@@ -657,17 +657,24 @@
   if (menuToggle) menuToggle.addEventListener('click', openSidebar);
   if (overlay) overlay.addEventListener('click', closeSidebar);
 
-  // Sidebar nav: scroll to section
-  document.querySelectorAll('.db-nav-item[data-scroll]').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('data-scroll');
+  // Handle navigation
+  function handleNavigation(e, element, isNav) {
+    e.preventDefault();
+    const targetId = element.getAttribute('data-scroll');
 
-      // Update active state
+    // Update active state for sidebar nav
+    if (isNav) {
       document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });
-      this.classList.add('active');
+      element.classList.add('active');
+    }
 
-      // Scroll
+    const dbContent = document.querySelector('.db-content');
+
+    if (targetId === 'section-orders') {
+      dbContent.classList.add('show-orders-tab');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      dbContent.classList.remove('show-orders-tab');
       if (targetId === 'top') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -676,23 +683,30 @@
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
+    }
 
-      // Close sidebar on mobile
-      closeSidebar();
-    });
+    if (isNav) closeSidebar();
+  }
+
+  // Sidebar nav
+  document.querySelectorAll('.db-nav-item[data-scroll]').forEach(function(item) {
+    item.addEventListener('click', function(e) { handleNavigation(e, this, true); });
   });
 
   // Quick action scroll
   document.querySelectorAll('.db-action-btn[data-scroll]').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('data-scroll');
-      const target = document.getElementById(targetId);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+    btn.addEventListener('click', function(e) { handleNavigation(e, this, false); });
   });
+
+  // Check hash on load
+  if (window.location.hash === '#section-orders') {
+    const ordersNav = document.querySelector('.db-nav-item[data-scroll="section-orders"]');
+    if (ordersNav) {
+      document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });
+      ordersNav.classList.add('active');
+    }
+    document.querySelector('.db-content').classList.add('show-orders-tab');
+  }
 })();
 </script>
 

@@ -737,6 +737,19 @@ body {
   margin-bottom: 20px;
 }
 
+.db-content > #section-orders {
+  display: none;
+}
+
+.db-content.show-orders-tab > * {
+  display: none !important;
+}
+
+.db-content.show-orders-tab > #section-orders {
+  display: grid !important;
+  animation: fadeIn 0.3s ease;
+}
+
 /* Mini Table */
 .db-mini-table {
   width: 100%;
