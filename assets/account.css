@@ -1098,6 +1098,10 @@ body {
     display: none;
   }
 
+  .db-sidebar-support {
+    display: none;
+  }
+
   .db-sidebar-nav {
     display: flex;
     flex-direction: row;
