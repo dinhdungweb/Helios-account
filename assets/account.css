@@ -1434,6 +1434,11 @@ body {
   border-color: var(--db-border-light);
 }
 
+.db-address-card .customer_address {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .db-default-address-card {
   border-color: var(--db-accent);
 }
