@@ -233,6 +233,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $editAddress.toggle();
     $editButton.attr('aria-expanded', !isExpanded).focus();
   });
+
+  // Tự động thêm +84 nếu số điện thoại nhập bắt đầu bằng 0 và chọn quốc gia Vietnam
+  $('form[action*="/account/addresses"]').on('submit', function() {
+    var $form = $(this);
+    var $phoneInput = $form.find('input[name="address[phone]"]');
+    var $countrySelect = $form.find('select[name="address[country]"]');
+    var phoneVal = $phoneInput.val().trim();
+    
+    var isVietnam = $countrySelect.length === 0 || $countrySelect.val() === 'Vietnam' || $countrySelect.val() === 'Việt Nam';
+    
+    if (phoneVal && isVietnam) {
+      if (phoneVal.indexOf('+') !== 0) {
+        if (phoneVal.startsWith('0')) {
+          $phoneInput.val('+84' + phoneVal.substring(1));
+        } else {
+          $phoneInput.val('+84' + phoneVal);
+        }
+      }
+    }
+  });
 });
 
 // initialize country/province selectors
