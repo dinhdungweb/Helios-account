@@ -1308,7 +1308,7 @@ body {
 
 .db-address-form-block {
   background: var(--db-surface-2);
-  border: 1px solid var(--db-border);
+  border: none;
   padding: 24px;
   margin-bottom: 30px;
 }
@@ -1322,6 +1322,7 @@ body {
   color: var(--db-text);
   border-bottom: 1px solid var(--db-border);
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .db-form-grid {
@@ -1493,6 +1494,7 @@ body {
 .db-address-card-footer {
   border-top: 1px solid var(--db-border);
   padding-top: 12px;
+  padding-bottom: 12px;
   margin-top: 12px;
   display: flex;
   gap: 16px;
