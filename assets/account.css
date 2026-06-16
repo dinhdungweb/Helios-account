@@ -1642,6 +1642,12 @@ body {
   border-color: var(--db-text);
 }
 
-.db-star-wrapper svg path {
-  fill: currentColor !important;
+#dbLayout .themed-product-reviews svg path,
+.db-content .themed-product-reviews svg path {
+  fill: #FAB320 !important;
+}
+
+#dbLayout .themed-product-reviews div,
+.db-content .themed-product-reviews div {
+  color: #FAB320 !important;
 }
