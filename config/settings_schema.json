@@ -1901,5 +1901,25 @@
         "default": false
       }
     ]
+  },
+  {
+    "name": "Account Dashboard",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "account_sidebar_logo",
+        "label": "Sidebar Logo"
+      },
+      {
+        "type": "range",
+        "id": "account_sidebar_logo_width",
+        "min": 50,
+        "max": 250,
+        "step": 5,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 150
+      }
+    ]
   }
 ]

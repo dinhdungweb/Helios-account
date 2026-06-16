@@ -9,8 +9,12 @@
 
 <aside class="db-sidebar" id="dbSidebar">
   <div class="db-sidebar-logo">
-    <h2>HELIOS</h2>
-    <span>Silver Jewelry</span>
+    {% if settings.account_sidebar_logo != blank %}
+      <img src="{{ settings.account_sidebar_logo | image_url: width: settings.account_sidebar_logo_width }}" alt="{{ shop.name }}" style="max-width: {{ settings.account_sidebar_logo_width }}px; height: auto;">
+    {% else %}
+      <h2>HELIOS</h2>
+      <span>Silver Jewelry</span>
+    {% endif %}
   </div>
 
   <nav class="db-sidebar-nav">
