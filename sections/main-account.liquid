@@ -507,6 +507,17 @@
         </div>
       </div>
 
+      {% comment %}--- TIER IMAGE ---{% endcomment %}
+      {% if section.settings.tier_image != blank %}
+        <div class="db-card" style="margin-top: 20px; margin-bottom: 20px;">
+          <div class="db-card-body" style="padding: 0;">
+            <div class="db-tier-image">
+              <img src="{{ section.settings.tier_image | image_url: width: 1400 }}" alt="Tier" loading="lazy" width="{{ section.settings.tier_image.width }}" height="{{ section.settings.tier_image.height }}" />
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
       {% comment %}========== ROW 5: PRODUCTS =========={% endcomment %}
       {% if section.settings.welcome_collection != blank %}
         {% assign welcome_collection = collections[section.settings.welcome_collection] %}
@@ -597,16 +608,7 @@
         </div>
       </div>
 
-      {% comment %}--- TIER IMAGE ---{% endcomment %}
-      {% if section.settings.tier_image != blank %}
-        <div class="db-card" style="margin-top: 20px;">
-          <div class="db-card-body" style="padding: 0;">
-            <div class="db-tier-image">
-              <img src="{{ section.settings.tier_image | image_url: width: 1400 }}" alt="Tier" loading="lazy" width="{{ section.settings.tier_image.width }}" height="{{ section.settings.tier_image.height }}" />
-            </div>
-          </div>
-        </div>
-      {% endif %}
+
 
       {% comment %}--- CUSTOM TAB CONTENT (from blocks) ---{% endcomment %}
       {% for block in section.blocks %}
