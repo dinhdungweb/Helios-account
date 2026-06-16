@@ -1641,3 +1641,7 @@ body {
   color: var(--db-black);
   border-color: var(--db-text);
 }
+
+.db-star-wrapper svg path {
+  fill: currentColor !important;
+}
