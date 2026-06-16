@@ -1561,9 +1561,7 @@ body {
 
 /* Responsive for Address page */
 @media (max-width: 768px) {
-  .db-products-grid, .db-blog-grid {
-    grid-template-columns: 1fr;
-  }
+
   
   .db-address-grid {
     grid-template-columns: 1fr;
