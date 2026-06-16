@@ -351,8 +351,7 @@
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                   Hỗ trợ 50% chi phí vận chuyển khi đổi sản phẩm
                 </li>
-              {% else %}
-                {% comment %}Mặc định cho Silver hoặc các hạng thấp hơn{% endcomment %}
+              {% elsif current_tier contains 'SILVER' %}
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                   Chiết khấu 2% sản phẩm Bạc & Hợp kim
@@ -364,6 +363,10 @@
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
                   Hỗ trợ 50% chi phí vận chuyển khi đổi sản phẩm
+                </li>
+              {% else %}
+                <li style="color: #999; list-style: none;">
+                  Tiếp tục mua sắm để thăng hạng và mở khóa các quyền lợi hấp dẫn từ hạng Silver.
                 </li>
               {% endif %}
             </ul>
