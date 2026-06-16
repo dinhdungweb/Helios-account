@@ -1583,7 +1583,7 @@ body {
 /* Sidebar Support Box */
 .db-sidebar-support {
   margin: 20px 16px;
-  padding: 24px 16px;
+  padding: 16px;
   background: var(--db-surface-2);
   border: 1px solid var(--db-border);
   border-radius: 8px;
