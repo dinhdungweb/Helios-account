@@ -849,7 +849,7 @@ body {
 
 .db-blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
@@ -863,12 +863,13 @@ body {
 
 .db-blog-image {
   overflow: hidden;
-  border-radius: 4px;
+  aspect-ratio: 1 / 1;
 }
 
 .db-blog-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   transition: transform 0.3s;
 }
@@ -1182,9 +1183,9 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .db-products-grid {
+  .db-products-grid, .db-blog-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 15px;
   }
 
   .db-community-layout {
@@ -1560,6 +1561,10 @@ body {
 
 /* Responsive for Address page */
 @media (max-width: 768px) {
+  .db-products-grid, .db-blog-grid {
+    grid-template-columns: 1fr;
+  }
+  
   .db-address-grid {
     grid-template-columns: 1fr;
   }

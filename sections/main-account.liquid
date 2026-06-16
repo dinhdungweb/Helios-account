@@ -543,7 +543,7 @@
       {% if section.settings.blacksun_blog != blank %}
         {% assign bs_blog = blogs[section.settings.blacksun_blog] %}
         {% if bs_blog.articles.size > 0 %}
-          <div class="db-card" style="margin-top: 20px;">
+          <div class="db-card" style="margin-top: 20px; margin-bottom: 20px;">
             <div class="db-card-header">
               <h3 class="db-card-title">{{ section.settings.blacksun_blog_title | default: 'Blacksun Club' }}</h3>
               <a class="db-card-action" href="{{ bs_blog.url }}">Xem tất cả →</a>
@@ -556,7 +556,7 @@
                      <a href="{{ article.url }}" class="db-blog-link">
                        <div class="db-blog-image">
                          {% if article.image %}
-                           <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title }}" loading="lazy" style="width: 100%; height: auto; display: block; border-radius: 4px;">
+                           <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title }}" loading="lazy">
                          {% endif %}
                        </div>
                        <h4 class="db-blog-title">{{ article.title }}</h4>
