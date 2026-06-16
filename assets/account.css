@@ -1644,10 +1644,10 @@ body {
 
 #dbLayout .themed-product-reviews svg path,
 .db-content .themed-product-reviews svg path {
-  fill: #FAB320 !important;
+  fill: #d2d2d2 !important;
 }
 
 #dbLayout .themed-product-reviews div,
 .db-content .themed-product-reviews div {
-  color: #FAB320 !important;
+  color: #d2d2d2 !important;
 }
