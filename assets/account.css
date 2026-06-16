@@ -1579,3 +1579,64 @@ body {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* Sidebar Support Box */
+.db-sidebar-support {
+  margin: 20px 16px;
+  padding: 24px 16px;
+  background: var(--db-surface-2);
+  border: 1px solid var(--db-border);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.db-support-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  color: var(--db-text);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.db-support-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.db-sidebar-support h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--db-text);
+}
+
+.db-sidebar-support p {
+  font-size: 13px;
+  color: var(--db-text-2);
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+
+.db-support-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--db-text);
+  background: transparent;
+  border: 1px solid var(--db-border);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.db-support-btn:hover {
+  background: var(--db-text);
+  color: var(--db-black);
+  border-color: var(--db-text);
+}
