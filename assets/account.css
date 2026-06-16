@@ -1612,6 +1612,7 @@ body {
   font-weight: 700;
   margin: 0 0 8px;
   color: var(--db-text);
+  text-align: center;
 }
 
 .db-sidebar-support p {
