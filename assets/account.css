@@ -816,6 +816,10 @@
   margin-bottom: 20px;
 }
 
+#section-orders {
+  grid-template-columns: 1fr;
+}
+
 .db-content > #section-orders,
 .db-content > #section-account,
 .db-content > #section-benefits {

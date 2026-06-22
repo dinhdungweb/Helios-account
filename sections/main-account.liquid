@@ -429,31 +429,7 @@
           </div>
         </div>
 
-        {% comment %}--- Lịch sử điểm (simplified) ---{% endcomment %}
-        <div class="db-card">
-          <div class="db-card-header">
-            <h3 class="db-card-title">Lịch sử điểm</h3>
-            <span class="db-card-action">Xem tất cả</span>
-          </div>
-          <div class="db-card-body">
-            <ul class="db-points-list" id="dbPointsList">
-              {% for order in customer.orders limit: 5 %}
-                <li class="db-points-item">
-                  <div class="db-points-desc">Mua hàng {{ order.name }}</div>
-                  <div class="db-points-right">
-                    <div class="db-points-value">+{{ order.total_price | divided_by: 10000 | floor }} điểm</div>
-                    <div class="db-points-date">{{ order.created_at | date: "%d/%m/%Y" }}</div>
-                  </div>
-                </li>
-              {% endfor %}
-              {% if customer.orders.size == 0 %}
-                <li class="db-points-item">
-                  <div class="db-points-desc db-empty">Chưa có lịch sử điểm</div>
-                </li>
-              {% endif %}
-            </ul>
-          </div>
-        </div>
+
       </div>
 
       {% comment %}--- TIER IMAGE ---{% endcomment %}
