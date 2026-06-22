@@ -211,8 +211,8 @@
         </div>
       </div>
 
-      {% comment %}========== ROW 2: TIER + BENEFITS + ACCOUNT INFO =========={% endcomment %}
-      <div class="db-info-row" id="section-account">
+      {% comment %}========== ROW 2: TIER + BENEFITS =========={% endcomment %}
+      <div class="db-tier-benefits-row" id="section-welcome-tier">
 
         {% comment %}--- Tier Card ---{% endcomment %}
         <div class="db-card">
@@ -372,7 +372,10 @@
             </ul>
           </div>
         </div>
+      </div>
 
+      {% comment %}========== TAB: MY ACCOUNT =========={% endcomment %}
+      <div class="db-account-tab-row" id="section-account">
         {% comment %}--- Account Info + Address Card ---{% endcomment %}
         <div class="db-card">
           <div class="db-card-header">
@@ -659,9 +662,15 @@
 
     if (targetId === 'section-orders') {
       dbContent.classList.add('show-orders-tab');
+      dbContent.classList.remove('show-account-tab');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (targetId === 'section-account') {
+      dbContent.classList.add('show-account-tab');
+      dbContent.classList.remove('show-orders-tab');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       dbContent.classList.remove('show-orders-tab');
+      dbContent.classList.remove('show-account-tab');
       if (targetId === 'top') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -689,6 +698,13 @@
       ordersNav.classList.add('active');
     }
     document.querySelector('.db-content').classList.add('show-orders-tab');
+  } else if (window.location.hash === '#section-account') {
+    const accountNav = document.querySelector('.db-nav-item[data-scroll="section-account"]');
+    if (accountNav) {
+      document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });
+      accountNav.classList.add('active');
+    }
+    document.querySelector('.db-content').classList.add('show-account-tab');
   }
 })();
 </script>

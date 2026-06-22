@@ -453,6 +453,13 @@ body {
   margin-bottom: 20px;
 }
 
+.db-tier-benefits-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
 /* Generic Card */
 .db-card {
   background: var(--db-surface);
@@ -737,16 +744,23 @@ body {
   margin-bottom: 20px;
 }
 
-.db-content > #section-orders {
+.db-content > #section-orders,
+.db-content > #section-account {
   display: none;
 }
 
-.db-content.show-orders-tab > * {
+.db-content.show-orders-tab > *,
+.db-content.show-account-tab > * {
   display: none !important;
 }
 
 .db-content.show-orders-tab > #section-orders {
   display: grid !important;
+  animation: fadeIn 0.3s ease;
+}
+
+.db-content.show-account-tab > #section-account {
+  display: block !important;
   animation: fadeIn 0.3s ease;
 }
 
@@ -1166,6 +1180,10 @@ body {
     grid-column: 1 / -1;
   }
 
+  .db-tier-benefits-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .db-data-row {
     grid-template-columns: 1fr;
   }
@@ -1188,7 +1206,7 @@ body {
     display: none;
   }
 
-  .db-info-row {
+  .db-info-row, .db-tier-benefits-row {
     grid-template-columns: 1fr;
   }
 
