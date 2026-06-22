@@ -632,9 +632,7 @@
       dbContent.classList.remove('show-orders-tab', 'show-account-tab');
     } else {
       dbContent.classList.remove('show-orders-tab', 'show-account-tab', 'show-benefits-tab');
-      if (targetId === 'top') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
+      if (targetId !== 'top') {
         const target = document.getElementById(targetId);
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
