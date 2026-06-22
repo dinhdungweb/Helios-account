@@ -77,17 +77,6 @@
     "main": {
       "type": "main-account",
       "blocks": {
-        "custom_tab_8kb8yz": {
-          "type": "custom_tab",
-          "settings": {
-            "title": "BLACKSUN CLUB",
-            "page_content": "",
-            "richtext_content": "<p><a href=\"https://blacksun.club\" title=\"https://blacksun.club\">Blacksun Club </a></p>",
-            "enable_link": true,
-            "tab_url": "https://helios.vn/blogs/black-sun-club",
-            "open_in_new_tab": false
-          }
-        },
         "tier_black_diamond": {
           "type": "tier_config",
           "settings": {
@@ -138,7 +127,6 @@
         }
       },
       "block_order": [
-        "custom_tab_8kb8yz",
         "tier_black_diamond",
         "tier_diamond",
         "tier_platinum",
