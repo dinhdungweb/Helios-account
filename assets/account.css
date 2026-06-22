@@ -580,17 +580,55 @@ body {
   color: var(--db-text-muted);
 }
 
+.db-tier-header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.db-tier-points {
+  text-align: right;
+}
+
+.db-tier-points-value {
+  color: var(--db-accent);
+}
+
 .db-club-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid var(--db-border);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px solid var(--db-border-light);
 }
 
 .db-club-stat-item {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  flex: 1;
+}
+
+.db-club-stat-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(250, 179, 32, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--db-accent);
+  flex-shrink: 0;
+}
+
+.db-club-stat-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .db-club-stat-title {
@@ -598,11 +636,11 @@ body {
   color: var(--db-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 
 .db-club-stat-value {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--db-text);
   line-height: 1.2;
