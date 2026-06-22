@@ -580,6 +580,40 @@ body {
   color: var(--db-text-muted);
 }
 
+.db-club-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--db-border);
+}
+
+.db-club-stat-item {
+  text-align: center;
+}
+
+.db-club-stat-title {
+  font-size: 11px;
+  color: var(--db-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.db-club-stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--db-text);
+  line-height: 1.2;
+}
+
+.db-club-stat-sub {
+  font-size: 11px;
+  color: var(--db-text-muted);
+  margin-top: 2px;
+}
+
 /* Benefits */
 .db-benefits-list {
   list-style: none;

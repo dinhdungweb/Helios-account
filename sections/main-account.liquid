@@ -164,51 +164,7 @@
           </div>
         </div>
 
-        <div class="db-stats-grid">
-          <div class="db-stat-card">
-            <div class="db-stat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-            </div>
-            <div class="db-stat-info">
-              <div class="db-stat-title">Hạng thành viên</div>
-              <div class="db-stat-value">{{ tier }}</div>
-              <span class="db-stat-badge">CAO CẤP</span>
-            </div>
-          </div>
 
-          <div class="db-stat-card">
-            <div class="db-stat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-            </div>
-            <div class="db-stat-info">
-              <div class="db-stat-title">Điểm tích lũy</div>
-              <div class="db-stat-value">{{ fmt_pts }}</div>
-              <div class="db-stat-sub">Điểm</div>
-            </div>
-          </div>
-
-          <div class="db-stat-card">
-            <div class="db-stat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-            </div>
-            <div class="db-stat-info">
-              <div class="db-stat-title">Tổng chi tiêu</div>
-              <div class="db-stat-value">{{ fmt_ts }}đ</div>
-              <div class="db-stat-sub">VND</div>
-            </div>
-          </div>
-
-          <div class="db-stat-card">
-            <div class="db-stat-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            </div>
-            <div class="db-stat-info">
-              <div class="db-stat-title">Tổng đơn hàng</div>
-              <div class="db-stat-value">{{ customer.orders_count }}</div>
-              <div class="db-stat-sub">Đơn hàng</div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {% comment %}========== ROW 2: TIER + BENEFITS =========={% endcomment %}
@@ -222,7 +178,7 @@
           <div class="db-card-body">
             <div class="db-tier-sub">Hạng hiện tại</div>
             <div class="db-tier-name">{{ tier }}</div>
-            <span class="db-tier-badge">CAO CẤP</span>
+
 
             <div class="db-tier-points-label">Điểm hiện có</div>
             <div class="db-tier-points-value">{{ fmt_pts }} <span class="db-tier-points-unit">điểm</span></div>
@@ -240,6 +196,21 @@
             <div class="db-tier-progress-text">
               <span>{{ fmt_ts }}</span>
               <span>{% if next_tier != "MAX LEVEL" %}{{ next_tier_amount | divided_by: 1000000 }}M{% else %}MAX{% endif %}</span>
+            </div>
+
+            <div class="db-club-stats">
+              <div class="db-club-stat-item">
+                <div class="db-club-stat-title">Điểm tích lũy</div>
+                <div class="db-club-stat-value">{{ fmt_pts }}</div>
+              </div>
+              <div class="db-club-stat-item">
+                <div class="db-club-stat-title">Tổng chi tiêu</div>
+                <div class="db-club-stat-value">{{ fmt_ts }}đ</div>
+              </div>
+              <div class="db-club-stat-item">
+                <div class="db-club-stat-title">Tổng đơn hàng</div>
+                <div class="db-club-stat-value">{{ customer.orders_count }}</div>
+              </div>
             </div>
           </div>
         </div>
