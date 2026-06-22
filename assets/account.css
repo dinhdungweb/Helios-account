@@ -30,10 +30,7 @@
   --helios-text-muted: #777777;
 }
 
-body {
-  color: var(--db-text);
-  -webkit-font-smoothing: antialiased;
-}
+/* Removed global body styling to prevent breaking other pages */
 
 .db-wrapper svg,
 .db-wrapper svg * {
@@ -64,6 +61,9 @@ body {
   display: grid;
   grid-template-columns: var(--db-sidebar-w) 1fr;
   min-height: 100vh;
+  background-color: var(--db-bg);
+  color: var(--db-text);
+  -webkit-font-smoothing: antialiased;
 }
 
 
