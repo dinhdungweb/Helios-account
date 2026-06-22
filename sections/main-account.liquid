@@ -624,15 +624,12 @@
     if (targetId === 'section-orders') {
       dbContent.classList.add('show-orders-tab');
       dbContent.classList.remove('show-account-tab', 'show-benefits-tab');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (targetId === 'section-account') {
       dbContent.classList.add('show-account-tab');
       dbContent.classList.remove('show-orders-tab', 'show-benefits-tab');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (targetId === 'section-benefits') {
       dbContent.classList.add('show-benefits-tab');
       dbContent.classList.remove('show-orders-tab', 'show-account-tab');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       dbContent.classList.remove('show-orders-tab', 'show-account-tab', 'show-benefits-tab');
       if (targetId === 'top') {
