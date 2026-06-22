@@ -962,9 +962,19 @@
 .db-blog-link {
   text-decoration: none;
   color: inherit;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: block;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.db-blog-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .db-blog-image {
@@ -977,19 +987,26 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.3s;
+  transition: transform 0.4s ease;
 }
 
 .db-blog-link:hover .db-blog-image img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .db-blog-title {
-  margin-top: 12px;
-  font-size: 14px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  margin: 0;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--db-text);
+  color: #ffffff;
   line-height: 1.4;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
 .db-products-grid {
