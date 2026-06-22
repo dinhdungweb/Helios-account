@@ -165,12 +165,7 @@
         </div>
 
 
-      </div>
-
-      {% comment %}========== ROW 2: TIER + BENEFITS =========={% endcomment %}
-      <div class="db-tier-benefits-row" id="section-welcome-tier">
-
-        {% comment %}--- Tier Card ---{% endcomment %}
+      {% comment %}--- Tier Card ---{% endcomment %}
         <div class="db-card">
           <div class="db-card-header">
             <h3 class="db-card-title">{{ tier }} Club</h3>
@@ -233,6 +228,10 @@
             </div>
           </div>
         </div>
+      </div>
+
+      {% comment %}========== TAB: BENEFITS =========={% endcomment %}
+      <div class="db-data-row" id="section-benefits">
 
         {% comment %}--- Benefits Card ---{% endcomment %}
         <div class="db-card">
@@ -652,15 +651,18 @@
 
     if (targetId === 'section-orders') {
       dbContent.classList.add('show-orders-tab');
-      dbContent.classList.remove('show-account-tab');
+      dbContent.classList.remove('show-account-tab', 'show-benefits-tab');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (targetId === 'section-account') {
       dbContent.classList.add('show-account-tab');
-      dbContent.classList.remove('show-orders-tab');
+      dbContent.classList.remove('show-orders-tab', 'show-benefits-tab');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (targetId === 'section-benefits') {
+      dbContent.classList.add('show-benefits-tab');
+      dbContent.classList.remove('show-orders-tab', 'show-account-tab');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      dbContent.classList.remove('show-orders-tab');
-      dbContent.classList.remove('show-account-tab');
+      dbContent.classList.remove('show-orders-tab', 'show-account-tab', 'show-benefits-tab');
       if (targetId === 'top') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {

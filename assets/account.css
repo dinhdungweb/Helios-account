@@ -817,12 +817,14 @@ body {
 }
 
 .db-content > #section-orders,
-.db-content > #section-account {
+.db-content > #section-account,
+.db-content > #section-benefits {
   display: none;
 }
 
 .db-content.show-orders-tab > *,
-.db-content.show-account-tab > * {
+.db-content.show-account-tab > *,
+.db-content.show-benefits-tab > * {
   display: none !important;
 }
 
@@ -832,6 +834,11 @@ body {
 }
 
 .db-content.show-account-tab > #section-account {
+  display: block !important;
+  animation: fadeIn 0.3s ease;
+}
+
+.db-content.show-benefits-tab > #section-benefits {
   display: block !important;
   animation: fadeIn 0.3s ease;
 }
