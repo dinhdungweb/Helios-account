@@ -964,7 +964,6 @@
   color: inherit;
   display: block;
   position: relative;
-  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -979,7 +978,7 @@
 
 .db-blog-image {
   overflow: hidden;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
 }
 
 .db-blog-image img {
@@ -1314,8 +1313,13 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .db-products-grid, .db-blog-grid {
+  .db-products-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .db-blog-grid {
+    grid-template-columns: 1fr;
     gap: 15px;
   }
 
