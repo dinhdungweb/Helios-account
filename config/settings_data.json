@@ -405,6 +405,11 @@
         "type": "shopify://apps/geo-redirect-country-block/blocks/geolocation-popup/019b96c0-7d7c-7338-be9f-1147dd22a014",
         "disabled": false,
         "settings": {}
+      },
+      "10136812608453948615": {
+        "type": "shopify://apps/shoppable-blog-seo/blocks/sbs-article-embed/019ed014-29ea-7193-98cf-8b92d55315b0",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
