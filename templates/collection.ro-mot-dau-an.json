@@ -9,33 +9,331 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-collection",
+    "slideshow_Gde4An": {
+      "type": "slideshow",
+      "blocks": {
+        "image_VAFdTU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Dan_trang_landingpage_7_PC-01.jpg",
+            "mobile_image": "shopify://shop_images/dan_trang_landingpage_7_MB-01.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_VAFdTU"
+      ],
+      "name": "Slideshow",
       "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
-        "description_position": "top",
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_zwmwaE": {
+      "type": "slideshow",
+      "blocks": {
+        "image_6cqyRf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Dan_trang_landingpage_7_PC-02.jpg",
+            "mobile_image": "shopify://shop_images/dan_trang_landingpage_7_MB-02.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_6cqyRf"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "background_video_responsive_N63ELj": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_size": "cover",
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "featured_collection_hdxFaX": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "ro-mot-dau-an",
         "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
         "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
         "show_vendor": false,
-        "quick_links": "quicklink-collection",
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
+        "grid": 3,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "slideshow_MgjccM": {
+      "type": "slideshow",
+      "blocks": {
+        "image_yMw4bC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/dan_trang_landingpage_7_PC-05.jpg",
+            "mobile_image": "shopify://shop_images/dan_trang_landingpage_7_MB-05.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_yMw4bC"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_KmdNpq": {
+      "type": "slideshow",
+      "blocks": {
+        "image_UNfbMb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Dan_trang_landingpage_7_PC-06.jpg",
+            "mobile_image": "shopify://shop_images/dan_trang_landingpage_7_MB-06.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_UNfbMb"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_wECdtH": {
+      "type": "slideshow",
+      "blocks": {
+        "image_RkR9eJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Dan_trang_landingpage_7_PC-07.jpg",
+            "mobile_image": "shopify://shop_images/dan_trang_landingpage_7_MB-07.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_RkR9eJ"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_ciGxeH": {
+      "type": "slideshow",
+      "blocks": {
+        "image_kTgaG8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Dan_trang_landingpage_7_PC-08.jpg",
+            "mobile_image": "shopify://shop_images/dan_trang_landingpage_7_MB-08.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_kTgaG8"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_3xq3Rr": {
+      "type": "slideshow",
+      "blocks": {
+        "image_iQqiKz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Dan_trang_landingpage_7_PC-09.jpg",
+            "mobile_image": "shopify://shop_images/dan_trang_landingpage_7_MB-09.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_iQqiKz"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
       }
     }
   },
   "order": [
-    "main"
+    "slideshow_Gde4An",
+    "slideshow_zwmwaE",
+    "background_video_responsive_N63ELj",
+    "featured_collection_hdxFaX",
+    "slideshow_MgjccM",
+    "slideshow_KmdNpq",
+    "slideshow_wECdtH",
+    "slideshow_ciGxeH",
+    "slideshow_3xq3Rr"
   ]
 }
