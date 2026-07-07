@@ -35,12 +35,13 @@
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
-        "image_qbHR3Y": {
+        "image_nNNj6R": {
           "type": "image",
+          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/Landingpage_PC-01.jpg",
-            "mobile_image": "shopify://shop_images/Landing_page_MB-01.jpg",
-            "slide_link": "shopify://collections/chuan-bi-cho-dieu-lon-hon",
+            "image": "shopify://shop_images/banner_19_9.jpg",
+            "mobile_image": "shopify://shop_images/banner_9_16.jpg",
+            "slide_link": "shopify://collections/ro-mot-dau-an",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -53,12 +54,12 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
-        "image_nNNj6R": {
+        "image_qbHR3Y": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/banner_web_19x9_1.jpg",
-            "mobile_image": "shopify://shop_images/banner_web_9x16_1.jpg",
-            "slide_link": "shopify://collections/bach-ho",
+            "image": "shopify://shop_images/Landingpage_PC-01.jpg",
+            "mobile_image": "shopify://shop_images/Landing_page_MB-01.jpg",
+            "slide_link": "shopify://collections/chuan-bi-cho-dieu-lon-hon",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -147,8 +148,8 @@
         }
       },
       "block_order": [
-        "image_qbHR3Y",
         "image_nNNj6R",
+        "image_qbHR3Y",
         "image_3Aawga",
         "image_nw333M",
         "image_hgGRLc",
