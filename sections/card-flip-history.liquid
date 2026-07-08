@@ -53,6 +53,7 @@
 
       <button class="card-flip-history__button" type="submit">{{ section.settings.load_button_text }}</button>
       <button class="card-flip-history__button card-flip-history__button--secondary" type="button" data-export-csv disabled>{{ section.settings.export_button_text }}</button>
+      <button class="card-flip-history__button card-flip-history__button--danger" type="button" data-delete-history>{{ section.settings.delete_button_text }}</button>
     </form>
 
     <div class="card-flip-history__status" data-history-status role="status" aria-live="polite"></div>
@@ -211,6 +212,12 @@
     color: var(--cfh-text);
   }
 
+  .card-flip-history__button--danger {
+    background: #b42318;
+    border-color: #b42318;
+    color: #fff;
+  }
+
   .card-flip-history__button:disabled {
     cursor: default;
     opacity: 0.48;
@@ -300,7 +307,7 @@
 
   @media (min-width: 960px) {
     .card-flip-history__controls {
-      grid-template-columns: minmax(180px, 260px) minmax(320px, 1fr) 120px 120px;
+      grid-template-columns: minmax(180px, 260px) minmax(320px, 1fr) 120px 120px 120px;
     }
 
     .card-flip-history__button {
@@ -327,6 +334,7 @@
     const tableWrap = root.querySelector('[data-history-table-wrap]');
     const tableBody = root.querySelector('[data-history-table]');
     const exportButton = root.querySelector('[data-export-csv]');
+    const deleteButton = root.querySelector('[data-delete-history]');
     const searchInput = form.querySelector('[name="search"]');
 
     const config = {
@@ -338,7 +346,12 @@
       scanCustomers: root.dataset.scanCustomers === 'true',
       loadingText: {{ section.settings.loading_text | json }},
       emptyText: {{ section.settings.empty_text | json }},
-      errorText: {{ section.settings.error_text | json }}
+      errorText: {{ section.settings.error_text | json }},
+      deletePromptText: {{ section.settings.delete_prompt_text | json }},
+      deleteConfirmText: {{ section.settings.delete_confirm_text | json }},
+      deleteLoadingText: {{ section.settings.delete_loading_text | json }},
+      deleteSuccessText: {{ section.settings.delete_success_text | json }},
+      deletePasswordRequiredText: {{ section.settings.delete_password_required_text | json }}
     };
 
     let currentRows = [];
@@ -352,6 +365,7 @@
 
     searchInput.addEventListener('input', renderTable);
     exportButton.addEventListener('click', exportCsv);
+    deleteButton.addEventListener('click', deleteHistory);
 
     applyQueryParams();
     loadHistory();
@@ -520,6 +534,58 @@
       URL.revokeObjectURL(url);
     }
 
+    async function deleteHistory() {
+      const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
+      if (!config.apiBase) {
+        setStatus(config.errorText);
+        return;
+      }
+
+      const password = window.prompt(config.deletePromptText);
+      if (password === null) return;
+      if (!password.trim()) {
+        setStatus(config.deletePasswordRequiredText);
+        return;
+      }
+
+      if (!window.confirm(config.deleteConfirmText.replace('[campaign]', campaignId))) {
+        return;
+      }
+
+      setStatus(config.deleteLoadingText);
+      deleteButton.disabled = true;
+      exportButton.disabled = true;
+
+      try {
+        const response = await fetch(config.apiBase + '/card-flip/delete-history', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          cache: 'no-store',
+          body: JSON.stringify({
+            campaign_id: campaignId,
+            password: password
+          })
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || config.errorText);
+        }
+
+        searchInput.value = '';
+        await loadHistory();
+        setStatus(
+          config.deleteSuccessText
+            .replace('[count]', data.deleted_entries || 0)
+            .replace('[customers]', data.updated_customers || 0)
+        );
+      } catch (error) {
+        setStatus(error.message || config.errorText);
+      } finally {
+        deleteButton.disabled = false;
+      }
+    }
+
     function getSummaryStatus(data) {
       if (!currentRows.length) return config.emptyText;
       if (data.is_limited) {
@@ -638,6 +704,12 @@
     },
     {
       "type": "text",
+      "id": "delete_button_text",
+      "label": "Nút xóa lịch sử",
+      "default": "Xóa lịch sử"
+    },
+    {
+      "type": "text",
       "id": "loading_text",
       "label": "Thông báo đang tải",
       "default": "Đang tải lịch sử..."
@@ -653,6 +725,36 @@
       "id": "error_text",
       "label": "Thông báo lỗi",
       "default": "Không thể tải lịch sử."
+    },
+    {
+      "type": "text",
+      "id": "delete_prompt_text",
+      "label": "Prompt nhập mật khẩu xóa",
+      "default": "Nhập mật khẩu để xóa lịch sử"
+    },
+    {
+      "type": "text",
+      "id": "delete_confirm_text",
+      "label": "Xác nhận xóa",
+      "default": "Xóa toàn bộ lịch sử campaign [campaign]? Hành động này không thể hoàn tác."
+    },
+    {
+      "type": "text",
+      "id": "delete_loading_text",
+      "label": "Thông báo đang xóa",
+      "default": "Đang xóa lịch sử..."
+    },
+    {
+      "type": "text",
+      "id": "delete_success_text",
+      "label": "Thông báo xóa thành công",
+      "default": "Đã xóa [count] lượt trong [customers] khách."
+    },
+    {
+      "type": "text",
+      "id": "delete_password_required_text",
+      "label": "Thông báo thiếu mật khẩu",
+      "default": "Vui lòng nhập mật khẩu xóa lịch sử."
     },
     {
       "type": "header",
