@@ -551,6 +551,8 @@
         const image = document.createElement('img');
         image.className = 'card-flip-game__front-image';
         image.loading = 'lazy';
+        image.width = 900;
+        image.height = 1200;
         image.src = card.image;
         image.alt = card.alt || card.title || '';
         front.appendChild(image);
@@ -691,6 +693,8 @@
       modalMedia.innerHTML = '';
       if (resultImage) {
         const image = document.createElement('img');
+        image.width = 900;
+        image.height = 1200;
         image.src = resultImage;
         image.alt = resultTitle;
         modalMedia.appendChild(image);
@@ -984,7 +988,7 @@
       ]
     }
   ],
-  "max_blocks": 60,
+  "max_blocks": 50,
   "presets": [
     {
       "name": "Game lật thẻ bài",
