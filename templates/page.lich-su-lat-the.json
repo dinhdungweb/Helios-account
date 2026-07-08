@@ -22,7 +22,7 @@
         "subheading": "Tất cả lượt mở theo campaign.",
         "api_base_url": "https://helios-tier-pricing-api-h543.vercel.app/api",
         "campaign_id": "card-flip-2026",
-        "history_limit": 500,
+        "history_limit": 0,
         "max_customers": 5000,
         "scan_customers": false,
         "default_turns": 1,

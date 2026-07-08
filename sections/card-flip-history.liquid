@@ -2,7 +2,7 @@
   assign history_dom_id = 'CardFlipHistory-' | append: section.id
   assign api_base_url = section.settings.api_base_url | strip
   assign campaign_id = section.settings.campaign_id | default: 'card-flip-2026' | strip
-  assign history_limit = section.settings.history_limit | default: 500 | plus: 0
+  assign history_limit = section.settings.history_limit | default: 0 | plus: 0
   assign max_customers = section.settings.max_customers | default: 1000 | plus: 0
   assign current_customer_id = ''
   if customer
@@ -332,7 +332,7 @@
     const config = {
       apiBase: normalizeApiBase(root.dataset.apiBase || ''),
       defaultCampaignId: root.dataset.campaignId || 'card-flip-2026',
-      limit: toInt(root.dataset.historyLimit, 500),
+      limit: toInt(root.dataset.historyLimit, 0),
       maxCustomers: toInt(root.dataset.maxCustomers, 1000),
       currentCustomerId: root.dataset.currentCustomerId || '',
       scanCustomers: root.dataset.scanCustomers === 'true',
@@ -379,9 +379,13 @@
 
       const params = new URLSearchParams({
         campaign_id: campaignId,
-        limit: String(config.limit),
         max_customers: String(config.maxCustomers)
       });
+      if (config.limit > 0) {
+        params.set('limit', String(config.limit));
+      } else {
+        params.set('limit', 'all');
+      }
       if (config.currentCustomerId) {
         params.set('include_customer_id', config.currentCustomerId);
       }
@@ -419,7 +423,7 @@
       root.querySelector('[data-stat-total]').textContent = lastSummary ? lastSummary.total_entries || 0 : 0;
       root.querySelector('[data-stat-customers]').textContent = lastSummary ? lastSummary.unique_customers || 0 : 0;
       root.querySelector('[data-stat-visible]').textContent = visibleRows.length;
-      root.querySelector('[data-stat-limit]').textContent = lastSummary ? lastSummary.limit || config.limit : config.limit;
+      root.querySelector('[data-stat-limit]').textContent = getDisplayLimit();
     }
 
     function renderTable() {
@@ -518,10 +522,19 @@
 
     function getSummaryStatus(data) {
       if (!currentRows.length) return config.emptyText;
+      if (data.is_limited) {
+        return 'Đang hiển thị ' + currentRows.length + ' / ' + data.total_entries + ' lượt.';
+      }
       if (data.has_more_customers && data.scanned_customers) {
         return 'Đang hiển thị ' + currentRows.length + ' lượt gần nhất trong ' + data.scanned_customers + ' khách đã quét.';
       }
       return '';
+    }
+
+    function getDisplayLimit() {
+      if (!lastSummary) return config.limit > 0 ? config.limit : 'Tất cả';
+      if (lastSummary.limit === 'all' || lastSummary.limit === 0) return 'Tất cả';
+      return lastSummary.limit || (config.limit > 0 ? config.limit : 'Tất cả');
     }
 
     function csvValue(value) {
@@ -596,8 +609,8 @@
     {
       "type": "number",
       "id": "history_limit",
-      "label": "Số lượt tối đa hiển thị",
-      "default": 500
+      "label": "Số lượt tối đa hiển thị (0 = tất cả)",
+      "default": 0
     },
     {
       "type": "number",
