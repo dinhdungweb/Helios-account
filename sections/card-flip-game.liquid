@@ -40,6 +40,8 @@
   data-campaign-id="{{ campaign_id | escape }}"
   data-allowed-turns="{{ customer_allowed_turns }}"
   data-default-turns="{{ default_turns }}"
+  data-turns-namespace="{{ turns_namespace | escape }}"
+  data-turns-key="{{ turns_key | escape }}"
   data-back-image="{{ back_image_url | escape }}"
   data-back-label="{{ section.settings.back_label | escape }}"
   data-logged-in="{% if customer %}true{% else %}false{% endif %}"
@@ -470,6 +472,9 @@
       campaignId: root.dataset.campaignId || 'default',
       customerId: root.dataset.customerId || '',
       customerEmail: root.dataset.customerEmail || '',
+      defaultTurns: toInt(root.dataset.defaultTurns, state.allowedTurns),
+      turnsNamespace: root.dataset.turnsNamespace || 'custom',
+      turnsKey: root.dataset.turnsKey || 'card_flip_turns',
       backImage: root.dataset.backImage || '',
       backLabel: root.dataset.backLabel || '?',
       savingText: {{ section.settings.saving_message | json }},
@@ -587,7 +592,14 @@
     async function syncServerState() {
       if (!config.apiBase || !config.customerId) return;
 
-      const url = config.apiBase + '/card-flip/status?customer_id=' + encodeURIComponent(config.customerId) + '&campaign_id=' + encodeURIComponent(config.campaignId);
+      const params = new URLSearchParams({
+        customer_id: config.customerId,
+        campaign_id: config.campaignId,
+        default_turns: String(config.defaultTurns),
+        turns_namespace: config.turnsNamespace,
+        turns_key: config.turnsKey
+      });
+      const url = config.apiBase + '/card-flip/status?' + params.toString();
 
       try {
         const response = await fetch(url, { method: 'GET', cache: 'no-store' });
@@ -659,6 +671,9 @@
           customer_id: config.customerId,
           customer_email: config.customerEmail,
           campaign_id: config.campaignId,
+          default_turns: config.defaultTurns,
+          turns_namespace: config.turnsNamespace,
+          turns_key: config.turnsKey,
           card_id: card.id,
           card_title: card.title || '',
           card_code: card.code || '',
