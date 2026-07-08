@@ -11,10 +11,211 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
+    },
+    "card_flip_game_Uk6wTx": {
+      "type": "card-flip-game",
+      "blocks": {
+        "card_qp7fFU": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_tBn3yG": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_mecbFH": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_KAF4cF": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_mrgbfG": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_AinNdb": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_UjXe3H": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_wN6EBd": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_gy4wgV": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_3p9Lah": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_9eTKLa": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_xeYWgn": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_j8qg3M": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_bctfm8": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_RBHwqx": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_hMxtCz": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_E9jiqA": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_HTr7EJ": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_kAJrcq": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        },
+        "card_T6nKLA": {
+          "type": "card",
+          "settings": {
+            "title": "Phần thưởng",
+            "code": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_qp7fFU",
+        "card_tBn3yG",
+        "card_mecbFH",
+        "card_KAF4cF",
+        "card_mrgbfG",
+        "card_AinNdb",
+        "card_UjXe3H",
+        "card_wN6EBd",
+        "card_gy4wgV",
+        "card_3p9Lah",
+        "card_9eTKLa",
+        "card_xeYWgn",
+        "card_j8qg3M",
+        "card_bctfm8",
+        "card_RBHwqx",
+        "card_hMxtCz",
+        "card_E9jiqA",
+        "card_HTr7EJ",
+        "card_kAJrcq",
+        "card_T6nKLA"
+      ],
+      "name": "Game lật thẻ bài",
+      "settings": {
+        "heading": "Lật thẻ may mắn",
+        "subheading": "Mỗi thẻ là một cơ hội nhận ưu đãi từ Helios.",
+        "campaign_id": "card-flip-2026",
+        "api_base_url": "https://helios-tier-pricing-api-h543.vercel.app/api",
+        "default_turns": 10,
+        "turns_metafield_namespace": "custom",
+        "turns_metafield_key": "card_flip_turns",
+        "back_label": "H",
+        "show_card_titles": true,
+        "columns_desktop": 5,
+        "columns_mobile": 3,
+        "turns_label": "Lượt còn lại",
+        "login_message": "Vui lòng đăng nhập để tham gia.",
+        "login_button_text": "Đăng nhập",
+        "no_cards_message": "Chưa có thẻ nào được cấu hình.",
+        "saving_message": "Đang lưu kết quả...",
+        "saved_message": "Kết quả đã được lưu.",
+        "error_message": "Không thể lưu kết quả, vui lòng thử lại.",
+        "out_of_turns_message": "Bạn đã hết lượt chơi.",
+        "result_heading": "Kết quả của bạn",
+        "code_prefix": "Mã:",
+        "remaining_modal_text": "Còn [remaining]/[total] lượt",
+        "close_label": "Đóng",
+        "background_color": "#0f0f0f",
+        "surface_color": "#191919",
+        "text_color": "#ffffff",
+        "muted_text_color": "#c8c8c8",
+        "accent_color": "#f1b84b",
+        "card_back_color": "#242424"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "card_flip_game_Uk6wTx"
   ]
 }
