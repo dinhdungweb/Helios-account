@@ -96,14 +96,23 @@
   }
 
   .card-flip-history__wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     margin: 0 auto;
     max-width: 1240px;
+    width: 100%;
+  }
+
+  .card-flip-history__wrap > * {
+    min-width: 0;
+    width: 100%;
   }
 
   .card-flip-history__header {
     display: grid;
     gap: 8px;
     margin-bottom: 24px;
+    text-align: left;
   }
 
   .card-flip-history__title {
@@ -111,6 +120,7 @@
     font-size: clamp(26px, 3vw, 38px);
     line-height: 1.15;
     margin: 0;
+    text-align: left;
   }
 
   .card-flip-history__copy {
@@ -120,15 +130,26 @@
 
   .card-flip-history__controls {
     align-items: end;
-    display: grid;
+    background: var(--cfh-surface);
+    border: 1px solid var(--cfh-border);
+    border-radius: 8px;
+    box-sizing: border-box;
+    clear: both;
+    display: grid !important;
+    float: none !important;
     gap: 12px;
     grid-template-columns: 1fr;
+    max-width: none !important;
     margin-bottom: 16px;
+    padding: 14px;
+    width: 100% !important;
   }
 
   .card-flip-history__field {
+    box-sizing: border-box;
     display: grid;
     gap: 6px;
+    min-width: 0;
   }
 
   .card-flip-history__field span {
@@ -141,21 +162,41 @@
     background: var(--cfh-surface);
     border: 1px solid var(--cfh-border);
     border-radius: 6px;
+    box-sizing: border-box;
     color: var(--cfh-text);
+    display: block !important;
+    font: inherit;
+    letter-spacing: 0;
+    margin: 0 !important;
+    max-width: none !important;
     min-height: 44px;
+    min-width: 0;
     padding: 10px 12px;
+    text-transform: none;
     width: 100%;
   }
 
   .card-flip-history__button {
+    align-items: center;
     background: var(--cfh-accent);
     border: 1px solid var(--cfh-accent);
     border-radius: 6px;
+    box-sizing: border-box;
     color: #111;
     cursor: pointer;
+    display: inline-flex !important;
     font-weight: 700;
+    justify-content: center;
+    letter-spacing: 0;
+    line-height: 1.2;
+    margin: 0 !important;
     min-height: 44px;
+    min-width: 116px;
     padding: 10px 16px;
+    text-align: center;
+    text-transform: none;
+    white-space: nowrap;
+    width: 100%;
   }
 
   .card-flip-history__button--secondary {
@@ -252,7 +293,11 @@
 
   @media (min-width: 960px) {
     .card-flip-history__controls {
-      grid-template-columns: 1fr 1.6fr auto auto;
+      grid-template-columns: minmax(180px, 260px) minmax(320px, 1fr) 120px 120px;
+    }
+
+    .card-flip-history__button {
+      width: 120px;
     }
   }
 
