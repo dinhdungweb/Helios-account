@@ -1,0 +1,642 @@
+{% liquid
+  assign history_dom_id = 'CardFlipHistory-' | append: section.id
+  assign api_base_url = section.settings.api_base_url | strip
+  assign campaign_id = section.settings.campaign_id | default: 'card-flip-2026' | strip
+  assign default_turns = section.settings.default_turns | default: 1 | plus: 0
+  assign turns_namespace = section.settings.turns_metafield_namespace | default: 'custom' | strip
+  assign turns_key = section.settings.turns_metafield_key | default: 'card_flip_turns' | strip
+%}
+
+<section
+  id="{{ history_dom_id }}"
+  class="card-flip-history"
+  data-card-flip-history
+  data-api-base="{{ api_base_url | escape }}"
+  data-campaign-id="{{ campaign_id | escape }}"
+  data-default-turns="{{ default_turns }}"
+  data-turns-namespace="{{ turns_namespace | escape }}"
+  data-turns-key="{{ turns_key | escape }}"
+  style="
+    --cfh-bg: {{ section.settings.background_color }};
+    --cfh-surface: {{ section.settings.surface_color }};
+    --cfh-border: {{ section.settings.border_color }};
+    --cfh-text: {{ section.settings.text_color }};
+    --cfh-muted: {{ section.settings.muted_text_color }};
+    --cfh-accent: {{ section.settings.accent_color }};
+  "
+>
+  <div class="card-flip-history__wrap">
+    <header class="card-flip-history__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="card-flip-history__title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <div class="card-flip-history__copy">{{ section.settings.subheading }}</div>
+      {% endif %}
+    </header>
+
+    <form class="card-flip-history__controls" data-history-form>
+      <label class="card-flip-history__field">
+        <span>Customer ID</span>
+        <input type="text" inputmode="numeric" name="customer_id" autocomplete="off" placeholder="VD: 123456789" required>
+      </label>
+
+      <label class="card-flip-history__field">
+        <span>Campaign ID</span>
+        <input type="text" name="campaign_id" value="{{ campaign_id | escape }}" autocomplete="off" required>
+      </label>
+
+      <label class="card-flip-history__field card-flip-history__field--search">
+        <span>Tìm trong lịch sử</span>
+        <input type="search" name="search" autocomplete="off" placeholder="Tên thẻ, mã, email...">
+      </label>
+
+      <button class="card-flip-history__button" type="submit">{{ section.settings.load_button_text }}</button>
+      <button class="card-flip-history__button card-flip-history__button--secondary" type="button" data-export-csv disabled>{{ section.settings.export_button_text }}</button>
+    </form>
+
+    <div class="card-flip-history__status" data-history-status role="status" aria-live="polite"></div>
+
+    <div class="card-flip-history__stats" data-history-stats hidden>
+      <div class="card-flip-history__stat">
+        <span>Khách hàng</span>
+        <strong data-stat-customer>-</strong>
+      </div>
+      <div class="card-flip-history__stat">
+        <span>Tổng lượt</span>
+        <strong data-stat-allowed>0</strong>
+      </div>
+      <div class="card-flip-history__stat">
+        <span>Đã dùng</span>
+        <strong data-stat-used>0</strong>
+      </div>
+      <div class="card-flip-history__stat">
+        <span>Còn lại</span>
+        <strong data-stat-remaining>0</strong>
+      </div>
+    </div>
+
+    <div class="card-flip-history__table-wrap" data-history-table-wrap hidden>
+      <table class="card-flip-history__table">
+        <thead>
+          <tr>
+            <th>Thời gian</th>
+            <th>Kết quả</th>
+            <th>Mã</th>
+            <th>Vị trí</th>
+            <th>Ảnh</th>
+            <th>Campaign</th>
+          </tr>
+        </thead>
+        <tbody data-history-table></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .card-flip-history {
+    background: var(--cfh-bg);
+    color: var(--cfh-text);
+    padding: clamp(28px, 4vw, 56px) 16px;
+  }
+
+  .card-flip-history__wrap {
+    margin: 0 auto;
+    max-width: 1180px;
+  }
+
+  .card-flip-history__header {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .card-flip-history__title {
+    color: var(--cfh-text);
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .card-flip-history__copy {
+    color: var(--cfh-muted);
+    line-height: 1.55;
+  }
+
+  .card-flip-history__controls {
+    align-items: end;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 16px;
+  }
+
+  .card-flip-history__field {
+    display: grid;
+    gap: 6px;
+  }
+
+  .card-flip-history__field span {
+    color: var(--cfh-muted);
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  .card-flip-history__field input {
+    background: var(--cfh-surface);
+    border: 1px solid var(--cfh-border);
+    border-radius: 6px;
+    color: var(--cfh-text);
+    min-height: 44px;
+    padding: 10px 12px;
+    width: 100%;
+  }
+
+  .card-flip-history__button {
+    background: var(--cfh-accent);
+    border: 1px solid var(--cfh-accent);
+    border-radius: 6px;
+    color: #111;
+    cursor: pointer;
+    font-weight: 700;
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+
+  .card-flip-history__button--secondary {
+    background: transparent;
+    color: var(--cfh-text);
+  }
+
+  .card-flip-history__button:disabled {
+    cursor: default;
+    opacity: 0.48;
+  }
+
+  .card-flip-history__status {
+    color: var(--cfh-muted);
+    min-height: 22px;
+    margin: 10px 0 16px;
+  }
+
+  .card-flip-history__stats {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 16px;
+  }
+
+  .card-flip-history__stat {
+    background: var(--cfh-surface);
+    border: 1px solid var(--cfh-border);
+    border-radius: 8px;
+    display: grid;
+    gap: 6px;
+    min-height: 82px;
+    padding: 14px;
+  }
+
+  .card-flip-history__stat span {
+    color: var(--cfh-muted);
+    font-size: 13px;
+  }
+
+  .card-flip-history__stat strong {
+    color: var(--cfh-accent);
+    font-size: 22px;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  .card-flip-history__table-wrap {
+    background: var(--cfh-surface);
+    border: 1px solid var(--cfh-border);
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+
+  .card-flip-history__table {
+    border-collapse: collapse;
+    min-width: 840px;
+    width: 100%;
+  }
+
+  .card-flip-history__table th,
+  .card-flip-history__table td {
+    border-bottom: 1px solid var(--cfh-border);
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .card-flip-history__table th {
+    color: var(--cfh-muted);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .card-flip-history__table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .card-flip-history__thumb {
+    aspect-ratio: 3 / 4;
+    background: #222;
+    border-radius: 4px;
+    display: block;
+    height: 62px;
+    object-fit: cover;
+    width: 46px;
+  }
+
+  .card-flip-history__empty {
+    color: var(--cfh-muted);
+    padding: 18px;
+    text-align: center;
+  }
+
+  @media (min-width: 960px) {
+    .card-flip-history__controls {
+      grid-template-columns: 1.1fr 1fr 1.2fr auto auto;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .card-flip-history__controls,
+    .card-flip-history__stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const root = document.getElementById({{ history_dom_id | json }});
+    if (!root || root.dataset.historyInitialized === 'true') return;
+    root.dataset.historyInitialized = 'true';
+
+    const form = root.querySelector('[data-history-form]');
+    const status = root.querySelector('[data-history-status]');
+    const stats = root.querySelector('[data-history-stats]');
+    const tableWrap = root.querySelector('[data-history-table-wrap]');
+    const tableBody = root.querySelector('[data-history-table]');
+    const exportButton = root.querySelector('[data-export-csv]');
+    const searchInput = form.querySelector('[name="search"]');
+
+    const config = {
+      apiBase: normalizeApiBase(root.dataset.apiBase || ''),
+      defaultCampaignId: root.dataset.campaignId || 'card-flip-2026',
+      defaultTurns: toInt(root.dataset.defaultTurns, 1),
+      turnsNamespace: root.dataset.turnsNamespace || 'custom',
+      turnsKey: root.dataset.turnsKey || 'card_flip_turns',
+      loadingText: {{ section.settings.loading_text | json }},
+      emptyText: {{ section.settings.empty_text | json }},
+      errorText: {{ section.settings.error_text | json }}
+    };
+
+    let currentRows = [];
+    let visibleRows = [];
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      loadHistory();
+    });
+
+    searchInput.addEventListener('input', function () {
+      renderTable();
+    });
+
+    exportButton.addEventListener('click', function () {
+      exportCsv();
+    });
+
+    applyQueryParams();
+
+    function applyQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      const customerId = params.get('customer_id');
+      const campaignId = params.get('campaign_id');
+
+      if (customerId) {
+        form.elements.customer_id.value = customerId;
+      }
+
+      if (campaignId) {
+        form.elements.campaign_id.value = campaignId;
+      }
+
+      if (customerId) {
+        loadHistory();
+      }
+    }
+
+    async function loadHistory() {
+      const customerId = form.elements.customer_id.value.trim();
+      const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
+
+      if (!customerId || !config.apiBase) {
+        setStatus(config.errorText);
+        return;
+      }
+
+      setStatus(config.loadingText);
+      exportButton.disabled = true;
+      tableBody.innerHTML = '';
+      tableWrap.hidden = true;
+
+      const params = new URLSearchParams({
+        customer_id: customerId,
+        campaign_id: campaignId,
+        default_turns: String(config.defaultTurns),
+        turns_namespace: config.turnsNamespace,
+        turns_key: config.turnsKey,
+        limit: '200'
+      });
+
+      try {
+        const response = await fetch(config.apiBase + '/card-flip/status?' + params.toString(), {
+          method: 'GET',
+          cache: 'no-store'
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || config.errorText);
+        }
+
+        currentRows = Array.isArray(data.history) ? data.history : [];
+        updateStats(data);
+        renderTable();
+        setStatus(currentRows.length ? '' : config.emptyText);
+      } catch (error) {
+        currentRows = [];
+        visibleRows = [];
+        stats.hidden = true;
+        tableWrap.hidden = true;
+        setStatus(error.message || config.errorText);
+      }
+    }
+
+    function updateStats(data) {
+      stats.hidden = false;
+      root.querySelector('[data-stat-customer]').textContent = data.customer_email || data.customer_id || '-';
+      root.querySelector('[data-stat-allowed]').textContent = data.allowed_turns || 0;
+      root.querySelector('[data-stat-used]').textContent = data.used_turns || 0;
+      root.querySelector('[data-stat-remaining]').textContent = data.remaining_turns || 0;
+    }
+
+    function renderTable() {
+      const search = searchInput.value.trim().toLowerCase();
+      visibleRows = currentRows.filter(function (row) {
+        if (!search) return true;
+        return [
+          row.customer_email,
+          row.card_title,
+          row.result_title,
+          row.card_code,
+          row.result_code,
+          row.campaign_id,
+          row.played_at
+        ].some(function (value) {
+          return String(value || '').toLowerCase().includes(search);
+        });
+      });
+
+      tableBody.innerHTML = '';
+      tableWrap.hidden = false;
+      exportButton.disabled = visibleRows.length === 0;
+
+      if (!visibleRows.length) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 6;
+        cell.className = 'card-flip-history__empty';
+        cell.textContent = config.emptyText;
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+        return;
+      }
+
+      visibleRows.forEach(function (entry) {
+        const row = document.createElement('tr');
+        addCell(row, formatDate(entry.played_at));
+        addCell(row, entry.result_title || entry.card_title || '-');
+        addCell(row, entry.result_code || entry.card_code || '-');
+        addCell(row, formatPosition(entry));
+        addImageCell(row, entry.result_image || entry.card_image || '', entry.result_title || entry.card_title || '');
+        addCell(row, entry.campaign_id || '-');
+        tableBody.appendChild(row);
+      });
+    }
+
+    function addCell(row, value) {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.appendChild(cell);
+    }
+
+    function addImageCell(row, src, alt) {
+      const cell = document.createElement('td');
+      if (src) {
+        const image = document.createElement('img');
+        image.className = 'card-flip-history__thumb';
+        image.width = 46;
+        image.height = 62;
+        image.loading = 'lazy';
+        image.src = src;
+        image.alt = alt;
+        cell.appendChild(image);
+      } else {
+        cell.textContent = '-';
+      }
+      row.appendChild(cell);
+    }
+
+    function exportCsv() {
+      if (!visibleRows.length) return;
+
+      const headers = ['played_at', 'customer_email', 'campaign_id', 'card_title', 'card_code', 'card_position', 'deck_size'];
+      const lines = [headers.join(',')].concat(visibleRows.map(function (row) {
+        return headers.map(function (key) {
+          return csvValue(row[key] || '');
+        }).join(',');
+      }));
+
+      const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const customerId = form.elements.customer_id.value.trim() || 'customer';
+      link.href = url;
+      link.download = 'card-flip-history-' + customerId + '.csv';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function csvValue(value) {
+      return '"' + String(value).replace(/"/g, '""') + '"';
+    }
+
+    function formatPosition(entry) {
+      const position = entry.card_position || '-';
+      const deckSize = entry.deck_size || '-';
+      return position + '/' + deckSize;
+    }
+
+    function formatDate(value) {
+      if (!value) return '-';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      return date.toLocaleString('vi-VN', {
+        hour12: false,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function setStatus(message) {
+      status.textContent = message || '';
+    }
+
+    function toInt(value, fallback) {
+      const number = parseInt(value, 10);
+      return Number.isFinite(number) ? number : fallback;
+    }
+
+    function normalizeApiBase(value) {
+      return String(value || '').replace(/\/+$/, '');
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Lịch sử lật thẻ",
+  "tag": "section",
+  "class": "section-card-flip-history",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tiêu đề",
+      "default": "Lịch sử lật thẻ"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Mô tả",
+      "default": "Tra cứu lịch sử theo Customer ID và campaign."
+    },
+    {
+      "type": "text",
+      "id": "api_base_url",
+      "label": "API base URL",
+      "default": "https://helios-tier-pricing-api-h543.vercel.app/api"
+    },
+    {
+      "type": "text",
+      "id": "campaign_id",
+      "label": "Campaign ID mặc định",
+      "default": "card-flip-2026"
+    },
+    {
+      "type": "number",
+      "id": "default_turns",
+      "label": "Số lượt mặc định",
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "turns_metafield_namespace",
+      "label": "Namespace metafield lượt chơi",
+      "default": "custom"
+    },
+    {
+      "type": "text",
+      "id": "turns_metafield_key",
+      "label": "Key metafield lượt chơi",
+      "default": "card_flip_turns"
+    },
+    {
+      "type": "text",
+      "id": "load_button_text",
+      "label": "Nút tải dữ liệu",
+      "default": "Xem lịch sử"
+    },
+    {
+      "type": "text",
+      "id": "export_button_text",
+      "label": "Nút xuất CSV",
+      "default": "Xuất CSV"
+    },
+    {
+      "type": "text",
+      "id": "loading_text",
+      "label": "Thông báo đang tải",
+      "default": "Đang tải lịch sử..."
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Thông báo không có dữ liệu",
+      "default": "Chưa có lịch sử cho khách hàng/campaign này."
+    },
+    {
+      "type": "text",
+      "id": "error_text",
+      "label": "Thông báo lỗi",
+      "default": "Không thể tải lịch sử."
+    },
+    {
+      "type": "header",
+      "content": "Màu sắc"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Màu nền",
+      "default": "#0f0f0f"
+    },
+    {
+      "type": "color",
+      "id": "surface_color",
+      "label": "Màu khối",
+      "default": "#181818"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Màu viền",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Màu chữ phụ",
+      "default": "#c8c8c8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Màu nhấn",
+      "default": "#f1b84b"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lịch sử lật thẻ"
+    }
+  ]
+}
+{% endschema %}
