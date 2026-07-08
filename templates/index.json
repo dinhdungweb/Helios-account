@@ -740,7 +740,7 @@
         "turns_metafield_namespace": "custom",
         "turns_metafield_key": "card_flip_turns",
         "back_image": "shopify://shop_images/banner_web_9x16_2.jpg",
-        "back_label": "H",
+        "back_label": "",
         "show_card_titles": true,
         "columns_desktop": 5,
         "columns_mobile": 3,
