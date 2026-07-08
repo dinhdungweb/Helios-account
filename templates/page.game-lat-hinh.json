@@ -1,193 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-page",
-      "disabled": true,
       "settings": {}
-    },
-    "card_flip_game": {
-      "type": "card-flip-game",
-      "blocks": {
-        "card_01": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 01",
-            "code": ""
-          }
-        },
-        "card_02": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 02",
-            "code": ""
-          }
-        },
-        "card_03": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 03",
-            "code": ""
-          }
-        },
-        "card_04": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 04",
-            "code": ""
-          }
-        },
-        "card_05": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 05",
-            "code": ""
-          }
-        },
-        "card_06": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 06",
-            "code": ""
-          }
-        },
-        "card_07": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 07",
-            "code": ""
-          }
-        },
-        "card_08": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 08",
-            "code": ""
-          }
-        },
-        "card_09": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 09",
-            "code": ""
-          }
-        },
-        "card_10": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 10",
-            "code": ""
-          }
-        },
-        "card_11": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 11",
-            "code": ""
-          }
-        },
-        "card_12": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 12",
-            "code": ""
-          }
-        },
-        "card_13": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 13",
-            "code": ""
-          }
-        },
-        "card_14": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 14",
-            "code": ""
-          }
-        },
-        "card_15": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 15",
-            "code": ""
-          }
-        },
-        "card_16": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 16",
-            "code": ""
-          }
-        },
-        "card_17": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 17",
-            "code": ""
-          }
-        },
-        "card_18": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 18",
-            "code": ""
-          }
-        },
-        "card_19": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 19",
-            "code": ""
-          }
-        },
-        "card_20": {
-          "type": "card",
-          "settings": {
-            "title": "Thẻ may mắn 20",
-            "code": ""
-          }
-        }
-      },
-      "block_order": [
-        "card_01",
-        "card_02",
-        "card_03",
-        "card_04",
-        "card_05",
-        "card_06",
-        "card_07",
-        "card_08",
-        "card_09",
-        "card_10",
-        "card_11",
-        "card_12",
-        "card_13",
-        "card_14",
-        "card_15",
-        "card_16",
-        "card_17",
-        "card_18",
-        "card_19",
-        "card_20"
-      ],
-      "settings": {
-        "heading": "Lật thẻ may mắn",
-        "subheading": "Mỗi thẻ là một cơ hội nhận ưu đãi từ Helios.",
-        "campaign_id": "card-flip-2026",
-        "api_base_url": "https://helios-tier-pricing-api-h543.vercel.app/api",
-        "default_turns": 1,
-        "turns_metafield_namespace": "custom",
-        "turns_metafield_key": "card_flip_turns",
-        "back_label": "H",
-        "show_card_titles": true,
-        "columns_desktop": 5,
-        "columns_mobile": 3
-      }
     }
   },
   "order": [
-    "main",
-    "card_flip_game"
+    "main"
   ]
 }
