@@ -2,9 +2,8 @@
   assign history_dom_id = 'CardFlipHistory-' | append: section.id
   assign api_base_url = section.settings.api_base_url | strip
   assign campaign_id = section.settings.campaign_id | default: 'card-flip-2026' | strip
-  assign default_turns = section.settings.default_turns | default: 1 | plus: 0
-  assign turns_namespace = section.settings.turns_metafield_namespace | default: 'custom' | strip
-  assign turns_key = section.settings.turns_metafield_key | default: 'card_flip_turns' | strip
+  assign history_limit = section.settings.history_limit | default: 500 | plus: 0
+  assign max_customers = section.settings.max_customers | default: 1000 | plus: 0
 %}
 
 <section
@@ -13,9 +12,8 @@
   data-card-flip-history
   data-api-base="{{ api_base_url | escape }}"
   data-campaign-id="{{ campaign_id | escape }}"
-  data-default-turns="{{ default_turns }}"
-  data-turns-namespace="{{ turns_namespace | escape }}"
-  data-turns-key="{{ turns_key | escape }}"
+  data-history-limit="{{ history_limit }}"
+  data-max-customers="{{ max_customers }}"
   style="
     --cfh-bg: {{ section.settings.background_color }};
     --cfh-surface: {{ section.settings.surface_color }};
@@ -37,18 +35,13 @@
 
     <form class="card-flip-history__controls" data-history-form>
       <label class="card-flip-history__field">
-        <span>Customer ID</span>
-        <input type="text" inputmode="numeric" name="customer_id" autocomplete="off" placeholder="VD: 123456789" required>
-      </label>
-
-      <label class="card-flip-history__field">
         <span>Campaign ID</span>
         <input type="text" name="campaign_id" value="{{ campaign_id | escape }}" autocomplete="off" required>
       </label>
 
       <label class="card-flip-history__field card-flip-history__field--search">
-        <span>Tìm trong lịch sử</span>
-        <input type="search" name="search" autocomplete="off" placeholder="Tên thẻ, mã, email...">
+        <span>Tìm kiếm</span>
+        <input type="search" name="search" autocomplete="off" placeholder="Email, customer ID, kết quả, mã...">
       </label>
 
       <button class="card-flip-history__button" type="submit">{{ section.settings.load_button_text }}</button>
@@ -59,20 +52,20 @@
 
     <div class="card-flip-history__stats" data-history-stats hidden>
       <div class="card-flip-history__stat">
-        <span>Khách hàng</span>
-        <strong data-stat-customer>-</strong>
+        <span>Tổng lượt mở</span>
+        <strong data-stat-total>0</strong>
       </div>
       <div class="card-flip-history__stat">
-        <span>Tổng lượt</span>
-        <strong data-stat-allowed>0</strong>
+        <span>Khách tham gia</span>
+        <strong data-stat-customers>0</strong>
       </div>
       <div class="card-flip-history__stat">
-        <span>Đã dùng</span>
-        <strong data-stat-used>0</strong>
+        <span>Đang hiển thị</span>
+        <strong data-stat-visible>0</strong>
       </div>
       <div class="card-flip-history__stat">
-        <span>Còn lại</span>
-        <strong data-stat-remaining>0</strong>
+        <span>Khách đã quét</span>
+        <strong data-stat-scanned>0</strong>
       </div>
     </div>
 
@@ -81,11 +74,12 @@
         <thead>
           <tr>
             <th>Thời gian</th>
+            <th>Customer ID</th>
+            <th>Email</th>
             <th>Kết quả</th>
             <th>Mã</th>
             <th>Vị trí</th>
             <th>Ảnh</th>
-            <th>Campaign</th>
           </tr>
         </thead>
         <tbody data-history-table></tbody>
@@ -103,7 +97,7 @@
 
   .card-flip-history__wrap {
     margin: 0 auto;
-    max-width: 1180px;
+    max-width: 1240px;
   }
 
   .card-flip-history__header {
@@ -128,7 +122,7 @@
     align-items: end;
     display: grid;
     gap: 12px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     margin-bottom: 16px;
   }
 
@@ -218,7 +212,7 @@
 
   .card-flip-history__table {
     border-collapse: collapse;
-    min-width: 840px;
+    min-width: 980px;
     width: 100%;
   }
 
@@ -258,12 +252,11 @@
 
   @media (min-width: 960px) {
     .card-flip-history__controls {
-      grid-template-columns: 1.1fr 1fr 1.2fr auto auto;
+      grid-template-columns: 1fr 1.6fr auto auto;
     }
   }
 
   @media (max-width: 720px) {
-    .card-flip-history__controls,
     .card-flip-history__stats {
       grid-template-columns: 1fr;
     }
@@ -287,9 +280,8 @@
     const config = {
       apiBase: normalizeApiBase(root.dataset.apiBase || ''),
       defaultCampaignId: root.dataset.campaignId || 'card-flip-2026',
-      defaultTurns: toInt(root.dataset.defaultTurns, 1),
-      turnsNamespace: root.dataset.turnsNamespace || 'custom',
-      turnsKey: root.dataset.turnsKey || 'card_flip_turns',
+      limit: toInt(root.dataset.historyLimit, 500),
+      maxCustomers: toInt(root.dataset.maxCustomers, 1000),
       loadingText: {{ section.settings.loading_text | json }},
       emptyText: {{ section.settings.empty_text | json }},
       errorText: {{ section.settings.error_text | json }}
@@ -297,45 +289,31 @@
 
     let currentRows = [];
     let visibleRows = [];
+    let lastSummary = null;
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       loadHistory();
     });
 
-    searchInput.addEventListener('input', function () {
-      renderTable();
-    });
-
-    exportButton.addEventListener('click', function () {
-      exportCsv();
-    });
+    searchInput.addEventListener('input', renderTable);
+    exportButton.addEventListener('click', exportCsv);
 
     applyQueryParams();
+    loadHistory();
 
     function applyQueryParams() {
       const params = new URLSearchParams(window.location.search);
-      const customerId = params.get('customer_id');
       const campaignId = params.get('campaign_id');
-
-      if (customerId) {
-        form.elements.customer_id.value = customerId;
-      }
-
       if (campaignId) {
         form.elements.campaign_id.value = campaignId;
-      }
-
-      if (customerId) {
-        loadHistory();
       }
     }
 
     async function loadHistory() {
-      const customerId = form.elements.customer_id.value.trim();
       const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
 
-      if (!customerId || !config.apiBase) {
+      if (!config.apiBase) {
         setStatus(config.errorText);
         return;
       }
@@ -346,16 +324,13 @@
       tableWrap.hidden = true;
 
       const params = new URLSearchParams({
-        customer_id: customerId,
         campaign_id: campaignId,
-        default_turns: String(config.defaultTurns),
-        turns_namespace: config.turnsNamespace,
-        turns_key: config.turnsKey,
-        limit: '200'
+        limit: String(config.limit),
+        max_customers: String(config.maxCustomers)
       });
 
       try {
-        const response = await fetch(config.apiBase + '/card-flip/status?' + params.toString(), {
+        const response = await fetch(config.apiBase + '/card-flip/history?' + params.toString(), {
           method: 'GET',
           cache: 'no-store'
         });
@@ -366,24 +341,26 @@
         }
 
         currentRows = Array.isArray(data.history) ? data.history : [];
-        updateStats(data);
+        lastSummary = data;
+        updateStats();
         renderTable();
-        setStatus(currentRows.length ? '' : config.emptyText);
+        setStatus(getSummaryStatus(data));
       } catch (error) {
         currentRows = [];
         visibleRows = [];
+        lastSummary = null;
         stats.hidden = true;
         tableWrap.hidden = true;
         setStatus(error.message || config.errorText);
       }
     }
 
-    function updateStats(data) {
+    function updateStats() {
       stats.hidden = false;
-      root.querySelector('[data-stat-customer]').textContent = data.customer_email || data.customer_id || '-';
-      root.querySelector('[data-stat-allowed]').textContent = data.allowed_turns || 0;
-      root.querySelector('[data-stat-used]').textContent = data.used_turns || 0;
-      root.querySelector('[data-stat-remaining]').textContent = data.remaining_turns || 0;
+      root.querySelector('[data-stat-total]').textContent = lastSummary ? lastSummary.total_entries || 0 : 0;
+      root.querySelector('[data-stat-customers]').textContent = lastSummary ? lastSummary.unique_customers || 0 : 0;
+      root.querySelector('[data-stat-visible]').textContent = visibleRows.length;
+      root.querySelector('[data-stat-scanned]').textContent = lastSummary ? lastSummary.scanned_customers || 0 : 0;
     }
 
     function renderTable() {
@@ -391,6 +368,7 @@
       visibleRows = currentRows.filter(function (row) {
         if (!search) return true;
         return [
+          row.customer_id,
           row.customer_email,
           row.card_title,
           row.result_title,
@@ -410,24 +388,28 @@
       if (!visibleRows.length) {
         const row = document.createElement('tr');
         const cell = document.createElement('td');
-        cell.colSpan = 6;
+        cell.colSpan = 7;
         cell.className = 'card-flip-history__empty';
         cell.textContent = config.emptyText;
         row.appendChild(cell);
         tableBody.appendChild(row);
+        updateStats();
         return;
       }
 
       visibleRows.forEach(function (entry) {
         const row = document.createElement('tr');
         addCell(row, formatDate(entry.played_at));
+        addCell(row, entry.customer_id || '-');
+        addCell(row, entry.customer_email || '-');
         addCell(row, entry.result_title || entry.card_title || '-');
         addCell(row, entry.result_code || entry.card_code || '-');
         addCell(row, formatPosition(entry));
         addImageCell(row, entry.result_image || entry.card_image || '', entry.result_title || entry.card_title || '');
-        addCell(row, entry.campaign_id || '-');
         tableBody.appendChild(row);
       });
+
+      updateStats();
     }
 
     function addCell(row, value) {
@@ -456,7 +438,7 @@
     function exportCsv() {
       if (!visibleRows.length) return;
 
-      const headers = ['played_at', 'customer_email', 'campaign_id', 'card_title', 'card_code', 'card_position', 'deck_size'];
+      const headers = ['played_at', 'customer_id', 'customer_email', 'campaign_id', 'card_title', 'card_code', 'card_position', 'deck_size'];
       const lines = [headers.join(',')].concat(visibleRows.map(function (row) {
         return headers.map(function (key) {
           return csvValue(row[key] || '');
@@ -466,13 +448,21 @@
       const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      const customerId = form.elements.customer_id.value.trim() || 'customer';
+      const campaignId = form.elements.campaign_id.value.trim() || 'campaign';
       link.href = url;
-      link.download = 'card-flip-history-' + customerId + '.csv';
+      link.download = 'card-flip-history-' + campaignId + '.csv';
       document.body.appendChild(link);
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
+    }
+
+    function getSummaryStatus(data) {
+      if (!currentRows.length) return config.emptyText;
+      if (data.has_more_customers) {
+        return 'Đang hiển thị ' + currentRows.length + ' lượt gần nhất trong ' + data.scanned_customers + ' khách đã quét.';
+      }
+      return '';
     }
 
     function csvValue(value) {
@@ -530,7 +520,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Mô tả",
-      "default": "Tra cứu lịch sử theo Customer ID và campaign."
+      "default": "Tất cả lượt mở theo campaign."
     },
     {
       "type": "text",
@@ -546,27 +536,21 @@
     },
     {
       "type": "number",
-      "id": "default_turns",
-      "label": "Số lượt mặc định",
-      "default": 1
+      "id": "history_limit",
+      "label": "Số lượt tối đa hiển thị",
+      "default": 500
     },
     {
-      "type": "text",
-      "id": "turns_metafield_namespace",
-      "label": "Namespace metafield lượt chơi",
-      "default": "custom"
-    },
-    {
-      "type": "text",
-      "id": "turns_metafield_key",
-      "label": "Key metafield lượt chơi",
-      "default": "card_flip_turns"
+      "type": "number",
+      "id": "max_customers",
+      "label": "Số customer tối đa để quét",
+      "default": 1000
     },
     {
       "type": "text",
       "id": "load_button_text",
       "label": "Nút tải dữ liệu",
-      "default": "Xem lịch sử"
+      "default": "Làm mới"
     },
     {
       "type": "text",
@@ -584,7 +568,7 @@
       "type": "text",
       "id": "empty_text",
       "label": "Thông báo không có dữ liệu",
-      "default": "Chưa có lịch sử cho khách hàng/campaign này."
+      "default": "Chưa có lượt mở cho campaign này."
     },
     {
       "type": "text",
