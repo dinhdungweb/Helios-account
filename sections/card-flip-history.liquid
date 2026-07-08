@@ -4,6 +4,11 @@
   assign campaign_id = section.settings.campaign_id | default: 'card-flip-2026' | strip
   assign history_limit = section.settings.history_limit | default: 500 | plus: 0
   assign max_customers = section.settings.max_customers | default: 1000 | plus: 0
+  assign current_customer_id = ''
+  if customer
+    assign current_customer_id = customer.id
+  endif
+  assign scan_customers = section.settings.scan_customers
 %}
 
 <section
@@ -14,6 +19,8 @@
   data-campaign-id="{{ campaign_id | escape }}"
   data-history-limit="{{ history_limit }}"
   data-max-customers="{{ max_customers }}"
+  data-current-customer-id="{{ current_customer_id }}"
+  data-scan-customers="{{ scan_customers }}"
   style="
     --cfh-bg: {{ section.settings.background_color }};
     --cfh-surface: {{ section.settings.surface_color }};
@@ -64,8 +71,8 @@
         <strong data-stat-visible>0</strong>
       </div>
       <div class="card-flip-history__stat">
-        <span>Khách đã quét</span>
-        <strong data-stat-scanned>0</strong>
+        <span>Giới hạn</span>
+        <strong data-stat-limit>0</strong>
       </div>
     </div>
 
@@ -327,6 +334,8 @@
       defaultCampaignId: root.dataset.campaignId || 'card-flip-2026',
       limit: toInt(root.dataset.historyLimit, 500),
       maxCustomers: toInt(root.dataset.maxCustomers, 1000),
+      currentCustomerId: root.dataset.currentCustomerId || '',
+      scanCustomers: root.dataset.scanCustomers === 'true',
       loadingText: {{ section.settings.loading_text | json }},
       emptyText: {{ section.settings.empty_text | json }},
       errorText: {{ section.settings.error_text | json }}
@@ -373,6 +382,12 @@
         limit: String(config.limit),
         max_customers: String(config.maxCustomers)
       });
+      if (config.currentCustomerId) {
+        params.set('include_customer_id', config.currentCustomerId);
+      }
+      if (config.scanCustomers) {
+        params.set('scan_customers', 'true');
+      }
 
       try {
         const response = await fetch(config.apiBase + '/card-flip/history?' + params.toString(), {
@@ -387,7 +402,6 @@
 
         currentRows = Array.isArray(data.history) ? data.history : [];
         lastSummary = data;
-        updateStats();
         renderTable();
         setStatus(getSummaryStatus(data));
       } catch (error) {
@@ -405,7 +419,7 @@
       root.querySelector('[data-stat-total]').textContent = lastSummary ? lastSummary.total_entries || 0 : 0;
       root.querySelector('[data-stat-customers]').textContent = lastSummary ? lastSummary.unique_customers || 0 : 0;
       root.querySelector('[data-stat-visible]').textContent = visibleRows.length;
-      root.querySelector('[data-stat-scanned]').textContent = lastSummary ? lastSummary.scanned_customers || 0 : 0;
+      root.querySelector('[data-stat-limit]').textContent = lastSummary ? lastSummary.limit || config.limit : config.limit;
     }
 
     function renderTable() {
@@ -504,7 +518,7 @@
 
     function getSummaryStatus(data) {
       if (!currentRows.length) return config.emptyText;
-      if (data.has_more_customers) {
+      if (data.has_more_customers && data.scanned_customers) {
         return 'Đang hiển thị ' + currentRows.length + ' lượt gần nhất trong ' + data.scanned_customers + ' khách đã quét.';
       }
       return '';
@@ -590,6 +604,12 @@
       "id": "max_customers",
       "label": "Số customer tối đa để quét",
       "default": 1000
+    },
+    {
+      "type": "checkbox",
+      "id": "scan_customers",
+      "label": "Quét thêm lịch sử cũ trong customer",
+      "default": false
     },
     {
       "type": "text",
