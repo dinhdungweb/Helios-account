@@ -570,6 +570,7 @@
         "card_jiiCtm": {
           "type": "card",
           "settings": {
+            "front_image": "shopify://shop_images/COMO-4-B_d61fd1e2-955a-448a-bbf5-286bfb3e9dd7.jpg",
             "title": "Phần thưởng",
             "code": ""
           }
@@ -577,6 +578,7 @@
         "card_prcy3m": {
           "type": "card",
           "settings": {
+            "front_image": "shopify://shop_images/black-tri-crest-tie-black-red-helios_8.jpg",
             "title": "Phần thưởng",
             "code": ""
           }
@@ -584,6 +586,7 @@
         "card_R8ypCF": {
           "type": "card",
           "settings": {
+            "front_image": "shopify://shop_images/DSC02048_7f96c161-0bc3-4bc5-b491-cd88f58a0574.jpg",
             "title": "Phần thưởng",
             "code": ""
           }
@@ -591,6 +594,7 @@
         "card_FePEeY": {
           "type": "card",
           "settings": {
+            "front_image": "shopify://shop_images/yakushima-sunflower-pin-helios-silver_6.jpg",
             "title": "Phần thưởng",
             "code": ""
           }
@@ -598,6 +602,7 @@
         "card_hyYAht": {
           "type": "card",
           "settings": {
+            "front_image": "shopify://shop_images/capconcept-1.jpg",
             "title": "Phần thưởng",
             "code": ""
           }
