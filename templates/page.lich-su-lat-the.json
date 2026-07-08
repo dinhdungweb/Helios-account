@@ -24,7 +24,7 @@
         "campaign_id": "card-flip-2026",
         "history_limit": 500,
         "max_customers": 5000,
-        "scan_customers": true,
+        "scan_customers": false,
         "default_turns": 1,
         "turns_metafield_namespace": "custom",
         "turns_metafield_key": "card_flip_turns",

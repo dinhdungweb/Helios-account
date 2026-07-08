@@ -23,7 +23,7 @@
         "campaign_id": "card-flip-2026",
         "history_limit": 500,
         "max_customers": 5000,
-        "scan_customers": true,
+        "scan_customers": false,
         "load_button_text": "Xem lịch sử",
         "export_button_text": "Xuất CSV",
         "loading_text": "Đang tải lịch sử...",
