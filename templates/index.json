@@ -741,7 +741,7 @@
         "turns_metafield_key": "card_flip_turns",
         "back_image": "shopify://shop_images/banner_web_9x16_2.jpg",
         "back_label": "",
-        "show_card_titles": true,
+        "show_card_titles": false,
         "columns_desktop": 5,
         "columns_mobile": 3,
         "turns_label": "Lượt còn lại",
