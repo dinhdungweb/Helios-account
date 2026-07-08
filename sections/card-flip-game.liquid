@@ -1,0 +1,1016 @@
+{% liquid
+  assign section_dom_id = 'CardFlipGame-' | append: section.id
+  assign api_base_url = section.settings.api_base_url | strip
+  assign campaign_id = section.settings.campaign_id | default: 'default' | strip
+  assign default_turns = section.settings.default_turns | default: 1 | plus: 0
+  assign turns_namespace = section.settings.turns_metafield_namespace | default: 'custom' | strip
+  assign turns_key = section.settings.turns_metafield_key | default: 'card_flip_turns' | strip
+  assign customer_allowed_turns = default_turns
+
+  if customer
+    assign turns_metafield = customer.metafields[turns_namespace][turns_key]
+    if turns_metafield != blank
+      assign customer_allowed_turns = turns_metafield.value | default: turns_metafield | plus: 0
+    endif
+  endif
+
+  if customer_allowed_turns < 0
+    assign customer_allowed_turns = 0
+  endif
+
+  assign back_image_url = ''
+  if section.settings.back_image != blank
+    assign back_image_url = section.settings.back_image | image_url: width: 900
+  endif
+%}
+
+<section
+  id="{{ section_dom_id }}"
+  class="card-flip-game card-flip-game--{{ section.id }}"
+  style="
+    --cfg-bg: {{ section.settings.background_color }};
+    --cfg-surface: {{ section.settings.surface_color }};
+    --cfg-text: {{ section.settings.text_color }};
+    --cfg-muted: {{ section.settings.muted_text_color }};
+    --cfg-accent: {{ section.settings.accent_color }};
+    --cfg-card-back: {{ section.settings.card_back_color }};
+  "
+  data-card-flip-game
+  data-api-base="{{ api_base_url | escape }}"
+  data-campaign-id="{{ campaign_id | escape }}"
+  data-allowed-turns="{{ customer_allowed_turns }}"
+  data-default-turns="{{ default_turns }}"
+  data-back-image="{{ back_image_url | escape }}"
+  data-back-label="{{ section.settings.back_label | escape }}"
+  data-logged-in="{% if customer %}true{% else %}false{% endif %}"
+  {% if customer %}
+    data-customer-id="{{ customer.id }}"
+    data-customer-email="{{ customer.email | escape }}"
+  {% endif %}
+>
+  <div class="card-flip-game__wrap">
+    <div class="card-flip-game__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="card-flip-game__title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <div class="card-flip-game__copy">{{ section.settings.subheading }}</div>
+      {% endif %}
+    </div>
+
+    {% if customer == blank %}
+      <div class="card-flip-game__empty">
+        <p>{{ section.settings.login_message }}</p>
+        <a class="card-flip-game__login" href="{{ routes.account_login_url }}">{{ section.settings.login_button_text }}</a>
+      </div>
+    {% elsif section.blocks.size == 0 %}
+      <div class="card-flip-game__empty">
+        <p>{{ section.settings.no_cards_message }}</p>
+      </div>
+    {% else %}
+      <div class="card-flip-game__bar" aria-live="polite">
+        <span class="card-flip-game__counter-label">{{ section.settings.turns_label }}</span>
+        <strong class="card-flip-game__counter" data-card-flip-counter>{{ customer_allowed_turns }}/{{ customer_allowed_turns }}</strong>
+      </div>
+
+      <div class="card-flip-game__board" data-card-flip-board></div>
+
+      <p class="card-flip-game__status" data-card-flip-status role="status" aria-live="polite"></p>
+
+      <div class="card-flip-game__modal" data-card-flip-modal aria-hidden="true">
+        <div class="card-flip-game__modal-dialog" role="dialog" aria-modal="true" aria-labelledby="card-flip-modal-title-{{ section.id }}">
+          <button class="card-flip-game__modal-close" type="button" data-card-flip-close aria-label="{{ section.settings.close_label }}">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="card-flip-game__modal-media" data-card-flip-modal-media></div>
+          <h3 id="card-flip-modal-title-{{ section.id }}" class="card-flip-game__modal-title">{{ section.settings.result_heading }}</h3>
+          <p class="card-flip-game__modal-result" data-card-flip-modal-result></p>
+          <p class="card-flip-game__modal-code" data-card-flip-modal-code></p>
+          <p class="card-flip-game__modal-remaining" data-card-flip-modal-remaining></p>
+        </div>
+      </div>
+
+      <script type="application/json" data-card-flip-cards>
+        [
+          {% for block in section.blocks %}
+            {
+              "id": {{ block.id | json }},
+              "title": {{ block.settings.title | json }},
+              "code": {{ block.settings.code | json }},
+              "image": {% if block.settings.front_image != blank %}{{ block.settings.front_image | image_url: width: 900 | json }}{% else %}null{% endif %},
+              "alt": {% if block.settings.front_image.alt != blank %}{{ block.settings.front_image.alt | json }}{% else %}{{ block.settings.title | json }}{% endif %}
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      </script>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .card-flip-game {
+    background: var(--cfg-bg);
+    color: var(--cfg-text);
+    padding: clamp(32px, 5vw, 72px) 16px;
+  }
+
+  .card-flip-game__wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .card-flip-game__header {
+    display: grid;
+    gap: 10px;
+    margin: 0 auto clamp(22px, 4vw, 38px);
+    max-width: 760px;
+    text-align: center;
+  }
+
+  .card-flip-game__title {
+    color: var(--cfg-text);
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .card-flip-game__copy {
+    color: var(--cfg-muted);
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.6;
+  }
+
+  .card-flip-game__bar {
+    align-items: center;
+    background: var(--cfg-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 0 auto 22px;
+    max-width: 360px;
+    padding: 12px 18px;
+  }
+
+  .card-flip-game__counter-label {
+    color: var(--cfg-muted);
+    font-size: 14px;
+  }
+
+  .card-flip-game__counter {
+    color: var(--cfg-accent);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .card-flip-game__board {
+    display: grid;
+    gap: clamp(8px, 1.8vw, 16px);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0 auto;
+    max-width: 1120px;
+  }
+
+  .card-flip-game__card {
+    aspect-ratio: 3 / 4;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    padding: 0;
+    perspective: 900px;
+    position: relative;
+    width: 100%;
+  }
+
+  .card-flip-game__card:disabled {
+    cursor: default;
+  }
+
+  .card-flip-game__inner {
+    display: block;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    width: 100%;
+  }
+
+  .card-flip-game__card.is-flipped .card-flip-game__inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-flip-game__face {
+    align-items: center;
+    backface-visibility: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+    display: flex;
+    height: 100%;
+    inset: 0;
+    justify-content: center;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+  }
+
+  .card-flip-game__face--back {
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0)),
+      var(--cfg-card-back);
+    background-position: center;
+    background-size: cover;
+  }
+
+  .card-flip-game__back-mark {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+    color: var(--cfg-accent);
+    display: grid;
+    font-size: clamp(18px, 3vw, 30px);
+    font-weight: 700;
+    height: clamp(42px, 7vw, 72px);
+    letter-spacing: 0;
+    place-items: center;
+    text-transform: uppercase;
+    width: clamp(42px, 7vw, 72px);
+  }
+
+  .card-flip-game__face--front {
+    background: #f7f4ef;
+    color: #111;
+    transform: rotateY(180deg);
+  }
+
+  .card-flip-game__front-image {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .card-flip-game__front-placeholder {
+    color: #111;
+    display: grid;
+    font-size: clamp(16px, 2.2vw, 22px);
+    font-weight: 700;
+    height: 100%;
+    line-height: 1.25;
+    padding: 14px;
+    place-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .card-flip-game__front-caption {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.78));
+    bottom: 0;
+    color: #fff;
+    display: grid;
+    font-size: clamp(11px, 1.4vw, 14px);
+    font-weight: 700;
+    gap: 2px;
+    left: 0;
+    line-height: 1.25;
+    padding: 34px 8px 10px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+  }
+
+  .card-flip-game__front-code {
+    color: var(--cfg-accent);
+    font-size: 0.88em;
+  }
+
+  .card-flip-game__status {
+    color: var(--cfg-muted);
+    font-size: 14px;
+    min-height: 22px;
+    margin: 18px 0 0;
+    text-align: center;
+  }
+
+  .card-flip-game__empty {
+    background: var(--cfg-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin: 0 auto;
+    max-width: 560px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+
+  .card-flip-game__empty p {
+    color: var(--cfg-muted);
+    margin: 0 0 18px;
+  }
+
+  .card-flip-game__login {
+    background: var(--cfg-accent);
+    border-radius: 6px;
+    color: #111;
+    display: inline-flex;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 1;
+    padding: 13px 22px;
+    text-decoration: none;
+  }
+
+  .card-flip-game__modal {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.72);
+    display: none;
+    inset: 0;
+    justify-content: center;
+    padding: 18px;
+    position: fixed;
+    z-index: 9999;
+  }
+
+  .card-flip-game__modal.is-open {
+    display: flex;
+  }
+
+  .card-flip-game__modal-dialog {
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    color: #fff;
+    max-width: 420px;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+    width: min(100%, 420px);
+  }
+
+  .card-flip-game__modal-close {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-size: 24px;
+    height: 34px;
+    justify-content: center;
+    line-height: 1;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: 34px;
+  }
+
+  .card-flip-game__modal-media {
+    aspect-ratio: 3 / 4;
+    background: #222;
+    border-radius: 8px;
+    margin: 0 auto 16px;
+    max-height: 260px;
+    overflow: hidden;
+    width: min(190px, 58vw);
+  }
+
+  .card-flip-game__modal-media img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .card-flip-game__modal-title {
+    color: #fff;
+    font-size: 22px;
+    margin: 0 0 8px;
+  }
+
+  .card-flip-game__modal-result {
+    color: var(--cfg-accent);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 6px;
+  }
+
+  .card-flip-game__modal-code,
+  .card-flip-game__modal-remaining {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 14px;
+    margin: 0;
+  }
+
+  @media (min-width: 700px) {
+    .card-flip-game__board {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .card-flip-game__board {
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 420px) {
+    .card-flip-game {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .card-flip-game__board {
+      gap: 7px;
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+    }
+
+    .card-flip-game__front-caption {
+      font-size: 10px;
+      padding: 24px 5px 7px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const root = document.getElementById({{ section_dom_id | json }});
+    if (!root || root.dataset.cardFlipInitialized === 'true') return;
+    root.dataset.cardFlipInitialized = 'true';
+
+    const isLoggedIn = root.dataset.loggedIn === 'true';
+    const cardsScript = root.querySelector('[data-card-flip-cards]');
+    const board = root.querySelector('[data-card-flip-board]');
+    const counter = root.querySelector('[data-card-flip-counter]');
+    const status = root.querySelector('[data-card-flip-status]');
+    const modal = root.querySelector('[data-card-flip-modal]');
+    const modalMedia = root.querySelector('[data-card-flip-modal-media]');
+    const modalResult = root.querySelector('[data-card-flip-modal-result]');
+    const modalCode = root.querySelector('[data-card-flip-modal-code]');
+    const modalRemaining = root.querySelector('[data-card-flip-modal-remaining]');
+    const closeButtons = root.querySelectorAll('[data-card-flip-close]');
+
+    if (!isLoggedIn || !cardsScript || !board) return;
+
+    let cards = [];
+    try {
+      cards = JSON.parse(cardsScript.textContent || '[]').filter(Boolean);
+    } catch (error) {
+      cards = [];
+    }
+
+    const state = {
+      allowedTurns: toInt(root.dataset.allowedTurns, toInt(root.dataset.defaultTurns, 1)),
+      remainingTurns: toInt(root.dataset.allowedTurns, toInt(root.dataset.defaultTurns, 1)),
+      usedTurns: 0,
+      isBusy: false
+    };
+
+    const config = {
+      apiBase: normalizeApiBase(root.dataset.apiBase || ''),
+      campaignId: root.dataset.campaignId || 'default',
+      customerId: root.dataset.customerId || '',
+      customerEmail: root.dataset.customerEmail || '',
+      backImage: root.dataset.backImage || '',
+      backLabel: root.dataset.backLabel || '?',
+      savingText: {{ section.settings.saving_message | json }},
+      savedText: {{ section.settings.saved_message | json }},
+      errorText: {{ section.settings.error_message | json }},
+      outOfTurnsText: {{ section.settings.out_of_turns_message | json }},
+      remainingText: {{ section.settings.remaining_modal_text | json }},
+      codePrefix: {{ section.settings.code_prefix | json }}
+    };
+
+    closeButtons.forEach((button) => {
+      button.addEventListener('click', closeModal);
+    });
+
+    if (modal) {
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal) closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeModal();
+    });
+
+    syncServerState().finally(function () {
+      renderDeck();
+      updateCounter();
+    });
+
+    function renderDeck() {
+      const deck = shuffle(cards.slice());
+      board.innerHTML = '';
+
+      deck.forEach(function (card, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'card-flip-game__card';
+        button.disabled = state.remainingTurns <= 0 || state.isBusy;
+        button.setAttribute('aria-label', card.title || config.backLabel);
+
+        const inner = document.createElement('span');
+        inner.className = 'card-flip-game__inner';
+
+        const back = document.createElement('span');
+        back.className = 'card-flip-game__face card-flip-game__face--back';
+        if (config.backImage) {
+          back.style.backgroundImage = 'linear-gradient(145deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28)), url("' + config.backImage.replace(/"/g, '\\"') + '")';
+        }
+
+        const mark = document.createElement('span');
+        mark.className = 'card-flip-game__back-mark';
+        mark.textContent = config.backLabel;
+        back.appendChild(mark);
+
+        const front = document.createElement('span');
+        front.className = 'card-flip-game__face card-flip-game__face--front';
+        fillFront(front, card);
+
+        inner.appendChild(back);
+        inner.appendChild(front);
+        button.appendChild(inner);
+
+        button.addEventListener('click', function () {
+          playCard(button, card, index);
+        });
+
+        board.appendChild(button);
+      });
+
+      if (state.remainingTurns <= 0) {
+        setStatus(config.outOfTurnsText);
+      }
+    }
+
+    function fillFront(front, card) {
+      front.innerHTML = '';
+
+      if (card.image) {
+        const image = document.createElement('img');
+        image.className = 'card-flip-game__front-image';
+        image.loading = 'lazy';
+        image.src = card.image;
+        image.alt = card.alt || card.title || '';
+        front.appendChild(image);
+      } else {
+        const placeholder = document.createElement('span');
+        placeholder.className = 'card-flip-game__front-placeholder';
+        placeholder.textContent = card.title || '';
+        front.appendChild(placeholder);
+      }
+
+      if ({{ section.settings.show_card_titles | json }} && (card.title || card.code)) {
+        const caption = document.createElement('span');
+        caption.className = 'card-flip-game__front-caption';
+
+        if (card.title) {
+          const title = document.createElement('span');
+          title.textContent = card.title;
+          caption.appendChild(title);
+        }
+
+        if (card.code) {
+          const code = document.createElement('span');
+          code.className = 'card-flip-game__front-code';
+          code.textContent = card.code;
+          caption.appendChild(code);
+        }
+
+        front.appendChild(caption);
+      }
+    }
+
+    async function syncServerState() {
+      if (!config.apiBase || !config.customerId) return;
+
+      const url = config.apiBase + '/card-flip/status?customer_id=' + encodeURIComponent(config.customerId) + '&campaign_id=' + encodeURIComponent(config.campaignId);
+
+      try {
+        const response = await fetch(url, { method: 'GET', cache: 'no-store' });
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || 'Cannot load card flip status');
+        }
+
+        applyServerState(data);
+      } catch (error) {
+        setStatus(config.errorText);
+      }
+    }
+
+    async function playCard(button, card, index) {
+      if (state.isBusy || state.remainingTurns <= 0) {
+        setStatus(config.outOfTurnsText);
+        return;
+      }
+
+      state.isBusy = true;
+      setDeckDisabled(true);
+      button.disabled = true;
+      button.classList.add('is-flipped');
+      setStatus(config.savingText);
+
+      try {
+        const data = await saveResult(card, index);
+        applyServerState(data);
+        openModal(card, data);
+        setStatus(config.savedText);
+
+        window.setTimeout(function () {
+          renderDeck();
+          updateCounter();
+        }, 900);
+      } catch (error) {
+        button.classList.remove('is-flipped');
+        setStatus(error.message || config.errorText);
+      } finally {
+        state.isBusy = false;
+        setDeckDisabled(state.remainingTurns <= 0);
+        updateCounter();
+      }
+    }
+
+    async function saveResult(card, index) {
+      if (!config.apiBase) {
+        state.usedTurns += 1;
+        state.remainingTurns = Math.max(0, state.allowedTurns - state.usedTurns);
+        return {
+          success: true,
+          allowed_turns: state.allowedTurns,
+          used_turns: state.usedTurns,
+          remaining_turns: state.remainingTurns,
+          entry: {
+            result_title: card.title || '',
+            result_code: card.code || '',
+            result_image: card.image || ''
+          }
+        };
+      }
+
+      const response = await fetch(config.apiBase + '/card-flip/play', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_id: config.customerId,
+          customer_email: config.customerEmail,
+          campaign_id: config.campaignId,
+          card_id: card.id,
+          card_title: card.title || '',
+          card_code: card.code || '',
+          card_image: card.image || '',
+          card_position: index + 1,
+          deck_size: cards.length
+        })
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || config.errorText);
+      }
+
+      return data;
+    }
+
+    function applyServerState(data) {
+      state.allowedTurns = toInt(data.allowed_turns, state.allowedTurns);
+      state.usedTurns = toInt(data.used_turns, state.usedTurns);
+      state.remainingTurns = Math.max(0, toInt(data.remaining_turns, state.allowedTurns - state.usedTurns));
+    }
+
+    function openModal(card, data) {
+      if (!modal) return;
+
+      const entry = data.entry || {};
+      const resultTitle = entry.result_title || card.title || '';
+      const resultCode = entry.result_code || card.code || '';
+      const resultImage = entry.result_image || card.image || '';
+
+      modalMedia.innerHTML = '';
+      if (resultImage) {
+        const image = document.createElement('img');
+        image.src = resultImage;
+        image.alt = resultTitle;
+        modalMedia.appendChild(image);
+      }
+
+      modalResult.textContent = resultTitle;
+      modalCode.textContent = resultCode ? config.codePrefix + ' ' + resultCode : '';
+      modalRemaining.textContent = config.remainingText.replace('[remaining]', state.remainingTurns).replace('[total]', state.allowedTurns);
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    function setDeckDisabled(disabled) {
+      board.querySelectorAll('.card-flip-game__card').forEach(function (card) {
+        if (!card.classList.contains('is-flipped')) {
+          card.disabled = disabled;
+        }
+      });
+    }
+
+    function updateCounter() {
+      if (counter) {
+        counter.textContent = state.remainingTurns + '/' + state.allowedTurns;
+      }
+    }
+
+    function setStatus(message) {
+      if (status) {
+        status.textContent = message || '';
+      }
+    }
+
+    function shuffle(items) {
+      for (let i = items.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(getRandom() * (i + 1));
+        const temp = items[i];
+        items[i] = items[j];
+        items[j] = temp;
+      }
+      return items;
+    }
+
+    function getRandom() {
+      if (window.crypto && window.crypto.getRandomValues) {
+        const values = new Uint32Array(1);
+        window.crypto.getRandomValues(values);
+        return values[0] / 4294967296;
+      }
+      return Math.random();
+    }
+
+    function toInt(value, fallback) {
+      const number = parseInt(value, 10);
+      return Number.isFinite(number) ? number : fallback;
+    }
+
+    function normalizeApiBase(value) {
+      return String(value || '').replace(/\/+$/, '');
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Game lật thẻ bài",
+  "tag": "section",
+  "class": "section-card-flip-game",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tiêu đề",
+      "default": "Lật thẻ may mắn"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Mô tả",
+      "default": "Mỗi thẻ là một cơ hội nhận ưu đãi từ Helios."
+    },
+    {
+      "type": "text",
+      "id": "campaign_id",
+      "label": "Mã chiến dịch",
+      "default": "card-flip-2026"
+    },
+    {
+      "type": "text",
+      "id": "api_base_url",
+      "label": "API base URL",
+      "default": "https://helios-tier-pricing-api-h543.vercel.app/api"
+    },
+    {
+      "type": "number",
+      "id": "default_turns",
+      "label": "Số lượt mặc định nếu khách chưa có metafield",
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "turns_metafield_namespace",
+      "label": "Namespace metafield lượt chơi",
+      "default": "custom"
+    },
+    {
+      "type": "text",
+      "id": "turns_metafield_key",
+      "label": "Key metafield lượt chơi",
+      "default": "card_flip_turns"
+    },
+    {
+      "type": "image_picker",
+      "id": "back_image",
+      "label": "Ảnh mặt sau dùng chung"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Ký hiệu mặt sau khi chưa có ảnh",
+      "default": "H"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_titles",
+      "label": "Hiện tên kết quả trên mặt trước",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Số cột desktop",
+      "min": 4,
+      "max": 8,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Số cột mobile nhỏ",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Nội dung hiển thị"
+    },
+    {
+      "type": "text",
+      "id": "turns_label",
+      "label": "Nhãn lượt chơi",
+      "default": "Lượt còn lại"
+    },
+    {
+      "type": "text",
+      "id": "login_message",
+      "label": "Thông báo chưa đăng nhập",
+      "default": "Vui lòng đăng nhập để tham gia."
+    },
+    {
+      "type": "text",
+      "id": "login_button_text",
+      "label": "Nút đăng nhập",
+      "default": "Đăng nhập"
+    },
+    {
+      "type": "text",
+      "id": "no_cards_message",
+      "label": "Thông báo chưa có thẻ",
+      "default": "Chưa có thẻ nào được cấu hình."
+    },
+    {
+      "type": "text",
+      "id": "saving_message",
+      "label": "Thông báo đang lưu",
+      "default": "Đang lưu kết quả..."
+    },
+    {
+      "type": "text",
+      "id": "saved_message",
+      "label": "Thông báo đã lưu",
+      "default": "Kết quả đã được lưu."
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Thông báo lỗi",
+      "default": "Không thể lưu kết quả, vui lòng thử lại."
+    },
+    {
+      "type": "text",
+      "id": "out_of_turns_message",
+      "label": "Thông báo hết lượt",
+      "default": "Bạn đã hết lượt chơi."
+    },
+    {
+      "type": "text",
+      "id": "result_heading",
+      "label": "Tiêu đề modal kết quả",
+      "default": "Kết quả của bạn"
+    },
+    {
+      "type": "text",
+      "id": "code_prefix",
+      "label": "Tiền tố mã kết quả",
+      "default": "Mã:"
+    },
+    {
+      "type": "text",
+      "id": "remaining_modal_text",
+      "label": "Dòng lượt còn lại trong modal",
+      "default": "Còn [remaining]/[total] lượt"
+    },
+    {
+      "type": "text",
+      "id": "close_label",
+      "label": "Nhãn nút đóng",
+      "default": "Đóng"
+    },
+    {
+      "type": "header",
+      "content": "Màu sắc"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Màu nền",
+      "default": "#0f0f0f"
+    },
+    {
+      "type": "color",
+      "id": "surface_color",
+      "label": "Màu khối thông tin",
+      "default": "#191919"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ chính",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Màu chữ phụ",
+      "default": "#c8c8c8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Màu nhấn",
+      "default": "#f1b84b"
+    },
+    {
+      "type": "color",
+      "id": "card_back_color",
+      "label": "Màu mặt sau khi chưa có ảnh",
+      "default": "#242424"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Thẻ",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "front_image",
+          "label": "Ảnh mặt trước"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tên kết quả",
+          "default": "Phần thưởng"
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Mã hoặc ghi chú",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "max_blocks": 60,
+  "presets": [
+    {
+      "name": "Game lật thẻ bài",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
