@@ -66,14 +66,16 @@
       {% endif %}
     {% endfor %}
 
-    <div class="card-flip-game__header">
-      {% if section.settings.heading != blank %}
-        <h2 class="card-flip-game__title">{{ section.settings.heading }}</h2>
-      {% endif %}
-      {% if section.settings.subheading != blank %}
-        <div class="card-flip-game__copy">{{ section.settings.subheading }}</div>
-      {% endif %}
-    </div>
+    {% if section.settings.heading != blank or section.settings.subheading != blank %}
+      <div class="card-flip-game__header">
+        {% if section.settings.heading != blank %}
+          <h2 class="card-flip-game__title">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <div class="card-flip-game__copy">{{ section.settings.subheading }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
 
     {% if customer == blank %}
       <div class="card-flip-game__empty">
@@ -526,7 +528,8 @@
       turnsNamespace: root.dataset.turnsNamespace || 'custom',
       turnsKey: root.dataset.turnsKey || 'card_flip_turns',
       backImage: root.dataset.backImage || '',
-      backLabel: root.dataset.backLabel || '?',
+      backLabel: (root.dataset.backLabel || '').trim(),
+      cardAriaLabel: 'Lật thẻ',
       savingText: {{ section.settings.saving_message | json }},
       savedText: {{ section.settings.saved_message | json }},
       errorText: {{ section.settings.error_message | json }},
@@ -564,7 +567,7 @@
         button.className = 'card-flip-game__card';
         button.disabled = state.remainingTurns <= 0 || state.isBusy;
         // Do not expose the reward through the accessible name before the card is played.
-        button.setAttribute('aria-label', config.backLabel);
+        button.setAttribute('aria-label', config.cardAriaLabel);
 
         const inner = document.createElement('span');
         inner.className = 'card-flip-game__inner';
@@ -575,10 +578,12 @@
           back.style.backgroundImage = 'linear-gradient(145deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28)), url("' + config.backImage.replace(/"/g, '\\"') + '")';
         }
 
-        const mark = document.createElement('span');
-        mark.className = 'card-flip-game__back-mark';
-        mark.textContent = config.backLabel;
-        back.appendChild(mark);
+        if (config.backLabel) {
+          const mark = document.createElement('span');
+          mark.className = 'card-flip-game__back-mark';
+          mark.textContent = config.backLabel;
+          back.appendChild(mark);
+        }
 
         const front = document.createElement('span');
         front.className = 'card-flip-game__face card-flip-game__face--front';
@@ -680,7 +685,7 @@
       button.disabled = true;
       fillFront(front, card);
       front.removeAttribute('aria-hidden');
-      button.setAttribute('aria-label', card.title || config.backLabel);
+      button.setAttribute('aria-label', card.title || config.cardAriaLabel);
       button.classList.add('is-flipped');
       setStatus(config.savingText);
 
@@ -698,7 +703,7 @@
         button.classList.remove('is-flipped');
         front.innerHTML = '';
         front.setAttribute('aria-hidden', 'true');
-        button.setAttribute('aria-label', config.backLabel);
+        button.setAttribute('aria-label', config.cardAriaLabel);
         setStatus(error.message || config.errorText);
       } finally {
         state.isBusy = false;
