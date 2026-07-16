@@ -6,6 +6,7 @@
   assign turns_namespace = section.settings.turns_metafield_namespace | default: 'custom' | strip
   assign turns_key = section.settings.turns_metafield_key | default: 'card_flip_turns' | strip
   assign card_blocks = section.blocks | where: 'type', 'card'
+  assign login_return_url = request.path | url_encode
   assign customer_allowed_turns = default_turns
 
   if customer
@@ -80,7 +81,7 @@
     {% if customer == blank %}
       <div class="card-flip-game__empty card-flip-game__empty--login">
         <p>{{ section.settings.login_message }}</p>
-        <a class="card-flip-game__login" href="{{ routes.account_login_url }}">{{ section.settings.login_button_text }}</a>
+        <a class="card-flip-game__login" href="{{ routes.account_login_url }}?return_url={{ login_return_url }}">{{ section.settings.login_button_text }}</a>
       </div>
     {% elsif card_blocks.size == 0 %}
       <div class="card-flip-game__empty">
