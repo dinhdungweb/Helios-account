@@ -78,7 +78,7 @@
     {% endif %}
 
     {% if customer == blank %}
-      <div class="card-flip-game__empty">
+      <div class="card-flip-game__empty card-flip-game__empty--login">
         <p>{{ section.settings.login_message }}</p>
         <a class="card-flip-game__login" href="{{ routes.account_login_url }}">{{ section.settings.login_button_text }}</a>
       </div>
@@ -290,7 +290,7 @@
   .card-flip-game__face {
     align-items: center;
     backface-visibility: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    border: 0;
     border-radius: 8px;
     box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
     display: flex;
@@ -386,6 +386,11 @@
     max-width: 560px;
     padding: 28px 20px;
     text-align: center;
+  }
+
+  .card-flip-game__empty--login {
+    background: transparent;
+    border: 0;
   }
 
   .card-flip-game__empty p {
