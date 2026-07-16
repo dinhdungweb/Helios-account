@@ -5,6 +5,7 @@
   assign default_turns = section.settings.default_turns | default: 1 | plus: 0
   assign turns_namespace = section.settings.turns_metafield_namespace | default: 'custom' | strip
   assign turns_key = section.settings.turns_metafield_key | default: 'card_flip_turns' | strip
+  assign card_blocks = section.blocks | where: 'type', 'card'
   assign customer_allowed_turns = default_turns
 
   if customer
@@ -34,6 +35,12 @@
     --cfg-muted: {{ section.settings.muted_text_color }};
     --cfg-accent: {{ section.settings.accent_color }};
     --cfg-card-back: {{ section.settings.card_back_color }};
+    --cfg-card-width: {{ section.settings.card_width }}px;
+    --cfg-card-gap: clamp(8px, 1.8vw, 16px);
+    --cfg-section-bg-size: {{ section.settings.background_size }};
+    {% if section.settings.background_image != blank %}
+      --cfg-section-bg-image: url('{{ section.settings.background_image | image_url: width: 2400 }}');
+    {% endif %}
   "
   data-card-flip-game
   data-api-base="{{ api_base_url | escape }}"
@@ -51,6 +58,14 @@
   {% endif %}
 >
   <div class="card-flip-game__wrap">
+    {% for block in section.blocks %}
+      {% if block.type == 'decoration' and block.settings.position == 'top' and block.settings.image != blank %}
+        <div class="card-flip-game__decoration card-flip-game__decoration--{{ block.settings.alignment }}" style="--decoration-width: {{ block.settings.width }}px; --decoration-width-mobile: {{ block.settings.width_mobile }}px;" {{ block.shopify_attributes }}>
+          {{ block.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'card-flip-game__decoration-image' }}
+        </div>
+      {% endif %}
+    {% endfor %}
+
     <div class="card-flip-game__header">
       {% if section.settings.heading != blank %}
         <h2 class="card-flip-game__title">{{ section.settings.heading }}</h2>
@@ -65,7 +80,7 @@
         <p>{{ section.settings.login_message }}</p>
         <a class="card-flip-game__login" href="{{ routes.account_login_url }}">{{ section.settings.login_button_text }}</a>
       </div>
-    {% elsif section.blocks.size == 0 %}
+    {% elsif card_blocks.size == 0 %}
       <div class="card-flip-game__empty">
         <p>{{ section.settings.no_cards_message }}</p>
       </div>
@@ -94,7 +109,7 @@
 
       <script type="application/json" data-card-flip-cards>
         [
-          {% for block in section.blocks %}
+          {% for block in card_blocks %}
             {
               "id": {{ block.id | json }},
               "title": {{ block.settings.title | json }},
@@ -106,12 +121,24 @@
         ]
       </script>
     {% endif %}
+
+    {% for block in section.blocks %}
+      {% if block.type == 'decoration' and block.settings.position == 'bottom' and block.settings.image != blank %}
+        <div class="card-flip-game__decoration card-flip-game__decoration--{{ block.settings.alignment }}" style="--decoration-width: {{ block.settings.width }}px; --decoration-width-mobile: {{ block.settings.width_mobile }}px;" {{ block.shopify_attributes }}>
+          {{ block.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'card-flip-game__decoration-image' }}
+        </div>
+      {% endif %}
+    {% endfor %}
   </div>
 </section>
 
 <style>
   .card-flip-game {
-    background: var(--cfg-bg);
+    background-color: var(--cfg-bg);
+    background-image: var(--cfg-section-bg-image, none);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: var(--cfg-section-bg-size);
     color: var(--cfg-text);
     padding: clamp(32px, 5vw, 72px) 16px;
   }
@@ -119,6 +146,23 @@
   .card-flip-game__wrap {
     max-width: 1180px;
     margin: 0 auto;
+  }
+
+  .card-flip-game__decoration {
+    display: flex;
+    margin: clamp(16px, 3vw, 32px) 0;
+    width: 100%;
+  }
+
+  .card-flip-game__decoration--left { justify-content: flex-start; }
+  .card-flip-game__decoration--center { justify-content: center; }
+  .card-flip-game__decoration--right { justify-content: flex-end; }
+
+  .card-flip-game__decoration-image {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: min(100%, var(--decoration-width));
   }
 
   .card-flip-game__header {
@@ -168,10 +212,10 @@
 
   .card-flip-game__board {
     display: grid;
-    gap: clamp(8px, 1.8vw, 16px);
+    gap: var(--cfg-card-gap);
     grid-template-columns: repeat(4, minmax(0, 1fr));
     margin: 0 auto;
-    max-width: 1120px;
+    max-width: calc((var(--cfg-card-width) * 4) + (var(--cfg-card-gap) * 3));
   }
 
   .card-flip-game__card {
@@ -406,12 +450,14 @@
   @media (min-width: 700px) {
     .card-flip-game__board {
       grid-template-columns: repeat(5, minmax(0, 1fr));
+      max-width: calc((var(--cfg-card-width) * 5) + (var(--cfg-card-gap) * 4));
     }
   }
 
   @media (min-width: 1024px) {
     .card-flip-game__board {
       grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));
+      max-width: calc((var(--cfg-card-width) * {{ section.settings.columns_desktop }}) + (var(--cfg-card-gap) * ({{ section.settings.columns_desktop }} - 1)));
     }
   }
 
@@ -422,13 +468,17 @@
     }
 
     .card-flip-game__board {
-      gap: 7px;
+      --cfg-card-gap: 7px;
       grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
     }
 
     .card-flip-game__front-caption {
       font-size: 10px;
       padding: 24px 5px 7px;
+    }
+
+    .card-flip-game__decoration-image {
+      width: min(100%, var(--decoration-width-mobile));
     }
   }
 </style>
@@ -513,7 +563,8 @@
         button.type = 'button';
         button.className = 'card-flip-game__card';
         button.disabled = state.remainingTurns <= 0 || state.isBusy;
-        button.setAttribute('aria-label', card.title || config.backLabel);
+        // Do not expose the reward through the accessible name before the card is played.
+        button.setAttribute('aria-label', config.backLabel);
 
         const inner = document.createElement('span');
         inner.className = 'card-flip-game__inner';
@@ -531,14 +582,17 @@
 
         const front = document.createElement('span');
         front.className = 'card-flip-game__face card-flip-game__face--front';
-        fillFront(front, card);
+        // Keep the reward face empty until this card is selected. Besides avoiding
+        // unnecessary image requests, this prevents CSS overrides from revealing
+        // every reward on the board.
+        front.setAttribute('aria-hidden', 'true');
 
         inner.appendChild(back);
         inner.appendChild(front);
         button.appendChild(inner);
 
         button.addEventListener('click', function () {
-          playCard(button, card, index);
+          playCard(button, front, card, index);
         });
 
         board.appendChild(button);
@@ -615,7 +669,7 @@
       }
     }
 
-    async function playCard(button, card, index) {
+    async function playCard(button, front, card, index) {
       if (state.isBusy || state.remainingTurns <= 0) {
         setStatus(config.outOfTurnsText);
         return;
@@ -624,6 +678,9 @@
       state.isBusy = true;
       setDeckDisabled(true);
       button.disabled = true;
+      fillFront(front, card);
+      front.removeAttribute('aria-hidden');
+      button.setAttribute('aria-label', card.title || config.backLabel);
       button.classList.add('is-flipped');
       setStatus(config.savingText);
 
@@ -639,6 +696,9 @@
         }, 900);
       } catch (error) {
         button.classList.remove('is-flipped');
+        front.innerHTML = '';
+        front.setAttribute('aria-hidden', 'true');
+        button.setAttribute('aria-label', config.backLabel);
         setStatus(error.message || config.errorText);
       } finally {
         state.isBusy = false;
@@ -844,6 +904,20 @@
       "default": true
     },
     {
+      "type": "header",
+      "content": "Kích thước thẻ"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Chiều rộng tối đa mỗi thẻ",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 210
+    },
+    {
       "type": "range",
       "id": "columns_desktop",
       "label": "Số cột desktop",
@@ -948,6 +1022,22 @@
       "default": "#0f0f0f"
     },
     {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Ảnh nền section"
+    },
+    {
+      "type": "select",
+      "id": "background_size",
+      "label": "Kích thước ảnh nền",
+      "options": [
+        { "value": "cover", "label": "Phủ toàn section" },
+        { "value": "contain", "label": "Hiện đủ ảnh" },
+        { "value": "auto", "label": "Kích thước gốc" }
+      ],
+      "default": "cover"
+    },
+    {
       "type": "color",
       "id": "surface_color",
       "label": "Màu khối thông tin",
@@ -998,6 +1088,58 @@
           "type": "text",
           "id": "code",
           "label": "Mã hoặc ghi chú"
+        }
+      ]
+    },
+    {
+      "type": "decoration",
+      "name": "Ảnh trang trí",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Hình ảnh"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Vị trí",
+          "options": [
+            { "value": "top", "label": "Phía trên game" },
+            { "value": "bottom", "label": "Phía dưới game" }
+          ],
+          "default": "top"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Căn chỉnh",
+          "options": [
+            { "value": "left", "label": "Trái" },
+            { "value": "center", "label": "Giữa" },
+            { "value": "right", "label": "Phải" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "width",
+          "label": "Chiều rộng desktop",
+          "min": 100,
+          "max": 1200,
+          "step": 20,
+          "unit": "px",
+          "default": 600
+        },
+        {
+          "type": "range",
+          "id": "width_mobile",
+          "label": "Chiều rộng mobile",
+          "min": 80,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "default": 300
         }
       ]
     }
