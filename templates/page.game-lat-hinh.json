@@ -20,6 +20,7 @@
         "card_qp7fFU": {
           "type": "card",
           "settings": {
+            "front_image": "shopify://shop_images/Property_1_Default.png",
             "title": "Phần thưởng",
             "code": ""
           }
@@ -189,6 +190,7 @@
         "default_turns": 10,
         "turns_metafield_namespace": "custom",
         "turns_metafield_key": "card_flip_turns",
+        "back_image": "shopify://shop_images/Property_1_Default.png",
         "back_label": "H",
         "show_card_titles": true,
         "columns_desktop": 5,
