@@ -242,7 +242,8 @@
     text-align: initial;
     text-transform: none;
     transform: none;
-    transition: none;
+    transform-origin: center bottom;
+    transition: transform 220ms ease;
     vertical-align: top;
     width: 100%;
   }
@@ -274,6 +275,15 @@
     opacity: 1;
   }
 
+  #{{ section_dom_id }} .card-flip-game__card:not(:disabled):hover {
+    transform: translateY(-7px) rotateX(3deg) rotateZ(-0.35deg);
+  }
+
+  #{{ section_dom_id }} .card-flip-game__card:not(:disabled):active {
+    transform: translateY(-2px) rotateX(1deg);
+    transition-duration: 80ms;
+  }
+
   .card-flip-game__inner {
     display: block;
     height: 100%;
@@ -290,9 +300,13 @@
   .card-flip-game__face {
     align-items: center;
     backface-visibility: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.14) inset,
+      0 -3px 0 rgba(0, 0, 0, 0.18) inset,
+      0 8px 12px rgba(0, 0, 0, 0.26),
+      0 20px 34px rgba(0, 0, 0, 0.3);
     display: flex;
     height: 100%;
     inset: 0;
@@ -302,9 +316,28 @@
     width: 100%;
   }
 
+  .card-flip-game__face::after {
+    background: linear-gradient(125deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 24%, transparent 48%, rgba(0, 0, 0, 0.13) 100%);
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+  }
+
+  #{{ section_dom_id }} .card-flip-game__card:not(:disabled):hover .card-flip-game__face {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.2) inset,
+      0 -3px 0 rgba(0, 0, 0, 0.2) inset,
+      0 12px 18px rgba(0, 0, 0, 0.3),
+      0 26px 42px rgba(0, 0, 0, 0.4);
+  }
+
   .card-flip-game__face--back {
     background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0)),
+      radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.16), transparent 38%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.16)),
       var(--cfg-card-back);
     background-position: center;
     background-size: cover;
@@ -519,6 +552,18 @@
 
     .card-flip-game__decoration-image {
       width: min(100%, var(--decoration-width-mobile));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #{{ section_dom_id }} .card-flip-game__card,
+    .card-flip-game__inner {
+      transition-duration: 0.01ms;
+    }
+
+    #{{ section_dom_id }} .card-flip-game__card:not(:disabled):hover,
+    #{{ section_dom_id }} .card-flip-game__card:not(:disabled):active {
+      transform: none;
     }
   }
 </style>
