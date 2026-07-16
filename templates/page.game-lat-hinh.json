@@ -77,56 +77,7 @@
             "code": ""
           }
         },
-        "card_wN6EBd": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
         "card_gy4wgV": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
-        "card_3p9Lah": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
-        "card_9eTKLa": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
-        "card_xeYWgn": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
-        "card_j8qg3M": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
-        "card_bctfm8": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
-        "card_RBHwqx": {
           "type": "card",
           "settings": {
             "title": "Phần thưởng",
@@ -140,13 +91,6 @@
             "code": ""
           }
         },
-        "card_E9jiqA": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
         "card_HTr7EJ": {
           "type": "card",
           "settings": {
@@ -154,14 +98,7 @@
             "code": ""
           }
         },
-        "card_kAJrcq": {
-          "type": "card",
-          "settings": {
-            "title": "Phần thưởng",
-            "code": ""
-          }
-        },
-        "card_T6nKLA": {
+        "card_9JMFcM": {
           "type": "card",
           "settings": {
             "title": "Phần thưởng",
@@ -188,19 +125,10 @@
         "card_mrgbfG",
         "card_AinNdb",
         "card_UjXe3H",
-        "card_wN6EBd",
         "card_gy4wgV",
-        "card_3p9Lah",
-        "card_9eTKLa",
-        "card_xeYWgn",
-        "card_j8qg3M",
-        "card_bctfm8",
-        "card_RBHwqx",
         "card_hMxtCz",
-        "card_E9jiqA",
         "card_HTr7EJ",
-        "card_kAJrcq",
-        "card_T6nKLA",
+        "card_9JMFcM",
         "decoration_3NmCBw"
       ],
       "name": "Game lật thẻ bài",
