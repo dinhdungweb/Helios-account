@@ -536,6 +536,12 @@
 
     async function deleteHistory() {
       const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
+      const customerIds = Array.from(new Set(
+        currentRows
+          .map(function (row) { return String(row.customer_id || '').replace(/\D/g, ''); })
+          .filter(Boolean)
+          .concat(config.currentCustomerId ? [String(config.currentCustomerId).replace(/\D/g, '')] : [])
+      )).filter(Boolean);
       if (!config.apiBase) {
         setStatus(config.errorText);
         return;
@@ -563,7 +569,8 @@
           cache: 'no-store',
           body: JSON.stringify({
             campaign_id: campaignId,
-            password: password
+            password: password,
+            customer_ids: customerIds
           })
         });
         const data = await response.json();
