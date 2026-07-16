@@ -17,6 +17,16 @@
     "card_flip_game_Uk6wTx": {
       "type": "card-flip-game",
       "blocks": {
+        "decoration_RNnpEh": {
+          "type": "decoration",
+          "settings": {
+            "image": "shopify://shop_images/Layer_1.svg",
+            "position": "top",
+            "alignment": "center",
+            "width": 600,
+            "width_mobile": 300
+          }
+        },
         "card_qp7fFU": {
           "type": "card",
           "settings": {
@@ -157,9 +167,20 @@
             "title": "Phần thưởng",
             "code": ""
           }
+        },
+        "decoration_3NmCBw": {
+          "type": "decoration",
+          "settings": {
+            "image": "shopify://shop_images/Layer_1_1.svg",
+            "position": "bottom",
+            "alignment": "center",
+            "width": 600,
+            "width_mobile": 300
+          }
         }
       },
       "block_order": [
+        "decoration_RNnpEh",
         "card_qp7fFU",
         "card_tBn3yG",
         "card_mecbFH",
@@ -179,22 +200,24 @@
         "card_E9jiqA",
         "card_HTr7EJ",
         "card_kAJrcq",
-        "card_T6nKLA"
+        "card_T6nKLA",
+        "decoration_3NmCBw"
       ],
       "name": "Game lật thẻ bài",
       "settings": {
-        "heading": "Lật thẻ may mắn",
-        "subheading": "Mỗi thẻ là một cơ hội nhận ưu đãi từ Helios.",
+        "heading": "",
+        "subheading": "",
         "campaign_id": "card-flip-2026",
         "api_base_url": "https://helios-tier-pricing-api-h543.vercel.app/api",
         "default_turns": 10,
         "turns_metafield_namespace": "custom",
         "turns_metafield_key": "card_flip_turns",
-        "back_image": "shopify://shop_images/Property_1_Default.png",
-        "back_label": "H",
+        "back_image": "shopify://shop_images/Property_1_Default.svg",
+        "back_label": "",
         "show_card_titles": true,
+        "card_width": 120,
         "columns_desktop": 5,
-        "columns_mobile": 3,
+        "columns_mobile": 4,
         "turns_label": "Lượt còn lại",
         "login_message": "Vui lòng đăng nhập để tham gia.",
         "login_button_text": "Đăng nhập",
@@ -208,6 +231,8 @@
         "remaining_modal_text": "Còn [remaining]/[total] lượt",
         "close_label": "Đóng",
         "background_color": "#0f0f0f",
+        "background_image": "shopify://shop_images/e0670d3595342f7bfac1c36ac733371ae32512ca.jpg",
+        "background_size": "cover",
         "surface_color": "#191919",
         "text_color": "#ffffff",
         "muted_text_color": "#c8c8c8",
