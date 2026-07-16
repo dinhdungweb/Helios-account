@@ -220,20 +220,58 @@
     max-width: calc((var(--cfg-card-width) * 4) + (var(--cfg-card-gap) * 3));
   }
 
-  .card-flip-game__card {
+  #{{ section_dom_id }} .card-flip-game__card {
+    -webkit-appearance: none;
+    appearance: none;
     aspect-ratio: 3 / 4;
-    background: transparent;
-    border: 0;
+    background: transparent none;
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+    color: inherit;
     cursor: pointer;
     display: block;
+    font: inherit;
+    line-height: normal;
+    margin: 0;
+    min-height: 0;
+    opacity: 1;
     padding: 0;
     perspective: 900px;
     position: relative;
+    text-align: initial;
+    text-transform: none;
+    transform: none;
+    transition: none;
+    vertical-align: top;
     width: 100%;
   }
 
-  .card-flip-game__card:disabled {
+  #{{ section_dom_id }} .card-flip-game__card:hover,
+  #{{ section_dom_id }} .card-flip-game__card:focus,
+  #{{ section_dom_id }} .card-flip-game__card:active {
+    background: transparent none;
+    border: 0 none;
+    box-shadow: none;
+    color: inherit;
+    opacity: 1;
+    transform: none;
+  }
+
+  #{{ section_dom_id }} .card-flip-game__card::before,
+  #{{ section_dom_id }} .card-flip-game__card::after {
+    content: none;
+    display: none;
+  }
+
+  #{{ section_dom_id }} .card-flip-game__card:focus-visible {
+    outline: 2px solid var(--cfg-accent);
+    outline-offset: 4px;
+  }
+
+  #{{ section_dom_id }} .card-flip-game__card:disabled {
     cursor: default;
+    opacity: 1;
   }
 
   .card-flip-game__inner {
