@@ -2,24 +2,9 @@
   assign section_dom_id = 'CardFlipGame-' | append: section.id
   assign api_base_url = section.settings.api_base_url | strip
   assign campaign_id = section.settings.campaign_id | default: 'default' | strip
-  assign default_turns = section.settings.default_turns | default: 1 | plus: 0
-  assign turns_namespace = section.settings.turns_metafield_namespace | default: 'custom' | strip
-  assign turns_key = section.settings.turns_metafield_key | default: 'card_flip_turns' | strip
+  assign customer_allowed_turns = 0
   assign card_blocks = section.blocks | where: 'type', 'card'
   assign login_return_url = request.path | url_encode
-  assign customer_allowed_turns = default_turns
-
-  if customer
-    assign turns_metafield = customer.metafields[turns_namespace][turns_key]
-    if turns_metafield != blank
-      assign customer_allowed_turns = turns_metafield.value | default: turns_metafield | plus: 0
-    endif
-  endif
-
-  if customer_allowed_turns < 0
-    assign customer_allowed_turns = 0
-  endif
-
   assign back_image_url = ''
   if section.settings.back_image != blank
     assign back_image_url = section.settings.back_image | image_url: width: 900
@@ -47,9 +32,6 @@
   data-api-base="{{ api_base_url | escape }}"
   data-campaign-id="{{ campaign_id | escape }}"
   data-allowed-turns="{{ customer_allowed_turns }}"
-  data-default-turns="{{ default_turns }}"
-  data-turns-namespace="{{ turns_namespace | escape }}"
-  data-turns-key="{{ turns_key | escape }}"
   data-back-image="{{ back_image_url | escape }}"
   data-back-label="{{ section.settings.back_label | escape }}"
   data-logged-in="{% if customer %}true{% else %}false{% endif %}"
@@ -557,8 +539,8 @@
     }
 
     const state = {
-      allowedTurns: toInt(root.dataset.allowedTurns, toInt(root.dataset.defaultTurns, 1)),
-      remainingTurns: toInt(root.dataset.allowedTurns, toInt(root.dataset.defaultTurns, 1)),
+      allowedTurns: toInt(root.dataset.allowedTurns, 0),
+      remainingTurns: toInt(root.dataset.allowedTurns, 0),
       usedTurns: 0,
       isBusy: false
     };
@@ -568,9 +550,6 @@
       campaignId: root.dataset.campaignId || 'default',
       customerId: root.dataset.customerId || '',
       customerEmail: root.dataset.customerEmail || '',
-      defaultTurns: toInt(root.dataset.defaultTurns, state.allowedTurns),
-      turnsNamespace: root.dataset.turnsNamespace || 'custom',
-      turnsKey: root.dataset.turnsKey || 'card_flip_turns',
       backImage: root.dataset.backImage || '',
       backLabel: (root.dataset.backLabel || '').trim(),
       cardAriaLabel: 'Lật thẻ',
@@ -697,10 +676,7 @@
 
       const params = new URLSearchParams({
         customer_id: config.customerId,
-        campaign_id: config.campaignId,
-        default_turns: String(config.defaultTurns),
-        turns_namespace: config.turnsNamespace,
-        turns_key: config.turnsKey
+        campaign_id: config.campaignId
       });
       const url = config.apiBase + '/card-flip/status?' + params.toString();
 
@@ -780,9 +756,6 @@
           customer_id: config.customerId,
           customer_email: config.customerEmail,
           campaign_id: config.campaignId,
-          default_turns: config.defaultTurns,
-          turns_namespace: config.turnsNamespace,
-          turns_key: config.turnsKey,
           card_id: card.id,
           card_title: card.title || '',
           card_code: card.code || '',
@@ -916,24 +889,6 @@
       "id": "api_base_url",
       "label": "API base URL",
       "default": "https://helios-tier-pricing-api-h543.vercel.app/api"
-    },
-    {
-      "type": "number",
-      "id": "default_turns",
-      "label": "Số lượt mặc định nếu khách chưa có metafield",
-      "default": 1
-    },
-    {
-      "type": "text",
-      "id": "turns_metafield_namespace",
-      "label": "Namespace metafield lượt chơi",
-      "default": "custom"
-    },
-    {
-      "type": "text",
-      "id": "turns_metafield_key",
-      "label": "Key metafield lượt chơi",
-      "default": "card_flip_turns"
     },
     {
       "type": "image_picker",
