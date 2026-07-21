@@ -1797,3 +1797,75 @@
 .db-content .themed-product-reviews div {
   color: #d2d2d2 !important;
 }
+
+/* Card flip rewards */
+.db-card-flip-rewards {
+  margin-bottom: 20px;
+}
+
+.db-card-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.db-card-flip-item {
+  min-width: 0;
+  background: var(--db-surface-2);
+  border: 1px solid var(--db-border);
+}
+
+.db-card-flip-media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--db-black);
+  display: grid;
+  place-items: center;
+}
+
+.db-card-flip-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.db-card-flip-placeholder {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--db-border);
+  border-radius: 50%;
+  color: var(--db-accent);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.db-card-flip-info {
+  padding: 14px;
+}
+
+.db-card-flip-info h4 {
+  margin: 0 0 8px;
+  color: var(--db-text);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.db-card-flip-code {
+  margin: 0 0 6px;
+  color: var(--db-text-2);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.db-card-flip-info time,
+.db-card-flip-empty {
+  color: var(--db-text-muted);
+  font-size: 12px;
+}
+
+.db-card-flip-empty {
+  margin: 0;
+}

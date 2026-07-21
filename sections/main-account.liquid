@@ -202,6 +202,55 @@
         </div>
       </div>
 
+      {% comment %}========== CARD FLIP REWARDS =========={% endcomment %}
+      {% if section.settings.show_card_flip_rewards %}
+        {%- assign card_flip_history = customer.metafields.card_flip.history.value -%}
+        <section class="db-card db-card-flip-rewards" aria-labelledby="card-flip-rewards-title-{{ section.id }}">
+          <div class="db-card-header">
+            <h3 class="db-card-title" id="card-flip-rewards-title-{{ section.id }}">
+              {{ section.settings.card_flip_rewards_title }}
+            </h3>
+          </div>
+          <div class="db-card-body">
+            {% if card_flip_history != blank %}
+              <div class="db-card-flip-grid">
+                {% for reward in card_flip_history limit: section.settings.card_flip_rewards_limit %}
+                  <article class="db-card-flip-item">
+                    <div class="db-card-flip-media">
+                      {% if reward.result_image != blank or reward.card_image != blank %}
+                        {%- assign reward_image = reward.result_image | default: reward.card_image -%}
+                        <img
+                          src="{{ reward_image | escape }}"
+                          alt="{{ reward.result_title | default: reward.card_title | escape }}"
+                          loading="lazy"
+                          width="360"
+                          height="480"
+                        >
+                      {% else %}
+                        <span class="db-card-flip-placeholder" aria-hidden="true">H</span>
+                      {% endif %}
+                    </div>
+                    <div class="db-card-flip-info">
+                      <h4>{{ reward.result_title | default: reward.card_title | default: 'Thẻ may mắn' }}</h4>
+                      {% if reward.result_code != blank or reward.card_code != blank %}
+                        <p class="db-card-flip-code">
+                          Mã: <strong>{{ reward.result_code | default: reward.card_code }}</strong>
+                        </p>
+                      {% endif %}
+                      {% if reward.played_at != blank %}
+                        <time datetime="{{ reward.played_at | escape }}">{{ reward.played_at | date: '%d/%m/%Y' }}</time>
+                      {% endif %}
+                    </div>
+                  </article>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="db-card-flip-empty">{{ section.settings.card_flip_rewards_empty }}</p>
+            {% endif %}
+          </div>
+        </section>
+      {% endif %}
+
       {% comment %}========== TAB: BENEFITS =========={% endcomment %}
       <div class="db-data-row" id="section-benefits">
 
@@ -648,6 +697,37 @@
 {
   "name": "Main Account",
   "settings": [
+    {
+      "type": "header",
+      "content": "Thẻ đã lật"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_flip_rewards",
+      "label": "Hiển thị thẻ đã lật",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_flip_rewards_title",
+      "label": "Tiêu đề",
+      "default": "Thẻ bạn đã lật"
+    },
+    {
+      "type": "text",
+      "id": "card_flip_rewards_empty",
+      "label": "Nội dung khi chưa có thẻ",
+      "default": "Bạn chưa lật được thẻ nào."
+    },
+    {
+      "type": "range",
+      "id": "card_flip_rewards_limit",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "label": "Số thẻ hiển thị",
+      "default": 10
+    },
     {
       "type": "image_picker",
       "id": "tier_image",
