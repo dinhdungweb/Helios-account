@@ -170,6 +170,7 @@
     },
     "featured_collection_WGhiFt": {
       "type": "featured-collection",
+      "disabled": true,
       "name": "Featured collection",
       "settings": {
         "title": "",
@@ -399,6 +400,7 @@
         "banner_CcYr6M",
         "banner_wnK37c"
       ],
+      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": true,
@@ -460,6 +462,7 @@
         "banner_Nmp8fT",
         "banner_Adiycb"
       ],
+      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": true,
