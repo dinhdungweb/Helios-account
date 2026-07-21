@@ -205,7 +205,11 @@
       {% comment %}========== CARD FLIP REWARDS =========={% endcomment %}
       {% if section.settings.show_card_flip_rewards %}
         {%- assign card_flip_history = customer.metafields.card_flip.history.value -%}
-        <section class="db-card db-card-flip-rewards" aria-labelledby="card-flip-rewards-title-{{ section.id }}">
+        <section
+          class="db-card db-card-flip-rewards"
+          aria-labelledby="card-flip-rewards-title-{{ section.id }}"
+          style="--db-flip-card-width: {{ section.settings.card_flip_rewards_card_width }}px;"
+        >
           <div class="db-card-header">
             <h3 class="db-card-title" id="card-flip-rewards-title-{{ section.id }}">
               {{ section.settings.card_flip_rewards_title }}
@@ -727,6 +731,16 @@
       "step": 1,
       "label": "Số thẻ hiển thị",
       "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_flip_rewards_card_width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Chiều rộng mỗi thẻ",
+      "default": 210
     },
     {
       "type": "image_picker",

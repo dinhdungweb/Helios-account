@@ -1805,8 +1805,9 @@
 
 .db-card-flip-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, var(--db-flip-card-width, 210px));
   gap: 16px;
+  justify-content: start;
 }
 
 .db-card-flip-item {
@@ -1868,4 +1869,15 @@
 
 .db-card-flip-empty {
   margin: 0;
+}
+
+@media (max-width: 480px) {
+  .db-card-flip-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .db-card-flip-info {
+    padding: 10px 8px;
+  }
 }
