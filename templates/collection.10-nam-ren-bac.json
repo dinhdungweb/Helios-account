@@ -160,8 +160,8 @@
             "title_spacing": 30,
             "section_spacing": 30,
             "section_background": "#000000",
-            "front_image": "shopify://shop_images/DSC04284-2_016f913b-0e0b-4386-9ac7-0f27bcf58916.jpg",
-            "back_image": "shopify://shop_images/DSC03357_fe41ac9d-6d28-46b4-84be-c58bbe7943ab.jpg",
+            "front_image": "shopify://shop_images/1784696924572_4423076661664858939_4423076661664858939_a8b305f7d00d53cf4b6f786e0b915692.jpg",
+            "back_image": "shopify://shop_images/1784696940628_4423076661664858939_4423076661664858939_5b0fe6e98cc51a844dcede4bbf7857fb.jpg",
             "desktop_width_percent": 100,
             "max_width": 800,
             "aspect_ratio": 100,
@@ -321,7 +321,7 @@
         "card_border_radius": 2,
         "card_hover_effect": true,
         "card_text_align": "left",
-        "date_color": "#FAB320",
+        "date_color": "#fab320",
         "import_gothic_font": true,
         "date_font_custom": "",
         "date_size_desktop": 40,
@@ -332,7 +332,7 @@
         "card_title_size": 22,
         "card_desc_color": "#b0b0b0",
         "card_desc_size": 14,
-        "card_link_color": "#FAB320",
+        "card_link_color": "#fab320",
         "card_link_hover_color": "#ffffff",
         "card_link_size": 12
       }
