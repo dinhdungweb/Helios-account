@@ -78,7 +78,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "MỌI HÀNH TRÌNH ĐỀU BẮT ĐẦU TỪ MỘT LỜI HỨA NHỎ:<br>LÀM RA THỨ XỨNG ĐÁNG ĐƯỢC GIỮ LẠI VÀ ĐI CÙNG",
+        "title": "MỌI HÀNH TRÌNH ĐỀU BẮT ĐẦU TỪ MỘT LỜI HỨA NHỎ:LÀM RA THỨ XỨNG ĐÁNG ĐƯỢC GIỮ LẠI VÀ ĐI CÙNG",
         "title_size": 24,
         "title_width": 40,
         "heading_h1": false,
@@ -118,6 +118,14 @@
       "name": "Large image",
       "settings": {}
     },
+    "custom_liquid_mHQRXq": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "<p></p>"
+      }
+    },
     "background_video_responsive_7hQxTj": {
       "type": "background-video-responsive",
       "name": "Video responsive",
@@ -139,6 +147,34 @@
         "button_label": "",
         "button_link": ""
       }
+    },
+    "1784691192dcfcee0e": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_659b1a2_VM6rQj": {
+          "type": "ai_gen_block_659b1a2",
+          "settings": {
+            "section_title": "Sau 10 năm, HELIOS không cần trở thành một thứ quá ồn ào.<br>HELIOS cần trở nên rõ hơn",
+            "title_size": 26,
+            "title_color": "#FBFAFA",
+            "title_spacing": 30,
+            "section_spacing": 30,
+            "section_background": "#000000",
+            "front_image": "shopify://shop_images/DSC04284-2_016f913b-0e0b-4386-9ac7-0f27bcf58916.jpg",
+            "back_image": "shopify://shop_images/DSC03357_fe41ac9d-6d28-46b4-84be-c58bbe7943ab.jpg",
+            "desktop_width_percent": 100,
+            "max_width": 800,
+            "aspect_ratio": 100,
+            "mobile_aspect_ratio": 100,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_659b1a2_VM6rQj"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -146,6 +182,8 @@
     "slideshow_c7QDHQ",
     "rich_text_3pGkAQ",
     "blocks_t9dAaK",
-    "background_video_responsive_7hQxTj"
+    "custom_liquid_mHQRXq",
+    "background_video_responsive_7hQxTj",
+    "1784691192dcfcee0e"
   ]
 }
