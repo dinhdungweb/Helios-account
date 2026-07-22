@@ -9,32 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-collection",
-      "disabled": true,
-      "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
-        "description_position": "top",
-        "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
-        "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
-        "show_vendor": false,
-        "quick_links": "quicklink-collection",
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
-      }
-    },
     "slideshow_c7QDHQ": {
       "type": "slideshow",
       "blocks": {
@@ -118,6 +92,32 @@
       "name": "Large image",
       "settings": {}
     },
+    "main": {
+      "type": "main-collection",
+      "disabled": true,
+      "settings": {
+        "show_collection_content": false,
+        "show_collection_image": false,
+        "description_position": "top",
+        "layout": "rows",
+        "grid": 4,
+        "grid_mobile": "2",
+        "products_per_page": 24,
+        "featured_addtocart_hide": false,
+        "enable_infinite_scroll": true,
+        "show_vendor": false,
+        "quick_links": "",
+        "show_filter_counts": false,
+        "show_filter_deadends": true,
+        "ajax_products": true,
+        "filter_mode": "drawer",
+        "sticky_sidebar": true,
+        "collapse_filters_method": "over-6",
+        "collapse_sort_by": false,
+        "enable_sorting": true,
+        "show_featured_in_sort": true
+      }
+    },
     "custom_liquid_mHQRXq": {
       "type": "custom-liquid",
       "name": "Custom Liquid/HTML",
@@ -128,6 +128,7 @@
     },
     "background_video_responsive_7hQxTj": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -176,28 +177,6 @@
       ],
       "settings": {}
     },
-    "featured_collection_jWgQb7": {
-      "type": "featured-collection",
-      "name": "Featured collection",
-      "settings": {
-        "title": "",
-        "featured_collection_align": "left",
-        "collection": "new-in",
-        "layout": "rows",
-        "featured_addtocart_hide": false,
-        "show_add_to_cart": true,
-        "show_title": true,
-        "show_price": true,
-        "show_review": true,
-        "show_vendor": false,
-        "grid": 4,
-        "rows": 2,
-        "grid_mobile": "2",
-        "hide_swatches": false,
-        "alternate_bg_color": false,
-        "show_view_all": false
-      }
-    },
     "custom_liquid_NnzGff": {
       "type": "custom-liquid",
       "name": "Custom Liquid/HTML",
@@ -231,11 +210,11 @@
     "store_activities_3JBnEN": {
       "type": "store-activities",
       "blocks": {
-        "activity_yHMAzN": {
+        "activity_ngNKUM": {
           "type": "activity",
           "settings": {
             "date": "05.08",
-            "badge": "THỨ BA - CHỈ MEMBER",
+            "badge": "",
             "title": "Private Night",
             "description": "Đêm dành riêng cho member — xem trước sản phẩm, gặp đội ngũ HELIOS, chạm vào Chiến binh Lotus.",
             "link_label": "NHẬN THƯ MỜI",
@@ -248,9 +227,9 @@
           "type": "activity",
           "settings": {
             "date": "06.08",
-            "badge": "THỨ TƯ - 09.08",
+            "badge": "",
             "title": "Phá băng",
-            "description": "Nghi thức mở phong ấn mười năm. Tự tay khai băng để lấy dấu ấn bên trong.",
+            "description": "Đêm dành riêng cho member — xem trước sản phẩm, gặp đội ngũ HELIOS, chạm vào Chiến binh Lotus.",
             "link_label": "XEM CHI TIẾT",
             "link_url": "",
             "custom_card_bg": "",
@@ -261,10 +240,10 @@
           "type": "activity",
           "settings": {
             "date": "06.08",
-            "badge": "THỨ TƯ - 09.08",
+            "badge": "",
             "title": "Rút thẻ chương",
             "description": "Mười thẻ chương. Sưu tầm đủ bộ để nhận trunk kỷ niệm.",
-            "link_label": "XEM LUẬT CHƠI",
+            "link_label": "XEM CHI TIẾT",
             "link_url": "",
             "custom_card_bg": "",
             "custom_border_color": ""
@@ -274,10 +253,10 @@
           "type": "activity",
           "settings": {
             "date": "08.08",
-            "badge": "D-DAY - LIVE",
+            "badge": "",
             "title": "Special Live",
             "description": "Mở Phong Ấn Cuối — lần đầu công bố trọn artwork Chiến binh Lotus.",
-            "link_label": "ĐẶT LỊCH XEM",
+            "link_label": "XEM CHI TIẾT",
             "link_url": "",
             "custom_card_bg": "",
             "custom_border_color": ""
@@ -285,7 +264,7 @@
         }
       },
       "block_order": [
-        "activity_yHMAzN",
+        "activity_ngNKUM",
         "activity_ehTWe6",
         "activity_H4fjyk",
         "activity_GrNKcH"
@@ -370,14 +349,13 @@
     }
   },
   "order": [
-    "main",
     "slideshow_c7QDHQ",
     "rich_text_3pGkAQ",
     "blocks_t9dAaK",
+    "main",
     "custom_liquid_mHQRXq",
     "background_video_responsive_7hQxTj",
     "1784691192dcfcee0e",
-    "featured_collection_jWgQb7",
     "custom_liquid_NnzGff",
     "background_video_responsive_XCQb4W",
     "store_activities_3JBnEN",
