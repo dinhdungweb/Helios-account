@@ -126,14 +126,6 @@
         "custom_liquid": "<p></p>"
       }
     },
-    "custom_liquid_NnzGff": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid/HTML",
-      "settings": {
-        "no_margins": true,
-        "custom_liquid": "<p></p>"
-      }
-    },
     "background_video_responsive_7hQxTj": {
       "type": "background-video-responsive",
       "name": "Video responsive",
@@ -164,7 +156,7 @@
           "settings": {
             "section_title": "Sau 10 năm, HELIOS không cần trở thành một thứ quá ồn ào.HELIOS cần trở nên rõ hơn",
             "title_size": 26,
-            "title_color": "#FBFAFA",
+            "title_color": "#fbfafa",
             "title_spacing": 30,
             "section_spacing": 30,
             "section_background": "#000000",
@@ -206,6 +198,14 @@
         "show_view_all": false
       }
     },
+    "custom_liquid_NnzGff": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "<p></p>"
+      }
+    },
     "background_video_responsive_XCQb4W": {
       "type": "background-video-responsive",
       "name": "Video responsive",
@@ -227,6 +227,114 @@
         "button_label": "",
         "button_link": ""
       }
+    },
+    "store_activities_3JBnEN": {
+      "type": "store-activities",
+      "blocks": {
+        "activity_yHMAzN": {
+          "type": "activity",
+          "settings": {
+            "date": "05.08",
+            "badge": "THỨ BA - CHỈ MEMBER",
+            "title": "Private Night",
+            "description": "Đêm dành riêng cho member — xem trước sản phẩm, gặp đội ngũ HELIOS, chạm vào Chiến binh Lotus.",
+            "link_label": "NHẬN THƯ MỜI",
+            "link_url": "",
+            "custom_card_bg": "",
+            "custom_border_color": ""
+          }
+        },
+        "activity_ehTWe6": {
+          "type": "activity",
+          "settings": {
+            "date": "06.08",
+            "badge": "THỨ TƯ - 09.08",
+            "title": "Phá băng",
+            "description": "Nghi thức mở phong ấn mười năm. Tự tay khai băng để lấy dấu ấn bên trong.",
+            "link_label": "XEM CHI TIẾT",
+            "link_url": "",
+            "custom_card_bg": "",
+            "custom_border_color": ""
+          }
+        },
+        "activity_H4fjyk": {
+          "type": "activity",
+          "settings": {
+            "date": "06.08",
+            "badge": "THỨ TƯ - 09.08",
+            "title": "Rút thẻ chương",
+            "description": "Mười thẻ chương. Sưu tầm đủ bộ để nhận trunk kỷ niệm.",
+            "link_label": "XEM LUẬT CHƠI",
+            "link_url": "",
+            "custom_card_bg": "",
+            "custom_border_color": ""
+          }
+        },
+        "activity_GrNKcH": {
+          "type": "activity",
+          "settings": {
+            "date": "08.08",
+            "badge": "D-DAY - LIVE",
+            "title": "Special Live",
+            "description": "Mở Phong Ấn Cuối — lần đầu công bố trọn artwork Chiến binh Lotus.",
+            "link_label": "ĐẶT LỊCH XEM",
+            "link_url": "",
+            "custom_card_bg": "",
+            "custom_border_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "activity_yHMAzN",
+        "activity_ehTWe6",
+        "activity_H4fjyk",
+        "activity_GrNKcH"
+      ],
+      "name": "Hoạt động Cửa hàng (4 Sự kiện)",
+      "settings": {
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "max_width": 1400,
+        "grid_columns_desktop": 4,
+        "grid_columns_tablet": 2,
+        "mobile_layout": "grid",
+        "grid_gap": 24,
+        "header_align": "center",
+        "header_spacing": 60,
+        "subtitle": "SỰ KIỆN - BỐN HOẠT ĐỘNG TẠI CỬA HÀNG",
+        "subtitle_color": "#b58c5a",
+        "subtitle_size": 13,
+        "subtitle_letter_spacing": 2,
+        "heading": "Bốn ngày. Bốn hoạt động chạm được.",
+        "heading_color": "#ffffff",
+        "heading_font_custom": "",
+        "heading_size_desktop": 44,
+        "heading_size_mobile": 30,
+        "description": "Không chỉ mua. Đến cửa hàng để trải nghiệm mười năm bằng tay.",
+        "description_color": "#a8a8a8",
+        "description_size": 16,
+        "description_italic": true,
+        "section_bg": "#0a0a0a",
+        "card_bg": "#141414",
+        "card_border": "#2a221b",
+        "card_padding": 28,
+        "card_border_radius": 2,
+        "card_hover_effect": true,
+        "date_color": "#cd6b32",
+        "import_gothic_font": true,
+        "date_font_custom": "",
+        "date_size_desktop": 40,
+        "date_size_mobile": 32,
+        "card_badge_color": "#a09890",
+        "card_badge_size": 11,
+        "card_title_color": "#ffffff",
+        "card_title_size": 22,
+        "card_desc_color": "#b0b0b0",
+        "card_desc_size": 14,
+        "card_link_color": "#cd6b32",
+        "card_link_hover_color": "#ffffff",
+        "card_link_size": 12
+      }
     }
   },
   "order": [
@@ -239,6 +347,7 @@
     "1784691192dcfcee0e",
     "featured_collection_jWgQb7",
     "custom_liquid_NnzGff",
-    "background_video_responsive_XCQb4W"
+    "background_video_responsive_XCQb4W",
+    "store_activities_3JBnEN"
   ]
 }
