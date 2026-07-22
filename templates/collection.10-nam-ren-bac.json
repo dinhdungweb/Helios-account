@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": true,
         "show_collection_image": true,
@@ -33,9 +34,95 @@
         "enable_sorting": true,
         "show_featured_in_sort": true
       }
+    },
+    "slideshow_c7QDHQ": {
+      "type": "slideshow",
+      "blocks": {
+        "image_Ey8gL8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/zzz.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_Ey8gL8"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "blocks_t9dAaK": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d3b865_cAdg3b": {
+          "type": "ai_gen_block_1d3b865",
+          "settings": {
+            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten-5.png",
+            "image_fit": "contain",
+            "image_position": "center",
+            "desktop_height": 750,
+            "mobile_height": 350,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d3b865_cAdg3b"
+      ],
+      "name": "Large image",
+      "settings": {}
+    },
+    "rich_text_3pGkAQ": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "MỌI HÀNH TRÌNH ĐỀU BẮT ĐẦU TỪ MỘT LỜI HỨA NHỎ:<br>LÀM RA THỨ XỨNG ĐÁNG ĐƯỢC GIỮ LẠI VÀ ĐI CÙNG",
+        "title_size": 24,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "slideshow_c7QDHQ",
+    "rich_text_3pGkAQ",
+    "blocks_t9dAaK"
   ]
 }
