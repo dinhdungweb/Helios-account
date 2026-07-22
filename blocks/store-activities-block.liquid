@@ -1,0 +1,869 @@
+{% comment %}
+  Store Activities / Events Block - Responsive & Fully Customizable
+  Created for HELIOS (4 Days - 4 Touch Activities)
+  Can be used inside _blocks container or section blocks.
+{% endcomment %}
+{% assign sa_id = block.id | replace: '_', '' | downcase %}
+
+<div class="store-activities-block-{{ sa_id }}" {{ block.shopify_attributes }}>
+  <div class="sa-container-{{ sa_id }}">
+    {%- if block.settings.subtitle != blank or block.settings.heading != blank or block.settings.description != blank -%}
+      <header class="sa-header-{{ sa_id }} sa-align-{{ block.settings.header_align }}">
+        {%- if block.settings.subtitle != blank -%}
+          <div class="sa-subtitle-{{ sa_id }}">{{ block.settings.subtitle }}</div>
+        {%- endif -%}
+        
+        {%- if block.settings.heading != blank -%}
+          <h2 class="sa-heading-{{ sa_id }}">{{ block.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if block.settings.description != blank -%}
+          <div class="sa-description-{{ sa_id }} {% if block.settings.description_italic %}sa-desc-italic-{{ sa_id }}{% endif %}">
+            {{ block.settings.description }}
+          </div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <div class="sa-grid-{{ sa_id }} sa-mobile-{{ block.settings.mobile_layout }}">
+      {%- for i in (1..4) -%}
+        {%- liquid
+          assign date_key = 'date_' | append: i
+          assign badge_key = 'badge_' | append: i
+          assign title_key = 'title_' | append: i
+          assign desc_key = 'desc_' | append: i
+          assign label_key = 'link_label_' | append: i
+          assign url_key = 'link_url_' | append: i
+          
+          assign date_val = block.settings[date_key]
+          assign badge_val = block.settings[badge_key]
+          assign title_val = block.settings[title_key]
+          assign desc_val = block.settings[desc_key]
+          assign label_val = block.settings[label_key]
+          assign url_val = block.settings[url_key]
+        -%}
+
+        {%- if date_val != blank or title_val != blank -%}
+          <div class="sa-card-{{ sa_id }} {% if block.settings.card_hover_effect %}sa-card--hover-{{ sa_id }}{% endif %}">
+            <div class="sa-card__header-{{ sa_id }}">
+              {%- if date_val != blank -%}
+                <div class="sa-card__date-{{ sa_id }}">{{ date_val }}</div>
+              {%- endif -%}
+              
+              {%- if badge_val != blank -%}
+                <div class="sa-card__badge-{{ sa_id }}">{{ badge_val }}</div>
+              {%- endif -%}
+            </div>
+
+            <div class="sa-card__body-{{ sa_id }}">
+              {%- if title_val != blank -%}
+                <h3 class="sa-card__title-{{ sa_id }}">{{ title_val }}</h3>
+              {%- endif -%}
+              
+              {%- if desc_val != blank -%}
+                <div class="sa-card__desc-{{ sa_id }}">{{ desc_val }}</div>
+              {%- endif -%}
+            </div>
+
+            {%- if label_val != blank -%}
+              <div class="sa-card__footer-{{ sa_id }}">
+                <a href="{{ url_val | default: '#' }}" class="sa-card__link-{{ sa_id }}" {% if url_val == blank %}aria-disabled="true"{% endif %}>
+                  <span>{{ label_val }}</span>
+                  <span class="sa-card__link-arrow-{{ sa_id }}">→</span>
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- if block.settings.import_gothic_font -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+{%- endif -%}
+
+<style>
+  .store-activities-block-{{ sa_id }} {
+    --sa-bg: {{ block.settings.section_bg }};
+    --sa-card-bg: {{ block.settings.card_bg }};
+    --sa-card-border: {{ block.settings.card_border }};
+    --sa-subtitle-color: {{ block.settings.subtitle_color }};
+    --sa-heading-color: {{ block.settings.heading_color }};
+    --sa-desc-color: {{ block.settings.description_color }};
+    --sa-date-color: {{ block.settings.date_color }};
+    --sa-badge-color: {{ block.settings.card_badge_color }};
+    --sa-title-color: {{ block.settings.card_title_color }};
+    --sa-card-desc-color: {{ block.settings.card_desc_color }};
+    --sa-link-color: {{ block.settings.card_link_color }};
+    --sa-link-hover-color: {{ block.settings.card_link_hover_color }};
+    
+    --sa-date-font: {% if block.settings.date_font_custom != blank %}{{ block.settings.date_font_custom }}{% elsif block.settings.import_gothic_font %}'Cinzel Decorative', 'Pirata One', Georgia, serif{% else %}inherit{% endif %};
+    --sa-heading-font: {% if block.settings.heading_font_custom != blank %}{{ block.settings.heading_font_custom }}{% else %}var(--heading-font-stack, inherit){% endif %};
+
+    width: {{ block.settings.desktop_width_percent }}%;
+    background-color: var(--sa-bg);
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sa-container-{{ sa_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header Styles */
+  .sa-header-{{ sa_id }} {
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+  .store-activities-block-{{ sa_id }} .sa-align-left { text-align: left; }
+  .store-activities-block-{{ sa_id }} .sa-align-center { text-align: center; }
+  .store-activities-block-{{ sa_id }} .sa-align-right { text-align: right; }
+
+  .sa-subtitle-{{ sa_id }} {
+    color: var(--sa-subtitle-color);
+    font-size: {{ block.settings.subtitle_size }}px;
+    font-weight: 600;
+    letter-spacing: {{ block.settings.subtitle_letter_spacing }}px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .sa-heading-{{ sa_id }} {
+    color: var(--sa-heading-color);
+    font-family: var(--sa-heading-font);
+    font-size: {{ block.settings.heading_size_desktop }}px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin: 0 0 16px 0;
+  }
+
+  .sa-description-{{ sa_id }} {
+    color: var(--sa-desc-color);
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .sa-desc-italic-{{ sa_id }} {
+    font-style: italic;
+  }
+
+  /* Grid & Cards */
+  .sa-grid-{{ sa_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.grid_columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    align-items: stretch;
+  }
+
+  .sa-card-{{ sa_id }} {
+    background-color: var(--sa-card-bg);
+    border: 1px solid var(--sa-card-border);
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    height: 100%;
+  }
+
+  .sa-card--hover-{{ sa_id }}:hover {
+    border-color: var(--sa-link-color);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .sa-card__header-{{ sa_id }} {
+    margin-bottom: 24px;
+  }
+
+  .sa-card__date-{{ sa_id }} {
+    color: var(--sa-date-color);
+    font-family: var(--sa-date-font);
+    font-size: {{ block.settings.date_size_desktop }}px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .sa-card__badge-{{ sa_id }} {
+    color: var(--sa-badge-color);
+    font-size: {{ block.settings.card_badge_size }}px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .sa-card__body-{{ sa_id }} {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sa-card__title-{{ sa_id }} {
+    color: var(--sa-title-color);
+    font-family: var(--sa-heading-font);
+    font-size: {{ block.settings.card_title_size }}px;
+    font-weight: 500;
+    line-height: 1.35;
+    margin: 0 0 14px 0;
+  }
+
+  .sa-card__desc-{{ sa_id }} {
+    color: var(--sa-card-desc-color);
+    font-size: {{ block.settings.card_desc_size }}px;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .sa-card__footer-{{ sa_id }} {
+    margin-top: 32px;
+    padding-top: 16px;
+  }
+
+  .sa-card__link-{{ sa_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--sa-link-color);
+    font-size: {{ block.settings.card_link_size }}px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease, gap 0.3s ease;
+  }
+
+  .sa-card__link-{{ sa_id }}:hover {
+    color: var(--sa-link-hover-color);
+    gap: 12px;
+  }
+
+  .sa-card__link-arrow-{{ sa_id }} {
+    transition: transform 0.3s ease;
+  }
+
+  .sa-card__link-{{ sa_id }}:hover .sa-card__link-arrow-{{ sa_id }} {
+    transform: translateX(4px);
+  }
+
+  /* Responsive Tablet & Mobile */
+  @media screen and (max-width: 1024px) {
+    .sa-grid-{{ sa_id }} {
+      grid-template-columns: repeat({{ block.settings.grid_columns_tablet }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
+    }
+    .sa-heading-{{ sa_id }} {
+      font-size: {{ block.settings.heading_size_desktop | times: 0.85 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .store-activities-block-{{ sa_id }} {
+      padding-top: {{ block.settings.padding_top | times: 0.65 }}px;
+      padding-bottom: {{ block.settings.padding_bottom | times: 0.65 }}px;
+      width: 100%;
+    }
+    
+    .sa-container-{{ sa_id }} {
+      padding: 0 16px;
+    }
+
+    .sa-heading-{{ sa_id }} {
+      font-size: {{ block.settings.heading_size_mobile }}px;
+    }
+
+    .sa-subtitle-{{ sa_id }} {
+      font-size: {{ block.settings.subtitle_size | minus: 1 }}px;
+    }
+
+    .sa-card__date-{{ sa_id }} {
+      font-size: {{ block.settings.date_size_mobile }}px;
+    }
+
+    .sa-card-{{ sa_id }} {
+      padding: {{ block.settings.card_padding | times: 0.8 }}px;
+    }
+
+    /* Mobile Grid vs Carousel layout options */
+    .sa-grid-{{ sa_id }}.sa-mobile-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .sa-grid-{{ sa_id }}.sa-mobile-carousel {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      margin-left: -16px;
+      margin-right: -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+      gap: 14px;
+    }
+
+    .sa-grid-{{ sa_id }}.sa-mobile-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sa-grid-{{ sa_id }}.sa-mobile-carousel .sa-card-{{ sa_id }} {
+      flex: 0 0 82vw;
+      scroll-snap-align: center;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Block Hoạt động (4 Card)",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bố cục & Khoảng cách"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Chiều rộng theo % (Desktop)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Khoảng cách trên (Desktop)",
+      "min": 20,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Khoảng cách dưới (Desktop)",
+      "min": 20,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Chiều rộng tối đa (Max Width)",
+      "min": 1000,
+      "max": 1800,
+      "step": 50,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "header",
+      "content": "Cấu hình Grid / Responsive"
+    },
+    {
+      "type": "range",
+      "id": "grid_columns_desktop",
+      "label": "Số cột Desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "grid_columns_tablet",
+      "label": "Số cột Tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Bố cục trên Mobile",
+      "options": [
+        { "value": "grid", "label": "Xếp chồng (1 cột dọc)" },
+        { "value": "carousel", "label": "Vuốt ngang (Carousel lướt thẻ)" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Khoảng cách giữa các thẻ (Gap)",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Nội dung Header"
+    },
+    {
+      "type": "select",
+      "id": "header_align",
+      "label": "Căn lề Header",
+      "options": [
+        { "value": "left", "label": "Trái" },
+        { "value": "center", "label": "Giữa" },
+        { "value": "right", "label": "Phải" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Khoảng cách từ Header xuống thẻ",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Dòng phụ đề (Eyebrow)",
+      "default": "SỰ KIỆN - BỐN HOẠT ĐỘNG TẠI CỬA HÀNG"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Màu phụ đề",
+      "default": "#b58c5a"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Cỡ chữ phụ đề",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "subtitle_letter_spacing",
+      "label": "Khoảng cách chữ phụ đề (Letter Spacing)",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tiêu đề chính",
+      "default": "Bốn ngày. Bốn hoạt động chạm được."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Màu tiêu đề chính",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "heading_font_custom",
+      "label": "Custom Font Family Tiêu đề (tùy chọn)",
+      "placeholder": "VD: 'Times New Roman', serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "label": "Cỡ chữ Tiêu đề (Desktop)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Cỡ chữ Tiêu đề (Mobile)",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Mô tả nhỏ dưới tiêu đề",
+      "default": "Không chỉ mua. Đến cửa hàng để trải nghiệm mười năm bằng tay."
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Màu mô tả",
+      "default": "#a8a8a8"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Cỡ chữ mô tả",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "description_italic",
+      "label": "In nghiêng mô tả",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Tùy chỉnh thẻ (Card Style)"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Màu nền Block",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Màu nền thẻ (Card Background)",
+      "default": "#141414"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Màu viền thẻ (Card Border)",
+      "default": "#2a221b"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Padding bên trong thẻ",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Độ bo góc thẻ (Border Radius)",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "card_hover_effect",
+      "label": "Hiệu ứng khi di chuột (Hover Effect)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Typography Thẻ (Ngày & Badge)"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Màu ngày tháng (05.08, 06.08...)",
+      "default": "#cd6b32"
+    },
+    {
+      "type": "checkbox",
+      "id": "import_gothic_font",
+      "label": "Tự động tải Font chữ Gothic/Ornamental cho Ngày",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "date_font_custom",
+      "label": "Custom Font Family Ngày (nếu có riêng)",
+      "placeholder": "VD: 'Pirata One', serif"
+    },
+    {
+      "type": "range",
+      "id": "date_size_desktop",
+      "label": "Cỡ chữ Ngày (Desktop)",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "date_size_mobile",
+      "label": "Cỡ chữ Ngày (Mobile)",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "card_badge_color",
+      "label": "Màu Badge/Sub-date",
+      "default": "#a09890"
+    },
+    {
+      "type": "range",
+      "id": "card_badge_size",
+      "label": "Cỡ chữ Badge",
+      "min": 9,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "header",
+      "content": "Typography Thẻ (Tiêu đề & Mô tả & Link)"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Màu tiêu đề thẻ",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Cỡ chữ tiêu đề thẻ",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Màu mô tả thẻ",
+      "default": "#b0b0b0"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Cỡ chữ mô tả thẻ",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "card_link_color",
+      "label": "Màu nút/link",
+      "default": "#cd6b32"
+    },
+    {
+      "type": "color",
+      "id": "card_link_hover_color",
+      "label": "Màu nút/link khi Hover",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_link_size",
+      "label": "Cỡ chữ nút/link",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Thẻ 1 (05.08)"
+    },
+    {
+      "type": "text",
+      "id": "date_1",
+      "label": "Ngày",
+      "default": "05.08"
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "Thứ / Đối tượng",
+      "default": "THỨ BA - CHỈ MEMBER"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Tiêu đề",
+      "default": "Private Night"
+    },
+    {
+      "type": "textarea",
+      "id": "desc_1",
+      "label": "Mô tả",
+      "default": "Đêm dành riêng cho member — xem trước sản phẩm, gặp đội ngũ HELIOS, chạm vào Chiến binh Lotus."
+    },
+    {
+      "type": "text",
+      "id": "link_label_1",
+      "label": "Nhãn link",
+      "default": "NHẬN THƯ MỜI"
+    },
+    {
+      "type": "url",
+      "id": "link_url_1",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Thẻ 2 (06.08 - Phá băng)"
+    },
+    {
+      "type": "text",
+      "id": "date_2",
+      "label": "Ngày",
+      "default": "06.08"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Thứ / Đối tượng",
+      "default": "THỨ TƯ - 09.08"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Tiêu đề",
+      "default": "Phá băng"
+    },
+    {
+      "type": "textarea",
+      "id": "desc_2",
+      "label": "Mô tả",
+      "default": "Nghi thức mở phong ấn mười năm. Tự tay khai băng để lấy dấu ấn bên trong."
+    },
+    {
+      "type": "text",
+      "id": "link_label_2",
+      "label": "Nhãn link",
+      "default": "XEM CHI TIẾT"
+    },
+    {
+      "type": "url",
+      "id": "link_url_2",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Thẻ 3 (06.08 - Rút thẻ chương)"
+    },
+    {
+      "type": "text",
+      "id": "date_3",
+      "label": "Ngày",
+      "default": "06.08"
+    },
+    {
+      "type": "text",
+      "id": "badge_3",
+      "label": "Thứ / Đối tượng",
+      "default": "THỨ TƯ - 09.08"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Tiêu đề",
+      "default": "Rút thẻ chương"
+    },
+    {
+      "type": "textarea",
+      "id": "desc_3",
+      "label": "Mô tả",
+      "default": "Mười thẻ chương. Sưu tầm đủ bộ để nhận trunk kỷ niệm."
+    },
+    {
+      "type": "text",
+      "id": "link_label_3",
+      "label": "Nhãn link",
+      "default": "XEM LUẬT CHƠI"
+    },
+    {
+      "type": "url",
+      "id": "link_url_3",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Thẻ 4 (08.08 - Special Live)"
+    },
+    {
+      "type": "text",
+      "id": "date_4",
+      "label": "Ngày",
+      "default": "08.08"
+    },
+    {
+      "type": "text",
+      "id": "badge_4",
+      "label": "Thứ / Đối tượng",
+      "default": "D-DAY - LIVE"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Tiêu đề",
+      "default": "Special Live"
+    },
+    {
+      "type": "textarea",
+      "id": "desc_4",
+      "label": "Mô tả",
+      "default": "Mở Phong Ấn Cuối — lần đầu công bố trọn artwork Chiến binh Lotus."
+    },
+    {
+      "type": "text",
+      "id": "link_label_4",
+      "label": "Nhãn link",
+      "default": "ĐẶT LỊCH XEM"
+    },
+    {
+      "type": "url",
+      "id": "link_url_4",
+      "label": "URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Block Hoạt động (4 Card)"
+    }
+  ]
+}
+{% endschema %}
