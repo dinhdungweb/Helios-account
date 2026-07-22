@@ -1,6 +1,311 @@
+{% doc %}
+  @prompt
+    Tạo cho tôi 1 section layout ảnh có thể lật được mặt trước,mặt sau và có thể chỉnh được size ảnh và responsive chuẩn, có thể thêm title cho section và khoảng cách của section 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-flip-card-section-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.section_spacing }}px 0;
+    background-color: {{ block.settings.section_background }};
+  }
+
+  .ai-flip-card-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-flip-card-title-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.title_spacing }}px;
+    color: {{ block.settings.title_color }};
+    font-size: {{ block.settings.title_size }}px;
+  }
+
+  .ai-flip-card-wrapper-{{ ai_gen_id }} {
+    perspective: 1000px;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-flip-card-inner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: {{ block.settings.aspect_ratio }}%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .ai-flip-card-wrapper-{{ ai_gen_id }}:hover .ai-flip-card-inner-{{ ai_gen_id }} {
+    transform: rotateY(180deg);
+  }
+
+  .ai-flip-card-front-{{ ai_gen_id }},
+  .ai-flip-card-back-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-flip-card-front-{{ ai_gen_id }} img,
+  .ai-flip-card-back-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-flip-card-back-{{ ai_gen_id }} {
+    transform: rotateY(180deg);
+  }
+
+  .ai-flip-card-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-flip-card-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-flip-card-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-flip-card-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-flip-card-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-flip-card-inner-{{ ai_gen_id }} {
+      padding-bottom: {{ block.settings.mobile_aspect_ratio }}%;
+    }
+  }
+{% endstyle %}
+
+<flip-card-{{ ai_gen_id }} class="ai-flip-card-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-flip-card-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <h2 class="ai-flip-card-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    {% endif %}
+
+    <div class="ai-flip-card-wrapper-{{ ai_gen_id }}">
+      <div class="ai-flip-card-inner-{{ ai_gen_id }}">
+        <div class="ai-flip-card-front-{{ ai_gen_id }}">
+          {% if block.settings.front_image %}
+            <img
+              src="{{ block.settings.front_image | image_url: width: 1200 }}"
+              alt="{{ block.settings.front_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.front_image.width }}"
+              height="{{ block.settings.front_image.height }}"
+            >
+          {% else %}
+            <div class="ai-flip-card-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-flip-card-empty-state-{{ ai_gen_id }}">
+                Add front image
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-flip-card-back-{{ ai_gen_id }}">
+          {% if block.settings.back_image %}
+            <img
+              src="{{ block.settings.back_image | image_url: width: 1200 }}"
+              alt="{{ block.settings.back_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.back_image.width }}"
+              height="{{ block.settings.back_image.height }}"
+            >
+          {% else %}
+            <div class="ai-flip-card-placeholder-{{ ai_gen_id }}">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="ai-flip-card-empty-state-{{ ai_gen_id }}">
+                Add back image
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</flip-card-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FlipCard{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('flip-card-{{ ai_gen_id }}', FlipCard{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Flip card image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Title spacing",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_spacing",
+      "label": "Section spacing",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "front_image",
+      "label": "Front image"
+    },
+    {
+      "type": "image_picker",
+      "id": "back_image",
+      "label": "Back image"
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "aspect_ratio",
+      "label": "Aspect ratio (desktop)",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_aspect_ratio",
+      "label": "Aspect ratio (mobile)",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Flip card image"
+    }
+  ]
+}
 {% endschema %}
