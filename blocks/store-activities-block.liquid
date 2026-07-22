@@ -3,9 +3,319 @@
   Created for HELIOS (4 Days - 4 Touch Activities)
   Can be used inside _blocks container or section blocks.
 {% endcomment %}
-{% assign sa_id = block.id | replace: '_', '' | downcase %}
+{% assign sa_id = block.id | replace: '_', '-' %}
 
-<div class="store-activities-block-{{ sa_id }}" {{ block.shopify_attributes }}>
+{%- if block.settings.import_gothic_font -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+{%- endif -%}
+
+<div class="sa-block-wrapper-{{ sa_id }}" {{ block.shopify_attributes }}>
+  <style>
+    .sa-block-wrapper-{{ sa_id }} {
+      --sa-bg: {{ block.settings.section_bg }};
+      --sa-card-bg: {{ block.settings.card_bg }};
+      --sa-card-border: {{ block.settings.card_border }};
+      --sa-subtitle-color: {{ block.settings.subtitle_color }};
+      --sa-heading-color: {{ block.settings.heading_color }};
+      --sa-desc-color: {{ block.settings.description_color }};
+      --sa-date-color: {{ block.settings.date_color }};
+      --sa-badge-color: {{ block.settings.card_badge_color }};
+      --sa-title-color: {{ block.settings.card_title_color }};
+      --sa-card-desc-color: {{ block.settings.card_desc_color }};
+      --sa-link-color: {{ block.settings.card_link_color }};
+      --sa-link-hover-color: {{ block.settings.card_link_hover_color }};
+      
+      --sa-date-font: {% if block.settings.date_font_custom != blank %}{{ block.settings.date_font_custom }}{% elsif block.settings.import_gothic_font %}'Cinzel Decorative', 'Pirata One', Georgia, serif{% else %}inherit{% endif %};
+      --sa-heading-font: {% if block.settings.heading_font_custom != blank %}{{ block.settings.heading_font_custom }}{% else %}var(--heading-font-stack, inherit){% endif %};
+
+      display: block !important;
+      width: 100% !important;
+      clear: both !important;
+      box-sizing: border-box !important;
+      background-color: var(--sa-bg) !important;
+      padding-top: {{ block.settings.padding_top }}px !important;
+      padding-bottom: {{ block.settings.padding_bottom }}px !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} *,
+    .sa-block-wrapper-{{ sa_id }} *::before,
+    .sa-block-wrapper-{{ sa_id }} *::after {
+      box-sizing: border-box;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-container-{{ sa_id }} {
+      display: block !important;
+      width: 100% !important;
+      max-width: {{ block.settings.max_width }}px !important;
+      margin: 0 auto !important;
+      padding: 0 24px !important;
+      clear: both !important;
+      float: none !important;
+    }
+
+    /* Header Styles */
+    .sa-block-wrapper-{{ sa_id }} .sa-header-{{ sa_id }} {
+      display: block !important;
+      width: 100% !important;
+      float: none !important;
+      clear: both !important;
+      margin: 0 0 {{ block.settings.header_spacing }}px 0 !important;
+    }
+    .sa-block-wrapper-{{ sa_id }} .sa-align-left { text-align: left !important; }
+    .sa-block-wrapper-{{ sa_id }} .sa-align-center { text-align: center !important; }
+    .sa-block-wrapper-{{ sa_id }} .sa-align-right { text-align: right !important; }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-subtitle-{{ sa_id }} {
+      display: block !important;
+      color: var(--sa-subtitle-color) !important;
+      font-size: {{ block.settings.subtitle_size }}px !important;
+      font-weight: 600 !important;
+      letter-spacing: {{ block.settings.subtitle_letter_spacing }}px !important;
+      text-transform: uppercase !important;
+      margin: 0 0 16px 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-heading-{{ sa_id }} {
+      display: block !important;
+      color: var(--sa-heading-color) !important;
+      font-family: var(--sa-heading-font) !important;
+      font-size: {{ block.settings.heading_size_desktop }}px !important;
+      font-weight: 400 !important;
+      line-height: 1.25 !important;
+      margin: 0 0 16px 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-description-{{ sa_id }} {
+      display: block !important;
+      color: var(--sa-desc-color) !important;
+      font-size: {{ block.settings.description_size }}px !important;
+      line-height: 1.6 !important;
+      margin: 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .sa-block-wrapper-{{ sa_id }} .sa-desc-italic {
+      font-style: italic !important;
+    }
+
+    /* Grid & Cards */
+    .sa-block-wrapper-{{ sa_id }} .sa-grid-{{ sa_id }} {
+      display: grid !important;
+      grid-template-columns: repeat({{ block.settings.grid_columns_desktop }}, minmax(0, 1fr)) !important;
+      gap: {{ block.settings.grid_gap }}px !important;
+      align-items: stretch !important;
+      width: 100% !important;
+      float: none !important;
+      clear: both !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card-{{ sa_id }} {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 220px !important;
+      float: none !important;
+      position: relative !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      background-color: var(--sa-card-bg) !important;
+      border: 1px solid var(--sa-card-border) !important;
+      border-radius: {{ block.settings.card_border_radius }}px !important;
+      padding: {{ block.settings.card_padding }}px !important;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+      margin: 0 !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+      z-index: 1 !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card--hover-{{ sa_id }}:hover {
+      border-color: var(--sa-link-color) !important;
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__header-{{ sa_id }} {
+      display: block !important;
+      margin: 0 0 24px 0 !important;
+      width: 100% !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__date-{{ sa_id }} {
+      display: block !important;
+      color: var(--sa-date-color) !important;
+      font-family: var(--sa-date-font) !important;
+      font-size: {{ block.settings.date_size_desktop }}px !important;
+      font-weight: 700 !important;
+      line-height: 1.1 !important;
+      margin: 0 0 8px 0 !important;
+      letter-spacing: -0.02em !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__badge-{{ sa_id }} {
+      display: block !important;
+      color: var(--sa-badge-color) !important;
+      font-size: {{ block.settings.card_badge_size }}px !important;
+      font-weight: 600 !important;
+      letter-spacing: 1.5px !important;
+      text-transform: uppercase !important;
+      margin: 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__body-{{ sa_id }} {
+      display: flex !important;
+      flex-direction: column !important;
+      flex-grow: 1 !important;
+      width: 100% !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__title-{{ sa_id }} {
+      display: block !important;
+      color: var(--sa-title-color) !important;
+      font-family: var(--sa-heading-font) !important;
+      font-size: {{ block.settings.card_title_size }}px !important;
+      font-weight: 500 !important;
+      line-height: 1.35 !important;
+      margin: 0 0 14px 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__desc-{{ sa_id }} {
+      display: block !important;
+      color: var(--sa-card-desc-color) !important;
+      font-size: {{ block.settings.card_desc_size }}px !important;
+      line-height: 1.65 !important;
+      margin: 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__footer-{{ sa_id }} {
+      display: block !important;
+      margin: 32px 0 0 0 !important;
+      padding-top: 16px !important;
+      width: 100% !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__link-{{ sa_id }} {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      color: var(--sa-link-color) !important;
+      font-size: {{ block.settings.card_link_size }}px !important;
+      font-weight: 600 !important;
+      letter-spacing: 1.5px !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+      transition: color 0.3s ease, gap 0.3s ease !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__link-{{ sa_id }}:hover {
+      color: var(--sa-link-hover-color) !important;
+      gap: 12px !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__link-arrow-{{ sa_id }} {
+      display: inline-block !important;
+      transition: transform 0.3s ease !important;
+    }
+
+    .sa-block-wrapper-{{ sa_id }} .sa-card__link-{{ sa_id }}:hover .sa-card__link-arrow-{{ sa_id }} {
+      transform: translateX(4px) !important;
+    }
+
+    /* Responsive Tablet & Mobile */
+    @media screen and (max-width: 1024px) {
+      .sa-block-wrapper-{{ sa_id }} .sa-grid-{{ sa_id }} {
+        grid-template-columns: repeat({{ block.settings.grid_columns_tablet }}, minmax(0, 1fr)) !important;
+        gap: {{ block.settings.grid_gap | times: 0.8 }}px !important;
+      }
+      .sa-block-wrapper-{{ sa_id }} .sa-heading-{{ sa_id }} {
+        font-size: {{ block.settings.heading_size_desktop | times: 0.85 }}px !important;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .sa-block-wrapper-{{ sa_id }} {
+        padding-top: {{ block.settings.padding_top | times: 0.65 }}px !important;
+        padding-bottom: {{ block.settings.padding_bottom | times: 0.65 }}px !important;
+      }
+      
+      .sa-block-wrapper-{{ sa_id }} .sa-container-{{ sa_id }} {
+        padding: 0 16px !important;
+      }
+
+      .sa-block-wrapper-{{ sa_id }} .sa-heading-{{ sa_id }} {
+        font-size: {{ block.settings.heading_size_mobile }}px !important;
+      }
+
+      .sa-block-wrapper-{{ sa_id }} .sa-subtitle-{{ sa_id }} {
+        font-size: {{ block.settings.subtitle_size | minus: 1 }}px !important;
+      }
+
+      .sa-block-wrapper-{{ sa_id }} .sa-card__date-{{ sa_id }} {
+        font-size: {{ block.settings.date_size_mobile }}px !important;
+      }
+
+      .sa-block-wrapper-{{ sa_id }} .sa-card-{{ sa_id }} {
+        padding: {{ block.settings.card_padding | times: 0.8 }}px !important;
+        min-height: 180px !important;
+      }
+
+      /* Mobile Grid vs Carousel layout options */
+      .sa-block-wrapper-{{ sa_id }} .sa-grid-{{ sa_id }}.sa-mobile-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 16px !important;
+      }
+
+      .sa-block-wrapper-{{ sa_id }} .sa-grid-{{ sa_id }}.sa-mobile-carousel {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin-left: -16px !important;
+        margin-right: -16px !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        gap: 14px !important;
+      }
+
+      .sa-block-wrapper-{{ sa_id }} .sa-grid-{{ sa_id }}.sa-mobile-carousel::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .sa-block-wrapper-{{ sa_id }} .sa-grid-{{ sa_id }}.sa-mobile-carousel .sa-card-{{ sa_id }} {
+        flex: 0 0 82vw !important;
+        width: 82vw !important;
+        scroll-snap-align: center !important;
+      }
+    }
+  </style>
+
   <div class="sa-container-{{ sa_id }}">
     {%- if block.settings.subtitle != blank or block.settings.heading != blank or block.settings.description != blank -%}
       <header class="sa-header-{{ sa_id }} sa-align-{{ block.settings.header_align }}">
@@ -18,7 +328,7 @@
         {%- endif -%}
         
         {%- if block.settings.description != blank -%}
-          <div class="sa-description-{{ sa_id }} {% if block.settings.description_italic %}sa-desc-italic-{{ sa_id }}{% endif %}">
+          <div class="sa-description-{{ sa_id }} {% if block.settings.description_italic %}sa-desc-italic{% endif %}">
             {{ block.settings.description }}
           </div>
         {%- endif -%}
@@ -26,24 +336,24 @@
     {%- endif -%}
 
     <div class="sa-grid-{{ sa_id }} sa-mobile-{{ block.settings.mobile_layout }}">
-      {%- for i in (1..4) -%}
-        {%- liquid
-          assign date_key = 'date_' | append: i
-          assign badge_key = 'badge_' | append: i
-          assign title_key = 'title_' | append: i
-          assign desc_key = 'desc_' | append: i
-          assign label_key = 'link_label_' | append: i
-          assign url_key = 'link_url_' | append: i
-          
-          assign date_val = block.settings[date_key]
-          assign badge_val = block.settings[badge_key]
-          assign title_val = block.settings[title_key]
-          assign desc_val = block.settings[desc_key]
-          assign label_val = block.settings[label_key]
-          assign url_val = block.settings[url_key]
-        -%}
+      {%- assign cards_data = "card_1|card_2|card_3|card_4" | split: "|" -%}
+      
+      {%- for c in cards_data -%}
+        {%- assign date_key = c | append: "_date" -%}
+        {%- assign badge_key = c | append: "_badge" -%}
+        {%- assign title_key = c | append: "_title" -%}
+        {%- assign desc_key = c | append: "_description" -%}
+        {%- assign label_key = c | append: "_link_label" -%}
+        {%- assign url_key = c | append: "_link_url" -%}
 
-        {%- if date_val != blank or title_val != blank -%}
+        {%- assign date_val = block.settings[date_key] -%}
+        {%- assign badge_val = block.settings[badge_key] -%}
+        {%- assign title_val = block.settings[title_key] -%}
+        {%- assign desc_val = block.settings[desc_key] -%}
+        {%- assign label_val = block.settings[label_key] -%}
+        {%- assign url_val = block.settings[url_key] -%}
+
+        {%- if title_val != blank or date_val != blank or desc_val != blank -%}
           <div class="sa-card-{{ sa_id }} {% if block.settings.card_hover_effect %}sa-card--hover-{{ sa_id }}{% endif %}">
             <div class="sa-card__header-{{ sa_id }}">
               {%- if date_val != blank -%}
@@ -80,269 +390,13 @@
   </div>
 </div>
 
-{%- if block.settings.import_gothic_font -%}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
-{%- endif -%}
-
-<style>
-  .store-activities-block-{{ sa_id }} {
-    --sa-bg: {{ block.settings.section_bg }};
-    --sa-card-bg: {{ block.settings.card_bg }};
-    --sa-card-border: {{ block.settings.card_border }};
-    --sa-subtitle-color: {{ block.settings.subtitle_color }};
-    --sa-heading-color: {{ block.settings.heading_color }};
-    --sa-desc-color: {{ block.settings.description_color }};
-    --sa-date-color: {{ block.settings.date_color }};
-    --sa-badge-color: {{ block.settings.card_badge_color }};
-    --sa-title-color: {{ block.settings.card_title_color }};
-    --sa-card-desc-color: {{ block.settings.card_desc_color }};
-    --sa-link-color: {{ block.settings.card_link_color }};
-    --sa-link-hover-color: {{ block.settings.card_link_hover_color }};
-    
-    --sa-date-font: {% if block.settings.date_font_custom != blank %}{{ block.settings.date_font_custom }}{% elsif block.settings.import_gothic_font %}'Cinzel Decorative', 'Pirata One', Georgia, serif{% else %}inherit{% endif %};
-    --sa-heading-font: {% if block.settings.heading_font_custom != blank %}{{ block.settings.heading_font_custom }}{% else %}var(--heading-font-stack, inherit){% endif %};
-
-    width: {{ block.settings.desktop_width_percent }}%;
-    background-color: var(--sa-bg);
-    padding-top: {{ block.settings.padding_top }}px;
-    padding-bottom: {{ block.settings.padding_bottom }}px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .sa-container-{{ sa_id }} {
-    max-width: {{ block.settings.max_width }}px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* Header Styles */
-  .sa-header-{{ sa_id }} {
-    margin-bottom: {{ block.settings.header_spacing }}px;
-  }
-  .store-activities-block-{{ sa_id }} .sa-align-left { text-align: left; }
-  .store-activities-block-{{ sa_id }} .sa-align-center { text-align: center; }
-  .store-activities-block-{{ sa_id }} .sa-align-right { text-align: right; }
-
-  .sa-subtitle-{{ sa_id }} {
-    color: var(--sa-subtitle-color);
-    font-size: {{ block.settings.subtitle_size }}px;
-    font-weight: 600;
-    letter-spacing: {{ block.settings.subtitle_letter_spacing }}px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .sa-heading-{{ sa_id }} {
-    color: var(--sa-heading-color);
-    font-family: var(--sa-heading-font);
-    font-size: {{ block.settings.heading_size_desktop }}px;
-    font-weight: 400;
-    line-height: 1.25;
-    margin: 0 0 16px 0;
-  }
-
-  .sa-description-{{ sa_id }} {
-    color: var(--sa-desc-color);
-    font-size: {{ block.settings.description_size }}px;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .sa-desc-italic-{{ sa_id }} {
-    font-style: italic;
-  }
-
-  /* Grid & Cards */
-  .sa-grid-{{ sa_id }} {
-    display: grid;
-    grid-template-columns: repeat({{ block.settings.grid_columns_desktop }}, 1fr);
-    gap: {{ block.settings.grid_gap }}px;
-    align-items: stretch;
-  }
-
-  .sa-card-{{ sa_id }} {
-    background-color: var(--sa-card-bg);
-    border: 1px solid var(--sa-card-border);
-    border-radius: {{ block.settings.card_border_radius }}px;
-    padding: {{ block.settings.card_padding }}px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-    height: 100%;
-  }
-
-  .sa-card--hover-{{ sa_id }}:hover {
-    border-color: var(--sa-link-color);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-  }
-
-  .sa-card__header-{{ sa_id }} {
-    margin-bottom: 24px;
-  }
-
-  .sa-card__date-{{ sa_id }} {
-    color: var(--sa-date-color);
-    font-family: var(--sa-date-font);
-    font-size: {{ block.settings.date_size_desktop }}px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 8px;
-    letter-spacing: -0.02em;
-  }
-
-  .sa-card__badge-{{ sa_id }} {
-    color: var(--sa-badge-color);
-    font-size: {{ block.settings.card_badge_size }}px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-
-  .sa-card__body-{{ sa_id }} {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sa-card__title-{{ sa_id }} {
-    color: var(--sa-title-color);
-    font-family: var(--sa-heading-font);
-    font-size: {{ block.settings.card_title_size }}px;
-    font-weight: 500;
-    line-height: 1.35;
-    margin: 0 0 14px 0;
-  }
-
-  .sa-card__desc-{{ sa_id }} {
-    color: var(--sa-card-desc-color);
-    font-size: {{ block.settings.card_desc_size }}px;
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  .sa-card__footer-{{ sa_id }} {
-    margin-top: 32px;
-    padding-top: 16px;
-  }
-
-  .sa-card__link-{{ sa_id }} {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--sa-link-color);
-    font-size: {{ block.settings.card_link_size }}px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: color 0.3s ease, gap 0.3s ease;
-  }
-
-  .sa-card__link-{{ sa_id }}:hover {
-    color: var(--sa-link-hover-color);
-    gap: 12px;
-  }
-
-  .sa-card__link-arrow-{{ sa_id }} {
-    transition: transform 0.3s ease;
-  }
-
-  .sa-card__link-{{ sa_id }}:hover .sa-card__link-arrow-{{ sa_id }} {
-    transform: translateX(4px);
-  }
-
-  /* Responsive Tablet & Mobile */
-  @media screen and (max-width: 1024px) {
-    .sa-grid-{{ sa_id }} {
-      grid-template-columns: repeat({{ block.settings.grid_columns_tablet }}, 1fr);
-      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
-    }
-    .sa-heading-{{ sa_id }} {
-      font-size: {{ block.settings.heading_size_desktop | times: 0.85 }}px;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .store-activities-block-{{ sa_id }} {
-      padding-top: {{ block.settings.padding_top | times: 0.65 }}px;
-      padding-bottom: {{ block.settings.padding_bottom | times: 0.65 }}px;
-      width: 100%;
-    }
-    
-    .sa-container-{{ sa_id }} {
-      padding: 0 16px;
-    }
-
-    .sa-heading-{{ sa_id }} {
-      font-size: {{ block.settings.heading_size_mobile }}px;
-    }
-
-    .sa-subtitle-{{ sa_id }} {
-      font-size: {{ block.settings.subtitle_size | minus: 1 }}px;
-    }
-
-    .sa-card__date-{{ sa_id }} {
-      font-size: {{ block.settings.date_size_mobile }}px;
-    }
-
-    .sa-card-{{ sa_id }} {
-      padding: {{ block.settings.card_padding | times: 0.8 }}px;
-    }
-
-    /* Mobile Grid vs Carousel layout options */
-    .sa-grid-{{ sa_id }}.sa-mobile-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .sa-grid-{{ sa_id }}.sa-mobile-carousel {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      margin-left: -16px;
-      margin-right: -16px;
-      padding-left: 16px;
-      padding-right: 16px;
-      gap: 14px;
-    }
-
-    .sa-grid-{{ sa_id }}.sa-mobile-carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .sa-grid-{{ sa_id }}.sa-mobile-carousel .sa-card-{{ sa_id }} {
-      flex: 0 0 82vw;
-      scroll-snap-align: center;
-    }
-  }
-</style>
-
 {% schema %}
 {
   "name": "Block Hoạt động (4 Card)",
-  "tag": null,
   "settings": [
     {
       "type": "header",
       "content": "Bố cục & Khoảng cách"
-    },
-    {
-      "type": "range",
-      "id": "desktop_width_percent",
-      "label": "Chiều rộng theo % (Desktop)",
-      "min": 50,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 100
     },
     {
       "type": "range",
@@ -546,7 +600,7 @@
     {
       "type": "color",
       "id": "section_bg",
-      "label": "Màu nền Block",
+      "label": "Màu nền Section",
       "default": "#0a0a0a"
     },
     {
@@ -632,7 +686,7 @@
     {
       "type": "color",
       "id": "card_badge_color",
-      "label": "Màu Badge/Sub-date",
+      "label": "Màu Badge/Sub-date (THỨ BA - CHỈ MEMBER...)",
       "default": "#a09890"
     },
     {
@@ -705,159 +759,159 @@
     },
     {
       "type": "header",
-      "content": "Thẻ 1 (05.08)"
+      "content": "Nội dung Thẻ 1 (05.08)"
     },
     {
       "type": "text",
-      "id": "date_1",
-      "label": "Ngày",
+      "id": "card_1_date",
+      "label": "Ngày tháng thẻ 1",
       "default": "05.08"
     },
     {
       "type": "text",
-      "id": "badge_1",
-      "label": "Thứ / Đối tượng",
+      "id": "card_1_badge",
+      "label": "Badge thẻ 1",
       "default": "THỨ BA - CHỈ MEMBER"
     },
     {
       "type": "text",
-      "id": "title_1",
-      "label": "Tiêu đề",
+      "id": "card_1_title",
+      "label": "Tiêu đề thẻ 1",
       "default": "Private Night"
     },
     {
       "type": "textarea",
-      "id": "desc_1",
-      "label": "Mô tả",
+      "id": "card_1_description",
+      "label": "Mô tả thẻ 1",
       "default": "Đêm dành riêng cho member — xem trước sản phẩm, gặp đội ngũ HELIOS, chạm vào Chiến binh Lotus."
     },
     {
       "type": "text",
-      "id": "link_label_1",
-      "label": "Nhãn link",
+      "id": "card_1_link_label",
+      "label": "Nhãn nút thẻ 1",
       "default": "NHẬN THƯ MỜI"
     },
     {
       "type": "url",
-      "id": "link_url_1",
-      "label": "URL"
+      "id": "card_1_link_url",
+      "label": "Đường dẫn thẻ 1"
     },
     {
       "type": "header",
-      "content": "Thẻ 2 (06.08 - Phá băng)"
+      "content": "Nội dung Thẻ 2 (06.08)"
     },
     {
       "type": "text",
-      "id": "date_2",
-      "label": "Ngày",
+      "id": "card_2_date",
+      "label": "Ngày tháng thẻ 2",
       "default": "06.08"
     },
     {
       "type": "text",
-      "id": "badge_2",
-      "label": "Thứ / Đối tượng",
+      "id": "card_2_badge",
+      "label": "Badge thẻ 2",
       "default": "THỨ TƯ - 09.08"
     },
     {
       "type": "text",
-      "id": "title_2",
-      "label": "Tiêu đề",
+      "id": "card_2_title",
+      "label": "Tiêu đề thẻ 2",
       "default": "Phá băng"
     },
     {
       "type": "textarea",
-      "id": "desc_2",
-      "label": "Mô tả",
+      "id": "card_2_description",
+      "label": "Mô tả thẻ 2",
       "default": "Nghi thức mở phong ấn mười năm. Tự tay khai băng để lấy dấu ấn bên trong."
     },
     {
       "type": "text",
-      "id": "link_label_2",
-      "label": "Nhãn link",
+      "id": "card_2_link_label",
+      "label": "Nhãn nút thẻ 2",
       "default": "XEM CHI TIẾT"
     },
     {
       "type": "url",
-      "id": "link_url_2",
-      "label": "URL"
+      "id": "card_2_link_url",
+      "label": "Đường dẫn thẻ 2"
     },
     {
       "type": "header",
-      "content": "Thẻ 3 (06.08 - Rút thẻ chương)"
+      "content": "Nội dung Thẻ 3 (06.08)"
     },
     {
       "type": "text",
-      "id": "date_3",
-      "label": "Ngày",
+      "id": "card_3_date",
+      "label": "Ngày tháng thẻ 3",
       "default": "06.08"
     },
     {
       "type": "text",
-      "id": "badge_3",
-      "label": "Thứ / Đối tượng",
+      "id": "card_3_badge",
+      "label": "Badge thẻ 3",
       "default": "THỨ TƯ - 09.08"
     },
     {
       "type": "text",
-      "id": "title_3",
-      "label": "Tiêu đề",
+      "id": "card_3_title",
+      "label": "Tiêu đề thẻ 3",
       "default": "Rút thẻ chương"
     },
     {
       "type": "textarea",
-      "id": "desc_3",
-      "label": "Mô tả",
+      "id": "card_3_description",
+      "label": "Mô tả thẻ 3",
       "default": "Mười thẻ chương. Sưu tầm đủ bộ để nhận trunk kỷ niệm."
     },
     {
       "type": "text",
-      "id": "link_label_3",
-      "label": "Nhãn link",
+      "id": "card_3_link_label",
+      "label": "Nhãn nút thẻ 3",
       "default": "XEM LUẬT CHƠI"
     },
     {
       "type": "url",
-      "id": "link_url_3",
-      "label": "URL"
+      "id": "card_3_link_url",
+      "label": "Đường dẫn thẻ 3"
     },
     {
       "type": "header",
-      "content": "Thẻ 4 (08.08 - Special Live)"
+      "content": "Nội dung Thẻ 4 (08.08)"
     },
     {
       "type": "text",
-      "id": "date_4",
-      "label": "Ngày",
+      "id": "card_4_date",
+      "label": "Ngày tháng thẻ 4",
       "default": "08.08"
     },
     {
       "type": "text",
-      "id": "badge_4",
-      "label": "Thứ / Đối tượng",
+      "id": "card_4_badge",
+      "label": "Badge thẻ 4",
       "default": "D-DAY - LIVE"
     },
     {
       "type": "text",
-      "id": "title_4",
-      "label": "Tiêu đề",
+      "id": "card_4_title",
+      "label": "Tiêu đề thẻ 4",
       "default": "Special Live"
     },
     {
       "type": "textarea",
-      "id": "desc_4",
-      "label": "Mô tả",
+      "id": "card_4_description",
+      "label": "Mô tả thẻ 4",
       "default": "Mở Phong Ấn Cuối — lần đầu công bố trọn artwork Chiến binh Lotus."
     },
     {
       "type": "text",
-      "id": "link_label_4",
-      "label": "Nhãn link",
+      "id": "card_4_link_label",
+      "label": "Nhãn nút thẻ 4",
       "default": "ĐẶT LỊCH XEM"
     },
     {
       "type": "url",
-      "id": "link_url_4",
-      "label": "URL"
+      "id": "card_4_link_url",
+      "label": "Đường dẫn thẻ 4"
     }
   ],
   "presets": [

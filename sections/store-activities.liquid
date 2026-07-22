@@ -4,6 +4,316 @@
 {% endcomment %}
 
 <section class="store-activities-{{ section.id }}" data-section-id="{{ section.id }}">
+  {%- if section.settings.import_gothic_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+  {%- endif -%}
+
+  <style>
+    .store-activities-{{ section.id }} {
+      --sa-bg: {{ section.settings.section_bg }};
+      --sa-card-bg: {{ section.settings.card_bg }};
+      --sa-card-border: {{ section.settings.card_border }};
+      --sa-subtitle-color: {{ section.settings.subtitle_color }};
+      --sa-heading-color: {{ section.settings.heading_color }};
+      --sa-desc-color: {{ section.settings.description_color }};
+      --sa-date-color: {{ section.settings.date_color }};
+      --sa-badge-color: {{ section.settings.card_badge_color }};
+      --sa-title-color: {{ section.settings.card_title_color }};
+      --sa-card-desc-color: {{ section.settings.card_desc_color }};
+      --sa-link-color: {{ section.settings.card_link_color }};
+      --sa-link-hover-color: {{ section.settings.card_link_hover_color }};
+      
+      --sa-date-font: {% if section.settings.date_font_custom != blank %}{{ section.settings.date_font_custom }}{% elsif section.settings.import_gothic_font %}'Cinzel Decorative', 'Pirata One', Georgia, serif{% else %}inherit{% endif %};
+      --sa-heading-font: {% if section.settings.heading_font_custom != blank %}{{ section.settings.heading_font_custom }}{% else %}var(--heading-font-stack, inherit){% endif %};
+
+      display: block !important;
+      width: 100% !important;
+      clear: both !important;
+      box-sizing: border-box !important;
+      background-color: var(--sa-bg) !important;
+      padding-top: {{ section.settings.padding_top }}px !important;
+      padding-bottom: {{ section.settings.padding_bottom }}px !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .store-activities-{{ section.id }} *,
+    .store-activities-{{ section.id }} *::before,
+    .store-activities-{{ section.id }} *::after {
+      box-sizing: border-box;
+    }
+
+    .store-activities-{{ section.id }} .sa-container {
+      display: block !important;
+      width: 100% !important;
+      max-width: {{ section.settings.max_width }}px !important;
+      margin: 0 auto !important;
+      padding: 0 24px !important;
+      clear: both !important;
+      float: none !important;
+    }
+
+    /* Header Styles */
+    .store-activities-{{ section.id }} .sa-header {
+      display: block !important;
+      width: 100% !important;
+      float: none !important;
+      clear: both !important;
+      margin: 0 0 {{ section.settings.header_spacing }}px 0 !important;
+    }
+    .store-activities-{{ section.id }} .sa-align-left { text-align: left !important; }
+    .store-activities-{{ section.id }} .sa-align-center { text-align: center !important; }
+    .store-activities-{{ section.id }} .sa-align-right { text-align: right !important; }
+
+    .store-activities-{{ section.id }} .sa-subtitle {
+      display: block !important;
+      color: var(--sa-subtitle-color) !important;
+      font-size: {{ section.settings.subtitle_size }}px !important;
+      font-weight: 600 !important;
+      letter-spacing: {{ section.settings.subtitle_letter_spacing }}px !important;
+      text-transform: uppercase !important;
+      margin: 0 0 16px 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-heading {
+      display: block !important;
+      color: var(--sa-heading-color) !important;
+      font-family: var(--sa-heading-font) !important;
+      font-size: {{ section.settings.heading_size_desktop }}px !important;
+      font-weight: 400 !important;
+      line-height: 1.25 !important;
+      margin: 0 0 16px 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-description {
+      display: block !important;
+      color: var(--sa-desc-color) !important;
+      font-size: {{ section.settings.description_size }}px !important;
+      line-height: 1.6 !important;
+      margin: 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .store-activities-{{ section.id }} .sa-desc-italic {
+      font-style: italic !important;
+    }
+
+    /* Grid & Cards */
+    .store-activities-{{ section.id }} .sa-grid {
+      display: grid !important;
+      grid-template-columns: repeat({{ section.settings.grid_columns_desktop }}, minmax(0, 1fr)) !important;
+      gap: {{ section.settings.grid_gap }}px !important;
+      align-items: stretch !important;
+      width: 100% !important;
+      float: none !important;
+      clear: both !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 220px !important;
+      float: none !important;
+      position: relative !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      background-color: var(--sa-card-bg) !important;
+      border: 1px solid var(--sa-card-border) !important;
+      border-radius: {{ section.settings.card_border_radius }}px !important;
+      padding: {{ section.settings.card_padding }}px !important;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+      margin: 0 !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+      z-index: 1 !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card--hover:hover {
+      border-color: var(--sa-link-color) !important;
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__header {
+      display: block !important;
+      margin: 0 0 24px 0 !important;
+      width: 100% !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__date {
+      display: block !important;
+      color: var(--sa-date-color) !important;
+      font-family: var(--sa-date-font) !important;
+      font-size: {{ section.settings.date_size_desktop }}px !important;
+      font-weight: 700 !important;
+      line-height: 1.1 !important;
+      margin: 0 0 8px 0 !important;
+      letter-spacing: -0.02em !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__badge {
+      display: block !important;
+      color: var(--sa-badge-color) !important;
+      font-size: {{ section.settings.card_badge_size }}px !important;
+      font-weight: 600 !important;
+      letter-spacing: 1.5px !important;
+      text-transform: uppercase !important;
+      margin: 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__body {
+      display: flex !important;
+      flex-direction: column !important;
+      flex-grow: 1 !important;
+      width: 100% !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__title {
+      display: block !important;
+      color: var(--sa-title-color) !important;
+      font-family: var(--sa-heading-font) !important;
+      font-size: {{ section.settings.card_title_size }}px !important;
+      font-weight: 500 !important;
+      line-height: 1.35 !important;
+      margin: 0 0 14px 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__desc {
+      display: block !important;
+      color: var(--sa-card-desc-color) !important;
+      font-size: {{ section.settings.card_desc_size }}px !important;
+      line-height: 1.65 !important;
+      margin: 0 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__footer {
+      display: block !important;
+      margin: 32px 0 0 0 !important;
+      padding-top: 16px !important;
+      width: 100% !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__link {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      color: var(--sa-link-color) !important;
+      font-size: {{ section.settings.card_link_size }}px !important;
+      font-weight: 600 !important;
+      letter-spacing: 1.5px !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+      transition: color 0.3s ease, gap 0.3s ease !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__link:hover {
+      color: var(--sa-link-hover-color) !important;
+      gap: 12px !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__link-arrow {
+      display: inline-block !important;
+      transition: transform 0.3s ease !important;
+    }
+
+    .store-activities-{{ section.id }} .sa-card__link:hover .sa-card__link-arrow {
+      transform: translateX(4px) !important;
+    }
+
+    /* Responsive Tablet & Mobile */
+    @media screen and (max-width: 1024px) {
+      .store-activities-{{ section.id }} .sa-grid {
+        grid-template-columns: repeat({{ section.settings.grid_columns_tablet }}, minmax(0, 1fr)) !important;
+        gap: {{ section.settings.grid_gap | times: 0.8 }}px !important;
+      }
+      .store-activities-{{ section.id }} .sa-heading {
+        font-size: {{ section.settings.heading_size_desktop | times: 0.85 }}px !important;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .store-activities-{{ section.id }} {
+        padding-top: {{ section.settings.padding_top | times: 0.65 }}px !important;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.65 }}px !important;
+      }
+      
+      .store-activities-{{ section.id }} .sa-container {
+        padding: 0 16px !important;
+      }
+
+      .store-activities-{{ section.id }} .sa-heading {
+        font-size: {{ section.settings.heading_size_mobile }}px !important;
+      }
+
+      .store-activities-{{ section.id }} .sa-subtitle {
+        font-size: {{ section.settings.subtitle_size | minus: 1 }}px !important;
+      }
+
+      .store-activities-{{ section.id }} .sa-card__date {
+        font-size: {{ section.settings.date_size_mobile }}px !important;
+      }
+
+      .store-activities-{{ section.id }} .sa-card {
+        padding: {{ section.settings.card_padding | times: 0.8 }}px !important;
+        min-height: 180px !important;
+      }
+
+      /* Mobile Grid vs Carousel layout options */
+      .store-activities-{{ section.id }} .sa-grid.sa-mobile-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 16px !important;
+      }
+
+      .store-activities-{{ section.id }} .sa-grid.sa-mobile-carousel {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin-left: -16px !important;
+        margin-right: -16px !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        gap: 14px !important;
+      }
+
+      .store-activities-{{ section.id }} .sa-grid.sa-mobile-carousel::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .store-activities-{{ section.id }} .sa-grid.sa-mobile-carousel .sa-card {
+        flex: 0 0 82vw !important;
+        width: 82vw !important;
+        scroll-snap-align: center !important;
+      }
+    }
+  </style>
+
   <div class="sa-container">
     {%- if section.settings.subtitle != blank or section.settings.heading != blank or section.settings.description != blank -%}
       <header class="sa-header sa-align-{{ section.settings.header_align }}">
@@ -63,248 +373,6 @@
     </div>
   </div>
 </section>
-
-{%- if section.settings.import_gothic_font -%}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
-{%- endif -%}
-
-<style>
-  .store-activities-{{ section.id }} {
-    --sa-bg: {{ section.settings.section_bg }};
-    --sa-card-bg: {{ section.settings.card_bg }};
-    --sa-card-border: {{ section.settings.card_border }};
-    --sa-subtitle-color: {{ section.settings.subtitle_color }};
-    --sa-heading-color: {{ section.settings.heading_color }};
-    --sa-desc-color: {{ section.settings.description_color }};
-    --sa-date-color: {{ section.settings.date_color }};
-    --sa-badge-color: {{ section.settings.card_badge_color }};
-    --sa-title-color: {{ section.settings.card_title_color }};
-    --sa-card-desc-color: {{ section.settings.card_desc_color }};
-    --sa-link-color: {{ section.settings.card_link_color }};
-    --sa-link-hover-color: {{ section.settings.card_link_hover_color }};
-    
-    --sa-date-font: {% if section.settings.date_font_custom != blank %}{{ section.settings.date_font_custom }}{% elsif section.settings.import_gothic_font %}'Cinzel Decorative', 'Pirata One', Georgia, serif{% else %}inherit{% endif %};
-    --sa-heading-font: {% if section.settings.heading_font_custom != blank %}{{ section.settings.heading_font_custom }}{% else %}var(--heading-font-stack, inherit){% endif %};
-
-    background-color: var(--sa-bg);
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .store-activities-{{ section.id }} .sa-container {
-    max-width: {{ section.settings.max_width }}px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* Header Styles */
-  .store-activities-{{ section.id }} .sa-header {
-    margin-bottom: {{ section.settings.header_spacing }}px;
-  }
-  .store-activities-{{ section.id }} .sa-align-left { text-align: left; }
-  .store-activities-{{ section.id }} .sa-align-center { text-align: center; }
-  .store-activities-{{ section.id }} .sa-align-right { text-align: right; }
-
-  .store-activities-{{ section.id }} .sa-subtitle {
-    color: var(--sa-subtitle-color);
-    font-size: {{ section.settings.subtitle_size }}px;
-    font-weight: 600;
-    letter-spacing: {{ section.settings.subtitle_letter_spacing }}px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .store-activities-{{ section.id }} .sa-heading {
-    color: var(--sa-heading-color);
-    font-family: var(--sa-heading-font);
-    font-size: {{ section.settings.heading_size_desktop }}px;
-    font-weight: 400;
-    line-height: 1.25;
-    margin: 0 0 16px 0;
-  }
-
-  .store-activities-{{ section.id }} .sa-description {
-    color: var(--sa-desc-color);
-    font-size: {{ section.settings.description_size }}px;
-    line-height: 1.6;
-    margin: 0;
-  }
-  .store-activities-{{ section.id }} .sa-desc-italic {
-    font-style: italic;
-  }
-
-  /* Grid & Cards */
-  .store-activities-{{ section.id }} .sa-grid {
-    display: grid;
-    grid-template-columns: repeat({{ section.settings.grid_columns_desktop }}, 1fr);
-    gap: {{ section.settings.grid_gap }}px;
-    align-items: stretch;
-  }
-
-  .store-activities-{{ section.id }} .sa-card {
-    background-color: var(--sa-card-bg);
-    border: 1px solid var(--sa-card-border);
-    border-radius: {{ section.settings.card_border_radius }}px;
-    padding: {{ section.settings.card_padding }}px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-    height: 100%;
-  }
-
-  .store-activities-{{ section.id }} .sa-card--hover:hover {
-    border-color: var(--sa-link-color);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-  }
-
-  .store-activities-{{ section.id }} .sa-card__header {
-    margin-bottom: 24px;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__date {
-    color: var(--sa-date-color);
-    font-family: var(--sa-date-font);
-    font-size: {{ section.settings.date_size_desktop }}px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 8px;
-    letter-spacing: -0.02em;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__badge {
-    color: var(--sa-badge-color);
-    font-size: {{ section.settings.card_badge_size }}px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__body {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__title {
-    color: var(--sa-title-color);
-    font-family: var(--sa-heading-font);
-    font-size: {{ section.settings.card_title_size }}px;
-    font-weight: 500;
-    line-height: 1.35;
-    margin: 0 0 14px 0;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__desc {
-    color: var(--sa-card-desc-color);
-    font-size: {{ section.settings.card_desc_size }}px;
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__footer {
-    margin-top: 32px;
-    padding-top: 16px;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--sa-link-color);
-    font-size: {{ section.settings.card_link_size }}px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: color 0.3s ease, gap 0.3s ease;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__link:hover {
-    color: var(--sa-link-hover-color);
-    gap: 12px;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__link-arrow {
-    transition: transform 0.3s ease;
-  }
-
-  .store-activities-{{ section.id }} .sa-card__link:hover .sa-card__link-arrow {
-    transform: translateX(4px);
-  }
-
-  /* Responsive Tablet & Mobile */
-  @media screen and (max-width: 1024px) {
-    .store-activities-{{ section.id }} .sa-grid {
-      grid-template-columns: repeat({{ section.settings.grid_columns_tablet }}, 1fr);
-      gap: {{ section.settings.grid_gap | times: 0.8 }}px;
-    }
-    .store-activities-{{ section.id }} .sa-heading {
-      font-size: {{ section.settings.heading_size_desktop | times: 0.85 }}px;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .store-activities-{{ section.id }} {
-      padding-top: {{ section.settings.padding_top | times: 0.65 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.65 }}px;
-    }
-    
-    .store-activities-{{ section.id }} .sa-container {
-      padding: 0 16px;
-    }
-
-    .store-activities-{{ section.id }} .sa-heading {
-      font-size: {{ section.settings.heading_size_mobile }}px;
-    }
-
-    .store-activities-{{ section.id }} .sa-subtitle {
-      font-size: {{ section.settings.subtitle_size | minus: 1 }}px;
-    }
-
-    .store-activities-{{ section.id }} .sa-card__date {
-      font-size: {{ section.settings.date_size_mobile }}px;
-    }
-
-    .store-activities-{{ section.id }} .sa-card {
-      padding: {{ section.settings.card_padding | times: 0.8 }}px;
-    }
-
-    /* Mobile Grid vs Carousel layout options */
-    .store-activities-{{ section.id }} .sa-grid.sa-mobile-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .store-activities-{{ section.id }} .sa-grid.sa-mobile-carousel {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      margin-left: -16px;
-      margin-right: -16px;
-      padding-left: 16px;
-      padding-right: 16px;
-      gap: 14px;
-    }
-
-    .store-activities-{{ section.id }} .sa-grid.sa-mobile-carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .store-activities-{{ section.id }} .sa-grid.sa-mobile-carousel .sa-card {
-      flex: 0 0 82vw;
-      scroll-snap-align: center;
-    }
-  }
-</style>
 
 {% schema %}
 {
