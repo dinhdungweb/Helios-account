@@ -179,6 +179,7 @@
         "blocks": {
           "slide_LnQdra": {
             "type": "slide",
+            "disabled": true,
             "settings": {
               "text": "FREESHIP TOÀN QUỐC",
               "link": "shopify://collections/all-products"
@@ -186,6 +187,7 @@
           },
           "slide_fea8Dc": {
             "type": "slide",
+            "disabled": true,
             "settings": {
               "text": "ĐÁNH SÁNG TRỌN ĐỜI",
               "link": "shopify://collections/all-products"
@@ -193,6 +195,7 @@
           },
           "slide_QL8AxT": {
             "type": "slide",
+            "disabled": true,
             "settings": {
               "text": "CỔ VŨ BẢN LĨNH VÀ HÀNH TRÌNH TRƯỞNG THÀNH CỦA NGƯỜI ĐÀN ÔNG",
               "link": "shopify://collections/all-products"
@@ -236,7 +239,7 @@
           "mobile_logo_width": 120,
           "use_alt_logo_when_active": true,
           "logo_h1": true,
-          "show_announcement": true,
+          "show_announcement": false,
           "announcement_home_only": false,
           "announcement_text": "VẬN CHUYỂN TOÀN QUỐC",
           "announcement_text_size": 14,
@@ -245,6 +248,35 @@
           "announcement_email": "support@helios.vn",
           "announcement_custom": "Hệ thống cửa hàng",
           "announcement_custom_link": "shopify://pages/he-thong-cua-hang",
+          "show_countdown_bar": true,
+          "countdown_home_only": false,
+          "countdown_bar_link": "",
+          "countdown_text_align": "center",
+          "countdown_max_width": 1800,
+          "countdown_padding_top": 10,
+          "countdown_padding_bottom": 10,
+          "countdown_prefix_text": "D-DAY 8/8/2026",
+          "countdown_separator": "·",
+          "countdown_target_date": "2026-08-08T20:00:00",
+          "countdown_expired_text": "SỰ KIỆN ĐANG DIỄN RA - TRUY CẬP NGAY",
+          "countdown_show_seconds": false,
+          "countdown_label_days": "NGÀY",
+          "countdown_label_hours": "GIỜ",
+          "countdown_label_minutes": "PHÚT",
+          "countdown_label_seconds": "GIÂY",
+          "countdown_bg_color": "#be6834",
+          "countdown_text_color": "#18110b",
+          "countdown_number_color": "#18110b",
+          "countdown_label_color": "#18110b",
+          "countdown_border_bottom_width": 1,
+          "countdown_border_bottom_color": "#141414",
+          "countdown_use_gothic_number": true,
+          "countdown_prefix_size": 13,
+          "countdown_prefix_size_mobile": 11,
+          "countdown_number_size": 18,
+          "countdown_number_size_mobile": 14,
+          "countdown_label_size": 11,
+          "countdown_label_size_mobile": 9,
           "nav_cart_icon": "basket1",
           "show_country_selector": true,
           "show_language_selector": true
