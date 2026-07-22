@@ -243,6 +243,18 @@
       transform: translateX(4px) !important;
     }
 
+    .store-activities-{{ section.id }} .sa-card,
+    .store-activities-{{ section.id }} .sa-card__header,
+    .store-activities-{{ section.id }} .sa-card__date,
+    .store-activities-{{ section.id }} .sa-card__badge,
+    .store-activities-{{ section.id }} .sa-card__body,
+    .store-activities-{{ section.id }} .sa-card__title,
+    .store-activities-{{ section.id }} h3.sa-card__title,
+    .store-activities-{{ section.id }} .sa-card__desc,
+    .store-activities-{{ section.id }} .sa-card__footer {
+      text-align: {{ section.settings.card_text_align | default: 'left' }} !important;
+    }
+
     /* Responsive Tablet & Mobile */
     @media screen and (max-width: 1024px) {
       .store-activities-{{ section.id }} .sa-grid {
@@ -626,6 +638,17 @@
       "id": "card_hover_effect",
       "label": "Hiệu ứng khi di chuột (Hover Effect)",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "card_text_align",
+      "label": "Căn lề chữ trong Thẻ (Card Text Align)",
+      "options": [
+        { "value": "left", "label": "Trái (Left)" },
+        { "value": "center", "label": "Giữa (Center)" },
+        { "value": "right", "label": "Phải (Right)" }
+      ],
+      "default": "left"
     },
     {
       "type": "header",

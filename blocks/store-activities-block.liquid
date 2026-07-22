@@ -245,6 +245,18 @@
       transform: translateX(4px) !important;
     }
 
+    .sa-block-wrapper-{{ sa_id }} .sa-card-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} .sa-card__header-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} .sa-card__date-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} .sa-card__badge-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} .sa-card__body-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} .sa-card__title-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} h3.sa-card__title-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} .sa-card__desc-{{ sa_id }},
+    .sa-block-wrapper-{{ sa_id }} .sa-card__footer-{{ sa_id }} {
+      text-align: {{ block.settings.card_text_align | default: 'left' }} !important;
+    }
+
     /* Responsive Tablet & Mobile */
     @media screen and (max-width: 1024px) {
       .sa-block-wrapper-{{ sa_id }} .sa-grid-{{ sa_id }} {
@@ -640,6 +652,17 @@
       "id": "card_hover_effect",
       "label": "Hiệu ứng khi di chuột (Hover Effect)",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "card_text_align",
+      "label": "Căn lề chữ trong Thẻ (Card Text Align)",
+      "options": [
+        { "value": "left", "label": "Trái (Left)" },
+        { "value": "center", "label": "Giữa (Center)" },
+        { "value": "right", "label": "Phải (Right)" }
+      ],
+      "default": "left"
     },
     {
       "type": "header",
