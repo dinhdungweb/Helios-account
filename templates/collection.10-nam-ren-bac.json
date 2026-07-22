@@ -336,6 +336,29 @@
         "card_link_hover_color": "#ffffff",
         "card_link_size": 12
       }
+    },
+    "rich_text_kc4bHD": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "10 NĂM KHÔNG PHẢI VẠCH KẾT<br>ĐÓ LÀ LÚC CÁNH CỬA ĐẦU TIÊN THẬT SỰ MỞ RA",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -349,6 +372,7 @@
     "featured_collection_jWgQb7",
     "custom_liquid_NnzGff",
     "background_video_responsive_XCQb4W",
-    "store_activities_3JBnEN"
+    "store_activities_3JBnEN",
+    "rich_text_kc4bHD"
   ]
 }
