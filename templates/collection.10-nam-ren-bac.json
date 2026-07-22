@@ -359,6 +359,14 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "custom_liquid_CHFUT6": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": false,
+        "custom_liquid": ""
+      }
     }
   },
   "order": [
@@ -373,6 +381,7 @@
     "custom_liquid_NnzGff",
     "background_video_responsive_XCQb4W",
     "store_activities_3JBnEN",
-    "rich_text_kc4bHD"
+    "rich_text_kc4bHD",
+    "custom_liquid_CHFUT6"
   ]
 }
