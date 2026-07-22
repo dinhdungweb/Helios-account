@@ -297,7 +297,7 @@
         "max_width": 1400,
         "grid_columns_desktop": 4,
         "grid_columns_tablet": 2,
-        "mobile_layout": "grid",
+        "mobile_layout": "carousel",
         "grid_gap": 24,
         "header_align": "center",
         "header_spacing": 60,
