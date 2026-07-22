@@ -275,6 +275,7 @@
       data-opacity="{% if section.settings.nav_positioning == 'inline' and section.settings.nav_opacity contains 'opaque_on_scroll' %}opaque{% else %}{{ section.settings.nav_opacity }}{% endif %}"
       data-positioning="{{ section.settings.nav_positioning }}"
     >
+      {% render 'announcement-countdown', settings_obj: section.settings %}
       {{ announcement }}
       <div class="links site-control__inner">
         <a class="menu" href="#page-menu" aria-controls="page-menu" data-modal-nav-toggle aria-label="{{ 'layout.header.menu' | t | escape }}">
@@ -647,6 +648,230 @@
         "type": "url",
         "id": "announcement_custom_link",
         "label": "Custom link"
+      },
+      {
+        "type": "header",
+        "content": "Announcement Countdown (Thanh mới)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_countdown_bar",
+        "label": "Bật/Tắt thanh Announcement Countdown",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_home_only",
+        "label": "Chỉ hiển thị tại Trang Chủ",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "countdown_bar_link",
+        "label": "Đường dẫn khi nhấp vào thanh"
+      },
+      {
+        "type": "select",
+        "id": "countdown_text_align",
+        "label": "Căn lề trên Desktop",
+        "options": [
+          { "value": "flex-start", "label": "Trái (Left)" },
+          { "value": "center", "label": "Giữa (Center)" },
+          { "value": "flex-end", "label": "Phải (Right - Như hình mẫu)" },
+          { "value": "space-between", "label": "Hai đầu (Space Between)" }
+        ],
+        "default": "flex-end"
+      },
+      {
+        "type": "range",
+        "id": "countdown_max_width",
+        "label": "Chiều rộng tối đa (Max Width)",
+        "min": 1000,
+        "max": 1800,
+        "step": 50,
+        "unit": "px",
+        "default": 1800
+      },
+      {
+        "type": "range",
+        "id": "countdown_padding_top",
+        "label": "Khoảng cách trên (Padding Top)",
+        "min": 4,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "countdown_padding_bottom",
+        "label": "Khoảng cách dưới (Padding Bottom)",
+        "min": 4,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 10
+      },
+      {
+        "type": "text",
+        "id": "countdown_prefix_text",
+        "label": "Tiêu đề trước đếm ngược",
+        "default": "D-DAY 8/8/2026"
+      },
+      {
+        "type": "text",
+        "id": "countdown_separator",
+        "label": "Dấu phân cách",
+        "default": "·"
+      },
+      {
+        "type": "text",
+        "id": "countdown_target_date",
+        "label": "Ngày giờ sự kiện (YYYY-MM-DDTHH:MM:SS)",
+        "info": "Ví dụ: 2026-08-08T20:00:00",
+        "default": "2026-08-08T20:00:00"
+      },
+      {
+        "type": "text",
+        "id": "countdown_expired_text",
+        "label": "Thông báo khi hết giờ",
+        "default": "SỰ KIỆN ĐANG DIỄN RA - TRUY CẬP NGAY"
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_show_seconds",
+        "label": "Hiển thị Giây (Seconds)",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_days",
+        "label": "Nhãn Ngày",
+        "default": "NGÀY"
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_hours",
+        "label": "Nhãn Giờ",
+        "default": "GIỜ"
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_minutes",
+        "label": "Nhãn Phút",
+        "default": "PHÚT"
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_seconds",
+        "label": "Nhãn Giây",
+        "default": "GIÂY"
+      },
+      {
+        "type": "color",
+        "id": "countdown_bg_color",
+        "label": "Màu nền thanh (Background)",
+        "default": "#be6834"
+      },
+      {
+        "type": "color",
+        "id": "countdown_text_color",
+        "label": "Màu chữ tiêu đề (Prefix Color)",
+        "default": "#18110b"
+      },
+      {
+        "type": "color",
+        "id": "countdown_number_color",
+        "label": "Màu các số đếm (Number Color)",
+        "default": "#18110b"
+      },
+      {
+        "type": "color",
+        "id": "countdown_label_color",
+        "label": "Màu nhãn ngày/giờ (Label Color)",
+        "default": "#18110b"
+      },
+      {
+        "type": "range",
+        "id": "countdown_border_bottom_width",
+        "label": "Độ dày viền dưới (Border Width)",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "unit": "px",
+        "default": 1
+      },
+      {
+        "type": "color",
+        "id": "countdown_border_bottom_color",
+        "label": "Màu viền dưới (Border Color)",
+        "default": "#141414"
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_use_gothic_number",
+        "label": "Dùng font Gothic cho Số đếm",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "countdown_prefix_size",
+        "label": "Cỡ chữ Tiêu đề (Desktop)",
+        "min": 10,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 13
+      },
+      {
+        "type": "range",
+        "id": "countdown_prefix_size_mobile",
+        "label": "Cỡ chữ Tiêu đề (Mobile)",
+        "min": 9,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 11
+      },
+      {
+        "type": "range",
+        "id": "countdown_number_size",
+        "label": "Cỡ chữ Số đếm (Desktop)",
+        "min": 14,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      },
+      {
+        "type": "range",
+        "id": "countdown_number_size_mobile",
+        "label": "Cỡ chữ Số đếm (Mobile)",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "countdown_label_size",
+        "label": "Cỡ chữ Nhãn (Desktop)",
+        "min": 9,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "default": 11
+      },
+      {
+        "type": "range",
+        "id": "countdown_label_size_mobile",
+        "label": "Cỡ chữ Nhãn (Mobile)",
+        "min": 8,
+        "max": 14,
+        "step": 1,
+        "unit": "px",
+        "default": 9
       },
       {
         "type": "header",

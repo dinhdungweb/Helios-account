@@ -1,0 +1,293 @@
+{% comment %}
+  Announcement Countdown Bar Snippet - HELIOS Style
+  Can be rendered inside header.liquid or announcement-countdown.liquid section.
+{% endcomment %}
+{%- assign ac_id = settings_obj.id | default: 'header-countdown' | replace: '_', '-' -%}
+
+{%- if settings_obj.show_countdown_bar or settings_obj.show_section -%}
+  {%- assign is_home_only = settings_obj.countdown_home_only | default: settings_obj.home_only | default: false -%}
+  {%- if is_home_only == false or template == 'index' -%}
+
+    {%- if settings_obj.countdown_use_gothic_number or settings_obj.use_gothic_number -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Pirata+One&display=swap" rel="stylesheet">
+    {%- endif -%}
+
+    {%- liquid
+      assign ac_bg = settings_obj.countdown_bg_color | default: settings_obj.bg_color | default: '#be6834'
+      assign ac_text = settings_obj.countdown_text_color | default: settings_obj.text_color | default: '#18110b'
+      assign ac_num = settings_obj.countdown_number_color | default: settings_obj.number_color | default: '#18110b'
+      assign ac_label = settings_obj.countdown_label_color | default: settings_obj.label_color | default: '#18110b'
+      assign ac_align = settings_obj.countdown_text_align | default: settings_obj.text_align | default: 'flex-end'
+      assign ac_pad_top = settings_obj.countdown_padding_top | default: settings_obj.padding_top | default: 10
+      assign ac_pad_bottom = settings_obj.countdown_padding_bottom | default: settings_obj.padding_bottom | default: 10
+      assign ac_border_w = settings_obj.countdown_border_bottom_width | default: settings_obj.border_bottom_width | default: 1
+      assign ac_border_c = settings_obj.countdown_border_bottom_color | default: settings_obj.border_bottom_color | default: '#141414'
+      assign ac_max_w = settings_obj.countdown_max_width | default: settings_obj.max_width | default: 1800
+      
+      assign ac_pref_size = settings_obj.countdown_prefix_size | default: settings_obj.prefix_size | default: 13
+      assign ac_pref_size_m = settings_obj.countdown_prefix_size_mobile | default: settings_obj.prefix_size_mobile | default: 11
+      assign ac_num_size = settings_obj.countdown_number_size | default: settings_obj.number_size | default: 18
+      assign ac_num_size_m = settings_obj.countdown_number_size_mobile | default: settings_obj.number_size_mobile | default: 14
+      assign ac_lbl_size = settings_obj.countdown_label_size | default: settings_obj.label_size | default: 11
+      assign ac_lbl_size_m = settings_obj.countdown_label_size_mobile | default: settings_obj.label_size_mobile | default: 9
+
+      assign ac_prefix = settings_obj.countdown_prefix_text | default: settings_obj.prefix_text | default: 'D-DAY 8/8/2026'
+      assign ac_sep = settings_obj.countdown_separator | default: settings_obj.separator | default: '·'
+      assign ac_target = settings_obj.countdown_target_date | default: settings_obj.target_date | default: '2026-08-08T20:00:00'
+      assign ac_expired = settings_obj.countdown_expired_text | default: settings_obj.expired_text | default: 'SỰ KIỆN ĐANG DIỄN RA - TRUY CẬP NGAY'
+      assign ac_show_sec = settings_obj.countdown_show_seconds | default: settings_obj.show_seconds | default: false
+      assign ac_link = settings_obj.countdown_bar_link | default: settings_obj.bar_link
+
+      assign ac_l_days = settings_obj.countdown_label_days | default: settings_obj.label_days | default: 'NGÀY'
+      assign ac_l_hours = settings_obj.countdown_label_hours | default: settings_obj.label_hours | default: 'GIỜ'
+      assign ac_l_mins = settings_obj.countdown_label_minutes | default: settings_obj.label_minutes | default: 'PHÚT'
+      assign ac_l_secs = settings_obj.countdown_label_seconds | default: settings_obj.label_seconds | default: 'GIÂY'
+    -%}
+
+    <style>
+      .ac-bar-wrapper-{{ ac_id }} {
+        --ac-bg: {{ ac_bg }};
+        --ac-text: {{ ac_text }};
+        --ac-num: {{ ac_num }};
+        --ac-label: {{ ac_label }};
+        --ac-num-font: {% if settings_obj.countdown_custom_num_font != blank %}{{ settings_obj.countdown_custom_num_font }}{% elsif settings_obj.countdown_use_gothic_number or settings_obj.use_gothic_number %}'Cinzel Decorative', 'Pirata One', Georgia, serif{% else %}var(--heading-font-stack, inherit){% endif %};
+        
+        display: block !important;
+        width: 100% !important;
+        background-color: var(--ac-bg) !important;
+        color: var(--ac-text) !important;
+        padding-top: {{ ac_pad_top }}px !important;
+        padding-bottom: {{ ac_pad_bottom }}px !important;
+        border-bottom: {{ ac_border_w }}px solid {{ ac_border_c }} !important;
+        position: relative !important;
+        z-index: 100 !important;
+        clear: both !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} * {
+        box-sizing: border-box !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-container-{{ ac_id }} {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: {{ ac_align }} !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: {{ ac_max_w }}px !important;
+        margin: 0 auto !important;
+        padding: 0 24px !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} a.ac-link-wrap-{{ ac_id }} {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: {{ ac_align }} !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+        width: 100% !important;
+        text-decoration: none !important;
+        color: inherit !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-prefix-{{ ac_id }} {
+        display: inline-block !important;
+        font-size: {{ ac_pref_size }}px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1.2px !important;
+        text-transform: uppercase !important;
+        color: var(--ac-text) !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-separator-{{ ac_id }} {
+        display: inline-block !important;
+        font-size: {{ ac_pref_size }}px !important;
+        font-weight: 700 !important;
+        color: var(--ac-text) !important;
+        margin: 0 4px !important;
+        line-height: 1 !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-countdown-{{ ac_id }} {
+        display: inline-flex !important;
+        flex-direction: row !important;
+        align-items: baseline !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-unit-{{ ac_id }} {
+        display: inline-flex !important;
+        flex-direction: row !important;
+        align-items: baseline !important;
+        gap: 3px !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-num-{{ ac_id }} {
+        font-family: var(--ac-num-font) !important;
+        font-size: {{ ac_num_size }}px !important;
+        font-weight: 900 !important;
+        color: var(--ac-num) !important;
+        line-height: 1 !important;
+        letter-spacing: -0.5px !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-label-{{ ac_id }} {
+        font-size: {{ ac_lbl_size }}px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+        color: var(--ac-label) !important;
+        line-height: 1 !important;
+      }
+
+      .ac-bar-wrapper-{{ ac_id }} .ac-expired-msg-{{ ac_id }} {
+        font-size: {{ ac_pref_size }}px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1.5px !important;
+        text-transform: uppercase !important;
+        color: var(--ac-num) !important;
+      }
+
+      @media screen and (max-width: 749px) {
+        .ac-bar-wrapper-{{ ac_id }} {
+          padding-top: {{ ac_pad_top | times: 0.8 }}px !important;
+          padding-bottom: {{ ac_pad_bottom | times: 0.8 }}px !important;
+        }
+
+        .ac-bar-wrapper-{{ ac_id }} .ac-container-{{ ac_id }} {
+          padding: 0 14px !important;
+          gap: 6px !important;
+          justify-content: center !important;
+        }
+
+        .ac-bar-wrapper-{{ ac_id }} a.ac-link-wrap-{{ ac_id }} {
+          justify-content: center !important;
+          gap: 6px !important;
+        }
+
+        .ac-bar-wrapper-{{ ac_id }} .ac-prefix-{{ ac_id }} {
+          font-size: {{ ac_pref_size_m }}px !important;
+        }
+
+        .ac-bar-wrapper-{{ ac_id }} .ac-separator-{{ ac_id }} {
+          font-size: {{ ac_pref_size_m }}px !important;
+          margin: 0 2px !important;
+        }
+
+        .ac-bar-wrapper-{{ ac_id }} .ac-num-{{ ac_id }} {
+          font-size: {{ ac_num_size_m }}px !important;
+        }
+
+        .ac-bar-wrapper-{{ ac_id }} .ac-label-{{ ac_id }} {
+          font-size: {{ ac_lbl_size_m }}px !important;
+        }
+
+        .ac-bar-wrapper-{{ ac_id }} .ac-countdown-{{ ac_id }} {
+          gap: 6px !important;
+        }
+      }
+    </style>
+
+    <div class="ac-bar-wrapper-{{ ac_id }}" {% if settings_obj.id %}data-section-id="{{ settings_obj.id }}"{% endif %}>
+      <div class="ac-container-{{ ac_id }}">
+        {%- capture bar_inner_content -%}
+          {%- if ac_prefix != blank -%}
+            <span class="ac-prefix-{{ ac_id }}">{{ ac_prefix }}</span>
+            <span class="ac-separator-{{ ac_id }}">{{ ac_sep }}</span>
+          {%- endif -%}
+
+          <div class="ac-countdown-{{ ac_id }}" id="ac-countdown-{{ ac_id }}" data-target-date="{{ ac_target }}">
+            <span class="ac-unit-{{ ac_id }}">
+              <span class="ac-num-{{ ac_id }}" id="ac-days-{{ ac_id }}">00</span>
+              <span class="ac-label-{{ ac_id }}">{{ ac_l_days }}</span>
+            </span>
+
+            <span class="ac-unit-{{ ac_id }}">
+              <span class="ac-num-{{ ac_id }}" id="ac-hours-{{ ac_id }}">00</span>
+              <span class="ac-label-{{ ac_id }}">{{ ac_l_hours }}</span>
+            </span>
+
+            <span class="ac-unit-{{ ac_id }}">
+              <span class="ac-num-{{ ac_id }}" id="ac-minutes-{{ ac_id }}">00</span>
+              <span class="ac-label-{{ ac_id }}">{{ ac_l_mins }}</span>
+            </span>
+
+            {%- if ac_show_sec -%}
+            <span class="ac-unit-{{ ac_id }}">
+              <span class="ac-num-{{ ac_id }}" id="ac-seconds-{{ ac_id }}">00</span>
+              <span class="ac-label-{{ ac_id }}">{{ ac_l_secs }}</span>
+            </span>
+            {%- endif -%}
+          </div>
+
+          <div class="ac-expired-msg-{{ ac_id }}" id="ac-expired-{{ ac_id }}" style="display: none !important;">
+            {{ ac_expired }}
+          </div>
+        {%- endcapture -%}
+
+        {%- if ac_link != blank -%}
+          <a href="{{ ac_link }}" class="ac-link-wrap-{{ ac_id }}">
+            {{ bar_inner_content }}
+          </a>
+        {%- else -%}
+          {{ bar_inner_content }}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        var countdownElem = document.getElementById('ac-countdown-{{ ac_id }}');
+        var expiredElem = document.getElementById('ac-expired-{{ ac_id }}');
+        if (!countdownElem) return;
+
+        var targetDateStr = countdownElem.getAttribute('data-target-date');
+        var targetTime = new Date(targetDateStr).getTime();
+        if (isNaN(targetTime)) {
+          targetTime = new Date(targetDateStr.replace(/-/g, '/')).getTime();
+        }
+
+        function updateCountdown() {
+          var now = new Date().getTime();
+          var distance = targetTime - now;
+
+          if (isNaN(targetTime) || distance < 0) {
+            countdownElem.style.setProperty('display', 'none', 'important');
+            if (expiredElem && '{{ ac_expired }}' !== '') {
+              expiredElem.style.setProperty('display', 'inline-block', 'important');
+            }
+            return;
+          }
+
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          var daysEl = document.getElementById('ac-days-{{ ac_id }}');
+          var hoursEl = document.getElementById('ac-hours-{{ ac_id }}');
+          var minEl = document.getElementById('ac-minutes-{{ ac_id }}');
+          var secEl = document.getElementById('ac-seconds-{{ ac_id }}');
+
+          if (daysEl) daysEl.innerText = (days < 10 ? '0' : '') + days;
+          if (hoursEl) hoursEl.innerText = (hours < 10 ? '0' : '') + hours;
+          if (minEl) minEl.innerText = (minutes < 10 ? '0' : '') + minutes;
+          if (secEl) secEl.innerText = (seconds < 10 ? '0' : '') + seconds;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}
