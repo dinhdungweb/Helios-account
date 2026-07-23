@@ -85,10 +85,11 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <div class="card-flip-game__modal-media" data-card-flip-modal-media></div>
-          <h3 id="card-flip-modal-title-{{ section.id }}" class="card-flip-game__modal-title">{{ section.settings.result_heading }}</h3>
-          <p class="card-flip-game__modal-result" data-card-flip-modal-result></p>
-          <p class="card-flip-game__modal-code" data-card-flip-modal-code></p>
-          <p class="card-flip-game__modal-remaining" data-card-flip-modal-remaining></p>
+          <div class="card-flip-game__modal-content">
+            <h3 id="card-flip-modal-title-{{ section.id }}" class="card-flip-game__modal-result" data-card-flip-modal-result></h3>
+            <p class="card-flip-game__modal-code" data-card-flip-modal-code></p>
+            <p class="card-flip-game__modal-remaining" data-card-flip-modal-remaining></p>
+          </div>
         </div>
       </div>
 
@@ -395,11 +396,11 @@
 
   .card-flip-game__modal {
     align-items: center;
-    background: rgba(0, 0, 0, 0.72);
+    background: rgba(0, 0, 0, 0.76);
     display: none;
     inset: 0;
     justify-content: center;
-    padding: 18px;
+    padding: 24px;
     position: fixed;
     z-index: 9999;
   }
@@ -409,15 +410,20 @@
   }
 
   .card-flip-game__modal-dialog {
-    background: #111;
-    border: 0;
-    border-radius: 8px;
+    align-items: center;
+    background: #393939;
+    border: 2px solid #d3d3d3;
+    border-radius: 16px;
     color: #fff;
-    max-width: 420px;
-    padding: 20px;
+    display: grid;
+    gap: clamp(32px, 6vw, 64px);
+    grid-template-columns: minmax(180px, 214px) minmax(0, 1fr);
+    max-width: 580px;
+    min-height: 412px;
+    padding: 54px 56px;
     position: relative;
-    text-align: center;
-    width: min(100%, 420px);
+    text-align: left;
+    width: min(100%, 580px);
   }
 
   .card-flip-game__modal-close {
@@ -425,27 +431,27 @@
     background: none;
     border: 0;
     border-radius: 50%;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.72);
     cursor: pointer;
     display: flex;
-    font-size: 24px;
-    height: auto;
+    font-size: 26px;
+    height: 36px;
     justify-content: center;
     line-height: 1;
     position: absolute;
-    right: 12px;
+    right: 14px;
     top: 12px;
-    width: 34px;
+    width: 36px;
   }
 
   .card-flip-game__modal-media {
     aspect-ratio: 3 / 4;
-    background: #222;
-    border-radius: 8px;
-    margin: 0 auto 16px;
-    max-height: 260px;
+    background: #e8d8bd;
+    border-radius: 15px;
+    margin: 0;
+    max-height: none;
     overflow: hidden;
-    width: min(190px, 58vw);
+    width: 100%;
   }
 
   .card-flip-game__modal-media img {
@@ -454,25 +460,32 @@
     width: 100%;
   }
 
-  .card-flip-game__modal-title {
-    color: #fff;
-    font-size: 22px;
-    margin: 0 0 8px;
+  .card-flip-game__modal-content {
+    min-width: 0;
   }
 
   .card-flip-game__modal-result {
-    color: var(--cfg-accent);
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.3;
-    margin: 0 0 6px;
+    color: #fff;
+    font-family: inherit;
+    font-size: clamp(28px, 4vw, 32px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 0 34px;
+    text-transform: uppercase;
   }
 
-  .card-flip-game__modal-code,
-  .card-flip-game__modal-remaining {
-    color: rgba(255, 255, 255, 0.74);
+  .card-flip-game__modal-code {
+    color: rgba(255, 255, 255, 0.9);
     font-size: 14px;
+    line-height: 1.45;
     margin: 0;
+  }
+
+  .card-flip-game__modal-remaining {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 12px;
+    margin: 22px 0 0;
   }
 
   @media (min-width: 700px) {
@@ -507,6 +520,47 @@
 
     .card-flip-game__decoration-image {
       width: min(100%, var(--decoration-width-mobile));
+    }
+  }
+
+  @media (max-width: 699px) {
+    .card-flip-game__modal {
+      padding: 16px;
+    }
+
+    .card-flip-game__modal-dialog {
+      gap: 24px;
+      grid-template-columns: minmax(110px, 42%) minmax(0, 1fr);
+      min-height: 0;
+      padding: 42px 24px;
+    }
+
+    .card-flip-game__modal-result {
+      font-size: clamp(20px, 6vw, 27px);
+      margin-bottom: 18px;
+    }
+
+    .card-flip-game__modal-code {
+      font-size: 12px;
+    }
+
+    .card-flip-game__modal-remaining {
+      margin-top: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .card-flip-game__modal-dialog {
+      grid-template-columns: 1fr;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      padding: 44px 28px 28px;
+      text-align: center;
+    }
+
+    .card-flip-game__modal-media {
+      margin: 0 auto;
+      max-width: 190px;
     }
   }
 </style>
@@ -797,11 +851,15 @@
         modalMedia.appendChild(image);
       }
 
-      modalResult.textContent = resultTitle;
-      modalCode.textContent = resultCode ? config.codePrefix + ' ' + resultCode : '';
+      modalResult.textContent = getChapterTitle(resultTitle);
+      modalCode.textContent = resultCode;
       modalRemaining.textContent = config.remainingText.replace('[remaining]', state.remainingTurns).replace('[total]', state.allowedTurns);
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function getChapterTitle(title) {
+      return String(title || '').split(/\s+(?:\u2013|\u2014|-)\s+/)[0].trim();
     }
 
     function closeModal() {
