@@ -263,8 +263,12 @@
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
     width: 100%;
+  }
+
+  .card-flip-game__card.is-checking .card-flip-game__inner {
+    transform: rotateY(90deg);
   }
 
   .card-flip-game__card.is-flipped .card-flip-game__inner {
@@ -746,13 +750,15 @@
       setStatus(config.savingText);
 
       try {
-        const data = await saveResult(card, index);
+        const resultPromise = saveResult(card, index);
+        await startFlipAnimation(button);
+        const data = await resultPromise;
         const resolvedCard = cardFromEntry(data.entry, card);
         applyServerState(data);
         fillFront(front, resolvedCard);
         front.removeAttribute('aria-hidden');
         button.setAttribute('aria-label', resolvedCard.title || config.cardAriaLabel);
-        await playFlipAnimation(button);
+        await finishFlipAnimation(button);
         openModal(resolvedCard, data);
         setStatus(config.savedText);
 
@@ -761,6 +767,7 @@
           updateCounter();
         }, 900);
       } catch (error) {
+        button.classList.remove('is-checking');
         button.classList.remove('is-flipped');
         front.innerHTML = '';
         front.setAttribute('aria-hidden', 'true');
@@ -773,12 +780,24 @@
       }
     }
 
-    function playFlipAnimation(button) {
+    function startFlipAnimation(button) {
       return new Promise(function (resolve) {
         window.requestAnimationFrame(function () {
           window.requestAnimationFrame(function () {
+            button.classList.add('is-checking');
+            window.setTimeout(resolve, 300);
+          });
+        });
+      });
+    }
+
+    function finishFlipAnimation(button) {
+      return new Promise(function (resolve) {
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(function () {
+            button.classList.remove('is-checking');
             button.classList.add('is-flipped');
-            window.setTimeout(resolve, 560);
+            window.setTimeout(resolve, 300);
           });
         });
       });
