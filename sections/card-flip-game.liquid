@@ -263,16 +263,18 @@
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
     width: 100%;
   }
 
   .card-flip-game__card.is-checking .card-flip-game__inner {
-    transform: rotateY(90deg);
+    transform: rotateY(75deg);
+    transition-duration: 1200ms;
   }
 
   .card-flip-game__card.is-flipped .card-flip-game__inner {
     transform: rotateY(180deg);
+    transition-duration: 520ms;
   }
 
   .card-flip-game__face {
@@ -785,7 +787,7 @@
         window.requestAnimationFrame(function () {
           window.requestAnimationFrame(function () {
             button.classList.add('is-checking');
-            window.setTimeout(resolve, 300);
+            window.setTimeout(resolve, 40);
           });
         });
       });
@@ -797,7 +799,7 @@
           window.requestAnimationFrame(function () {
             button.classList.remove('is-checking');
             button.classList.add('is-flipped');
-            window.setTimeout(resolve, 300);
+            window.setTimeout(resolve, 560);
           });
         });
       });
