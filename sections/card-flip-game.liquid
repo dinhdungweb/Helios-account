@@ -762,16 +762,17 @@
       state.isBusy = true;
       setDeckDisabled(true);
       button.disabled = true;
-      fillFront(front, card);
-      front.removeAttribute('aria-hidden');
-      button.setAttribute('aria-label', card.title || config.cardAriaLabel);
-      button.classList.add('is-flipped');
       setStatus(config.savingText);
 
       try {
         const data = await saveResult(card, index);
+        const resolvedCard = cardFromEntry(data.entry, card);
         applyServerState(data);
-        openModal(card, data);
+        fillFront(front, resolvedCard);
+        front.removeAttribute('aria-hidden');
+        button.setAttribute('aria-label', resolvedCard.title || config.cardAriaLabel);
+        button.classList.add('is-flipped');
+        openModal(resolvedCard, data);
         setStatus(config.savedText);
 
         window.setTimeout(function () {
@@ -820,7 +821,8 @@
           card_code: card.code || '',
           card_image: card.image || '',
           card_position: index + 1,
-          deck_size: cards.length
+          deck_size: cards.length,
+          deck_cards: cards
         })
       });
 
@@ -830,6 +832,17 @@
       }
 
       return data;
+    }
+
+    function cardFromEntry(entry, fallbackCard) {
+      const result = entry || {};
+      return {
+        id: result.card_id || fallbackCard.id || '',
+        title: result.result_title || result.card_title || fallbackCard.title || '',
+        code: result.result_code || result.card_code || fallbackCard.code || '',
+        image: result.result_image || result.card_image || fallbackCard.image || '',
+        alt: result.result_title || result.card_title || fallbackCard.alt || fallbackCard.title || ''
+      };
     }
 
     function applyServerState(data) {

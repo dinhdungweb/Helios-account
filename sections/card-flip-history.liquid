@@ -56,6 +56,27 @@
       <button class="card-flip-history__button card-flip-history__button--danger" type="button" data-delete-history>{{ section.settings.delete_button_text }}</button>
     </form>
 
+    <form class="card-flip-history__inventory" data-inventory-form>
+      <div class="card-flip-history__inventory-heading">
+        <strong>Kho thẻ đặc biệt</strong>
+        <span>Đặt tổng số lượng phát hành cho từng thẻ.</span>
+      </div>
+
+      <label class="card-flip-history__field">
+        <span>CHAPTER XI – THE OPENING</span>
+        <input type="number" name="chapter_xi" min="0" step="1" value="0" required>
+        <small data-inventory-stat="chapter_xi">Đã trúng: 0 · Còn lại: 0</small>
+      </label>
+
+      <label class="card-flip-history__field">
+        <span>LIMITED CARD</span>
+        <input type="number" name="limited_card" min="0" step="1" value="0" required>
+        <small data-inventory-stat="limited_card">Đã trúng: 0 · Còn lại: 0</small>
+      </label>
+
+      <button class="card-flip-history__button" type="submit" data-save-inventory>Lưu số lượng</button>
+    </form>
+
     <div class="card-flip-history__status" data-history-status role="status" aria-live="polite"></div>
 
     <div class="card-flip-history__stats" data-history-stats hidden>
@@ -223,6 +244,33 @@
     opacity: 0.48;
   }
 
+  .card-flip-history__inventory {
+    align-items: end;
+    background: var(--cfh-surface);
+    border: 1px solid var(--cfh-border);
+    border-radius: 8px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .card-flip-history__inventory-heading {
+    display: grid;
+    gap: 4px;
+  }
+
+  .card-flip-history__inventory-heading strong {
+    color: var(--cfh-text);
+    font-size: 16px;
+  }
+
+  .card-flip-history__inventory-heading span,
+  .card-flip-history__field small {
+    color: var(--cfh-muted);
+    font-size: 12px;
+  }
+
   .card-flip-history__status {
     color: var(--cfh-muted);
     min-height: 22px;
@@ -313,6 +361,14 @@
     .card-flip-history__button {
       width: 120px;
     }
+
+    .card-flip-history__inventory {
+      grid-template-columns: minmax(220px, 1fr) minmax(210px, 280px) minmax(210px, 280px) 140px;
+    }
+
+    .card-flip-history__inventory .card-flip-history__button {
+      width: 140px;
+    }
   }
 
   @media (max-width: 720px) {
@@ -336,6 +392,8 @@
     const exportButton = root.querySelector('[data-export-csv]');
     const deleteButton = root.querySelector('[data-delete-history]');
     const searchInput = form.querySelector('[name="search"]');
+    const inventoryForm = root.querySelector('[data-inventory-form]');
+    const saveInventoryButton = root.querySelector('[data-save-inventory]');
 
     const config = {
       apiBase: normalizeApiBase(root.dataset.apiBase || ''),
@@ -361,14 +419,17 @@
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       loadHistory();
+      loadInventory();
     });
 
     searchInput.addEventListener('input', renderTable);
     exportButton.addEventListener('click', exportCsv);
     deleteButton.addEventListener('click', deleteHistory);
+    inventoryForm.addEventListener('submit', saveInventory);
 
     applyQueryParams();
     loadHistory();
+    loadInventory();
 
     function applyQueryParams() {
       const params = new URLSearchParams(window.location.search);
@@ -534,6 +595,81 @@
       URL.revokeObjectURL(url);
     }
 
+    async function loadInventory() {
+      const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
+      if (!config.apiBase) return;
+
+      try {
+        const params = new URLSearchParams({ campaign_id: campaignId });
+        const response = await fetch(config.apiBase + '/card-flip/inventory?' + params.toString(), {
+          method: 'GET',
+          cache: 'no-store'
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || config.errorText);
+        }
+
+        renderInventory(data.cards);
+      } catch (error) {
+        setStatus(error.message || config.errorText);
+      }
+    }
+
+    function renderInventory(cards) {
+      (Array.isArray(cards) ? cards : []).forEach(function (card) {
+        const input = inventoryForm.elements[card.key];
+        const stat = root.querySelector('[data-inventory-stat="' + card.key + '"]');
+        if (input) input.value = toInt(card.capacity, 0);
+        if (stat) {
+          stat.textContent = 'Đã trúng: ' + toInt(card.claimed, 0) + ' · Còn lại: ' + toInt(card.remaining, 0);
+        }
+      });
+    }
+
+    async function saveInventory(event) {
+      event.preventDefault();
+      const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
+      const password = window.prompt('Nhập mật khẩu quản trị để cập nhật kho thẻ');
+      if (password === null) return;
+      if (!password.trim()) {
+        setStatus(config.deletePasswordRequiredText);
+        return;
+      }
+
+      saveInventoryButton.disabled = true;
+      setStatus('Đang cập nhật kho thẻ...');
+
+      try {
+        const response = await fetch(config.apiBase + '/card-flip/inventory', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          cache: 'no-store',
+          body: JSON.stringify({
+            campaign_id: campaignId,
+            password: password,
+            capacities: {
+              chapter_xi: toInt(inventoryForm.elements.chapter_xi.value, 0),
+              limited_card: toInt(inventoryForm.elements.limited_card.value, 0)
+            }
+          })
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || config.errorText);
+        }
+
+        renderInventory(data.cards);
+        setStatus('Đã cập nhật kho thẻ đặc biệt.');
+      } catch (error) {
+        setStatus(error.message || config.errorText);
+      } finally {
+        saveInventoryButton.disabled = false;
+      }
+    }
+
     async function deleteHistory() {
       const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
       const customerIds = Array.from(new Set(
@@ -581,6 +717,7 @@
 
         searchInput.value = '';
         await loadHistory();
+        await loadInventory();
         setStatus(
           config.deleteSuccessText
             .replace('[count]', data.deleted_entries || 0)
