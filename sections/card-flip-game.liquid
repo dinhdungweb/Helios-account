@@ -268,13 +268,21 @@
   }
 
   .card-flip-game__card.is-checking .card-flip-game__inner {
-    transform: rotateY(75deg);
-    transition-duration: 1200ms;
+    animation: card-flip-waiting 700ms ease-in-out infinite;
   }
 
   .card-flip-game__card.is-flipped .card-flip-game__inner {
     transform: rotateY(180deg);
-    transition-duration: 520ms;
+  }
+
+  @keyframes card-flip-waiting {
+    0%,
+    100% {
+      transform: scale(1) translateY(0);
+    }
+    50% {
+      transform: scale(0.97) translateY(-3px);
+    }
   }
 
   .card-flip-game__face {
@@ -795,9 +803,11 @@
 
     function finishFlipAnimation(button) {
       return new Promise(function (resolve) {
+        button.classList.remove('is-checking');
+        void button.offsetWidth;
+
         window.requestAnimationFrame(function () {
           window.requestAnimationFrame(function () {
-            button.classList.remove('is-checking');
             button.classList.add('is-flipped');
             window.setTimeout(resolve, 560);
           });
