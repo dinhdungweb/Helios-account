@@ -709,25 +709,6 @@
         front.appendChild(placeholder);
       }
 
-      if ({{ section.settings.show_card_titles | json }} && (card.title || card.code)) {
-        const caption = document.createElement('span');
-        caption.className = 'card-flip-game__front-caption';
-
-        if (card.title) {
-          const title = document.createElement('span');
-          title.textContent = card.title;
-          caption.appendChild(title);
-        }
-
-        if (card.code) {
-          const code = document.createElement('span');
-          code.className = 'card-flip-game__front-code';
-          code.textContent = card.code;
-          caption.appendChild(code);
-        }
-
-        front.appendChild(caption);
-      }
     }
 
     async function syncServerState() {
@@ -771,7 +752,7 @@
         fillFront(front, resolvedCard);
         front.removeAttribute('aria-hidden');
         button.setAttribute('aria-label', resolvedCard.title || config.cardAriaLabel);
-        button.classList.add('is-flipped');
+        await playFlipAnimation(button);
         openModal(resolvedCard, data);
         setStatus(config.savedText);
 
@@ -790,6 +771,17 @@
         setDeckDisabled(state.remainingTurns <= 0);
         updateCounter();
       }
+    }
+
+    function playFlipAnimation(button) {
+      return new Promise(function (resolve) {
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(function () {
+            button.classList.add('is-flipped');
+            window.setTimeout(resolve, 560);
+          });
+        });
+      });
     }
 
     async function saveResult(card, index) {
