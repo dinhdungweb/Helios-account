@@ -238,7 +238,7 @@
                       <h4>{{ reward.result_title | default: reward.card_title | default: 'Thẻ may mắn' }}</h4>
                       {% if reward.result_code != blank or reward.card_code != blank %}
                         <p class="db-card-flip-code">
-                          Mã: <strong>{{ reward.result_code | default: reward.card_code }}</strong>
+                          <strong>{{ reward.result_code | default: reward.card_code }}</strong>
                         </p>
                       {% endif %}
                       {% if reward.played_at != blank %}
