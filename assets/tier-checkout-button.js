@@ -159,6 +159,9 @@
           }
           
           const tierDiscount = tierWrapper ? parseFloat(tierWrapper.dataset.tierDiscount || 0) : 0;
+          const effectiveTierDiscount = tierWrapper
+            ? parseFloat(tierWrapper.dataset.effectiveTierDiscount || tierDiscount)
+            : tierDiscount;
           
           // Get variant price from page (ORIGINAL price, not discounted)
           let variantPrice = 0;
@@ -201,7 +204,11 @@
                 variant_id: variantId,
                 quantity: quantity,
                 price: variantPrice,
-                discount_percent: tierDiscount
+                // Draft Orders apply a percentage to Shopify's current sale price.
+                // Use the equivalent percentage so the final amount is based on
+                // store sale % + tier % deducted directly from compare_at_price.
+                discount_percent: effectiveTierDiscount,
+                tier_discount_percent: tierDiscount
               }
             }
           });

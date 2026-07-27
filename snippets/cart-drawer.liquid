@@ -442,11 +442,22 @@
               
               {% comment %} Apply discount if item qualifies (either by scope or product-specific tag) {% endcomment %}
               {% if item_applies or has_product_specific_discount %}
-                {% comment %} Calculate with correct discount percent {% endcomment %}
-                {% assign item_discount_multiplier = 100 | minus: item_discount_percent %}
-                {% assign item_tier_price = item.final_line_price | times: item_discount_multiplier | divided_by: 100 %}
+                {% comment %}
+                  Deduct the tier percent directly from the original compare-at
+                  price. This makes store sale 10% + tier 6% equal 16% off the
+                  compare-at price, rather than applying 6% to the sale price.
+                {% endcomment %}
+                {% assign item_tier_discount_base = item.original_line_price %}
+                {% if item.variant.compare_at_price > item.original_price %}
+                  {% assign item_tier_discount_base = item.variant.compare_at_price | times: item.quantity %}
+                {% endif %}
+                {% assign item_discount = item_tier_discount_base | times: item_discount_percent | divided_by: 100.0 | round %}
+                {% assign item_tier_price = item.final_line_price | minus: item_discount %}
+                {% if item_tier_price < 0 %}
+                  {% assign item_tier_price = 0 %}
+                  {% assign item_discount = item.final_line_price %}
+                {% endif %}
                 {% assign cart_tier_total = cart_tier_total | plus: item_tier_price %}
-                {% assign item_discount = item.final_line_price | minus: item_tier_price %}
                 {% assign cart_tier_discount = cart_tier_discount | plus: item_discount %}
               {% else %}
                 {% assign cart_non_tier_total = cart_non_tier_total | plus: item.final_line_price %}

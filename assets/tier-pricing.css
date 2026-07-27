@@ -34,6 +34,12 @@
   padding-right: 3px;
 }
 
+/* Keep compact cards readable: final member price + original list price.
+   The intermediate store-sale price remains visible on detailed views. */
+.product-block .tier-pricing--has-store-sale .tier-price-original {
+  display: none !important;
+}
+
 /* ============================================
    TIER BADGE
    ============================================ */
@@ -111,8 +117,33 @@
 }
 
 .product-block .tier-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  margin: 0;
   font-size: 10px;
   padding: 3px 8px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* If the theme moves its Sold out/Sale label to the right, keep Tier on the left. */
+.product-block.layout-right .tier-badge {
+  right: auto;
+  left: 10px;
+}
+
+@media (min-width: 1200px) {
+  .product-block .tier-badge {
+    top: 20px;
+    right: 20px;
+  }
+
+  .product-block.layout-right .tier-badge {
+    right: auto;
+    left: 20px;
+  }
 }
 
 .product-block .tier-price-final {
@@ -170,8 +201,8 @@
 
 @media (max-width: 661px) {
   .product-block .tier-badge {
-    margin-top: 5px;
-    display: flex;
+    margin: 0;
+    display: inline-flex;
   }
 }
 

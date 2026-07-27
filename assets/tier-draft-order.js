@@ -121,7 +121,11 @@
             const wrapper = cartItem.querySelector('.tier-pricing-wrapper');
             if (wrapper) {
               foundWrapper = true;
-              discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
+              discountPercent = parseFloat(
+                wrapper.dataset.effectiveTierDiscount ||
+                wrapper.dataset.tierDiscount ||
+                0
+              );
               break;
             }
           }
@@ -179,9 +183,10 @@
 
     // Fetch full product data to get tags
     let productTags = [];
+    let productData = null;
     try {
       const productResponse = await fetch(`/products/${item.handle}.js`);
-      const productData = await productResponse.json();
+      productData = await productResponse.json();
       productTags = productData.tags || [];
     } catch (error) {
       console.warn('[TierDraftOrder] Could not fetch product tags:', error);
@@ -200,7 +205,7 @@
         if (parts.length === 3) {
           const percent = parseInt(parts[2], 10);
           if (percent > 0 && percent <= 100) {
-            return percent;
+            return calculateEffectiveTierDiscount(percent, item, productData);
           }
         }
       }
@@ -219,7 +224,20 @@
 
     // Use default tier discount
     const defaultDiscount = getDefaultTierDiscount(customerTier);
-    return defaultDiscount;
+    return calculateEffectiveTierDiscount(defaultDiscount, item, productData);
+  }
+
+  function calculateEffectiveTierDiscount(tierDiscount, item, productData) {
+    if (!tierDiscount || !item.price) return 0;
+
+    const variant = productData && Array.isArray(productData.variants)
+      ? productData.variants.find(candidate => candidate.id == item.variant_id)
+      : null;
+    const compareAtPrice = variant ? Number(variant.compare_at_price || 0) : 0;
+    const discountBase = compareAtPrice > item.price ? compareAtPrice : item.price;
+    const tierDiscountAmount = Math.round(discountBase * tierDiscount / 100);
+
+    return Math.min(100, tierDiscountAmount * 100 / item.price);
   }
 
   function checkTierApplies(scope, allowedTagsStr, allowedCollectionsStr, productTags, item) {

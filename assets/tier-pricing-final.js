@@ -82,6 +82,26 @@
     
     return false;
   }
+
+  function calculateTierPricing(variant) {
+    const tierDiscountPercent = tierInfo ? tierInfo.discount * 100 : 0;
+    const hasStoreSale = Boolean(
+      variant.compare_at_price &&
+      variant.compare_at_price > variant.price
+    );
+    const discountBase = hasStoreSale ? variant.compare_at_price : variant.price;
+    const tierDiscountAmount = Math.round(discountBase * tierDiscountPercent / 100);
+    const tierPrice = Math.max(0, variant.price - tierDiscountAmount);
+    const effectiveTierDiscount = variant.price > 0
+      ? Math.min(100, tierDiscountAmount * 100 / variant.price)
+      : 0;
+
+    return {
+      hasStoreSale,
+      tierPrice,
+      effectiveTierDiscount
+    };
+  }
   
   // Build tier pricing HTML
   function buildTierHTML(variant, product) {
@@ -93,7 +113,8 @@
       return null;
     }
     
-    const tierPrice = Math.round(variant.price * (1 - tierInfo.discount));
+    const pricing = calculateTierPricing(variant);
+    const tierPrice = pricing.tierPrice;
     const formatMoney = (cents) => {
       if (typeof theme !== 'undefined' && theme.Shopify && theme.Shopify.formatMoney) {
         return theme.Shopify.formatMoney(cents, theme.money_format_with_code_preference || theme.money_format);
@@ -107,14 +128,20 @@
     let dataAttrs = 'data-tier="' + tierInfo.tier + '"';
     if (tierInfo.allDataAttributes) {
       for (const key in tierInfo.allDataAttributes) {
-        if (key !== 'tier') { // Skip tier as we already added it
+        if (!['tier', 'effectiveTierDiscount', 'currentPrice', 'compareAtPrice', 'tierPrice'].includes(key)) {
           const value = tierInfo.allDataAttributes[key];
           dataAttrs += ' data-' + key.replace(/([A-Z])/g, '-$1').toLowerCase() + '="' + (value || '').replace(/"/g, '&quot;') + '"';
         }
       }
     }
+
+    dataAttrs += ' data-effective-tier-discount="' + pricing.effectiveTierDiscount + '"';
+    dataAttrs += ' data-current-price="' + variant.price + '"';
+    dataAttrs += ' data-compare-at-price="' + (variant.compare_at_price || 0) + '"';
+    dataAttrs += ' data-tier-price="' + tierPrice + '"';
     
-    let html = '<div class="tier-pricing-wrapper tier-pricing-injected" ' + dataAttrs + '>';
+    const storeSaleClass = pricing.hasStoreSale ? ' tier-pricing--has-store-sale' : '';
+    let html = '<div class="tier-pricing-wrapper tier-pricing-injected' + storeSaleClass + '" ' + dataAttrs + '>';
     
     html += '<div class="tier-pricing-prices">';
     
@@ -138,7 +165,7 @@
     if (tierInfo.discount > 0 && tierInfo.tier) {
       html += '<span class="tier-badge tier-badge--' + tierSlug + '">';
       html += '<svg class="tier-badge-icon" width="12" height="12" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.89 2.119a2.084 2.084 0 0 0-1.486-.619h-5.762c-.378 0-.74.15-1.009.417L2.113 13.434a2.101 2.101 0 0 0 0 2.968l5.485 5.484a2.101 2.101 0 0 0 2.97 0l11.514-11.512c.267-.268.417-.63.418-1.008V3.6a2.074 2.074 0 0 0-.61-1.481ZM18 7.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="currentColor"></path></svg>';
-      html += ' - ' + Math.round(tierInfo.discount * 100) + '% ' + tierInfo.tier;
+      html += (pricing.hasStoreSale ? ' SALE + ' : ' - ') + Math.round(tierInfo.discount * 100) + '% ' + tierInfo.tier;
       html += '</span>';
     }
     
