@@ -90,6 +90,9 @@
             <p class="card-flip-game__modal-code" data-card-flip-modal-code></p>
             <p class="card-flip-game__modal-remaining" data-card-flip-modal-remaining></p>
           </div>
+          {% if section.settings.modal_footer_text != blank %}
+            <p class="card-flip-game__modal-footer">{{ section.settings.modal_footer_text }}</p>
+          {% endif %}
         </div>
       </div>
 
@@ -426,18 +429,24 @@
   .card-flip-game__modal-dialog {
     align-items: center;
     background: #393939;
-    border: 2px solid #d3d3d3;
-    border-radius: 16px;
+    border: 1px solid #181818;
+    border-radius: 0;
+    box-sizing: border-box;
     color: #fff;
     display: grid;
-    gap: clamp(32px, 6vw, 64px);
-    grid-template-columns: minmax(180px, 214px) minmax(0, 1fr);
-    max-width: 580px;
-    min-height: 412px;
-    padding: 54px 56px;
+    column-gap: 30px;
+    grid-template-areas:
+      "media content"
+      "footer footer";
+    grid-template-columns: minmax(280px, 394px) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    height: min(724px, calc(100vh - 48px));
+    max-width: 940px;
+    padding: 102px 40px 34px;
     position: relative;
+    row-gap: 34px;
     text-align: left;
-    width: min(100%, 580px);
+    width: min(100%, 940px);
   }
 
   .card-flip-game__modal-close {
@@ -461,9 +470,12 @@
   .card-flip-game__modal-media {
     aspect-ratio: 3 / 4;
     background: #e8d8bd;
-    border-radius: 15px;
+    border-radius: 22px;
+    grid-area: media;
+    justify-self: center;
     margin: 0;
     max-height: none;
+    max-width: 394px;
     overflow: hidden;
     width: 100%;
   }
@@ -475,25 +487,28 @@
   }
 
   .card-flip-game__modal-content {
+    align-self: center;
+    grid-area: content;
     min-width: 0;
   }
 
   .card-flip-game__modal-result {
     color: #fff;
     font-family: inherit;
-    font-size: clamp(28px, 4vw, 32px);
+    font-size: clamp(40px, 5.2vw, 62px);
     font-weight: 500;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin: 0 0 34px;
+    line-height: 1;
+    margin: 0 0 54px;
     text-align: left;
     text-transform: uppercase;
   }
 
   .card-flip-game__modal-code {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
-    line-height: 1.45;
+    font-size: clamp(22px, 3vw, 38px);
+    font-weight: 600;
+    line-height: 1.08;
     margin: 0;
   }
 
@@ -501,6 +516,19 @@
     color: rgba(255, 255, 255, 0.55);
     font-size: 12px;
     margin: 22px 0 0;
+  }
+
+  .card-flip-game__modal-footer {
+    align-self: end;
+    color: rgba(255, 255, 255, 0.56);
+    font-size: clamp(18px, 2.2vw, 27px);
+    font-weight: 600;
+    grid-area: footer;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
   }
 
   @media (min-width: 700px) {
@@ -544,28 +572,40 @@
     }
 
     .card-flip-game__modal-dialog {
-      gap: 24px;
-      grid-template-columns: minmax(110px, 42%) minmax(0, 1fr);
-      min-height: 0;
-      padding: 42px 24px;
+      column-gap: 24px;
+      grid-template-columns: minmax(150px, 42%) minmax(0, 1fr);
+      height: auto;
+      max-height: calc(100vh - 32px);
+      min-height: min(540px, calc(100vh - 32px));
+      overflow-y: auto;
+      padding: 50px 28px 26px;
+      row-gap: 28px;
     }
 
     .card-flip-game__modal-result {
-      font-size: clamp(20px, 6vw, 27px);
-      margin-bottom: 18px;
+      font-size: clamp(28px, 6vw, 42px);
+      margin-bottom: 28px;
     }
 
     .card-flip-game__modal-code {
-      font-size: 12px;
+      font-size: clamp(16px, 3.4vw, 24px);
     }
 
     .card-flip-game__modal-remaining {
       margin-top: 14px;
     }
+
+    .card-flip-game__modal-footer {
+      font-size: clamp(15px, 3.2vw, 22px);
+    }
   }
 
   @media (max-width: 480px) {
     .card-flip-game__modal-dialog {
+      grid-template-areas:
+        "media"
+        "content"
+        "footer";
       grid-template-columns: 1fr;
       max-height: calc(100vh - 32px);
       overflow-y: auto;
@@ -579,6 +619,11 @@
     }
 
     .card-flip-game__modal-result {
+      text-align: center;
+    }
+
+    .card-flip-game__modal-code,
+    .card-flip-game__modal-remaining {
       text-align: center;
     }
   }
@@ -1107,6 +1152,12 @@
       "id": "remaining_modal_text",
       "label": "Dòng lượt còn lại trong modal",
       "default": "Còn [remaining]/[total] lượt"
+    },
+    {
+      "type": "text",
+      "id": "modal_footer_text",
+      "label": "Dòng chữ phía dưới modal",
+      "default": "10 NĂM HUN ĐÚC 1 DẤU ẤN"
     },
     {
       "type": "text",
