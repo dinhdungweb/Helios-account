@@ -570,6 +570,30 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "account_registration_form_8KWMBi": {
+      "type": "account-registration-form",
+      "name": "Form đăng ký tài khoản",
+      "settings": {
+        "eyebrow": "HELIOS CLUB",
+        "heading": "Đăng ký tài khoản",
+        "description": "<p>Tạo tài khoản để theo dõi đơn hàng và nhận những quyền lợi dành riêng cho thành viên.</p>",
+        "image": "shopify://shop_images/DSC05483.jpg",
+        "show_image": true,
+        "button_label": "Đăng ký",
+        "customer_tag": "HELIOSCLUB",
+        "show_password_confirmation": true,
+        "show_login_link": true,
+        "background_color": "#0d0d0d",
+        "card_background": "#141414",
+        "text_color": "#ffffff",
+        "muted_text_color": "#999999",
+        "border_color": "#2a2a2a",
+        "accent_color": "#fab320",
+        "button_text_color": "#000000",
+        "section_spacing": 60,
+        "corner_radius": 4
+      }
     }
   },
   "order": [
@@ -582,6 +606,7 @@
     "two_banner_qNEPMY",
     "two_banner_E4NazD",
     "popup_overlay_custom_pFebVj",
-    "newsletter_DpyaEH"
+    "newsletter_DpyaEH",
+    "account_registration_form_8KWMBi"
   ]
 }
