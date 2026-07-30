@@ -1,0 +1,580 @@
+{% liquid
+  assign form_image = section.settings.image
+  assign form_title = section.settings.heading | default: 'Đăng ký tài khoản'
+  assign form_id = 'AccountRegisterForm-' | append: section.id
+%}
+
+<section
+  class="account-register-section"
+  id="AccountRegister-{{ section.id }}"
+  style="
+    --register-background: {{ section.settings.background_color }};
+    --register-card-background: {{ section.settings.card_background }};
+    --register-text: {{ section.settings.text_color }};
+    --register-muted: {{ section.settings.muted_text_color }};
+    --register-border: {{ section.settings.border_color }};
+    --register-accent: {{ section.settings.accent_color }};
+    --register-button-text: {{ section.settings.button_text_color }};
+    --register-radius: {{ section.settings.corner_radius }}px;
+    --register-section-spacing: {{ section.settings.section_spacing }}px;
+  "
+>
+  <div class="account-register-section__inner{% unless section.settings.show_image %} account-register-section__inner--form-only{% endunless %}">
+    {% if section.settings.show_image %}
+      <div class="account-register-section__media">
+        {% if form_image != blank %}
+          {{
+            form_image
+            | image_url: width: 1600
+            | image_tag:
+              widths: '480, 720, 960, 1200, 1600',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              loading: 'lazy',
+              class: 'account-register-section__image'
+          }}
+        {% else %}
+          <img
+            class="account-register-section__image"
+            src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z6338059277246_4f87da81b2baad3df796023a0506fa17_2.jpg?v=1740109335"
+            alt=""
+            width="1200"
+            height="1200"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="account-register-section__content">
+      {% if customer %}
+        <div class="account-register-section__logged-in">
+          <h2 class="account-register-section__title">{{ form_title }}</h2>
+          <p>Bạn đã đăng nhập với tài khoản {{ customer.email }}.</p>
+          <a class="account-register-section__button" href="{{ routes.account_url }}">Xem tài khoản</a>
+        </div>
+      {% else %}
+        <div class="account-register-section__header">
+          {% if section.settings.eyebrow != blank %}
+            <p class="account-register-section__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {% endif %}
+          <h2 class="account-register-section__title">{{ form_title | escape }}</h2>
+          {% if section.settings.description != blank %}
+            <div class="account-register-section__description rte">{{ section.settings.description }}</div>
+          {% endif %}
+        </div>
+
+        {% form 'create_customer', id: form_id, class: 'account-register-section__form' %}
+          {% if form.errors %}
+            <div class="account-register-section__errors" role="alert" tabindex="-1">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          <div class="account-register-section__name-fields">
+            <div class="account-register-section__field">
+              <label for="RegisterFirstName-{{ section.id }}">Tên</label>
+              <input
+                id="RegisterFirstName-{{ section.id }}"
+                type="text"
+                name="customer[first_name]"
+                value="{{ form.first_name | escape }}"
+                autocomplete="given-name"
+                placeholder="Tên"
+                required
+              >
+            </div>
+
+            <div class="account-register-section__field">
+              <label for="RegisterLastName-{{ section.id }}">Họ</label>
+              <input
+                id="RegisterLastName-{{ section.id }}"
+                type="text"
+                name="customer[last_name]"
+                value="{{ form.last_name | escape }}"
+                autocomplete="family-name"
+                placeholder="Họ"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="account-register-section__field">
+            <label for="RegisterEmail-{{ section.id }}">Email</label>
+            <input
+              id="RegisterEmail-{{ section.id }}"
+              type="email"
+              name="customer[email]"
+              value="{{ form.email | escape }}"
+              autocomplete="email"
+              autocapitalize="off"
+              spellcheck="false"
+              placeholder="Email"
+              {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
+              required
+            >
+          </div>
+
+          <div class="account-register-section__field">
+            <label for="RegisterPhone-{{ section.id }}">Số điện thoại</label>
+            <input
+              id="RegisterPhone-{{ section.id }}"
+              type="tel"
+              name="customer[note]"
+              autocomplete="tel"
+              inputmode="numeric"
+              pattern="[0-9]{10,11}"
+              title="Nhập số điện thoại hợp lệ gồm 10–11 số"
+              aria-label="Số điện thoại"
+              placeholder="Số điện thoại"
+              required
+            >
+          </div>
+
+          <div class="account-register-section__field">
+            <label for="RegisterPassword-{{ section.id }}">Mật khẩu</label>
+            <input
+              id="RegisterPassword-{{ section.id }}"
+              type="password"
+              name="customer[password]"
+              autocomplete="new-password"
+              minlength="5"
+              placeholder="Mật khẩu"
+              {% if form.errors contains 'password' %}aria-invalid="true"{% endif %}
+              required
+            >
+          </div>
+
+          {% if section.settings.show_password_confirmation %}
+            <div class="account-register-section__field">
+              <label for="RegisterPasswordConfirm-{{ section.id }}">Xác nhận mật khẩu</label>
+              <input
+                id="RegisterPasswordConfirm-{{ section.id }}"
+                type="password"
+                autocomplete="new-password"
+                minlength="5"
+                placeholder="Xác nhận mật khẩu"
+                required
+              >
+              <p class="account-register-section__field-error" data-password-error hidden>
+                Mật khẩu xác nhận chưa khớp.
+              </p>
+            </div>
+          {% endif %}
+
+          {% if section.settings.customer_tag != blank %}
+            <input type="hidden" name="customer[tags]" value="{{ section.settings.customer_tag | escape }}">
+          {% endif %}
+
+          <button class="account-register-section__button" type="submit">
+            {{ section.settings.button_label | default: 'Đăng ký' | escape }}
+          </button>
+
+          {% if section.settings.show_login_link %}
+            <p class="account-register-section__login">
+              Đã có tài khoản?
+              <a href="{{ routes.account_login_url }}">Đăng nhập</a>
+            </p>
+          {% endif %}
+        {% endform %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if section.settings.show_password_confirmation and customer == blank %}
+  <script>
+    (() => {
+      const section = document.getElementById('AccountRegister-{{ section.id }}');
+      if (!section || section.dataset.passwordValidationReady === 'true') return;
+
+      const form = section.querySelector('form');
+      const password = section.querySelector('#RegisterPassword-{{ section.id }}');
+      const confirmation = section.querySelector('#RegisterPasswordConfirm-{{ section.id }}');
+      const error = section.querySelector('[data-password-error]');
+
+      if (!form || !password || !confirmation || !error) return;
+      section.dataset.passwordValidationReady = 'true';
+
+      const validatePasswords = () => {
+        const matches = confirmation.value === '' || password.value === confirmation.value;
+        confirmation.setCustomValidity(matches ? '' : 'Mật khẩu xác nhận chưa khớp.');
+        error.hidden = matches;
+        return matches;
+      };
+
+      password.addEventListener('input', validatePasswords);
+      confirmation.addEventListener('input', validatePasswords);
+      form.addEventListener('submit', (event) => {
+        if (!validatePasswords()) {
+          event.preventDefault();
+          confirmation.focus();
+          confirmation.reportValidity();
+        }
+      });
+    })();
+  </script>
+{% endif %}
+
+{% style %}
+  #AccountRegister-{{ section.id }} {
+    padding: var(--register-section-spacing) 20px;
+    background: var(--register-background);
+    color: var(--register-text);
+  }
+
+  #AccountRegister-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 0.9fr);
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid var(--register-border);
+    border-radius: var(--register-radius);
+    background: var(--register-card-background);
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__inner--form-only {
+    display: block;
+    max-width: 620px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__media {
+    min-height: 100%;
+    background: #111111;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 620px;
+    object-fit: cover;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(32px, 5vw, 72px);
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__header {
+    margin-bottom: 28px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__eyebrow {
+    margin: 0 0 10px;
+    color: var(--register-accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__title {
+    margin: 0;
+    color: var(--register-text);
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__description {
+    margin-top: 12px;
+    color: var(--register-muted);
+    line-height: 1.65;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__description p {
+    margin: 0;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__form {
+    display: grid;
+    gap: 14px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__name-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__field {
+    display: grid;
+    gap: 7px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__field label {
+    color: var(--register-text);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__field input {
+    width: 100%;
+    min-height: 50px;
+    margin: 0;
+    padding: 13px 15px;
+    border: 1px solid var(--register-border);
+    border-radius: 0;
+    outline: none;
+    background: transparent;
+    color: var(--register-text);
+    font: inherit;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__field input::placeholder {
+    color: var(--register-muted);
+    opacity: 0.75;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__field input:focus {
+    border-color: var(--register-accent);
+    box-shadow: 0 0 0 1px var(--register-accent);
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__field input[aria-invalid="true"],
+  #AccountRegister-{{ section.id }} .account-register-section__field input:invalid:not(:placeholder-shown) {
+    border-color: #d94848;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    margin-top: 6px;
+    padding: 14px 24px;
+    border: 1px solid var(--register-accent);
+    border-radius: 0;
+    background: var(--register-accent);
+    color: var(--register-button-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter 160ms ease, transform 160ms ease;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__button:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__login {
+    margin: 4px 0 0;
+    color: var(--register-muted);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__login a {
+    color: var(--register-accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__errors {
+    padding: 12px 14px;
+    border-left: 3px solid #d94848;
+    background: rgba(217, 72, 72, 0.1);
+    color: var(--register-text);
+    font-size: 13px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__errors ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__field-error {
+    margin: 0;
+    color: #e76565;
+    font-size: 12px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__logged-in {
+    display: grid;
+    gap: 16px;
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__logged-in p {
+    margin: 0;
+    color: var(--register-muted);
+  }
+
+  @media (max-width: 860px) {
+    #AccountRegister-{{ section.id }} .account-register-section__inner {
+      grid-template-columns: 1fr;
+    }
+
+    #AccountRegister-{{ section.id }} .account-register-section__image {
+      min-height: 0;
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media (max-width: 560px) {
+    #AccountRegister-{{ section.id }} {
+      padding-right: 14px;
+      padding-left: 14px;
+    }
+
+    #AccountRegister-{{ section.id }} .account-register-section__content {
+      padding: 28px 20px 32px;
+    }
+
+    #AccountRegister-{{ section.id }} .account-register-section__name-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Form đăng ký tài khoản",
+  "tag": "section",
+  "class": "section-account-registration-form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Dòng chữ nhỏ",
+      "default": "HELIOS CLUB"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tiêu đề",
+      "default": "Đăng ký tài khoản"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Mô tả",
+      "default": "<p>Tạo tài khoản để theo dõi đơn hàng và nhận những quyền lợi dành riêng cho thành viên.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hình ảnh"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Hiển thị hình ảnh",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Nhãn nút",
+      "default": "Đăng ký"
+    },
+    {
+      "type": "text",
+      "id": "customer_tag",
+      "label": "Tag gắn cho khách hàng",
+      "default": "HELIOSCLUB"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_password_confirmation",
+      "label": "Hiển thị xác nhận mật khẩu",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_login_link",
+      "label": "Hiển thị liên kết đăng nhập",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Màu sắc"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Nền section",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Nền form",
+      "default": "#141414"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Chữ chính",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Chữ phụ",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Viền",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Màu nhấn và nút",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Chữ trên nút",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Bố cục"
+    },
+    {
+      "type": "range",
+      "id": "section_spacing",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Khoảng cách trên dưới",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Bo góc",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Form đăng ký tài khoản"
+    }
+  ]
+}
+{% endschema %}
