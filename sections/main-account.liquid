@@ -151,6 +151,20 @@
     {% comment %}--- DASHBOARD CONTENT ---{% endcomment %}
     <div class="db-content">
 
+      <div
+        class="db-registration-success"
+        id="RegistrationSuccess-{{ section.id }}"
+        role="status"
+        aria-live="polite"
+        hidden
+      >
+        <div>
+          <strong>Đăng ký tài khoản thành công!</strong>
+          <p>Chào mừng bạn đến với Helios Club. Tài khoản của bạn đã sẵn sàng để sử dụng.</p>
+        </div>
+        <button type="button" aria-label="Đóng thông báo" data-registration-success-close>&times;</button>
+      </div>
+
       {% comment %}========== ROW 1: WELCOME + STATS =========={% endcomment %}
       <div class="db-welcome-row">
         <div class="db-welcome-card">
@@ -617,6 +631,24 @@
 {% comment %}--- JAVASCRIPT ---{% endcomment %}
 <script>
 (function() {
+  const registrationSuccess = document.getElementById('RegistrationSuccess-{{ section.id }}');
+  const currentUrl = new URL(window.location.href);
+
+  if (registrationSuccess && currentUrl.searchParams.get('registration') === 'success') {
+    registrationSuccess.hidden = false;
+    registrationSuccess.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    currentUrl.searchParams.delete('registration');
+    window.history.replaceState({}, document.title, currentUrl.pathname + currentUrl.search + currentUrl.hash);
+
+    const closeSuccess = registrationSuccess.querySelector('[data-registration-success-close]');
+    if (closeSuccess) {
+      closeSuccess.addEventListener('click', function() {
+        registrationSuccess.hidden = true;
+      });
+    }
+  }
+
   // Sidebar toggle (mobile)
   const sidebar = document.getElementById('dbSidebar');
   const overlay = document.getElementById('sidebarOverlay');

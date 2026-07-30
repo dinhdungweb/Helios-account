@@ -2,6 +2,7 @@
   assign form_image = section.settings.image
   assign form_title = section.settings.heading | default: 'Đăng ký tài khoản'
   assign form_id = 'AccountRegisterForm-' | append: section.id
+  assign registration_success_url = routes.account_url | append: '?registration=success'
 %}
 
 <section
@@ -63,7 +64,11 @@
           {% endif %}
         </div>
 
-        {% form 'create_customer', id: form_id, class: 'account-register-section__form' %}
+        {% form 'create_customer',
+          id: form_id,
+          class: 'account-register-section__form',
+          return_to: registration_success_url
+        %}
           {% if form.errors %}
             <div class="account-register-section__errors" role="alert" tabindex="-1">
               {{ form.errors | default_errors }}
@@ -181,7 +186,7 @@
   </div>
 </section>
 
-{% if section.settings.show_password_confirmation and customer == blank %}
+{% if customer == blank %}
   <script>
     (() => {
       const section = document.getElementById('AccountRegister-{{ section.id }}');
@@ -191,24 +196,36 @@
       const password = section.querySelector('#RegisterPassword-{{ section.id }}');
       const confirmation = section.querySelector('#RegisterPasswordConfirm-{{ section.id }}');
       const error = section.querySelector('[data-password-error]');
+      const submitButton = section.querySelector('button[type="submit"]');
 
-      if (!form || !password || !confirmation || !error) return;
+      if (!form) return;
       section.dataset.passwordValidationReady = 'true';
 
       const validatePasswords = () => {
+        if (!password || !confirmation || !error) return true;
         const matches = confirmation.value === '' || password.value === confirmation.value;
         confirmation.setCustomValidity(matches ? '' : 'Mật khẩu xác nhận chưa khớp.');
         error.hidden = matches;
         return matches;
       };
 
-      password.addEventListener('input', validatePasswords);
-      confirmation.addEventListener('input', validatePasswords);
+      if (password && confirmation) {
+        password.addEventListener('input', validatePasswords);
+        confirmation.addEventListener('input', validatePasswords);
+      }
+
       form.addEventListener('submit', (event) => {
         if (!validatePasswords()) {
           event.preventDefault();
           confirmation.focus();
           confirmation.reportValidity();
+          return;
+        }
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.setAttribute('aria-busy', 'true');
+          submitButton.textContent = 'Đang tạo tài khoản…';
         }
       });
     })();
@@ -370,6 +387,13 @@
   #AccountRegister-{{ section.id }} .account-register-section__button:hover {
     filter: brightness(1.08);
     transform: translateY(-1px);
+  }
+
+  #AccountRegister-{{ section.id }} .account-register-section__button:disabled {
+    cursor: wait;
+    filter: grayscale(0.25);
+    opacity: 0.75;
+    transform: none;
   }
 
   #AccountRegister-{{ section.id }} .account-register-section__login {
