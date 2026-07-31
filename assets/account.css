@@ -1174,8 +1174,8 @@
   font-weight: 600;
 }
 
-/* Welcome tier RTE */
-.welcome-tier h3 {
+/* Welcome tier text */
+.welcome-tier__text {
   font-size: 13px;
   font-weight: 400;
   line-height: 1.5;

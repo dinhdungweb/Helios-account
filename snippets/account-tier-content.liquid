@@ -17,7 +17,7 @@
       {% if type == 'welcome' %}
         {% if block.settings.welcome_message != blank %}
           <div class="welcome-tier">
-            {{ block.settings.welcome_message }}
+            <p class="welcome-tier__text">{{ block.settings.welcome_message | strip_html }}</p>
           </div>
         {% endif %}
       {% elsif type == 'benefits' %}
