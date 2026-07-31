@@ -111,7 +111,7 @@
     "lock_pages_tier_enable": false,
     "lock_pages_min_tier": "5",
     "atc_locked_text": "Đăng nhập để mua hàng",
-    "lock_pages_total_spent_enable": true,
+    "lock_pages_total_spent_enable": false,
     "lock_pages_total_spent_text": "Dành cho member đã từng mua hàng",
     "lock_text_on_pp": "Sản phẩm đặc quyền",
     "lock_pages_tag_enable": false,
@@ -562,6 +562,11 @@
             "announcement_home_only": true,
             "announcement_text": "Announce something here",
             "announcement_text_size": 14,
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
             "nav_cart_icon": "basket1",
             "show_country_selector": false,
             "show_language_selector": true
@@ -604,8 +609,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -692,15 +697,20 @@
             "nav_opacity": "transparent",
             "nav_positioning": "peek",
             "logo": "{{ shop.brand.logo }}",
-            "use_alt_logo_when_active": true,
             "desktop_logo_width": 130,
             "mobile_logo_width": 90,
+            "use_alt_logo_when_active": true,
             "show_announcement": true,
             "announcement_home_only": true,
             "announcement_text": "Announce something here",
             "announcement_text_size": 16,
-            "show_language_selector": true,
-            "show_country_selector": false
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
+            "show_country_selector": false,
+            "show_language_selector": true
           }
         },
         "popup": {
@@ -740,8 +750,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -830,15 +840,20 @@
             "nav_opacity": "transparent",
             "nav_positioning": "peek",
             "logo": "{{ shop.brand.logo }}",
-            "use_alt_logo_when_active": true,
             "desktop_logo_width": 200,
             "mobile_logo_width": 140,
+            "use_alt_logo_when_active": true,
             "show_announcement": true,
             "announcement_home_only": true,
             "announcement_text": "Announce something here",
             "announcement_text_size": 16,
-            "show_language_selector": true,
-            "show_country_selector": false
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
+            "show_country_selector": false,
+            "show_language_selector": true
           }
         },
         "popup": {
@@ -878,8 +893,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -951,16 +966,21 @@
             "nav_opacity": "opaque",
             "nav_positioning": "sticky",
             "logo": "{{ shop.brand.logo }}",
-            "use_alt_logo_when_active": true,
             "desktop_logo_width": 125,
             "mobile_logo_width": 120,
+            "use_alt_logo_when_active": true,
             "show_announcement": true,
-            "announcement_text": "Announce something here",
             "announcement_home_only": false,
+            "announcement_text": "Announce something here",
             "announcement_text_size": 15,
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
             "nav_cart_icon": "basket2",
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         },
         "popup": {
@@ -1000,8 +1020,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -1087,15 +1107,20 @@
             "nav_opacity": "transparent",
             "nav_positioning": "sticky",
             "logo": "{{ shop.brand.logo }}",
-            "use_alt_logo_when_active": true,
             "desktop_logo_width": 110,
             "mobile_logo_width": 140,
+            "use_alt_logo_when_active": true,
             "show_announcement": true,
-            "announcement_text": "Announce something here",
             "announcement_home_only": false,
+            "announcement_text": "Announce something here",
             "announcement_text_size": 15,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         },
         "popup": {
@@ -1135,8 +1160,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
