@@ -135,7 +135,7 @@
         "tier_member"
       ],
       "settings": {
-        "show_card_flip_rewards": true,
+        "show_card_flip_rewards": false,
         "card_flip_rewards_title": "BẠN ĐÃ SƯU TẦM ĐƯỢC",
         "card_flip_rewards_empty": "Bạn chưa lật được thẻ nào.",
         "card_flip_rewards_limit": 10,
