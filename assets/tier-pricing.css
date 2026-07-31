@@ -112,6 +112,12 @@
    PRODUCT BLOCK INTEGRATION
    ============================================ */
 
+/* A member tier badge already includes the combined store + membership
+   discount, so don't show the separate store-sale badge on the same card. */
+.product-block:has(.tier-badge) .product-label.sale {
+  display: none !important;
+}
+
 .product-block .tier-pricing-wrapper {
   margin: 4px 0 8px 0;
 }
