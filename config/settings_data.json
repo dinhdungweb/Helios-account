@@ -109,7 +109,7 @@
     "price_locked_text": "Dành cho Membership",
     "button_locked_text": "Sản phẩm đặc quyền",
     "lock_pages_tier_enable": false,
-    "lock_pages_min_tier": "5",
+    "lock_pages_min_tier": "6",
     "atc_locked_text": "Đăng nhập để mua hàng",
     "lock_pages_total_spent_enable": false,
     "lock_pages_total_spent_text": "Dành cho member đã từng mua hàng",
