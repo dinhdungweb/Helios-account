@@ -37,11 +37,10 @@
       "blocks": {
         "image_nNNj6R": {
           "type": "image",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/banner_web_19x9_3.jpg",
-            "mobile_image": "shopify://shop_images/banner_web_9x16_2.jpg",
-            "slide_link": "shopify://collections/ro-mot-dau-an",
+            "image": "shopify://shop_images/2aOboQnjhCdI6ccBbvQ9BjRvJN7YZVCX0iRhmx16.jpg",
+            "mobile_image": "shopify://shop_images/2aOboQnjhoqvPUR6NhbgOejO36hBNJeqEuO8iX5c.jpg",
+            "slide_link": "https://forms.gle/WnWrP8pMZARH4qrQ9",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -56,6 +55,7 @@
         },
         "image_qbHR3Y": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Landingpage_PC-01.jpg",
             "mobile_image": "shopify://shop_images/Landing_page_MB-01.jpg",
@@ -173,7 +173,6 @@
     },
     "featured_collection_WGhiFt": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Featured collection",
       "settings": {
         "title": "",
@@ -403,7 +402,6 @@
         "banner_CcYr6M",
         "banner_wnK37c"
       ],
-      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": true,
@@ -465,7 +463,6 @@
         "banner_Nmp8fT",
         "banner_Adiycb"
       ],
-      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": true,
@@ -557,7 +554,6 @@
     },
     "newsletter_DpyaEH": {
       "type": "newsletter",
-      "disabled": true,
       "name": "Newsletter",
       "settings": {
         "subheading": "",
@@ -569,30 +565,6 @@
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
-      }
-    },
-    "account_registration_form_8KWMBi": {
-      "type": "account-registration-form",
-      "name": "Form đăng ký tài khoản",
-      "settings": {
-        "eyebrow": "HELIOS CLUB",
-        "heading": "Đăng ký tài khoản",
-        "description": "<p>Tạo tài khoản để theo dõi đơn hàng và nhận những quyền lợi dành riêng cho thành viên.</p>",
-        "image": "shopify://shop_images/DSC05483.jpg",
-        "show_image": true,
-        "button_label": "Đăng ký",
-        "customer_tag": "HELIOSCLUB",
-        "show_password_confirmation": true,
-        "show_login_link": true,
-        "background_color": "#0d0d0d",
-        "card_background": "#141414",
-        "text_color": "#ffffff",
-        "muted_text_color": "#999999",
-        "border_color": "#2a2a2a",
-        "accent_color": "#fab320",
-        "button_text_color": "#000000",
-        "section_spacing": 60,
-        "corner_radius": 4
       }
     }
   },
@@ -606,7 +578,6 @@
     "two_banner_qNEPMY",
     "two_banner_E4NazD",
     "popup_overlay_custom_pFebVj",
-    "newsletter_DpyaEH",
-    "account_registration_form_8KWMBi"
+    "newsletter_DpyaEH"
   ]
 }
