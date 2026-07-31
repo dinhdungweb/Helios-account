@@ -163,30 +163,25 @@
             ? parseFloat(tierWrapper.dataset.effectiveTierDiscount || tierDiscount)
             : tierDiscount;
           
-          // Get variant price from page (ORIGINAL price, not discounted)
-          let variantPrice = 0;
-          
-          // Try to get price from window.product (most reliable)
-          if (typeof window.product !== 'undefined') {
-            const variant = window.product.variants.find(v => v.id == variantId);
-            if (variant) {
-              variantPrice = variant.price; // Original price in cents
-            }
-          }
-          
-          // Fallback: Get ORIGINAL price from tier-price-original (not tier-price-final!)
-          if (variantPrice === 0 && tierWrapper) {
-            // Get original price from wrapper data or DOM
-            const originalPriceEl = document.querySelector('.price-area .tier-price-original .theme-money');
-            if (originalPriceEl) {
-              const priceText = originalPriceEl.textContent.replace(/[^\d]/g, '');
-              variantPrice = parseInt(priceText) || 0;
-            } else {
-              // If no tier discount shown, get from tier-price-final (which is original price)
-              const finalPriceEl = document.querySelector('.price-area .tier-price-final .theme-money');
-              if (finalPriceEl && tierDiscount === 0) {
-                const priceText = finalPriceEl.textContent.replace(/[^\d]/g, '');
-                variantPrice = parseInt(priceText) || 0;
+          // Keep the same Shopify integer price format used by /cart.js.
+          // data-current-price is updated whenever the selected variant changes.
+          let variantPrice = tierWrapper
+            ? Number(tierWrapper.dataset.currentPrice || 0)
+            : 0;
+
+          // Fallback to the product JSON without parsing formatted DOM money.
+          if (variantPrice === 0) {
+            const productJson = document.querySelector(
+              '[id^="cc-product-json-"], [data-product-json]'
+            );
+
+            if (productJson) {
+              try {
+                const productData = JSON.parse(productJson.textContent);
+                const variant = productData.variants.find(candidate => candidate.id == variantId);
+                variantPrice = variant ? Number(variant.price || 0) : 0;
+              } catch (error) {
+                console.warn('[TierCheckoutButton] Invalid product JSON:', error);
               }
             }
           }
