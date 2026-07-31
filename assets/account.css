@@ -1322,20 +1322,23 @@
     gap: 10px;
   }
 
-  #section-products > .db-card {
+  .db-content > .db-card,
+  .db-content > :not(.db-welcome-row) .db-card {
     overflow: visible;
     border: 0;
     background: transparent;
   }
 
-  #section-products > .db-card > .db-card-header {
+  .db-content > .db-card > .db-card-header,
+  .db-content > :not(.db-welcome-row) .db-card > .db-card-header {
     margin-bottom: 14px;
     padding: 0;
     border-bottom: 0;
     background: transparent;
   }
 
-  #section-products > .db-card > .db-card-body {
+  .db-content > .db-card > .db-card-body,
+  .db-content > :not(.db-welcome-row) .db-card > .db-card-body {
     padding: 0;
   }
 
