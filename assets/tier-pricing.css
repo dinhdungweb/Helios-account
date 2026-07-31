@@ -37,7 +37,9 @@
 /* Show one member price and one original list price when store sale and
    membership discount are combined. Hide the intermediate store-sale price. */
 .product-block .tier-pricing--has-store-sale .tier-price-original,
-.product-area .tier-pricing--has-store-sale .tier-price-original {
+.product-area .tier-pricing--has-store-sale .tier-price-original,
+.cart-item .tier-pricing--has-store-sale .tier-price-original,
+.cart-drawer .tier-pricing--has-store-sale .tier-price-original {
   display: none !important;
 }
 
