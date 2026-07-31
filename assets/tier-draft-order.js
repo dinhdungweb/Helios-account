@@ -76,23 +76,32 @@
     }
 
     let items = [];
+    let currency = '';
 
     // Check if this is "Buy Now" mode (single item from product page)
     if (eventDetail && eventDetail.buyNowMode && eventDetail.singleItem) {
       // Buy Now: Only checkout this single item, ignore cart
+      currency = await getCheckoutCurrency();
       items = [{
         variant_id: eventDetail.singleItem.variant_id,
         quantity: eventDetail.singleItem.quantity,
-        price: eventDetail.singleItem.price / 100, // Convert from cents to dollars
+        price_minor: eventDetail.singleItem.price,
         discount_percent: eventDetail.singleItem.discount_percent
       }];
     } else {
       // Normal checkout: Get all items from cart
-      const cartResponse = await fetch('/cart.js');
+      const cartResponse = await fetch(getCartUrl());
+      if (!cartResponse.ok) {
+        throw new Error('Could not load cart');
+      }
       const cart = await cartResponse.json();
+      currency = getActiveCurrency(cart);
 
       if (!cart.items || cart.items.length === 0) {
         throw new Error('Cart is empty');
+      }
+      if (!currency) {
+        throw new Error('Checkout currency not found');
       }
 
       // Build items with tier discounts
@@ -103,7 +112,7 @@
           return {
             variant_id: item.variant_id,
             quantity: item.quantity,
-            price: item.price / 100,
+            price_minor: item.price,
             discount_percent: 100, // FREE GIFT = 100% discount
             is_gift: true
           };
@@ -140,7 +149,7 @@
         return {
           variant_id: item.variant_id,
           quantity: item.quantity,
-          price: item.price / 100, // Convert from cents to dollars
+          price_minor: item.price,
           discount_percent: discountPercent
         };
       }));
@@ -155,6 +164,7 @@
       body: JSON.stringify({
         customer_id: customerId,
         customer_email: customerEmail,
+        currency: currency,
         items: items
       })
     });
@@ -174,6 +184,41 @@
 
     // Redirect to invoice
     window.location.href = data.invoice_url;
+  }
+
+  function getCartUrl() {
+    const root = window.Shopify && window.Shopify.routes && window.Shopify.routes.root
+      ? window.Shopify.routes.root
+      : '/';
+    return `${root}cart.js`;
+  }
+
+  function normalizeCurrency(value) {
+    const currency = String(value || '').trim().toUpperCase();
+    return /^[A-Z]{3}$/.test(currency) ? currency : '';
+  }
+
+  function getActiveCurrency(cart) {
+    const cartCurrency = cart && cart.currency;
+    const shopifyCurrency = window.Shopify && window.Shopify.currency
+      ? window.Shopify.currency.active
+      : '';
+    return normalizeCurrency(cartCurrency || shopifyCurrency);
+  }
+
+  async function getCheckoutCurrency() {
+    const cartResponse = await fetch(getCartUrl());
+    if (!cartResponse.ok) {
+      throw new Error('Could not load checkout currency');
+    }
+
+    const cart = await cartResponse.json();
+    const currency = getActiveCurrency(cart);
+    if (!currency) {
+      throw new Error('Checkout currency not found');
+    }
+
+    return currency;
   }
 
   async function getItemTierDiscount(item) {
