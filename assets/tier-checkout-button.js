@@ -132,6 +132,12 @@
         e.preventDefault();
 
         const originalText = this.textContent;
+        const resetButton = () => {
+          this.disabled = false;
+          this.textContent = originalText;
+          this.style.opacity = '1';
+        };
+
         this.disabled = true;
         this.textContent = 'Đang xử lý...';
         this.style.opacity = '0.6';
@@ -195,6 +201,7 @@
           const event = new CustomEvent('tier:create-draft-order', {
             detail: {
               buyNowMode: true, // Flag to indicate "Buy Now" - single item only
+              onError: resetButton,
               singleItem: {
                 variant_id: variantId,
                 quantity: quantity,
@@ -212,9 +219,7 @@
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
           alert('Có lỗi xảy ra. Vui lòng thử lại!');
-          this.disabled = false;
-          this.textContent = originalText;
-          this.style.opacity = '1';
+          resetButton();
         }
       });
 

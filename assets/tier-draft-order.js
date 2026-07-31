@@ -6,7 +6,10 @@
 (function () {
   'use strict';
 
-  const API_ENDPOINT = 'https://helios-tier-pricing-api-h543.vercel.app/api/create-draft-order';
+  const CHECKOUT_CONTEXT = window.HELIOS_TIER_CHECKOUT_CONTEXT || {};
+  const API_ENDPOINT = CHECKOUT_CONTEXT.endpoint ||
+    window.HELIOS_TIER_DRAFT_ORDER_ENDPOINT ||
+    'https://helios-tier-pricing-api-h543.vercel.app/api/create-draft-order';
 
   // Listen for draft order creation event
   function setupEventListeners() {
@@ -17,6 +20,9 @@
         await createDraftOrderCheckout(e.detail);
       } catch (error) {
         console.error('[TierDraftOrder] Error:', error);
+        if (e.detail && typeof e.detail.onError === 'function') {
+          e.detail.onError(error);
+        }
         alert('Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại!');
       }
     });
@@ -165,6 +171,7 @@
         customer_id: customerId,
         customer_email: customerEmail,
         currency: currency,
+        country: getActiveCountry(),
         items: items
       })
     });
@@ -204,6 +211,15 @@
       ? window.Shopify.currency.active
       : '';
     return normalizeCurrency(cartCurrency || shopifyCurrency);
+  }
+
+  function getActiveCountry() {
+    const shopifyCountry = window.Shopify && window.Shopify.country
+      ? window.Shopify.country
+      : '';
+    const country = CHECKOUT_CONTEXT.country || shopifyCountry;
+    const normalizedCountry = String(country || '').trim().toUpperCase();
+    return /^[A-Z]{2}$/.test(normalizedCountry) ? normalizedCountry : 'VN';
   }
 
   async function getCheckoutCurrency() {
