@@ -50,7 +50,7 @@
   align-items: center;
   gap: 4px;
   padding: 4px 10px;
-  border-radius: 6px;
+  border-radius: 0 !important;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
