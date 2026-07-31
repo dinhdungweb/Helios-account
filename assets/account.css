@@ -1319,7 +1319,24 @@
 
   .db-products-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
+  }
+
+  #section-products > .db-card {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  #section-products > .db-card > .db-card-header {
+    margin-bottom: 14px;
+    padding: 0;
+    border-bottom: 0;
+    background: transparent;
+  }
+
+  #section-products > .db-card > .db-card-body {
+    padding: 0;
   }
 
   .db-blog-grid {
