@@ -99,6 +99,11 @@
 .tier-price-final.tier-price-discounted {
   color: #d2d2d2;
   font-size: 1.5em;
+  font-weight: 400 !important;
+}
+
+.tier-price-final.tier-price-discounted .theme-money {
+  font-weight: 400 !important;
 }
 
 /* Compare at price (sale price) */
