@@ -34,9 +34,10 @@
   padding-right: 3px;
 }
 
-/* Keep compact cards readable: final member price + original list price.
-   The intermediate store-sale price remains visible on detailed views. */
-.product-block .tier-pricing--has-store-sale .tier-price-original {
+/* Show one member price and one original list price when store sale and
+   membership discount are combined. Hide the intermediate store-sale price. */
+.product-block .tier-pricing--has-store-sale .tier-price-original,
+.product-area .tier-pricing--has-store-sale .tier-price-original {
   display: none !important;
 }
 
