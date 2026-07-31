@@ -95,7 +95,7 @@
 }
 
 .tier-price-final.tier-price-discounted {
-  color: inherit;
+  color: #d2d2d2;
   font-weight: 600;
   font-size: 1.5em;
 }
