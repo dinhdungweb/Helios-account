@@ -1,0 +1,119 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_F3RHtL": {
+      "type": "slideshow",
+      "blocks": {
+        "image_F6wX3V": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2aOboQnzzPifnscUHB6UmEZKeTIArQdcpGXHdOYi.jpg",
+            "mobile_image": "shopify://shop_images/2aOboQo02jl7JSyXCAa7QEVGs077KfKTDCwMwuDg.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_F6wX3V"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "custom_liquid_mGyQd9": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "<p style=\"margin-bottom:20px\"></p>"
+      }
+    },
+    "rich_text_pjkK8A": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "HÀNH TRÌNH DẤU ẤN",
+        "title_size": 28,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>HELIOS 10 năm rèn bạc - Một đời tạc bản lĩnh<br/>Trở thành Member của HELIOS để mở khóa những dấu ấn dành riêng cho bạn.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "account_registration_form_KM6pYj": {
+      "type": "account-registration-form",
+      "name": "Form đăng ký tài khoản",
+      "settings": {
+        "eyebrow": "HELIOS CLUB",
+        "heading": "Đăng ký tài khoản",
+        "description": "<p>Tạo tài khoản để theo dõi đơn hàng và nhận những quyền lợi dành riêng cho thành viên.</p>",
+        "image": "shopify://shop_images/DSC08276.jpg",
+        "show_image": true,
+        "button_label": "Đăng ký",
+        "customer_tag": "HELIOSCLUB",
+        "show_password_confirmation": false,
+        "show_login_link": true,
+        "background_color": "#000000",
+        "card_background": "#141414",
+        "text_color": "#ffffff",
+        "muted_text_color": "#999999",
+        "border_color": "#2a2a2a",
+        "accent_color": "#fab320",
+        "button_text_color": "#000000",
+        "section_spacing": 40,
+        "corner_radius": 0
+      }
+    }
+  },
+  "order": [
+    "slideshow_F3RHtL",
+    "custom_liquid_mGyQd9",
+    "rich_text_pjkK8A",
+    "main",
+    "account_registration_form_KM6pYj"
+  ]
+}
