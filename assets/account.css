@@ -1351,6 +1351,20 @@
     letter-spacing: 0.05em;
   }
 
+  #section-products .product-block .product-label:not(.product-label--marquee) {
+    top: 5px;
+    left: 5px;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 9px;
+    line-height: 11px;
+  }
+
+  #section-products .product-block .product-label:not(.product-label--marquee) span {
+    line-height: 11px;
+  }
+
   .db-blog-grid {
     grid-template-columns: 1fr;
     gap: 15px;
