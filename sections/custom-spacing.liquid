@@ -1,0 +1,53 @@
+{%- style -%}
+  #section-id-{{ section.id }} {
+    width: 100%;
+    height: {{ section.settings.mobile_spacing }}px;
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    #section-id-{{ section.id }} {
+      height: {{ section.settings.desktop_spacing }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="section-id-{{ section.id }}"
+  class="custom-spacing"
+  aria-hidden="true"
+></div>
+
+{% schema %}
+{
+  "name": "Custom spacing",
+  "class": "section-custom-spacing",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_spacing",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_spacing",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom spacing"
+    }
+  ]
+}
+{% endschema %}

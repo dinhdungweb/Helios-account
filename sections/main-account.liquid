@@ -276,7 +276,10 @@
         <div class="db-card">
           <div class="db-card-header">
             <h3 class="db-card-title">Quyền lợi hạng {{ tier }}</h3>
-            <a class="db-card-action" href="#">Xem tất cả quyền lợi →</a>
+            <a class="db-card-action db-card-action--arrow" href="#">
+              Xem tất cả quyền lợi
+              {% render 'svg-rarrow' %}
+            </a>
           </div>
           <div class="db-card-body">
             {%- liquid
@@ -517,7 +520,10 @@
             <div class="db-card">
               <div class="db-card-header">
                 <h3 class="db-card-title">{{ section.settings.welcome_collection_title | default: 'Sản Phẩm Đặc Quyền' }}</h3>
-                <a class="db-card-action" href="{{ welcome_collection.url }}">Xem tất cả →</a>
+                <a class="db-card-action db-card-action--arrow" href="{{ welcome_collection.url }}">
+                  Xem tất cả
+                  {% render 'svg-rarrow' %}
+                </a>
               </div>
               <div class="db-card-body">
                 <div class="db-products-grid">
@@ -548,7 +554,10 @@
           <div class="db-card" id="section-blacksun" style="margin-top: 20px; margin-bottom: 20px;">
             <div class="db-card-header">
               <h3 class="db-card-title">{{ section.settings.blacksun_blog_title | default: 'Blacksun Club' }}</h3>
-              <a class="db-card-action" href="{{ bs_blog.url }}">Xem tất cả →</a>
+              <a class="db-card-action db-card-action--arrow" href="{{ bs_blog.url }}">
+                Xem tất cả
+                {% render 'svg-rarrow' %}
+              </a>
             </div>
             <div class="db-card-body">
               <div class="db-blog-grid">
