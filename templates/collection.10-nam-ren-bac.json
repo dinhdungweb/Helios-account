@@ -139,7 +139,7 @@
       "name": "Video responsive",
       "settings": {
         "full_width": false,
-        "section_width": 1400,
+        "section_width": 1600,
         "video_full_vh": false,
         "video_size": "original",
         "video_height_desktop": 700,
