@@ -16,14 +16,12 @@
     background-size: cover;
   }
   #{{ flipbook_section_id }} .magazine-flipbook-heading { margin: 0 0 1.5rem; padding: 0 1rem; font-size: 2rem; font-weight: 500; letter-spacing: 0.5px; }
-  #{{ flipbook_section_id }} .magazine-reader { position: relative; display: flex; min-height: 480px; flex-direction: column; overflow: hidden; background: rgba(15, 15, 15, 0.94); box-shadow: 0 16px 46px rgba(0, 0, 0, 0.38); isolation: isolate; }
+  #{{ flipbook_section_id }} .magazine-reader { position: relative; display: flex; min-height: 480px; flex-direction: column; overflow: hidden; background: transparent; box-shadow: none; isolation: isolate; }
   #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: hidden; padding: 32px 68px 88px; overscroll-behavior: none; }
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
   #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; touch-action: none; transition: width 0.2s ease, max-width 0.2s ease; }
   #{{ flipbook_section_id }} .turn-page,
-  #{{ flipbook_section_id }} .turn-page-wrapper,
-  #{{ flipbook_section_id }} .p-temporal,
   #{{ flipbook_section_id }} .page { background-color: #fff !important; opacity: 1 !important; }
   #{{ flipbook_section_id }} .turn-page { box-shadow: 0 0 24px rgba(0, 0, 0, 0.38); }
   #{{ flipbook_section_id }} .page { position: relative; box-sizing: border-box; width: 100%; height: 100%; cursor: grab; overflow: hidden; }
