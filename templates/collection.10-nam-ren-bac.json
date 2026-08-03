@@ -212,6 +212,48 @@
         "item_per_row_mobile": "1"
       }
     },
+    "grid_image_An7tnL": {
+      "type": "grid-image",
+      "blocks": {
+        "image_apCpXw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Component_2_1.webp",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_iEydm7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Component_6.webp",
+            "link": "#",
+            "text": ""
+          }
+        },
+        "image_6rNgEF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Component_5.webp",
+            "link": "#",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_apCpXw",
+        "image_iEydm7",
+        "image_6rNgEF"
+      ],
+      "name": "Image Grid",
+      "settings": {
+        "grid_image_full_width": false,
+        "grid_image_with": 1808,
+        "item_for_row": 3,
+        "item_ratio": "3/4",
+        "item_per_row_mobile": "2"
+      }
+    },
     "rich_text_h8hLqb": {
       "type": "rich-text",
       "name": "Rich text",
@@ -275,6 +317,7 @@
     "background_video_responsive_XCQb4W",
     "rich_text_kc4bHD",
     "grid_image_KFBjCj",
+    "grid_image_An7tnL",
     "rich_text_h8hLqb",
     "blocks_7rLk3t",
     "custom_liquid_NnzGff"
