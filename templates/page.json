@@ -23,8 +23,8 @@
         "button_label": "Gửi thông tin",
         "success_message": "Gửi thông tin thành công. HELIOS sẽ liên hệ với bạn trong thời gian sớm nhất.",
         "error_message": "Chưa thể gửi thông tin. Vui lòng kiểm tra lại các trường bên dưới.",
-        "max_width": 800,
-        "desktop_padding_top": 64,
+        "max_width": 750,
+        "desktop_padding_top": 0,
         "desktop_padding_bottom": 64,
         "mobile_padding_top": 40,
         "mobile_padding_bottom": 40
