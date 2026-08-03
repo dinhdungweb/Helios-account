@@ -17,6 +17,8 @@
       ],
       "name": "Video responsive",
       "settings": {
+        "full_width": true,
+        "section_width": 1400,
         "video_full_vh": false,
         "video_size": "cover",
         "video_height_desktop": 900,
@@ -143,9 +145,9 @@
         "welcome_collection": "membership-product",
         "welcome_collection_title": "Sản Phẩm Chỉ Dành Cho Membership",
         "welcome_products_limit": 12,
-        "blacksun_blog": "",
+        "blacksun_blog": "black-sun-club",
         "blacksun_blog_title": "",
-        "blacksun_blog_limit": 2
+        "blacksun_blog_limit": 8
       }
     },
     "rich_text_cnY8ed": {
