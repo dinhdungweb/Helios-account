@@ -33,8 +33,17 @@
   endif
 -%}
 
-<div id="section-id-{{ section.id }}" class="{% if section.settings.full_width == false %}section-spacing wide-container{% else %}header-overlap-section needs-alt-logo{% endif %}" data-section-type="background-video-responsive">
+<div id="section-id-{{ section.id }}" class="{% if section.settings.full_width == false %}section-spacing video-responsive-section--custom-width{% else %}header-overlap-section needs-alt-logo{% endif %}" data-section-type="background-video-responsive">
   {% style %}
+    {% if section.settings.full_width == false %}
+    #section-id-{{ section.id }}.video-responsive-section--custom-width {
+      width: calc(100% - 40px);
+      max-width: {{ section.settings.section_width }}px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    {% endif %}
+
     {% if video_size == 'original' %}
     #section-id-{{ section.id }} .video-responsive-container {
       aspect-ratio: {{ mobile_aspect_ratio }};
@@ -416,6 +425,22 @@
 {
   "name": "Video responsive",
   "settings": [
+    {
+      "id": "full_width",
+      "type": "checkbox",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "id": "section_width",
+      "type": "range",
+      "label": "Chiều rộng tối đa",
+      "min": 400,
+      "max": 2000,
+      "step": 20,
+      "default": 1400,
+      "unit": "px"
+    },
     {
       "id": "video_full_vh",
       "type": "checkbox",
