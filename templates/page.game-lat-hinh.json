@@ -132,6 +132,16 @@
             "width": 600,
             "width_mobile": 300
           }
+        },
+        "decoration_rdJ9zV": {
+          "type": "decoration",
+          "settings": {
+            "image": "shopify://shop_images/bando-01.jpg",
+            "position": "bottom",
+            "alignment": "center",
+            "width": 600,
+            "width_mobile": 300
+          }
         }
       },
       "block_order": [
@@ -148,7 +158,8 @@
         "card_HTr7EJ",
         "card_9JMFcM",
         "card_UmBYxT",
-        "decoration_3NmCBw"
+        "decoration_3NmCBw",
+        "decoration_rdJ9zV"
       ],
       "name": "Game lật thẻ bài",
       "settings": {
@@ -170,6 +181,7 @@
         "saved_message": "Kết quả đã được lưu.",
         "error_message": "Không thể lưu kết quả, vui lòng thử lại.",
         "out_of_turns_message": "Bạn đã hết lượt chơi.",
+        "expired_message": "Chương trình lật thẻ chưa bắt đầu hoặc đã kết thúc.",
         "result_heading": "Kết quả của bạn",
         "code_prefix": "Mã:",
         "remaining_modal_text": "Còn [remaining]/[total] lượt",
