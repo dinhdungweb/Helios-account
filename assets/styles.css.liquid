@@ -16026,3 +16026,46 @@ a.caption.upper {
 .metafield-rich_text_field ul {
     margin: 0;
 }
+
+/* Responsive heading scale
+ * Uses rem + fluid viewport interpolation so headings retain hierarchy,
+ * reflow on small screens, and continue to respond to browser text zoom.
+ */
+:root {
+  --heading-size-h1: clamp(2rem, 1.45rem + 2.2vw, 3.2rem);
+  --heading-size-h2: clamp(1.6rem, 1.35rem + 1vw, 2.4rem);
+  --heading-size-h3: clamp(1.333rem, 1.2rem + 0.55vw, 1.8rem);
+  --heading-size-h4: clamp(1.2rem, 1.12rem + 0.25vw, 1.4rem);
+  --heading-size-h5: clamp(1.067rem, 1.02rem + 0.12vw, 1.2rem);
+  --heading-size-h6: 1rem;
+}
+
+h1:not(.logo-h1), .h1 {
+  font-size: var(--heading-size-h1);
+  line-height: 1.15;
+}
+
+h2, .h2 {
+  font-size: var(--heading-size-h2);
+  line-height: 1.2;
+}
+
+h3, .h3 {
+  font-size: var(--heading-size-h3);
+  line-height: 1.25;
+}
+
+h4, .h4 {
+  font-size: var(--heading-size-h4);
+  line-height: 1.3;
+}
+
+h5, .h5 {
+  font-size: var(--heading-size-h5);
+  line-height: 1.35;
+}
+
+h6, .h6 {
+  font-size: var(--heading-size-h6);
+  line-height: 1.4;
+}

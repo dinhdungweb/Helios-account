@@ -33,7 +33,7 @@
   endif
 -%}
 
-<div id="section-id-{{ section.id }}" class="{% if section.settings.full_width == false %}section-spacing video-responsive-section--custom-width{% else %}header-overlap-section needs-alt-logo{% endif %}" data-section-type="background-video-responsive">
+<div id="section-id-{{ section.id }}" class="{% if section.settings.full_width == false %}video-responsive-section--custom-width{% else %}header-overlap-section needs-alt-logo{% endif %}" data-section-type="background-video-responsive">
   {% style %}
     {% if section.settings.full_width == false %}
     #section-id-{{ section.id }}.video-responsive-section--custom-width {
