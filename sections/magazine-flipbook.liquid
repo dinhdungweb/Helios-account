@@ -1,5 +1,5 @@
 {% comment %}
-  Magazine Flipbook Section - Full Fix (Scroll, Keyboard, and Mid-page Drag Enabled)
+  Magazine Flipbook Section - Turn.js soft page curl with responsive double-page view
 {% endcomment %}
 
 {%- assign flipbook_section_id = 'magazine-flipbook-' | append: section.id -%}
@@ -21,9 +21,11 @@
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
   #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; touch-action: none; transition: width 0.2s ease, max-width 0.2s ease; }
-  #{{ flipbook_section_id }} .stf__wrapper { filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.5)); }
-  #{{ flipbook_section_id }} .stf__item,
+  #{{ flipbook_section_id }} .turn-page,
+  #{{ flipbook_section_id }} .turn-page-wrapper,
+  #{{ flipbook_section_id }} .p-temporal,
   #{{ flipbook_section_id }} .page { background-color: #fff !important; opacity: 1 !important; }
+  #{{ flipbook_section_id }} .turn-page { box-shadow: 0 0 24px rgba(0, 0, 0, 0.38); }
   #{{ flipbook_section_id }} .page { position: relative; box-sizing: border-box; width: 100%; height: 100%; cursor: grab; overflow: hidden; }
   #{{ flipbook_section_id }} .page:active { cursor: grabbing; }
   #{{ flipbook_section_id }} .page img { display: block; width: 100%; height: 100%; object-fit: contain; background: #fff; opacity: 1; }
@@ -140,10 +142,9 @@
   (function() {
     const flipId = {{ section.id | json }};
     const root = document.getElementById({{ flipbook_section_id | json }});
-    const pageFlipAssetUrl = {{ 'page-flip.browser.js' | asset_url | json }};
+    const turnAssetUrl = {{ 'turn.js' | asset_url | json }};
     const bookWidth = Number({{ section.settings.width | default: 1000 | json }}) || 1000;
     const pageHeight = Number({{ section.settings.height | default: 707 | json }}) || 707;
-    const pageWidth = Math.max(1, bookWidth / 2);
     const pages = [
       {%- assign rendered_page_count = 0 -%}
       {%- for block in section.blocks -%}
@@ -166,7 +167,8 @@
     root.dataset.flipbookInitialized = 'loading';
 
     function startWhenReady() {
-      loadPageFlipLibrary()
+      waitForJQuery()
+        .then(loadTurnLibrary)
         .then(initializeFlipbook)
         .catch(function(error) {
           showLoadError('Không thể tải trình lật trang. Vui lòng tải lại trang.');
@@ -174,50 +176,72 @@
         });
     }
 
-    function loadPageFlipLibrary() {
-      if (window.St && typeof window.St.PageFlip === 'function') {
-        return Promise.resolve(window.St.PageFlip);
-      }
+    function waitForJQuery() {
+      return new Promise(function(resolve, reject) {
+        let attempts = 0;
 
-      if (!window.HeliosPageFlipPromise) {
-        window.HeliosPageFlipPromise = new Promise(function(resolve, reject) {
-          const existingScript = document.querySelector('script[data-helios-page-flip]');
+        function check() {
+          if (window.jQuery && window.jQuery.fn) {
+            resolve(window.jQuery);
+            return;
+          }
+
+          attempts += 1;
+          if (attempts >= 50) {
+            reject(new Error('jQuery is required by Turn.js.'));
+            return;
+          }
+
+          window.setTimeout(check, 100);
+        }
+
+        check();
+      });
+    }
+
+    function loadTurnLibrary($) {
+      if ($.fn && typeof $.fn.turn === 'function') return Promise.resolve($);
+
+      if (!window.HeliosMagazineTurnPromise) {
+        window.HeliosMagazineTurnPromise = new Promise(function(resolve, reject) {
+          const existingScript = document.querySelector('script[data-helios-magazine-turn]');
           const script = existingScript || document.createElement('script');
 
           function resolveLibrary() {
-            if (window.St && typeof window.St.PageFlip === 'function') {
-              resolve(window.St.PageFlip);
+            if (window.jQuery && typeof window.jQuery.fn.turn === 'function') {
+              resolve(window.jQuery);
             } else {
-              reject(new Error('StPageFlip did not expose its PageFlip constructor.'));
+              reject(new Error('Turn.js did not register its jQuery plugin.'));
             }
           }
 
           if (existingScript) {
             existingScript.addEventListener('load', resolveLibrary, { once: true });
             existingScript.addEventListener('error', function() {
-              reject(new Error('Unable to load StPageFlip.'));
+              reject(new Error('Unable to load Turn.js.'));
             }, { once: true });
             return;
           }
 
-          script.src = pageFlipAssetUrl;
+          script.src = turnAssetUrl;
           script.async = true;
-          script.dataset.heliosPageFlip = 'true';
+          script.dataset.heliosMagazineTurn = 'true';
           script.addEventListener('load', resolveLibrary, { once: true });
           script.addEventListener('error', function() {
-            reject(new Error('Unable to load StPageFlip.'));
+            reject(new Error('Unable to load Turn.js.'));
           }, { once: true });
           document.head.appendChild(script);
         });
       }
 
-      return window.HeliosPageFlipPromise;
+      return window.HeliosMagazineTurnPromise;
     }
 
-    function initializeFlipbook(PageFlip) {
+    function initializeFlipbook($) {
       if (!root.isConnected || root.dataset.flipbookInitialized === 'true') return;
 
-      const container = root.querySelector('#magazine-' + flipId);
+      const containerElement = root.querySelector('#magazine-' + flipId);
+      const container = $(containerElement);
       const stage = root.querySelector('.magazine-stage');
       const loading = root.querySelector('#loading-' + flipId);
       const loadingText = root.querySelector('#loading-text-' + flipId);
@@ -235,14 +259,12 @@
       const totalPagesElement = root.querySelector('#total-pages-' + flipId);
       const originalBodyOverflow = document.body.style.overflow;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const mobileDoublePage = window.matchMedia('(max-width: 767.8px)').matches;
-      const minPageWidth = Math.min(pageWidth, mobileDoublePage ? 80 : 180);
-      const minPageHeight = Math.max(1, Math.round(minPageWidth * pageHeight / pageWidth));
-      let pageFlip = null;
       let currentPage = 1;
       let zoomLevel = 1;
-      let updateFrame = null;
+      let turnReady = false;
+      let resizeFrame = null;
       let resizeObserver = null;
+      let flipResetTimer = null;
       let destroyed = false;
 
       if (pages.length === 0) {
@@ -264,7 +286,6 @@
         const thumbnailNumber = document.createElement('span');
 
         pageElement.className = 'page';
-        pageElement.dataset.density = 'soft';
         pageElement.setAttribute('aria-label', 'Trang ' + (index + 1));
 
         image.alt = pageData.alt;
@@ -273,7 +294,7 @@
         image.dataset.src = pageData.src;
         image.dataset.magazinePage = String(index + 1);
         pageElement.appendChild(image);
-        container.appendChild(pageElement);
+        containerElement.appendChild(pageElement);
 
         thumbnailButton.type = 'button';
         thumbnailButton.className = 'magazine-thumbnail';
@@ -318,65 +339,53 @@
       })).then(function() {
         if (destroyed || !root.isConnected) return;
 
-        pageFlip = new PageFlip(container, {
-          width: pageWidth,
-          height: pageHeight,
-          size: 'stretch',
-          minWidth: minPageWidth,
-          maxWidth: pageWidth,
-          minHeight: minPageHeight,
-          maxHeight: pageHeight,
-          drawShadow: true,
-          flippingTime: reducedMotion ? 1 : 350,
-          usePortrait: false,
-          startZIndex: 1,
-          autoSize: true,
-          maxShadowOpacity: 0.45,
-          showCover: !mobileDoublePage,
-          mobileScrollSupport: false,
-          swipeDistance: 24,
-          clickEventForward: true,
-          useMouseEvents: true,
-          showPageCorners: !reducedMotion,
-          disableFlipByClick: false
+        const initialSize = calculateBookSize();
+        container.turn({
+          width: initialSize.width,
+          height: initialSize.height,
+          display: 'double',
+          page: 1,
+          duration: reducedMotion ? 1 : 450,
+          acceleration: true,
+          gradients: true,
+          elevation: 72,
+          when: {
+            start: function() {
+              markFlipping();
+            },
+            turning: function(event, page, view) {
+              currentPage = Number(page) || currentPage;
+              loadPagesAround(currentPage);
+              updateControls(currentPage, view);
+            },
+            turned: function(event, page, view) {
+              currentPage = Number(page) || currentPage;
+              clearFlippingState();
+              updateControls(currentPage, view);
+              loadPagesAround(currentPage);
+            }
+          }
         });
 
-        pageFlip.on('init', function(event) {
-          currentPage = Number(event.data.page) + 1;
-          totalPagesElement.textContent = String(pageFlip.getPageCount());
-          loading.hidden = true;
-          updateControls(currentPage);
-          loadPagesAround(currentPage);
-        });
-
-        pageFlip.on('flip', function(event) {
-          currentPage = Number(event.data) + 1;
-          updateControls(currentPage);
-          loadPagesAround(currentPage);
-        });
-
-        pageFlip.on('changeOrientation', function() {
-          updateControls(currentPage);
-        });
-
-        pageFlip.on('changeState', function(event) {
-          stage.classList.toggle('is-flipping', event.data !== 'read');
-        });
-
-        pageFlip.loadFromHTML(container.querySelectorAll('.page'));
+        turnReady = true;
+        totalPagesElement.textContent = String(container.turn('pages'));
         root.dataset.flipbookInitialized = 'true';
+        loading.hidden = true;
+        updateControls(1, container.turn('view'));
+        loadPagesAround(1);
 
         if (window.ResizeObserver) {
-          resizeObserver = new ResizeObserver(schedulePageFlipUpdate);
+          resizeObserver = new ResizeObserver(scheduleResize);
           resizeObserver.observe(stage);
         }
+        window.addEventListener('resize', scheduleResize);
       }).catch(function(error) {
         showLoadError('Không thể khởi tạo trình lật trang. Vui lòng tải lại trang.');
         console.error('Magazine Flipbook:', error);
       });
 
       function ensurePageLoaded(pageNumberToLoad) {
-        const image = container.querySelector('img[data-magazine-page="' + pageNumberToLoad + '"]');
+        const image = containerElement.querySelector('img[data-magazine-page="' + pageNumberToLoad + '"]');
         if (!image || image.dataset.loaded === 'true' || image.dataset.loaded === 'error') {
           return Promise.resolve();
         }
@@ -400,28 +409,31 @@
       }
 
       function loadPagesAround(page) {
-        const start = Math.max(1, page - 2);
-        const end = Math.min(pages.length, page + 3);
+        const start = Math.max(1, page - 3);
+        const end = Math.min(pages.length, page + 4);
         for (let pageNumber = start; pageNumber <= end; pageNumber += 1) {
           ensurePageLoaded(pageNumber);
         }
       }
 
       function getVisiblePages(page) {
-        if (!pageFlip) return [page];
-        const collection = pageFlip.getPageCollection();
-        const spread = collection.getSpread()[collection.getCurrentSpreadIndex()] || [];
-        return spread.map(function(pageIndex) { return pageIndex + 1; });
+        if (!turnReady) return [page];
+        return container.turn('view', page).filter(function(pageNumber) {
+          return pageNumber > 0;
+        });
       }
 
-      function updateControls(page) {
-        if (!pageFlip) return;
-        const totalPages = pageFlip.getPageCount();
-        const safePage = Math.max(1, Math.min(page, totalPages));
-        const visiblePages = getVisiblePages(safePage);
+      function updateControls(page, view) {
+        if (!turnReady) return;
+        const totalPages = container.turn('pages');
+        const safePage = Math.max(1, Math.min(Number(page) || 1, totalPages));
+        const visiblePages = Array.isArray(view) ? view.filter(function(pageNumber) {
+          return pageNumber > 0;
+        }) : getVisiblePages(safePage);
+
         currentPageElement.value = String(safePage);
         currentPageElement.max = String(totalPages);
-        setNavigationDisabled(safePage <= 1, visiblePages.indexOf(totalPages) !== -1);
+        setNavigationDisabled(visiblePages.indexOf(1) !== -1, visiblePages.indexOf(totalPages) !== -1);
         zoomOutButton.disabled = zoomLevel <= 1;
         zoomInButton.disabled = zoomLevel >= 2;
 
@@ -440,16 +452,30 @@
         toolbarNextButton.disabled = nextDisabled;
       }
 
+      function markFlipping() {
+        stage.classList.add('is-flipping');
+        if (flipResetTimer) window.clearTimeout(flipResetTimer);
+        flipResetTimer = window.setTimeout(clearFlippingState, reducedMotion ? 100 : 1000);
+      }
+
+      function clearFlippingState() {
+        stage.classList.remove('is-flipping');
+        if (flipResetTimer) {
+          window.clearTimeout(flipResetTimer);
+          flipResetTimer = null;
+        }
+      }
+
       function showPreviousPage() {
-        if (!pageFlip) return;
-        loadPagesAround(Math.max(1, currentPage - 1));
-        pageFlip.flipPrev('bottom');
+        if (!turnReady) return;
+        loadPagesAround(Math.max(1, currentPage - 2));
+        container.turn('previous');
       }
 
       function showNextPage() {
-        if (!pageFlip) return;
-        loadPagesAround(Math.min(pages.length, currentPage + 1));
-        pageFlip.flipNext('bottom');
+        if (!turnReady) return;
+        loadPagesAround(Math.min(pages.length, currentPage + 2));
+        container.turn('next');
       }
 
       function toggleThumbnails() {
@@ -465,7 +491,7 @@
 
       function handleThumbnailClick(event) {
         const thumbnail = event.target.closest('.magazine-thumbnail');
-        if (!thumbnail || !pageFlip) return;
+        if (!thumbnail || !turnReady) return;
         goToPage(Number(thumbnail.dataset.page));
       }
 
@@ -474,13 +500,14 @@
       }
 
       function goToPage(requestedPage) {
-        if (!pageFlip || !Number.isFinite(requestedPage)) {
+        if (!turnReady || !Number.isFinite(requestedPage)) {
           currentPageElement.value = String(currentPage);
           return;
         }
-        const targetPage = Math.max(1, Math.min(Math.round(requestedPage), pageFlip.getPageCount()));
+
+        const targetPage = Math.max(1, Math.min(Math.round(requestedPage), container.turn('pages')));
         loadPagesAround(targetPage);
-        pageFlip.turnToPage(targetPage - 1);
+        container.turn('page', targetPage);
       }
 
       function handlePageInputKeydown(event) {
@@ -492,19 +519,14 @@
       }
 
       function setZoom(nextZoom) {
-        if (!pageFlip || window.matchMedia('(max-width: 767.8px)').matches) return;
+        if (!turnReady || window.matchMedia('(max-width: 767.8px)').matches) return;
         zoomLevel = Math.max(1, Math.min(2, Math.round(nextZoom * 4) / 4));
-        const settings = pageFlip.getSettings();
-        settings.maxWidth = pageWidth * zoomLevel;
-        settings.maxHeight = pageHeight * zoomLevel;
-        container.style.width = (zoomLevel * 100) + '%';
-        container.style.maxWidth = Math.round(bookWidth * zoomLevel) + 'px';
         stage.classList.toggle('is-zoomed', zoomLevel > 1);
         if (zoomLevel === 1) {
           stage.scrollLeft = 0;
           stage.scrollTop = 0;
         }
-        schedulePageFlipUpdate();
+        scheduleResize();
         updateControls(currentPage);
       }
 
@@ -519,11 +541,33 @@
         }
       }
 
-      function schedulePageFlipUpdate() {
-        if (destroyed || !pageFlip || updateFrame) return;
-        updateFrame = window.requestAnimationFrame(function() {
-          updateFrame = null;
-          if (!destroyed && pageFlip) pageFlip.update();
+      function calculateBookSize() {
+        const stageStyle = window.getComputedStyle(stage);
+        const horizontalPadding = parseFloat(stageStyle.paddingLeft) + parseFloat(stageStyle.paddingRight);
+        const verticalPadding = parseFloat(stageStyle.paddingTop) + parseFloat(stageStyle.paddingBottom);
+        const availableWidth = Math.max(160, stage.clientWidth - horizontalPadding);
+        const bookRatio = bookWidth / pageHeight;
+        let fittedWidth = Math.min(bookWidth, availableWidth);
+
+        if (isRootFullscreen()) {
+          const availableHeight = Math.max(120, stage.clientHeight - verticalPadding);
+          fittedWidth = Math.min(fittedWidth, availableHeight * bookRatio);
+        }
+
+        return {
+          width: Math.max(160, Math.round(fittedWidth * zoomLevel)),
+          height: Math.max(100, Math.round((fittedWidth / bookRatio) * zoomLevel))
+        };
+      }
+
+      function scheduleResize() {
+        if (destroyed || !turnReady || resizeFrame) return;
+        resizeFrame = window.requestAnimationFrame(function() {
+          resizeFrame = null;
+          if (destroyed || !turnReady) return;
+          const size = calculateBookSize();
+          container.turn('size', size.width, size.height);
+          loadPagesAround(currentPage);
         });
       }
 
@@ -548,7 +592,7 @@
         if (fullscreenButton) {
           fullscreenButton.setAttribute('aria-label', active ? 'Thoát toàn màn hình' : 'Xem toàn màn hình');
         }
-        schedulePageFlipUpdate();
+        scheduleResize();
       }
 
       function handleSectionUnload(event) {
@@ -559,13 +603,19 @@
       function cleanup() {
         if (destroyed) return;
         destroyed = true;
-        if (updateFrame) window.cancelAnimationFrame(updateFrame);
+        if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
+        if (flipResetTimer) window.clearTimeout(flipResetTimer);
         if (resizeObserver) resizeObserver.disconnect();
+        window.removeEventListener('resize', scheduleResize);
         document.removeEventListener('fullscreenchange', handleFullscreenChange);
         document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
         document.removeEventListener('shopify:section:unload', handleSectionUnload);
         document.body.style.overflow = originalBodyOverflow;
-        if (pageFlip) pageFlip.destroy();
+        clearFlippingState();
+        container.off();
+        container.empty();
+        container.removeData();
+        turnReady = false;
         delete root.dataset.flipbookInitialized;
       }
     }
