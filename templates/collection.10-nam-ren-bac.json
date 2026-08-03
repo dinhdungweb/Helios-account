@@ -15,7 +15,8 @@
         "image_Ey8gL8": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/zzz.jpg",
+            "image": "shopify://shop_images/1785554407134_1568007085383772978_7492394207184101642_9cba6072b2dfb89126800a387c234e59.jpg",
+            "mobile_image": "shopify://shop_images/2aOboQoBQYJJRwODzJj7cVMEGmF6QaSRODs1VfaC_39e8bd5f-fe6e-4402-a304-292c3dc5f4bf.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -51,9 +52,9 @@
       "type": "rich-text",
       "name": "Rich text",
       "settings": {
-        "subheading": "",
-        "title": "MỌI HÀNH TRÌNH ĐỀU BẮT ĐẦU TỪ MỘT LỜI HỨA NHỎ:LÀM RA THỨ XỨNG ĐÁNG ĐƯỢC GIỮ LẠI VÀ ĐI CÙNG",
-        "title_size": 24,
+        "subheading": "Mọi hành trình đều bắt đầu từ một lời hứa nhỏ:",
+        "title": "làm ra thứ xứng được giữ lại và đi cùng",
+        "title_size": 30,
         "title_width": 40,
         "heading_h1": false,
         "text": "",
@@ -89,6 +90,7 @@
       "block_order": [
         "ai_gen_block_1d3b865_cAdg3b"
       ],
+      "disabled": true,
       "name": "Large image",
       "settings": {}
     },
@@ -175,6 +177,7 @@
       "block_order": [
         "ai_gen_block_659b1a2_VM6rQj"
       ],
+      "disabled": true,
       "settings": {}
     },
     "custom_liquid_NnzGff": {
@@ -269,6 +272,7 @@
         "activity_H4fjyk",
         "activity_GrNKcH"
       ],
+      "disabled": true,
       "name": "Hoạt động Cửa hàng (4 Sự kiện)",
       "settings": {
         "padding_top": 50,
@@ -320,9 +324,9 @@
       "type": "rich-text",
       "name": "Rich text",
       "settings": {
-        "subheading": "",
-        "title": "10 NĂM KHÔNG PHẢI VẠCH KẾT<br>ĐÓ LÀ LÚC CÁNH CỬA ĐẦU TIÊN THẬT SỰ MỞ RA",
-        "title_size": 26,
+        "subheading": "Sau 10 năm",
+        "title": "HELIOS không cần trở thành một thứ quá ồn ào.HELIOS cần trở nên rõ hơn",
+        "title_size": 30,
         "title_width": 40,
         "heading_h1": false,
         "text": "",
