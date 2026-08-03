@@ -17,15 +17,13 @@
   }
   #{{ flipbook_section_id }} .magazine-flipbook-heading { margin: 0 0 1.5rem; padding: 0 1rem; font-size: 2rem; font-weight: 500; letter-spacing: 0.5px; }
   #{{ flipbook_section_id }} .magazine-reader { position: relative; display: flex; min-height: 480px; flex-direction: column; overflow: hidden; background: rgba(15, 15, 15, 0.94); box-shadow: 0 16px 46px rgba(0, 0, 0, 0.38); isolation: isolate; }
-  #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: auto; padding: 32px 68px 88px; overscroll-behavior: contain; scrollbar-width: thin; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; touch-action: pan-y; transition: width 0.2s ease, max-width 0.2s ease; }
-  #{{ flipbook_section_id }} .stf__wrapper { filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.58)); transform-style: preserve-3d; }
-  #{{ flipbook_section_id }} .stf__block { perspective: 1200px !important; perspective-origin: 50% 45%; transform-style: preserve-3d; }
+  #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: hidden; padding: 32px 68px 88px; overscroll-behavior: none; }
+  #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
+  #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; touch-action: none; transition: width 0.2s ease, max-width 0.2s ease; }
+  #{{ flipbook_section_id }} .stf__wrapper { filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.5)); }
   #{{ flipbook_section_id }} .stf__item,
   #{{ flipbook_section_id }} .page { background-color: #fff !important; opacity: 1 !important; }
-  #{{ flipbook_section_id }} .stf__item.--hard { transform-style: preserve-3d; }
-  #{{ flipbook_section_id }} .stf__item.--hard.--left { box-shadow: inset -12px 0 18px -12px rgba(0, 0, 0, 0.58); }
-  #{{ flipbook_section_id }} .stf__item.--hard.--right { box-shadow: inset 12px 0 18px -12px rgba(0, 0, 0, 0.58); }
   #{{ flipbook_section_id }} .page { position: relative; box-sizing: border-box; width: 100%; height: 100%; cursor: grab; overflow: hidden; }
   #{{ flipbook_section_id }} .page:active { cursor: grabbing; }
   #{{ flipbook_section_id }} .page img { display: block; width: 100%; height: 100%; object-fit: contain; background: #fff; opacity: 1; }
@@ -266,7 +264,7 @@
         const thumbnailNumber = document.createElement('span');
 
         pageElement.className = 'page';
-        pageElement.dataset.density = 'hard';
+        pageElement.dataset.density = 'soft';
         pageElement.setAttribute('aria-label', 'Trang ' + (index + 1));
 
         image.alt = pageData.alt;
@@ -329,13 +327,13 @@
           minHeight: minPageHeight,
           maxHeight: pageHeight,
           drawShadow: true,
-          flippingTime: reducedMotion ? 1 : 460,
+          flippingTime: reducedMotion ? 1 : 350,
           usePortrait: false,
           startZIndex: 1,
           autoSize: true,
-          maxShadowOpacity: 0.68,
+          maxShadowOpacity: 0.45,
           showCover: !mobileDoublePage,
-          mobileScrollSupport: true,
+          mobileScrollSupport: false,
           swipeDistance: 24,
           clickEventForward: true,
           useMouseEvents: true,
@@ -359,6 +357,10 @@
 
         pageFlip.on('changeOrientation', function() {
           updateControls(currentPage);
+        });
+
+        pageFlip.on('changeState', function(event) {
+          stage.classList.toggle('is-flipping', event.data !== 'read');
         });
 
         pageFlip.loadFromHTML(container.querySelectorAll('.page'));
@@ -497,6 +499,11 @@
         settings.maxHeight = pageHeight * zoomLevel;
         container.style.width = (zoomLevel * 100) + '%';
         container.style.maxWidth = Math.round(bookWidth * zoomLevel) + 'px';
+        stage.classList.toggle('is-zoomed', zoomLevel > 1);
+        if (zoomLevel === 1) {
+          stage.scrollLeft = 0;
+          stage.scrollTop = 0;
+        }
         schedulePageFlipUpdate();
         updateControls(currentPage);
       }
