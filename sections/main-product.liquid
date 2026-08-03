@@ -366,7 +366,11 @@
                         assign heading_tag = "h1"
                       endif
                     -%}
-                    <{{ heading_tag }} class="product-area__details__title product-detail__gap-sm h2" {{ block.shopify_attributes }}>{{ product.title }}</{{ heading_tag }}>
+                    <{{ heading_tag }}
+                      class="product-area__details__title product-detail__gap-sm product-page-title h2"
+                      style="--product-title-size-desktop: {{ block.settings.title_size_desktop }}px; --product-title-size-mobile: {{ block.settings.title_size_mobile }}px;"
+                      {{ block.shopify_attributes }}
+                    >{{ product.title }}</{{ heading_tag }}>
                   {% endif %}
 
                 {%- when 'price' -%}
@@ -1608,6 +1612,26 @@
             "label": "Set as primary page heading",
             "info": "Uses <h1> tag. One per page recommended. [Learn more](https://cleancanvas.co.uk/support/showcase/seo#inner-anchor-0)",
             "default": true
+          },
+          {
+            "type": "range",
+            "id": "title_size_desktop",
+            "min": 20,
+            "max": 60,
+            "step": 1,
+            "unit": "px",
+            "label": "Desktop font size",
+            "default": 32
+          },
+          {
+            "type": "range",
+            "id": "title_size_mobile",
+            "min": 16,
+            "max": 40,
+            "step": 1,
+            "unit": "px",
+            "label": "Mobile font size",
+            "default": 24
           }
         ]
       },

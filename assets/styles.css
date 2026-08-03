@@ -14474,5 +14474,15 @@ h6, .h6 {
   line-height: var(--heading-line-height-h2);
 }
 
+.product-area .product-area__details .product-page-title {
+  font-size: var(--product-title-size-mobile, 24px);
+}
+
+@media (min-width: 768px) {
+  .product-area .product-area__details .product-page-title {
+    font-size: var(--product-title-size-desktop, 32px);
+  }
+}
+
 
 
