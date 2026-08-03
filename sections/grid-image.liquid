@@ -11,6 +11,8 @@
               assign ratio_val = 1
             elsif section.settings.item_ratio == '3/4'
               assign ratio_val = 0.75
+            elsif section.settings.item_ratio == '4/5'
+              assign ratio_val = 0.8
             elsif section.settings.item_ratio == '4/3'
               assign ratio_val = 1.333
             elsif section.settings.item_ratio == '16/9'
@@ -146,6 +148,7 @@
         { "value": "natural", "label": "Natural" },
         { "value": "1/1", "label": "Square (1:1)" },
         { "value": "3/4", "label": "Portrait (3:4)" },
+        { "value": "4/5", "label": "Portrait (4:5)" },
         { "value": "4/3", "label": "Landscape (4:3)" },
         { "value": "16/9", "label": "Wide (16:9)" }
       ],
