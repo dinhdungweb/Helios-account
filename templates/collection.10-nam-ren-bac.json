@@ -250,7 +250,7 @@
         "grid_image_full_width": false,
         "grid_image_with": 1808,
         "item_for_row": 3,
-        "item_ratio": "3/4",
+        "item_ratio": "natural",
         "item_per_row_mobile": "2"
       }
     },
