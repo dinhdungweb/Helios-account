@@ -286,7 +286,7 @@
             "image": "shopify://shop_images/Group_16_1.png",
             "image_fit": "contain",
             "image_position": "center",
-            "desktop_height": 700,
+            "desktop_height": 800,
             "mobile_height": 400,
             "desktop_width_percent": 100
           },
