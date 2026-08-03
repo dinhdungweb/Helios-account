@@ -71,29 +71,6 @@
         "color_text": ""
       }
     },
-    "blocks_t9dAaK": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_1d3b865_cAdg3b": {
-          "type": "ai_gen_block_1d3b865",
-          "settings": {
-            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten-5.png",
-            "image_fit": "contain",
-            "image_position": "center",
-            "desktop_height": 750,
-            "mobile_height": 350,
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_1d3b865_cAdg3b"
-      ],
-      "disabled": true,
-      "name": "Large image",
-      "settings": {}
-    },
     "main": {
       "type": "main-collection",
       "disabled": true,
@@ -126,29 +103,6 @@
       "settings": {
         "no_margins": true,
         "custom_liquid": "<p></p>"
-      }
-    },
-    "background_video_responsive_7hQxTj": {
-      "type": "background-video-responsive",
-      "disabled": true,
-      "name": "Video responsive",
-      "settings": {
-        "video_full_vh": false,
-        "video_size": "original",
-        "video_height_desktop": 700,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/hero flim-16.9- 720- 9MB.mp4",
-        "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/hero flim-9.16- 720- 7mb.mp4",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
       }
     },
     "1784691192dcfcee0e": {
@@ -210,116 +164,6 @@
         "button_link": ""
       }
     },
-    "store_activities_3JBnEN": {
-      "type": "store-activities",
-      "blocks": {
-        "activity_ngNKUM": {
-          "type": "activity",
-          "settings": {
-            "date": "05.08",
-            "badge": "",
-            "title": "Private Night",
-            "description": "Đêm dành riêng cho member — xem trước sản phẩm, gặp đội ngũ HELIOS, chạm vào Chiến binh Lotus.",
-            "link_label": "NHẬN THƯ MỜI",
-            "link_url": "",
-            "custom_card_bg": "",
-            "custom_border_color": ""
-          }
-        },
-        "activity_ehTWe6": {
-          "type": "activity",
-          "settings": {
-            "date": "06.08",
-            "badge": "",
-            "title": "Phá băng",
-            "description": "Đêm dành riêng cho member — xem trước sản phẩm, gặp đội ngũ HELIOS, chạm vào Chiến binh Lotus.",
-            "link_label": "XEM CHI TIẾT",
-            "link_url": "",
-            "custom_card_bg": "",
-            "custom_border_color": ""
-          }
-        },
-        "activity_H4fjyk": {
-          "type": "activity",
-          "settings": {
-            "date": "06.08",
-            "badge": "",
-            "title": "Rút thẻ chương",
-            "description": "Mười thẻ chương. Sưu tầm đủ bộ để nhận trunk kỷ niệm.",
-            "link_label": "XEM CHI TIẾT",
-            "link_url": "",
-            "custom_card_bg": "",
-            "custom_border_color": ""
-          }
-        },
-        "activity_GrNKcH": {
-          "type": "activity",
-          "settings": {
-            "date": "08.08",
-            "badge": "",
-            "title": "Special Live",
-            "description": "Mở Phong Ấn Cuối — lần đầu công bố trọn artwork Chiến binh Lotus.",
-            "link_label": "XEM CHI TIẾT",
-            "link_url": "",
-            "custom_card_bg": "",
-            "custom_border_color": ""
-          }
-        }
-      },
-      "block_order": [
-        "activity_ngNKUM",
-        "activity_ehTWe6",
-        "activity_H4fjyk",
-        "activity_GrNKcH"
-      ],
-      "disabled": true,
-      "name": "Hoạt động Cửa hàng (4 Sự kiện)",
-      "settings": {
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "max_width": 1400,
-        "grid_columns_desktop": 4,
-        "grid_columns_tablet": 2,
-        "mobile_layout": "grid",
-        "grid_gap": 24,
-        "header_align": "center",
-        "header_spacing": 50,
-        "subtitle": "",
-        "subtitle_color": "#b58c5a",
-        "subtitle_size": 13,
-        "subtitle_letter_spacing": 2,
-        "heading": "HELIOS 10 NĂM - HÀNH TRÌNH DẤU ẤN",
-        "heading_color": "#ffffff",
-        "heading_font_custom": "",
-        "heading_size_desktop": 34,
-        "heading_size_mobile": 30,
-        "description": "Không chỉ mua. Đến cửa hàng để trải nghiệm mười năm bằng tay.",
-        "description_color": "#a8a8a8",
-        "description_size": 16,
-        "description_italic": true,
-        "section_bg": "#0a0a0a",
-        "card_bg": "#141414",
-        "card_border": "#2a221b",
-        "card_padding": 24,
-        "card_border_radius": 2,
-        "card_hover_effect": true,
-        "card_text_align": "left",
-        "date_color": "#fab320",
-        "import_gothic_font": true,
-        "date_font_custom": "",
-        "date_size_desktop": 40,
-        "date_size_mobile": 32,
-        "card_badge_color": "#a09890",
-        "card_badge_size": 11,
-        "card_title_color": "#ffffff",
-        "card_title_size": 22,
-        "card_desc_color": "#b0b0b0",
-        "card_desc_size": 14,
-        "card_link_color": "#fab320",
-        "card_link_hover_color": "#ffffff",
-        "card_link_size": 12
-      }
-    },
     "rich_text_kc4bHD": {
       "type": "rich-text",
       "name": "Rich text",
@@ -343,27 +187,49 @@
         "color_text": ""
       }
     },
-    "custom_liquid_CHFUT6": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid/HTML",
+    "grid_image_KFBjCj": {
+      "type": "grid-image",
+      "blocks": {
+        "image_iyJeKN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1784696924572_4423076661664858939_4423076661664858939_a8b305f7d00d53cf4b6f786e0b915692.jpg",
+            "link": "#",
+            "text": "."
+          }
+        },
+        "image_AyaF9f": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1784696940628_4423076661664858939_4423076661664858939_5b0fe6e98cc51a844dcede4bbf7857fb.jpg",
+            "link": "#",
+            "text": "."
+          }
+        }
+      },
+      "block_order": [
+        "image_iyJeKN",
+        "image_AyaF9f"
+      ],
+      "name": "Image Grid",
       "settings": {
-        "no_margins": false,
-        "custom_liquid": ""
+        "grid_image_full_width": false,
+        "grid_image_with": 1400,
+        "item_for_row": 2,
+        "item_ratio": "natural",
+        "item_per_row_mobile": "1"
       }
     }
   },
   "order": [
     "slideshow_c7QDHQ",
     "rich_text_3pGkAQ",
-    "blocks_t9dAaK",
     "main",
     "custom_liquid_mHQRXq",
-    "background_video_responsive_7hQxTj",
     "1784691192dcfcee0e",
     "custom_liquid_NnzGff",
     "background_video_responsive_XCQb4W",
-    "store_activities_3JBnEN",
     "rich_text_kc4bHD",
-    "custom_liquid_CHFUT6"
+    "grid_image_KFBjCj"
   ]
 }
