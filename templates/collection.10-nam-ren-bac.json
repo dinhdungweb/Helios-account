@@ -138,6 +138,8 @@
       "type": "background-video-responsive",
       "name": "Video responsive",
       "settings": {
+        "full_width": false,
+        "section_width": 1400,
         "video_full_vh": false,
         "video_size": "original",
         "video_height_desktop": 700,
