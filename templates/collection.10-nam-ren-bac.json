@@ -242,6 +242,28 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "blocks_7rLk3t": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d3b865_qEFMCF": {
+          "type": "ai_gen_block_1d3b865",
+          "settings": {
+            "image": "shopify://shop_images/Group_16_1.png",
+            "image_fit": "contain",
+            "image_position": "center",
+            "desktop_height": 700,
+            "mobile_height": 400,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d3b865_qEFMCF"
+      ],
+      "name": "Large image",
+      "settings": {}
     }
   },
   "order": [
@@ -254,6 +276,7 @@
     "background_video_responsive_XCQb4W",
     "rich_text_kc4bHD",
     "grid_image_KFBjCj",
-    "rich_text_h8hLqb"
+    "rich_text_h8hLqb",
+    "blocks_7rLk3t"
   ]
 }
