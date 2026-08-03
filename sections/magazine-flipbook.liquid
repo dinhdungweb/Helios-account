@@ -20,11 +20,8 @@
   #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: hidden; padding: 32px 68px 88px; overscroll-behavior: none; }
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container { --page-stack-left: 50%; --page-stack-width: 50%; --page-stack-depth: 8px; position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; touch-action: none; transition: width 0.2s ease, max-width 0.2s ease; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container::before,
-  #{{ flipbook_section_id }} .magazine-flipbook-container::after { content: ""; position: absolute; left: var(--page-stack-left); z-index: -1; display: block; width: var(--page-stack-width); pointer-events: none; transition: left 0.25s ease, width 0.25s ease, opacity 0.25s ease; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container::before { top: 0; height: 100%; background: #f6f5f1; border: 1px solid rgba(60, 60, 60, 0.2); transform: translate(var(--page-stack-depth), var(--page-stack-depth)); box-shadow: 2px 1px 0 #fff, 4px 2px 0 #c8c8c5, 6px 3px 0 #f7f7f4, 8px 4px 0 #b9b9b6, 12px 9px 22px rgba(0, 0, 0, 0.38); }
-  #{{ flipbook_section_id }} .magazine-flipbook-container::after { top: 100%; height: var(--page-stack-depth); background: repeating-linear-gradient(to bottom, #f7f7f4 0, #f7f7f4 1px, #bdbdb9 1px, #bdbdb9 2px); transform: translate(var(--page-stack-depth), -2px); box-shadow: 4px 5px 12px rgba(0, 0, 0, 0.28); }
+  #{{ flipbook_section_id }} .magazine-flipbook-container { --page-stack-left: 50%; --page-stack-width: 50%; --page-stack-depth: 3px; position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; touch-action: none; transition: width 0.2s ease, max-width 0.2s ease; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container::before { content: ""; position: absolute; top: 0; left: var(--page-stack-left); z-index: -1; display: block; width: var(--page-stack-width); height: 100%; pointer-events: none; background: #f5f5f2; border: 0; transform: translate(var(--page-stack-depth), var(--page-stack-depth)); box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.95), 2px 2px 0 rgba(183, 183, 179, 0.9), 3px 3px 0 rgba(245, 245, 242, 0.95), 6px 6px 14px rgba(0, 0, 0, 0.28); transition: left 0.25s ease, width 0.25s ease, transform 0.25s ease; }
   #{{ flipbook_section_id }} .turn-page,
   #{{ flipbook_section_id }} .page { background-color: #fff !important; opacity: 1 !important; }
   #{{ flipbook_section_id }} .turn-page { box-shadow: 0 0 24px rgba(0, 0, 0, 0.38); }
@@ -459,7 +456,7 @@
         const firstPageOnly = singlePageView && firstVisiblePage === 1;
         const pagesOutsideView = Math.max(firstVisiblePage - 1, totalPages - lastVisiblePage);
         const stackRatio = totalPages > 1 ? pagesOutsideView / (totalPages - 1) : 0;
-        const stackDepth = Math.max(4, Math.min(10, Math.round(4 + stackRatio * 6)));
+        const stackDepth = Math.max(2, Math.min(4, Math.round(2 + stackRatio * 2)));
 
         containerElement.style.setProperty('--page-stack-left', firstPageOnly ? '50%' : '0%');
         containerElement.style.setProperty('--page-stack-width', singlePageView ? '50%' : '100%');
