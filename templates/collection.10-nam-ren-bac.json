@@ -54,7 +54,7 @@
       "settings": {
         "subheading": "Mọi hành trình đều bắt đầu từ một lời hứa nhỏ:",
         "title": "làm ra thứ xứng được giữ lại và đi cùng",
-        "title_size": 30,
+        "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
         "text": "",
@@ -170,7 +170,7 @@
       "settings": {
         "subheading": "Sau 10 năm",
         "title": "HELIOS không cần trở thành một thứ quá ồn ào.HELIOS cần trở nên rõ hơn",
-        "title_size": 30,
+        "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
         "text": "",
@@ -219,6 +219,29 @@
         "item_ratio": "1/1",
         "item_per_row_mobile": "1"
       }
+    },
+    "rich_text_h8hLqb": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "10 NĂM KHÔNG PHẢI VẠCH KẾT<br>ĐÓ LÀ LÚC CÁNH CỬA ĐẦU TIÊN THẬT SỰ MỞ RA",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -230,6 +253,7 @@
     "custom_liquid_NnzGff",
     "background_video_responsive_XCQb4W",
     "rich_text_kc4bHD",
-    "grid_image_KFBjCj"
+    "grid_image_KFBjCj",
+    "rich_text_h8hLqb"
   ]
 }
