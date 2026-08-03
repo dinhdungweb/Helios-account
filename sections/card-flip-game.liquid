@@ -648,6 +648,7 @@
       allowedTurns: toInt(root.dataset.allowedTurns, 0),
       remainingTurns: toInt(root.dataset.allowedTurns, 0),
       usedTurns: 0,
+      campaignActive: true,
       isBusy: false
     };
 
@@ -663,6 +664,7 @@
       savedText: {{ section.settings.saved_message | json }},
       errorText: {{ section.settings.error_message | json }},
       outOfTurnsText: {{ section.settings.out_of_turns_message | json }},
+      expiredText: {{ section.settings.expired_message | json }},
       remainingText: {{ section.settings.remaining_modal_text | json }},
       codePrefix: {{ section.settings.code_prefix | json }}
     };
@@ -694,7 +696,7 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'card-flip-game__card';
-        button.disabled = state.remainingTurns <= 0 || state.isBusy;
+        button.disabled = !state.campaignActive || state.remainingTurns <= 0 || state.isBusy;
         // Do not expose the reward through the accessible name before the card is played.
         button.setAttribute('aria-label', config.cardAriaLabel);
 
@@ -732,7 +734,9 @@
         board.appendChild(button);
       });
 
-      if (state.remainingTurns <= 0) {
+      if (!state.campaignActive) {
+        setStatus(config.expiredText);
+      } else if (state.remainingTurns <= 0) {
         setStatus(config.outOfTurnsText);
       }
     }
@@ -782,6 +786,11 @@
     }
 
     async function playCard(button, front, card, index) {
+      if (!state.campaignActive) {
+        setStatus(config.expiredText);
+        return;
+      }
+
       if (state.isBusy || state.remainingTurns <= 0) {
         setStatus(config.outOfTurnsText);
         return;
@@ -818,7 +827,7 @@
         setStatus(error.message || config.errorText);
       } finally {
         state.isBusy = false;
-        setDeckDisabled(state.remainingTurns <= 0);
+        setDeckDisabled(!state.campaignActive || state.remainingTurns <= 0);
         updateCounter();
       }
     }
@@ -904,7 +913,10 @@
     function applyServerState(data) {
       state.allowedTurns = toInt(data.allowed_turns, state.allowedTurns);
       state.usedTurns = toInt(data.used_turns, state.usedTurns);
-      state.remainingTurns = Math.max(0, toInt(data.remaining_turns, state.allowedTurns - state.usedTurns));
+      state.campaignActive = data.is_campaign_active !== false;
+      state.remainingTurns = state.campaignActive
+        ? Math.max(0, toInt(data.remaining_turns, state.allowedTurns - state.usedTurns))
+        : 0;
     }
 
     function openModal(card, data) {
@@ -1122,6 +1134,12 @@
       "id": "out_of_turns_message",
       "label": "Thông báo hết lượt",
       "default": "Bạn đã hết lượt chơi."
+    },
+    {
+      "type": "text",
+      "id": "expired_message",
+      "label": "Thông báo ngoài thời gian chương trình",
+      "default": "Chương trình lật thẻ chưa bắt đầu hoặc đã kết thúc."
     },
     {
       "type": "text",
