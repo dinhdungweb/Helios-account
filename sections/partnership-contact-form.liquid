@@ -1,0 +1,381 @@
+{%- liquid
+  assign form_id = 'PartnershipContactForm-' | append: section.id
+  assign section_id = 'PartnershipContactSection-' | append: section.id
+-%}
+
+{%- style -%}
+  #{{ section_id }} {
+    padding: {{ section.settings.mobile_padding_top }}px 20px {{ section.settings.mobile_padding_bottom }}px;
+  }
+
+  #{{ section_id }} .partnership-form__inner {
+    width: 100%;
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  #{{ section_id }} .partnership-form__header {
+    margin-bottom: 32px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #{{ section_id }} .partnership-form__title {
+    margin: 0 0 12px;
+  }
+
+  #{{ section_id }} .partnership-form__description > :last-child {
+    margin-bottom: 0;
+  }
+
+  #{{ section_id }} .partnership-form__group {
+    margin: 0 0 34px;
+    padding: 0;
+    border: 0;
+  }
+
+  #{{ section_id }} .partnership-form__legend {
+    width: 100%;
+    margin: 0 0 18px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    color: inherit;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  #{{ section_id }} .partnership-form__field + .partnership-form__field {
+    margin-top: 24px;
+  }
+
+  #{{ section_id }} .partnership-form__label {
+    display: block;
+    margin-bottom: 7px;
+    color: inherit;
+    font-weight: 600;
+  }
+
+  #{{ section_id }} .partnership-form__required {
+    color: #fab320;
+  }
+
+  #{{ section_id }} .partnership-form__hint {
+    display: block;
+    margin: 0 0 10px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #{{ section_id }} .partnership-form__input,
+  #{{ section_id }} .partnership-form__textarea {
+    width: 100%;
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+
+  #{{ section_id }} .partnership-form__textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  #{{ section_id }} .partnership-form__documents {
+    margin: 0 0 12px 20px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #{{ section_id }} .partnership-form__optional {
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  #{{ section_id }} .partnership-form__submit {
+    min-width: 180px;
+    cursor: pointer;
+  }
+
+  #{{ section_id }} .partnership-form__status {
+    margin-bottom: 24px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  #{{ section_id }} .partnership-form__status--success {
+    border-color: #fab320;
+  }
+
+  #{{ section_id }} .partnership-form__status--error {
+    border-color: #d84b4b;
+  }
+
+  #{{ section_id }} .partnership-form__status ul {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    #{{ section_id }} {
+      padding-top: {{ section.settings.desktop_padding_top }}px;
+      padding-bottom: {{ section.settings.desktop_padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section id="{{ section_id }}" class="partnership-form" data-section-id="{{ section.id }}">
+  <div class="partnership-form__inner">
+    {%- if section.settings.title != blank or section.settings.description != blank -%}
+      <header class="partnership-form__header">
+        {%- if section.settings.title != blank -%}
+          <h2 class="partnership-form__title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="partnership-form__description rte">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {% form 'contact', id: form_id, class: 'partnership-form__form' %}
+      <input type="hidden" name="contact[form_type]" value="Đề xuất hợp tác HELIOS">
+
+      {%- if form.posted_successfully? -%}
+        <div class="partnership-form__status partnership-form__status--success" role="status" tabindex="-1">
+          {{ section.settings.success_message | escape }}
+        </div>
+      {%- endif -%}
+
+      {%- if form.errors -%}
+        <div class="partnership-form__status partnership-form__status--error" role="alert" tabindex="-1">
+          <p>{{ section.settings.error_message | escape }}</p>
+          <ul>
+            {%- for field in form.errors -%}
+              <li>{{ field | capitalize }}: {{ form.errors.messages[field] }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- unless form.posted_successfully? -%}
+      <fieldset class="partnership-form__group">
+        <legend class="partnership-form__legend">Thông tin liên hệ</legend>
+        <div class="partnership-form__field">
+          <label class="partnership-form__label" for="PartnershipEmail-{{ section.id }}">
+            Email <span class="partnership-form__required" aria-hidden="true">*</span>
+          </label>
+          <input
+            class="partnership-form__input"
+            id="PartnershipEmail-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            value="{% if form.email %}{{ form.email | escape }}{% elsif customer %}{{ customer.email | escape }}{% endif %}"
+            autocomplete="email"
+            aria-required="true"
+            required
+          >
+        </div>
+      </fieldset>
+
+      <fieldset class="partnership-form__group">
+        <legend class="partnership-form__legend">Lý do hợp tác</legend>
+
+        <div class="partnership-form__field">
+          <label class="partnership-form__label" for="PartnershipWhy-{{ section.id }}">
+            Vì sao bạn quan tâm đến HELIOS?
+            <span class="partnership-form__required" aria-hidden="true">*</span>
+          </label>
+          <span class="partnership-form__hint" id="PartnershipWhyHint-{{ section.id }}">
+            Điều gì trong sản phẩm, tinh thần hoặc cách HELIOS xây thương hiệu phù hợp với thị trường và định hướng của bạn?
+          </span>
+          <textarea
+            class="partnership-form__textarea"
+            id="PartnershipWhy-{{ section.id }}"
+            name="contact[body]"
+            aria-describedby="PartnershipWhyHint-{{ section.id }}"
+            aria-required="true"
+            required
+          >{{ form.body | escape }}</textarea>
+        </div>
+
+        <div class="partnership-form__field">
+          <label class="partnership-form__label" for="PartnershipGoal-{{ section.id }}">
+            Bạn muốn cùng HELIOS xây điều gì trong 12–24 tháng tới?
+            <span class="partnership-form__required" aria-hidden="true">*</span>
+          </label>
+          <span class="partnership-form__hint" id="PartnershipGoalHint-{{ section.id }}">
+            Hãy mô tả mục tiêu thực tế: thị trường, điểm bán, kênh phân phối, dự án hoặc cộng đồng bạn muốn phát triển.
+          </span>
+          <textarea
+            class="partnership-form__textarea"
+            id="PartnershipGoal-{{ section.id }}"
+            name="contact[goal_12_24_months]"
+            aria-describedby="PartnershipGoalHint-{{ section.id }}"
+            aria-required="true"
+            required
+          ></textarea>
+        </div>
+
+        <div class="partnership-form__field">
+          <label class="partnership-form__label" for="PartnershipSupport-{{ section.id }}">
+            Bạn kỳ vọng HELIOS hỗ trợ điều gì?
+            <span class="partnership-form__required" aria-hidden="true">*</span>
+          </label>
+          <span class="partnership-form__hint" id="PartnershipSupportHint-{{ section.id }}">
+            Sản phẩm, đào tạo, nội dung, hình ảnh, vận hành, launch, trưng bày hoặc những phần khác.
+          </span>
+          <textarea
+            class="partnership-form__textarea"
+            id="PartnershipSupport-{{ section.id }}"
+            name="contact[expected_support]"
+            aria-describedby="PartnershipSupportHint-{{ section.id }}"
+            aria-required="true"
+            required
+          ></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset class="partnership-form__group">
+        <legend class="partnership-form__legend">Tài liệu giới thiệu</legend>
+        <div class="partnership-form__field">
+          <label class="partnership-form__label" for="PartnershipDocuments-{{ section.id }}">
+            Link tài liệu
+            <span class="partnership-form__optional">(Không bắt buộc)</span>
+          </label>
+          <span class="partnership-form__hint" id="PartnershipDocumentsHint-{{ section.id }}">
+            Dán một hoặc nhiều link Google Drive/Dropbox và nhớ bật quyền xem cho HELIOS.
+          </span>
+          <ul class="partnership-form__documents">
+            <li>Company profile</li>
+            <li>Retail portfolio</li>
+            <li>Brand deck</li>
+            <li>Hình ảnh điểm bán</li>
+            <li>Tài liệu thị trường</li>
+          </ul>
+          <textarea
+            class="partnership-form__textarea"
+            id="PartnershipDocuments-{{ section.id }}"
+            name="contact[document_links]"
+            aria-describedby="PartnershipDocumentsHint-{{ section.id }}"
+            placeholder="https://drive.google.com/..."
+          ></textarea>
+        </div>
+      </fieldset>
+
+      <button class="button partnership-form__submit" type="submit">
+        {{ section.settings.button_label | escape }}
+      </button>
+      {%- endunless -%}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Partnership form",
+  "class": "section-partnership-form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Đề xuất hợp tác"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Hãy chia sẻ định hướng hợp tác của bạn với HELIOS.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Header alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Gửi thông tin"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Gửi thông tin thành công. HELIOS sẽ liên hệ với bạn trong thời gian sớm nhất."
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error message",
+      "default": "Chưa thể gửi thông tin. Vui lòng kiểm tra lại các trường bên dưới."
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Form width",
+      "default": 800
+    },
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Partnership form"
+    }
+  ]
+}
+{% endschema %}
