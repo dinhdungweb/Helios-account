@@ -23,7 +23,17 @@
             <div class="right-image">
               <a href="{{ block.settings.link | default: '#' }}">
                 <div class="image-overlay">
-                  {% if ratio_val %}
+                  {% if section.settings.item_ratio == 'natural' %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 2000
+                      | image_tag:
+                        class: 'image-grid-natural-image',
+                        widths: '460, 720, 900, 1080, 1296, 1512, 1728, 2000',
+                        sizes: '(max-width: 991px) 100vw, 50vw',
+                        loading: 'lazy'
+                    }}
+                  {% elsif ratio_val %}
                     {% render 'responsive-image', image: block.settings.image, aspect_ratio: ratio_val %}
                   {% else %}
                     {% render 'responsive-image', image: block.settings.image %}
@@ -54,6 +64,11 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  #section-id-{{ section.id }} .image-overlay img.image-grid-natural-image {
+    height: auto;
+    object-fit: contain;
   }
 
   #section-id-{{ section.id }} .custom-heading {
