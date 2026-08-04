@@ -237,7 +237,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Component_5.webp",
-            "link": "#",
+            "link": "shopify://pages/buc-tuong-dau-an",
             "text": ""
           }
         }
