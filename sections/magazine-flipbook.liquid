@@ -159,6 +159,7 @@
             "src": {{ block.settings.page_image | image_url: width: 1200 | json }},
             "srcMobile": {{ block.settings.page_image | image_url: width: 900 | json }},
             "thumb": {{ block.settings.page_image | image_url: width: 240 | json }},
+            "aspectRatio": {{ block.settings.page_image.aspect_ratio | default: 0 | json }},
             "alt": {{ page_alt | json }}
           }
           {%- assign rendered_page_count = rendered_page_count | plus: 1 -%}
@@ -267,6 +268,14 @@
       let resizeFrame = null;
       let resizeObserver = null;
       let destroyed = false;
+      const firstPageWithRatio = pages.find(function(pageData) {
+        return Number(pageData.aspectRatio) > 0;
+      });
+      const fallbackPageRatio = bookWidth / (pageHeight * 2);
+      const pageAspectRatio = firstPageWithRatio
+        ? Number(firstPageWithRatio.aspectRatio)
+        : fallbackPageRatio;
+      const bookAspectRatio = pageAspectRatio * 2;
 
       if (pages.length === 0) {
         loadingText.textContent = 'Chưa có trang tạp chí.';
@@ -649,17 +658,16 @@
         const horizontalPadding = parseFloat(stageStyle.paddingLeft) + parseFloat(stageStyle.paddingRight);
         const verticalPadding = parseFloat(stageStyle.paddingTop) + parseFloat(stageStyle.paddingBottom);
         const availableWidth = Math.max(160, stage.clientWidth - horizontalPadding);
-        const bookRatio = bookWidth / pageHeight;
         let fittedWidth = Math.min(bookWidth, availableWidth);
 
         if (isRootFullscreen()) {
           const availableHeight = Math.max(120, stage.clientHeight - verticalPadding);
-          fittedWidth = Math.min(fittedWidth, availableHeight * bookRatio);
+          fittedWidth = Math.min(fittedWidth, availableHeight * bookAspectRatio);
         }
 
         return {
           width: Math.max(160, Math.round(fittedWidth * zoomLevel)),
-          height: Math.max(100, Math.round((fittedWidth / bookRatio) * zoomLevel))
+          height: Math.max(100, Math.round((fittedWidth / bookAspectRatio) * zoomLevel))
         };
       }
 
