@@ -150,12 +150,44 @@
       bottom: 3%;
     }
   }
+
+  {% unless section.settings.show_on_desktop %}
+    @media (min-width: 992px) {
+      #section-id-{{ section.id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
+
+  {% unless section.settings.show_on_mobile %}
+    @media (max-width: 991px) {
+      #section-id-{{ section.id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
 </style>
 <!-- Schema Settings -->
 {% schema %}
 {
   "name": "Custom Image Grid",
   "settings": [
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_desktop",
+      "label": "Show on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
     {
       "type": "checkbox",
       "id": "grid_image_full_width",
