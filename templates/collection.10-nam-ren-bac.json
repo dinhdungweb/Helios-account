@@ -277,7 +277,7 @@
       "name": "Image Grid",
       "settings": {
         "grid_image_full_width": false,
-        "grid_image_with": 1808,
+        "grid_image_with": 1580,
         "item_for_row": 3,
         "item_ratio": "natural",
         "item_per_row_mobile": "2"
