@@ -61,7 +61,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "Mọi hành trình đều bắt đầu từ một lời hứa nhỏ:",
-        "title": "làm ra thứ xứng được giữ lại và đi cùng",
+        "title": "<font style=\"color:#fab320\">làm ra thứ xứng được giữ lại và đi cùng</font>",
         "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
@@ -179,7 +179,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "Sau 10 năm",
-        "title": "HELIOS không cần trở thành một thứ quá ồn ào.HELIOS cần trở nên rõ hơn",
+        "title": "<font style=\"color: #fab320\">HELIOS không cần trở thành một thứ quá ồn ào.<br>HELIOS cần trở nên rõ hơn</font>",
         "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
@@ -296,7 +296,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "10 NĂM KHÔNG PHẢI VẠCH KẾT<br>ĐÓ LÀ LÚC CÁNH CỬA ĐẦU TIÊN THẬT SỰ MỞ RA",
+        "title": "10 năm không phải vạch kết<br>đó là lúc cánh cửa đầu tiên thật sự mở ra",
         "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
