@@ -24,7 +24,11 @@
   #{{ flipbook_section_id }} .magazine-flipbook-container::before,
   #{{ flipbook_section_id }} .magazine-flipbook-container::after { position: absolute; top: 0; bottom: 0; content: ''; pointer-events: none; transition: opacity 120ms ease; }
   #{{ flipbook_section_id }} .magazine-flipbook-container::before { right: 0; left: 0; z-index: 9998; background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0, rgba(255, 255, 255, 0.12) 0.35%, rgba(0, 0, 0, 0.08) 1%, rgba(0, 0, 0, 0) 2.7%, rgba(0, 0, 0, 0) 97.3%, rgba(0, 0, 0, 0.08) 99%, rgba(255, 255, 255, 0.12) 99.65%, rgba(0, 0, 0, 0.3) 100%); }
-  #{{ flipbook_section_id }} .magazine-flipbook-container::after { left: 50%; z-index: 9999; width: clamp(18px, 4.5%, 38px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.08) 20%, rgba(0, 0, 0, 0.28) 44%, rgba(0, 0, 0, 0.42) 49%, rgba(255, 255, 255, 0.16) 52%, rgba(0, 0, 0, 0.16) 58%, rgba(0, 0, 0, 0) 100%); transform: translateX(-50%); }
+  #{{ flipbook_section_id }} .magazine-flipbook-container::after { left: 50%; z-index: 9999; width: clamp(58px, 15%, 128px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.07) 19%, rgba(0, 0, 0, 0.05) 32%, rgba(0, 0, 0, 0.16) 42%, rgba(0, 0, 0, 0.42) 49%, rgba(0, 0, 0, 0.46) 50%, rgba(255, 255, 255, 0.13) 52%, rgba(0, 0, 0, 0.16) 60%, rgba(0, 0, 0, 0.05) 70%, rgba(255, 255, 255, 0.06) 82%, rgba(0, 0, 0, 0) 100%); transform: translateX(-50%); }
+  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-right::before { background: linear-gradient(90deg, rgba(0, 0, 0, 0) 97.3%, rgba(0, 0, 0, 0.08) 99%, rgba(255, 255, 255, 0.12) 99.65%, rgba(0, 0, 0, 0.3) 100%); }
+  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-right::after { width: clamp(8px, 1.5%, 14px); background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.12) 24%, rgba(0, 0, 0, 0.06) 55%, rgba(0, 0, 0, 0)); transform: none; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-left::before { background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0, rgba(255, 255, 255, 0.12) 0.35%, rgba(0, 0, 0, 0.08) 1%, rgba(0, 0, 0, 0) 2.7%); }
+  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-left::after { width: clamp(8px, 1.5%, 14px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06) 45%, rgba(255, 255, 255, 0.12) 76%, rgba(0, 0, 0, 0.3)); transform: translateX(-100%); }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping .magazine-flipbook-container::before,
   #{{ flipbook_section_id }} .magazine-stage.is-flipping .magazine-flipbook-container::after { opacity: 0; }
   #{{ flipbook_section_id }} .turn-page-wrapper,
@@ -569,6 +573,11 @@
         }) : viewer.getView(safePage).filter(function(pageNumber) {
           return pageNumber > 0;
         });
+        const isSinglePage = visiblePages.length === 1;
+        const singlePageNumber = isSinglePage ? visiblePages[0] : 0;
+
+        container.classList.toggle('is-single-right', isSinglePage && singlePageNumber % 2 === 1);
+        container.classList.toggle('is-single-left', isSinglePage && singlePageNumber % 2 === 0);
 
         currentPageElement.value = String(safePage);
         currentPageElement.max = String(totalPages);
