@@ -223,6 +223,8 @@
       ],
       "name": "Image Grid",
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
         "grid_image_full_width": false,
         "grid_image_with": 1808,
         "item_for_row": 2,
@@ -276,11 +278,57 @@
       ],
       "name": "Image Grid",
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": false,
         "grid_image_full_width": false,
         "grid_image_with": 1400,
         "item_for_row": 3,
         "item_ratio": "natural",
         "item_per_row_mobile": "2"
+      }
+    },
+    "grid_image_GfdCYJ": {
+      "type": "grid-image",
+      "blocks": {
+        "image_Rf6Cqg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Property_1_Frame_7_Property_2_Component_38_Property_3_Component_32.webp",
+            "link": "https://helios.vn/pages/boc-tham-dau-an",
+            "text": ""
+          }
+        },
+        "image_bfwrLT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Property_1_Component_41_Property_2_Component_33.webp",
+            "link": "shopify://pages/khai-bang-mo-dau-an",
+            "text": ""
+          }
+        },
+        "image_NtRiTR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Property_1_Component_38_Property_2_Component_34.webp",
+            "link": "shopify://pages/buc-tuong-dau-an",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_Rf6Cqg",
+        "image_bfwrLT",
+        "image_NtRiTR"
+      ],
+      "name": "Image Grid",
+      "settings": {
+        "show_on_desktop": false,
+        "show_on_mobile": true,
+        "grid_image_full_width": false,
+        "grid_image_with": 1400,
+        "item_for_row": 3,
+        "item_ratio": "natural",
+        "item_per_row_mobile": "3"
       }
     },
     "custom_spacing_rUynUD": {
@@ -358,6 +406,7 @@
     "grid_image_KFBjCj",
     "custom_spacing_qyVdTf",
     "grid_image_An7tnL",
+    "grid_image_GfdCYJ",
     "custom_spacing_rUynUD",
     "rich_text_h8hLqb",
     "blocks_7rLk3t",
