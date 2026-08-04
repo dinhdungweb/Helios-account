@@ -1,6 +1,7 @@
 {%- liquid
   assign form_id = 'PartnershipContactForm-' | append: section.id
   assign section_id = 'PartnershipContactSection-' | append: section.id
+  assign panel_id = 'PartnershipContactPanel-' | append: section.id
 -%}
 
 {%- style -%}
@@ -14,13 +15,66 @@
     margin: 0 auto;
   }
 
-  #{{ section_id }} .partnership-form__header {
-    margin-bottom: 32px;
+  #{{ section_id }} .partnership-form__disclosure {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  #{{ section_id }} .partnership-form__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+    cursor: pointer;
+    list-style: none;
     text-align: {{ section.settings.text_alignment }};
   }
 
+  #{{ section_id }} .partnership-form__summary::-webkit-details-marker {
+    display: none;
+  }
+
   #{{ section_id }} .partnership-form__title {
-    margin: 0 0 12px;
+    flex: 1;
+    margin: 0;
+  }
+
+  #{{ section_id }} .partnership-form__toggle-icon {
+    position: relative;
+    display: block;
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+  }
+
+  #{{ section_id }} .partnership-form__toggle-icon::before,
+  #{{ section_id }} .partnership-form__toggle-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 1px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: opacity 160ms ease;
+  }
+
+  #{{ section_id }} .partnership-form__toggle-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  #{{ section_id }} .partnership-form__disclosure[open] .partnership-form__toggle-icon::after {
+    opacity: 0;
+  }
+
+  #{{ section_id }} .partnership-form__panel {
+    padding: 8px 0 34px;
+  }
+
+  #{{ section_id }} .partnership-form__description {
+    margin-bottom: 32px;
   }
 
   #{{ section_id }} .partnership-form__description > :last-child {
@@ -124,18 +178,27 @@
 
 <section id="{{ section_id }}" class="partnership-form" data-section-id="{{ section.id }}">
   <div class="partnership-form__inner">
-    {%- if section.settings.title != blank or section.settings.description != blank -%}
-      <header class="partnership-form__header">
-        {%- if section.settings.title != blank -%}
-          <h2 class="partnership-form__title">{{ section.settings.title | escape }}</h2>
-        {%- endif -%}
-        {%- if section.settings.description != blank -%}
-          <div class="partnership-form__description rte">{{ section.settings.description }}</div>
-        {%- endif -%}
-      </header>
-    {%- endif -%}
-
     {% form 'contact', id: form_id, class: 'partnership-form__form' %}
+      <details
+        class="partnership-form__disclosure"
+        {% if form.posted_successfully? or form.errors %}open{% endif %}
+      >
+        <summary class="partnership-form__summary" aria-controls="{{ panel_id }}">
+          <h2 class="partnership-form__title">
+            {%- if section.settings.title != blank -%}
+              {{ section.settings.title | escape }}
+            {%- else -%}
+              Partnership form
+            {%- endif -%}
+          </h2>
+          <span class="partnership-form__toggle-icon" aria-hidden="true"></span>
+        </summary>
+
+        <div id="{{ panel_id }}" class="partnership-form__panel">
+          {%- if section.settings.description != blank -%}
+            <div class="partnership-form__description rte">{{ section.settings.description }}</div>
+          {%- endif -%}
+
       <input type="hidden" name="contact[form_type]" value="Đề xuất hợp tác HELIOS">
 
       {%- if form.posted_successfully? -%}
@@ -264,6 +327,8 @@
         {{ section.settings.button_label | escape }}
       </button>
       {%- endunless -%}
+        </div>
+      </details>
     {% endform %}
   </div>
 </section>
