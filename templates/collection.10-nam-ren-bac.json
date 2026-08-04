@@ -286,6 +286,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Property_1_Frame_7_Property_2_Component_38_Property_3_Component_32.webp",
+            "hover_image": "shopify://shop_images/Property_1_Component_38_Property_2_Component_35.webp",
             "link": "https://helios.vn/pages/boc-tham-dau-an",
             "text": ""
           }
