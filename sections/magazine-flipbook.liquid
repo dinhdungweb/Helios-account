@@ -20,7 +20,11 @@
   #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: hidden; padding: 32px 68px 88px; overscroll-behavior: none; }
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; box-shadow: none; cursor: default; touch-action: none; user-select: none; }
+  #{{ flipbook_section_id }} .magazine-book-positioner { position: relative; z-index: 1; flex: 0 0 auto; margin: auto; transform: translateX(0); will-change: transform; }
+  #{{ flipbook_section_id }} .magazine-book-positioner.is-position-ready { transition: transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+  #{{ flipbook_section_id }} .magazine-book-positioner.is-single-right { transform: translateX(-25%); }
+  #{{ flipbook_section_id }} .magazine-book-positioner.is-single-left { transform: translateX(25%); }
+  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; overflow: visible; margin: 0; background: transparent; box-shadow: none; cursor: default; touch-action: none; user-select: none; }
   #{{ flipbook_section_id }} .magazine-flipbook-container::after { position: absolute; top: 0; bottom: 0; content: ''; pointer-events: none; }
   #{{ flipbook_section_id }} .magazine-flipbook-container::after { left: 50%; z-index: var(--magazine-static-overlay-z, 1); width: clamp(58px, 15%, 128px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.07) 19%, rgba(0, 0, 0, 0.05) 32%, rgba(0, 0, 0, 0.16) 42%, rgba(0, 0, 0, 0.42) 49%, rgba(0, 0, 0, 0.46) 50%, rgba(255, 255, 255, 0.13) 52%, rgba(0, 0, 0, 0.16) 60%, rgba(0, 0, 0, 0.05) 70%, rgba(255, 255, 255, 0.06) 82%, rgba(0, 0, 0, 0) 100%); transform: translateX(-50%); }
   #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-right::after { width: clamp(8px, 1.5%, 14px); background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.12) 24%, rgba(0, 0, 0, 0.06) 55%, rgba(0, 0, 0, 0)); transform: none; }
@@ -103,6 +107,9 @@
       {% endif %}
     }
   }
+  @media (prefers-reduced-motion: reduce) {
+    #{{ flipbook_section_id }} .magazine-book-positioner.is-position-ready { transition: none; }
+  }
 </style>
 
 <div
@@ -120,7 +127,9 @@
   </div>
   <div class="magazine-reader">
     <div class="magazine-stage">
-      <div id="magazine-{{ section.id }}" class="magazine-flipbook-container"></div>
+      <div class="magazine-book-positioner is-single-right">
+        <div id="magazine-{{ section.id }}" class="magazine-flipbook-container"></div>
+      </div>
     </div>
     <button type="button" aria-label="Trang trước" class="magazine-side-button prev-page" disabled>{% render 'svg-chevron-left' %}</button>
     <button type="button" aria-label="Trang tiếp theo" class="magazine-side-button next-page">{% render 'svg-chevron-right' %}</button>
@@ -256,6 +265,7 @@
       if (!root.isConnected || root.dataset.flipbookInitialized === 'true') return;
 
       const container = root.querySelector('#magazine-' + flipId);
+      const bookPositioner = root.querySelector('.magazine-book-positioner');
       const stage = root.querySelector('.magazine-stage');
       const loading = root.querySelector('#loading-' + flipId);
       const loadingText = root.querySelector('#loading-text-' + flipId);
@@ -375,6 +385,7 @@
         if (destroyed || !root.isConnected) return;
         totalPagesElement.textContent = String(viewer.getPageCount());
         updateControls(viewer.getPage(), viewer.getView());
+        bookPositioner.classList.add('is-position-ready');
         loading.hidden = true;
         root.dataset.flipbookInitialized = 'true';
       }).catch(function(error) {
@@ -598,6 +609,8 @@
 
         container.classList.toggle('is-single-right', isSinglePage && singlePageNumber % 2 === 1);
         container.classList.toggle('is-single-left', isSinglePage && singlePageNumber % 2 === 0);
+        bookPositioner.classList.toggle('is-single-right', isSinglePage && singlePageNumber % 2 === 1);
+        bookPositioner.classList.toggle('is-single-left', isSinglePage && singlePageNumber % 2 === 0);
 
         currentPageElement.value = String(safePage);
         currentPageElement.max = String(totalPages);
@@ -707,6 +720,8 @@
       }
 
       function applyBookSize(size) {
+        bookPositioner.style.width = size.width + 'px';
+        bookPositioner.style.height = size.height + 'px';
         container.style.width = size.width + 'px';
         container.style.height = size.height + 'px';
       }
