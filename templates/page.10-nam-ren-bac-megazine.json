@@ -195,6 +195,78 @@
           "settings": {
             "page_image": "shopify://shop_images/in_t_p_chi_th_ng-30.jpg"
           }
+        },
+        "page_cgJcVc": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-31.jpg"
+          }
+        },
+        "page_y94z8C": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-32.jpg"
+          }
+        },
+        "page_8J7g3w": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-33.jpg"
+          }
+        },
+        "page_jbC3f4": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-34.jpg"
+          }
+        },
+        "page_BAGkXm": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-35.jpg"
+          }
+        },
+        "page_WNBpRm": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-36.jpg"
+          }
+        },
+        "page_rgCrVC": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-37.jpg"
+          }
+        },
+        "page_9U7Pcq": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-38.jpg"
+          }
+        },
+        "page_9R6463": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-39.jpg"
+          }
+        },
+        "page_mYk6gA": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-40.jpg"
+          }
+        },
+        "page_exTG7a": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-41.jpg"
+          }
+        },
+        "page_zbwz9R": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-42.jpg"
+          }
         }
       },
       "block_order": [
@@ -227,7 +299,19 @@
         "page_96UQwe",
         "page_R7mJYT",
         "page_xVc3Xx",
-        "page_Vr46TX"
+        "page_Vr46TX",
+        "page_cgJcVc",
+        "page_y94z8C",
+        "page_8J7g3w",
+        "page_jbC3f4",
+        "page_BAGkXm",
+        "page_WNBpRm",
+        "page_rgCrVC",
+        "page_9U7Pcq",
+        "page_9R6463",
+        "page_mYk6gA",
+        "page_exTG7a",
+        "page_zbwz9R"
       ],
       "name": "Magazine Flipbook",
       "settings": {
