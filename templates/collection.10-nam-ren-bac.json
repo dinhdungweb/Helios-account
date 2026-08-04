@@ -232,14 +232,6 @@
         "item_per_row_mobile": "1"
       }
     },
-    "custom_spacing_qyVdTf": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 20,
-        "mobile_spacing": 20
-      }
-    },
     "grid_image_An7tnL": {
       "type": "grid-image",
       "blocks": {
@@ -404,7 +396,6 @@
     "custom_spacing_Pa8bXQ",
     "rich_text_kc4bHD",
     "grid_image_KFBjCj",
-    "custom_spacing_qyVdTf",
     "grid_image_An7tnL",
     "grid_image_GfdCYJ",
     "custom_spacing_rUynUD",
