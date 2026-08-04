@@ -613,6 +613,14 @@
         "heading": "Magazine Flipbook",
         "width": 900,
         "height": 500,
+        "desktop_spacing_top": 0,
+        "desktop_spacing_bottom": 0,
+        "desktop_inner_padding_top": 32,
+        "desktop_inner_padding_bottom": 32,
+        "mobile_spacing_top": 48,
+        "mobile_spacing_bottom": 48,
+        "mobile_inner_padding_top": 20,
+        "mobile_inner_padding_bottom": 20,
         "allow_fullscreen": true,
         "background_image": "shopify://shop_images/2d36787ff23c55643190dcd891f995797788de89.jpg"
       }
