@@ -1,5 +1,5 @@
 {% comment %}
-  Magazine Flipbook Section - optimized WebGL page curl with responsive double-page view
+  Magazine Flipbook Section - Turn.js soft page curl with responsive double-page view
 {% endcomment %}
 
 {%- assign flipbook_section_id = 'magazine-flipbook-' | append: section.id -%}
@@ -21,14 +21,14 @@
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
   #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; cursor: default; touch-action: none; user-select: none; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container.has-corner-preview { cursor: grab; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container.is-dragging { cursor: grabbing; }
-  #{{ flipbook_section_id }} .magazine-webgl-canvas { display: block; width: 100%; height: 100%; background: transparent; touch-action: none; }
-  #{{ flipbook_section_id }} .magazine-webgl-fallback { position: absolute; inset: 0; display: none; align-items: stretch; background: transparent; }
-  #{{ flipbook_section_id }} .is-webgl-fallback .magazine-webgl-canvas { display: none; }
-  #{{ flipbook_section_id }} .is-webgl-fallback .magazine-webgl-fallback { display: flex; }
-  #{{ flipbook_section_id }} .magazine-fallback-page { display: block; width: 50%; height: 100%; flex: 0 0 50%; object-fit: contain; background: #fff; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28); }
-  #{{ flipbook_section_id }} .magazine-fallback-page.is-empty { visibility: hidden; }
+  #{{ flipbook_section_id }} .turn-page-wrapper,
+  #{{ flipbook_section_id }} .turn-page,
+  #{{ flipbook_section_id }} .p-temporal,
+  #{{ flipbook_section_id }} .magazine-page { background: transparent !important; opacity: 1 !important; }
+  #{{ flipbook_section_id }} .turn-page-wrapper { perspective: 2000px; }
+  #{{ flipbook_section_id }} .magazine-page { position: relative; box-sizing: border-box; overflow: hidden; width: 100%; height: 100%; cursor: grab; }
+  #{{ flipbook_section_id }} .magazine-page:active { cursor: grabbing; }
+  #{{ flipbook_section_id }} .magazine-page img { display: block; width: 100%; height: 100%; object-fit: contain; background: transparent; opacity: 1; pointer-events: none; }
   #{{ flipbook_section_id }} .magazine-side-button { position: absolute; top: 50%; z-index: 8; display: grid; width: 44px; height: 64px; padding: 0; place-items: center; color: #fff; background: rgba(0, 0, 0, 0.48); border: 0; border-radius: 4px; cursor: pointer; transform: translateY(-70%); transition: background-color 0.2s ease, opacity 0.2s ease; }
   #{{ flipbook_section_id }} .magazine-side-button:hover:not(:disabled) { background: rgba(0, 0, 0, 0.8); }
   #{{ flipbook_section_id }} .magazine-side-button:disabled { cursor: default; opacity: 0; pointer-events: none; }
@@ -144,7 +144,7 @@
   (function() {
     const flipId = {{ section.id | json }};
     const root = document.getElementById({{ flipbook_section_id | json }});
-    const webglAssetUrl = {{ 'magazine-flipbook-webgl.js' | asset_url | json }};
+    const turnAssetUrl = {{ 'turn.js' | asset_url | json }};
     const bookWidth = Number({{ section.settings.width | default: 1000 | json }}) || 1000;
     const pageHeight = Number({{ section.settings.height | default: 707 | json }}) || 707;
     const pages = [
@@ -170,7 +170,8 @@
     root.dataset.flipbookInitialized = 'loading';
 
     function startWhenReady() {
-      loadWebGLLibrary()
+      waitForJQuery()
+        .then(loadTurnLibrary)
         .then(initializeFlipbook)
         .catch(function(error) {
           showLoadError('Không thể tải trình lật trang. Vui lòng tải lại trang.');
@@ -178,47 +179,68 @@
         });
     }
 
-    function loadWebGLLibrary() {
-      if (typeof window.HeliosWebGLFlipbook === 'function') {
-        return Promise.resolve(window.HeliosWebGLFlipbook);
-      }
+    function waitForJQuery() {
+      return new Promise(function(resolve, reject) {
+        let attempts = 0;
 
-      if (!window.HeliosMagazineWebGLPromise) {
-        window.HeliosMagazineWebGLPromise = new Promise(function(resolve, reject) {
-          const existingScript = document.querySelector('script[data-helios-magazine-webgl]');
+        function check() {
+          if (window.jQuery && window.jQuery.fn) {
+            resolve(window.jQuery);
+            return;
+          }
+
+          attempts += 1;
+          if (attempts >= 50) {
+            reject(new Error('jQuery is required by Turn.js.'));
+            return;
+          }
+
+          window.setTimeout(check, 100);
+        }
+
+        check();
+      });
+    }
+
+    function loadTurnLibrary($) {
+      if ($.fn && typeof $.fn.turn === 'function') return Promise.resolve($);
+
+      if (!window.HeliosMagazineTurnPromise) {
+        window.HeliosMagazineTurnPromise = new Promise(function(resolve, reject) {
+          const existingScript = document.querySelector('script[data-helios-magazine-turn]');
           const script = existingScript || document.createElement('script');
 
           function resolveLibrary() {
-            if (typeof window.HeliosWebGLFlipbook === 'function') {
-              resolve(window.HeliosWebGLFlipbook);
+            if (window.jQuery && typeof window.jQuery.fn.turn === 'function') {
+              resolve(window.jQuery);
             } else {
-              reject(new Error('The WebGL flipbook engine did not initialize.'));
+              reject(new Error('Turn.js did not register its jQuery plugin.'));
             }
           }
 
           if (existingScript) {
             existingScript.addEventListener('load', resolveLibrary, { once: true });
             existingScript.addEventListener('error', function() {
-              reject(new Error('Unable to load the WebGL flipbook engine.'));
+              reject(new Error('Unable to load Turn.js.'));
             }, { once: true });
             return;
           }
 
-          script.src = webglAssetUrl;
+          script.src = turnAssetUrl;
           script.async = true;
-          script.dataset.heliosMagazineWebgl = 'true';
+          script.dataset.heliosMagazineTurn = 'true';
           script.addEventListener('load', resolveLibrary, { once: true });
           script.addEventListener('error', function() {
-            reject(new Error('Unable to load the WebGL flipbook engine.'));
+            reject(new Error('Unable to load Turn.js.'));
           }, { once: true });
           document.head.appendChild(script);
         });
       }
 
-      return window.HeliosMagazineWebGLPromise;
+      return window.HeliosMagazineTurnPromise;
     }
 
-    function initializeFlipbook(WebGLFlipbook) {
+    function initializeFlipbook($) {
       if (!root.isConnected || root.dataset.flipbookInitialized === 'true') return;
 
       const container = root.querySelector('#magazine-' + flipId);
@@ -280,9 +302,9 @@
       applyBookSize(initialSize);
 
       try {
-        viewer = new WebGLFlipbook(container, {
+        viewer = createTurnViewer($, container, {
           pages: pages,
-          duration: reducedMotion ? 1 : 640,
+          duration: reducedMotion ? 1 : 720,
           startPage: 1,
           onLoadProgress: function(progress) {
             progressBar.style.width = Math.round(progress * 100) + '%';
@@ -295,7 +317,7 @@
             stage.classList.toggle('is-flipping', isTurning);
           },
           onError: function(error) {
-            console.warn('Magazine Flipbook WebGL:', error);
+            console.warn('Magazine Flipbook Turn.js:', error);
           }
         });
       } catch (error) {
@@ -337,6 +359,191 @@
         showLoadError('Không thể tải ảnh tạp chí. Vui lòng tải lại trang.');
         console.error('Magazine Flipbook:', error);
       });
+
+      function createTurnViewer(jQuery, host, options) {
+        let book = null;
+        let activePage = Math.max(1, Math.min(Number(options.startPage) || 1, options.pages.length));
+        let disposed = false;
+        let turnResetTimer = null;
+        const useMobileImages = window.matchMedia('(max-width: 767.8px)').matches;
+        const pageElements = options.pages.map(function(pageData, index) {
+          const pageElement = document.createElement('div');
+          const image = document.createElement('img');
+          const imageSource = useMobileImages && pageData.srcMobile ? pageData.srcMobile : pageData.src;
+
+          pageElement.className = 'magazine-page';
+          pageElement.setAttribute('aria-label', pageData.alt || ('Trang ' + (index + 1)));
+          image.src = imageSource;
+          image.alt = pageData.alt || ('Trang ' + (index + 1));
+          image.decoding = 'async';
+          image.loading = index < 4 ? 'eager' : 'lazy';
+          if (index < 2) image.fetchPriority = 'high';
+          image.draggable = false;
+          pageElement.appendChild(image);
+          host.appendChild(pageElement);
+          return pageElement;
+        });
+
+        const api = {
+          ready: preloadOpeningSpread().then(initialize),
+          getPageCount: function() {
+            return options.pages.length;
+          },
+          getPage: function() {
+            return activePage;
+          },
+          getView: getVisiblePages,
+          canPrevious: function() {
+            const view = getVisiblePages();
+            return view.indexOf(1) === -1;
+          },
+          canNext: function() {
+            const view = getVisiblePages();
+            return view.indexOf(options.pages.length) === -1;
+          },
+          previous: function() {
+            if (!book || disposed || !api.canPrevious()) return false;
+            book.turn('previous');
+            return true;
+          },
+          next: function() {
+            if (!book || disposed || !api.canNext()) return false;
+            book.turn('next');
+            return true;
+          },
+          goToPage: function(pageNumber) {
+            if (!book || disposed) return false;
+            const target = Math.max(1, Math.min(Math.round(Number(pageNumber) || activePage), options.pages.length));
+            book.turn('page', target);
+            return true;
+          },
+          resize: function() {
+            if (!book || disposed) return;
+            const width = Math.max(160, Math.round(parseFloat(host.style.width) || host.clientWidth));
+            const height = Math.max(100, Math.round(parseFloat(host.style.height) || host.clientHeight));
+            book.turn('size', width, height);
+          },
+          destroy: function() {
+            if (disposed) return;
+            disposed = true;
+            if (turnResetTimer) window.clearTimeout(turnResetTimer);
+            if (book) {
+              try { book.turn('stop'); } catch (error) {}
+              book.off();
+              book.empty();
+              book.removeData();
+            }
+            book = null;
+          }
+        };
+
+        return api;
+
+        function preloadOpeningSpread() {
+          const openingImages = pageElements.slice(0, Math.min(2, pageElements.length)).map(function(pageElement) {
+            return pageElement.querySelector('img');
+          });
+          let completed = 0;
+          const total = Math.max(1, openingImages.length);
+
+          if (openingImages.length === 0) {
+            if (typeof options.onLoadProgress === 'function') options.onLoadProgress(1);
+            return Promise.resolve();
+          }
+
+          return Promise.allSettled(openingImages.map(function(image) {
+            return waitForImage(image).finally(function() {
+              completed += 1;
+              if (typeof options.onLoadProgress === 'function') options.onLoadProgress(completed / total);
+            });
+          }));
+        }
+
+        function waitForImage(image) {
+          if (image.complete) return Promise.resolve();
+          return new Promise(function(resolve) {
+            image.addEventListener('load', resolve, { once: true });
+            image.addEventListener('error', resolve, { once: true });
+          });
+        }
+
+        function initialize() {
+          if (disposed || !host.isConnected) return api;
+          return new Promise(function(resolve, reject) {
+            try {
+              const width = Math.max(160, Math.round(parseFloat(host.style.width) || host.clientWidth));
+              const height = Math.max(100, Math.round(parseFloat(host.style.height) || host.clientHeight));
+              book = jQuery(host);
+              book.turn({
+                width: width,
+                height: height,
+                display: 'double',
+                page: activePage,
+                duration: options.duration,
+                acceleration: true,
+                gradients: true,
+                elevation: 64,
+                when: {
+                  start: markTurning,
+                  turning: function(event, page, view) {
+                    activePage = Number(page) || activePage;
+                    notifyPageChange(view);
+                  },
+                  turned: function(event, page, view) {
+                    activePage = Number(page) || activePage;
+                    clearTurning();
+                    notifyPageChange(view);
+                  },
+                  end: clearTurning
+                }
+              });
+              activePage = Number(book.turn('page')) || activePage;
+              notifyPageChange(book.turn('view'));
+              resolve(api);
+            } catch (error) {
+              if (typeof options.onError === 'function') options.onError(error);
+              reject(error);
+            }
+          });
+        }
+
+        function getVisiblePages(requestedPage) {
+          if (book) {
+            const page = Math.max(1, Math.min(Number(requestedPage) || activePage, options.pages.length));
+            return book.turn('view', page).filter(function(pageNumber) {
+              return pageNumber > 0;
+            });
+          }
+
+          const safePage = Math.max(1, Math.min(Number(requestedPage) || activePage, options.pages.length));
+          const view = safePage % 2 ? [safePage - 1, safePage] : [safePage, safePage + 1];
+          return view.filter(function(pageNumber) {
+            return pageNumber > 0 && pageNumber <= options.pages.length;
+          });
+        }
+
+        function markTurning() {
+          if (typeof options.onStateChange === 'function') options.onStateChange(true);
+          if (turnResetTimer) window.clearTimeout(turnResetTimer);
+          turnResetTimer = window.setTimeout(clearTurning, reducedMotion ? 100 : options.duration + 500);
+        }
+
+        function clearTurning() {
+          if (turnResetTimer) {
+            window.clearTimeout(turnResetTimer);
+            turnResetTimer = null;
+          }
+          if (typeof options.onStateChange === 'function') options.onStateChange(false);
+        }
+
+        function notifyPageChange(view) {
+          if (typeof options.onPageChange === 'function') {
+            options.onPageChange(activePage, Array.isArray(view) ? view.filter(function(pageNumber) {
+              return pageNumber > 0;
+            }) : getVisiblePages());
+          }
+        }
+      }
 
       function updateControls(page, view) {
         if (!viewer) return;
@@ -523,10 +730,24 @@
       root.dataset.flipbookInitialized = 'error';
     }
 
+    function startWhenVisible() {
+      if (!('IntersectionObserver' in window) || (window.Shopify && window.Shopify.designMode)) {
+        startWhenReady();
+        return;
+      }
+
+      const observer = new IntersectionObserver(function(entries) {
+        if (!entries.some(function(entry) { return entry.isIntersecting; })) return;
+        observer.disconnect();
+        startWhenReady();
+      }, { rootMargin: '600px 0px' });
+      observer.observe(root);
+    }
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', startWhenReady, { once: true });
+      document.addEventListener('DOMContentLoaded', startWhenVisible, { once: true });
     } else {
-      startWhenReady();
+      startWhenVisible();
     }
   })();
 </script>
