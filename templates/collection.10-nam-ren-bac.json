@@ -204,16 +204,16 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/1784696924572_4423076661664858939_4423076661664858939_a8b305f7d00d53cf4b6f786e0b915692.jpg",
-            "link": "#",
-            "text": "."
+            "link": "",
+            "text": ""
           }
         },
         "image_AyaF9f": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/1784696940628_4423076661664858939_4423076661664858939_5b0fe6e98cc51a844dcede4bbf7857fb.jpg",
-            "link": "#",
-            "text": "."
+            "link": "",
+            "text": ""
           }
         }
       },
