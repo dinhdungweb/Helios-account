@@ -28,7 +28,7 @@
     padding: 22px 0;
     cursor: pointer;
     list-style: none;
-    text-align: {{ section.settings.text_alignment }};
+    text-align: left;
   }
 
   #{{ section_id }} .partnership-form__summary::-webkit-details-marker {
@@ -75,6 +75,7 @@
 
   #{{ section_id }} .partnership-form__description {
     margin-bottom: 32px;
+    text-align: {{ section.settings.text_alignment }};
   }
 
   #{{ section_id }} .partnership-form__description > :last-child {
