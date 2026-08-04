@@ -97,14 +97,6 @@
         "show_featured_in_sort": true
       }
     },
-    "custom_liquid_mHQRXq": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid/HTML",
-      "settings": {
-        "no_margins": true,
-        "custom_liquid": "<p></p>"
-      }
-    },
     "1784691192dcfcee0e": {
       "type": "_blocks",
       "blocks": {
@@ -314,7 +306,6 @@
     "slideshow_c7QDHQ",
     "rich_text_3pGkAQ",
     "main",
-    "custom_liquid_mHQRXq",
     "1784691192dcfcee0e",
     "background_video_responsive_XCQb4W",
     "rich_text_kc4bHD",
