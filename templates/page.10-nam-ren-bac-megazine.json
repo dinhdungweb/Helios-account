@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
     },
     "magazine_flipbook_qnm83a": {
@@ -610,7 +611,7 @@
       "name": "Magazine Flipbook",
       "settings": {
         "heading": "Magazine Flipbook",
-        "width": 800,
+        "width": 900,
         "height": 500,
         "allow_fullscreen": true,
         "background_image": "shopify://shop_images/2d36787ff23c55643190dcd891f995797788de89.jpg"
