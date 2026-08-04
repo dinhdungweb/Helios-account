@@ -9,8 +9,8 @@
     position: relative;
     box-sizing: border-box;
     max-width: 100%;
-    margin: 3rem auto;
-    padding: 0;
+    margin: {{ section.settings.mobile_spacing_top | default: 48 }}px auto {{ section.settings.mobile_spacing_bottom | default: 48 }}px;
+    padding: {{ section.settings.mobile_inner_padding_top | default: 20 }}px 0 {{ section.settings.mobile_inner_padding_bottom | default: 20 }}px;
     text-align: center;
     background-position: center;
     background-size: cover;
@@ -93,6 +93,10 @@
   }
   @media (min-width: 768px) {
     #{{ flipbook_section_id }} {
+      margin-top: {{ section.settings.desktop_spacing_top | default: 48 }}px;
+      margin-bottom: {{ section.settings.desktop_spacing_bottom | default: 48 }}px;
+      padding-top: {{ section.settings.desktop_inner_padding_top | default: 32 }}px;
+      padding-bottom: {{ section.settings.desktop_inner_padding_bottom | default: 32 }}px;
       {% if section.settings.background_image_desktop %}
         background-image: url('{{ section.settings.background_image_desktop | image_url }}');
       {% elsif section.settings.background_image %}
@@ -799,6 +803,18 @@
     { "type": "text", "id": "heading", "label": "Tiêu đề (tuỳ chọn)", "default": "Magazine Flipbook" },
     { "type": "number", "id": "width", "label": "Chiều rộng (px)", "default": 800 },
     { "type": "number", "id": "height", "label": "Chiều cao (px)", "default": 500 },
+    { "type": "header", "content": "Khoảng cách Desktop" },
+    { "type": "range", "id": "desktop_spacing_top", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Khoảng cách bên trên", "default": 48 },
+    { "type": "range", "id": "desktop_spacing_bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "label": "Khoảng cách bên dưới", "default": 48 },
+    { "type": "header", "content": "Khoảng đệm bên trong Desktop" },
+    { "type": "range", "id": "desktop_inner_padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Đệm bên trên", "default": 32 },
+    { "type": "range", "id": "desktop_inner_padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Đệm bên dưới", "default": 32 },
+    { "type": "header", "content": "Khoảng cách Mobile" },
+    { "type": "range", "id": "mobile_spacing_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Khoảng cách bên trên", "default": 48 },
+    { "type": "range", "id": "mobile_spacing_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Khoảng cách bên dưới", "default": 48 },
+    { "type": "header", "content": "Khoảng đệm bên trong Mobile" },
+    { "type": "range", "id": "mobile_inner_padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Đệm bên trên", "default": 20 },
+    { "type": "range", "id": "mobile_inner_padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Đệm bên dưới", "default": 20 },
     { "type": "checkbox", "id": "allow_fullscreen", "label": "Cho phép toàn màn hình", "default": true },
     { "type": "image_picker", "id": "background_image", "label": "Ảnh nền mặc định" },
     { "type": "image_picker", "id": "background_image_desktop", "label": "Ảnh nền desktop (tuỳ chọn)" },
