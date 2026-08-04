@@ -255,7 +255,7 @@
           "settings": {
             "image": "shopify://shop_images/Component_6.webp",
             "hover_image": "shopify://shop_images/Property_1_Group_14.webp",
-            "link": "https://helios.vn/pages/khai-bang-mo-dau-an",
+            "link": "shopify://pages/khai-bang-mo-dau-an",
             "text": ""
           }
         },
