@@ -20,7 +20,9 @@
   #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: hidden; padding: 32px 68px 88px; overscroll-behavior: none; }
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; cursor: default; touch-action: none; user-select: none; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; box-shadow: 0 24px 34px -18px rgba(0, 0, 0, 0.72), 0 8px 16px -10px rgba(0, 0, 0, 0.62); cursor: default; touch-action: none; user-select: none; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container::after { position: absolute; top: 0; bottom: 0; left: 50%; z-index: 20; width: clamp(14px, 3.5%, 30px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.08) 24%, rgba(0, 0, 0, 0.28) 47%, rgba(255, 255, 255, 0.16) 51%, rgba(0, 0, 0, 0.13) 57%, rgba(0, 0, 0, 0)); content: ''; opacity: 0.72; pointer-events: none; transform: translateX(-50%); transition: opacity 120ms ease; }
+  #{{ flipbook_section_id }} .magazine-stage.is-flipping .magazine-flipbook-container::after { opacity: 0; }
   #{{ flipbook_section_id }} .turn-page-wrapper,
   #{{ flipbook_section_id }} .turn-page,
   #{{ flipbook_section_id }} .p-temporal,
@@ -29,8 +31,8 @@
   #{{ flipbook_section_id }} .magazine-page { position: relative; box-sizing: border-box; overflow: hidden; width: 100%; height: 100%; cursor: grab; }
   #{{ flipbook_section_id }} .magazine-page:active { cursor: grabbing; }
   #{{ flipbook_section_id }} .magazine-page img { display: block; width: 100%; height: 100%; object-fit: contain; background: transparent; opacity: 1; pointer-events: none; }
-  #{{ flipbook_section_id }} .magazine-side-button { position: absolute; top: 50%; z-index: 8; display: grid; width: 44px; height: 64px; padding: 0; place-items: center; color: #fff; background: rgba(0, 0, 0, 0.48); border: 0; border-radius: 4px; cursor: pointer; transform: translateY(-70%); transition: background-color 0.2s ease, opacity 0.2s ease; }
-  #{{ flipbook_section_id }} .magazine-side-button:hover:not(:disabled) { background: rgba(0, 0, 0, 0.8); }
+  #{{ flipbook_section_id }} .magazine-side-button { position: absolute; top: 50%; z-index: 8; display: grid; width: 44px; height: 64px; padding: 0; place-items: center; color: #fff; background: transparent; border: 0; border-radius: 0; cursor: pointer; transform: translateY(-70%); transition: color 0.2s ease, opacity 0.2s ease; }
+  #{{ flipbook_section_id }} .magazine-side-button:hover:not(:disabled) { color: #fab320; background: transparent; }
   #{{ flipbook_section_id }} .magazine-side-button:disabled { cursor: default; opacity: 0; pointer-events: none; }
   #{{ flipbook_section_id }} .magazine-side-button svg { width: 20px; height: 20px; fill: currentColor; }
   #{{ flipbook_section_id }} .prev-page { left: 14px; }
