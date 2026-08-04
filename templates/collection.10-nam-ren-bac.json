@@ -48,6 +48,14 @@
         "autoplay_speed": 7
       }
     },
+    "custom_spacing_DYkejb": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
+      }
+    },
     "rich_text_3pGkAQ": {
       "type": "rich-text",
       "name": "Rich text",
@@ -69,6 +77,14 @@
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
+      }
+    },
+    "custom_spacing_RagMye": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
       }
     },
     "main": {
@@ -150,6 +166,14 @@
         "button_link": ""
       }
     },
+    "custom_spacing_Pa8bXQ": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
+      }
+    },
     "rich_text_kc4bHD": {
       "type": "rich-text",
       "name": "Rich text",
@@ -204,6 +228,22 @@
         "item_for_row": 2,
         "item_ratio": "1/1",
         "item_per_row_mobile": "1"
+      }
+    },
+    "custom_spacing_qyVdTf": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
+      }
+    },
+    "custom_spacing_rUynUD": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
       }
     },
     "grid_image_An7tnL": {
@@ -304,13 +344,18 @@
   },
   "order": [
     "slideshow_c7QDHQ",
+    "custom_spacing_DYkejb",
     "rich_text_3pGkAQ",
+    "custom_spacing_RagMye",
     "main",
     "1784691192dcfcee0e",
     "background_video_responsive_XCQb4W",
+    "custom_spacing_Pa8bXQ",
     "rich_text_kc4bHD",
     "grid_image_KFBjCj",
+    "custom_spacing_qyVdTf",
     "grid_image_An7tnL",
+    "custom_spacing_rUynUD",
     "rich_text_h8hLqb",
     "blocks_7rLk3t",
     "custom_liquid_NnzGff"
