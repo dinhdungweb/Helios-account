@@ -303,6 +303,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Property_1_Component_38_Property_2_Component_34.webp",
+            "hover_image": "shopify://shop_images/Property_1_Component_38_Property_2_Component_37.webp",
             "link": "shopify://pages/buc-tuong-dau-an",
             "text": ""
           }
