@@ -30,7 +30,7 @@
   #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-left::before { background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0, rgba(255, 255, 255, 0.12) 0.35%, rgba(0, 0, 0, 0.08) 1%, rgba(0, 0, 0, 0) 2.7%); }
   #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-left::after { width: clamp(8px, 1.5%, 14px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06) 45%, rgba(255, 255, 255, 0.12) 76%, rgba(0, 0, 0, 0.3)); transform: translateX(-100%); }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping .magazine-flipbook-container::before,
-  #{{ flipbook_section_id }} .magazine-stage.is-flipping .magazine-flipbook-container::after { opacity: 0; }
+  #{{ flipbook_section_id }} .magazine-stage.is-flipping .magazine-flipbook-container::after { visibility: hidden; opacity: 0; transition: none; }
   #{{ flipbook_section_id }} .turn-page-wrapper,
   #{{ flipbook_section_id }} .turn-page,
   #{{ flipbook_section_id }} .p-temporal,
@@ -504,7 +504,9 @@
                 elevation: 64,
                 when: {
                   start: markTurning,
+                  turn: markTurning,
                   turning: function(event, page, view) {
+                    markTurning();
                     activePage = Number(page) || activePage;
                     notifyPageChange(view);
                   },
@@ -513,7 +515,7 @@
                     clearTurning();
                     notifyPageChange(view);
                   },
-                  end: clearTurning
+                  end: clearTurningWhenIdle
                 }
               });
               activePage = Number(book.turn('page')) || activePage;
@@ -553,6 +555,21 @@
             turnResetTimer = null;
           }
           if (typeof options.onStateChange === 'function') options.onStateChange(false);
+        }
+
+        function clearTurningWhenIdle() {
+          window.setTimeout(function() {
+            if (disposed || !book) {
+              clearTurning();
+              return;
+            }
+
+            try {
+              if (!book.turn('animating')) clearTurning();
+            } catch (error) {
+              clearTurning();
+            }
+          }, 0);
         }
 
         function notifyPageChange(view) {
