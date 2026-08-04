@@ -20,7 +20,8 @@
   #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: hidden; padding: 32px 68px 88px; overscroll-behavior: none; }
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; cursor: grab; touch-action: none; user-select: none; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; flex: 0 0 auto; overflow: visible; margin: auto; background: transparent; cursor: default; touch-action: none; user-select: none; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container.has-corner-preview { cursor: grab; }
   #{{ flipbook_section_id }} .magazine-flipbook-container.is-dragging { cursor: grabbing; }
   #{{ flipbook_section_id }} .magazine-webgl-canvas { display: block; width: 100%; height: 100%; background: transparent; touch-action: none; }
   #{{ flipbook_section_id }} .magazine-webgl-fallback { position: absolute; inset: 0; display: none; align-items: stretch; background: transparent; }

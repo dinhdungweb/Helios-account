@@ -103,6 +103,9 @@
       'uniform float uCurl;',
       'uniform float uMirror;',
       'uniform float uBackMirror;',
+      'uniform float uCornerY;',
+      'uniform float uGrabY;',
+      'uniform float uCornerStrength;',
       'uniform vec2 uOffset;',
       'varying vec2 vUv;',
       'varying vec2 vBackUv;',
@@ -112,15 +115,21 @@
       'void main() {',
       '  float u = aPosition.x;',
       '  float v = aPosition.y;',
+      '  float pageY = 1.0 - 2.0 * v;',
       '  float angle = 3.14159265359 * uProgress;',
       '  float lift = sin(angle);',
-      '  float curlAngle = angle + (u - 0.5) * 1.2 * lift * uCurl;',
+      '  float cornerDistance = abs(pageY - uCornerY) * 0.5;',
+      '  float cornerInfluence = 1.0 - smoothstep(0.04, 1.0, cornerDistance);',
+      '  float cornerTwist = (cornerInfluence - 0.42) * lift * 0.62 * uCornerStrength;',
+      '  float curlAngle = angle + (u - 0.5) * 1.2 * lift * uCurl + cornerTwist;',
       '  float bow = sin(3.14159265359 * u) * lift * 0.14 * uCurl;',
       '  float x = uDirection * (u * cos(curlAngle) + bow * 0.035);',
       '  float z = u * sin(curlAngle) + bow;',
       '  float perspective = 1.0 / max(0.72, 1.0 - z * 0.16);',
-      '  float y = (1.0 - 2.0 * v) * (1.0 - z * 0.015);',
+      '  float y = pageY * (1.0 - z * 0.015);',
       '  y += bow * (v - 0.5) * 0.025;',
+      '  float grabWeight = pow(u, 1.7) * mix(0.16, 1.0, cornerInfluence);',
+      '  y += (uGrabY - uCornerY) * grabWeight * lift * 0.78 * uCornerStrength;',
       '  gl_Position = vec4(x * perspective + uOffset.x, y * perspective + uOffset.y, -z * 0.15, 1.0);',
       '  vUv = vec2(mix(u, 1.0 - u, uMirror), v);',
       '  vBackUv = vec2(mix(u, 1.0 - u, uBackMirror), v);',
@@ -163,6 +172,9 @@
       curl: gl.getUniformLocation(this.program, 'uCurl'),
       mirror: gl.getUniformLocation(this.program, 'uMirror'),
       backMirror: gl.getUniformLocation(this.program, 'uBackMirror'),
+      cornerY: gl.getUniformLocation(this.program, 'uCornerY'),
+      grabY: gl.getUniformLocation(this.program, 'uGrabY'),
+      cornerStrength: gl.getUniformLocation(this.program, 'uCornerStrength'),
       offset: gl.getUniformLocation(this.program, 'uOffset'),
       texture: gl.getUniformLocation(this.program, 'uTexture'),
       backTexture: gl.getUniformLocation(this.program, 'uBackTexture'),
@@ -172,7 +184,7 @@
       opacity: gl.getUniformLocation(this.program, 'uOpacity')
     };
 
-    this._createMesh(48, 4);
+    this._createMesh(48, 12);
     this.placeholderTexture = this._createSolidTexture(222, 222, 218, 255);
     this.edgeTexture = this._createSolidTexture(244, 243, 238, 255);
     this.shadowTexture = this._createSolidTexture(0, 0, 0, 68);
@@ -418,7 +430,7 @@
     return this.getView().indexOf(1) === -1;
   };
 
-  WebGLFlipbook.prototype._transitionForDirection = function(direction) {
+  WebGLFlipbook.prototype._transitionForDirection = function(direction, cornerY) {
     var fromView = this.getView();
     var targetPage;
     if (direction > 0) {
@@ -434,7 +446,10 @@
       fromView: fromView,
       targetPage: targetPage,
       toView: this.getView(targetPage),
-      progress: 0
+      progress: 0,
+      cornerY: cornerY >= 0 ? 1 : -1,
+      grabY: cornerY >= 0 ? 1 : -1,
+      isPreview: false
     };
   };
 
@@ -450,6 +465,7 @@
     if (this.destroyed || this.animation || this.drag) return false;
     var transition = this._transitionForDirection(direction);
     if (!transition) return false;
+    this.container.classList.remove('has-corner-preview');
     this.turn = transition;
     this._prepareTransitionTextures(transition);
     this._notifyStateChange(true);
@@ -498,6 +514,7 @@
     this.turn = null;
     this.drag = null;
     this.container.classList.remove('is-dragging');
+    this.container.classList.remove('has-corner-preview');
     this._notifyStateChange(false);
     this.render();
     if (completed) {
@@ -512,6 +529,7 @@
     if (target === this.currentPage) return true;
     this.currentPage = target;
     this.turn = null;
+    this.container.classList.remove('has-corner-preview');
     this._ensureVisibleTextures();
     this.render();
     this._notifyPageChange();
@@ -529,31 +547,42 @@
     this._boundPointerDown = this._handlePointerDown.bind(this);
     this._boundPointerMove = this._handlePointerMove.bind(this);
     this._boundPointerUp = this._handlePointerUp.bind(this);
+    this._boundPointerLeave = this._handlePointerLeave.bind(this);
     this._boundContextLost = this._handleContextLost.bind(this);
     this.canvas.addEventListener('pointerdown', this._boundPointerDown);
     this.canvas.addEventListener('pointermove', this._boundPointerMove);
     this.canvas.addEventListener('pointerup', this._boundPointerUp);
     this.canvas.addEventListener('pointercancel', this._boundPointerUp);
+    this.canvas.addEventListener('pointerleave', this._boundPointerLeave);
     this.canvas.addEventListener('webglcontextlost', this._boundContextLost);
   };
 
   WebGLFlipbook.prototype._handlePointerDown = function(event) {
     if (this.destroyed || this.animation || this.drag || event.button > 0) return;
-    var rect = this.canvas.getBoundingClientRect();
-    if (!rect.width) return;
-    var direction = event.clientX >= rect.left + rect.width / 2 ? 1 : -1;
-    var transition = this._transitionForDirection(direction);
+    var hit = this._getCornerHit(event);
+    if (!hit) {
+      this._clearCornerPreview();
+      return;
+    }
+    var previewProgress = this.turn && this.turn.isPreview && this.turn.direction === hit.direction
+      ? this.turn.progress
+      : 0;
+    var transition = this._transitionForDirection(hit.direction, hit.cornerY);
     if (!transition) return;
     event.preventDefault();
+    transition.progress = previewProgress;
+    transition.grabY = hit.grabY;
     this.turn = transition;
+    this.container.classList.remove('has-corner-preview');
     this.drag = {
       pointerId: event.pointerId,
-      direction: direction,
+      direction: hit.direction,
       startX: event.clientX,
+      startProgress: previewProgress,
       lastX: event.clientX,
       lastTime: performance.now(),
       velocity: 0,
-      width: Math.max(1, rect.width / 2)
+      width: Math.max(1, hit.rect.width / 2)
     };
     this._prepareTransitionTextures(transition);
     this.canvas.setPointerCapture(event.pointerId);
@@ -562,7 +591,10 @@
   };
 
   WebGLFlipbook.prototype._handlePointerMove = function(event) {
-    if (!this.drag || !this.turn || event.pointerId !== this.drag.pointerId) return;
+    if (!this.drag || !this.turn || event.pointerId !== this.drag.pointerId) {
+      this._updateCornerPreview(event);
+      return;
+    }
     event.preventDefault();
     var now = performance.now();
     var elapsed = Math.max(1, now - this.drag.lastTime);
@@ -573,7 +605,9 @@
     var distance = this.drag.direction > 0
       ? this.drag.startX - event.clientX
       : event.clientX - this.drag.startX;
-    this.turn.progress = clamp(distance / this.drag.width, 0, 1);
+    var rect = this.canvas.getBoundingClientRect();
+    this.turn.progress = clamp(this.drag.startProgress + distance / this.drag.width, 0, 1);
+    this.turn.grabY = this._normalizedPointerY(event.clientY, rect);
     this.render();
   };
 
@@ -581,11 +615,79 @@
     if (!this.drag || !this.turn || event.pointerId !== this.drag.pointerId) return;
     event.preventDefault();
     var forwardVelocity = this.drag.direction > 0 ? -this.drag.velocity : this.drag.velocity;
-    var complete = this.turn.progress >= 0.3 || forwardVelocity > 0.45;
+    var complete = event.type !== 'pointercancel' && (this.turn.progress >= 0.3 || forwardVelocity > 0.45);
     if (this.canvas.hasPointerCapture(event.pointerId)) this.canvas.releasePointerCapture(event.pointerId);
     this.drag = null;
     this.container.classList.remove('is-dragging');
     this._animateTurn(complete ? 1 : 0);
+  };
+
+  WebGLFlipbook.prototype._handlePointerLeave = function() {
+    if (!this.drag) this._clearCornerPreview();
+  };
+
+  WebGLFlipbook.prototype._normalizedPointerY = function(clientY, rect) {
+    if (!rect || !rect.height) return -1;
+    return clamp(1 - 2 * ((clientY - rect.top) / rect.height), -1, 1);
+  };
+
+  WebGLFlipbook.prototype._getCornerHit = function(event) {
+    var rect = this.canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return null;
+    var localX = event.clientX - rect.left;
+    var localY = event.clientY - rect.top;
+    if (localX < 0 || localX > rect.width || localY < 0 || localY > rect.height) return null;
+
+    var halfWidth = rect.width / 2;
+    var direction = localX >= halfWidth ? 1 : -1;
+    var outerDistance = direction > 0 ? rect.width - localX : localX;
+    var verticalDistance = Math.min(localY, rect.height - localY);
+    var cornerWidth = Math.min(130, halfWidth * 0.5);
+    var cornerHeight = Math.min(160, rect.height * 0.32);
+    var edgeWidth = Math.min(40, halfWidth * 0.18);
+    var inCorner = outerDistance <= cornerWidth && verticalDistance <= cornerHeight;
+    var onOuterEdge = outerDistance <= edgeWidth;
+    if (!inCorner && !onOuterEdge) return null;
+
+    var cornerY = localY <= rect.height / 2 ? 1 : -1;
+    var horizontalStrength = 1 - outerDistance / (inCorner ? cornerWidth : edgeWidth);
+    var verticalStrength = inCorner ? 1 - verticalDistance / cornerHeight : 0.45;
+    return {
+      rect: rect,
+      direction: direction,
+      cornerY: cornerY,
+      grabY: this._normalizedPointerY(event.clientY, rect),
+      strength: clamp(horizontalStrength * verticalStrength, 0, 1),
+      inCorner: inCorner
+    };
+  };
+
+  WebGLFlipbook.prototype._updateCornerPreview = function(event) {
+    if (this.destroyed || this.animation || this.drag || event.pointerType === 'touch') return;
+    var hit = this._getCornerHit(event);
+    if (!hit) {
+      this._clearCornerPreview();
+      return;
+    }
+    var transition = this._transitionForDirection(hit.direction, hit.cornerY);
+    if (!transition) {
+      this._clearCornerPreview();
+      return;
+    }
+    transition.isPreview = true;
+    transition.progress = hit.inCorner ? 0.018 + hit.strength * 0.06 : 0.012 + hit.strength * 0.025;
+    transition.grabY = hit.grabY;
+    this.turn = transition;
+    this._prepareTransitionTextures(transition);
+    this.container.classList.add('has-corner-preview');
+    this.requestRender();
+  };
+
+  WebGLFlipbook.prototype._clearCornerPreview = function() {
+    if (!this.turn || !this.turn.isPreview) return;
+    this.turn = null;
+    this.container.classList.remove('has-corner-preview');
+    this.requestRender();
   };
 
   WebGLFlipbook.prototype._handleContextLost = function(event) {
@@ -662,7 +764,21 @@
 
     var progress = clamp(transition.progress, 0, 1);
     var shadowOffset = this._pixelOffset(direction * 5, 5);
-    this._drawTexture(this.shadowTexture, direction, progress, direction < 0 ? 1 : 0, shadowOffset.x, shadowOffset.y, 1, 0, 0.55, 1.15);
+    this._drawTexture(
+      this.shadowTexture,
+      direction,
+      progress,
+      direction < 0 ? 1 : 0,
+      shadowOffset.x,
+      shadowOffset.y,
+      1,
+      0,
+      0.55,
+      1.15,
+      transition.cornerY,
+      transition.grabY,
+      1
+    );
 
     var frontMirror = direction > 0 ? 0 : 1;
     var backMirror = direction > 0 ? 1 : 0;
@@ -673,7 +789,9 @@
         direction,
         progress,
         frontMirror,
-        backMirror
+        backMirror,
+        transition.cornerY,
+        transition.grabY
       );
     }
   };
@@ -708,7 +826,7 @@
     this._drawTexture(this._getTexture(pageNumber), side, progress, side < 0 ? 1 : 0, offsetX, offsetY, faceLight, spineShadow, 1, progress ? 1.15 : 0);
   };
 
-  WebGLFlipbook.prototype._drawTexture = function(texture, direction, progress, mirror, offsetX, offsetY, faceLight, spineShadow, opacity, curl) {
+  WebGLFlipbook.prototype._drawTexture = function(texture, direction, progress, mirror, offsetX, offsetY, faceLight, spineShadow, opacity, curl, cornerY, grabY, cornerStrength) {
     var gl = this.gl;
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, texture || this.placeholderTexture);
@@ -720,6 +838,9 @@
     gl.uniform1f(this.locations.progress, progress);
     gl.uniform1f(this.locations.direction, direction);
     gl.uniform1f(this.locations.curl, curl || 0);
+    gl.uniform1f(this.locations.cornerY, cornerY == null ? -1 : cornerY);
+    gl.uniform1f(this.locations.grabY, grabY == null ? (cornerY == null ? -1 : cornerY) : grabY);
+    gl.uniform1f(this.locations.cornerStrength, cornerStrength || 0);
     gl.uniform1f(this.locations.mirror, mirror);
     gl.uniform1f(this.locations.backMirror, mirror);
     gl.uniform2f(this.locations.offset, offsetX || 0, offsetY || 0);
@@ -729,7 +850,7 @@
     gl.drawElements(gl.TRIANGLES, this.indexCount, gl.UNSIGNED_SHORT, 0);
   };
 
-  WebGLFlipbook.prototype._drawTurningPage = function(frontTexture, backTexture, direction, progress, frontMirror, backMirror) {
+  WebGLFlipbook.prototype._drawTurningPage = function(frontTexture, backTexture, direction, progress, frontMirror, backMirror, cornerY, grabY) {
     var gl = this.gl;
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, frontTexture || this.placeholderTexture);
@@ -741,6 +862,9 @@
     gl.uniform1f(this.locations.progress, progress);
     gl.uniform1f(this.locations.direction, direction);
     gl.uniform1f(this.locations.curl, 1.15);
+    gl.uniform1f(this.locations.cornerY, cornerY == null ? -1 : cornerY);
+    gl.uniform1f(this.locations.grabY, grabY == null ? (cornerY == null ? -1 : cornerY) : grabY);
+    gl.uniform1f(this.locations.cornerStrength, 1);
     gl.uniform1f(this.locations.mirror, frontMirror);
     gl.uniform1f(this.locations.backMirror, backMirror);
     gl.uniform2f(this.locations.offset, 0, 0);
@@ -793,6 +917,7 @@
     this.canvas.removeEventListener('pointermove', this._boundPointerMove);
     this.canvas.removeEventListener('pointerup', this._boundPointerUp);
     this.canvas.removeEventListener('pointercancel', this._boundPointerUp);
+    this.canvas.removeEventListener('pointerleave', this._boundPointerLeave);
     this.canvas.removeEventListener('webglcontextlost', this._boundContextLost);
     if (this.gl) {
       var gl = this.gl;
