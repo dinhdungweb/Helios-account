@@ -14,12 +14,12 @@
       "disabled": true,
       "settings": {}
     },
-    "custom_liquid_MEqNUD": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid/HTML",
+    "custom_spacing_6iEbFR": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
       "settings": {
-        "no_margins": true,
-        "custom_liquid": "<p style></p>"
+        "desktop_spacing": 5,
+        "mobile_spacing": 20
       }
     },
     "slideshow_8UMGpN": {
@@ -64,7 +64,7 @@
   },
   "order": [
     "main",
-    "custom_liquid_MEqNUD",
+    "custom_spacing_6iEbFR",
     "slideshow_8UMGpN"
   ]
 }
