@@ -325,6 +325,7 @@
     },
     "custom_spacing_rUynUD": {
       "type": "custom-spacing",
+      "disabled": true,
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 20,
