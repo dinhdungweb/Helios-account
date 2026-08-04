@@ -9,8 +9,8 @@
     return Math.max(min, Math.min(max, value));
   }
 
-  function easeOutCubic(value) {
-    return 1 - Math.pow(1 - value, 3);
+  function smootherStep(value) {
+    return value * value * value * (value * (value * 6 - 15) + 10);
   }
 
   function createElement(tagName, className) {
@@ -102,40 +102,54 @@
       'uniform float uDirection;',
       'uniform float uCurl;',
       'uniform float uMirror;',
+      'uniform float uBackMirror;',
       'uniform vec2 uOffset;',
       'varying vec2 vUv;',
+      'varying vec2 vBackUv;',
       'varying float vLight;',
       'varying float vLocalU;',
+      'varying float vBackMix;',
       'void main() {',
       '  float u = aPosition.x;',
       '  float v = aPosition.y;',
       '  float angle = 3.14159265359 * uProgress;',
       '  float lift = sin(angle);',
-      '  float curve = sin(3.14159265359 * u) * lift * uCurl;',
-      '  float x = uDirection * (u * cos(angle) + curve * 0.115);',
-      '  float z = u * sin(angle) + curve * 0.42;',
-      '  float perspective = 1.0 / (1.0 + z * 0.22);',
-      '  float y = (1.0 - 2.0 * v) * (1.0 - z * 0.035);',
-      '  y += curve * (v - 0.5) * 0.09;',
-      '  gl_Position = vec4(x * perspective + uOffset.x, y * perspective + uOffset.y, -z * 0.12, 1.0);',
+      '  float curlAngle = angle + (u - 0.5) * 1.2 * lift * uCurl;',
+      '  float bow = sin(3.14159265359 * u) * lift * 0.14 * uCurl;',
+      '  float x = uDirection * (u * cos(curlAngle) + bow * 0.035);',
+      '  float z = u * sin(curlAngle) + bow;',
+      '  float perspective = 1.0 / max(0.72, 1.0 - z * 0.16);',
+      '  float y = (1.0 - 2.0 * v) * (1.0 - z * 0.015);',
+      '  y += bow * (v - 0.5) * 0.025;',
+      '  gl_Position = vec4(x * perspective + uOffset.x, y * perspective + uOffset.y, -z * 0.15, 1.0);',
       '  vUv = vec2(mix(u, 1.0 - u, uMirror), v);',
-      '  vLight = 1.0 - lift * (0.12 + 0.2 * sin(3.14159265359 * u));',
+      '  vBackUv = vec2(mix(u, 1.0 - u, uBackMirror), v);',
+      '  vLight = 0.7 + 0.3 * abs(cos(curlAngle));',
       '  vLocalU = u;',
+      '  vBackMix = 1.0 - smoothstep(-0.08, 0.08, cos(curlAngle));',
       '}'
     ].join('\n');
     var fragmentSource = [
       'precision mediump float;',
       'uniform sampler2D uTexture;',
+      'uniform sampler2D uBackTexture;',
+      'uniform float uHasBack;',
       'uniform float uFaceLight;',
       'uniform float uSpineShadow;',
       'uniform float uOpacity;',
       'varying vec2 vUv;',
+      'varying vec2 vBackUv;',
       'varying float vLight;',
       'varying float vLocalU;',
+      'varying float vBackMix;',
       'void main() {',
-      '  vec4 color = texture2D(uTexture, vUv);',
+      '  vec4 frontColor = texture2D(uTexture, vUv);',
+      '  vec4 backColor = texture2D(uBackTexture, vBackUv);',
+      '  float backAmount = vBackMix * uHasBack;',
+      '  vec4 color = mix(frontColor, backColor, backAmount);',
       '  float spine = 1.0 - uSpineShadow * (1.0 - smoothstep(0.0, 0.16, vLocalU));',
-      '  color.rgb *= clamp(vLight * uFaceLight * spine, 0.42, 1.05);',
+      '  float backShade = mix(1.0, 0.9, backAmount);',
+      '  color.rgb *= clamp(vLight * uFaceLight * spine * backShade, 0.42, 1.05);',
       '  color.a *= uOpacity;',
       '  gl_FragColor = color;',
       '}'
@@ -148,14 +162,17 @@
       direction: gl.getUniformLocation(this.program, 'uDirection'),
       curl: gl.getUniformLocation(this.program, 'uCurl'),
       mirror: gl.getUniformLocation(this.program, 'uMirror'),
+      backMirror: gl.getUniformLocation(this.program, 'uBackMirror'),
       offset: gl.getUniformLocation(this.program, 'uOffset'),
       texture: gl.getUniformLocation(this.program, 'uTexture'),
+      backTexture: gl.getUniformLocation(this.program, 'uBackTexture'),
+      hasBack: gl.getUniformLocation(this.program, 'uHasBack'),
       faceLight: gl.getUniformLocation(this.program, 'uFaceLight'),
       spineShadow: gl.getUniformLocation(this.program, 'uSpineShadow'),
       opacity: gl.getUniformLocation(this.program, 'uOpacity')
     };
 
-    this._createMesh(40, 2);
+    this._createMesh(48, 4);
     this.placeholderTexture = this._createSolidTexture(222, 222, 218, 255);
     this.edgeTexture = this._createSolidTexture(244, 243, 238, 255);
     this.shadowTexture = this._createSolidTexture(0, 0, 0, 68);
@@ -460,7 +477,7 @@
     function frame(timestamp) {
       if (self.destroyed || !self.turn) return;
       var elapsed = clamp((timestamp - startedAt) / duration, 0, 1);
-      var eased = easeOutCubic(elapsed);
+      var eased = smootherStep(elapsed);
       self.turn.progress = startProgress + (targetProgress - startProgress) * eased;
       self.render();
       if (elapsed < 1) {
@@ -649,10 +666,15 @@
 
     var frontMirror = direction > 0 ? 0 : 1;
     var backMirror = direction > 0 ? 1 : 0;
-    if (frontPage) this._drawTexture(this._getTexture(frontPage), direction, progress, frontMirror, 0, 0, 1, 0.12, 1, 1.15);
-    if (backPage && progress > 0.44) {
-      var backBlend = clamp((progress - 0.44) / 0.12, 0, 1);
-      this._drawTexture(this._getTexture(backPage), direction, progress, backMirror, 0, 0, 0.9, 0.12, backBlend, 1.15);
+    if (frontPage) {
+      this._drawTurningPage(
+        this._getTexture(frontPage),
+        backPage ? this._getTexture(backPage) : this.placeholderTexture,
+        direction,
+        progress,
+        frontMirror,
+        backMirror
+      );
     }
   };
 
@@ -691,14 +713,40 @@
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, texture || this.placeholderTexture);
     gl.uniform1i(this.locations.texture, 0);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, texture || this.placeholderTexture);
+    gl.uniform1i(this.locations.backTexture, 1);
+    gl.uniform1f(this.locations.hasBack, 0);
     gl.uniform1f(this.locations.progress, progress);
     gl.uniform1f(this.locations.direction, direction);
     gl.uniform1f(this.locations.curl, curl || 0);
     gl.uniform1f(this.locations.mirror, mirror);
+    gl.uniform1f(this.locations.backMirror, mirror);
     gl.uniform2f(this.locations.offset, offsetX || 0, offsetY || 0);
     gl.uniform1f(this.locations.faceLight, faceLight == null ? 1 : faceLight);
     gl.uniform1f(this.locations.spineShadow, spineShadow || 0);
     gl.uniform1f(this.locations.opacity, opacity == null ? 1 : opacity);
+    gl.drawElements(gl.TRIANGLES, this.indexCount, gl.UNSIGNED_SHORT, 0);
+  };
+
+  WebGLFlipbook.prototype._drawTurningPage = function(frontTexture, backTexture, direction, progress, frontMirror, backMirror) {
+    var gl = this.gl;
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, frontTexture || this.placeholderTexture);
+    gl.uniform1i(this.locations.texture, 0);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, backTexture || this.placeholderTexture);
+    gl.uniform1i(this.locations.backTexture, 1);
+    gl.uniform1f(this.locations.hasBack, 1);
+    gl.uniform1f(this.locations.progress, progress);
+    gl.uniform1f(this.locations.direction, direction);
+    gl.uniform1f(this.locations.curl, 1.15);
+    gl.uniform1f(this.locations.mirror, frontMirror);
+    gl.uniform1f(this.locations.backMirror, backMirror);
+    gl.uniform2f(this.locations.offset, 0, 0);
+    gl.uniform1f(this.locations.faceLight, 1);
+    gl.uniform1f(this.locations.spineShadow, 0.12);
+    gl.uniform1f(this.locations.opacity, 1);
     gl.drawElements(gl.TRIANGLES, this.indexCount, gl.UNSIGNED_SHORT, 0);
   };
 
