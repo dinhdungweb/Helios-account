@@ -20,10 +20,10 @@
   #{{ flipbook_section_id }} .magazine-stage { position: relative; display: flex; min-height: 0; flex: 1 1 auto; align-items: center; justify-content: center; overflow: hidden; padding: 32px 68px 88px; overscroll-behavior: none; }
   #{{ flipbook_section_id }} .magazine-stage.is-zoomed:not(.is-flipping) { overflow: auto; scrollbar-width: thin; }
   #{{ flipbook_section_id }} .magazine-stage.is-flipping { overflow: hidden !important; }
-  #{{ flipbook_section_id }} .magazine-book-positioner { position: relative; z-index: 1; flex: 0 0 auto; margin: auto; transform: translateX(0); will-change: transform; }
-  #{{ flipbook_section_id }} .magazine-book-positioner.is-position-ready { transition: transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1); }
-  #{{ flipbook_section_id }} .magazine-book-positioner.is-single-right { transform: translateX(-25%); }
-  #{{ flipbook_section_id }} .magazine-book-positioner.is-single-left { transform: translateX(25%); }
+  #{{ flipbook_section_id }} .magazine-book-positioner { position: relative; z-index: 1; flex: 0 0 auto; margin: auto; backface-visibility: hidden; transform: translate3d(0, 0, 0); will-change: transform; }
+  #{{ flipbook_section_id }} .magazine-book-positioner.is-position-ready { transition: transform 720ms cubic-bezier(0.42, 0, 0.58, 1); }
+  #{{ flipbook_section_id }} .magazine-book-positioner.is-single-right { transform: translate3d(-25%, 0, 0); }
+  #{{ flipbook_section_id }} .magazine-book-positioner.is-single-left { transform: translate3d(25%, 0, 0); }
   #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; overflow: visible; margin: 0; background: transparent; box-shadow: none; cursor: default; touch-action: none; user-select: none; }
   #{{ flipbook_section_id }} .magazine-flipbook-container::after { position: absolute; top: 0; bottom: 0; content: ''; pointer-events: none; }
   #{{ flipbook_section_id }} .magazine-flipbook-container::after { left: 50%; z-index: var(--magazine-static-overlay-z, 1); width: clamp(58px, 15%, 128px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.07) 19%, rgba(0, 0, 0, 0.05) 32%, rgba(0, 0, 0, 0.16) 42%, rgba(0, 0, 0, 0.42) 49%, rgba(0, 0, 0, 0.46) 50%, rgba(255, 255, 255, 0.13) 52%, rgba(0, 0, 0, 0.16) 60%, rgba(0, 0, 0, 0.05) 70%, rgba(255, 255, 255, 0.06) 82%, rgba(0, 0, 0, 0) 100%); transform: translateX(-50%); }
@@ -347,7 +347,13 @@
           },
           onStateChange: function(isTurning) {
             stage.classList.toggle('is-flipping', isTurning);
+            if (!isTurning && viewer) {
+              window.requestAnimationFrame(function() {
+                if (!destroyed && viewer) updateControls(viewer.getPage(), viewer.getView());
+              });
+            }
           },
+          onDragStart: prepareSinglePageDrag,
           onError: function(error) {
             console.warn('Magazine Flipbook Turn.js:', error);
           }
@@ -518,6 +524,10 @@
                 elevation: 64,
                 when: {
                   start: markTurning,
+                  pressed: function() {
+                    markTurning();
+                    if (typeof options.onDragStart === 'function') options.onDragStart();
+                  },
                   turn: markTurning,
                   turning: function(event, page, view) {
                     markTurning();
@@ -624,6 +634,14 @@
           thumbnail.classList.toggle('is-active', active);
           thumbnail.setAttribute('aria-current', active ? 'page' : 'false');
         });
+      }
+
+      function prepareSinglePageDrag() {
+        if (container.classList.contains('is-single-right')) {
+          bookPositioner.classList.remove('is-single-right');
+        } else if (container.classList.contains('is-single-left')) {
+          bookPositioner.classList.remove('is-single-left');
+        }
       }
 
       function setNavigationDisabled(previousDisabled, nextDisabled) {
