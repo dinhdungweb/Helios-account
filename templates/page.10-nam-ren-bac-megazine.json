@@ -12,9 +12,136 @@
     "main": {
       "type": "main-page",
       "settings": {}
+    },
+    "magazine_flipbook_qnm83a": {
+      "type": "magazine-flipbook",
+      "blocks": {
+        "page_VNgXa7": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-1.jpg"
+          }
+        },
+        "page_PhaCzF": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-2.jpg"
+          }
+        },
+        "page_nt8pC8": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-3.jpg"
+          }
+        },
+        "page_hAGzKF": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-4.jpg"
+          }
+        },
+        "page_7UrQrj": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-5.jpg"
+          }
+        },
+        "page_7PAgAx": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-6.jpg"
+          }
+        },
+        "page_JKa4MP": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-7.jpg"
+          }
+        },
+        "page_bwe8pk": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-8.jpg"
+          }
+        },
+        "page_4cGmiM": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-9.jpg"
+          }
+        },
+        "page_8qrCYb": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-10.jpg"
+          }
+        },
+        "page_4CMkEP": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-11.jpg"
+          }
+        },
+        "page_7ChLQN": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-12.jpg"
+          }
+        },
+        "page_n7p3QU": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-13.jpg"
+          }
+        },
+        "page_amBwrF": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-14.jpg"
+          }
+        },
+        "page_xChpcc": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-15.jpg"
+          }
+        },
+        "page_tLzyfV": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-16.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "page_VNgXa7",
+        "page_PhaCzF",
+        "page_nt8pC8",
+        "page_hAGzKF",
+        "page_7UrQrj",
+        "page_7PAgAx",
+        "page_JKa4MP",
+        "page_bwe8pk",
+        "page_4cGmiM",
+        "page_8qrCYb",
+        "page_4CMkEP",
+        "page_7ChLQN",
+        "page_n7p3QU",
+        "page_amBwrF",
+        "page_xChpcc",
+        "page_tLzyfV"
+      ],
+      "name": "Magazine Flipbook",
+      "settings": {
+        "heading": "Magazine Flipbook",
+        "width": 800,
+        "height": 500,
+        "allow_fullscreen": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "magazine_flipbook_qnm83a"
   ]
 }
