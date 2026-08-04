@@ -637,6 +637,8 @@
       }
 
       function prepareSinglePageDrag() {
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
         if (container.classList.contains('is-single-right')) {
           bookPositioner.classList.remove('is-single-right');
         } else if (container.classList.contains('is-single-left')) {
