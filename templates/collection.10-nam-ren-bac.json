@@ -238,14 +238,6 @@
         "mobile_spacing": 20
       }
     },
-    "custom_spacing_rUynUD": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 20,
-        "mobile_spacing": 20
-      }
-    },
     "grid_image_An7tnL": {
       "type": "grid-image",
       "blocks": {
@@ -253,6 +245,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Component_2_1.webp",
+            "hover_image": "shopify://shop_images/Property_1_Group_13.webp",
             "link": "https://helios.vn/pages/boc-tham-dau-an",
             "text": ""
           }
@@ -261,6 +254,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Component_6.webp",
+            "hover_image": "shopify://shop_images/Property_1_Group_14.webp",
             "link": "https://helios.vn/pages/khai-bang-mo-dau-an",
             "text": ""
           }
@@ -269,6 +263,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Component_5.webp",
+            "hover_image": "shopify://shop_images/Property_1_Group_15.webp",
             "link": "shopify://pages/buc-tuong-dau-an",
             "text": ""
           }
@@ -286,6 +281,14 @@
         "item_for_row": 3,
         "item_ratio": "natural",
         "item_per_row_mobile": "2"
+      }
+    },
+    "custom_spacing_rUynUD": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
       }
     },
     "rich_text_h8hLqb": {
