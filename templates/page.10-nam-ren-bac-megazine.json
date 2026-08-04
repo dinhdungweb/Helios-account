@@ -111,6 +111,30 @@
           "settings": {
             "page_image": "shopify://shop_images/in_t_p_chi_th_ng-16.jpg"
           }
+        },
+        "page_LzGdP9": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-17.jpg"
+          }
+        },
+        "page_gYWfGt": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-18.jpg"
+          }
+        },
+        "page_Qy3Eiq": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-19.jpg"
+          }
+        },
+        "page_CBB7hW": {
+          "type": "page",
+          "settings": {
+            "page_image": "shopify://shop_images/in_t_p_chi_th_ng-20.jpg"
+          }
         }
       },
       "block_order": [
@@ -129,7 +153,11 @@
         "page_n7p3QU",
         "page_amBwrF",
         "page_xChpcc",
-        "page_tLzyfV"
+        "page_tLzyfV",
+        "page_LzGdP9",
+        "page_gYWfGt",
+        "page_Qy3Eiq",
+        "page_CBB7hW"
       ],
       "name": "Magazine Flipbook",
       "settings": {
