@@ -256,7 +256,7 @@
             "max_width": 800,
             "aspect_ratio": 100,
             "mobile_aspect_ratio": 100,
-            "border_radius": 2
+            "border_radius": 4
           },
           "blocks": {}
         }
