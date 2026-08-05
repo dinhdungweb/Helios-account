@@ -46,6 +46,15 @@
         <div class="card-flip-game__decoration card-flip-game__decoration--{{ block.settings.alignment }}" style="--decoration-width: {{ block.settings.width }}px; --decoration-width-mobile: {{ block.settings.width_mobile }}px;" {{ block.shopify_attributes }}>
           {{ block.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'card-flip-game__decoration-image' }}
         </div>
+      {% elsif block.type == 'rich_text' and block.settings.position == 'top' %}
+        <div class="card-flip-game__rich-text card-flip-game__rich-text--{{ block.settings.alignment }}" style="--rich-text-width: {{ block.settings.max_width }}px;" {{ block.shopify_attributes }}>
+          {% if block.settings.heading != blank %}
+            <h3 class="card-flip-game__rich-text-heading">{{ block.settings.heading }}</h3>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <div class="card-flip-game__rich-text-copy">{{ block.settings.text }}</div>
+          {% endif %}
+        </div>
       {% endif %}
     {% endfor %}
 
@@ -116,6 +125,15 @@
         <div class="card-flip-game__decoration card-flip-game__decoration--{{ block.settings.alignment }}" style="--decoration-width: {{ block.settings.width }}px; --decoration-width-mobile: {{ block.settings.width_mobile }}px;" {{ block.shopify_attributes }}>
           {{ block.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'card-flip-game__decoration-image' }}
         </div>
+      {% elsif block.type == 'rich_text' and block.settings.position == 'bottom' %}
+        <div class="card-flip-game__rich-text card-flip-game__rich-text--{{ block.settings.alignment }}" style="--rich-text-width: {{ block.settings.max_width }}px;" {{ block.shopify_attributes }}>
+          {% if block.settings.heading != blank %}
+            <h3 class="card-flip-game__rich-text-heading">{{ block.settings.heading }}</h3>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <div class="card-flip-game__rich-text-copy">{{ block.settings.text }}</div>
+          {% endif %}
+        </div>
       {% endif %}
     {% endfor %}
   </div>
@@ -153,6 +171,33 @@
     max-width: 100%;
     width: min(100%, var(--decoration-width));
   }
+
+  .card-flip-game__rich-text {
+    margin: clamp(20px, 3vw, 36px) auto;
+    max-width: min(100%, var(--rich-text-width));
+    width: 100%;
+  }
+
+  .card-flip-game__rich-text--left { margin-left: 0; text-align: left; }
+  .card-flip-game__rich-text--center { text-align: center; }
+  .card-flip-game__rich-text--right { margin-right: 0; text-align: right; }
+
+  .card-flip-game__rich-text-heading {
+    color: var(--cfg-text);
+    font-size: clamp(24px, 2.4vw, 32px);
+    line-height: 1.15;
+    margin: 0 0 12px;
+  }
+
+  .card-flip-game__rich-text-copy {
+    color: var(--cfg-muted);
+    font-size: clamp(14px, 1.6vw, 17px);
+    line-height: 1.65;
+  }
+
+  .card-flip-game__rich-text-copy p { margin: 0; }
+  .card-flip-game__rich-text-copy p + p { margin-top: 6px; }
+  .card-flip-game__rich-text-copy strong { color: var(--cfg-accent); }
 
   .card-flip-game__header {
     display: grid;
@@ -1300,6 +1345,55 @@
           "step": 10,
           "unit": "px",
           "default": 300
+        }
+      ]
+    },
+    {
+      "type": "rich_text",
+      "name": "Rich text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Tiêu đề",
+          "default": "MỞ TRỌN DẤU ẤN"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Nội dung",
+          "default": "<p>Hành trình chỉ hoàn thành khi bạn mở được tất cả dấu ấn.</p><p>Mỗi lá thẻ là một phần trên hành trình khám phá.</p>"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Vị trí",
+          "options": [
+            { "value": "top", "label": "Phía trên game" },
+            { "value": "bottom", "label": "Phía dưới game" }
+          ],
+          "default": "top"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Căn chỉnh",
+          "options": [
+            { "value": "left", "label": "Trái" },
+            { "value": "center", "label": "Giữa" },
+            { "value": "right", "label": "Phải" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "max_width",
+          "label": "Chiều rộng tối đa",
+          "min": 320,
+          "max": 1000,
+          "step": 20,
+          "unit": "px",
+          "default": 760
         }
       ]
     }
