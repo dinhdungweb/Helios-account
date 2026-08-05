@@ -110,6 +110,7 @@
           {% for block in card_blocks %}
             {
               "id": {{ block.id | json }},
+              "inventoryKey": {{ block.settings.inventory_key | json }},
               "title": {{ block.settings.title | json }},
               "code": {{ block.settings.code | json }},
               "image": {% if block.settings.front_image != blank %}{{ block.settings.front_image | image_url: width: 900 | json }}{% else %}null{% endif %},
@@ -694,7 +695,8 @@
       remainingTurns: toInt(root.dataset.allowedTurns, 0),
       usedTurns: 0,
       campaignActive: true,
-      isBusy: false
+      isBusy: false,
+      inventory: {}
     };
 
     const config = {
@@ -709,6 +711,7 @@
       savedText: {{ section.settings.saved_message | json }},
       errorText: {{ section.settings.error_message | json }},
       outOfTurnsText: {{ section.settings.out_of_turns_message | json }},
+      outOfStockText: {{ section.settings.out_of_stock_message | json }},
       expiredText: {{ section.settings.expired_message | json }},
       remainingText: {{ section.settings.remaining_modal_text | json }},
       codePrefix: {{ section.settings.code_prefix | json }}
@@ -728,13 +731,19 @@
       if (event.key === 'Escape') closeModal();
     });
 
-    syncServerState().finally(function () {
+    Promise.allSettled([syncServerState(), syncInventory()]).finally(function () {
       renderDeck();
       updateCounter();
     });
 
     function renderDeck() {
-      const deck = shuffle(cards.slice());
+      const availableCards = cards.filter(isCardAvailable);
+      const deck = availableCards.length
+        ? shuffle(cards.map(function (card) {
+            if (isCardAvailable(card)) return card;
+            return availableCards[Math.floor(getRandom() * availableCards.length)];
+          }))
+        : [];
       board.innerHTML = '';
 
       deck.forEach(function (card, index) {
@@ -779,7 +788,9 @@
         board.appendChild(button);
       });
 
-      if (!state.campaignActive) {
+      if (!availableCards.length) {
+        setStatus(config.outOfStockText);
+      } else if (!state.campaignActive) {
         setStatus(config.expiredText);
       } else if (state.remainingTurns <= 0) {
         setStatus(config.outOfTurnsText);
@@ -830,6 +841,57 @@
       }
     }
 
+    async function syncInventory() {
+      if (!config.apiBase) return;
+
+      const params = new URLSearchParams({ campaign_id: config.campaignId });
+      const response = await fetch(config.apiBase + '/card-flip/inventory?' + params.toString(), {
+        method: 'GET',
+        cache: 'no-store'
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Cannot load card inventory');
+      }
+
+      state.inventory = (Array.isArray(data.cards) ? data.cards : []).reduce(function (inventory, card) {
+        if (card && card.key) inventory[card.key] = card;
+        return inventory;
+      }, {});
+    }
+
+    function isCardAvailable(card) {
+      const inventoryKey = getCardInventoryKey(card);
+      const inventoryCard = inventoryKey ? state.inventory[inventoryKey] : null;
+      if (!inventoryCard || inventoryCard.managed === false || inventoryCard.remaining === null) return true;
+      return toInt(inventoryCard.remaining, 0) > 0;
+    }
+
+    function getCardInventoryKey(card) {
+      if (card && card.inventoryKey) return card.inventoryKey;
+
+      const title = String(card && card.title || '').toLowerCase();
+      const inventoryKeys = [
+        ['chapter xi', 'chapter_xi'],
+        ['chapter x', 'chapter_x'],
+        ['chapter ix', 'chapter_ix'],
+        ['chapter viii', 'chapter_viii'],
+        ['chapter vii', 'chapter_vii'],
+        ['chapter vi', 'chapter_vi'],
+        ['chapter v', 'chapter_v'],
+        ['chapter iv', 'chapter_iv'],
+        ['chapter iii', 'chapter_iii'],
+        ['chapter ii', 'chapter_ii'],
+        ['chapter i', 'chapter_i'],
+        ['limited card', 'limited_card']
+      ];
+      const match = inventoryKeys.find(function (item) {
+        return title.indexOf(item[0]) === 0;
+      });
+      return match ? match[1] : '';
+    }
+
     async function playCard(button, front, card, index) {
       if (!state.campaignActive) {
         setStatus(config.expiredText);
@@ -859,7 +921,13 @@
         openModal(resolvedCard, data);
         setStatus(config.savedText);
 
-        window.setTimeout(function () {
+        window.setTimeout(async function () {
+          try {
+            await syncInventory();
+          } catch (inventoryError) {
+            // The server still validates stock atomically; keep the board usable
+            // if this display-only refresh temporarily fails.
+          }
           renderDeck();
           updateCounter();
         }, 900);
@@ -927,6 +995,7 @@
           customer_email: config.customerEmail,
           campaign_id: config.campaignId,
           card_id: card.id,
+          inventory_key: card.inventoryKey || '',
           card_title: card.title || '',
           card_code: card.code || '',
           card_image: card.image || '',
@@ -1182,6 +1251,12 @@
     },
     {
       "type": "text",
+      "id": "out_of_stock_message",
+      "label": "Thông báo tất cả thẻ đã hết",
+      "default": "Tất cả thẻ trong chương trình đã hết số lượng."
+    },
+    {
+      "type": "text",
       "id": "expired_message",
       "label": "Thông báo ngoài thời gian chương trình",
       "default": "Chương trình lật thẻ chưa bắt đầu hoặc đã kết thúc."
@@ -1278,6 +1353,26 @@
       "type": "card",
       "name": "Thẻ",
       "settings": [
+        {
+          "type": "select",
+          "id": "inventory_key",
+          "label": "Mã quản lý số lượng",
+          "options": [
+            { "value": "chapter_i", "label": "CHAPTER I – ORIGIN" },
+            { "value": "chapter_ii", "label": "CHAPTER II – THE FORGE" },
+            { "value": "chapter_iii", "label": "CHAPTER III – DNA" },
+            { "value": "chapter_iv", "label": "CHAPTER IV – THE ICONS" },
+            { "value": "chapter_v", "label": "CHAPTER V – BEYOND JEWELRY" },
+            { "value": "chapter_vi", "label": "CHAPTER VI – CROSSROADS" },
+            { "value": "chapter_vii", "label": "CHAPTER VII – PEOPLE" },
+            { "value": "chapter_viii", "label": "CHAPTER VIII – THE WEARERS" },
+            { "value": "chapter_ix", "label": "CHAPTER IX – HEIRLOOM" },
+            { "value": "chapter_x", "label": "CHAPTER X – FUTURE" },
+            { "value": "chapter_xi", "label": "CHAPTER XI – THE OPENING" },
+            { "value": "limited_card", "label": "LIMITED CARD" }
+          ],
+          "default": "chapter_i"
+        },
         {
           "type": "image_picker",
           "id": "front_image",

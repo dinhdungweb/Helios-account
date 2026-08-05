@@ -58,21 +58,21 @@
 
     <form class="card-flip-history__inventory" data-inventory-form>
       <div class="card-flip-history__inventory-heading">
-        <strong>Kho thẻ đặc biệt</strong>
-        <span>Đặt tổng số lượng phát hành cho từng thẻ.</span>
+        <strong>Kho tất cả thẻ</strong>
+        <span>Nhập tổng số lượng phát hành cho từng thẻ. Để trống nếu chưa muốn giới hạn.</span>
       </div>
 
-      <label class="card-flip-history__field">
-        <span>CHAPTER XI – THE OPENING</span>
-        <input type="number" name="chapter_xi" min="0" step="1" value="0" required>
-        <small data-inventory-stat="chapter_xi">Đã trúng: 0 · Còn lại: 0</small>
-      </label>
-
-      <label class="card-flip-history__field">
-        <span>LIMITED CARD</span>
-        <input type="number" name="limited_card" min="0" step="1" value="0" required>
-        <small data-inventory-stat="limited_card">Đã trúng: 0 · Còn lại: 0</small>
-      </label>
+      <div class="card-flip-history__inventory-grid">
+        {% assign inventory_labels = 'chapter_i|CHAPTER I – ORIGIN,chapter_ii|CHAPTER II – THE FORGE,chapter_iii|CHAPTER III – DNA,chapter_iv|CHAPTER IV – THE ICONS,chapter_v|CHAPTER V – BEYOND JEWELRY,chapter_vi|CHAPTER VI – CROSSROADS,chapter_vii|CHAPTER VII – PEOPLE,chapter_viii|CHAPTER VIII – THE WEARERS,chapter_ix|CHAPTER IX – HEIRLOOM,chapter_x|CHAPTER X – FUTURE,chapter_xi|CHAPTER XI – THE OPENING,limited_card|LIMITED CARD' | split: ',' %}
+        {% for inventory_item in inventory_labels %}
+          {% assign inventory_parts = inventory_item | split: '|' %}
+          <label class="card-flip-history__field">
+            <span>{{ inventory_parts[1] }}</span>
+            <input type="number" name="{{ inventory_parts[0] }}" data-inventory-key="{{ inventory_parts[0] }}" min="0" step="1" placeholder="Chưa giới hạn">
+            <small data-inventory-stat="{{ inventory_parts[0] }}">Chưa giới hạn · Đã trúng: 0</small>
+          </label>
+        {% endfor %}
+      </div>
 
       <button class="card-flip-history__button" type="submit" data-save-inventory>Lưu số lượng</button>
     </form>
@@ -260,6 +260,12 @@
     gap: 4px;
   }
 
+  .card-flip-history__inventory-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+
   .card-flip-history__inventory-heading strong {
     color: var(--cfh-text);
     font-size: 16px;
@@ -363,7 +369,7 @@
     }
 
     .card-flip-history__inventory {
-      grid-template-columns: minmax(220px, 1fr) minmax(210px, 280px) minmax(210px, 280px) 140px;
+      grid-template-columns: 1fr;
     }
 
     .card-flip-history__inventory .card-flip-history__button {
@@ -621,9 +627,11 @@
       (Array.isArray(cards) ? cards : []).forEach(function (card) {
         const input = inventoryForm.elements[card.key];
         const stat = root.querySelector('[data-inventory-stat="' + card.key + '"]');
-        if (input) input.value = toInt(card.capacity, 0);
+        if (input) input.value = card.managed === false ? '' : toInt(card.capacity, 0);
         if (stat) {
-          stat.textContent = 'Đã trúng: ' + toInt(card.claimed, 0) + ' · Còn lại: ' + toInt(card.remaining, 0);
+          stat.textContent = card.managed === false
+            ? 'Chưa giới hạn · Đã trúng: ' + toInt(card.claimed, 0)
+            : 'Đã trúng: ' + toInt(card.claimed, 0) + ' · Còn lại: ' + toInt(card.remaining, 0);
         }
       });
     }
@@ -642,6 +650,12 @@
       setStatus('Đang cập nhật kho thẻ...');
 
       try {
+        const capacities = {};
+        inventoryForm.querySelectorAll('[data-inventory-key]').forEach(function (input) {
+          const value = input.value.trim();
+          if (value !== '') capacities[input.dataset.inventoryKey] = toInt(value, 0);
+        });
+
         const response = await fetch(config.apiBase + '/card-flip/inventory', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -649,10 +663,7 @@
           body: JSON.stringify({
             campaign_id: campaignId,
             password: password,
-            capacities: {
-              chapter_xi: toInt(inventoryForm.elements.chapter_xi.value, 0),
-              limited_card: toInt(inventoryForm.elements.limited_card.value, 0)
-            }
+            capacities: capacities
           })
         });
         const data = await response.json();
@@ -662,7 +673,7 @@
         }
 
         renderInventory(data.cards);
-        setStatus('Đã cập nhật kho thẻ đặc biệt.');
+        setStatus('Đã cập nhật kho tất cả thẻ.');
       } catch (error) {
         setStatus(error.message || config.errorText);
       } finally {

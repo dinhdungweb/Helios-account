@@ -30,6 +30,7 @@
         "card_qp7fFU": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_i",
             "front_image": "shopify://shop_images/the-1.jpg",
             "title": "CHAPTER I – ORIGIN",
             "code": "Mọi hành trình đều bắt đầu từ một lời hứa nhỏ: làm ra thứ xứng đáng được giữ lại và đi cùng."
@@ -38,6 +39,7 @@
         "card_tBn3yG": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_ii",
             "front_image": "shopify://shop_images/the-2.jpg",
             "title": "CHAPTER II – THE FORGE",
             "code": "Từ lửa, bạc thành hình. Từ tiêu chuẩn, tạo nên HELIOS"
@@ -46,6 +48,7 @@
         "card_mecbFH": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_iii",
             "front_image": "shopify://shop_images/the-3.jpg",
             "title": "CHAPTER III – DNA",
             "code": "Không phô trương để gây chú ý, đủ chiều sâu để ở lại"
@@ -54,6 +57,7 @@
         "card_KAF4cF": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_iv",
             "front_image": "shopify://shop_images/the-4.jpg",
             "title": "CHAPTER IV – THE ICONS",
             "code": "Mỗi biểu tượng mở ra một cánh cửa khác, nhưng cùng dẫn về một lõi"
@@ -62,6 +66,7 @@
         "card_mrgbfG": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_v",
             "front_image": "shopify://shop_images/the-5.jpg",
             "title": "CHAPTER V – BEYOND JEWELRY",
             "code": "Từ trang sức, HELIOS bước ra ngoài"
@@ -70,6 +75,7 @@
         "card_AinNdb": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_vi",
             "front_image": "shopify://shop_images/the-6.jpg",
             "title": "CHAPTER VI – CROSSROADS",
             "code": "Không hoà tan, không mượn hào quang. Cùng tạo một dấu ấn riêng biệt."
@@ -78,6 +84,7 @@
         "card_UjXe3H": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_vii",
             "front_image": "shopify://shop_images/the-7.jpg",
             "title": "CHAPTER VII – PEOPLE",
             "code": "HELIOS được rèn bằng những người giữ chuẩn"
@@ -86,6 +93,7 @@
         "card_gy4wgV": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_viii",
             "front_image": "shopify://shop_images/the-8.jpg",
             "title": "CHAPTER VIII – THE WEARERS",
             "code": "HELIOS làm phần đầu, người đeo viết phần còn lại"
@@ -94,6 +102,7 @@
         "card_hMxtCz": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_ix",
             "front_image": "shopify://shop_images/the-9.jpg",
             "title": "CHAPTER IX – HEIRLOOM",
             "code": "Có những món bạc không cũ đi, chúng chỉ có hồn hơn"
@@ -102,6 +111,7 @@
         "card_HTr7EJ": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_x",
             "front_image": "shopify://shop_images/the-10.jpg",
             "title": "CHAPTER X – FUTURE",
             "code": "Sau 10 năm, HELIOS trở nên rõ hơn"
@@ -110,6 +120,7 @@
         "card_9JMFcM": {
           "type": "card",
           "settings": {
+            "inventory_key": "chapter_xi",
             "front_image": "shopify://shop_images/the-11.jpg",
             "title": "CHAPTER XI – THE OPENING",
             "code": "10 năm không phải vạch kết. Đó là lúc cánh cửa đầu tiên thật sự mở ra"
@@ -118,6 +129,7 @@
         "card_UmBYxT": {
           "type": "card",
           "settings": {
+            "inventory_key": "limited_card",
             "front_image": "shopify://shop_images/the-12.jpg",
             "title": "LIMITED CARD",
             "code": "10 NĂM RÈN BẠC - MỘI ĐỜI TẠC BẢN LĨNH"
