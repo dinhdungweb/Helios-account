@@ -250,11 +250,6 @@
                     </div>
                     <div class="db-card-flip-info">
                       <h4>{{ reward.result_title | default: reward.card_title | default: 'Thẻ may mắn' }}</h4>
-                      {% if reward.result_code != blank or reward.card_code != blank %}
-                        <p class="db-card-flip-code">
-                          <strong>{{ reward.result_code | default: reward.card_code }}</strong>
-                        </p>
-                      {% endif %}
                       {% if reward.played_at != blank %}
                         <time datetime="{{ reward.played_at | escape }}">{{ reward.played_at | date: '%d/%m/%Y' }}</time>
                       {% endif %}
