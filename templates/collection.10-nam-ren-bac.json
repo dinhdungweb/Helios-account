@@ -48,22 +48,6 @@
         "autoplay_speed": 7
       }
     },
-    "custom_spacing_DYkejb": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 20,
-        "mobile_spacing": 20
-      }
-    },
-    "custom_spacing_RagMye": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 20,
-        "mobile_spacing": 20
-      }
-    },
     "main": {
       "type": "main-collection",
       "settings": {
@@ -121,6 +105,14 @@
       "disabled": true,
       "settings": {}
     },
+    "custom_spacing_RagMye": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
+      }
+    },
     "rich_text_3pGkAQ": {
       "type": "rich-text",
       "name": "Rich text",
@@ -142,6 +134,14 @@
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
+      }
+    },
+    "custom_spacing_DYkejb": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
       }
     },
     "background_video_responsive_XCQb4W": {
@@ -373,7 +373,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "10 năm không phải vạch kếtđó là lúc cánh cửa đầu tiên thật sự mở ra",
+        "title": "10 năm không phải vạch kết<br>đó là lúc cánh cửa đầu tiên thật sự mở ra",
         "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
