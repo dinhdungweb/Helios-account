@@ -256,7 +256,7 @@
             "max_width": 800,
             "aspect_ratio": 100,
             "mobile_aspect_ratio": 100,
-            "border_radius": 0
+            "border_radius": 2
           },
           "blocks": {}
         }
@@ -374,7 +374,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "10 năm không phải vạch kết<br>đó là lúc cánh cửa đầu tiên thật sự mở ra",
+        "title": "10 năm không phải vạch kếtđó là lúc cánh cửa đầu tiên thật sự mở ra",
         "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
