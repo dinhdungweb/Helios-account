@@ -183,14 +183,14 @@
             "aspect_ratio_mobile": "4_3",
             "aspect_ratio_desktop": "4_3",
             "title": "XEM HÀNH TRÌNH 10 NĂM",
-            "title_color": "#f2f2f2",
-            "title_bg": "rgba(0,0,0,0)",
+            "title_color": "#FBFAFA",
+            "title_bg": "#5F1615",
             "h_align": "center",
             "v_align": "top",
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 40,
-            "padding": 0,
+            "padding": 5,
             "link": "shopify://pages/10-nam-ren-bac-magazine"
           }
         },
@@ -204,13 +204,13 @@
             "aspect_ratio_desktop": "4_3",
             "title": "KHÁM PHÁ DẤU ẤN",
             "title_color": "#ffffff",
-            "title_bg": "rgba(0,0,0,0)",
+            "title_bg": "#5F1615",
             "h_align": "center",
             "v_align": "top",
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 40,
-            "padding": 0,
+            "padding": 5,
             "link": "shopify://collections/all-products"
           }
         }
