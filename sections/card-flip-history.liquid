@@ -32,12 +32,18 @@
 >
   <div class="card-flip-history__wrap">
     <header class="card-flip-history__header">
-      {% if section.settings.heading != blank %}
-        <h2 class="card-flip-history__title">{{ section.settings.heading }}</h2>
-      {% endif %}
-      {% if section.settings.subheading != blank %}
-        <div class="card-flip-history__copy">{{ section.settings.subheading }}</div>
-      {% endif %}
+      <div class="card-flip-history__header-content">
+        {% if section.settings.heading != blank %}
+          <h2 class="card-flip-history__title">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <div class="card-flip-history__copy">{{ section.settings.subheading }}</div>
+        {% endif %}
+      </div>
+
+      <button class="card-flip-history__button card-flip-history__button--secondary card-flip-history__button--inventory" type="button" data-open-inventory>
+        Quản lý kho thẻ
+      </button>
     </header>
 
     <form class="card-flip-history__controls" data-history-form>
@@ -55,12 +61,6 @@
       <button class="card-flip-history__button card-flip-history__button--secondary" type="button" data-export-csv disabled>{{ section.settings.export_button_text }}</button>
       <button class="card-flip-history__button card-flip-history__button--danger" type="button" data-delete-history>{{ section.settings.delete_button_text }}</button>
     </form>
-
-    <div class="card-flip-history__inventory-launch">
-      <button class="card-flip-history__button card-flip-history__button--secondary card-flip-history__button--inventory" type="button" data-open-inventory>
-        Quản lý kho thẻ
-      </button>
-    </div>
 
     <div class="card-flip-history__modal" data-inventory-modal aria-hidden="true">
       <div class="card-flip-history__modal-dialog" role="dialog" aria-modal="true" aria-labelledby="{{ history_dom_id }}-inventory-title">
@@ -122,6 +122,7 @@
             <th>Thời gian</th>
             <th>Customer ID</th>
             <th>Email</th>
+            <th>Mã đơn hàng</th>
             <th>Kết quả</th>
             <th>Mã</th>
             <th>Vị trí</th>
@@ -155,10 +156,20 @@
   }
 
   .card-flip-history__header {
-    display: grid;
-    gap: 8px;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
     margin-bottom: 24px;
     text-align: left;
+  }
+
+  .card-flip-history__header-content {
+    display: grid;
+    flex: 1 1 260px;
+    gap: 8px;
+    min-width: 0;
   }
 
   .card-flip-history__title {
@@ -261,13 +272,9 @@
     opacity: 0.48;
   }
 
-  .card-flip-history__inventory-launch {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 12px;
-  }
-
   .card-flip-history__button--inventory {
+    flex: 0 0 auto;
+    margin-left: auto !important;
     min-width: 170px;
     width: auto;
   }
@@ -413,7 +420,7 @@
 
   .card-flip-history__table {
     border-collapse: collapse;
-    min-width: 980px;
+    min-width: 1120px;
     width: 100%;
   }
 
@@ -670,6 +677,7 @@
         return [
           row.customer_id,
           row.customer_email,
+          formatOrderNames(row.customer_order_names),
           row.card_title,
           row.result_title,
           row.card_code,
@@ -688,7 +696,7 @@
       if (!visibleRows.length) {
         const row = document.createElement('tr');
         const cell = document.createElement('td');
-        cell.colSpan = 7;
+        cell.colSpan = 8;
         cell.className = 'card-flip-history__empty';
         cell.textContent = config.emptyText;
         row.appendChild(cell);
@@ -702,6 +710,7 @@
         addCell(row, formatDate(entry.played_at));
         addCell(row, entry.customer_id || '-');
         addCell(row, entry.customer_email || '-');
+        addCell(row, formatOrderNames(entry.customer_order_names));
         addCell(row, entry.result_title || entry.card_title || '-');
         addCell(row, entry.result_code || entry.card_code || '-');
         addCell(row, formatPosition(entry));
@@ -716,6 +725,11 @@
       const cell = document.createElement('td');
       cell.textContent = value;
       row.appendChild(cell);
+    }
+
+    function formatOrderNames(value, separator) {
+      const orderNames = Array.isArray(value) ? value.filter(Boolean) : [];
+      return orderNames.length ? orderNames.join(separator || ', ') : '-';
     }
 
     function addImageCell(row, src, alt) {
@@ -738,10 +752,13 @@
     function exportCsv() {
       if (!visibleRows.length) return;
 
-      const headers = ['played_at', 'customer_id', 'customer_email', 'campaign_id', 'card_title', 'card_code', 'card_position', 'deck_size'];
+      const headers = ['played_at', 'customer_id', 'customer_email', 'customer_order_names', 'campaign_id', 'card_title', 'card_code', 'card_position', 'deck_size'];
       const lines = [headers.join(',')].concat(visibleRows.map(function (row) {
         return headers.map(function (key) {
-          return csvValue(row[key] || '');
+          const value = key === 'customer_order_names'
+            ? formatOrderNames(row[key], ' | ')
+            : row[key] || '';
+          return csvValue(value);
         }).join(',');
       }));
 
