@@ -186,10 +186,10 @@
             "title_color": "#f2f2f2",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "bottom",
+            "v_align": "middle",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": -40,
+            "y_offset": -10,
             "padding": 0,
             "link": "shopify://pages/10-nam-ren-bac-magazine"
           }
@@ -197,7 +197,7 @@
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/b74351e49289f9c6ebaabc62996f8fb4ed5bb754_1.jpg",
+            "image": "shopify://shop_images/banner_web_1_975b5ab8-22be-42ea-ad9f-cafad2f25cdb.jpg",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "4_3",
@@ -206,10 +206,10 @@
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
-            "v_align": "bottom",
+            "v_align": "middle",
             "text_align": "center",
             "x_offset": 0,
-            "y_offset": -40,
+            "y_offset": -10,
             "padding": 0,
             "link": "shopify://collections/all-products"
           }
