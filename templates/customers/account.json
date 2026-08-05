@@ -140,7 +140,7 @@
         "show_card_flip_rewards": true,
         "card_flip_rewards_title": "BẠN ĐÃ SƯU TẦM ĐƯỢC",
         "card_flip_rewards_empty": "Bạn chưa lật được thẻ nào.",
-        "card_flip_rewards_limit": 10,
+        "card_flip_rewards_limit": 12,
         "card_flip_rewards_card_width": 210,
         "welcome_collection": "membership-product",
         "welcome_collection_title": "Sản Phẩm Chỉ Dành Cho Membership",
