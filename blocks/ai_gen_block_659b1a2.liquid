@@ -6,10 +6,35 @@
 
 {% style %}
   .ai-flip-card-section-{{ ai_gen_id }} {
+    display: block;
     width: 100%;
     padding: {{ block.settings.section_spacing }}px 0;
     background-color: {{ block.settings.section_background }};
   }
+
+  {% unless block.settings.show_desktop %}
+    @media screen and (min-width: 990px) {
+      .ai-flip-card-section-{{ ai_gen_id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
+
+  {% unless block.settings.show_tablet %}
+    @media screen and (min-width: 750px) and (max-width: 989px) {
+      .ai-flip-card-section-{{ ai_gen_id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
+
+  {% unless block.settings.show_mobile %}
+    @media screen and (max-width: 749px) {
+      .ai-flip-card-section-{{ ai_gen_id }} {
+        display: none !important;
+      }
+    }
+  {% endunless %}
 
   .ai-flip-card-container-{{ ai_gen_id }} {
     max-width: 1200px;
@@ -232,6 +257,28 @@
       "id": "section_background",
       "label": "Background color",
       "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Hiển thị theo thiết bị"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_desktop",
+      "label": "Hiển thị trên desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tablet",
+      "label": "Hiển thị trên tablet",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile",
+      "label": "Hiển thị trên mobile",
+      "default": true
     },
     {
       "type": "header",
