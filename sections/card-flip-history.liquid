@@ -56,26 +56,43 @@
       <button class="card-flip-history__button card-flip-history__button--danger" type="button" data-delete-history>{{ section.settings.delete_button_text }}</button>
     </form>
 
-    <form class="card-flip-history__inventory" data-inventory-form>
-      <div class="card-flip-history__inventory-heading">
-        <strong>Kho tất cả thẻ</strong>
-        <span>Nhập tổng số lượng phát hành cho từng thẻ. Để trống nếu chưa muốn giới hạn.</span>
-      </div>
+    <div class="card-flip-history__inventory-launch">
+      <button class="card-flip-history__button card-flip-history__button--secondary card-flip-history__button--inventory" type="button" data-open-inventory>
+        Quản lý kho thẻ
+      </button>
+    </div>
 
-      <div class="card-flip-history__inventory-grid">
-        {% assign inventory_labels = 'chapter_i|CHAPTER I – ORIGIN,chapter_ii|CHAPTER II – THE FORGE,chapter_iii|CHAPTER III – DNA,chapter_iv|CHAPTER IV – THE ICONS,chapter_v|CHAPTER V – BEYOND JEWELRY,chapter_vi|CHAPTER VI – CROSSROADS,chapter_vii|CHAPTER VII – PEOPLE,chapter_viii|CHAPTER VIII – THE WEARERS,chapter_ix|CHAPTER IX – HEIRLOOM,chapter_x|CHAPTER X – FUTURE,chapter_xi|CHAPTER XI – THE OPENING,limited_card|LIMITED CARD' | split: ',' %}
-        {% for inventory_item in inventory_labels %}
-          {% assign inventory_parts = inventory_item | split: '|' %}
-          <label class="card-flip-history__field">
-            <span>{{ inventory_parts[1] }}</span>
-            <input type="number" name="{{ inventory_parts[0] }}" data-inventory-key="{{ inventory_parts[0] }}" min="0" step="1" placeholder="Chưa giới hạn">
-            <small data-inventory-stat="{{ inventory_parts[0] }}">Chưa giới hạn · Đã trúng: 0</small>
-          </label>
-        {% endfor %}
-      </div>
+    <div class="card-flip-history__modal" data-inventory-modal aria-hidden="true">
+      <div class="card-flip-history__modal-dialog" role="dialog" aria-modal="true" aria-labelledby="{{ history_dom_id }}-inventory-title">
+        <button class="card-flip-history__modal-close" type="button" data-close-inventory aria-label="Đóng">
+          <span aria-hidden="true">&times;</span>
+        </button>
 
-      <button class="card-flip-history__button" type="submit" data-save-inventory>Lưu số lượng</button>
-    </form>
+        <form class="card-flip-history__inventory" data-inventory-form>
+          <div class="card-flip-history__inventory-heading">
+            <strong id="{{ history_dom_id }}-inventory-title">Kho tất cả thẻ</strong>
+            <span>Nhập tổng số lượng phát hành cho từng thẻ. Để trống nếu chưa muốn giới hạn.</span>
+          </div>
+
+          <div class="card-flip-history__inventory-grid">
+            {% assign inventory_labels = 'chapter_i|CHAPTER I – ORIGIN,chapter_ii|CHAPTER II – THE FORGE,chapter_iii|CHAPTER III – DNA,chapter_iv|CHAPTER IV – THE ICONS,chapter_v|CHAPTER V – BEYOND JEWELRY,chapter_vi|CHAPTER VI – CROSSROADS,chapter_vii|CHAPTER VII – PEOPLE,chapter_viii|CHAPTER VIII – THE WEARERS,chapter_ix|CHAPTER IX – HEIRLOOM,chapter_x|CHAPTER X – FUTURE,chapter_xi|CHAPTER XI – THE OPENING,limited_card|LIMITED CARD' | split: ',' %}
+            {% for inventory_item in inventory_labels %}
+              {% assign inventory_parts = inventory_item | split: '|' %}
+              <label class="card-flip-history__field">
+                <span>{{ inventory_parts[1] }}</span>
+                <input type="number" name="{{ inventory_parts[0] }}" data-inventory-key="{{ inventory_parts[0] }}" min="0" step="1" placeholder="Chưa giới hạn">
+                <small data-inventory-stat="{{ inventory_parts[0] }}">Chưa giới hạn · Đã trúng: 0</small>
+              </label>
+            {% endfor %}
+          </div>
+
+          <div class="card-flip-history__inventory-actions">
+            <button class="card-flip-history__button" type="submit" data-save-inventory>Lưu số lượng</button>
+            <button class="card-flip-history__button card-flip-history__button--secondary" type="button" data-close-inventory>Hủy</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <div class="card-flip-history__status" data-history-status role="status" aria-live="polite"></div>
 
@@ -244,20 +261,89 @@
     opacity: 0.48;
   }
 
-  .card-flip-history__inventory {
-    align-items: end;
+  .card-flip-history__inventory-launch {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+
+  .card-flip-history__button--inventory {
+    min-width: 170px;
+    width: auto;
+  }
+
+  .card-flip-history__modal {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.76);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    opacity: 0;
+    padding: 20px;
+    pointer-events: none;
+    position: fixed;
+    transition: opacity 180ms ease, visibility 180ms ease;
+    visibility: hidden;
+    z-index: 9999;
+  }
+
+  .card-flip-history__modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  .card-flip-history__modal-dialog {
     background: var(--cfh-surface);
     border: 1px solid var(--cfh-border);
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
+    max-width: 1180px;
+    overflow: auto;
+    overscroll-behavior: contain;
+    position: relative;
+    transform: translateY(12px) scale(0.985);
+    transition: transform 180ms ease;
+    width: 100%;
+  }
+
+  .card-flip-history__modal.is-open .card-flip-history__modal-dialog {
+    transform: translateY(0) scale(1);
+  }
+
+  .card-flip-history__modal-close {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--cfh-text);
+    cursor: pointer;
+    display: flex;
+    font-size: 30px;
+    height: 44px;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    width: 44px;
+    z-index: 1;
+  }
+
+  .card-flip-history__inventory {
+    align-items: end;
     display: grid;
     gap: 12px;
     grid-template-columns: 1fr;
-    padding: 14px;
+    padding: 24px;
   }
 
   .card-flip-history__inventory-heading {
     display: grid;
     gap: 4px;
+    padding-right: 44px;
   }
 
   .card-flip-history__inventory-grid {
@@ -268,7 +354,13 @@
 
   .card-flip-history__inventory-heading strong {
     color: var(--cfh-text);
-    font-size: 16px;
+    font-size: 20px;
+  }
+
+  .card-flip-history__inventory-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
   }
 
   .card-flip-history__inventory-heading span,
@@ -368,6 +460,10 @@
       width: 120px;
     }
 
+    .card-flip-history__button--inventory {
+      width: auto;
+    }
+
     .card-flip-history__inventory {
       grid-template-columns: 1fr;
     }
@@ -378,6 +474,30 @@
   }
 
   @media (max-width: 720px) {
+    .card-flip-history__modal {
+      align-items: flex-end;
+      padding: 10px;
+    }
+
+    .card-flip-history__modal-dialog {
+      border-radius: 10px 10px 0 0;
+      max-height: calc(100vh - 10px);
+      max-height: calc(100dvh - 10px);
+    }
+
+    .card-flip-history__inventory {
+      padding: 18px 14px;
+    }
+
+    .card-flip-history__inventory-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card-flip-history__inventory-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
     .card-flip-history__stats {
       grid-template-columns: 1fr;
     }
@@ -400,6 +520,9 @@
     const searchInput = form.querySelector('[name="search"]');
     const inventoryForm = root.querySelector('[data-inventory-form]');
     const saveInventoryButton = root.querySelector('[data-save-inventory]');
+    const inventoryModal = root.querySelector('[data-inventory-modal]');
+    const openInventoryButton = root.querySelector('[data-open-inventory]');
+    const closeInventoryButtons = root.querySelectorAll('[data-close-inventory]');
 
     const config = {
       apiBase: normalizeApiBase(root.dataset.apiBase || ''),
@@ -421,6 +544,7 @@
     let currentRows = [];
     let visibleRows = [];
     let lastSummary = null;
+    let previousBodyOverflow = '';
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -432,10 +556,42 @@
     exportButton.addEventListener('click', exportCsv);
     deleteButton.addEventListener('click', deleteHistory);
     inventoryForm.addEventListener('submit', saveInventory);
+    openInventoryButton.addEventListener('click', openInventoryModal);
+    closeInventoryButtons.forEach(function (button) {
+      button.addEventListener('click', closeInventoryModal);
+    });
+    inventoryModal.addEventListener('click', function (event) {
+      if (event.target === inventoryModal) closeInventoryModal();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && inventoryModal.classList.contains('is-open')) {
+        closeInventoryModal();
+      }
+    });
 
     applyQueryParams();
     loadHistory();
     loadInventory();
+
+    function openInventoryModal() {
+      loadInventory();
+      previousBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      inventoryModal.classList.add('is-open');
+      inventoryModal.setAttribute('aria-hidden', 'false');
+
+      window.setTimeout(function () {
+        const closeButton = inventoryModal.querySelector('.card-flip-history__modal-close');
+        if (closeButton) closeButton.focus();
+      }, 0);
+    }
+
+    function closeInventoryModal() {
+      inventoryModal.classList.remove('is-open');
+      inventoryModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = previousBodyOverflow;
+      openInventoryButton.focus();
+    }
 
     function applyQueryParams() {
       const params = new URLSearchParams(window.location.search);
@@ -674,6 +830,7 @@
 
         renderInventory(data.cards);
         setStatus('Đã cập nhật kho tất cả thẻ.');
+        closeInventoryModal();
       } catch (error) {
         setStatus(error.message || config.errorText);
       } finally {
