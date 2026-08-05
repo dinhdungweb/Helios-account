@@ -179,9 +179,8 @@
         "blocks": {
           "slide_LnQdra": {
             "type": "slide",
-            "disabled": true,
             "settings": {
-              "text": "FREESHIP TOÀN QUỐC",
+              "text": "ƯU ĐÃI THEO HẠNG THÀNH VIÊN",
               "link": "shopify://collections/all-products"
             }
           },
@@ -239,7 +238,7 @@
           "mobile_logo_width": 120,
           "use_alt_logo_when_active": true,
           "logo_h1": true,
-          "show_announcement": false,
+          "show_announcement": true,
           "announcement_home_only": false,
           "announcement_text": "VẬN CHUYỂN TOÀN QUỐC",
           "announcement_text_size": 14,
@@ -248,7 +247,7 @@
           "announcement_email": "support@helios.vn",
           "announcement_custom": "Hệ thống cửa hàng",
           "announcement_custom_link": "shopify://pages/he-thong-cua-hang",
-          "show_countdown_bar": true,
+          "show_countdown_bar": false,
           "countdown_home_only": false,
           "countdown_bar_link": "",
           "countdown_text_align": "center",
