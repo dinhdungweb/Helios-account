@@ -1168,6 +1168,8 @@
     }
   },
   "platform_customizations": {
-    "custom_css": []
+    "custom_css": [
+      ".multi-level-nav li:nth-child(2) {background-color: #fab320;}"
+    ]
   }
 }
