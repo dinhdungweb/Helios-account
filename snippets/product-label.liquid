@@ -16,6 +16,27 @@
     | round
   %}
 {% endif %}
+
+{% assign sales_channel_label = product.metafields.custom.saleschannel.value | strip %}
+{% assign product_label_is_marquee = false %}
+{% if settings.prod_label_layout == 'marquee' or settings.prod_label_layout == 'marquee_on_hover' %}
+  {% assign product_label_is_marquee = true %}
+{% endif %}
+
+{% if sales_channel_label != blank %}
+  <span class="product-label product-label--sales-channel
+    {% if product_label_is_marquee %}product-label--marquee{% endif %}
+    {% if settings.prod_label_layout == 'marquee_on_hover' %}product-label--marquee-on-hover{% endif %}">
+    <span>{{ sales_channel_label | escape }}</span>
+    {% if product_label_is_marquee %}
+      {% for i in (1..num_labels_reps) %}
+        <span>{{ sales_channel_label | escape }}</span>
+      {% endfor %}
+    {% endif %}
+  </span>
+{% endif %}
+
+{% unless sales_channel_label != blank and product_label_is_marquee %}
 {% if product.available == false and settings.show_sold_out_label %}
   <span class="product-label unavailable
     {% if settings.prod_label_layout == 'marquee' or settings.prod_label_layout == 'marquee_on_hover' %}product-label--marquee{% endif %}
@@ -103,3 +124,4 @@
     </span>
   {%- endif -%}
 {% endif %}
+{% endunless %}

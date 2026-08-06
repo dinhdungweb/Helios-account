@@ -1495,6 +1495,22 @@ button.swiper-pagination-bullet {
   background-color: {{ coll_col_new }};
   color: {{ coll_col_new_text }};
 }
+.product-label.product-label--sales-channel {
+  background-color: {{ coll_col_sale }};
+  color: {{ coll_col_sale_text }};
+}
+.product-block:not(.layout-right) .product-label--sales-channel:not(.product-label--marquee) ~ .product-label:not(.product-label--marquee) {
+  transform: translateY(calc(100% + 5px));
+}
+.product-block.layout-right .product-label.product-label--sales-channel:not(.product-label--marquee) {
+  right: auto;
+  left: 10px;
+}
+@media (min-width: 1200px) {
+  .product-block.layout-right .product-label.product-label--sales-channel:not(.product-label--marquee) {
+    left: 20px;
+  }
+}
 .product-label span {
   display: inline-block;
   vertical-align: middle;
