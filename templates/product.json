@@ -76,10 +76,10 @@
             "col_indicator_above": "#108043"
           }
         },
-        "richtext_m7K8an": {
-          "type": "richtext",
+        "custom_liquid_beCgGM": {
+          "type": "custom_liquid",
           "settings": {
-            "text": "<p><a href=\"https://helios.vn/account\" title=\"https://helios.vn/account\">Đăng nhập</a> Member để hưởng trọn ưu đãi!</p>"
+            "custom_liquid": "<a style=\"color:#fab320; text-decoration: underline; text-underline-offset: 5px;\" href=\"https://helios.vn/account\" title=\"Đăng nhập\">Đăng nhập </a></font>Member để hưởng trọn ưu đãi!"
           }
         },
         "buy_buttons": {
@@ -173,7 +173,7 @@
         "richtext_3g4Dzi",
         "variant_picker",
         "inventory_level",
-        "richtext_m7K8an",
+        "custom_liquid_beCgGM",
         "buy_buttons",
         "complementary_pwBz8L",
         "trust_icons_TyrExf",
