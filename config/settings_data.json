@@ -139,7 +139,7 @@
     "tier_show_original_price": true,
     "tier_show_badge": true,
     "tier_badge_font_size_small": 11,
-    "tier_badge_border_radius": 3,
+    "tier_badge_border_radius": 0,
     "tier_prioritize_tags": true,
     "tier_use_custom_metafield": true,
     "account_sidebar_logo": "shopify://shop_images/logo-w_3d2b1ce7-e744-493c-8b25-4a67596d6279.webp",
