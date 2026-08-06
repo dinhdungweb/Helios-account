@@ -171,6 +171,29 @@
         "autoplay_speed": 7
       }
     },
+    "rich_text_xpwgUU": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "đăng nhập member để hưởng trọn ưu đãi!",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "Đăng nhập",
+        "button_link": "https://helios.vn/account",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "two_banner_gUWcNj": {
       "type": "two-banner",
       "blocks": {
@@ -236,6 +259,7 @@
   "order": [
     "background_video_responsive_RnWgY3",
     "slideshow_AUtEr7",
+    "rich_text_xpwgUU",
     "two_banner_gUWcNj"
   ]
 }
