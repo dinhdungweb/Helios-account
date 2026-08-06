@@ -184,7 +184,7 @@
         "image_width": 120,
         "button_label": "Đăng nhập",
         "button_link": "https://helios.vn/account",
-        "button_style": "auto",
+        "button_style": "link",
         "text_alignment": "center",
         "enlarge_text": false,
         "full_width": false,

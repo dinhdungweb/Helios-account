@@ -403,8 +403,7 @@
           "recommend-product-heading": "Recommend Products",
           "product-list": [
             "bo-dung-cu-ve-sinh-bac",
-            "hop-go-helios",
-            "packaging-helios"
+            "hop-go-helios"
           ]
         }
       }
@@ -1167,7 +1166,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".multi-level-nav > .tier-1 > ul > li:nth-child(2) a {background-color: #fab320; color: #111!important;}"
+      ".multi-level-nav > .tier-1 > ul > li:nth-child(2) a {background-color: #fab320; color: #111 !important;}"
     ]
   }
 }
