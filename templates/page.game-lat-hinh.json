@@ -162,7 +162,7 @@
             "text": "<p>Hành trình chỉ hoàn thành khi 12 mảnh ghép xuất hiện</p><p>Mỗi lá thẻ được thu thập là một phần trên hành trình truy tìm kho báu.</p><p><strong>Hành trình bắt đầu từ 06.08 đến hết 09.09</strong></p><p>Hãy sưu tầm đủ 12 dấu ấn và mang đến Helios để mở khóa</p><p><strong>Rương báu</strong> chỉ dành cho 10 người đầu tiên hoàn thành hành trình</p>",
             "position": "bottom",
             "alignment": "center",
-            "max_width": 760
+            "max_width": 600
           }
         }
       },
@@ -204,6 +204,7 @@
         "saved_message": "Kết quả đã được lưu.",
         "error_message": "Không thể lưu kết quả, vui lòng thử lại.",
         "out_of_turns_message": "Bạn đã hết lượt chơi.",
+        "out_of_stock_message": "Tất cả thẻ trong chương trình đã hết số lượng.",
         "expired_message": "Chương trình lật thẻ chưa bắt đầu hoặc đã kết thúc.",
         "result_heading": "Kết quả của bạn",
         "code_prefix": "Mã:",
