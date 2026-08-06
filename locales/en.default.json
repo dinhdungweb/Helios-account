@@ -464,7 +464,9 @@
       "shipping": {
         "address_form": {
           "max_address": "The {{max_addresses}} address limit has been reached. Please delete an address to add a new one."
-        }
+        },
+        "split_shipping_merchandise_quantity_label_inline_primary": "Quantity: %{quantity}",
+        "split_shipping_merchandise_quantity_label_inline": "%{merchandise_title} × %{quantity}"
       },
       "payment": {
         "saved_addresses": "Saved address",
