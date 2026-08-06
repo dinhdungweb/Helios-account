@@ -173,6 +173,9 @@
     },
     "rich_text_xpwgUU": {
       "type": "rich-text",
+      "custom_css": [
+        ".rte p:last-child {margin-top: 0;}"
+      ],
       "name": "Rich text",
       "settings": {
         "subheading": "",
