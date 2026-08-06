@@ -1822,7 +1822,7 @@
         "step": 1,
         "unit": "px",
         "label": "Font size badge (collection)",
-        "default": 9
+        "default": 11
       },
       {
         "type": "range",

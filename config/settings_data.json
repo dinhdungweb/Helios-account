@@ -138,7 +138,7 @@
     "tier_6_discount": 0,
     "tier_show_original_price": true,
     "tier_show_badge": true,
-    "tier_badge_font_size_small": 10,
+    "tier_badge_font_size_small": 11,
     "tier_badge_border_radius": 3,
     "tier_prioritize_tags": true,
     "tier_use_custom_metafield": true,
