@@ -29,7 +29,9 @@
         "title": {
           "type": "title",
           "settings": {
-            "heading_h1": true
+            "heading_h1": true,
+            "title_size_desktop": 32,
+            "title_size_mobile": 24
           }
         },
         "price": {
@@ -72,6 +74,12 @@
             "show_inventory_indicator_bar": true,
             "col_indicator_below": "#dd9a1a",
             "col_indicator_above": "#108043"
+          }
+        },
+        "richtext_m7K8an": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><a href=\"https://helios.vn/account\" title=\"https://helios.vn/account\">Đăng nhập</a> Member để hưởng trọn ưu đãi!</p>"
           }
         },
         "buy_buttons": {
@@ -165,6 +173,7 @@
         "richtext_3g4Dzi",
         "variant_picker",
         "inventory_level",
+        "richtext_m7K8an",
         "buy_buttons",
         "complementary_pwBz8L",
         "trust_icons_TyrExf",
