@@ -37,7 +37,9 @@
 {% endif %}
 
 {% unless sales_channel_label != blank and product_label_is_marquee %}
-{% if product.available == false and settings.show_sold_out_label %}
+{% if product.available == false and sales_channel_label != blank %}
+  {% comment %}Custom sales channel label rendered above replaces Sold out.{% endcomment %}
+{% elsif product.available == false and settings.show_sold_out_label %}
   <span class="product-label unavailable
     {% if settings.prod_label_layout == 'marquee' or settings.prod_label_layout == 'marquee_on_hover' %}product-label--marquee{% endif %}
     {% if settings.prod_label_layout == 'marquee_on_hover' %}product-label--marquee-on-hover{% endif %}">
