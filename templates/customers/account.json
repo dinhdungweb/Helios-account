@@ -139,6 +139,9 @@
       "settings": {
         "show_card_flip_rewards": true,
         "card_flip_rewards_title": "BẠN ĐÃ SƯU TẦM ĐƯỢC",
+        "show_card_flip_rewards_button": true,
+        "card_flip_rewards_button_text": "Lật thẻ ngay",
+        "card_flip_rewards_button_link": "",
         "card_flip_rewards_empty": "Bạn chưa lật được thẻ nào.",
         "card_flip_rewards_limit": 12,
         "card_flip_rewards_card_width": 210,

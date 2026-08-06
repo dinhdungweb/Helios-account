@@ -228,6 +228,18 @@
             <h3 class="db-card-title" id="card-flip-rewards-title-{{ section.id }}">
               {{ section.settings.card_flip_rewards_title }}
             </h3>
+            {% if section.settings.show_card_flip_rewards_button
+              and section.settings.card_flip_rewards_button_text != blank
+              and section.settings.card_flip_rewards_button_link != blank
+            %}
+              <a
+                class="db-card-action db-card-action--arrow"
+                href="{{ section.settings.card_flip_rewards_button_link }}"
+              >
+                {{ section.settings.card_flip_rewards_button_text }}
+                {% render 'svg-chevron-right' %}
+              </a>
+            {% endif %}
           </div>
           <div class="db-card-body">
             {% if card_flip_history != blank %}
@@ -751,6 +763,23 @@
       "id": "card_flip_rewards_title",
       "label": "Tiêu đề",
       "default": "Thẻ bạn đã lật"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_flip_rewards_button",
+      "label": "Hiển thị nút đến trang lật thẻ",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_flip_rewards_button_text",
+      "label": "Nội dung nút",
+      "default": "Lật thẻ ngay"
+    },
+    {
+      "type": "url",
+      "id": "card_flip_rewards_button_link",
+      "label": "Liên kết trang lật thẻ"
     },
     {
       "type": "text",

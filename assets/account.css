@@ -1904,6 +1904,14 @@
   margin-bottom: 20px;
 }
 
+.db-card-flip-rewards .db-card-header {
+  gap: 12px;
+}
+
+.db-card-flip-rewards .db-card-action {
+  flex: 0 0 auto;
+}
+
 .db-card-flip-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--db-flip-card-width, 210px));
