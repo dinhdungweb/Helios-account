@@ -1908,8 +1908,17 @@
   gap: 12px;
 }
 
-.db-card-flip-rewards .db-card-action {
+.db-card-flip-cta {
   flex: 0 0 auto;
+  padding: 8px 14px;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.db-card-flip-cta svg {
+  width: 14px;
+  height: 14px;
 }
 
 .db-card-flip-grid {
@@ -1981,6 +1990,11 @@
 }
 
 @media (max-width: 480px) {
+  .db-card-flip-cta {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
   .db-card-flip-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 7px;
