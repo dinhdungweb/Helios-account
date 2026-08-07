@@ -1922,6 +1922,11 @@
   height: 14px;
 }
 
+.db-card-flip-cta__label {
+  display: block;
+  transform: translateY(1px);
+}
+
 .db-card-flip-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--db-flip-card-width, 210px));
