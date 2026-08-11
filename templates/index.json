@@ -11,7 +11,6 @@
   "sections": {
     "background_video_responsive_RnWgY3": {
       "type": "background-video-responsive",
-      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "full_width": true,
@@ -22,9 +21,9 @@
         "video_height_mobile": 640,
         "video_link": "shopify://collections/nhan-doi-2026",
         "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/19.1_video key valentine 19x9 - fix 19.1 (1).mp4",
+        "video_shopify_desktop": "shopify://files/videos/Banner web 19x9.mp4",
         "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/video valentine key - VN - 9x16.mp4",
+        "video_shopify_mobile": "shopify://files/videos/Banner web 4x5.mp4",
         "video_external_mobile": "",
         "subtitle": "",
         "title": "",
@@ -157,6 +156,7 @@
         "image_hgGRLc",
         "image_KarRwm"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
