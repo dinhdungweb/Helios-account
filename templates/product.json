@@ -34,15 +34,15 @@
             "title_size_mobile": 24
           }
         },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
         "price": {
           "type": "price",
           "settings": {
             "show_tax_and_shipping": false
           }
-        },
-        "rating": {
-          "type": "rating",
-          "settings": {}
         },
         "richtext_3g4Dzi": {
           "type": "richtext",
@@ -169,8 +169,8 @@
       "block_order": [
         "vendor_and_type",
         "title",
-        "price",
         "rating",
+        "price",
         "richtext_3g4Dzi",
         "variant_picker",
         "inventory_level",
