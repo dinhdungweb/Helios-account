@@ -2,6 +2,11 @@
   assign form_id = 'PartnershipContactForm-' | append: section.id
   assign section_id = 'PartnershipContactSection-' | append: section.id
   assign panel_id = 'PartnershipContactPanel-' | append: section.id
+  assign template_file = 'templates/' | append: template.name
+  if template.suffix != blank
+    assign template_file = template_file | append: '.' | append: template.suffix
+  endif
+  assign template_file = template_file | append: '.json'
 -%}
 
 {%- style -%}
@@ -152,6 +157,19 @@
     cursor: pointer;
   }
 
+  #{{ section_id }} .partnership-form__submit[disabled] {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  #{{ section_id }} .partnership-form__honeypot {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+
   #{{ section_id }} .partnership-form__status {
     margin-bottom: 24px;
     padding: 14px 16px;
@@ -178,12 +196,17 @@
   }
 {%- endstyle -%}
 
-<section id="{{ section_id }}" class="partnership-form" data-section-id="{{ section.id }}">
+<section
+  id="{{ section_id }}"
+  class="partnership-form"
+  data-section-id="{{ section.id }}"
+  data-api-url="{{ section.settings.api_url | escape }}"
+  data-template-file="{{ template_file | escape }}"
+>
   <div class="partnership-form__inner">
-    {% form 'contact', id: form_id, class: 'partnership-form__form' %}
+    <form id="{{ form_id }}" class="partnership-form__form">
       <details
         class="partnership-form__disclosure"
-        {% if form.posted_successfully? or form.errors %}open{% endif %}
       >
         <summary class="partnership-form__summary" aria-controls="{{ panel_id }}">
           <h2 class="partnership-form__title">
@@ -201,26 +224,12 @@
             <div class="partnership-form__description rte">{{ section.settings.description }}</div>
           {%- endif -%}
 
-      <input type="hidden" name="contact[form_type]" value="Đề xuất hợp tác HELIOS">
+      <div class="partnership-form__status" role="status" tabindex="-1" hidden></div>
+      <div class="partnership-form__honeypot" aria-hidden="true">
+        <label for="PartnershipWebsite-{{ section.id }}">Website</label>
+        <input id="PartnershipWebsite-{{ section.id }}" name="company_website" type="text" tabindex="-1" autocomplete="off">
+      </div>
 
-      {%- if form.posted_successfully? -%}
-        <div class="partnership-form__status partnership-form__status--success" role="status" tabindex="-1">
-          {{ section.settings.success_message | escape }}
-        </div>
-      {%- endif -%}
-
-      {%- if form.errors -%}
-        <div class="partnership-form__status partnership-form__status--error" role="alert" tabindex="-1">
-          <p>{{ section.settings.error_message | escape }}</p>
-          <ul>
-            {%- for field in form.errors -%}
-              <li>{{ field | capitalize }}: {{ form.errors.messages[field] }}</li>
-            {%- endfor -%}
-          </ul>
-        </div>
-      {%- endif -%}
-
-      {%- unless form.posted_successfully? -%}
       <fieldset class="partnership-form__group">
         <legend class="partnership-form__legend">Thông tin liên hệ</legend>
         <div class="partnership-form__field">
@@ -231,8 +240,8 @@
             class="partnership-form__input"
             id="PartnershipEmail-{{ section.id }}"
             type="email"
-            name="contact[email]"
-            value="{% if form.email %}{{ form.email | escape }}{% elsif customer %}{{ customer.email | escape }}{% endif %}"
+            name="email"
+            value="{% if customer %}{{ customer.email | escape }}{% endif %}"
             autocomplete="email"
             aria-required="true"
             required
@@ -254,11 +263,11 @@
           <textarea
             class="partnership-form__textarea"
             id="PartnershipWhy-{{ section.id }}"
-            name="contact[body]"
+            name="reason"
             aria-describedby="PartnershipWhyHint-{{ section.id }}"
             aria-required="true"
             required
-          >{{ form.body | escape }}</textarea>
+          ></textarea>
         </div>
 
         <div class="partnership-form__field">
@@ -272,7 +281,7 @@
           <textarea
             class="partnership-form__textarea"
             id="PartnershipGoal-{{ section.id }}"
-            name="contact[goal_12_24_months]"
+            name="goal"
             aria-describedby="PartnershipGoalHint-{{ section.id }}"
             aria-required="true"
             required
@@ -290,7 +299,7 @@
           <textarea
             class="partnership-form__textarea"
             id="PartnershipSupport-{{ section.id }}"
-            name="contact[expected_support]"
+            name="expected_support"
             aria-describedby="PartnershipSupportHint-{{ section.id }}"
             aria-required="true"
             required
@@ -318,7 +327,7 @@
           <textarea
             class="partnership-form__textarea"
             id="PartnershipDocuments-{{ section.id }}"
-            name="contact[document_links]"
+            name="document_links"
             aria-describedby="PartnershipDocumentsHint-{{ section.id }}"
             placeholder="https://drive.google.com/..."
           ></textarea>
@@ -328,12 +337,75 @@
       <button class="button partnership-form__submit" type="submit">
         {{ section.settings.button_label | escape }}
       </button>
-      {%- endunless -%}
         </div>
       </details>
-    {% endform %}
+    </form>
   </div>
 </section>
+
+<script>
+  (() => {
+    const section = document.getElementById({{ section_id | json }});
+    if (!section || section.dataset.partnershipReady === 'true') return;
+    section.dataset.partnershipReady = 'true';
+
+    const form = section.querySelector('.partnership-form__form');
+    const submitButton = section.querySelector('.partnership-form__submit');
+    const status = section.querySelector('.partnership-form__status');
+    const successMessage = {{ section.settings.success_message | json }};
+    const errorMessage = {{ section.settings.error_message | json }};
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const apiUrl = section.dataset.apiUrl.trim();
+      const templateFile = section.dataset.templateFile.trim();
+      if (!apiUrl || !templateFile) {
+        showStatus(errorMessage + ' Thiếu cấu hình API.', true);
+        return;
+      }
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+      payload.section_id = section.dataset.sectionId;
+      payload.template_file = templateFile;
+      payload.page_url = window.location.href;
+
+      submitButton.disabled = true;
+      status.hidden = true;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || errorMessage);
+        }
+
+        form.reset();
+        showStatus(successMessage, false);
+      } catch (error) {
+        showStatus(error.message || errorMessage, true);
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
+    function showStatus(message, isError) {
+      status.textContent = message;
+      status.hidden = false;
+      status.classList.toggle('partnership-form__status--error', isError);
+      status.classList.toggle('partnership-form__status--success', !isError);
+      status.setAttribute('role', isError ? 'alert' : 'status');
+      status.focus();
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -379,6 +451,22 @@
       "id": "error_message",
       "label": "Error message",
       "default": "Chưa thể gửi thông tin. Vui lòng kiểm tra lại các trường bên dưới."
+    },
+    {
+      "type": "header",
+      "content": "Email API"
+    },
+    {
+      "type": "text",
+      "id": "recipient_email",
+      "label": "Recipient email",
+      "info": "Form của section này sẽ được gửi trực tiếp tới email này."
+    },
+    {
+      "type": "url",
+      "id": "api_url",
+      "label": "API URL",
+      "default": "https://helios-tier-pricing-api-h543.vercel.app/api/partnership"
     },
     {
       "type": "range",
