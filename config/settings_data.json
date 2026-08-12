@@ -1165,8 +1165,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      ".multi-level-nav > .tier-1 > ul > li:nth-child(2) a {background-color: #fab320; color: #111 !important;}"
-    ]
+    "custom_css": []
   }
 }
