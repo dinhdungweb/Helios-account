@@ -50,6 +50,7 @@
     },
     "rich_text_QtxW6q": {
       "type": "rich-text",
+      "disabled": true,
       "custom_css": [
         ".rte p:last-child {margin-top: 0;}"
       ],
