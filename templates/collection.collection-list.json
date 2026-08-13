@@ -23,6 +23,7 @@
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": true,
         "show_vendor": false,
+        "quick_links": "",
         "show_filter_counts": false,
         "show_filter_deadends": true,
         "ajax_products": true,
@@ -308,6 +309,7 @@
         },
         "image_KgcQq9": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "block_image": "shopify://shop_images/BANNER_SHOPEE_87879c28-9476-43e7-9f40-b63adc4f6c09.jpg",
             "block_link": "shopify://collections/ngo-hanh-ky",
@@ -428,6 +430,7 @@
         },
         "image_8HQHFp": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "block_image": "shopify://shop_images/mucollection-2.jpg",
             "block_link": "shopify://collections/helios-x-viet-devils",
