@@ -67,7 +67,7 @@
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 0,
-        "mobile_spacing": 30
+        "mobile_spacing": 40
       }
     },
     "media_text_block_DV4tJR": {
@@ -248,7 +248,7 @@
         "media_ratio": "3 / 4",
         "media_ratio_mobile": "3 / 4",
         "media_fit": "cover",
-        "media_gap": 16,
+        "media_gap": 12,
         "media_radius": 0,
         "video_autoplay": false,
         "video_loop": true,
@@ -301,7 +301,7 @@
         "side_padding": 40,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 0,
-        "side_padding_mobile": 15
+        "side_padding_mobile": 12
       }
     },
     "multi_media_with_text_qnjaPA": {
@@ -412,7 +412,7 @@
         "side_padding": 40,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "side_padding_mobile": 15
+        "side_padding_mobile": 12
       }
     },
     "rich_text_rbndCc": {
