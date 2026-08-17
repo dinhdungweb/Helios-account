@@ -11,10 +11,148 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
+    },
+    "background_video_responsive_8JzqBG": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": true,
+        "section_width": 1400,
+        "video_full_vh": false,
+        "video_size": "cover",
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Lil Wuyn.mp4",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "image_with_text_EEdQ8y": {
+      "type": "image-with-text",
+      "disabled": true,
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "Những cuộc gặp đã trở thành một phần của hành trình. ",
+        "title_size": 28,
+        "title_width": 12,
+        "text": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 60,
+        "button_style": "auto",
+        "image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
+        "image_width": 100,
+        "image_position": "left",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "media_text_block_DV4tJR": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "Những cuộc gặp đã trở thành một phần của hành trình. ",
+        "heading_tag": "h2",
+        "heading_size": 26,
+        "heading_alignment": "left",
+        "description": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.<br/><br/></p>",
+        "text_alignment": "left",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "image",
+        "media_position": "left",
+        "media_layout": "contained",
+        "media_image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
+        "media_image_mobile": "shopify://shop_images/lil_wuyn_x_helios-01.png",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "media_ratio": "auto",
+        "section_height": "auto",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "button_bg": "#ffffff",
+        "button_text_color": "#111111",
+        "button_bg_hover": "#eeeeee",
+        "button_text_color_hover": "#ffffff"
+      }
+    },
+    "featured_collection_YGpxHE": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "all-products",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": false,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "rich_text_qnGibe": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 60,
+        "button_label": "Xem tất cả",
+        "button_link": "shopify://collections/all-products",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "background_video_responsive_8JzqBG",
+    "image_with_text_EEdQ8y",
+    "media_text_block_DV4tJR",
+    "featured_collection_YGpxHE",
+    "rich_text_qnGibe"
   ]
 }
