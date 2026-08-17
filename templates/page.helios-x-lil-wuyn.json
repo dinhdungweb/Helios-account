@@ -427,6 +427,22 @@
         "color_text": ""
       }
     },
+    "custom_spacing_fGbbea": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 30,
+        "mobile_spacing": 20
+      }
+    },
+    "custom_spacing_KxgbM8": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 30,
+        "mobile_spacing": 20
+      }
+    },
     "video_gfhbgy": {
       "type": "video",
       "name": "Video",
@@ -458,6 +474,8 @@
     "multi_media_with_text_pQwcgY",
     "multi_media_with_text_qnjaPA",
     "rich_text_rbndCc",
-    "video_gfhbgy"
+    "custom_spacing_fGbbea",
+    "video_gfhbgy",
+    "custom_spacing_KxgbM8"
   ]
 }
