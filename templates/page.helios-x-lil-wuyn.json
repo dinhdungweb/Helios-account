@@ -150,6 +150,14 @@
         "color_text": ""
       }
     },
+    "custom_spacing_46R8JU": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
+      }
+    },
     "rich_text_XhpKLy": {
       "type": "rich-text",
       "name": "Rich text",
@@ -445,6 +453,7 @@
     "media_text_block_DV4tJR",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
+    "custom_spacing_46R8JU",
     "rich_text_XhpKLy",
     "multi_media_with_text_pQwcgY",
     "multi_media_with_text_qnjaPA",
