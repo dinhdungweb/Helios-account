@@ -277,9 +277,9 @@
         "padding_top": 64,
         "padding_bottom": 64,
         "side_padding": 40,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "side_padding_mobile": 15
+        "padding_top_mobile": 25,
+        "padding_bottom_mobile": 25,
+        "side_padding_mobile": 10
       }
     },
     "multi_media_with_text_qnjaPA": {
@@ -388,9 +388,9 @@
         "padding_top": 64,
         "padding_bottom": 64,
         "side_padding": 40,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "side_padding_mobile": 15
+        "padding_top_mobile": 25,
+        "padding_bottom_mobile": 25,
+        "side_padding_mobile": 10
       }
     },
     "rich_text_rbndCc": {
