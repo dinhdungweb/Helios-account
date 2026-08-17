@@ -62,6 +62,14 @@
         "color_text": ""
       }
     },
+    "custom_spacing_pWXUVM": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 0,
+        "mobile_spacing": 30
+      }
+    },
     "media_text_block_DV4tJR": {
       "type": "media-text-block",
       "name": "Media Text Block",
@@ -87,6 +95,9 @@
         "media_layout": "contained",
         "media_image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
         "media_image_mobile": "shopify://shop_images/lil_wuyn_x_helios-01.png",
+        "image_width_desktop": 55,
+        "image_width_mobile": 55,
+        "image_alignment": "center",
         "video_url": "",
         "video_url_mobile": "",
         "video_loop": true,
@@ -466,6 +477,7 @@
     "main",
     "background_video_responsive_8JzqBG",
     "image_with_text_EEdQ8y",
+    "custom_spacing_pWXUVM",
     "media_text_block_DV4tJR",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
