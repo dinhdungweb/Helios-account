@@ -71,7 +71,7 @@
         "heading_tag": "h2",
         "heading_size": 26,
         "heading_alignment": "left",
-        "description": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.<br/><br/></p>",
+        "description": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.</p>",
         "text_alignment": "left",
         "content_padding": 40,
         "button_label": "",
@@ -286,10 +286,10 @@
         "control_color": "#ffffff",
         "control_background": "#000000",
         "padding_top": 64,
-        "padding_bottom": 64,
+        "padding_bottom": 0,
         "side_padding": 40,
         "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
+        "padding_bottom_mobile": 0,
         "side_padding_mobile": 15
       }
     },
