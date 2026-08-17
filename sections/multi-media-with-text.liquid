@@ -117,17 +117,17 @@
             >
               {%- capture media_content -%}
                 {%- if block.settings.media_type == 'video' and block.settings.video != blank -%}
-                  <div class="mmt__video-wrap" data-mmt-video>
+                  <div class="mmt__video-wrap" data-mmt-video data-poster-time="{{ block.settings.poster_time }}">
                     <video
                       class="mmt__video"
                       playsinline
-                      preload="metadata"
+                      preload="{% if section.settings.video_autoplay %}metadata{% else %}auto{% endif %}"
+                      tabindex="0"
                       aria-label="{{ block_alt | escape }}"
                       {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
                       {% if section.settings.video_autoplay %}autoplay{% endif %}
                       {% if section.settings.video_loop %}loop{% endif %}
                       {% if section.settings.video_muted %}muted{% endif %}
-                      {% if section.settings.video_controls %}controls{% endif %}
                     >
                       {% # theme-check-disable RemoteAsset %}
                       {%- for source in block.settings.video.sources -%}
@@ -135,6 +135,18 @@
                       {%- endfor -%}
                       {% # theme-check-enable RemoteAsset %}
                     </video>
+
+                    {%- if block_image != blank -%}
+                      {{- block_image
+                        | image_url: width: 1600
+                        | image_tag:
+                          class: 'mmt__video-poster',
+                          widths: '360, 540, 720, 900, 1200, 1600',
+                          sizes: '(min-width: 750px) 42vw, 50vw',
+                          loading: 'lazy',
+                          alt: block_alt
+                      -}}
+                    {%- endif -%}
 
                     {%- if section.settings.video_autoplay == false and section.settings.video_controls -%}
                       <button class="mmt__video-play" type="button" data-mmt-video-play aria-label="Phát video">
@@ -454,6 +466,33 @@
     overflow: hidden;
   }
 
+  #MultiMediaText-{{ section.id }} .mmt__video {
+    position: relative;
+    z-index: 0;
+    {% if section.settings.video_autoplay == false and section.settings.video_controls %}
+      cursor: pointer;
+    {% endif %}
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__video-poster {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.media_fit }};
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 220ms ease, visibility 220ms ease;
+    pointer-events: none;
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__video-wrap.has-started .mmt__video-poster {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   #MultiMediaText-{{ section.id }} .mmt__image,
   #MultiMediaText-{{ section.id }} .mmt__video {
     object-fit: {{ section.settings.media_fit }};
@@ -673,18 +712,62 @@
       root.querySelectorAll('[data-mmt-video]').forEach((player) => {
         const video = player.querySelector('video');
         const playButton = player.querySelector('[data-mmt-video-play]');
-        if (!video || !playButton) return;
+        const posterImage = player.querySelector('.mmt__video-poster');
+        const posterTime = Number(player.dataset.posterTime) || 1;
+        if (!video) return;
 
-        const showPlayButton = () => player.classList.remove('is-playing');
-        const hidePlayButton = () => player.classList.add('is-playing');
+        const seekToPosterFrame = () => {
+          if (posterImage || !Number.isFinite(video.duration) || video.duration <= 0) return;
+          video.currentTime = Math.min(posterTime, Math.max(0, video.duration - 0.1));
+        };
 
-        playButton.addEventListener('click', () => {
-          video.play().catch(showPlayButton);
+        if (!posterImage) {
+          if (video.readyState >= 1) {
+            seekToPosterFrame();
+          } else {
+            video.addEventListener('loadedmetadata', seekToPosterFrame, { once: true });
+          }
+        }
+
+        const resetPlayer = () => {
+          player.classList.remove('is-playing', 'has-started');
+          seekToPosterFrame();
+        };
+
+        video.addEventListener('play', () => {
+          player.classList.add('has-started');
+          if (playButton) player.classList.add('is-playing');
         });
 
-        video.addEventListener('play', hidePlayButton);
+        video.addEventListener('ended', resetPlayer);
+
+        if (!playButton) {
+          if (!video.paused) player.classList.add('has-started');
+          return;
+        }
+
+        const showPlayButton = () => player.classList.remove('is-playing');
+        const togglePlayback = () => {
+          if (video.paused) {
+            video.play().catch(showPlayButton);
+          } else {
+            video.pause();
+          }
+        };
+
+        playButton.addEventListener('click', (event) => {
+          event.stopPropagation();
+          togglePlayback();
+        });
+
+        video.addEventListener('click', togglePlayback);
+        video.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            togglePlayback();
+          }
+        });
         video.addEventListener('pause', showPlayButton);
-        video.addEventListener('ended', showPlayButton);
       });
 
       const carousel = root.querySelector('[data-mmt-carousel]');
@@ -1142,7 +1225,7 @@
     {
       "type": "checkbox",
       "id": "video_controls",
-      "label": "Hiện điều khiển video",
+      "label": "Hiện nút play giữa video",
       "default": false
     },
     {
@@ -1630,7 +1713,18 @@
           "type": "image_picker",
           "id": "poster",
           "label": "Ảnh bìa video",
-          "info": "Không bắt buộc. Nếu để trống sẽ dùng ảnh xem trước của video."
+          "info": "Nếu để trống sẽ dùng thumbnail Shopify hoặc tự lấy một frame từ video."
+        },
+        {
+          "type": "range",
+          "id": "poster_time",
+          "min": 0.5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "s",
+          "label": "Thời điểm lấy frame poster",
+          "default": 1,
+          "info": "Chỉ dùng khi video không có ảnh bìa hoặc thumbnail Shopify."
         },
         {
           "type": "text",
