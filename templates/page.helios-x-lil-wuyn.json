@@ -178,6 +178,7 @@
           "settings": {
             "media_type": "video",
             "video": "shopify://files/videos/10 năm Helios x Lil Wuyn bản nhạc.mp4",
+            "poster_time": 1,
             "alt_text": "",
             "link": "",
             "link_label": "",
@@ -189,6 +190,7 @@
           "settings": {
             "media_type": "image",
             "image": "shopify://shop_images/DSC08668-Edit_copy.jpg",
+            "poster_time": 1,
             "alt_text": "",
             "link": "",
             "link_label": "",
@@ -200,6 +202,7 @@
           "settings": {
             "media_type": "image",
             "image": "shopify://shop_images/DSC08668-Edit_copy.jpg",
+            "poster_time": 1,
             "alt_text": "",
             "link": "",
             "link_label": "",
@@ -245,7 +248,7 @@
         "show_dots": false,
         "carousel_autoplay": false,
         "carousel_autoplay_speed": 5,
-        "carousel_transition_duration": 700,
+        "carousel_transition_duration": 1200,
         "controls_position": "right",
         "controls_spacing": 16,
         "arrow_size": 40,
