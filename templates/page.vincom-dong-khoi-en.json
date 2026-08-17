@@ -87,10 +87,129 @@
         "autoplay": true,
         "autoplay_speed": 7
       }
+    },
+    "rich_text_U7nYaG": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "A PIECE OF VIETNAM, IN SILVER.",
+        "title": "VINCOM DONG KHOI",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Discover HELIOS at Vincom Dong Khoi - where Vietnamese symbolism, handcrafted silver and contemporary men's style meet.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "rich_text_f66gzF": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "Why Helios",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p><strong>A Vietnamese identity, reimagined in silver</strong></p><p>Pieces inspired by traditional symbols such as the Lotus and the White Tiger, interpreted through HELIOS' distinctive design language.</p><p><strong>Craft you can see</strong></p><p>From surface textures to finishing details, each piece is designed to carry character, not simply decoration.</p><p><strong>Trusted by 200,000+ customers around the world</strong></p><p>HELIOS has grown with a community of more than 200,000 customers discovering and wearing its designs.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "rich_text_hfn9D3": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Address: Booth 18 - 19, Lot B1-38-48, B1 floor, Vincom Center Dong Khoi Shopping Mall, Saigon Ward, Ho Chi Minh City.</p><p>Opening time: 9:30am - 10:00pm</p><p>Contact: 0336 302 899</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "rich_text_HU3NBR": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "RECOMMENDED PRODUCTS",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "featured_collection_b4ApQx": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "lp-vincom-dong-khoi",
+        "layout": "carousel",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 3,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
     }
   },
   "order": [
     "main",
-    "slideshow_p88rnz"
+    "slideshow_p88rnz",
+    "rich_text_U7nYaG",
+    "rich_text_f66gzF",
+    "rich_text_hfn9D3",
+    "rich_text_HU3NBR",
+    "featured_collection_b4ApQx"
   ]
 }
