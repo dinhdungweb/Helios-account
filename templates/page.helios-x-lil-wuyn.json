@@ -126,6 +126,9 @@
     },
     "rich_text_qnGibe": {
       "type": "rich-text",
+      "custom_css": [
+        ".button-row {margin-top: 0em;}"
+      ],
       "name": "Rich text",
       "settings": {
         "subheading": "",
