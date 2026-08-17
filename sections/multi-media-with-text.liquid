@@ -104,6 +104,10 @@
               if block_image != blank
                 assign poster_url = block_image | image_url: width: 1600
               endif
+              assign render_media_link = false
+              if block.settings.link != blank and block.settings.media_type == 'image'
+                assign render_media_link = true
+              endif
             -%}
             <div
               class="mmt__slide"
@@ -113,23 +117,31 @@
             >
               {%- capture media_content -%}
                 {%- if block.settings.media_type == 'video' and block.settings.video != blank -%}
-                  <video
-                    class="mmt__video"
-                    playsinline
-                    preload="metadata"
-                    aria-label="{{ block_alt | escape }}"
-                    {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
-                    {% if section.settings.video_autoplay %}autoplay{% endif %}
-                    {% if section.settings.video_loop %}loop{% endif %}
-                    {% if section.settings.video_muted %}muted{% endif %}
-                    {% if section.settings.video_controls %}controls{% endif %}
-                  >
-                    {% # theme-check-disable RemoteAsset %}
-                    {%- for source in block.settings.video.sources -%}
-                      <source src="{{ source.url | escape }}" type="{{ source.mime_type | escape }}">
-                    {%- endfor -%}
-                    {% # theme-check-enable RemoteAsset %}
-                  </video>
+                  <div class="mmt__video-wrap" data-mmt-video>
+                    <video
+                      class="mmt__video"
+                      playsinline
+                      preload="metadata"
+                      aria-label="{{ block_alt | escape }}"
+                      {% if poster_url != blank %}poster="{{ poster_url }}"{% endif %}
+                      {% if section.settings.video_autoplay %}autoplay{% endif %}
+                      {% if section.settings.video_loop %}loop{% endif %}
+                      {% if section.settings.video_muted %}muted{% endif %}
+                      {% if section.settings.video_controls %}controls{% endif %}
+                    >
+                      {% # theme-check-disable RemoteAsset %}
+                      {%- for source in block.settings.video.sources -%}
+                        <source src="{{ source.url | escape }}" type="{{ source.mime_type | escape }}">
+                      {%- endfor -%}
+                      {% # theme-check-enable RemoteAsset %}
+                    </video>
+
+                    {%- if section.settings.video_autoplay == false and section.settings.video_controls -%}
+                      <button class="mmt__video-play" type="button" data-mmt-video-play aria-label="Phát video">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                      </button>
+                    {%- endif -%}
+                  </div>
                 {%- elsif block.settings.image != blank -%}
                   {{- block.settings.image
                     | image_url: width: 1800
@@ -147,7 +159,7 @@
                 {%- endif -%}
               {%- endcapture -%}
 
-              {%- if block.settings.link != blank -%}
+              {%- if render_media_link -%}
                 <a
                   class="mmt__media-link"
                   href="{{ block.settings.link }}"
@@ -428,12 +440,18 @@
   }
 
   #MultiMediaText-{{ section.id }} .mmt__image,
+  #MultiMediaText-{{ section.id }} .mmt__video-wrap,
   #MultiMediaText-{{ section.id }} .mmt__video,
   #MultiMediaText-{{ section.id }} .mmt__placeholder,
   #MultiMediaText-{{ section.id }} .mmt__placeholder-svg {
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__video-wrap {
+    position: relative;
+    overflow: hidden;
   }
 
   #MultiMediaText-{{ section.id }} .mmt__image,
@@ -443,6 +461,45 @@
 
   #MultiMediaText-{{ section.id }} .mmt__placeholder-svg {
     opacity: 0.35;
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.62);
+    box-shadow: 0 5px 22px rgba(0, 0, 0, 0.28);
+    transform: translate(-50%, -50%);
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+    cursor: pointer;
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__video-play:hover {
+    transform: translate(-50%, -50%) scale(1.07);
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__video-play svg {
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+    fill: currentColor;
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__video-wrap.is-playing .mmt__video-play {
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.86);
+    pointer-events: none;
   }
 
   #MultiMediaText-{{ section.id }} .mmt__arrows {
@@ -465,7 +522,7 @@
     width: {{ section.settings.arrow_size }}px;
     height: {{ section.settings.arrow_size }}px;
     padding: 0;
-    border: 1px solid {{ section.settings.control_color }};
+    border: 0;
     border-radius: {{ section.settings.arrow_radius }}%;
     color: {{ section.settings.control_color }};
     background: {{ section.settings.control_background }};
@@ -568,7 +625,17 @@
     }
 
     #MultiMediaText-{{ section.id }} [data-mmt-carousel] .mmt__slide {
-      flex-basis: 100%;
+      flex-basis: calc((100% - var(--mmt-media-gap)) / 2);
+    }
+
+    #MultiMediaText-{{ section.id }} .mmt__video-play {
+      width: 52px;
+      height: 52px;
+    }
+
+    #MultiMediaText-{{ section.id }} .mmt__video-play svg {
+      width: 24px;
+      height: 24px;
     }
 
     #MultiMediaText-{{ section.id }} .mmt__track--static {
@@ -601,6 +668,25 @@
     function initMultiMediaText(root) {
       if (!root || root.dataset.mmtInitialized === 'true') return;
 
+      root.dataset.mmtInitialized = 'true';
+
+      root.querySelectorAll('[data-mmt-video]').forEach((player) => {
+        const video = player.querySelector('video');
+        const playButton = player.querySelector('[data-mmt-video-play]');
+        if (!video || !playButton) return;
+
+        const showPlayButton = () => player.classList.remove('is-playing');
+        const hidePlayButton = () => player.classList.add('is-playing');
+
+        playButton.addEventListener('click', () => {
+          video.play().catch(showPlayButton);
+        });
+
+        video.addEventListener('play', hidePlayButton);
+        video.addEventListener('pause', showPlayButton);
+        video.addEventListener('ended', showPlayButton);
+      });
+
       const carousel = root.querySelector('[data-mmt-carousel]');
       if (!carousel) return;
 
@@ -615,9 +701,7 @@
       let autoplayTimer;
       let animationFrame;
 
-      root.dataset.mmtInitialized = 'true';
-
-      const perView = () => window.matchMedia('(max-width: 749px)').matches ? 1 : 2;
+      const perView = () => 2;
       const maxIndex = () => Math.max(0, slides.length - perView());
 
       function updateDots(index) {
