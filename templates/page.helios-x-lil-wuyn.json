@@ -442,8 +442,8 @@
       "type": "custom-spacing",
       "name": "Custom spacing",
       "settings": {
-        "desktop_spacing": 30,
-        "mobile_spacing": 20
+        "desktop_spacing": 55,
+        "mobile_spacing": 40
       }
     },
     "background_video_responsive_QyPyMN": {
@@ -473,8 +473,8 @@
       "type": "custom-spacing",
       "name": "Custom spacing",
       "settings": {
-        "desktop_spacing": 30,
-        "mobile_spacing": 20
+        "desktop_spacing": 55,
+        "mobile_spacing": 40
       }
     }
   },
