@@ -301,7 +301,7 @@
         "side_padding": 40,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 0,
-        "side_padding_mobile": 12
+        "side_padding_mobile": 10
       }
     },
     "multi_media_with_text_qnjaPA": {
@@ -412,7 +412,7 @@
         "side_padding": 40,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "side_padding_mobile": 12
+        "side_padding_mobile": 10
       }
     },
     "rich_text_rbndCc": {
