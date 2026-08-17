@@ -177,7 +177,7 @@
           "type": "media",
           "settings": {
             "media_type": "video",
-            "video": "shopify://files/videos/10 năm Helios x Lil Wuyn bản nhạc.mp4",
+            "video": "shopify://files/videos/LIL WYUN-_3.mp4",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -414,6 +414,23 @@
         "color_bg": "#222222",
         "color_text": ""
       }
+    },
+    "video_gfhbgy": {
+      "type": "video",
+      "name": "Video",
+      "settings": {
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "subheading": "",
+        "video_title": "Video",
+        "title_size": 60,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Pair text with a video to draw attention to an important detail of your brand or product line.</p>",
+        "enlarge_text": false,
+        "overlay_position": "position--hcenter position--vcenter",
+        "full_width": false,
+        "overlay_style_tint": true
+      }
     }
   },
   "order": [
@@ -426,6 +443,7 @@
     "rich_text_XhpKLy",
     "multi_media_with_text_pQwcgY",
     "multi_media_with_text_qnjaPA",
-    "rich_text_rbndCc"
+    "rich_text_rbndCc",
+    "video_gfhbgy"
   ]
 }
