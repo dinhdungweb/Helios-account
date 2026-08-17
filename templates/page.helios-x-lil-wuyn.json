@@ -168,6 +168,125 @@
         "color_bg": "#222222",
         "color_text": ""
       }
+    },
+    "multi_media_with_text_pQwcgY": {
+      "type": "multi-media-with-text",
+      "blocks": {
+        "media_fpDarz": {
+          "type": "media",
+          "settings": {
+            "media_type": "video",
+            "video": "shopify://files/videos/10 năm Helios x Lil Wuyn bản nhạc.mp4",
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_yGWcme": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/DSC08668-Edit_copy.jpg",
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_NWFJKd": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/DSC08668-Edit_copy.jpg",
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "media_fpDarz",
+        "media_yGWcme",
+        "media_NWFJKd"
+      ],
+      "name": "Multi media with text",
+      "settings": {
+        "eyebrow": "",
+        "heading": "HÀNH TRÌNH VẪN ĐANG TIẾP DIỄN",
+        "heading_tag": "h2",
+        "text": "<p>Mỗi thời điểm là một dấu mốc. Từ những lần đầu đồng hành đến những lần sau và hành trình tiếp theo.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_new_tab": false,
+        "media_position": "right",
+        "text_width": 40,
+        "text_alignment": "left",
+        "text_vertical_alignment": "center",
+        "text_max_width": 480,
+        "column_gap": 56,
+        "content_gap_mobile": 28,
+        "mobile_static_layout": "row",
+        "full_width": false,
+        "container_width": 1400,
+        "min_height": 520,
+        "media_ratio": "3 / 4",
+        "media_ratio_mobile": "3 / 4",
+        "media_fit": "cover",
+        "media_gap": 16,
+        "media_radius": 0,
+        "video_autoplay": true,
+        "video_loop": true,
+        "video_muted": true,
+        "video_controls": false,
+        "show_arrows": true,
+        "show_dots": false,
+        "carousel_autoplay": false,
+        "carousel_autoplay_speed": 5,
+        "controls_position": "right",
+        "controls_spacing": 16,
+        "arrow_size": 40,
+        "arrow_radius": 50,
+        "dot_size": 8,
+        "eyebrow_size": 13,
+        "eyebrow_weight": "700",
+        "eyebrow_transform": "uppercase",
+        "eyebrow_letter_spacing": 3,
+        "eyebrow_spacing": 12,
+        "heading_size": 28,
+        "heading_size_mobile": 24,
+        "heading_weight": "700",
+        "heading_line_height": 120,
+        "heading_letter_spacing": 0,
+        "heading_spacing": 16,
+        "body_size": 14,
+        "body_size_mobile": 14,
+        "body_line_height": 160,
+        "button_style": "solid",
+        "button_spacing": 24,
+        "button_size": 14,
+        "button_weight": "600",
+        "button_height": 44,
+        "button_horizontal_padding": 24,
+        "button_radius": 0,
+        "background_color": "#000000",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff",
+        "media_background": "#1b1b1b",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "button_border_color": "#ffffff",
+        "control_color": "#ffffff",
+        "control_background": "#000000",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "side_padding": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "side_padding_mobile": 20
+      }
     }
   },
   "order": [
@@ -177,6 +296,7 @@
     "media_text_block_DV4tJR",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
-    "rich_text_XhpKLy"
+    "rich_text_XhpKLy",
+    "multi_media_with_text_pQwcgY"
   ]
 }
