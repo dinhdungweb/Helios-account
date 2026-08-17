@@ -196,24 +196,11 @@
             "link_label": "",
             "new_tab": false
           }
-        },
-        "media_NWFJKd": {
-          "type": "media",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/DSC08668-Edit_copy.jpg",
-            "poster_time": 1,
-            "alt_text": "",
-            "link": "",
-            "link_label": "",
-            "new_tab": false
-          }
         }
       },
       "block_order": [
         "media_fpDarz",
-        "media_yGWcme",
-        "media_NWFJKd"
+        "media_yGWcme"
       ],
       "name": "Multi media with text",
       "settings": {
