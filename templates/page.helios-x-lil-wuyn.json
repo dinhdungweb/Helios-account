@@ -146,26 +146,27 @@
         "color_text": ""
       }
     },
-    "title_with_button_XK9Dnz": {
-      "type": "title-with-button",
-      "blocks": {
-        "button_pEpqbC": {
-          "type": "button",
-          "settings": {
-            "button_text": "Click Here",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "button_pEpqbC"
-      ],
-      "name": "Title with button",
+    "rich_text_XhpKLy": {
+      "type": "rich-text",
+      "name": "Rich text",
       "settings": {
-        "content_position": "right",
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p><em>Lấy cuộc sống làm mặt giấy, lấy trải nghiệm để vẽ nên mình.<br/>Có những nét đậm, có những vết xước<br/>Đi đủ lâu, tất cả đều thành dấu ấn.</em></p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
         "text_alignment": "center",
-        "heading": "",
-        "paragraph": "Lấy cuộc sống làm mặt giấy, lấy trải nghiệm để vẽ nên mình.\n<br>Có những nét đậm, có những vết xước\n<br>Đi đủ lâu, tất cả đều thành dấu ấn."
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "custom",
+        "color_bg": "#222222",
+        "color_text": ""
       }
     }
   },
@@ -176,6 +177,6 @@
     "media_text_block_DV4tJR",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
-    "title_with_button_XK9Dnz"
+    "rich_text_XhpKLy"
   ]
 }
