@@ -31,6 +31,8 @@
     --mtb-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     --mtb-content-padding: {{ section.settings.content_padding }}px;
     --mtb-section-height: {{ section.settings.section_height }};
+    --mtb-image-width-desktop: {{ section.settings.image_width_desktop }}%;
+    --mtb-image-width-mobile: {{ section.settings.image_width_mobile }}%;
   }
 {% endstyle %}
 
@@ -58,7 +60,7 @@
 
   <div class="mtb-container{% if section.settings.media_layout != 'full' %} wide-container page-width{% endif %}{% if layout_reverse %} mtb-container--reverse{% endif %}{% if section.settings.media_layout == 'full' %} mtb-container--full{% endif %}">
     {%- comment -%} ===== MEDIA COLUMN ===== {%- endcomment -%}
-    <div class="mtb-media">
+    <div class="mtb-media{% if section.settings.media_type == 'image' %} mtb-media--image mtb-media--image-{{ section.settings.image_alignment }}{% endif %}">
       {%- if section.settings.media_type == 'video' -%}
         {%- comment -%} === VIDEO === {%- endcomment -%}
 
@@ -359,6 +361,22 @@
     position: relative;
     overflow: hidden;
   }
+  .mtb-media--image .mtb-media__item {
+    width: var(--mtb-image-width-desktop, 100%);
+    max-width: 100%;
+  }
+  .mtb-media--image-left .mtb-media__item {
+    margin-left: 0;
+    margin-right: auto;
+  }
+  .mtb-media--image-center .mtb-media__item {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mtb-media--image-right .mtb-media__item {
+    margin-left: auto;
+    margin-right: 0;
+  }
   .mtb-media__item--mobile {
     display: none;
   }
@@ -576,6 +594,9 @@
     }
     .mtb-media__item--mobile {
       display: block;
+    }
+    .mtb-media--image .mtb-media__item {
+      width: var(--mtb-image-width-mobile, 100%);
     }
     /* Nếu không có mobile media riêng, hiện lại desktop */
     .mtb-media__item--desktop:only-child {
@@ -885,6 +906,43 @@
       "id": "media_image_mobile",
       "label": "Mobile Image / Video poster",
       "info": "Để trống sẽ dùng ảnh desktop"
+    },
+    {
+      "type": "header",
+      "content": "Image size"
+    },
+    {
+      "type": "range",
+      "id": "image_width_desktop",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image width desktop",
+      "default": 100,
+      "info": "Chỉ thay đổi kích thước ảnh, không áp dụng cho video."
+    },
+    {
+      "type": "range",
+      "id": "image_width_mobile",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image width mobile",
+      "default": 100,
+      "info": "Chỉ thay đổi kích thước ảnh trên mobile."
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "video",
