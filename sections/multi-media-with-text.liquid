@@ -46,6 +46,7 @@
   data-mmt-section
   data-autoplay="{{ section.settings.carousel_autoplay }}"
   data-autoplay-speed="{{ section.settings.carousel_autoplay_speed | times: 1000 }}"
+  data-transition-duration="{{ section.settings.carousel_transition_duration }}"
   aria-label="{{ section.settings.heading | default: 'Multi media with text' | strip_html | escape }}"
 >
   <div class="mmt__container{% if section.settings.full_width %} mmt__container--full{% endif %}">
@@ -76,12 +77,13 @@
     </div>
 
     <div class="mmt__media"{% if is_carousel %} data-mmt-carousel{% endif %}>
-      <div
-        id="MultiMediaViewport-{{ section.id }}"
-        class="mmt__viewport{% unless is_carousel %} mmt__viewport--static{% endunless %}"
-        {% if is_carousel %}tabindex="0" aria-roledescription="carousel"{% endif %}
-      >
-        <div class="mmt__track{% unless is_carousel %} mmt__track--static mmt__track--count-{{ media_count }}{% endunless %}" data-mmt-track>
+      <div class="mmt__carousel-frame">
+        <div
+          id="MultiMediaViewport-{{ section.id }}"
+          class="mmt__viewport{% unless is_carousel %} mmt__viewport--static{% endunless %}"
+          {% if is_carousel %}tabindex="0" aria-roledescription="carousel"{% endif %}
+        >
+          <div class="mmt__track{% unless is_carousel %} mmt__track--static mmt__track--count-{{ media_count }}{% endunless %}" data-mmt-track>
           {%- for block in section.blocks -%}
             {%- liquid
               assign block_image = block.settings.image
@@ -165,19 +167,20 @@
               </div>
             </div>
           {%- endfor -%}
+          </div>
         </div>
-      </div>
 
-      {%- if is_carousel and section.settings.show_arrows -%}
-        <div class="mmt__arrows mmt__arrows--{{ section.settings.controls_position }}">
-          <button class="mmt__arrow mmt__arrow--prev" type="button" data-mmt-prev aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="Media trước">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <button class="mmt__arrow mmt__arrow--next" type="button" data-mmt-next aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="Media tiếp theo">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
-          </button>
-        </div>
-      {%- endif -%}
+        {%- if is_carousel and section.settings.show_arrows -%}
+          <div class="mmt__arrows">
+            <button class="mmt__arrow mmt__arrow--prev" type="button" data-mmt-prev aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="Media trước">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="mmt__arrow mmt__arrow--next" type="button" data-mmt-next aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="Media tiếp theo">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
 
       {%- if is_carousel and section.settings.show_dots -%}
         <div class="mmt__dots mmt__dots--{{ section.settings.controls_position }}" data-mmt-dots aria-label="Chọn media">
@@ -359,11 +362,16 @@
     min-width: 0;
   }
 
+  #MultiMediaText-{{ section.id }} .mmt__carousel-frame {
+    position: relative;
+    min-width: 0;
+  }
+
   #MultiMediaText-{{ section.id }} .mmt__viewport {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     overscroll-behavior-x: contain;
@@ -375,6 +383,10 @@
 
   #MultiMediaText-{{ section.id }} .mmt__viewport--static {
     overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__viewport.is-animating {
     scroll-snap-type: none;
   }
 
@@ -434,21 +446,16 @@
   }
 
   #MultiMediaText-{{ section.id }} .mmt__arrows {
+    position: absolute;
+    top: 50%;
+    right: {{ section.settings.arrow_inset }}px;
+    left: {{ section.settings.arrow_inset }}px;
+    z-index: 3;
     display: flex;
-    gap: 8px;
-    margin-top: {{ section.settings.controls_spacing }}px;
-  }
-
-  #MultiMediaText-{{ section.id }} .mmt__arrows--left {
-    justify-content: flex-start;
-  }
-
-  #MultiMediaText-{{ section.id }} .mmt__arrows--center {
-    justify-content: center;
-  }
-
-  #MultiMediaText-{{ section.id }} .mmt__arrows--right {
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
   }
 
   #MultiMediaText-{{ section.id }} .mmt__arrow {
@@ -463,6 +470,18 @@
     color: {{ section.settings.control_color }};
     background: {{ section.settings.control_background }};
     cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+    transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+    pointer-events: auto;
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__arrow:hover {
+    opacity: 0.82;
+    transform: scale(1.06);
+  }
+
+  #MultiMediaText-{{ section.id }} .mmt__arrow:active {
+    transform: scale(0.94);
   }
 
   #MultiMediaText-{{ section.id }} .mmt__arrow svg {
@@ -594,6 +613,7 @@
       let activeIndex = 0;
       let scrollTimer;
       let autoplayTimer;
+      let animationFrame;
 
       root.dataset.mmtInitialized = 'true';
 
@@ -614,15 +634,65 @@
         });
       }
 
+      function stopScrollAnimation() {
+        if (animationFrame) {
+          window.cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        }
+        viewport.classList.remove('is-animating');
+      }
+
+      function animateScrollTo(targetLeft) {
+        stopScrollAnimation();
+
+        const startLeft = viewport.scrollLeft;
+        const distance = targetLeft - startLeft;
+        const duration = Number(root.dataset.transitionDuration) || 700;
+        const startTime = performance.now();
+
+        if (Math.abs(distance) < 1 || reduceMotion.matches || duration <= 0) {
+          viewport.scrollLeft = targetLeft;
+          return;
+        }
+
+        viewport.classList.add('is-animating');
+
+        function step(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+          viewport.scrollLeft = startLeft + (distance * eased);
+
+          if (progress < 1) {
+            animationFrame = window.requestAnimationFrame(step);
+          } else {
+            animationFrame = null;
+            viewport.classList.remove('is-animating');
+          }
+        }
+
+        animationFrame = window.requestAnimationFrame(step);
+      }
+
       function goTo(index, smooth = true) {
         const targetIndex = Math.max(0, Math.min(index, maxIndex()));
         const target = slides[targetIndex];
         if (!target) return;
         activeIndex = targetIndex;
-        viewport.scrollTo({
-          left: target.offsetLeft - viewport.offsetLeft,
-          behavior: smooth && !reduceMotion.matches ? 'smooth' : 'auto'
-        });
+        const firstSlideOffset = slides[0]?.offsetLeft || 0;
+        const targetLeft = Math.min(
+          target.offsetLeft - firstSlideOffset,
+          viewport.scrollWidth - viewport.clientWidth
+        );
+
+        if (smooth) {
+          animateScrollTo(targetLeft);
+        } else {
+          stopScrollAnimation();
+          viewport.scrollLeft = targetLeft;
+        }
         updateDots(activeIndex);
       }
 
@@ -672,10 +742,15 @@
       viewport.addEventListener('scroll', () => {
         window.clearTimeout(scrollTimer);
         scrollTimer = window.setTimeout(() => {
+          if (animationFrame) return;
           activeIndex = closestIndex();
           updateDots(activeIndex);
         }, 80);
       }, { passive: true });
+
+      viewport.addEventListener('pointerdown', stopScrollAnimation, { passive: true });
+      viewport.addEventListener('touchstart', stopScrollAnimation, { passive: true });
+      viewport.addEventListener('wheel', stopScrollAnimation, { passive: true });
 
       root.addEventListener('mouseenter', stopAutoplay);
       root.addEventListener('mouseleave', startAutoplay);
@@ -687,6 +762,7 @@
 
       root.mmtDestroy = () => {
         stopAutoplay();
+        stopScrollAnimation();
         window.clearTimeout(scrollTimer);
         window.removeEventListener('resize', onResize);
       };
@@ -1018,9 +1094,20 @@
       "default": 5
     },
     {
+      "type": "range",
+      "id": "carousel_transition_duration",
+      "min": 200,
+      "max": 1200,
+      "step": 50,
+      "unit": "ms",
+      "label": "Độ mượt chuyển slide",
+      "default": 700,
+      "info": "Giá trị lớn hơn sẽ tạo hiệu ứng chuyển chậm và mềm hơn."
+    },
+    {
       "type": "select",
       "id": "controls_position",
-      "label": "Vị trí điều hướng",
+      "label": "Vị trí chấm điều hướng",
       "default": "right",
       "options": [
         { "value": "left", "label": "Trái" },
@@ -1035,7 +1122,7 @@
       "max": 48,
       "step": 2,
       "unit": "px",
-      "label": "Khoảng cách điều hướng",
+      "label": "Khoảng cách phía trên chấm",
       "default": 16
     },
     {
@@ -1047,6 +1134,16 @@
       "unit": "px",
       "label": "Kích thước nút mũi tên",
       "default": 40
+    },
+    {
+      "type": "range",
+      "id": "arrow_inset",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Khoảng cách arrow với mép ảnh",
+      "default": 12
     },
     {
       "type": "range",
@@ -1414,10 +1511,10 @@
       "id": "side_padding_mobile",
       "min": 0,
       "max": 48,
-      "step": 2,
+      "step": 1,
       "unit": "px",
       "label": "Khoảng hai bên mobile",
-      "default": 20
+      "default": 15
     }
   ],
   "blocks": [
