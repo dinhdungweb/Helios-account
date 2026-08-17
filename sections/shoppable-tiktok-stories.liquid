@@ -1,0 +1,534 @@
+{{ 'shoppable-tiktok-stories.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading_font = section.settings.heading_font_family
+  if heading_font == blank
+    assign heading_font = 'inherit'
+  endif
+
+  assign body_font = section.settings.body_font_family
+  if body_font == blank
+    assign body_font = 'inherit'
+  endif
+-%}
+
+<section
+  id="ShoppableStories-{{ section.id }}"
+  class="sts sts--arrows-{{ section.settings.arrow_position }} sts--product-{{ section.settings.product_position }} sts--reveal-{{ section.settings.product_reveal }}{% if section.settings.full_width %} sts--full-width{% endif %}"
+  data-shoppable-stories
+  data-section-id="{{ section.id }}"
+  data-slides-desktop="{{ section.settings.slides_desktop }}"
+  data-slides-mobile="{{ section.settings.slides_mobile }}"
+  data-gap-desktop="{{ section.settings.gap_desktop }}"
+  data-gap-mobile="{{ section.settings.gap_mobile }}"
+  data-speed="{{ section.settings.transition_speed }}"
+  data-loop="{{ section.settings.slider_loop }}"
+  data-slider-autoplay="{{ section.settings.slider_autoplay }}"
+  data-slider-delay="{{ section.settings.slider_autoplay_delay | times: 1000 }}"
+  data-disable-on-interaction="{{ section.settings.disable_autoplay_on_interaction }}"
+  data-pause-on-hover="{{ section.settings.pause_on_hover }}"
+  data-touch="{{ section.settings.enable_swipe }}"
+  data-centered-desktop="{{ section.settings.centered_desktop }}"
+  data-centered-mobile="{{ section.settings.centered_mobile }}"
+  data-video-autoplay="{{ section.settings.video_autoplay }}"
+  data-video-mode="{{ section.settings.video_play_mode }}"
+  style="
+    --sts-background: {{ section.settings.background_color }};
+    --sts-text: {{ section.settings.text_color }};
+    --sts-heading: {{ section.settings.heading_color }};
+    --sts-accent: {{ section.settings.accent_color }};
+    --sts-container: {{ section.settings.max_width }}px;
+    --sts-padding-top: {{ section.settings.padding_top }}px;
+    --sts-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --sts-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --sts-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --sts-side-padding: {{ section.settings.side_padding }}px;
+    --sts-side-padding-mobile: {{ section.settings.side_padding_mobile }}px;
+    --sts-header-spacing: {{ section.settings.header_spacing }}px;
+    --sts-heading-size: {{ section.settings.heading_size }}px;
+    --sts-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --sts-heading-weight: {{ section.settings.heading_weight }};
+    --sts-heading-line-height: {{ section.settings.heading_line_height | divided_by: 100.0 }};
+    --sts-heading-letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+    --sts-heading-font: {{ heading_font }};
+    --sts-body-font: {{ body_font }};
+    --sts-card-radius: {{ section.settings.card_radius }}px;
+    --sts-card-border-width: {{ section.settings.card_border_width }}px;
+    --sts-card-border: {{ section.settings.card_border_color }};
+    --sts-card-background: {{ section.settings.card_background }};
+    --sts-overlay: {{ section.settings.overlay_color }};
+    --sts-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --sts-story-text: {{ section.settings.story_text_color }};
+    --sts-story-size: {{ section.settings.story_text_size }}px;
+    --sts-story-size-mobile: {{ section.settings.story_text_size_mobile }}px;
+    --sts-meta-size: {{ section.settings.meta_text_size }}px;
+    --sts-product-background: {{ section.settings.product_background }};
+    --sts-product-text: {{ section.settings.product_text_color }};
+    --sts-product-price: {{ section.settings.product_price_color }};
+    --sts-product-radius: {{ section.settings.product_radius }}px;
+    --sts-product-image-size: {{ section.settings.product_image_size }}px;
+    --sts-arrow-background: {{ section.settings.arrow_background }};
+    --sts-arrow-color: {{ section.settings.arrow_color }};
+    --sts-arrow-border: {{ section.settings.arrow_border_color }};
+    --sts-arrow-size: {{ section.settings.arrow_size }}px;
+    --sts-dot-color: {{ section.settings.dot_color }};
+    --sts-dot-active: {{ section.settings.dot_active_color }};
+    --sts-progress-track: {{ section.settings.progress_track_color }};
+    --sts-progress-color: {{ section.settings.progress_color }};
+  "
+  aria-label="{{ section.settings.heading | default: 'Shoppable stories' | strip_html | escape }}"
+>
+  <div class="sts__container">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.text != blank -%}
+      <header class="sts__header sts__header--{{ section.settings.header_alignment }}">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sts__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <{{ section.settings.heading_tag }} class="sts__heading">{{ section.settings.heading }}</{{ section.settings.heading_tag }}>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="sts__intro rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <div class="sts__slider-frame">
+      <div
+        id="ShoppableStoriesSlider-{{ section.id }}"
+        class="swiper-container sts__slider"
+        data-sts-slider
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="{{ section.settings.heading | default: 'Shoppable stories' | strip_html | escape }}"
+      >
+        <div class="swiper-wrapper sts__wrapper">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign story_video = block.settings.video
+              assign story_product = block.settings.product
+              assign story_poster = block.settings.poster
+              if story_poster == blank and story_video.preview_image != blank
+                assign story_poster = story_video.preview_image
+              endif
+
+              assign has_video = false
+              if story_video != blank or block.settings.video_url != blank
+                assign has_video = true
+              endif
+
+              assign media_alt = block.settings.alt_text
+              if media_alt == blank and story_poster.alt != blank
+                assign media_alt = story_poster.alt
+              endif
+              if media_alt == blank
+                assign media_alt = block.settings.caption | default: section.settings.heading | strip_html
+              endif
+
+              assign product_button_label = block.settings.product_button_label
+              if product_button_label == blank
+                assign product_button_label = section.settings.product_button_label
+              endif
+
+              assign has_meta = false
+              if block.settings.author != blank or block.settings.date != blank or block.settings.meta != blank
+                assign has_meta = true
+              endif
+            -%}
+
+            <article
+              class="swiper-slide sts__slide"
+              data-sts-slide
+              data-block-id="{{ block.id }}"
+              data-slide-index="{{ forloop.index0 }}"
+              role="group"
+              aria-label="{{ forloop.index }} / {{ section.blocks.size }}"
+              {{ block.shopify_attributes }}
+              style="
+                --sts-block-overlay: {{ block.settings.overlay_color }};
+                --sts-block-overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+                --sts-block-text: {{ block.settings.text_color }};
+              "
+            >
+              <div class="sts__card sts__card--desktop-{{ section.settings.card_ratio_desktop }} sts__card--mobile-{{ section.settings.card_ratio_mobile }} sts__media-position--{{ block.settings.media_position }}{% if block.settings.use_custom_overlay %} sts__card--custom-overlay{% endif %}">
+                <div class="sts__media">
+                  {%- if has_video -%}
+                    <video
+                      class="sts__video"
+                      data-sts-video
+                      playsinline
+                      preload="{{ section.settings.video_preload }}"
+                      {% if section.settings.video_loop %}loop{% endif %}
+                      {% if section.settings.video_muted %}muted{% endif %}
+                      {% if story_poster != blank %}poster="{{ story_poster | image_url: width: 1200 }}"{% endif %}
+                      aria-label="{{ media_alt | escape }}"
+                    >
+                      {%- if story_video != blank -%}
+                        {% # theme-check-disable RemoteAsset %}
+                        {%- for source in story_video.sources -%}
+                          <source src="{{ source.url | escape }}" type="{{ source.mime_type | escape }}">
+                        {%- endfor -%}
+                        {% # theme-check-enable RemoteAsset %}
+                      {%- else -%}
+                        {% # theme-check-disable RemoteAsset %}
+                        <source src="{{ block.settings.video_url | escape }}" type="video/mp4">
+                        {% # theme-check-enable RemoteAsset %}
+                      {%- endif -%}
+                    </video>
+                  {%- elsif story_poster != blank -%}
+                    {{- story_poster
+                      | image_url: width: 1400
+                      | image_tag:
+                        class: 'sts__poster',
+                        widths: '320, 480, 640, 800, 1000, 1200, 1400',
+                        sizes: '(max-width: 749px) 75vw, 25vw',
+                        loading: 'lazy',
+                        alt: media_alt
+                    -}}
+                  {%- else -%}
+                    <div class="sts__placeholder">
+                      {{ 'image' | placeholder_svg_tag: 'sts__placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <span class="sts__overlay" aria-hidden="true"></span>
+
+                <div class="sts__top-controls">
+                  {%- if block.settings.badge != blank -%}
+                    <span class="sts__badge">{{ block.settings.badge | escape }}</span>
+                  {%- else -%}
+                    <span></span>
+                  {%- endif -%}
+
+                  <div class="sts__video-actions">
+                    {%- if has_video and section.settings.show_mute_button -%}
+                      <button class="sts__media-button sts__mute-button" type="button" data-sts-mute aria-label="Bật âm thanh">
+                        <svg class="sts__icon sts__icon--muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm11.5 3a3.5 3.5 0 0 0-1.1-2.55v5.1A3.5 3.5 0 0 0 15.5 12Zm2.5 0c0 1.6-.7 3.04-1.8 4.02l1.42 1.42A7.37 7.37 0 0 0 20 12a7.37 7.37 0 0 0-2.38-5.44L16.2 7.98A5.37 5.37 0 0 1 18 12Z"/><path class="sts__mute-slash" d="m3.3 2 18 18-1.3 1.3-18-18L3.3 2Z"/></svg>
+                      </button>
+                    {%- endif -%}
+
+                    {%- if story_product != blank and section.settings.show_product_card and section.settings.product_reveal == 'toggle' -%}
+                      <button class="sts__media-button sts__shop-toggle" type="button" data-sts-product-toggle aria-expanded="false" aria-label="Xem sản phẩm">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7V6a5 5 0 0 1 10 0v1h3l-1 14H5L4 7h3Zm2 0h6V6a3 3 0 0 0-6 0v1Zm-2.85 2 .72 10h10.26l.72-10H17v2h-2V9H9v2H7V9h-.85Z"/></svg>
+                      </button>
+                    {%- endif -%}
+                  </div>
+                </div>
+
+                {%- if has_video and section.settings.show_play_button -%}
+                  <button class="sts__play-button" type="button" data-sts-play aria-label="Phát video">
+                    <svg class="sts__play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
+                    <svg class="sts__pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7V5Zm6 0h4v14h-4V5Z"/></svg>
+                  </button>
+                {%- endif -%}
+
+                <div class="sts__content">
+                  {%- if section.settings.show_story_text and block.settings.label != blank -%}
+                    <p class="sts__label">{{ block.settings.label | escape }}</p>
+                  {%- endif -%}
+
+                  {%- if section.settings.show_story_text and block.settings.caption != blank -%}
+                    <h3 class="sts__caption">{{ block.settings.caption }}</h3>
+                  {%- endif -%}
+
+                  {%- if section.settings.show_story_text and has_meta -%}
+                    <div class="sts__meta">
+                      {%- if block.settings.author != blank -%}<span>{{ block.settings.author | escape }}</span>{%- endif -%}
+                      {%- if block.settings.date != blank -%}<span>{{ block.settings.date | escape }}</span>{%- endif -%}
+                      {%- if block.settings.meta != blank -%}<span>{{ block.settings.meta | escape }}</span>{%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if story_product != blank and section.settings.show_product_card -%}
+                    <a class="sts__product" href="{{ story_product.url }}" aria-label="{{ story_product.title | escape }}">
+                      {%- if section.settings.show_product_image and story_product.featured_image != blank -%}
+                        {{- story_product.featured_image
+                          | image_url: width: 240
+                          | image_tag:
+                            class: 'sts__product-image',
+                            widths: '80, 120, 160, 240',
+                            sizes: '80px',
+                            loading: 'lazy',
+                            alt: story_product.title
+                        -}}
+                      {%- endif -%}
+
+                      <span class="sts__product-info">
+                        <span class="sts__product-title">{{ story_product.title }}</span>
+                        {%- if section.settings.show_product_price -%}
+                          <span class="sts__product-price">
+                            {{ story_product.price | money }}
+                            {%- if story_product.compare_at_price > story_product.price -%}
+                              <s>{{ story_product.compare_at_price | money }}</s>
+                            {%- endif -%}
+                          </span>
+                        {%- endif -%}
+                      </span>
+
+                      {%- if product_button_label != blank -%}
+                        <span class="sts__product-cta">{{ product_button_label | escape }}</span>
+                      {%- endif -%}
+                    </a>
+                  {%- endif -%}
+
+                  {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+                    <a class="sts__story-link" href="{{ block.settings.link }}"{% if block.settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                      {{ block.settings.link_label | escape }}
+                    </a>
+                  {%- endif -%}
+                </div>
+              </div>
+            </article>
+          {%- else -%}
+            {%- for index in (1..4) -%}
+              <article class="swiper-slide sts__slide" role="group" aria-label="{{ index }} / 4">
+                <div class="sts__card sts__card--desktop-{{ section.settings.card_ratio_desktop }} sts__card--mobile-{{ section.settings.card_ratio_mobile }}">
+                  <div class="sts__placeholder">{{ 'image' | placeholder_svg_tag: 'sts__placeholder-svg' }}</div>
+                </div>
+              </article>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.show_dots -%}
+          <div class="swiper-pagination sts__pagination" data-sts-pagination></div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_arrows -%}
+        <div class="sts__arrows" data-sts-arrows>
+          <button class="sts__arrow sts__arrow--prev" type="button" data-sts-prev aria-label="Story trước">
+            {% render 'svg-chevron-left' %}
+          </button>
+          <button class="sts__arrow sts__arrow--next" type="button" data-sts-next aria-label="Story tiếp theo">
+            {% render 'svg-chevron-right' %}
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_progress -%}
+      <div class="sts__progress" aria-hidden="true"><span data-sts-progress></span></div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script src="{{ 'shoppable-tiktok-stories.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Shoppable TikTok Story",
+  "tag": "section",
+  "class": "section-shoppable-stories",
+  "max_blocks": 20,
+  "settings": [
+    { "type": "header", "content": "Nội dung đầu section" },
+    { "type": "text", "id": "eyebrow", "label": "Dòng phụ", "default": "REAL STORIES" },
+    { "type": "inline_richtext", "id": "heading", "label": "Tiêu đề", "default": "CUSTOMER EXPERIENCE" },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Thẻ tiêu đề",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    { "type": "richtext", "id": "text", "label": "Mô tả" },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Căn nội dung",
+      "options": [
+        { "value": "left", "label": "Trái" },
+        { "value": "center", "label": "Giữa" },
+        { "value": "right", "label": "Phải" }
+      ],
+      "default": "left"
+    },
+
+    { "type": "header", "content": "Bố cục section" },
+    { "type": "checkbox", "id": "full_width", "label": "Toàn chiều rộng", "default": false },
+    { "type": "range", "id": "max_width", "label": "Chiều rộng tối đa", "min": 900, "max": 1800, "step": 50, "unit": "px", "default": 1400 },
+    { "type": "range", "id": "side_padding", "label": "Padding hai bên desktop", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 40 },
+    { "type": "range", "id": "side_padding_mobile", "label": "Padding hai bên mobile", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 10 },
+    { "type": "range", "id": "padding_top", "label": "Padding trên desktop", "min": 0, "max": 160, "step": 5, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding dưới desktop", "min": 0, "max": 160, "step": 5, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Padding trên mobile", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Padding dưới mobile", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 40 },
+    { "type": "range", "id": "header_spacing", "label": "Khoảng cách tiêu đề và slider", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 28 },
+
+    { "type": "header", "content": "Kiểu chữ" },
+    { "type": "text", "id": "heading_font_family", "label": "Font tiêu đề tùy chỉnh", "info": "Ví dụ: Arial, sans-serif. Bỏ trống để dùng font theme." },
+    { "type": "text", "id": "body_font_family", "label": "Font nội dung tùy chỉnh", "info": "Bỏ trống để dùng font theme." },
+    { "type": "range", "id": "heading_size", "label": "Cỡ tiêu đề desktop", "min": 18, "max": 80, "step": 2, "unit": "px", "default": 32 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Cỡ tiêu đề mobile", "min": 16, "max": 50, "step": 2, "unit": "px", "default": 26 },
+    { "type": "select", "id": "heading_weight", "label": "Độ đậm tiêu đề", "options": [
+      { "value": "400", "label": "Regular" },
+      { "value": "500", "label": "Medium" },
+      { "value": "600", "label": "Semi bold" },
+      { "value": "700", "label": "Bold" },
+      { "value": "800", "label": "Extra bold" }
+    ], "default": "700" },
+    { "type": "range", "id": "heading_line_height", "label": "Line-height tiêu đề", "min": 90, "max": 160, "step": 5, "unit": "%", "default": 120 },
+    { "type": "range", "id": "heading_letter_spacing", "label": "Khoảng cách chữ tiêu đề", "min": 0, "max": 10, "step": 1, "unit": "px", "default": 0 },
+
+    { "type": "header", "content": "Màu sắc" },
+    { "type": "color", "id": "background_color", "label": "Màu nền section", "default": "#101010" },
+    { "type": "color", "id": "heading_color", "label": "Màu tiêu đề", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Màu mô tả", "default": "#d1d1d1" },
+    { "type": "color", "id": "accent_color", "label": "Màu nhấn", "default": "#ffffff" },
+
+    { "type": "header", "content": "Cấu hình slider" },
+    { "type": "range", "id": "slides_desktop", "label": "Số story hiển thị desktop", "min": 1, "max": 6, "step": 0.1, "default": 4.2 },
+    { "type": "range", "id": "slides_mobile", "label": "Số story hiển thị mobile", "min": 1, "max": 2.5, "step": 0.1, "default": 1.35 },
+    { "type": "range", "id": "gap_desktop", "label": "Khoảng cách story desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "gap_mobile", "label": "Khoảng cách story mobile", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 10 },
+    { "type": "checkbox", "id": "centered_desktop", "label": "Căn giữa slide desktop", "default": false },
+    { "type": "checkbox", "id": "centered_mobile", "label": "Căn giữa slide mobile", "default": false },
+    { "type": "checkbox", "id": "enable_swipe", "label": "Cho phép kéo/vuốt", "default": true },
+    { "type": "checkbox", "id": "slider_loop", "label": "Lặp vô hạn", "default": true },
+    { "type": "range", "id": "transition_speed", "label": "Thời gian chuyển slide", "min": 150, "max": 1500, "step": 50, "unit": "ms", "default": 550 },
+    { "type": "checkbox", "id": "slider_autoplay", "label": "Tự chuyển slide", "default": false },
+    { "type": "range", "id": "slider_autoplay_delay", "label": "Thời gian chờ autoplay", "min": 2, "max": 12, "step": 1, "unit": "s", "default": 5 },
+    { "type": "checkbox", "id": "disable_autoplay_on_interaction", "label": "Dừng autoplay sau khi tương tác", "default": false },
+    { "type": "checkbox", "id": "pause_on_hover", "label": "Dừng autoplay khi hover", "default": true },
+    { "type": "checkbox", "id": "show_arrows", "label": "Hiện nút mũi tên", "default": true },
+    { "type": "select", "id": "arrow_position", "label": "Vị trí mũi tên", "options": [
+      { "value": "overlay", "label": "Nằm trên story" },
+      { "value": "below", "label": "Nằm dưới slider" }
+    ], "default": "overlay" },
+    { "type": "checkbox", "id": "show_dots", "label": "Hiện dots", "default": false },
+    { "type": "checkbox", "id": "show_progress", "label": "Hiện thanh tiến trình", "default": true },
+
+    { "type": "header", "content": "Kiểu dáng story" },
+    { "type": "select", "id": "card_ratio_desktop", "label": "Tỷ lệ story desktop", "options": [
+      { "value": "9x16", "label": "9:16" },
+      { "value": "4x5", "label": "4:5" },
+      { "value": "3x4", "label": "3:4" },
+      { "value": "1x1", "label": "1:1" }
+    ], "default": "9x16" },
+    { "type": "select", "id": "card_ratio_mobile", "label": "Tỷ lệ story mobile", "options": [
+      { "value": "9x16", "label": "9:16" },
+      { "value": "4x5", "label": "4:5" },
+      { "value": "3x4", "label": "3:4" },
+      { "value": "1x1", "label": "1:1" }
+    ], "default": "9x16" },
+    { "type": "range", "id": "card_radius", "label": "Bo góc story", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 4 },
+    { "type": "range", "id": "card_border_width", "label": "Độ dày viền", "min": 0, "max": 6, "step": 1, "unit": "px", "default": 0 },
+    { "type": "color", "id": "card_border_color", "label": "Màu viền", "default": "#ffffff" },
+    { "type": "color", "id": "card_background", "label": "Màu nền story", "default": "#1a1a1a" },
+    { "type": "color", "id": "overlay_color", "label": "Màu phủ mặc định", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Độ đậm lớp phủ", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 35 },
+
+    { "type": "header", "content": "Video" },
+    { "type": "checkbox", "id": "video_autoplay", "label": "Tự phát video", "default": true },
+    { "type": "select", "id": "video_play_mode", "label": "Video tự phát", "options": [
+      { "value": "active", "label": "Chỉ slide active" },
+      { "value": "visible", "label": "Tất cả slide đang thấy" },
+      { "value": "all", "label": "Tất cả video" }
+    ], "default": "visible" },
+    { "type": "checkbox", "id": "video_loop", "label": "Lặp video", "default": true },
+    { "type": "checkbox", "id": "video_muted", "label": "Tắt tiếng mặc định", "default": true, "info": "Nên bật để autoplay hoạt động trên trình duyệt." },
+    { "type": "select", "id": "video_preload", "label": "Tải trước video", "options": [
+      { "value": "none", "label": "Không tải trước" },
+      { "value": "metadata", "label": "Chỉ metadata" },
+      { "value": "auto", "label": "Tự động" }
+    ], "default": "metadata" },
+    { "type": "checkbox", "id": "show_play_button", "label": "Hiện nút phát/tạm dừng", "default": true },
+    { "type": "checkbox", "id": "show_mute_button", "label": "Hiện nút âm thanh", "default": true },
+
+    { "type": "header", "content": "Nội dung trên story" },
+    { "type": "checkbox", "id": "show_story_text", "label": "Hiện caption và meta", "default": true },
+    { "type": "color", "id": "story_text_color", "label": "Màu chữ story", "default": "#ffffff" },
+    { "type": "range", "id": "story_text_size", "label": "Cỡ caption desktop", "min": 12, "max": 30, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "story_text_size_mobile", "label": "Cỡ caption mobile", "min": 12, "max": 24, "step": 1, "unit": "px", "default": 15 },
+    { "type": "range", "id": "meta_text_size", "label": "Cỡ chữ meta", "min": 9, "max": 18, "step": 1, "unit": "px", "default": 11 },
+
+    { "type": "header", "content": "Sản phẩm shoppable" },
+    { "type": "checkbox", "id": "show_product_card", "label": "Hiện thẻ sản phẩm", "default": true },
+    { "type": "select", "id": "product_reveal", "label": "Cách hiện sản phẩm", "options": [
+      { "value": "always", "label": "Luôn hiển thị" },
+      { "value": "hover", "label": "Hiện khi hover" },
+      { "value": "toggle", "label": "Mở bằng nút shopping" }
+    ], "default": "always" },
+    { "type": "select", "id": "product_position", "label": "Vị trí sản phẩm", "options": [
+      { "value": "bottom", "label": "Dưới" },
+      { "value": "top", "label": "Trên" }
+    ], "default": "bottom" },
+    { "type": "checkbox", "id": "show_product_image", "label": "Hiện ảnh sản phẩm", "default": true },
+    { "type": "checkbox", "id": "show_product_price", "label": "Hiện giá sản phẩm", "default": true },
+    { "type": "text", "id": "product_button_label", "label": "Nhãn nút sản phẩm", "default": "MUA NGAY" },
+    { "type": "color", "id": "product_background", "label": "Nền thẻ sản phẩm", "default": "#ffffff" },
+    { "type": "color", "id": "product_text_color", "label": "Màu tên sản phẩm", "default": "#111111" },
+    { "type": "color", "id": "product_price_color", "label": "Màu giá", "default": "#555555" },
+    { "type": "range", "id": "product_radius", "label": "Bo góc thẻ sản phẩm", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 8 },
+    { "type": "range", "id": "product_image_size", "label": "Kích thước ảnh sản phẩm", "min": 40, "max": 100, "step": 5, "unit": "px", "default": 60 },
+
+    { "type": "header", "content": "Nút điều hướng" },
+    { "type": "range", "id": "arrow_size", "label": "Kích thước mũi tên", "min": 32, "max": 70, "step": 2, "unit": "px", "default": 44 },
+    { "type": "color", "id": "arrow_background", "label": "Nền mũi tên", "default": "#000000" },
+    { "type": "color", "id": "arrow_color", "label": "Màu icon", "default": "#ffffff" },
+    { "type": "color", "id": "arrow_border_color", "label": "Màu viền mũi tên", "default": "#333333" },
+    { "type": "color", "id": "dot_color", "label": "Màu dot", "default": "#666666" },
+    { "type": "color", "id": "dot_active_color", "label": "Màu dot active", "default": "#ffffff" },
+    { "type": "color", "id": "progress_track_color", "label": "Màu nền tiến trình", "default": "#333333" },
+    { "type": "color", "id": "progress_color", "label": "Màu tiến trình", "default": "#ffffff" }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "TikTok story",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Video Shopify" },
+        { "type": "url", "id": "video_url", "label": "Hoặc URL MP4", "info": "Chỉ dùng khi không chọn Video Shopify." },
+        { "type": "image_picker", "id": "poster", "label": "Ảnh poster" },
+        { "type": "text", "id": "alt_text", "label": "Alt text" },
+        { "type": "select", "id": "media_position", "label": "Vị trí media", "options": [
+          { "value": "top", "label": "Trên" },
+          { "value": "center", "label": "Giữa" },
+          { "value": "bottom", "label": "Dưới" }
+        ], "default": "center" },
+
+        { "type": "header", "content": "Nội dung story" },
+        { "type": "text", "id": "badge", "label": "Badge góc trên", "default": "NEW" },
+        { "type": "text", "id": "label", "label": "Dòng nhỏ", "default": "CUSTOMER STORY" },
+        { "type": "inline_richtext", "id": "caption", "label": "Caption", "default": "Jewellery hunting with HELIOS" },
+        { "type": "text", "id": "author", "label": "Tài khoản / tác giả", "default": "@helios" },
+        { "type": "text", "id": "date", "label": "Ngày đăng" },
+        { "type": "text", "id": "meta", "label": "Địa điểm / thông tin phụ" },
+        { "type": "text", "id": "link_label", "label": "Nhãn link story" },
+        { "type": "url", "id": "link", "label": "Link story" },
+        { "type": "checkbox", "id": "open_new_tab", "label": "Mở link ở tab mới", "default": false },
+
+        { "type": "header", "content": "Sản phẩm" },
+        { "type": "product", "id": "product", "label": "Sản phẩm gắn với story" },
+        { "type": "text", "id": "product_button_label", "label": "Nhãn nút riêng", "info": "Bỏ trống để dùng nhãn chung của section." },
+
+        { "type": "header", "content": "Màu riêng cho story" },
+        { "type": "checkbox", "id": "use_custom_overlay", "label": "Dùng lớp phủ riêng", "default": false },
+        { "type": "color", "id": "overlay_color", "label": "Màu phủ riêng", "default": "#000000" },
+        { "type": "range", "id": "overlay_opacity", "label": "Độ đậm phủ riêng", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 35 },
+        { "type": "color", "id": "text_color", "label": "Màu chữ riêng", "default": "#ffffff" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shoppable TikTok Story",
+      "blocks": [
+        { "type": "story" },
+        { "type": "story" },
+        { "type": "story" },
+        { "type": "story" },
+        { "type": "story" }
+      ]
+    }
+  ]
+}
+{% endschema %}
