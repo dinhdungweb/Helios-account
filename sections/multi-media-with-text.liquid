@@ -28,9 +28,9 @@
     --mmt-body-size: {{ section.settings.body_size }}px;
     --mmt-body-size-mobile: {{ section.settings.body_size_mobile }}px;
     --mmt-section-padding-top: {{ section.settings.padding_top }}px;
-    --mmt-section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --mmt-section-padding-bottom: {% if section.settings.remove_bottom_spacing %}0px{% else %}{{ section.settings.padding_bottom }}px{% endif %};
     --mmt-section-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
-    --mmt-section-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --mmt-section-padding-bottom-mobile: {% if section.settings.remove_bottom_spacing %}0px{% else %}{{ section.settings.padding_bottom_mobile }}px{% endif %};
     --mmt-side-padding: {{ section.settings.side_padding }}px;
     --mmt-side-padding-mobile: {{ section.settings.side_padding_mobile }}px;
     --mmt-text-max-width: {{ section.settings.text_max_width }}px;
@@ -1622,6 +1622,13 @@
     {
       "type": "header",
       "content": "Khoảng cách section"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_bottom_spacing",
+      "label": "Remove bottom spacing",
+      "default": false,
+      "info": "Đưa padding dưới về 0px trên cả desktop và mobile."
     },
     {
       "type": "range",
