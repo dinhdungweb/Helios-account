@@ -73,7 +73,6 @@
     },
     "rich_text_9MzYLe": {
       "type": "rich-text",
-      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -101,8 +100,6 @@
         "image_hDPt68": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/banner_web-05.jpg",
-            "mobile_image": "shopify://shop_images/banner_web-14.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -120,6 +117,7 @@
       "block_order": [
         "image_hDPt68"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
