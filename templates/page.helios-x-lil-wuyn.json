@@ -359,7 +359,7 @@
         "media_ratio": "3 / 4",
         "media_ratio_mobile": "3 / 4",
         "media_fit": "cover",
-        "media_gap": 16,
+        "media_gap": 12,
         "media_radius": 0,
         "video_autoplay": false,
         "video_loop": true,
