@@ -94,7 +94,7 @@
       "settings": {
         "subheading": "A PIECE OF VIETNAM, IN SILVER.",
         "title": "VINCOM DONG KHOI",
-        "title_size": 48,
+        "title_size": 36,
         "title_width": 12,
         "heading_h1": false,
         "text": "<p>Discover HELIOS at Vincom Dong Khoi - where Vietnamese symbolism, handcrafted silver and contemporary men's style meet.</p>",
@@ -117,7 +117,7 @@
       "settings": {
         "subheading": "",
         "title": "Why Helios",
-        "title_size": 48,
+        "title_size": 26,
         "title_width": 12,
         "heading_h1": false,
         "text": "<p><strong>A Vietnamese identity, reimagined in silver</strong></p><p>Pieces inspired by traditional symbols such as the Lotus and the White Tiger, interpreted through HELIOS' distinctive design language.</p><p><strong>Craft you can see</strong></p><p>From surface textures to finishing details, each piece is designed to carry character, not simply decoration.</p><p><strong>Trusted by 200,000+ customers around the world</strong></p><p>HELIOS has grown with a community of more than 200,000 customers discovering and wearing its designs.</p>",
@@ -163,8 +163,8 @@
       "settings": {
         "subheading": "",
         "title": "RECOMMENDED PRODUCTS",
-        "title_size": 48,
-        "title_width": 12,
+        "title_size": 26,
+        "title_width": 40,
         "heading_h1": false,
         "text": "",
         "image_width": 120,
