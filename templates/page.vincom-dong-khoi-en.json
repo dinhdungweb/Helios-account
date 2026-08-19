@@ -199,7 +199,7 @@
         "mobile_slides": 1.4,
         "mobile_gap": 10,
         "transition_speed": 550,
-        "show_arrows": false,
+        "show_arrows": true,
         "show_mobile_arrows": false,
         "show_dots": false,
         "mobile_side_opacity": 65,
