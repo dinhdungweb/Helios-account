@@ -1,5 +1,5 @@
 {{ 'centered-slide.css' | asset_url | stylesheet_tag }}
-<div class="slider">
+<div id="CenteredSlide-{{ section.id }}" class="centered-slide">
   <div class="list">
     {% for block in section.blocks %}
       <div class="item">
@@ -13,8 +13,8 @@
     {% endfor %}
   </div>
   <div class="buttons">
-    <button id="prev">{% render "svg-chevron-left" %}</button>
-    <button id="next">{% render "svg-chevron-right" %}</button>
+    <button type="button" data-centered-slide-prev aria-label="Previous slide">{% render "svg-chevron-left" %}</button>
+    <button type="button" data-centered-slide-next aria-label="Next slide">{% render "svg-chevron-right" %}</button>
   </div>
   <ul class="dots">
     {% for block in section.blocks %}
@@ -65,46 +65,114 @@
 {% endschema %}
 
 <script>
-let slider = document.querySelector('.slider .list');
-let items = document.querySelectorAll('.slider .list .item');
-let next = document.getElementById('next');
-let prev = document.getElementById('prev');
-let dots = document.querySelectorAll('.slider .dots li');
+(() => {
+const section = document.getElementById('CenteredSlide-{{ section.id }}');
+if (!section) return;
 
-let lengthItems = items.length - 1;
+let slider = section.querySelector('.list');
+let next = section.querySelector('[data-centered-slide-next]');
+let prev = section.querySelector('[data-centered-slide-prev]');
+let dots = section.querySelectorAll('.dots li');
+let originalItems = Array.from(section.querySelectorAll('.list .item'));
+
+if (!slider || !originalItems.length || !next || !prev) return;
+
+let total = originalItems.length;
+let items = originalItems;
 let active = 0;
+let isAnimating = false;
+
+function prepareLoop() {
+    if (total < 2) return;
+
+    let firstClone = originalItems[0].cloneNode(true);
+    let lastClone = originalItems[total - 1].cloneNode(true);
+    firstClone.setAttribute('aria-hidden', 'true');
+    lastClone.setAttribute('aria-hidden', 'true');
+    firstClone.querySelectorAll('a, button').forEach((element) => element.setAttribute('tabindex', '-1'));
+    lastClone.querySelectorAll('a, button').forEach((element) => element.setAttribute('tabindex', '-1'));
+
+    slider.insertBefore(lastClone, originalItems[0]);
+    slider.appendChild(firstClone);
+    items = Array.from(slider.querySelectorAll('.item'));
+    active = 1;
+}
+
+function getRealIndex() {
+    if (total < 2) return 0;
+    if (active === 0) return total - 1;
+    if (active === total + 1) return 0;
+    return active - 1;
+}
+
+function updateDots() {
+    let lastActiveDot = section.querySelector('.dots li.active');
+    if (lastActiveDot) lastActiveDot.classList.remove('active');
+    let currentDot = dots[getRealIndex()];
+    if (currentDot) currentDot.classList.add('active');
+}
+
+function reloadSlider(animate = true) {
+    let currentItem = items[active];
+    if (!currentItem) return;
+
+    if (!animate) slider.style.transition = 'none';
+    let centeredOffset = (section.clientWidth - currentItem.offsetWidth) / 2;
+    let translateX = centeredOffset - currentItem.offsetLeft;
+    slider.style.transform = 'translate3d(' + translateX + 'px, 0, 0)';
+    updateDots();
+
+    if (!animate) {
+        slider.offsetHeight;
+        slider.style.transition = '';
+    }
+}
+
+prepareLoop();
+reloadSlider(false);
+
 next.onclick = function(){
-    active = active + 1 <= lengthItems ? active + 1 : 0;
+    if (isAnimating || total < 2) return;
+    isAnimating = true;
+    active += 1;
     reloadSlider();
 }
 prev.onclick = function(){
-    active = active - 1 >= 0 ? active - 1 : lengthItems;
+    if (isAnimating || total < 2) return;
+    isAnimating = true;
+    active -= 1;
     reloadSlider();
-}
-// let refreshInterval = setInterval(()=> {next.click()}, 3000);
-function reloadSlider(){
-    slider.style.left = -items[active].offsetLeft + 'px';
-    // 
-    let last_active_dot = document.querySelector('.slider .dots li.active');
-    last_active_dot.classList.remove('active');
-    dots[active].classList.add('active');
-
-    // clearInterval(refreshInterval);
-    // refreshInterval = setInterval(()=> {next.click()}, 3000);
 }
 
 dots.forEach((li, key) => {
     li.addEventListener('click', ()=>{
-         active = key;
-         reloadSlider();
+        if (isAnimating || key === getRealIndex()) return;
+        isAnimating = true;
+        active = total > 1 ? key + 1 : 0;
+        reloadSlider();
     })
 })
-window.onresize = function(event) {
-    reloadSlider();
-};
+
+slider.addEventListener('transitionend', (event) => {
+    if (event.propertyName !== 'transform') return;
+    if (total > 1 && active === 0) {
+        active = total;
+        reloadSlider(false);
+    } else if (total > 1 && active === total + 1) {
+        active = 1;
+        reloadSlider(false);
+    }
+    isAnimating = false;
+});
+
+window.addEventListener('resize', function() {
+    reloadSlider(false);
+});
   
 let startX = 0;
 let endX = 0;
+let startY = 0;
+let endY = 0;
 let isDragging = false;
 const dragThreshold = 10; // Ngưỡng để xác định kéo
 
@@ -133,12 +201,14 @@ slider.addEventListener('mouseup', (e) => {
 
 slider.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
     isDragging = false; // Reset trạng thái kéo
 });
 
 slider.addEventListener('touchmove', (e) => {
     endX = e.touches[0].clientX;
-    if (Math.abs(startX - endX) > dragThreshold) {
+    endY = e.touches[0].clientY;
+    if (Math.abs(startX - endX) > dragThreshold && Math.abs(startX - endX) > Math.abs(startY - endY)) {
         isDragging = true; // Đánh dấu là kéo nếu vượt ngưỡng
     }
 });
@@ -149,6 +219,8 @@ slider.addEventListener('touchend', (e) => {
     }
     startX = 0;
     endX = 0;
+    startY = 0;
+    endY = 0;
 });
 
 slider.addEventListener('click', (e) => {
@@ -164,4 +236,5 @@ function handleSwipe() {
         prev.click(); // Kéo sang phải
     }
 }
+})();
 </script>

@@ -1,12 +1,12 @@
-.slider {
-    width: 1600px;
-    max-width: 100vw;
+.centered-slide {
+    width: 100%;
+    max-width: 1600px;
     height: calc(100vh - var(--nav-height));
     margin: auto;
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
-.slider .list{
+.centered-slide .list{
     position: absolute;
     width: max-content;
     height: 100%;
@@ -14,15 +14,28 @@
     top: 0;
     display: flex;
     gap: 8px;
-    transition: 1s;
+    transition: transform 550ms ease;
+    touch-action: pan-y;
+    user-select: none;
+    will-change: transform;
 }
-.slider .list img{
-    width: 1600px;
-    max-width: 100vw;
+.centered-slide .list .item {
+    flex: 0 0 min(1600px, 100vw);
+    height: 100%;
+}
+.centered-slide .list a,
+.centered-slide .list picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.centered-slide .list img{
+    display: block;
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.slider .buttons {
+.centered-slide .buttons {
     position: absolute;
     top: 50%;
     left: 2.5%;
@@ -31,7 +44,7 @@
     justify-content: space-between;
     transform: translateY(-50%);
 }
-.slider .buttons button {
+.centered-slide .buttons button {
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -40,7 +53,7 @@
     border: none;
     padding: 0;
 }
-.slider .dots{
+.centered-slide .dots{
     position: absolute;
     bottom: 10px;
     left: 0;
@@ -51,7 +64,7 @@
     display: flex;
     justify-content: center;
 }
-.slider .dots li{
+.centered-slide .dots li{
     list-style: none;
     width: 10px;
     height: 10px;
@@ -60,14 +73,20 @@
     border-radius: 20px;
     transition: 0.5s;
 }
-.slider .dots li.active{
+.centered-slide .dots li.active{
     width: 30px;
 }
 @media screen and (max-width: 768px){
-    .slider{
+    .centered-slide{
         height: 500px;
     }
-  .slider .buttons {
+  .centered-slide .list {
+    gap: 10px;
+  }
+  .centered-slide .list .item {
+    flex-basis: calc((100vw - 10px) / 1.4);
+  }
+  .centered-slide .buttons {
     display: none;
   }
 }
