@@ -229,7 +229,7 @@
             "image_fit": "contain",
             "image_position": "center",
             "desktop_height": 1000,
-            "mobile_height": 350,
+            "mobile_height": 450,
             "desktop_width_percent": 100
           },
           "blocks": {}
