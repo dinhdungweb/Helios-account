@@ -156,6 +156,14 @@
         "color_text": ""
       }
     },
+    "custom_spacing_f8w3Be": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
+      }
+    },
     "centered_slide_UpERtr": {
       "type": "centered-slide",
       "blocks": {
@@ -516,6 +524,7 @@
     "rich_text_U7nYaG",
     "blocks_Y6apcY",
     "rich_text_f66gzF",
+    "custom_spacing_f8w3Be",
     "centered_slide_UpERtr",
     "rich_text_hfn9D3",
     "blocks_cQeNrU",
