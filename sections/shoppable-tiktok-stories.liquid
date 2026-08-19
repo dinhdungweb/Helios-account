@@ -111,13 +111,30 @@
               assign story_video = block.settings.video
               assign story_product = block.settings.product
               assign story_poster = block.settings.poster
+              assign external_video_url = block.settings.video_url | strip
+              assign tiktok_video_id = blank
+
+              if story_video == blank and external_video_url contains 'tiktok.com'
+                if external_video_url contains '/video/'
+                  assign tiktok_video_id = external_video_url | split: '/video/' | last | split: '?' | first | split: '/' | first
+                elsif external_video_url contains '/player/v1/'
+                  assign tiktok_video_id = external_video_url | split: '/player/v1/' | last | split: '?' | first | split: '/' | first
+                endif
+              endif
+
               if story_poster == blank and story_video.preview_image != blank
                 assign story_poster = story_video.preview_image
               endif
 
               assign has_video = false
-              if story_video != blank or block.settings.video_url != blank
+              assign has_native_video = false
+              if story_video != blank or external_video_url != blank
                 assign has_video = true
+              endif
+              if tiktok_video_id == blank
+                if story_video != blank or external_video_url != blank
+                  assign has_native_video = true
+                endif
               endif
 
               assign media_alt = block.settings.alt_text
@@ -155,7 +172,21 @@
             >
               <div class="sts__card sts__card--desktop-{{ section.settings.card_ratio_desktop }} sts__card--mobile-{{ section.settings.card_ratio_mobile }} sts__media-position--{{ block.settings.media_position }}{% if block.settings.use_custom_overlay %} sts__card--custom-overlay{% endif %}">
                 <div class="sts__media">
-                  {%- if has_video -%}
+                  {%- if tiktok_video_id != blank -%}
+                    {% # theme-check-disable RemoteAsset %}
+                    <iframe
+                      class="sts__tiktok-player"
+                      data-sts-tiktok
+                      data-sts-playing="false"
+                      data-sts-muted="{{ section.settings.video_muted }}"
+                      src="https://www.tiktok.com/player/v1/{{ tiktok_video_id | escape }}?autoplay={% if section.settings.video_autoplay %}1{% else %}0{% endif %}&amp;muted={% if section.settings.video_muted %}1{% else %}0{% endif %}&amp;loop={% if section.settings.video_loop %}1{% else %}0{% endif %}&amp;controls=0&amp;progress_bar=0&amp;play_button=0&amp;volume_control=0&amp;fullscreen_button=0&amp;timestamp=0&amp;music_info=0&amp;description=0&amp;rel=0"
+                      title="{{ media_alt | escape }}"
+                      loading="lazy"
+                      allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                    {% # theme-check-enable RemoteAsset %}
+                  {%- elsif has_native_video -%}
                     <video
                       class="sts__video"
                       data-sts-video
@@ -174,7 +205,7 @@
                         {% # theme-check-enable RemoteAsset %}
                       {%- else -%}
                         {% # theme-check-disable RemoteAsset %}
-                        <source src="{{ block.settings.video_url | escape }}" type="video/mp4">
+                        <source src="{{ external_video_url | escape }}" type="video/mp4">
                         {% # theme-check-enable RemoteAsset %}
                       {%- endif -%}
                     </video>
@@ -390,8 +421,8 @@
     { "type": "range", "id": "slides_mobile", "label": "Số story hiển thị mobile", "min": 1, "max": 2.5, "step": 0.1, "default": 1.4 },
     { "type": "range", "id": "gap_desktop", "label": "Khoảng cách story desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 12 },
     { "type": "range", "id": "gap_mobile", "label": "Khoảng cách story mobile", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 10 },
-    { "type": "checkbox", "id": "centered_desktop", "label": "Căn giữa slide desktop", "default": false },
-    { "type": "checkbox", "id": "centered_mobile", "label": "Căn giữa slide mobile", "default": false },
+    { "type": "checkbox", "id": "centered_desktop", "label": "Căn giữa slide desktop", "default": true },
+    { "type": "checkbox", "id": "centered_mobile", "label": "Căn giữa slide mobile", "default": true },
     { "type": "checkbox", "id": "enable_swipe", "label": "Cho phép kéo/vuốt", "default": true },
     { "type": "checkbox", "id": "slider_loop", "label": "Lặp vô hạn", "default": true },
     { "type": "range", "id": "transition_speed", "label": "Thời gian chuyển slide", "min": 150, "max": 1500, "step": 50, "unit": "ms", "default": 550 },
@@ -487,7 +518,7 @@
       "name": "TikTok story",
       "settings": [
         { "type": "video", "id": "video", "label": "Video Shopify" },
-        { "type": "url", "id": "video_url", "label": "Hoặc URL MP4", "info": "Chỉ dùng khi không chọn Video Shopify." },
+        { "type": "url", "id": "video_url", "label": "URL TikTok hoặc MP4", "info": "Dán link TikTok đầy đủ có /video/ID hoặc URL file MP4. Chỉ dùng khi không chọn Video Shopify." },
         { "type": "image_picker", "id": "poster", "label": "Ảnh poster" },
         { "type": "text", "id": "alt_text", "label": "Alt text" },
         { "type": "select", "id": "media_position", "label": "Vị trí media", "options": [
