@@ -201,9 +201,9 @@
         "transition_speed": 550,
         "show_arrows": false,
         "show_mobile_arrows": false,
-        "show_dots": true,
-        "mobile_side_opacity": 45,
-        "mobile_side_blur": 3,
+        "show_dots": false,
+        "mobile_side_opacity": 65,
+        "mobile_side_blur": 5,
         "mobile_side_scale": 94
       }
     },
