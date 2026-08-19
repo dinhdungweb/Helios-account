@@ -24,8 +24,57 @@
   .section-id-{{ section.id }} .section-heading.justify-center {
     justify-content: center;
   }
+  .section-id-{{ section.id }} .featured-collection__pagination {
+    position: relative;
+    inset: auto;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    margin-top: 18px;
+  }
+  .section-id-{{ section.id }} .featured-collection__pagination .swiper-pagination-bullet {
+    width: 7px;
+    height: 7px;
+    margin: 0;
+    border-radius: 999px;
+    background: var(--featured-collection-dot-color);
+    opacity: 1;
+    transition: width 180ms ease, background-color 180ms ease;
+  }
+  .section-id-{{ section.id }} .featured-collection__pagination .swiper-pagination-bullet-active {
+    width: 24px;
+    background: var(--featured-collection-dot-active-color);
+  }
+  .section-id-{{ section.id }} .featured-collection__progress {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    margin-top: 20px;
+    overflow: hidden;
+    background: var(--featured-collection-progress-track-color);
+  }
+  .section-id-{{ section.id }} .featured-collection__progress span {
+    position: absolute;
+    inset: 0;
+    background: var(--featured-collection-progress-color);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 240ms ease;
+  }
 {% endstyle %}
-<div class="section-id-{{ section.id }} wide-container half-gutter section-spacing {% if section.settings.alternate_bg_color %}use-alt-bg {% endif %}" data-section-type="featured-collection" data-components="product-block" data-cc-animate>
+<div
+  class="section-id-{{ section.id }} wide-container half-gutter section-spacing {% if section.settings.alternate_bg_color %}use-alt-bg {% endif %}"
+  data-section-type="featured-collection"
+  data-components="product-block"
+  data-cc-animate
+  style="
+    --featured-collection-dot-color: {{ section.settings.dot_color }};
+    --featured-collection-dot-active-color: {{ section.settings.dot_active_color }};
+    --featured-collection-progress-track-color: {{ section.settings.progress_track_color }};
+    --featured-collection-progress-color: {{ section.settings.progress_color }};
+  "
+>
   {% if section.settings.title != blank or section.settings.show_view_all %}
     <div class="section-heading {% if section.settings.featured_collection_align == "left" %}justify-space{% else %}justify-center{% endif %}" data-cc-animate>
       {% if section.settings.title != blank %}
@@ -70,9 +119,18 @@
         {% endif %}
       </div>
 
-      <!-- <div class="swiper-scrollbar"></div> -->
-      <a href="#" class="swiper-button-prev js-swiper-button-prev" aria-label="{{ 'general.accessibility_labels.previous' | t | escape }}">{% render 'svg-chevron-left' %}</a>
-      <a href="#" class="swiper-button-next js-swiper-button-next" aria-label="{{ 'general.accessibility_labels.next' | t | escape }}">{% render 'svg-chevron-right' %}</a>
+      {% if section.settings.show_dots %}
+        <div class="swiper-pagination featured-collection__pagination" data-product-slider-pagination></div>
+      {% endif %}
+
+      {% if section.settings.show_arrows %}
+        <a href="#" class="swiper-button-prev js-swiper-button-prev" aria-label="{{ 'general.accessibility_labels.previous' | t | escape }}">{% render 'svg-chevron-left' %}</a>
+        <a href="#" class="swiper-button-next js-swiper-button-next" aria-label="{{ 'general.accessibility_labels.next' | t | escape }}">{% render 'svg-chevron-right' %}</a>
+      {% endif %}
+
+      {% if section.settings.show_progress %}
+        <div class="featured-collection__progress" data-product-slider-progress aria-hidden="true"><span></span></div>
+      {% endif %}
     </div>
   {% else %}
     <div class="product-list
@@ -153,6 +211,55 @@
         ],
         "default": "rows",
         "info": "Collage will only work when the 'Image shape' is set to Natural - in Products / Image shape"
+      },
+      {
+        "type": "header",
+        "content": "Carousel navigation"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_arrows",
+        "label": "Show arrows",
+        "default": true,
+        "info": "Only applies to Carousel layout."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_dots",
+        "label": "Show dots",
+        "default": false,
+        "info": "Only applies to Carousel layout."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_progress",
+        "label": "Show progress",
+        "default": false,
+        "info": "Only applies to Carousel layout."
+      },
+      {
+        "type": "color",
+        "id": "dot_color",
+        "label": "Dot color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "dot_active_color",
+        "label": "Active dot color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "progress_track_color",
+        "label": "Progress track color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "progress_color",
+        "label": "Progress color",
+        "default": "#ffffff"
       },
       {
         "type": "checkbox",
