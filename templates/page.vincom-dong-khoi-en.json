@@ -206,14 +206,14 @@
         "desktop_slides": 1.2,
         "mobile_height": 450,
         "mobile_slides": 1.4,
-        "mobile_gap": 3,
+        "mobile_gap": 10,
         "transition_speed": 550,
         "show_arrows": true,
         "show_mobile_arrows": false,
         "show_dots": false,
         "mobile_side_opacity": 15,
         "mobile_side_blur": 10,
-        "mobile_side_scale": 94
+        "mobile_side_scale": 95
       }
     },
     "rich_text_hfn9D3": {
@@ -263,6 +263,7 @@
     },
     "rich_text_HU3NBR": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -288,8 +289,8 @@
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "title": "",
-        "featured_collection_align": "left",
+        "title": "RECOMMENDED PRODUCTS",
+        "featured_collection_align": "center",
         "collection": "lp-vincom-dong-khoi",
         "layout": "carousel",
         "featured_addtocart_hide": false,
