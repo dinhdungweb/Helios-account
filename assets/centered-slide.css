@@ -1,7 +1,7 @@
 .centered-slide {
     width: 100%;
     max-width: none;
-    height: calc(100vh - var(--nav-height));
+    height: var(--centered-slide-desktop-height);
     margin: auto;
     position: relative;
     overflow: hidden;

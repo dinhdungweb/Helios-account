@@ -9,9 +9,11 @@
 <div
   id="CenteredSlide-{{ section.id }}"
   class="centered-slide{% unless section.settings.show_arrows %} centered-slide--hide-arrows{% endunless %}{% unless section.settings.show_mobile_arrows %} centered-slide--hide-mobile-arrows{% endunless %}{% unless section.settings.show_dots %} centered-slide--hide-dots{% endunless %}"
+  data-transition-speed="{{ section.settings.transition_speed }}"
   style="
     --centered-slide-desktop-gap: {{ section.settings.desktop_gap }}px;
     --centered-slide-desktop-item-width: calc({{ desktop_slide_width }}vw - {{ desktop_gap_offset }}px);
+    --centered-slide-desktop-height: {{ section.settings.desktop_height }}px;
     --centered-slide-mobile-gap: {{ section.settings.mobile_gap }}px;
     --centered-slide-mobile-height: {{ section.settings.mobile_height }}px;
     --centered-slide-mobile-item-width: calc({{ mobile_slide_width }}vw - {{ mobile_gap_offset }}px);
@@ -71,6 +73,16 @@
       "step": 0.1,
       "default": 1.2,
       "info": "Tăng giá trị để lộ nhiều hơn hai slide bên cạnh."
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Chiều cao desktop",
+      "min": 300,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 800
     },
     {
       "type": "range",
@@ -219,6 +231,8 @@ let total = originalItems.length;
 let items = originalItems;
 let active = 0;
 let isAnimating = false;
+let animationUnlockTimer = null;
+const transitionSpeed = Number(section.dataset.transitionSpeed) || 550;
 
 function prepareLoop() {
     if (total < 2) return;
@@ -258,6 +272,37 @@ function updateSlideStates() {
     });
 }
 
+function clearAnimationUnlockTimer() {
+    if (!animationUnlockTimer) return;
+    window.clearTimeout(animationUnlockTimer);
+    animationUnlockTimer = null;
+}
+
+function normalizeLoopIndex() {
+    if (total < 2) return false;
+    if (active === 0) {
+        active = total;
+        return true;
+    }
+    if (active === total + 1) {
+        active = 1;
+        return true;
+    }
+    return false;
+}
+
+function completeAnimation() {
+    clearAnimationUnlockTimer();
+    if (normalizeLoopIndex()) reloadSlider(false);
+    isAnimating = false;
+}
+
+function beginAnimation() {
+    isAnimating = true;
+    clearAnimationUnlockTimer();
+    animationUnlockTimer = window.setTimeout(completeAnimation, transitionSpeed + 150);
+}
+
 function reloadSlider(animate = true) {
     let currentItem = items[active];
     if (!currentItem) return;
@@ -284,13 +329,13 @@ reloadSlider(false);
 
 next.onclick = function(){
     if (isAnimating || total < 2) return;
-    isAnimating = true;
+    beginAnimation();
     active += 1;
     reloadSlider();
 }
 prev.onclick = function(){
     if (isAnimating || total < 2) return;
-    isAnimating = true;
+    beginAnimation();
     active -= 1;
     reloadSlider();
 }
@@ -298,25 +343,26 @@ prev.onclick = function(){
 dots.forEach((li, key) => {
     li.addEventListener('click', ()=>{
         if (isAnimating || key === getRealIndex()) return;
-        isAnimating = true;
+        beginAnimation();
         active = total > 1 ? key + 1 : 0;
         reloadSlider();
     })
 })
 
 slider.addEventListener('transitionend', (event) => {
-    if (event.propertyName !== 'transform') return;
-    if (total > 1 && active === 0) {
-        active = total;
-        reloadSlider(false);
-    } else if (total > 1 && active === total + 1) {
-        active = 1;
-        reloadSlider(false);
-    }
-    isAnimating = false;
+    if (event.target !== slider || event.propertyName !== 'transform') return;
+    completeAnimation();
+});
+
+slider.addEventListener('transitioncancel', (event) => {
+    if (event.target !== slider || event.propertyName !== 'transform') return;
+    completeAnimation();
 });
 
 window.addEventListener('resize', function() {
+    clearAnimationUnlockTimer();
+    isAnimating = false;
+    normalizeLoopIndex();
     reloadSlider(false);
 });
   
@@ -372,6 +418,14 @@ slider.addEventListener('touchend', (e) => {
     endX = 0;
     startY = 0;
     endY = 0;
+});
+
+slider.addEventListener('touchcancel', () => {
+    startX = 0;
+    endX = 0;
+    startY = 0;
+    endY = 0;
+    isDragging = false;
 });
 
 slider.addEventListener('click', (e) => {
