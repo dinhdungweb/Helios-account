@@ -41,7 +41,6 @@
     this.root = root;
     this.sliderElement = root.querySelector('[data-sts-slider]');
     this.total = root.querySelectorAll('[data-sts-slide]').length;
-    this.progressElement = root.querySelector('[data-sts-progress]');
     this.videoAutoplay = toBoolean(root.dataset.videoAutoplay);
     this.videoMode = root.dataset.videoMode || 'visible';
     this.lazyLoadVideos = toBoolean(root.dataset.videoLazyLoad);
@@ -57,7 +56,6 @@
     this.loadTikTokPreviews();
     this.bindControls();
     this.bindHover();
-    this.updateProgress();
     this.syncVideos();
     root.dataset.stsReady = 'true';
   }
@@ -67,6 +65,7 @@
     var nextElement = this.root.querySelector('[data-sts-next]');
     var previousElement = this.root.querySelector('[data-sts-prev]');
     var paginationElement = this.root.querySelector('[data-sts-pagination]');
+    var scrollbarElement = this.root.querySelector('[data-sts-scrollbar]');
     var desktopSlides = toNumber(this.root.dataset.slidesDesktop, 4.2);
     var mobileSlides = toNumber(this.root.dataset.slidesMobile, 1.4);
     var desktopGap = toNumber(this.root.dataset.gapDesktop, 12);
@@ -120,10 +119,16 @@
       };
     }
 
+    if (scrollbarElement) {
+      options.scrollbar = {
+        el: scrollbarElement,
+        draggable: true
+      };
+    }
+
     this.swiper = new window.Swiper(this.sliderElement, options);
 
     this.swiper.on('slideChange', function () {
-      self.updateProgress();
       self.closeProductPanels();
     });
 
@@ -289,13 +294,6 @@
 
     this.root.addEventListener('mouseenter', this.onMouseEnter);
     this.root.addEventListener('mouseleave', this.onMouseLeave);
-  };
-
-  StorySlider.prototype.updateProgress = function () {
-    if (!this.progressElement || !this.swiper || this.total < 1) return;
-    var index = typeof this.swiper.realIndex === 'number' ? this.swiper.realIndex : this.swiper.activeIndex;
-    var progress = Math.min(1, Math.max(0, (index + 1) / this.total));
-    this.progressElement.style.transform = 'scaleX(' + progress + ')';
   };
 
   StorySlider.prototype.loadTikTokPreviews = function () {

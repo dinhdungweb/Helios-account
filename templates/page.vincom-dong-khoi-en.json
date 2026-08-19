@@ -520,9 +520,7 @@
         "arrow_color": "#ffffff",
         "arrow_border_color": "#333333",
         "dot_color": "#666666",
-        "dot_active_color": "#ffffff",
-        "progress_track_color": "#333333",
-        "progress_color": "#ffffff"
+        "dot_active_color": "#ffffff"
       }
     },
     "custom_spacing_TWbgMT": {

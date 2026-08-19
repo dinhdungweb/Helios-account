@@ -75,8 +75,6 @@
     --sts-arrow-size: {{ section.settings.arrow_size }}px;
     --sts-dot-color: {{ section.settings.dot_color }};
     --sts-dot-active: {{ section.settings.dot_active_color }};
-    --sts-progress-track: {{ section.settings.progress_track_color }};
-    --sts-progress-color: {{ section.settings.progress_color }};
   "
   aria-label="{{ section.settings.heading | default: 'Shoppable stories' | strip_html | escape }}"
 >
@@ -368,7 +366,7 @@
     </div>
 
     {%- if section.settings.show_progress -%}
-      <div class="sts__progress" aria-hidden="true"><span data-sts-progress></span></div>
+      <div class="swiper-scrollbar" data-sts-scrollbar aria-hidden="true"></div>
     {%- endif -%}
   </div>
 </section>
@@ -534,9 +532,7 @@
     { "type": "color", "id": "arrow_color", "label": "Màu icon", "default": "#ffffff" },
     { "type": "color", "id": "arrow_border_color", "label": "Màu viền mũi tên", "default": "#333333" },
     { "type": "color", "id": "dot_color", "label": "Màu dot", "default": "#666666" },
-    { "type": "color", "id": "dot_active_color", "label": "Màu dot active", "default": "#ffffff" },
-    { "type": "color", "id": "progress_track_color", "label": "Màu nền tiến trình", "default": "#333333" },
-    { "type": "color", "id": "progress_color", "label": "Màu tiến trình", "default": "#ffffff" }
+    { "type": "color", "id": "dot_active_color", "label": "Màu dot active", "default": "#ffffff" }
   ],
   "blocks": [
     {

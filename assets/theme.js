@@ -4876,15 +4876,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const paginationElement = $swiperCont.find('[data-product-slider-pagination]')[0];
-    const progressFill = $swiperCont.find('[data-product-slider-progress] span')[0];
-
-    const updateProductSliderProgress = function (swiper) {
-      if (!progressFill || !swiper || !swiper.slides || !swiper.slides.length) return;
-      const minimumProgress = 1 / swiper.slides.length;
-      const sliderProgress = Math.min(1, Math.max(0, swiper.progress || 0));
-      const progress = minimumProgress + (1 - minimumProgress) * sliderProgress;
-      progressFill.style.transform = 'scaleX(' + progress + ')';
-    };
 
     const swiperOptions = {
       mode: 'horizontal',
@@ -4913,16 +4904,6 @@ document.addEventListener("DOMContentLoaded", () => {
       on: {
         init: function () {
           lazySizes.autoSizer.checkElems();
-          updateProductSliderProgress(this);
-        },
-        progress: function () {
-          updateProductSliderProgress(this);
-        },
-        slideChange: function () {
-          updateProductSliderProgress(this);
-        },
-        resize: function () {
-          updateProductSliderProgress(this);
         }
       }
     };

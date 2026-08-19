@@ -46,22 +46,6 @@
     width: 24px;
     background: var(--featured-collection-dot-active-color);
   }
-  .section-id-{{ section.id }} .featured-collection__progress {
-    position: relative;
-    width: 100%;
-    height: 2px;
-    margin-top: 20px;
-    overflow: hidden;
-    background: var(--featured-collection-progress-track-color);
-  }
-  .section-id-{{ section.id }} .featured-collection__progress span {
-    position: absolute;
-    inset: 0;
-    background: var(--featured-collection-progress-color);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 240ms ease;
-  }
 {% endstyle %}
 <div
   class="section-id-{{ section.id }} wide-container half-gutter section-spacing {% if section.settings.alternate_bg_color %}use-alt-bg {% endif %}"
@@ -71,8 +55,6 @@
   style="
     --featured-collection-dot-color: {{ section.settings.dot_color }};
     --featured-collection-dot-active-color: {{ section.settings.dot_active_color }};
-    --featured-collection-progress-track-color: {{ section.settings.progress_track_color }};
-    --featured-collection-progress-color: {{ section.settings.progress_color }};
   "
 >
   {% if section.settings.title != blank or section.settings.show_view_all %}
@@ -129,7 +111,7 @@
       {% endif %}
 
       {% if section.settings.show_progress %}
-        <div class="featured-collection__progress" data-product-slider-progress aria-hidden="true"><span></span></div>
+        <div class="swiper-scrollbar" aria-hidden="true"></div>
       {% endif %}
     </div>
   {% else %}
@@ -247,18 +229,6 @@
         "type": "color",
         "id": "dot_active_color",
         "label": "Active dot color",
-        "default": "#ffffff"
-      },
-      {
-        "type": "color",
-        "id": "progress_track_color",
-        "label": "Progress track color",
-        "default": "#333333"
-      },
-      {
-        "type": "color",
-        "id": "progress_color",
-        "label": "Progress color",
         "default": "#ffffff"
       },
       {
