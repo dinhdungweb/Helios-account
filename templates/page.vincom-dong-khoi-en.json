@@ -518,6 +518,108 @@
         "progress_color": "#ffffff"
       }
     },
+    "centered_slide_HzBiCg": {
+      "type": "centered-slide",
+      "blocks": {
+        "slide_9VVU4f": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/651808714_18516865312076236_8134309729609693828_n.jpg",
+            "mobile_image": "shopify://shop_images/651808714_18516865312076236_8134309729609693828_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_DfMg4x": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/712544020_17957075478134804_4487223133324664852_n.jpg",
+            "mobile_image": "shopify://shop_images/712544020_17957075478134804_4487223133324664852_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_qFMnnB": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/763740200_18613626784044064_322106077353722848_n.jpg",
+            "mobile_image": "shopify://shop_images/763740200_18613626784044064_322106077353722848_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_kfFgRA": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/729099519_18470207197105308_20705712127297426_n.jpg",
+            "mobile_image": "shopify://shop_images/729099519_18470207197105308_20705712127297426_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_Tdj9ey": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/656755327_18094707221121471_2783933106476876444_n.jpg",
+            "mobile_image": "shopify://shop_images/656755327_18094707221121471_2783933106476876444_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_BjwWy9": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/657332658_18577681612044064_2879443749853912036_n.jpg",
+            "mobile_image": "shopify://shop_images/657332658_18577681612044064_2879443749853912036_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_6bwqpn": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/727001848_18600207913044064_6693435806890614893_n.jpg",
+            "mobile_image": "shopify://shop_images/727001848_18600207913044064_6693435806890614893_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_mQiCKx": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/670860583_18581153320044064_1611763399192239984_n.jpg",
+            "mobile_image": "shopify://shop_images/670860583_18581153320044064_1611763399192239984_n.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_9VVU4f",
+        "slide_DfMg4x",
+        "slide_qFMnnB",
+        "slide_kfFgRA",
+        "slide_Tdj9ey",
+        "slide_BjwWy9",
+        "slide_6bwqpn",
+        "slide_mQiCKx"
+      ],
+      "name": "Centered Slide",
+      "settings": {
+        "desktop_gap": 8,
+        "desktop_slides": 1.2,
+        "mobile_height": 450,
+        "mobile_slides": 1.4,
+        "mobile_gap": 3,
+        "transition_speed": 550,
+        "show_arrows": true,
+        "show_mobile_arrows": false,
+        "show_dots": false,
+        "mobile_side_opacity": 45,
+        "mobile_side_blur": 3,
+        "mobile_side_scale": 94
+      }
+    },
     "accordions_96RL7B": {
       "type": "accordions",
       "blocks": {
@@ -615,6 +717,7 @@
     "rich_text_HU3NBR",
     "featured_collection_b4ApQx",
     "shoppable_tiktok_stories_QBcRLc",
+    "centered_slide_HzBiCg",
     "accordions_96RL7B"
   ]
 }
