@@ -263,7 +263,6 @@
     },
     "rich_text_HU3NBR": {
       "type": "rich-text",
-      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -289,7 +288,7 @@
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "title": "RECOMMENDED PRODUCTS",
+        "title": "",
         "featured_collection_align": "center",
         "collection": "lp-vincom-dong-khoi",
         "layout": "carousel",
