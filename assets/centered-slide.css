@@ -13,8 +13,8 @@
     left: 0;
     top: 0;
     display: flex;
-    gap: 8px;
-    transition: transform 550ms ease;
+    gap: var(--centered-slide-desktop-gap);
+    transition: transform var(--centered-slide-speed) ease;
     touch-action: pan-y;
     user-select: none;
     will-change: transform;
@@ -76,17 +76,34 @@
 .centered-slide .dots li.active{
     width: 30px;
 }
+.centered-slide--hide-arrows .buttons,
+.centered-slide--hide-dots .dots {
+    display: none;
+}
 @media screen and (max-width: 768px){
     .centered-slide{
-        height: 500px;
+        height: var(--centered-slide-mobile-height);
     }
   .centered-slide .list {
-    gap: 10px;
+    gap: var(--centered-slide-mobile-gap);
   }
   .centered-slide .list .item {
-    flex-basis: calc((100vw - 10px) / 1.4);
+    flex-basis: var(--centered-slide-mobile-item-width);
+    overflow: hidden;
+    opacity: var(--centered-slide-side-opacity);
+    filter: blur(var(--centered-slide-side-blur));
+    transform: scale(var(--centered-slide-side-scale));
+    transition:
+      opacity var(--centered-slide-speed) ease,
+      filter var(--centered-slide-speed) ease,
+      transform var(--centered-slide-speed) ease;
   }
-  .centered-slide .buttons {
+  .centered-slide .list .item.is-active {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+  .centered-slide--hide-mobile-arrows .buttons {
     display: none;
   }
 }

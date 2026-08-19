@@ -1,5 +1,22 @@
 {{ 'centered-slide.css' | asset_url | stylesheet_tag }}
-<div id="CenteredSlide-{{ section.id }}" class="centered-slide">
+{%- liquid
+  assign mobile_slide_width = 100.0 | divided_by: section.settings.mobile_slides
+  assign mobile_gap_offset = section.settings.mobile_gap | times: 1.0 | divided_by: section.settings.mobile_slides
+-%}
+<div
+  id="CenteredSlide-{{ section.id }}"
+  class="centered-slide{% unless section.settings.show_arrows %} centered-slide--hide-arrows{% endunless %}{% unless section.settings.show_mobile_arrows %} centered-slide--hide-mobile-arrows{% endunless %}{% unless section.settings.show_dots %} centered-slide--hide-dots{% endunless %}"
+  style="
+    --centered-slide-desktop-gap: {{ section.settings.desktop_gap }}px;
+    --centered-slide-mobile-gap: {{ section.settings.mobile_gap }}px;
+    --centered-slide-mobile-height: {{ section.settings.mobile_height }}px;
+    --centered-slide-mobile-item-width: calc({{ mobile_slide_width }}vw - {{ mobile_gap_offset }}px);
+    --centered-slide-speed: {{ section.settings.transition_speed }}ms;
+    --centered-slide-side-opacity: {{ section.settings.mobile_side_opacity | divided_by: 100.0 }};
+    --centered-slide-side-blur: {{ section.settings.mobile_side_blur }}px;
+    --centered-slide-side-scale: {{ section.settings.mobile_side_scale | divided_by: 100.0 }};
+  "
+>
   <div class="list">
     {% for block in section.blocks %}
       <div class="item">
@@ -26,7 +43,113 @@
 {% schema %}
 {
   "name": "Centered Slide",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bố cục"
+    },
+    {
+      "type": "range",
+      "id": "desktop_gap",
+      "label": "Khoảng cách desktop",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Chiều cao mobile",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "mobile_slides",
+      "label": "Số slide hiển thị trên mobile",
+      "min": 1.1,
+      "max": 2.5,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Khoảng cách mobile",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Tốc độ chuyển slide",
+      "min": 200,
+      "max": 1200,
+      "step": 50,
+      "unit": "ms",
+      "default": 550
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Hiển thị nút mũi tên desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_arrows",
+      "label": "Hiển thị nút mũi tên mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Hiển thị dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Hiệu ứng slide hai bên trên mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_opacity",
+      "label": "Độ mờ",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_blur",
+      "label": "Độ blur",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_scale",
+      "label": "Kích thước slide hai bên",
+      "min": 80,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 94
+    }
+  ],
   "blocks": [
     {
       "type": "slide",
@@ -112,6 +235,12 @@ function updateDots() {
     if (currentDot) currentDot.classList.add('active');
 }
 
+function updateSlideStates() {
+    items.forEach((item, index) => {
+        item.classList.toggle('is-active', index === active);
+    });
+}
+
 function reloadSlider(animate = true) {
     let currentItem = items[active];
     if (!currentItem) return;
@@ -120,6 +249,7 @@ function reloadSlider(animate = true) {
     let centeredOffset = (section.clientWidth - currentItem.offsetWidth) / 2;
     let translateX = centeredOffset - currentItem.offsetLeft;
     slider.style.transform = 'translate3d(' + translateX + 'px, 0, 0)';
+    updateSlideStates();
     updateDots();
 
     if (!animate) {
