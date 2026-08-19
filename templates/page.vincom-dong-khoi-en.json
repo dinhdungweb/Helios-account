@@ -118,9 +118,9 @@
           "type": "ai_gen_block_1d3b865",
           "settings": {
             "image": "shopify://shop_images/21011-4.jpg",
-            "image_fit": "cover",
+            "image_fit": "contain",
             "image_position": "center",
-            "desktop_height": 800,
+            "desktop_height": 1000,
             "mobile_height": 400,
             "desktop_width_percent": 100
           },
