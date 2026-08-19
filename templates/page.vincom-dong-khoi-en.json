@@ -269,7 +269,7 @@
         "story_3rjAtE": {
           "type": "story",
           "settings": {
-            "video_url": "",
+            "video_url": "https://www.tiktok.com/@harveydeann5/video/7638157416265157910?q=silver%20jewelry%20ho%20chi%20minh&t=1786529208302",
             "alt_text": "",
             "media_position": "center",
             "badge": "NEW",
@@ -338,10 +338,11 @@
         "story_Y9kJfH": {
           "type": "story",
           "settings": {
+            "video": "shopify://files/videos/Lil Wuyn.mp4",
             "video_url": "",
             "alt_text": "",
             "media_position": "center",
-            "badge": "NEW",
+            "badge": "",
             "label": "CUSTOMER STORY",
             "caption": "Jewellery hunting with HELIOS",
             "author": "@helios",
