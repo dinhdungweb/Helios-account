@@ -218,6 +218,28 @@
         "color_text": ""
       }
     },
+    "blocks_cQeNrU": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d3b865_8tL7tU": {
+          "type": "ai_gen_block_1d3b865",
+          "settings": {
+            "image": "shopify://shop_images/5.6_design_nh_landing_page_vincom_D_ng_Kh_i-07-01-01_2.jpg",
+            "image_fit": "cover",
+            "image_position": "center",
+            "desktop_height": 600,
+            "mobile_height": 400,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d3b865_8tL7tU"
+      ],
+      "name": "Large image",
+      "settings": {}
+    },
     "rich_text_HU3NBR": {
       "type": "rich-text",
       "name": "Rich text",
@@ -483,6 +505,7 @@
     "rich_text_f66gzF",
     "centered_slide_UpERtr",
     "rich_text_hfn9D3",
+    "blocks_cQeNrU",
     "rich_text_HU3NBR",
     "featured_collection_b4ApQx",
     "shoppable_tiktok_stories_QBcRLc"
