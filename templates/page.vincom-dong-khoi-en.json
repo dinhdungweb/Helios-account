@@ -156,6 +156,42 @@
         "color_text": ""
       }
     },
+    "centered_slide_UpERtr": {
+      "type": "centered-slide",
+      "blocks": {
+        "slide_PQHtRY": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/1cb59355ee695a37037816.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_zEAk8t": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Copy-of-DSCF7989_1.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        },
+        "slide_9PDqfk": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/DSC05440_1.jpg",
+            "link": "",
+            "alt_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_PQHtRY",
+        "slide_zEAk8t",
+        "slide_9PDqfk"
+      ],
+      "name": "Centered Slide",
+      "settings": {}
+    },
     "rich_text_hfn9D3": {
       "type": "rich-text",
       "name": "Rich text",
@@ -216,7 +252,7 @@
         "show_price": true,
         "show_review": true,
         "show_vendor": false,
-        "grid": 3,
+        "grid": 4,
         "rows": 2,
         "grid_mobile": "2",
         "hide_swatches": false,
@@ -442,6 +478,7 @@
     "rich_text_U7nYaG",
     "blocks_Y6apcY",
     "rich_text_f66gzF",
+    "centered_slide_UpERtr",
     "rich_text_hfn9D3",
     "rich_text_HU3NBR",
     "featured_collection_b4ApQx",
