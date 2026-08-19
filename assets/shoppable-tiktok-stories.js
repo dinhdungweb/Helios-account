@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var tiktokPreviewRequests = {};
+
   if (window.HeliosShoppableStories) {
     window.HeliosShoppableStories.initAll();
     return;
@@ -13,6 +15,26 @@
   function toNumber(value, fallback) {
     var parsed = Number(value);
     return Number.isFinite(parsed) ? parsed : fallback;
+  }
+
+  function requestTikTokPreview(videoUrl) {
+    if (!videoUrl || !window.fetch) return Promise.resolve('');
+
+    if (!tiktokPreviewRequests[videoUrl]) {
+      tiktokPreviewRequests[videoUrl] = window.fetch(
+        'https://www.tiktok.com/oembed?url=' + encodeURIComponent(videoUrl),
+        { credentials: 'omit' }
+      ).then(function (response) {
+        if (!response.ok) throw new Error('TikTok preview request failed');
+        return response.json();
+      }).then(function (data) {
+        return data && data.thumbnail_url ? data.thumbnail_url : '';
+      }).catch(function () {
+        return '';
+      });
+    }
+
+    return tiktokPreviewRequests[videoUrl];
   }
 
   function StorySlider(root) {
@@ -32,6 +54,7 @@
     if (!this.sliderElement || !window.Swiper) return;
 
     this.initSwiper();
+    this.loadTikTokPreviews();
     this.bindControls();
     this.bindHover();
     this.updateProgress();
@@ -49,8 +72,7 @@
     var desktopGap = toNumber(this.root.dataset.gapDesktop, 12);
     var mobileGap = toNumber(this.root.dataset.gapMobile, 10);
     var speed = toNumber(this.root.dataset.speed, 550);
-    var minimumLoopSlides = Math.ceil(Math.max(desktopSlides, mobileSlides));
-    var shouldLoop = toBoolean(this.root.dataset.loop) && this.total >= minimumLoopSlides;
+    var shouldLoop = toBoolean(this.root.dataset.loop) && this.total > 1;
     var autoplayDelay = toNumber(this.root.dataset.sliderDelay, 5000);
     var autoplaySetting = false;
 
@@ -212,6 +234,7 @@
       if (!player) return;
 
       if (message.type === 'onPlayerReady') {
+        player.dataset.stsReady = 'true';
         if (player.dataset.stsPendingMute) {
           self.sendTikTokCommand(player, player.dataset.stsPendingMute);
           delete player.dataset.stsPendingMute;
@@ -273,6 +296,27 @@
     var index = typeof this.swiper.realIndex === 'number' ? this.swiper.realIndex : this.swiper.activeIndex;
     var progress = Math.min(1, Math.max(0, (index + 1) / this.total));
     this.progressElement.style.transform = 'scaleX(' + progress + ')';
+  };
+
+  StorySlider.prototype.loadTikTokPreviews = function () {
+    var previews = Array.prototype.slice.call(this.root.querySelectorAll('[data-sts-tiktok-preview]'));
+    var previewsByUrl = {};
+
+    previews.forEach(function (preview) {
+      var videoUrl = preview.dataset.stsTiktokUrl;
+      if (!videoUrl) return;
+      if (!previewsByUrl[videoUrl]) previewsByUrl[videoUrl] = [];
+      previewsByUrl[videoUrl].push(preview);
+    });
+
+    Object.keys(previewsByUrl).forEach(function (videoUrl) {
+      requestTikTokPreview(videoUrl).then(function (thumbnailUrl) {
+        if (!thumbnailUrl) return;
+        previewsByUrl[videoUrl].forEach(function (preview) {
+          preview.src = thumbnailUrl;
+        });
+      });
+    });
   };
 
   StorySlider.prototype.hydrateMedia = function (media) {

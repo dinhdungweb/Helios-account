@@ -149,7 +149,13 @@
 .sts__tiktok-player {
   border: 0;
   background: #000;
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.sts__tiktok-player[data-sts-ready="true"] {
+  opacity: 1;
 }
 
 .sts__media-position--top .sts__video,

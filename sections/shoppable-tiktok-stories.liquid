@@ -174,11 +174,32 @@
               <div class="sts__card sts__card--desktop-{{ section.settings.card_ratio_desktop }} sts__card--mobile-{{ section.settings.card_ratio_mobile }} sts__media-position--{{ block.settings.media_position }}{% if block.settings.use_custom_overlay %} sts__card--custom-overlay{% endif %}">
                 <div class="sts__media">
                   {%- if tiktok_video_id != blank -%}
+                    {%- if story_poster != blank -%}
+                      {{- story_poster
+                        | image_url: width: 1400
+                        | image_tag:
+                          class: 'sts__poster sts__tiktok-preview',
+                          widths: '320, 480, 640, 800, 1000, 1200, 1400',
+                          sizes: '(max-width: 749px) 75vw, 25vw',
+                          loading: 'lazy',
+                          alt: media_alt
+                      -}}
+                    {%- else -%}
+                      <img
+                        class="sts__poster sts__tiktok-preview"
+                        data-sts-tiktok-preview
+                        data-sts-tiktok-url="{{ external_video_url | escape }}"
+                        alt="{{ media_alt | escape }}"
+                        loading="lazy"
+                        decoding="async"
+                      >
+                    {%- endif -%}
                     {% # theme-check-disable RemoteAsset %}
                     <iframe
                       class="sts__tiktok-player"
                       data-sts-tiktok
                       data-sts-loaded="false"
+                      data-sts-ready="false"
                       data-sts-playing="false"
                       data-sts-muted="{{ section.settings.video_muted }}"
                       data-sts-src="https://www.tiktok.com/player/v1/{{ tiktok_video_id | escape }}?autoplay={% if section.settings.video_autoplay %}1{% else %}0{% endif %}&amp;muted={% if section.settings.video_muted %}1{% else %}0{% endif %}&amp;loop={% if section.settings.video_loop %}1{% else %}0{% endif %}&amp;controls=0&amp;progress_bar=0&amp;play_button=0&amp;volume_control=0&amp;fullscreen_button=0&amp;timestamp=0&amp;music_info=0&amp;description=0&amp;rel=0"
