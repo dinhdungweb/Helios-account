@@ -516,6 +516,89 @@
         "progress_track_color": "#333333",
         "progress_color": "#ffffff"
       }
+    },
+    "accordions_96RL7B": {
+      "type": "accordions",
+      "blocks": {
+        "accordion_gUfjcR": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Do we offer international shipping? ",
+            "text": "<p>Currently, HELIOS Vietnam does not offer international shipping. For international orders, please visit heliosglobalbrand.com.</p>",
+            "open": false
+          }
+        },
+        "accordion_rnMKMh": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "What is our warranty and care policy? ",
+            "text": "<p>HELIOS provides warranty and after-sales support based on the condition of each product. To keep your jewelry in good condition, avoid contact with harsh chemicals, excessive moisture, and strong impact. Please contact HELIOS for specific warranty or care assistance.</p>",
+            "open": false
+          }
+        },
+        "accordion_JtnKBE": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Can I personalize or engrave my jewelry? ",
+            "text": "<p>No. HELIOS currently does not offer personalization or engraving services.</p>",
+            "open": false
+          }
+        },
+        "accordion_NwBfPb": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "What are the payment methods? ",
+            "text": "<p>Yes. International credit and debit cards are accepted where supported by our payment system. Available payment methods will be displayed at checkout.</p>",
+            "open": false
+          }
+        },
+        "accordion_Me6bDg": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "How do I find my ring or bracelet size? ",
+            "text": "<p>Please refer to our Size Guide for instructions on measuring your ring size or wrist circumference. For the best fit, we recommend measuring carefully before placing your order. If you need assistance, our team is happy to help.</p>",
+            "open": false
+          }
+        },
+        "accordion_a7GghF": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Where are HELIOS products made?",
+            "text": "<p>HELIOS products are developed and handcrafted in Vietnam. From product development to craftsmanship, each piece is created in-house and brought to life by skilled artisans at HELIOS’ own workshop.</p>",
+            "open": false
+          }
+        },
+        "accordion_LtXzJe": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "What materials does HELIOS use?",
+            "text": "<p>HELIOS primarily works with silver, crafted into distinctive pieces through our own design and handcrafted process.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "accordion_gUfjcR",
+        "accordion_rnMKMh",
+        "accordion_JtnKBE",
+        "accordion_NwBfPb",
+        "accordion_Me6bDg",
+        "accordion_a7GghF",
+        "accordion_LtXzJe"
+      ],
+      "name": "Expandable content",
+      "settings": {
+        "title": "FAQs",
+        "alternate_bg_color": false,
+        "view_all_page": ""
+      }
     }
   },
   "order": [
@@ -530,6 +613,7 @@
     "blocks_cQeNrU",
     "rich_text_HU3NBR",
     "featured_collection_b4ApQx",
-    "shoppable_tiktok_stories_QBcRLc"
+    "shoppable_tiktok_stories_QBcRLc",
+    "accordions_96RL7B"
   ]
 }
