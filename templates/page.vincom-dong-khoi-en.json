@@ -120,7 +120,7 @@
             "image": "shopify://shop_images/21011-4.jpg",
             "image_fit": "cover",
             "image_position": "center",
-            "desktop_height": 600,
+            "desktop_height": 800,
             "mobile_height": 400,
             "desktop_width_percent": 100
           },
@@ -203,7 +203,7 @@
       "name": "Centered Slide",
       "settings": {
         "desktop_gap": 8,
-        "mobile_height": 400,
+        "mobile_height": 450,
         "mobile_slides": 1.4,
         "mobile_gap": 3,
         "transition_speed": 550,
