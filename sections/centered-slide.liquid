@@ -2,6 +2,7 @@
 {%- liquid
   assign mobile_slide_width = 100.0 | divided_by: section.settings.mobile_slides
   assign mobile_gap_offset = section.settings.mobile_gap | times: 1.0 | divided_by: section.settings.mobile_slides
+  assign mobile_side_fade = 100 | minus: section.settings.mobile_side_opacity | divided_by: 100.0
 -%}
 <div
   id="CenteredSlide-{{ section.id }}"
@@ -12,7 +13,7 @@
     --centered-slide-mobile-height: {{ section.settings.mobile_height }}px;
     --centered-slide-mobile-item-width: calc({{ mobile_slide_width }}vw - {{ mobile_gap_offset }}px);
     --centered-slide-speed: {{ section.settings.transition_speed }}ms;
-    --centered-slide-side-opacity: {{ section.settings.mobile_side_opacity | divided_by: 100.0 }};
+    --centered-slide-side-fade: {{ mobile_side_fade }};
     --centered-slide-side-blur: {{ section.settings.mobile_side_blur }}px;
     --centered-slide-side-scale: {{ section.settings.mobile_side_scale | divided_by: 100.0 }};
   "
@@ -122,12 +123,13 @@
     {
       "type": "range",
       "id": "mobile_side_opacity",
-      "label": "Độ mờ",
+      "label": "Độ rõ ở mép ngoài",
       "min": 10,
       "max": 100,
       "step": 5,
       "unit": "%",
-      "default": 45
+      "default": 45,
+      "info": "Càng thấp thì slide càng tối dần về phía mép màn hình."
     },
     {
       "type": "range",
@@ -238,6 +240,8 @@ function updateDots() {
 function updateSlideStates() {
     items.forEach((item, index) => {
         item.classList.toggle('is-active', index === active);
+        item.classList.toggle('is-before', index < active);
+        item.classList.toggle('is-after', index > active);
     });
 }
 
@@ -245,7 +249,10 @@ function reloadSlider(animate = true) {
     let currentItem = items[active];
     if (!currentItem) return;
 
-    if (!animate) slider.style.transition = 'none';
+    if (!animate) {
+        section.classList.add('is-jumping');
+        slider.style.transition = 'none';
+    }
     let centeredOffset = (section.clientWidth - currentItem.offsetWidth) / 2;
     let translateX = centeredOffset - currentItem.offsetLeft;
     slider.style.transform = 'translate3d(' + translateX + 'px, 0, 0)';
@@ -255,6 +262,7 @@ function reloadSlider(animate = true) {
     if (!animate) {
         slider.offsetHeight;
         slider.style.transition = '';
+        section.classList.remove('is-jumping');
     }
 }
 
