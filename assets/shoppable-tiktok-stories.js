@@ -48,6 +48,8 @@
     this.sliderAutoplay = toBoolean(root.dataset.sliderAutoplay);
     this.disableOnInteraction = toBoolean(root.dataset.disableOnInteraction);
     this.userStoppedAutoplay = false;
+    this.pendingPlaybackIndex = null;
+    this.pendingPlaybackTimer = null;
     this.swiper = null;
 
     if (!this.sliderElement || !window.Swiper) return;
@@ -138,6 +140,7 @@
 
     this.swiper.on('transitionEnd', function () {
       self.syncVideos();
+      self.playPendingMedia();
     });
 
     this.swiper.on('sliderFirstMove', function () {
@@ -159,25 +162,14 @@
         var playCard = playButton.closest('.sts__card');
         var playMedia = playCard && playCard.querySelector('[data-sts-video], [data-sts-tiktok]');
         if (!playMedia) return;
-        var mediaWasReady = self.hydrateMedia(playMedia);
 
-        if (playMedia.matches('[data-sts-tiktok]')) {
-          var tiktokIsPlaying = playMedia.dataset.stsPlaying === 'true';
-          if (!mediaWasReady && !tiktokIsPlaying) {
-            playMedia.dataset.stsPendingPlay = 'true';
-          } else {
-            self.sendTikTokCommand(playMedia, tiktokIsPlaying ? 'pause' : 'play');
-          }
-          playMedia.dataset.stsPlaying = tiktokIsPlaying ? 'false' : 'true';
-        } else if (playMedia.paused) {
-          var playPromise = playMedia.play();
-          if (playPromise && typeof playPromise.catch === 'function') {
-            playPromise.catch(function () {});
-          }
-        } else {
-          playMedia.pause();
+        var playSlide = playMedia.closest('.swiper-slide');
+        if (playSlide && !playSlide.classList.contains('swiper-slide-active')) {
+          self.focusSlideAndPlay(playSlide);
+          return;
         }
-        self.updateVideoState(playMedia);
+
+        self.toggleMediaPlayback(playMedia);
         return;
       }
 
@@ -344,7 +336,108 @@
     }, 'https://www.tiktok.com');
   };
 
+  StorySlider.prototype.playMedia = function (media) {
+    if (!media) return;
+    var mediaWasLoaded = this.hydrateMedia(media);
+
+    if (media.matches('[data-sts-tiktok]')) {
+      if (!mediaWasLoaded || media.dataset.stsReady !== 'true') {
+        media.dataset.stsPendingPlay = 'true';
+      } else {
+        this.sendTikTokCommand(media, 'play');
+      }
+      media.dataset.stsPlaying = 'true';
+    } else {
+      var playPromise = media.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {});
+      }
+    }
+
+    this.updateVideoState(media);
+  };
+
+  StorySlider.prototype.toggleMediaPlayback = function (media) {
+    if (!media) return;
+
+    if (media.matches('[data-sts-tiktok]')) {
+      var isPlaying = media.dataset.stsPlaying === 'true';
+      if (isPlaying) {
+        delete media.dataset.stsPendingPlay;
+        this.sendTikTokCommand(media, 'pause');
+        media.dataset.stsPlaying = 'false';
+        this.updateVideoState(media);
+      } else {
+        this.playMedia(media);
+      }
+    } else if (media.paused) {
+      this.playMedia(media);
+    } else {
+      media.pause();
+      this.updateVideoState(media);
+    }
+  };
+
+  StorySlider.prototype.clearPendingPlayback = function () {
+    if (this.pendingPlaybackTimer) {
+      window.clearTimeout(this.pendingPlaybackTimer);
+      this.pendingPlaybackTimer = null;
+    }
+    this.pendingPlaybackIndex = null;
+  };
+
+  StorySlider.prototype.playPendingMedia = function () {
+    if (this.pendingPlaybackIndex === null || !this.swiper) return;
+
+    if (Number(this.swiper.realIndex) !== this.pendingPlaybackIndex) {
+      this.clearPendingPlayback();
+      return;
+    }
+
+    var activeSlide = this.root.querySelector('.swiper-slide-active');
+    var media = activeSlide && activeSlide.querySelector('[data-sts-video], [data-sts-tiktok]');
+    this.clearPendingPlayback();
+    this.syncVideos();
+    this.playMedia(media);
+  };
+
+  StorySlider.prototype.focusSlideAndPlay = function (slide) {
+    if (!this.swiper || !slide) return;
+
+    var indexValue = slide.getAttribute('data-swiper-slide-index');
+    if (indexValue === null) indexValue = slide.dataset.slideIndex;
+    var realIndex = Number(indexValue);
+    if (!Number.isFinite(realIndex)) return;
+
+    this.clearPendingPlayback();
+    this.pendingPlaybackIndex = realIndex;
+
+    if (this.disableOnInteraction && this.swiper.autoplay && this.swiper.autoplay.stop) {
+      this.userStoppedAutoplay = true;
+      this.swiper.autoplay.stop();
+    }
+
+    if (Number(this.swiper.realIndex) === realIndex) {
+      this.playPendingMedia();
+      return;
+    }
+
+    if (this.swiper.params.loop && this.swiper.slideToLoop) {
+      this.swiper.slideToLoop(realIndex);
+    } else {
+      var slideIndex = Array.prototype.indexOf.call(this.swiper.slides, slide);
+      this.swiper.slideTo(slideIndex >= 0 ? slideIndex : realIndex);
+    }
+
+    var self = this;
+    var transitionSpeed = toNumber(this.swiper.params.speed, 550);
+    this.pendingPlaybackTimer = window.setTimeout(function () {
+      self.playPendingMedia();
+    }, transitionSpeed + 150);
+  };
+
   StorySlider.prototype.updateVideoState = function (media) {
+    if (!media) return;
     var card = media.closest('.sts__card');
     if (!card) return;
     var playButton = card.querySelector('[data-sts-play]');
@@ -446,6 +539,7 @@
   };
 
   StorySlider.prototype.destroy = function () {
+    this.clearPendingPlayback();
     if (this.root) {
       this.root.removeEventListener('click', this.onClick);
       this.root.removeEventListener('keydown', this.onKeyDown);
