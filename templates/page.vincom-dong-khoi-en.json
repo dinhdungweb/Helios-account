@@ -193,7 +193,19 @@
         "slide_9PDqfk"
       ],
       "name": "Centered Slide",
-      "settings": {}
+      "settings": {
+        "desktop_gap": 8,
+        "mobile_height": 400,
+        "mobile_slides": 1.4,
+        "mobile_gap": 10,
+        "transition_speed": 550,
+        "show_arrows": false,
+        "show_mobile_arrows": false,
+        "show_dots": true,
+        "mobile_side_opacity": 45,
+        "mobile_side_blur": 3,
+        "mobile_side_scale": 94
+      }
     },
     "rich_text_hfn9D3": {
       "type": "rich-text",
