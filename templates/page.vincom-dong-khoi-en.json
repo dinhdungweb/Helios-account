@@ -272,10 +272,10 @@
             "video_url": "https://www.tiktok.com/@harveydeann5/video/7638157416265157910",
             "alt_text": "",
             "media_position": "center",
-            "badge": "NEW",
-            "label": "CUSTOMER STORY",
-            "caption": "Jewellery hunting with HELIOS",
-            "author": "@helios",
+            "badge": "",
+            "label": "",
+            "caption": "",
+            "author": "",
             "date": "",
             "meta": "",
             "link_label": "",
@@ -289,63 +289,16 @@
             "text_color": "#ffffff"
           }
         },
-        "story_WzPMq3": {
+        "story_YBY9tV": {
           "type": "story",
           "settings": {
-            "video_url": "",
-            "alt_text": "",
-            "media_position": "center",
-            "badge": "NEW",
-            "label": "CUSTOMER STORY",
-            "caption": "Jewellery hunting with HELIOS",
-            "author": "@helios",
-            "date": "",
-            "meta": "",
-            "link_label": "",
-            "link": "",
-            "open_new_tab": false,
-            "product": "",
-            "product_button_label": "",
-            "use_custom_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 35,
-            "text_color": "#ffffff"
-          }
-        },
-        "story_Wkm4kT": {
-          "type": "story",
-          "settings": {
-            "video_url": "",
-            "alt_text": "",
-            "media_position": "center",
-            "badge": "NEW",
-            "label": "CUSTOMER STORY",
-            "caption": "Jewellery hunting with HELIOS",
-            "author": "@helios",
-            "date": "",
-            "meta": "",
-            "link_label": "",
-            "link": "",
-            "open_new_tab": false,
-            "product": "",
-            "product_button_label": "",
-            "use_custom_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 35,
-            "text_color": "#ffffff"
-          }
-        },
-        "story_Y9kJfH": {
-          "type": "story",
-          "settings": {
-            "video": "shopify://files/videos/Lil Wuyn.mp4",
-            "video_url": "",
+            "video_url": "https://www.tiktok.com/@_abelian/video/7518305427721899294",
             "alt_text": "",
             "media_position": "center",
             "badge": "",
-            "label": "CUSTOMER STORY",
-            "caption": "Jewellery hunting with HELIOS",
-            "author": "@helios",
+            "label": "",
+            "caption": "",
+            "author": "",
             "date": "",
             "meta": "",
             "link_label": "",
@@ -359,16 +312,62 @@
             "text_color": "#ffffff"
           }
         },
-        "story_4HLTfp": {
+        "story_3JtUPd": {
           "type": "story",
           "settings": {
-            "video_url": "",
+            "video_url": "https://www.tiktok.com/@_abelian/video/7518265162822962462",
             "alt_text": "",
             "media_position": "center",
-            "badge": "NEW",
-            "label": "CUSTOMER STORY",
-            "caption": "Jewellery hunting with HELIOS",
-            "author": "@helios",
+            "badge": "",
+            "label": "",
+            "caption": "",
+            "author": "",
+            "date": "",
+            "meta": "",
+            "link_label": "",
+            "link": "",
+            "open_new_tab": false,
+            "product": "",
+            "product_button_label": "",
+            "use_custom_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 35,
+            "text_color": "#ffffff"
+          }
+        },
+        "story_Pa4hag": {
+          "type": "story",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@jacobj_lars/video/7574366070706801933",
+            "alt_text": "",
+            "media_position": "center",
+            "badge": "",
+            "label": "",
+            "caption": "",
+            "author": "",
+            "date": "",
+            "meta": "",
+            "link_label": "",
+            "link": "",
+            "open_new_tab": false,
+            "product": "",
+            "product_button_label": "",
+            "use_custom_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 35,
+            "text_color": "#ffffff"
+          }
+        },
+        "story_CJ3kxr": {
+          "type": "story",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@leahcbassett/video/7593759453078408470",
+            "alt_text": "",
+            "media_position": "center",
+            "badge": "",
+            "label": "",
+            "caption": "",
+            "author": "",
             "date": "",
             "meta": "",
             "link_label": "",
@@ -385,10 +384,10 @@
       },
       "block_order": [
         "story_3rjAtE",
-        "story_WzPMq3",
-        "story_Wkm4kT",
-        "story_Y9kJfH",
-        "story_4HLTfp"
+        "story_YBY9tV",
+        "story_3JtUPd",
+        "story_Pa4hag",
+        "story_CJ3kxr"
       ],
       "name": "Shoppable TikTok Story",
       "settings": {
