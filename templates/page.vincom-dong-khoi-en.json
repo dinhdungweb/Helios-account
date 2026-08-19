@@ -111,6 +111,28 @@
         "color_text": ""
       }
     },
+    "blocks_Y6apcY": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d3b865_3PB9bg": {
+          "type": "ai_gen_block_1d3b865",
+          "settings": {
+            "image": "shopify://shop_images/21011-4.jpg",
+            "image_fit": "cover",
+            "image_position": "center",
+            "desktop_height": 600,
+            "mobile_height": 400,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d3b865_3PB9bg"
+      ],
+      "name": "Large image",
+      "settings": {}
+    },
     "rich_text_f66gzF": {
       "type": "rich-text",
       "name": "Rich text",
@@ -201,15 +223,228 @@
         "alternate_bg_color": false,
         "show_view_all": false
       }
+    },
+    "shoppable_tiktok_stories_QBcRLc": {
+      "type": "shoppable-tiktok-stories",
+      "blocks": {
+        "story_3rjAtE": {
+          "type": "story",
+          "settings": {
+            "video_url": "",
+            "alt_text": "",
+            "media_position": "center",
+            "badge": "NEW",
+            "label": "CUSTOMER STORY",
+            "caption": "Jewellery hunting with HELIOS",
+            "author": "@helios",
+            "date": "",
+            "meta": "",
+            "link_label": "",
+            "link": "",
+            "open_new_tab": false,
+            "product": "",
+            "product_button_label": "",
+            "use_custom_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 35,
+            "text_color": "#ffffff"
+          }
+        },
+        "story_WzPMq3": {
+          "type": "story",
+          "settings": {
+            "video_url": "",
+            "alt_text": "",
+            "media_position": "center",
+            "badge": "NEW",
+            "label": "CUSTOMER STORY",
+            "caption": "Jewellery hunting with HELIOS",
+            "author": "@helios",
+            "date": "",
+            "meta": "",
+            "link_label": "",
+            "link": "",
+            "open_new_tab": false,
+            "product": "",
+            "product_button_label": "",
+            "use_custom_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 35,
+            "text_color": "#ffffff"
+          }
+        },
+        "story_Wkm4kT": {
+          "type": "story",
+          "settings": {
+            "video_url": "",
+            "alt_text": "",
+            "media_position": "center",
+            "badge": "NEW",
+            "label": "CUSTOMER STORY",
+            "caption": "Jewellery hunting with HELIOS",
+            "author": "@helios",
+            "date": "",
+            "meta": "",
+            "link_label": "",
+            "link": "",
+            "open_new_tab": false,
+            "product": "",
+            "product_button_label": "",
+            "use_custom_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 35,
+            "text_color": "#ffffff"
+          }
+        },
+        "story_Y9kJfH": {
+          "type": "story",
+          "settings": {
+            "video_url": "",
+            "alt_text": "",
+            "media_position": "center",
+            "badge": "NEW",
+            "label": "CUSTOMER STORY",
+            "caption": "Jewellery hunting with HELIOS",
+            "author": "@helios",
+            "date": "",
+            "meta": "",
+            "link_label": "",
+            "link": "",
+            "open_new_tab": false,
+            "product": "",
+            "product_button_label": "",
+            "use_custom_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 35,
+            "text_color": "#ffffff"
+          }
+        },
+        "story_4HLTfp": {
+          "type": "story",
+          "settings": {
+            "video_url": "",
+            "alt_text": "",
+            "media_position": "center",
+            "badge": "NEW",
+            "label": "CUSTOMER STORY",
+            "caption": "Jewellery hunting with HELIOS",
+            "author": "@helios",
+            "date": "",
+            "meta": "",
+            "link_label": "",
+            "link": "",
+            "open_new_tab": false,
+            "product": "",
+            "product_button_label": "",
+            "use_custom_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 35,
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "story_3rjAtE",
+        "story_WzPMq3",
+        "story_Wkm4kT",
+        "story_Y9kJfH",
+        "story_4HLTfp"
+      ],
+      "name": "Shoppable TikTok Story",
+      "settings": {
+        "eyebrow": "",
+        "heading": "CUSTOMER EXPERIENCE",
+        "heading_tag": "h2",
+        "text": "",
+        "header_alignment": "left",
+        "full_width": false,
+        "max_width": 1400,
+        "side_padding": 40,
+        "side_padding_mobile": 10,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "header_spacing": 30,
+        "heading_font_family": "",
+        "body_font_family": "",
+        "heading_size": 32,
+        "heading_size_mobile": 26,
+        "heading_weight": "700",
+        "heading_line_height": 120,
+        "heading_letter_spacing": 0,
+        "background_color": "#101010",
+        "heading_color": "#ffffff",
+        "text_color": "#d1d1d1",
+        "accent_color": "#ffffff",
+        "slides_desktop": 4.2,
+        "slides_mobile": 1.4,
+        "gap_desktop": 12,
+        "gap_mobile": 10,
+        "centered_desktop": false,
+        "centered_mobile": false,
+        "enable_swipe": true,
+        "slider_loop": true,
+        "transition_speed": 550,
+        "slider_autoplay": false,
+        "slider_autoplay_delay": 5,
+        "disable_autoplay_on_interaction": false,
+        "pause_on_hover": true,
+        "show_arrows": true,
+        "arrow_position": "overlay",
+        "show_dots": false,
+        "show_progress": true,
+        "card_ratio_desktop": "9x16",
+        "card_ratio_mobile": "9x16",
+        "card_radius": 4,
+        "card_border_width": 0,
+        "card_border_color": "#ffffff",
+        "card_background": "#1a1a1a",
+        "overlay_color": "#000000",
+        "overlay_opacity": 35,
+        "video_autoplay": true,
+        "video_play_mode": "visible",
+        "video_loop": true,
+        "video_muted": true,
+        "video_preload": "metadata",
+        "show_play_button": true,
+        "show_mute_button": true,
+        "show_story_text": true,
+        "story_text_color": "#ffffff",
+        "story_text_size": 16,
+        "story_text_size_mobile": 15,
+        "meta_text_size": 11,
+        "show_product_card": true,
+        "product_reveal": "always",
+        "product_position": "bottom",
+        "show_product_image": true,
+        "show_product_price": true,
+        "product_button_label": "MUA NGAY",
+        "product_background": "#ffffff",
+        "product_text_color": "#111111",
+        "product_price_color": "#555555",
+        "product_radius": 8,
+        "product_image_size": 60,
+        "arrow_size": 44,
+        "arrow_background": "#000000",
+        "arrow_color": "#ffffff",
+        "arrow_border_color": "#333333",
+        "dot_color": "#666666",
+        "dot_active_color": "#ffffff",
+        "progress_track_color": "#333333",
+        "progress_color": "#ffffff"
+      }
     }
   },
   "order": [
     "main",
     "slideshow_p88rnz",
     "rich_text_U7nYaG",
+    "blocks_Y6apcY",
     "rich_text_f66gzF",
     "rich_text_hfn9D3",
     "rich_text_HU3NBR",
-    "featured_collection_b4ApQx"
+    "featured_collection_b4ApQx",
+    "shoppable_tiktok_stories_QBcRLc"
   ]
 }
