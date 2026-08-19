@@ -518,6 +518,14 @@
         "progress_color": "#ffffff"
       }
     },
+    "custom_spacing_TWbgMT": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 30
+      }
+    },
     "centered_slide_HzBiCg": {
       "type": "centered-slide",
       "blocks": {
@@ -717,6 +725,7 @@
     "rich_text_HU3NBR",
     "featured_collection_b4ApQx",
     "shoppable_tiktok_stories_QBcRLc",
+    "custom_spacing_TWbgMT",
     "centered_slide_HzBiCg",
     "accordions_96RL7B"
   ]
