@@ -204,9 +204,10 @@
       "settings": {
         "desktop_gap": 8,
         "desktop_slides": 1.2,
+        "desktop_height": 800,
         "mobile_height": 450,
         "mobile_slides": 1.4,
-        "mobile_gap": 10,
+        "mobile_gap": 3,
         "transition_speed": 550,
         "show_arrows": true,
         "show_mobile_arrows": false,
@@ -619,6 +620,7 @@
       "settings": {
         "desktop_gap": 8,
         "desktop_slides": 1.2,
+        "desktop_height": 800,
         "mobile_height": 450,
         "mobile_slides": 1.4,
         "mobile_gap": 3,
