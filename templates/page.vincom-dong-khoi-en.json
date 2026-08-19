@@ -432,7 +432,7 @@
         "header_alignment": "left",
         "full_width": true,
         "max_width": 1800,
-        "side_padding": 35,
+        "side_padding": 20,
         "side_padding_mobile": 10,
         "padding_top": 60,
         "padding_bottom": 60,
