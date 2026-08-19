@@ -33,6 +33,7 @@
   data-centered-mobile="{{ section.settings.centered_mobile }}"
   data-video-autoplay="{{ section.settings.video_autoplay }}"
   data-video-mode="{{ section.settings.video_play_mode }}"
+  data-video-lazy-load="{{ section.settings.video_lazy_load }}"
   style="
     --sts-background: {{ section.settings.background_color }};
     --sts-text: {{ section.settings.text_color }};
@@ -177,9 +178,10 @@
                     <iframe
                       class="sts__tiktok-player"
                       data-sts-tiktok
+                      data-sts-loaded="false"
                       data-sts-playing="false"
                       data-sts-muted="{{ section.settings.video_muted }}"
-                      src="https://www.tiktok.com/player/v1/{{ tiktok_video_id | escape }}?autoplay={% if section.settings.video_autoplay %}1{% else %}0{% endif %}&amp;muted={% if section.settings.video_muted %}1{% else %}0{% endif %}&amp;loop={% if section.settings.video_loop %}1{% else %}0{% endif %}&amp;controls=0&amp;progress_bar=0&amp;play_button=0&amp;volume_control=0&amp;fullscreen_button=0&amp;timestamp=0&amp;music_info=0&amp;description=0&amp;rel=0"
+                      data-sts-src="https://www.tiktok.com/player/v1/{{ tiktok_video_id | escape }}?autoplay={% if section.settings.video_autoplay %}1{% else %}0{% endif %}&amp;muted={% if section.settings.video_muted %}1{% else %}0{% endif %}&amp;loop={% if section.settings.video_loop %}1{% else %}0{% endif %}&amp;controls=0&amp;progress_bar=0&amp;play_button=0&amp;volume_control=0&amp;fullscreen_button=0&amp;timestamp=0&amp;music_info=0&amp;description=0&amp;rel=0"
                       title="{{ media_alt | escape }}"
                       loading="lazy"
                       allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
@@ -190,8 +192,10 @@
                     <video
                       class="sts__video"
                       data-sts-video
+                      data-sts-loaded="false"
+                      data-sts-preload="{{ section.settings.video_preload }}"
                       playsinline
-                      preload="{{ section.settings.video_preload }}"
+                      preload="none"
                       {% if section.settings.video_loop %}loop{% endif %}
                       {% if section.settings.video_muted %}muted{% endif %}
                       {% if story_poster != blank %}poster="{{ story_poster | image_url: width: 1200 }}"{% endif %}
@@ -200,12 +204,12 @@
                       {%- if story_video != blank -%}
                         {% # theme-check-disable RemoteAsset %}
                         {%- for source in story_video.sources -%}
-                          <source src="{{ source.url | escape }}" type="{{ source.mime_type | escape }}">
+                          <source data-src="{{ source.url | escape }}" type="{{ source.mime_type | escape }}">
                         {%- endfor -%}
                         {% # theme-check-enable RemoteAsset %}
                       {%- else -%}
                         {% # theme-check-disable RemoteAsset %}
-                        <source src="{{ external_video_url | escape }}" type="video/mp4">
+                        <source data-src="{{ external_video_url | escape }}" type="video/mp4">
                         {% # theme-check-enable RemoteAsset %}
                       {%- endif -%}
                     </video>
@@ -464,7 +468,8 @@
       { "value": "active", "label": "Chỉ slide active" },
       { "value": "visible", "label": "Tất cả slide đang thấy" },
       { "value": "all", "label": "Tất cả video" }
-    ], "default": "visible" },
+    ], "default": "active" },
+    { "type": "checkbox", "id": "video_lazy_load", "label": "Chỉ tải video khi đến slide", "default": true, "info": "Giảm tải ban đầu bằng cách chỉ nạp video của slide active." },
     { "type": "checkbox", "id": "video_loop", "label": "Lặp video", "default": true },
     { "type": "checkbox", "id": "video_muted", "label": "Tắt tiếng mặc định", "default": true, "info": "Nên bật để autoplay hoạt động trên trình duyệt." },
     { "type": "select", "id": "video_preload", "label": "Tải trước video", "options": [

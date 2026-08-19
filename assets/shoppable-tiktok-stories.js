@@ -22,6 +22,7 @@
     this.progressElement = root.querySelector('[data-sts-progress]');
     this.videoAutoplay = toBoolean(root.dataset.videoAutoplay);
     this.videoMode = root.dataset.videoMode || 'visible';
+    this.lazyLoadVideos = toBoolean(root.dataset.videoLazyLoad);
     this.pauseOnHover = toBoolean(root.dataset.pauseOnHover);
     this.sliderAutoplay = toBoolean(root.dataset.sliderAutoplay);
     this.disableOnInteraction = toBoolean(root.dataset.disableOnInteraction);
@@ -131,10 +132,15 @@
         var playCard = playButton.closest('.sts__card');
         var playMedia = playCard && playCard.querySelector('[data-sts-video], [data-sts-tiktok]');
         if (!playMedia) return;
+        var mediaWasReady = self.hydrateMedia(playMedia);
 
         if (playMedia.matches('[data-sts-tiktok]')) {
           var tiktokIsPlaying = playMedia.dataset.stsPlaying === 'true';
-          self.sendTikTokCommand(playMedia, tiktokIsPlaying ? 'pause' : 'play');
+          if (!mediaWasReady && !tiktokIsPlaying) {
+            playMedia.dataset.stsPendingPlay = 'true';
+          } else {
+            self.sendTikTokCommand(playMedia, tiktokIsPlaying ? 'pause' : 'play');
+          }
           playMedia.dataset.stsPlaying = tiktokIsPlaying ? 'false' : 'true';
         } else if (playMedia.paused) {
           var playPromise = playMedia.play();
@@ -154,9 +160,15 @@
         var muteCard = muteButton.closest('.sts__card');
         var muteMedia = muteCard && muteCard.querySelector('[data-sts-video], [data-sts-tiktok]');
         if (!muteMedia) return;
+        var muteMediaWasReady = self.hydrateMedia(muteMedia);
         if (muteMedia.matches('[data-sts-tiktok]')) {
           var tiktokIsMuted = muteMedia.dataset.stsMuted === 'true';
-          self.sendTikTokCommand(muteMedia, tiktokIsMuted ? 'unMute' : 'mute');
+          var muteCommand = tiktokIsMuted ? 'unMute' : 'mute';
+          if (muteMediaWasReady) {
+            self.sendTikTokCommand(muteMedia, muteCommand);
+          } else {
+            muteMedia.dataset.stsPendingMute = muteCommand;
+          }
           muteMedia.dataset.stsMuted = tiktokIsMuted ? 'false' : 'true';
         } else {
           muteMedia.muted = !muteMedia.muted;
@@ -200,11 +212,23 @@
       if (!player) return;
 
       if (message.type === 'onPlayerReady') {
-        if (player.dataset.stsMuted === 'true') self.sendTikTokCommand(player, 'mute');
-        self.syncVideos();
+        if (player.dataset.stsPendingMute) {
+          self.sendTikTokCommand(player, player.dataset.stsPendingMute);
+          delete player.dataset.stsPendingMute;
+        } else if (player.dataset.stsMuted === 'true') {
+          self.sendTikTokCommand(player, 'mute');
+        }
+
+        if (player.dataset.stsPendingPlay === 'true') {
+          self.sendTikTokCommand(player, 'play');
+          delete player.dataset.stsPendingPlay;
+        } else {
+          self.syncVideos();
+        }
       } else if (message.type === 'onStateChange') {
         player.dataset.stsPlaying = Number(message.value) === 1 ? 'true' : 'false';
         self.updateVideoState(player);
+        if (Number(message.value) === 1) self.syncVideos();
       } else if (message.type === 'onMute') {
         player.dataset.stsMuted = message.value === true || message.value === 'true' ? 'true' : 'false';
         self.updateVideoState(player);
@@ -251,6 +275,25 @@
     this.progressElement.style.transform = 'scaleX(' + progress + ')';
   };
 
+  StorySlider.prototype.hydrateMedia = function (media) {
+    if (!media || media.dataset.stsLoaded === 'true') return true;
+
+    if (media.matches('[data-sts-tiktok]')) {
+      if (!media.dataset.stsSrc) return false;
+      media.src = media.dataset.stsSrc;
+    } else {
+      var sources = media.querySelectorAll('source[data-src]');
+      sources.forEach(function (source) {
+        source.src = source.dataset.src;
+      });
+      media.preload = media.dataset.stsPreload || 'metadata';
+      media.load();
+    }
+
+    media.dataset.stsLoaded = 'true';
+    return false;
+  };
+
   StorySlider.prototype.sendTikTokCommand = function (player, type) {
     if (!player || !player.contentWindow) return;
     player.contentWindow.postMessage({
@@ -285,13 +328,21 @@
 
     videos.forEach(function (video) {
       var slide = video.closest('.swiper-slide');
+      var isActiveSlide = slide && slide.classList.contains('swiper-slide-active');
+      var shouldLoad = !self.lazyLoadVideos || isActiveSlide;
       var shouldPlay = false;
+
+      if (shouldLoad) self.hydrateMedia(video);
+      if (video.dataset.stsLoaded !== 'true') {
+        self.updateVideoState(video);
+        return;
+      }
 
       if (self.videoAutoplay) {
         if (self.videoMode === 'all') {
           shouldPlay = true;
         } else if (self.videoMode === 'active') {
-          shouldPlay = slide && slide.classList.contains('swiper-slide-active');
+          shouldPlay = isActiveSlide;
         } else {
           shouldPlay = slide && (
             slide.classList.contains('swiper-slide-visible') ||
@@ -302,11 +353,11 @@
 
       if (video.matches('[data-sts-tiktok]')) {
         var tiktokIsPlaying = video.dataset.stsPlaying === 'true';
-        var shouldPauseTikTok = self.videoAutoplay || (slide && !slide.classList.contains('swiper-slide-active'));
+        var shouldPauseTikTok = self.videoAutoplay || (slide && !isActiveSlide);
         if (shouldPlay && !tiktokIsPlaying) {
           self.sendTikTokCommand(video, 'play');
           video.dataset.stsPlaying = 'true';
-        } else if (!shouldPlay && shouldPauseTikTok && tiktokIsPlaying) {
+        } else if (!shouldPlay && shouldPauseTikTok) {
           self.sendTikTokCommand(video, 'pause');
           video.dataset.stsPlaying = 'false';
         }
