@@ -1,5 +1,7 @@
 {{ 'centered-slide.css' | asset_url | stylesheet_tag }}
 {%- liquid
+  assign desktop_slide_width = 100.0 | divided_by: section.settings.desktop_slides
+  assign desktop_gap_offset = section.settings.desktop_gap | times: 1.0 | divided_by: section.settings.desktop_slides
   assign mobile_slide_width = 100.0 | divided_by: section.settings.mobile_slides
   assign mobile_gap_offset = section.settings.mobile_gap | times: 1.0 | divided_by: section.settings.mobile_slides
   assign mobile_side_fade = 100 | minus: section.settings.mobile_side_opacity | divided_by: 100.0
@@ -9,6 +11,7 @@
   class="centered-slide{% unless section.settings.show_arrows %} centered-slide--hide-arrows{% endunless %}{% unless section.settings.show_mobile_arrows %} centered-slide--hide-mobile-arrows{% endunless %}{% unless section.settings.show_dots %} centered-slide--hide-dots{% endunless %}"
   style="
     --centered-slide-desktop-gap: {{ section.settings.desktop_gap }}px;
+    --centered-slide-desktop-item-width: calc({{ desktop_slide_width }}vw - {{ desktop_gap_offset }}px);
     --centered-slide-mobile-gap: {{ section.settings.mobile_gap }}px;
     --centered-slide-mobile-height: {{ section.settings.mobile_height }}px;
     --centered-slide-mobile-item-width: calc({{ mobile_slide_width }}vw - {{ mobile_gap_offset }}px);
@@ -58,6 +61,16 @@
       "step": 1,
       "unit": "px",
       "default": 8
+    },
+    {
+      "type": "range",
+      "id": "desktop_slides",
+      "label": "Số slide hiển thị trên desktop",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2,
+      "info": "Tăng giá trị để lộ nhiều hơn hai slide bên cạnh."
     },
     {
       "type": "range",
