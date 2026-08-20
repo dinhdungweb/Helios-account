@@ -55,6 +55,7 @@
   min-height: 760px;
   padding: 52px 24px 34px;
   position: relative;
+  touch-action: pan-y;
 }
 
 .warrior-chapters__viewport {
@@ -133,8 +134,10 @@
 }
 
 .warrior-chapter-card__art {
+  -webkit-user-drag: none;
   height: 455px;
   object-fit: contain;
+  user-select: none;
   width: min(470px, 35vw);
 }
 
@@ -563,8 +566,8 @@
 
   .warrior-chapter-card.is-previous,
   .warrior-chapter-card.is-next {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 0.48;
+    visibility: visible;
   }
 
   .warrior-chapter-card h2 {

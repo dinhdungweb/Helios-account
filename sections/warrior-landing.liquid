@@ -78,6 +78,7 @@
               alt="{{ block.settings.artwork.alt | default: block.settings.title | escape }}"
               width="900"
               height="900"
+              draggable="false"
               loading="{% if chapter_index == 1 %}eager{% else %}lazy{% endif %}"
             >
             {%- if block.settings.description != blank -%}

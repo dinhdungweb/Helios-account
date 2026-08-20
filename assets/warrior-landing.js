@@ -55,13 +55,37 @@
     });
 
     var startX = null;
-    root.addEventListener('pointerdown', function (event) { startX = event.clientX; });
+    var startY = null;
+    var activePointerId = null;
+
+    root.addEventListener('pointerdown', function (event) {
+      if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      startX = event.clientX;
+      startY = event.clientY;
+      activePointerId = event.pointerId;
+
+      if (root.setPointerCapture) {
+        try { root.setPointerCapture(event.pointerId); } catch (error) { /* Pointer capture is optional. */ }
+      }
+    });
+
     root.addEventListener('pointerup', function (event) {
-      if (startX === null) return;
-      var distance = event.clientX - startX;
+      if (startX === null || event.pointerId !== activePointerId) return;
+      var distanceX = event.clientX - startX;
+      var distanceY = event.clientY - startY;
       startX = null;
-      if (Math.abs(distance) < 45) return;
-      update(current + (distance < 0 ? 1 : -1));
+      startY = null;
+      activePointerId = null;
+
+      if (Math.abs(distanceX) < 45 || Math.abs(distanceX) <= Math.abs(distanceY)) return;
+      event.preventDefault();
+      update(current + (distanceX < 0 ? 1 : -1));
+    });
+
+    root.addEventListener('pointercancel', function () {
+      startX = null;
+      startY = null;
+      activePointerId = null;
     });
 
     update(0);
