@@ -150,37 +150,87 @@
         {%- endfor -%}
       </nav>
 
-      <div class="warrior-gallery" data-warrior-gallery>
-        <button class="warrior-gallery__arrow warrior-gallery__arrow--previous" type="button" data-warrior-gallery-previous aria-label="Ảnh trước">
-          <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
-        </button>
-
-        <div class="warrior-gallery__track" aria-live="polite">
-          {%- for gallery_number in (1..5) -%}
-            {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
-            {%- capture gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
-            {%- assign gallery_image = section.settings[gallery_setting_id] -%}
-            {%- if gallery_image != blank -%}
-              {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+      <div class="warrior-collection-galleries">
+        {%- assign gallery_collection_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'collection' -%}
+            {%- assign gallery_collection_index = gallery_collection_index | plus: 1 -%}
+            {%- case gallery_collection_index -%}
+              {%- when 1 -%}
+                {%- assign gallery_artwork_asset = 'warrior-lotus-drop.png' -%}
+              {%- when 2 -%}
+                {%- assign gallery_artwork_asset = 'warrior-tab-sunflower.png' -%}
+              {%- else -%}
+                {%- assign gallery_artwork_asset = 'warrior-tab-chrysaber.png' -%}
+            {%- endcase -%}
+            {%- if block.settings.icon != blank -%}
+              {%- assign gallery_artwork_url = block.settings.icon | image_url: width: 1200 -%}
             {%- else -%}
-              {%- assign gallery_image_url = gallery_asset | asset_url -%}
+              {%- assign gallery_artwork_url = gallery_artwork_asset | asset_url -%}
             {%- endif -%}
-            <figure class="warrior-gallery__slide{% if gallery_number == 1 %} is-active{% endif %}" data-warrior-gallery-slide data-index="{{ gallery_number | minus: 1 }}">
-              <img
-                src="{{ gallery_image_url }}"
-                alt="{{ gallery_image.alt | default: section.settings.gallery_alt | escape }}"
-                width="1400"
-                height="900"
-                loading="lazy"
-              >
-            </figure>
-          {%- endfor -%}
-        </div>
 
-        <button class="warrior-gallery__arrow warrior-gallery__arrow--next" type="button" data-warrior-gallery-next aria-label="Ảnh tiếp theo">
-          <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
-        </button>
-        <div class="warrior-dots warrior-gallery__dots" data-warrior-gallery-dots aria-label="Chọn ảnh"></div>
+            <div
+              class="warrior-gallery{% if gallery_collection_index == 1 %} is-active{% endif %}"
+              data-warrior-gallery
+              data-warrior-collection-gallery
+              data-collection-index="{{ gallery_collection_index | minus: 1 }}"
+              aria-hidden="{% if gallery_collection_index == 1 %}false{% else %}true{% endif %}"
+            >
+              <button class="warrior-gallery__arrow warrior-gallery__arrow--previous" type="button" data-warrior-gallery-previous aria-label="Ảnh trước">
+                <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
+              </button>
+
+              <div class="warrior-gallery__track" aria-live="polite">
+                <figure class="warrior-gallery__slide warrior-gallery__slide--artwork is-active" data-warrior-gallery-slide data-index="0">
+                  <img
+                    src="{{ gallery_artwork_url }}"
+                    alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}"
+                    width="900"
+                    height="900"
+                    loading="lazy"
+                  >
+                </figure>
+
+                {%- assign gallery_slide_index = 1 -%}
+                {%- for gallery_number in (1..5) -%}
+                  {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
+                  {%- assign gallery_image = block.settings[gallery_setting_id] -%}
+                  {%- assign gallery_image_url = blank -%}
+
+                  {%- if gallery_image != blank -%}
+                    {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+                  {%- elsif gallery_collection_index == 1 -%}
+                    {%- assign gallery_image = section.settings[gallery_setting_id] -%}
+                    {%- if gallery_image != blank -%}
+                      {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+                    {%- else -%}
+                      {%- capture gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
+                      {%- assign gallery_image_url = gallery_asset | asset_url -%}
+                    {%- endif -%}
+                  {%- endif -%}
+
+                  {%- if gallery_image_url != blank -%}
+                    <figure class="warrior-gallery__slide" data-warrior-gallery-slide data-index="{{ gallery_slide_index }}">
+                      <img
+                        src="{{ gallery_image_url }}"
+                        alt="{{ gallery_image.alt | default: block.settings.title | default: section.settings.gallery_alt | escape }}"
+                        width="1400"
+                        height="900"
+                        loading="lazy"
+                      >
+                    </figure>
+                    {%- assign gallery_slide_index = gallery_slide_index | plus: 1 -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+
+              <button class="warrior-gallery__arrow warrior-gallery__arrow--next" type="button" data-warrior-gallery-next aria-label="Ảnh tiếp theo">
+                <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
+              </button>
+              <div class="warrior-dots warrior-gallery__dots" data-warrior-gallery-dots aria-label="Chọn ảnh"></div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
     </div>
 
@@ -201,8 +251,44 @@
           {%- endif -%}
 
           <article class="warrior-mobile-collection" {{ block.shopify_attributes }}>
-            <img src="{{ mobile_collection_icon_url }}" alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}" width="700" height="700" loading="lazy">
-            <div class="warrior-dots warrior-mobile-collection__dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span><span></span></div>
+            <div class="warrior-mobile-gallery" data-warrior-mobile-gallery>
+              <div class="warrior-mobile-gallery__track" aria-live="polite">
+                <figure class="warrior-mobile-gallery__slide warrior-mobile-gallery__slide--artwork is-active" data-warrior-mobile-gallery-slide>
+                  <img src="{{ mobile_collection_icon_url }}" alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}" width="700" height="700" loading="lazy">
+                </figure>
+
+                {%- for gallery_number in (1..5) -%}
+                  {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
+                  {%- assign mobile_gallery_image = block.settings[gallery_setting_id] -%}
+                  {%- assign mobile_gallery_image_url = blank -%}
+
+                  {%- if mobile_gallery_image != blank -%}
+                    {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
+                  {%- elsif mobile_collection_index == 1 -%}
+                    {%- assign mobile_gallery_image = section.settings[gallery_setting_id] -%}
+                    {%- if mobile_gallery_image != blank -%}
+                      {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
+                    {%- else -%}
+                      {%- capture mobile_gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
+                      {%- assign mobile_gallery_image_url = mobile_gallery_asset | asset_url -%}
+                    {%- endif -%}
+                  {%- endif -%}
+
+                  {%- if mobile_gallery_image_url != blank -%}
+                    <figure class="warrior-mobile-gallery__slide" data-warrior-mobile-gallery-slide>
+                      <img
+                        src="{{ mobile_gallery_image_url }}"
+                        alt="{{ mobile_gallery_image.alt | default: block.settings.title | escape }}"
+                        width="900"
+                        height="700"
+                        loading="lazy"
+                      >
+                    </figure>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+              <div class="warrior-dots warrior-mobile-collection__dots" data-warrior-mobile-gallery-dots aria-label="Chọn ảnh"></div>
+            </div>
             <h2>{{ block.settings.title | escape }}</h2>
             {%- if block.settings.description != blank -%}<p>{{ block.settings.description | escape }}</p>{%- endif -%}
             {%- if block.settings.link != blank and block.settings.link_label != blank -%}
@@ -406,6 +492,35 @@
           "type": "image_picker",
           "id": "hover_artwork",
           "label": "Warrior hover artwork"
+        },
+        {
+          "type": "header",
+          "content": "Collection slider"
+        },
+        {
+          "type": "image_picker",
+          "id": "gallery_image_1",
+          "label": "Slide image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "gallery_image_2",
+          "label": "Slide image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "gallery_image_3",
+          "label": "Slide image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "gallery_image_4",
+          "label": "Slide image 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "gallery_image_5",
+          "label": "Slide image 5"
         },
         {
           "type": "url",

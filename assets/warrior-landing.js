@@ -21,6 +21,8 @@
     var slides = Array.from(root.querySelectorAll(options.slideSelector));
     if (!slides.length) return null;
 
+    root.classList.toggle('is-static', slides.length < 2);
+
     var current = 0;
     var previousButton = root.querySelector(options.previousSelector);
     var nextButton = root.querySelector(options.nextSelector);
@@ -66,8 +68,23 @@
     return { select: update };
   }
 
-  function setupCollectionTabs(root, galleryApi) {
+  function setupCollectionTabs(root, galleries) {
     var tabs = Array.from(root.querySelectorAll('[data-warrior-collection-tab]'));
+
+    function activateCollection(index) {
+      tabs.forEach(function (item, tabIndex) {
+        var active = tabIndex === index;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      galleries.forEach(function (gallery, galleryIndex) {
+        var active = galleryIndex === index;
+        gallery.element.classList.toggle('is-active', active);
+        gallery.element.setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+    }
+
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function (event) {
         var ctaClicked = event.target.closest('[data-warrior-collection-cta]');
@@ -77,14 +94,19 @@
           return;
         }
 
-        tabs.forEach(function (item) {
-          var active = item === tab;
-          item.classList.toggle('is-active', active);
-          item.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
-        if (galleryApi) galleryApi.select(Number(tab.dataset.index) || 0);
+        activateCollection(Number(tab.dataset.index) || 0);
+      });
+
+      tab.addEventListener('mouseenter', function () {
+        activateCollection(Number(tab.dataset.index) || 0);
+      });
+
+      tab.addEventListener('focus', function () {
+        activateCollection(Number(tab.dataset.index) || 0);
       });
     });
+
+    activateCollection(0);
   }
 
   function setup(root) {
@@ -101,18 +123,28 @@
       });
     }
 
-    var galleryApi = null;
-    var galleryRoot = root.querySelector('[data-warrior-gallery]');
-    if (galleryRoot) {
-      galleryApi = setupCarousel(galleryRoot, {
-        slideSelector: '[data-warrior-gallery-slide]',
-        previousSelector: '[data-warrior-gallery-previous]',
-        nextSelector: '[data-warrior-gallery-next]',
-        dotsSelector: '[data-warrior-gallery-dots]'
-      });
-    }
+    var galleries = Array.from(root.querySelectorAll('[data-warrior-collection-gallery]')).map(function (galleryRoot) {
+      return {
+        element: galleryRoot,
+        api: setupCarousel(galleryRoot, {
+          slideSelector: '[data-warrior-gallery-slide]',
+          previousSelector: '[data-warrior-gallery-previous]',
+          nextSelector: '[data-warrior-gallery-next]',
+          dotsSelector: '[data-warrior-gallery-dots]'
+        })
+      };
+    });
 
-    setupCollectionTabs(root, galleryApi);
+    setupCollectionTabs(root, galleries);
+
+    root.querySelectorAll('[data-warrior-mobile-gallery]').forEach(function (galleryRoot) {
+      setupCarousel(galleryRoot, {
+        slideSelector: '[data-warrior-mobile-gallery-slide]',
+        previousSelector: '[data-warrior-mobile-gallery-previous]',
+        nextSelector: '[data-warrior-mobile-gallery-next]',
+        dotsSelector: '[data-warrior-mobile-gallery-dots]'
+      });
+    });
   }
 
   function setupAll(scope) {

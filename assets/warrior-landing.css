@@ -379,6 +379,27 @@
   transform: translateY(0);
 }
 
+.warrior-collection-galleries {
+  height: 660px;
+  position: relative;
+  width: 100%;
+}
+
+.warrior-collection-galleries > .warrior-gallery {
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 260ms ease, visibility 260ms ease;
+  visibility: hidden;
+}
+
+.warrior-collection-galleries > .warrior-gallery.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
 .warrior-gallery {
   height: 660px;
   overflow: hidden;
@@ -424,6 +445,15 @@
   height: 100%;
   object-fit: contain;
   width: 100%;
+}
+
+.warrior-gallery__slide--artwork img {
+  transform: scale(0.63);
+}
+
+.warrior-gallery.is-static .warrior-gallery__arrow,
+.warrior-gallery.is-static .warrior-gallery__dots {
+  display: none;
 }
 
 .warrior-gallery__arrow--previous {
@@ -584,14 +614,59 @@
     text-align: center;
   }
 
-  .warrior-mobile-collection > img {
-    height: 280px;
-    object-fit: contain;
+  .warrior-mobile-gallery {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
     width: min(328px, 100%);
   }
 
+  .warrior-mobile-gallery__track,
+  .warrior-mobile-gallery__slide {
+    height: 280px;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .warrior-mobile-gallery__slide {
+    margin: 0;
+    opacity: 0;
+    transform: translateX(18%) scale(0.88);
+    transition: opacity 300ms ease, transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .warrior-mobile-gallery__slide.is-active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 2;
+  }
+
+  .warrior-mobile-gallery__slide.is-previous,
+  .warrior-mobile-gallery__slide.is-next {
+    opacity: 0;
+  }
+
+  .warrior-mobile-gallery__slide img {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+  }
+
+  .warrior-mobile-gallery__slide--artwork img {
+    transform: scale(0.72);
+  }
+
   .warrior-mobile-collection__dots {
-    margin-top: -5px;
+    bottom: 3px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    z-index: 4;
+  }
+
+  .warrior-mobile-gallery.is-static .warrior-mobile-collection__dots {
+    display: none;
   }
 
   .warrior-mobile-collection h2 {
