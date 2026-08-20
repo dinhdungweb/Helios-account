@@ -236,6 +236,7 @@
 .warrior-arrow:focus-visible,
 .warrior-gallery__arrow:hover,
 .warrior-gallery__arrow:focus-visible {
+  background: transparent !important;
   opacity: 1;
   transform: scale(1.08);
 }
@@ -243,7 +244,15 @@
 .warrior-arrow img,
 .warrior-gallery__arrow img {
   height: 42px;
+  transition: filter 180ms ease;
   width: 34px;
+}
+
+.warrior-arrow:hover img,
+.warrior-arrow:focus-visible img,
+.warrior-gallery__arrow:hover img,
+.warrior-gallery__arrow:focus-visible img {
+  filter: brightness(0) invert(1);
 }
 
 .warrior-arrow--previous {
