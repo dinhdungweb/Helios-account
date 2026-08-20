@@ -59,6 +59,13 @@
           {%- else -%}
             {%- assign chapter_image_url = chapter_asset | asset_url -%}
           {%- endif -%}
+          {%- assign chapter_video = block.settings.animation_video -%}
+          {%- assign chapter_video_poster_url = blank -%}
+          {%- if chapter_video != blank and chapter_video.preview_image != blank -%}
+            {%- assign chapter_video_poster_url = chapter_video.preview_image | image_url: width: 1200 -%}
+          {%- elsif block.settings.artwork != blank -%}
+            {%- assign chapter_video_poster_url = block.settings.artwork | image_url: width: 1200 -%}
+          {%- endif -%}
 
           <article
             class="warrior-chapter-card{% if chapter_index == 1 %} is-active{% endif %}"
@@ -68,15 +75,50 @@
             {{ block.shopify_attributes }}
           >
             <h2>{{ block.settings.title | default: 'Chapter' | escape }}</h2>
-            <img
-              class="warrior-chapter-card__art"
-              src="{{ chapter_image_url }}"
-              alt="{{ block.settings.artwork.alt | default: block.settings.title | escape }}"
-              width="900"
-              height="900"
-              draggable="false"
-              loading="{% if chapter_index == 1 %}eager{% else %}lazy{% endif %}"
-            >
+            {%- if chapter_video != blank -%}
+              <video
+                class="warrior-chapter-card__art"
+                aria-label="{{ block.settings.title | escape }}"
+                width="900"
+                height="900"
+                muted
+                loop
+                playsinline
+                preload="none"
+                data-warrior-chapter-video
+                {% if chapter_video_poster_url != blank %}
+                  {% if chapter_index == 1 %}
+                    poster="{{ chapter_video_poster_url }}"
+                  {% else %}
+                    data-poster="{{ chapter_video_poster_url }}"
+                  {% endif %}
+                {% endif %}
+              >
+                {%- for source in chapter_video.sources -%}
+                  {%- unless source.mime_type contains 'mpegurl' -%}
+                    <source data-src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {%- endunless -%}
+                {%- endfor -%}
+              </video>
+            {%- else -%}
+              <img
+                class="warrior-chapter-card__art"
+                {% if chapter_index == 1 %}
+                  src="{{ chapter_image_url }}"
+                  data-loaded="true"
+                {% else %}
+                  src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                  data-loaded="false"
+                {% endif %}
+                data-src="{{ chapter_image_url }}"
+                alt="{{ block.settings.artwork.alt | default: block.settings.title | escape }}"
+                width="900"
+                height="900"
+                draggable="false"
+                decoding="async"
+                loading="lazy"
+              >
+            {%- endif -%}
             {%- if block.settings.description != blank -%}
               <div class="warrior-chapter-card__description rte">{{ block.settings.description }}</div>
             {%- endif -%}
@@ -445,7 +487,13 @@
         {
           "type": "image_picker",
           "id": "artwork",
-          "label": "Artwork"
+          "label": "Poster / fallback artwork"
+        },
+        {
+          "type": "video",
+          "id": "animation_video",
+          "label": "Animation video (recommended)",
+          "info": "Upload an MP4 converted from the GIF. Only the active Chapter video is loaded and played."
         },
         {
           "type": "richtext",

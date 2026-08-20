@@ -186,10 +186,16 @@
 
 .warrior-chapter-card__art {
   -webkit-user-drag: none;
+  display: block;
   height: 455px;
+  max-width: 100%;
   object-fit: contain;
   user-select: none;
   width: min(470px, 35vw);
+}
+
+video.warrior-chapter-card__art {
+  background: transparent;
 }
 
 .warrior-chapter-card__description {
