@@ -74,6 +74,15 @@
     if (previousButton) previousButton.addEventListener('click', function () { update(current - 1); });
     if (nextButton) nextButton.addEventListener('click', function () { update(current + 1); });
 
+    if (options.clickAdjacentSlides) {
+      slides.forEach(function (slide) {
+        slide.addEventListener('click', function () {
+          if (slide.classList.contains('is-previous')) update(current - 1);
+          if (slide.classList.contains('is-next')) update(current + 1);
+        });
+      });
+    }
+
     root.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft') update(current - 1);
       if (event.key === 'ArrowRight') update(current + 1);
@@ -85,6 +94,11 @@
 
     root.addEventListener('pointerdown', function (event) {
       if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      if (event.target.closest('button, a')) return;
+
+      var adjacentSlide = options.clickAdjacentSlides && event.target.closest(options.slideSelector);
+      if (adjacentSlide && (adjacentSlide.classList.contains('is-previous') || adjacentSlide.classList.contains('is-next'))) return;
+
       startX = event.clientX;
       startY = event.clientY;
       activePointerId = event.pointerId;
@@ -161,6 +175,7 @@
         previousSelector: '[data-warrior-chapter-previous]',
         nextSelector: '[data-warrior-chapter-next]',
         dotsSelector: '[data-warrior-chapter-dots]',
+        clickAdjacentSlides: true,
         stagedTransitionMs: 350,
         settleDurationMs: 1200
       });

@@ -104,6 +104,12 @@
   z-index: 1;
 }
 
+.warrior-chapter-card.is-previous .warrior-chapter-card__art,
+.warrior-chapter-card.is-next .warrior-chapter-card__art {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
 .warrior-chapter-card.is-previous {
   transform: translateX(-42%) scale(0.85);
 }
@@ -265,6 +271,7 @@
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
+  z-index: 5;
 }
 
 .warrior-dots button,
