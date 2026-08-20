@@ -97,6 +97,7 @@
           "settings": {
             "title": "Lotus",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "hover_artwork": "shopify://shop_images/e1bab3e8-326b-4796-8348-503a0c908f10_4.png",
             "link": "",
             "link_label": "Khám phá dấu ấn"
           }
@@ -106,6 +107,7 @@
           "settings": {
             "title": "Sunflower",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "hover_artwork": "shopify://shop_images/68b1cb22-908a-4515-849d-06b2055971fd_3.png",
             "link": "",
             "link_label": "Khám phá dấu ấn"
           }
@@ -115,6 +117,7 @@
           "settings": {
             "title": "Chrysaber",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "hover_artwork": "shopify://shop_images/d47716fd-7c75-4845-b836-7ef7aa4111c7_3_1.png",
             "link": "",
             "link_label": "Khám phá dấu ấn"
           }
