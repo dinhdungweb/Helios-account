@@ -27,7 +27,9 @@
 
   function hydrateChapterImage(slide) {
     var image = slide.querySelector('img[data-src]');
-    if (!image || image.dataset.loaded === 'true') return;
+    if (!image) return;
+    window.clearTimeout(image.warriorUnloadTimer);
+    if (image.dataset.loaded === 'true') return;
     image.src = image.dataset.src;
     image.dataset.loaded = 'true';
   }
@@ -35,8 +37,23 @@
   function unloadChapterImage(slide) {
     var image = slide.querySelector('img[data-src]');
     if (!image || image.dataset.loaded !== 'true') return;
+    window.clearTimeout(image.warriorUnloadTimer);
     image.src = TRANSPARENT_PIXEL;
     image.dataset.loaded = 'false';
+  }
+
+  function scheduleChapterImageUnload(slide, delay) {
+    var image = slide.querySelector('img[data-src]');
+    if (!image || image.dataset.loaded !== 'true') return;
+
+    window.clearTimeout(image.warriorUnloadTimer);
+    image.warriorUnloadTimer = window.setTimeout(function () {
+      var isVisibleSlide = slide.classList.contains('is-active') ||
+        slide.classList.contains('is-previous') ||
+        slide.classList.contains('is-next');
+
+      if (!isVisibleSlide) unloadChapterImage(slide);
+    }, delay);
   }
 
   function pauseChapterVideo(video, resetToStart) {
@@ -137,6 +154,9 @@
         if (mediaInView && isNearby) {
           hydrateChapterImage(slide);
           hydrateChapterPoster(slide);
+        } else if (root.classList.contains('is-transitioning')) {
+          // Keep the outgoing GIF visible until its transform/fade has finished.
+          scheduleChapterImageUnload(slide, (Number(options.settleDurationMs) || 0) + 50);
         } else {
           unloadChapterImage(slide);
         }
