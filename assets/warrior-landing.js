@@ -25,12 +25,7 @@
     video.poster = video.dataset.poster;
   }
 
-  function hydrateChapterImage(slide) {
-    var image = slide.querySelector('img[data-src]');
-    if (!image) return;
-    window.clearTimeout(image.warriorUnloadTimer);
-    if (image.dataset.loaded === 'true') return;
-
+  function requestChapterImage(image, restartAnimation) {
     var loadRequest = String((Number(image.dataset.loadRequest) || 0) + 1);
     image.dataset.loadRequest = loadRequest;
     image.dataset.loaded = 'true';
@@ -52,7 +47,32 @@
       image.src = TRANSPARENT_PIXEL;
     }, { once: true });
 
-    image.src = image.dataset.src;
+    var source = image.dataset.src;
+    if (restartAnimation) source = source.split('#')[0] + '#warrior-' + loadRequest;
+    image.src = source;
+  }
+
+  function hydrateChapterImage(slide, restartAnimation) {
+    var image = slide.querySelector('img[data-src]');
+    if (!image) return;
+    window.clearTimeout(image.warriorUnloadTimer);
+
+    var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+    var isAnimatedImage = /\.(?:gif|webp)(?:$|[?#])/i.test(image.dataset.src || '');
+    var shouldRestart = Boolean(restartAnimation && isMobile && isAnimatedImage && image.dataset.loaded === 'true');
+
+    if (shouldRestart) {
+      image.dataset.loadRequest = String((Number(image.dataset.loadRequest) || 0) + 1);
+      image.dataset.loaded = 'false';
+      image.classList.remove('is-media-ready');
+      image.src = TRANSPARENT_PIXEL;
+      window.requestAnimationFrame(function () {
+        if (slide.classList.contains('is-active')) requestChapterImage(image, true);
+      });
+      return;
+    }
+
+    if (image.dataset.loaded !== 'true') requestChapterImage(image);
   }
 
   function unloadChapterImage(slide) {
@@ -163,19 +183,21 @@
     var stageTimer = null;
     var settleTimer = null;
     var mediaInView = !options.manageChapterMedia;
+    var lastActiveChapterMedia = null;
 
     function syncChapterMedia() {
       if (!options.manageChapterMedia) return;
 
       var previous = wrapIndex(current - 1, slides.length);
       var next = wrapIndex(current + 1, slides.length);
+      var activeChapterChanged = mediaInView && lastActiveChapterMedia !== slides[current];
 
       slides.forEach(function (slide, slideIndex) {
         var isNearby = slideIndex === current || slideIndex === previous || slideIndex === next;
         var video = slide.querySelector('[data-warrior-chapter-video]');
 
         if (mediaInView && isNearby) {
-          hydrateChapterImage(slide);
+          hydrateChapterImage(slide, slideIndex === current && activeChapterChanged);
           hydrateChapterPoster(slide);
         } else if (root.classList.contains('is-transitioning')) {
           // Keep the outgoing GIF visible until its transform/fade has finished.
@@ -191,6 +213,8 @@
           pauseChapterVideo(video, true);
         }
       });
+
+      lastActiveChapterMedia = mediaInView ? slides[current] : null;
     }
 
     function render(index) {
