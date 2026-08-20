@@ -104,12 +104,12 @@
               </video>
             {%- else -%}
               <img
-                class="warrior-chapter-card__art"
+                class="warrior-chapter-card__art{% if chapter_index == 1 %} is-media-ready{% endif %}"
                 {% if chapter_index == 1 %}
                   src="{{ chapter_image_url }}"
                   data-loaded="true"
                 {% else %}
-                  src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
                   data-loaded="false"
                 {% endif %}
                 data-src="{{ chapter_image_url }}"

@@ -194,6 +194,15 @@
   width: min(470px, 35vw);
 }
 
+img.warrior-chapter-card__art {
+  opacity: 1;
+  transition: opacity 220ms ease-out;
+}
+
+img.warrior-chapter-card__art:not(.is-media-ready) {
+  opacity: 0;
+}
+
 video.warrior-chapter-card__art {
   background: transparent;
 }

@@ -1,5 +1,5 @@
 (function () {
-  var TRANSPARENT_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+  var TRANSPARENT_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
   function wrapIndex(index, length) {
     return ((index % length) + length) % length;
@@ -30,14 +30,37 @@
     if (!image) return;
     window.clearTimeout(image.warriorUnloadTimer);
     if (image.dataset.loaded === 'true') return;
-    image.src = image.dataset.src;
+
+    var loadRequest = String((Number(image.dataset.loadRequest) || 0) + 1);
+    image.dataset.loadRequest = loadRequest;
     image.dataset.loaded = 'true';
+    image.classList.remove('is-media-ready');
+
+    image.addEventListener('load', function () {
+      if (image.dataset.loadRequest !== loadRequest || image.dataset.loaded !== 'true') return;
+      window.requestAnimationFrame(function () {
+        if (image.dataset.loadRequest === loadRequest && image.dataset.loaded === 'true') {
+          image.classList.add('is-media-ready');
+        }
+      });
+    }, { once: true });
+
+    image.addEventListener('error', function () {
+      if (image.dataset.loadRequest !== loadRequest) return;
+      image.dataset.loaded = 'false';
+      image.classList.remove('is-media-ready');
+      image.src = TRANSPARENT_PIXEL;
+    }, { once: true });
+
+    image.src = image.dataset.src;
   }
 
   function unloadChapterImage(slide) {
     var image = slide.querySelector('img[data-src]');
     if (!image || image.dataset.loaded !== 'true') return;
     window.clearTimeout(image.warriorUnloadTimer);
+    image.dataset.loadRequest = String((Number(image.dataset.loadRequest) || 0) + 1);
+    image.classList.remove('is-media-ready');
     image.src = TRANSPARENT_PIXEL;
     image.dataset.loaded = 'false';
   }
