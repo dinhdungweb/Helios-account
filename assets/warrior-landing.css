@@ -570,7 +570,7 @@
 }
 
 .warrior-finale {
-  background: #0c0c0c;
+  background: transparent;
   height: min(58.9vw, 920px);
   min-height: 600px;
   overflow: hidden;
