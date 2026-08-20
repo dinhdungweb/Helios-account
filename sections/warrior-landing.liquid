@@ -106,14 +106,25 @@
           {%- if block.type == 'collection' -%}
             {%- assign collection_index = collection_index | plus: 1 -%}
             {%- case collection_index -%}
-              {%- when 1 -%}{%- assign collection_asset = 'warrior-lotus-drop.png' -%}
-              {%- when 2 -%}{%- assign collection_asset = 'warrior-tab-sunflower.png' -%}
-              {%- else -%}{%- assign collection_asset = 'warrior-tab-chrysaber.png' -%}
+              {%- when 1 -%}
+                {%- assign collection_asset = 'warrior-lotus-drop.png' -%}
+                {%- assign collection_hover_asset = 'warrior-hover-lotus.png' -%}
+              {%- when 2 -%}
+                {%- assign collection_asset = 'warrior-tab-sunflower.png' -%}
+                {%- assign collection_hover_asset = 'warrior-hover-sunflower.png' -%}
+              {%- else -%}
+                {%- assign collection_asset = 'warrior-tab-chrysaber.png' -%}
+                {%- assign collection_hover_asset = 'warrior-hover-chrysaber.png' -%}
             {%- endcase -%}
             {%- if block.settings.icon != blank -%}
               {%- assign collection_icon_url = block.settings.icon | image_url: width: 500 -%}
             {%- else -%}
               {%- assign collection_icon_url = collection_asset | asset_url -%}
+            {%- endif -%}
+            {%- if block.settings.hover_artwork != blank -%}
+              {%- assign collection_hover_url = block.settings.hover_artwork | image_url: width: 900 -%}
+            {%- else -%}
+              {%- assign collection_hover_url = collection_hover_asset | asset_url -%}
             {%- endif -%}
 
             <button
@@ -124,8 +135,11 @@
               aria-pressed="{% if collection_index == 1 %}true{% else %}false{% endif %}"
               {{ block.shopify_attributes }}
             >
-              <img src="{{ collection_icon_url }}" alt="" width="120" height="120" loading="lazy">
-              <span>{{ block.settings.title | escape }}</span>
+              <span class="warrior-collection-tab__media" aria-hidden="true">
+                <img class="warrior-collection-tab__icon" src="{{ collection_icon_url }}" alt="" width="120" height="120" loading="lazy">
+                <img class="warrior-collection-tab__warrior" src="{{ collection_hover_url }}" alt="" width="900" height="900" loading="lazy">
+              </span>
+              <span class="warrior-collection-tab__title">{{ block.settings.title | escape }}</span>
               {%- if block.settings.description != blank -%}<small>{{ block.settings.description | escape }}</small>{%- endif -%}
             </button>
           {%- endif -%}
@@ -381,6 +395,11 @@
           "type": "image_picker",
           "id": "icon",
           "label": "Icon or product artwork"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_artwork",
+          "label": "Warrior hover artwork"
         },
         {
           "type": "url",
