@@ -254,8 +254,8 @@
   right: 15%;
 }
 
-.warrior-arrow--next img,
-.warrior-gallery__arrow--next img {
+.warrior-arrow--previous img,
+.warrior-gallery__arrow--previous img {
   transform: rotate(180deg);
 }
 
