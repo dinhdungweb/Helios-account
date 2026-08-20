@@ -252,15 +252,17 @@
   flex-direction: column;
   justify-content: center;
   min-height: 218px;
+  opacity: 0.45;
   padding: 10px 0;
   text-align: center;
-  transition: transform 240ms ease;
+  transition: opacity 200ms ease, transform 240ms ease;
   width: 100%;
 }
 
 .warrior-collection-tab:hover,
 .warrior-collection-tab:focus-visible,
 .warrior-collection-tab.is-active {
+  opacity: 1;
   transform: translateX(8px);
 }
 
