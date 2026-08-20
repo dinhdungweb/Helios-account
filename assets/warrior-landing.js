@@ -28,6 +28,8 @@
     var nextButton = root.querySelector(options.nextSelector);
     var dots = createDots(root.querySelector(options.dotsSelector), slides.length, update);
     var isTransitioning = false;
+    var stageTimer = null;
+    var settleTimer = null;
 
     function render(index) {
       current = wrapIndex(index, slides.length);
@@ -61,14 +63,23 @@
       root.classList.add('is-transitioning');
       slides[current].classList.add('is-leaving');
 
-      window.setTimeout(function () {
+      stageTimer = window.setTimeout(function () {
         slides[current].classList.remove('is-leaving');
         render(target);
-        window.setTimeout(function () {
+        settleTimer = window.setTimeout(function () {
           root.classList.remove('is-transitioning');
           isTransitioning = false;
         }, Number(options.settleDurationMs) || 0);
       }, stageDuration);
+    }
+
+    function reset(index) {
+      window.clearTimeout(stageTimer);
+      window.clearTimeout(settleTimer);
+      slides.forEach(function (slide) { slide.classList.remove('is-leaving'); });
+      root.classList.remove('is-transitioning');
+      isTransitioning = false;
+      render(index);
     }
 
     if (previousButton) previousButton.addEventListener('click', function () { update(current - 1); });
@@ -128,7 +139,7 @@
     });
 
     render(0);
-    return { select: update };
+    return { select: update, reset: reset };
   }
 
   function setupCollectionTabs(root, galleries) {
@@ -143,6 +154,7 @@
 
       galleries.forEach(function (gallery, galleryIndex) {
         var active = galleryIndex === index;
+        if (active && gallery.api) gallery.api.reset(0);
         gallery.element.classList.toggle('is-active', active);
         gallery.element.setAttribute('aria-hidden', active ? 'false' : 'true');
       });

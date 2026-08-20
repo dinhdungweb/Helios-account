@@ -543,6 +543,10 @@
   transform: scale(0.56);
 }
 
+.warrior-gallery__slide--warrior img {
+  transform: scale(0.82);
+}
+
 .warrior-gallery.is-static .warrior-gallery__arrow,
 .warrior-gallery.is-static .warrior-gallery__dots {
   display: none;

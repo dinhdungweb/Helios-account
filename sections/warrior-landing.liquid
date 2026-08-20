@@ -148,14 +148,14 @@
             {%- assign gallery_collection_index = gallery_collection_index | plus: 1 -%}
             {%- case gallery_collection_index -%}
               {%- when 1 -%}
-                {%- assign gallery_artwork_asset = 'warrior-lotus-drop.png' -%}
+                {%- assign gallery_artwork_asset = 'warrior-hover-lotus.png' -%}
               {%- when 2 -%}
-                {%- assign gallery_artwork_asset = 'warrior-tab-sunflower.png' -%}
+                {%- assign gallery_artwork_asset = 'warrior-hover-sunflower.png' -%}
               {%- else -%}
-                {%- assign gallery_artwork_asset = 'warrior-tab-chrysaber.png' -%}
+                {%- assign gallery_artwork_asset = 'warrior-hover-chrysaber.png' -%}
             {%- endcase -%}
-            {%- if block.settings.icon != blank -%}
-              {%- assign gallery_artwork_url = block.settings.icon | image_url: width: 1200 -%}
+            {%- if block.settings.hover_artwork != blank -%}
+              {%- assign gallery_artwork_url = block.settings.hover_artwork | image_url: width: 1200 -%}
             {%- else -%}
               {%- assign gallery_artwork_url = gallery_artwork_asset | asset_url -%}
             {%- endif -%}
@@ -172,10 +172,10 @@
               </button>
 
               <div class="warrior-gallery__track" aria-live="polite">
-                <figure class="warrior-gallery__slide warrior-gallery__slide--artwork is-active" data-warrior-gallery-slide data-index="0">
+                <figure class="warrior-gallery__slide warrior-gallery__slide--warrior is-active" data-warrior-gallery-slide data-index="0">
                   <img
                     src="{{ gallery_artwork_url }}"
-                    alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}"
+                    alt="{{ block.settings.hover_artwork.alt | default: block.settings.title | escape }}"
                     width="900"
                     height="900"
                     draggable="false"
