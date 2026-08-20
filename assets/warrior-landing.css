@@ -332,7 +332,15 @@
 .warrior-collection-tab small {
   display: block;
   font-family: var(--warrior-heading);
+  transition: color 180ms ease;
   text-transform: uppercase;
+}
+
+.warrior-collection-tab:hover .warrior-collection-tab__title,
+.warrior-collection-tab:hover small,
+.warrior-collection-tab:focus-visible .warrior-collection-tab__title,
+.warrior-collection-tab:focus-visible small {
+  color: var(--warrior-accent, #e78a08);
 }
 
 .warrior-collection-tab__title {
