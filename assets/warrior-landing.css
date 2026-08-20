@@ -77,8 +77,9 @@
   text-align: center;
   transform: translateX(0) scale(0.74);
   transition:
-    opacity 650ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 1000ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 1500ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 1500ms;
   visibility: hidden;
   will-change: opacity, transform;
 }
@@ -86,6 +87,7 @@
 .warrior-chapter-card.is-active,
 .warrior-chapter-card.is-previous,
 .warrior-chapter-card.is-next {
+  transition-delay: 0s, 0s, 0s;
   visibility: visible;
 }
 
@@ -127,9 +129,9 @@
   opacity: 0;
   transform: translateY(10px);
   transition:
-    opacity 480ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    visibility 0s linear 620ms;
+    opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 850ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 850ms;
   visibility: hidden;
   will-change: opacity, transform;
 }
@@ -139,7 +141,7 @@
 .warrior-chapter-card.is-active .warrior-chapter-card__caption {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 180ms, 180ms, 0s;
+  transition-delay: 500ms, 500ms, 0s;
   visibility: visible;
 }
 
