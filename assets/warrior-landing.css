@@ -493,6 +493,11 @@
   width: 100%;
 }
 
+.warrior-gallery__track {
+  bottom: 62px;
+  height: auto;
+}
+
 .warrior-gallery__slide {
   margin: 0;
   opacity: 0;
@@ -513,11 +518,11 @@
 }
 
 .warrior-gallery__slide.is-previous {
-  transform: translateX(-58%) scale(0.55);
+  transform: translateX(-64%) scale(0.5);
 }
 
 .warrior-gallery__slide.is-next {
-  transform: translateX(58%) scale(0.55);
+  transform: translateX(64%) scale(0.5);
 }
 
 .warrior-gallery__slide.is-leaving {
@@ -535,7 +540,7 @@
 }
 
 .warrior-gallery__slide--artwork img {
-  transform: scale(0.63);
+  transform: scale(0.56);
 }
 
 .warrior-gallery.is-static .warrior-gallery__arrow,
@@ -552,7 +557,7 @@
 }
 
 .warrior-gallery__dots {
-  bottom: 20px;
+  bottom: 18px;
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
