@@ -631,12 +631,12 @@
   }
 
   .warrior-chapters {
-    min-height: 332px;
-    padding: 22px 20px 38px;
+    min-height: 400px;
+    padding: 22px 10px 38px;
   }
 
   .warrior-chapters__viewport {
-    height: 272px;
+    height: 340px;
   }
 
   .warrior-chapter-card.is-previous,
@@ -646,21 +646,21 @@
   }
 
   .warrior-chapter-card.is-previous {
-    transform: translateX(-42%) scale(0.58);
+    transform: translateX(-43%) scale(0.66);
   }
 
   .warrior-chapter-card.is-next {
-    transform: translateX(42%) scale(0.58);
+    transform: translateX(43%) scale(0.66);
   }
 
   .warrior-chapter-card h2 {
-    font-size: 20px;
+    font-size: 24px;
     margin-bottom: 6px;
   }
 
   .warrior-chapter-card__art {
-    height: 150px;
-    width: 220px;
+    height: 220px;
+    width: 320px;
   }
 
   .warrior-chapter-card__description {
