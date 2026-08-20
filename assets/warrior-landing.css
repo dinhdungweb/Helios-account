@@ -570,51 +570,58 @@
 }
 
 .warrior-finale {
-  height: min(64vw, 920px);
-  min-height: 640px;
+  background: #0c0c0c;
+  height: min(58.9vw, 920px);
+  min-height: 600px;
+  overflow: hidden;
   position: relative;
 }
 
 .warrior-finale__mark,
 .warrior-finale__date,
 .warrior-finale__flare {
-  left: 50%;
   object-fit: contain;
   position: absolute;
+}
+
+.warrior-finale__mark,
+.warrior-finale__date {
+  left: 50%;
   transform: translateX(-50%);
 }
 
 .warrior-finale__mark {
-  bottom: 20%;
-  height: 54%;
+  height: 52%;
   opacity: 0.58;
-  width: 44%;
+  top: 22%;
+  transform: translateX(-50%) scaleX(-1);
+  width: 30%;
   z-index: 2;
 }
 
 .warrior-finale__date {
-  bottom: 9%;
+  bottom: 5%;
   height: auto;
   opacity: 0.68;
-  width: 42%;
+  width: 43%;
   z-index: 3;
 }
 
 .warrior-finale__flare {
-  bottom: 16%;
   height: 58%;
-  width: 35%;
+  width: 34%;
   z-index: 1;
 }
 
 .warrior-finale__flare--left {
-  left: 21%;
-  transform: translateX(-50%) rotate(-16deg);
+  left: 5%;
+  top: -14%;
 }
 
 .warrior-finale__flare--right {
-  left: 79%;
-  transform: translateX(-50%) scaleX(-1) rotate(-16deg);
+  right: 4%;
+  top: 18%;
+  transform: scaleX(-1);
 }
 
 @media (max-width: 767px) {
@@ -827,28 +834,29 @@
   }
 
   .warrior-finale__mark {
-    bottom: 21%;
-    height: 51%;
-    width: 60%;
+    height: 48%;
+    top: 23%;
+    width: 55%;
   }
 
   .warrior-finale__date {
-    bottom: 9%;
-    width: 68%;
+    bottom: 7%;
+    width: 72%;
   }
 
   .warrior-finale__flare {
-    bottom: 21%;
-    height: 40%;
-    width: 37%;
+    height: 44%;
+    width: 43%;
   }
 
   .warrior-finale__flare--left {
-    left: 15%;
+    left: -2%;
+    top: -8%;
   }
 
   .warrior-finale__flare--right {
-    left: 85%;
+    right: -3%;
+    top: 27%;
   }
 }
 
