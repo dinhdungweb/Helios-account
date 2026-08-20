@@ -252,17 +252,15 @@
   flex-direction: column;
   justify-content: center;
   min-height: 218px;
-  opacity: 0.45;
   padding: 10px 0;
   text-align: center;
-  transition: opacity 200ms ease, transform 240ms ease;
+  transition: transform 240ms ease;
   width: 100%;
 }
 
 .warrior-collection-tab:hover,
 .warrior-collection-tab:focus-visible,
 .warrior-collection-tab.is-active {
-  opacity: 1;
   transform: translateX(8px);
 }
 
@@ -332,15 +330,7 @@
 .warrior-collection-tab small {
   display: block;
   font-family: var(--warrior-heading);
-  transition: color 180ms ease;
   text-transform: uppercase;
-}
-
-.warrior-collection-tab:hover .warrior-collection-tab__title,
-.warrior-collection-tab:hover small,
-.warrior-collection-tab:focus-visible .warrior-collection-tab__title,
-.warrior-collection-tab:focus-visible small {
-  color: var(--warrior-accent, #e78a08);
 }
 
 .warrior-collection-tab__title {
