@@ -1,7 +1,10 @@
 /*
  * ------------------------------------------------------------
- * This template is intentionally isolated for preview before it
- * is assigned to the live Landing Warrior page in Shopify Admin.
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
 {
@@ -9,35 +12,111 @@
     "warrior_landing": {
       "type": "warrior-landing",
       "blocks": {
-        "chapter_01": { "type": "chapter", "settings": { "title": "Chapter I" } },
-        "chapter_02": { "type": "chapter", "settings": { "title": "Chapter II" } },
-        "chapter_03": { "type": "chapter", "settings": { "title": "Chapter III" } },
-        "chapter_04": { "type": "chapter", "settings": { "title": "Chapter IV" } },
-        "chapter_05": { "type": "chapter", "settings": { "title": "Chapter V" } },
-        "chapter_06": { "type": "chapter", "settings": { "title": "Chapter VI" } },
-        "chapter_07": { "type": "chapter", "settings": { "title": "Chapter VII" } },
-        "chapter_08": { "type": "chapter", "settings": { "title": "Chapter VIII" } },
-        "chapter_09": { "type": "chapter", "settings": { "title": "Chapter IX" } },
-        "chapter_10": { "type": "chapter", "settings": { "title": "Chapter X" } },
+        "chapter_01": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter I",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_02": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter II",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_03": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter III",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_04": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter IV",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_05": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter V",
+            "description": "<p>tếtt.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_06": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter VI",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_07": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter VII",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_08": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter VIII",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_09": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter IX",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
+        "chapter_10": {
+          "type": "chapter",
+          "settings": {
+            "title": "Chapter X",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+          }
+        },
         "collection_lotus": {
           "type": "collection",
           "settings": {
             "title": "Lotus",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "link": "",
+            "link_label": "Xem sản phẩm"
           }
         },
         "collection_sunflower": {
           "type": "collection",
           "settings": {
             "title": "Sunflower",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "link": "",
+            "link_label": "Xem sản phẩm"
           }
         },
         "collection_chrysaber": {
           "type": "collection",
           "settings": {
             "title": "Chrysaber",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "link": "",
+            "link_label": "Xem sản phẩm"
           }
         }
       },
@@ -58,16 +137,19 @@
       ],
       "settings": {
         "accessible_title": "Landing Warrior",
-        "background_color": "#0c0c0c",
+        "background_color": "#000000",
         "text_color": "#ffffff",
         "accent_color": "#f7a41a",
         "hero_alt": "Nghệ nhân đang rèn kim loại trong xưởng",
         "hero_button_label": "Xem full tại đây",
+        "hero_button_link": "",
         "gallery_alt": "Chi tiết bộ sưu tập Warrior",
         "story_art_alt": "Bản đồ minh họa hành trình Warrior",
         "finale_alt": "Helios 10 Year Anniversary — 8.8.2026"
       }
     }
   },
-  "order": ["warrior_landing"]
+  "order": [
+    "warrior_landing"
+  ]
 }
