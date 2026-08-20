@@ -1,0 +1,73 @@
+/*
+ * ------------------------------------------------------------
+ * This template is intentionally isolated for preview before it
+ * is assigned to the live Landing Warrior page in Shopify Admin.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "warrior_landing": {
+      "type": "warrior-landing",
+      "blocks": {
+        "chapter_01": { "type": "chapter", "settings": { "title": "Chapter I" } },
+        "chapter_02": { "type": "chapter", "settings": { "title": "Chapter II" } },
+        "chapter_03": { "type": "chapter", "settings": { "title": "Chapter III" } },
+        "chapter_04": { "type": "chapter", "settings": { "title": "Chapter IV" } },
+        "chapter_05": { "type": "chapter", "settings": { "title": "Chapter V" } },
+        "chapter_06": { "type": "chapter", "settings": { "title": "Chapter VI" } },
+        "chapter_07": { "type": "chapter", "settings": { "title": "Chapter VII" } },
+        "chapter_08": { "type": "chapter", "settings": { "title": "Chapter VIII" } },
+        "chapter_09": { "type": "chapter", "settings": { "title": "Chapter IX" } },
+        "chapter_10": { "type": "chapter", "settings": { "title": "Chapter X" } },
+        "collection_lotus": {
+          "type": "collection",
+          "settings": {
+            "title": "Lotus",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          }
+        },
+        "collection_sunflower": {
+          "type": "collection",
+          "settings": {
+            "title": "Sunflower",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          }
+        },
+        "collection_chrysaber": {
+          "type": "collection",
+          "settings": {
+            "title": "Chrysaber",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          }
+        }
+      },
+      "block_order": [
+        "chapter_01",
+        "chapter_02",
+        "chapter_03",
+        "chapter_04",
+        "chapter_05",
+        "chapter_06",
+        "chapter_07",
+        "chapter_08",
+        "chapter_09",
+        "chapter_10",
+        "collection_lotus",
+        "collection_sunflower",
+        "collection_chrysaber"
+      ],
+      "settings": {
+        "accessible_title": "Landing Warrior",
+        "background_color": "#0c0c0c",
+        "text_color": "#ffffff",
+        "accent_color": "#f7a41a",
+        "hero_alt": "Nghệ nhân đang rèn kim loại trong xưởng",
+        "hero_button_label": "Xem full tại đây",
+        "gallery_alt": "Chi tiết bộ sưu tập Warrior",
+        "story_art_alt": "Bản đồ minh họa hành trình Warrior",
+        "finale_alt": "Helios 10 Year Anniversary — 8.8.2026"
+      }
+    }
+  },
+  "order": ["warrior_landing"]
+}

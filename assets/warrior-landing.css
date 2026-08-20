@@ -1,0 +1,587 @@
+.warrior-landing {
+  --warrior-heading: "Copperplate", "Copperplate Gothic Light", Georgia, serif;
+  background: var(--warrior-bg, #0c0c0c);
+  color: var(--warrior-text, #fff);
+  overflow: hidden;
+}
+
+.warrior-landing *,
+.warrior-landing *::before,
+.warrior-landing *::after {
+  box-sizing: border-box;
+}
+
+.warrior-landing img {
+  display: block;
+  max-width: 100%;
+}
+
+.warrior-hero {
+  aspect-ratio: 16 / 9;
+  background: #090909;
+  position: relative;
+}
+
+.warrior-hero picture,
+.warrior-hero picture img {
+  height: 100%;
+  width: 100%;
+}
+
+.warrior-hero picture img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.warrior-hero__button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  bottom: 18px;
+  color: #fff;
+  display: none;
+  font-size: 10px;
+  left: 50%;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 6px 10px;
+  position: absolute;
+  text-decoration: none;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.warrior-chapters {
+  min-height: 760px;
+  padding: 52px 24px 34px;
+  position: relative;
+}
+
+.warrior-chapters__viewport {
+  height: 640px;
+  margin: 0 auto;
+  max-width: 1300px;
+  position: relative;
+}
+
+.warrior-chapter-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  justify-content: flex-start;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  transform: translateX(0) scale(0.74);
+  transition: opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  visibility: hidden;
+}
+
+.warrior-chapter-card.is-active,
+.warrior-chapter-card.is-previous,
+.warrior-chapter-card.is-next {
+  visibility: visible;
+}
+
+.warrior-chapter-card.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+  z-index: 2;
+}
+
+.warrior-chapter-card.is-previous,
+.warrior-chapter-card.is-next {
+  opacity: 0.48;
+  z-index: 1;
+}
+
+.warrior-chapter-card.is-previous {
+  transform: translateX(-42%) scale(0.58);
+}
+
+.warrior-chapter-card.is-next {
+  transform: translateX(42%) scale(0.58);
+}
+
+.warrior-chapter-card h2 {
+  color: var(--warrior-accent, #f7a41a);
+  font-family: var(--warrior-heading);
+  font-size: clamp(38px, 4.2vw, 60px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.warrior-chapter-card__art {
+  height: 455px;
+  object-fit: contain;
+  width: min(470px, 35vw);
+}
+
+.warrior-chapter-card__description {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  line-height: 1.2;
+  margin: 4px auto 0;
+  max-width: 500px;
+}
+
+.warrior-chapter-card__description p {
+  margin: 0;
+}
+
+.warrior-chapter-card__caption {
+  font-family: var(--warrior-heading);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.25;
+  margin: 14px auto 0;
+  max-width: 550px;
+  text-transform: uppercase;
+}
+
+.warrior-arrow,
+.warrior-gallery__arrow {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  opacity: 0.62;
+  padding: 12px;
+  position: absolute;
+  top: 48%;
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 4;
+}
+
+.warrior-arrow:hover,
+.warrior-arrow:focus-visible,
+.warrior-gallery__arrow:hover,
+.warrior-gallery__arrow:focus-visible {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.warrior-arrow img,
+.warrior-gallery__arrow img {
+  height: 42px;
+  width: 34px;
+}
+
+.warrior-arrow--previous {
+  left: 15%;
+}
+
+.warrior-arrow--next {
+  right: 15%;
+}
+
+.warrior-arrow--next img,
+.warrior-gallery__arrow--next img {
+  transform: rotate(180deg);
+}
+
+.warrior-dots {
+  align-items: center;
+  display: flex;
+  gap: 13px;
+  justify-content: center;
+}
+
+.warrior-chapters > .warrior-dots {
+  bottom: 32px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.warrior-dots button,
+.warrior-dots span {
+  background: #646464;
+  border: 0;
+  border-radius: 50%;
+  height: 9px;
+  padding: 0;
+  transition: background-color 160ms ease, transform 160ms ease;
+  width: 9px;
+}
+
+.warrior-dots button {
+  cursor: pointer;
+}
+
+.warrior-dots button.is-active,
+.warrior-dots span.is-active {
+  background: #fff;
+  transform: scale(1.08);
+}
+
+.warrior-collections {
+  padding: 0 24px;
+}
+
+.warrior-collections__desktop {
+  align-items: center;
+  display: grid;
+  gap: clamp(48px, 7vw, 100px);
+  grid-template-columns: minmax(220px, 292px) minmax(0, 945px);
+  justify-content: center;
+  min-height: 670px;
+}
+
+.warrior-collection-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.warrior-collection-tab {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  min-height: 180px;
+  opacity: 0.45;
+  padding: 10px 0;
+  text-align: center;
+  transition: opacity 200ms ease, transform 240ms ease;
+}
+
+.warrior-collection-tab:hover,
+.warrior-collection-tab:focus-visible,
+.warrior-collection-tab.is-active {
+  opacity: 1;
+  transform: translateX(8px);
+}
+
+.warrior-collection-tab img {
+  height: 86px;
+  object-fit: contain;
+  width: 86px;
+}
+
+.warrior-collection-tab span,
+.warrior-collection-tab small {
+  display: block;
+  font-family: var(--warrior-heading);
+  grid-column: 2;
+  text-transform: uppercase;
+}
+
+.warrior-collection-tab span {
+  align-self: end;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.warrior-collection-tab small {
+  align-self: start;
+  font-size: 9px;
+  line-height: 1.2;
+}
+
+.warrior-gallery {
+  height: 660px;
+  overflow: hidden;
+  position: relative;
+}
+
+.warrior-gallery__track,
+.warrior-gallery__slide {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.warrior-gallery__slide {
+  margin: 0;
+  opacity: 0;
+  transform: translateX(16%) scale(0.75);
+  transition: opacity 380ms ease, transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.warrior-gallery__slide.is-active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  z-index: 2;
+}
+
+.warrior-gallery__slide.is-previous,
+.warrior-gallery__slide.is-next {
+  opacity: 0.38;
+  z-index: 1;
+}
+
+.warrior-gallery__slide.is-previous {
+  transform: translateX(-58%) scale(0.55);
+}
+
+.warrior-gallery__slide.is-next {
+  transform: translateX(58%) scale(0.55);
+}
+
+.warrior-gallery__slide img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.warrior-gallery__arrow--previous {
+  left: 1.5%;
+}
+
+.warrior-gallery__arrow--next {
+  right: 1.5%;
+}
+
+.warrior-gallery__dots {
+  bottom: 20px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+
+.warrior-collections__mobile,
+.warrior-story-art {
+  display: none;
+}
+
+.warrior-finale {
+  height: min(64vw, 920px);
+  min-height: 640px;
+  position: relative;
+}
+
+.warrior-finale__mark,
+.warrior-finale__date,
+.warrior-finale__flare {
+  left: 50%;
+  object-fit: contain;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.warrior-finale__mark {
+  bottom: 20%;
+  height: 54%;
+  opacity: 0.58;
+  width: 44%;
+  z-index: 2;
+}
+
+.warrior-finale__date {
+  bottom: 9%;
+  height: auto;
+  opacity: 0.68;
+  width: 42%;
+  z-index: 3;
+}
+
+.warrior-finale__flare {
+  bottom: 16%;
+  height: 58%;
+  width: 35%;
+  z-index: 1;
+}
+
+.warrior-finale__flare--left {
+  left: 21%;
+  transform: translateX(-50%) rotate(-16deg);
+}
+
+.warrior-finale__flare--right {
+  left: 79%;
+  transform: translateX(-50%) scaleX(-1) rotate(-16deg);
+}
+
+@media (max-width: 767px) {
+  .warrior-hero {
+    aspect-ratio: 393 / 636;
+  }
+
+  .warrior-hero picture img {
+    object-position: 35% center;
+  }
+
+  .warrior-hero__button {
+    display: inline-flex;
+  }
+
+  .warrior-chapters {
+    min-height: 332px;
+    padding: 22px 20px 38px;
+  }
+
+  .warrior-chapters__viewport {
+    height: 272px;
+  }
+
+  .warrior-chapter-card.is-previous,
+  .warrior-chapter-card.is-next {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .warrior-chapter-card h2 {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .warrior-chapter-card__art {
+    height: 150px;
+    width: 220px;
+  }
+
+  .warrior-chapter-card__description {
+    font-size: 8px;
+    line-height: 1.25;
+    max-width: 230px;
+  }
+
+  .warrior-chapter-card__caption {
+    font-size: 8px;
+    margin-top: 7px;
+    max-width: 245px;
+  }
+
+  .warrior-arrow {
+    display: none;
+  }
+
+  .warrior-chapters > .warrior-dots {
+    bottom: 15px;
+  }
+
+  .warrior-dots {
+    gap: 9px;
+  }
+
+  .warrior-dots button,
+  .warrior-dots span {
+    height: 5px;
+    width: 5px;
+  }
+
+  .warrior-collections {
+    padding: 0;
+  }
+
+  .warrior-collections__desktop {
+    display: none;
+  }
+
+  .warrior-collections__mobile {
+    display: block;
+  }
+
+  .warrior-mobile-collection {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 409px;
+    padding: 12px 24px 28px;
+    text-align: center;
+  }
+
+  .warrior-mobile-collection > img {
+    height: 280px;
+    object-fit: contain;
+    width: min(328px, 100%);
+  }
+
+  .warrior-mobile-collection__dots {
+    margin-top: -5px;
+  }
+
+  .warrior-mobile-collection h2 {
+    color: #fff;
+    font-family: var(--warrior-heading);
+    font-size: 20px;
+    line-height: 1;
+    margin: 14px 0 6px;
+    text-transform: uppercase;
+  }
+
+  .warrior-mobile-collection p {
+    font-family: var(--warrior-heading);
+    font-size: 8px;
+    line-height: 1.25;
+    margin: 0;
+    max-width: 230px;
+    text-transform: uppercase;
+  }
+
+  .warrior-mobile-collection a {
+    background: var(--warrior-accent, #f7a41a);
+    color: #111;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-top: 10px;
+    padding: 5px 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .warrior-story-art {
+    display: block;
+    padding: 4px 24px 10px;
+  }
+
+  .warrior-story-art img {
+    height: auto;
+    width: 100%;
+  }
+
+  .warrior-finale {
+    height: 410px;
+    min-height: 0;
+  }
+
+  .warrior-finale__mark {
+    bottom: 21%;
+    height: 51%;
+    width: 60%;
+  }
+
+  .warrior-finale__date {
+    bottom: 9%;
+    width: 68%;
+  }
+
+  .warrior-finale__flare {
+    bottom: 21%;
+    height: 40%;
+    width: 37%;
+  }
+
+  .warrior-finale__flare--left {
+    left: 15%;
+  }
+
+  .warrior-finale__flare--right {
+    left: 85%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .warrior-chapter-card,
+  .warrior-gallery__slide,
+  .warrior-arrow,
+  .warrior-gallery__arrow,
+  .warrior-collection-tab {
+    transition: none;
+  }
+}

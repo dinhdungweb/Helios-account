@@ -1,0 +1,409 @@
+{{ 'warrior-landing.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_desktop_url = 'warrior-hero.png' | asset_url
+  assign hero_mobile_url = hero_desktop_url
+
+  if section.settings.hero_desktop != blank
+    assign hero_desktop_url = section.settings.hero_desktop | image_url: width: 2000
+  endif
+
+  if section.settings.hero_mobile != blank
+    assign hero_mobile_url = section.settings.hero_mobile | image_url: width: 1000
+  elsif section.settings.hero_desktop != blank
+    assign hero_mobile_url = section.settings.hero_desktop | image_url: width: 1000
+  endif
+
+  assign hero_button_url = section.settings.hero_button_link
+  if hero_button_url == blank
+    assign hero_button_url = '#warrior-chapters-' | append: section.id
+  endif
+-%}
+
+<section
+  id="WarriorLanding-{{ section.id }}"
+  class="warrior-landing header-overlap-section needs-alt-logo"
+  data-warrior-landing
+  style="--warrior-accent: {{ section.settings.accent_color }}; --warrior-bg: {{ section.settings.background_color }}; --warrior-text: {{ section.settings.text_color }};"
+>
+  <h1 class="visually-hidden">{{ page.title | default: section.settings.accessible_title | escape }}</h1>
+
+  <div class="warrior-hero">
+    <picture>
+      <source media="(max-width: 767px)" srcset="{{ hero_mobile_url }}">
+      <img
+        src="{{ hero_desktop_url }}"
+        alt="{{ section.settings.hero_alt | escape }}"
+        width="1440"
+        height="810"
+        fetchpriority="high"
+      >
+    </picture>
+
+    {%- if section.settings.hero_button_label != blank -%}
+      <a class="warrior-hero__button" href="{{ hero_button_url }}">
+        {{ section.settings.hero_button_label | escape }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  <div id="warrior-chapters-{{ section.id }}" class="warrior-chapters" data-warrior-chapters>
+    <button class="warrior-arrow warrior-arrow--previous" type="button" data-warrior-chapter-previous aria-label="Chapter trước">
+      <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
+    </button>
+
+    <div class="warrior-chapters__viewport" aria-live="polite">
+      {%- assign chapter_index = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'chapter' -%}
+          {%- assign chapter_index = chapter_index | plus: 1 -%}
+          {%- capture chapter_asset -%}warrior-chapter-{% case chapter_index %}{% when 1 %}01{% when 2 %}02{% when 3 %}03{% when 4 %}04{% when 5 %}05{% when 6 %}06{% when 7 %}07{% when 8 %}08{% when 9 %}09{% else %}10{% endcase %}.png{%- endcapture -%}
+          {%- if block.settings.artwork != blank -%}
+            {%- assign chapter_image_url = block.settings.artwork | image_url: width: 1200 -%}
+          {%- else -%}
+            {%- assign chapter_image_url = chapter_asset | asset_url -%}
+          {%- endif -%}
+
+          <article
+            class="warrior-chapter-card{% if chapter_index == 1 %} is-active{% endif %}"
+            data-warrior-chapter
+            data-index="{{ chapter_index | minus: 1 }}"
+            aria-hidden="{% if chapter_index == 1 %}false{% else %}true{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <h2>{{ block.settings.title | default: 'Chapter' | escape }}</h2>
+            <img
+              class="warrior-chapter-card__art"
+              src="{{ chapter_image_url }}"
+              alt="{{ block.settings.artwork.alt | default: block.settings.title | escape }}"
+              width="900"
+              height="900"
+              loading="{% if chapter_index == 1 %}eager{% else %}lazy{% endif %}"
+            >
+            {%- if block.settings.description != blank -%}
+              <div class="warrior-chapter-card__description rte">{{ block.settings.description }}</div>
+            {%- endif -%}
+            {%- if block.settings.caption != blank -%}
+              <p class="warrior-chapter-card__caption">{{ block.settings.caption | escape }}</p>
+            {%- endif -%}
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <button class="warrior-arrow warrior-arrow--next" type="button" data-warrior-chapter-next aria-label="Chapter tiếp theo">
+      <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
+    </button>
+
+    <div class="warrior-dots" data-warrior-chapter-dots aria-label="Chọn chapter"></div>
+  </div>
+
+  <div class="warrior-collections" data-warrior-collections>
+    <div class="warrior-collections__desktop">
+      <nav class="warrior-collection-tabs" aria-label="Bộ sưu tập">
+        {%- assign collection_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'collection' -%}
+            {%- assign collection_index = collection_index | plus: 1 -%}
+            {%- case collection_index -%}
+              {%- when 1 -%}{%- assign collection_asset = 'warrior-lotus-drop.png' -%}
+              {%- when 2 -%}{%- assign collection_asset = 'warrior-tab-sunflower.png' -%}
+              {%- else -%}{%- assign collection_asset = 'warrior-tab-chrysaber.png' -%}
+            {%- endcase -%}
+            {%- if block.settings.icon != blank -%}
+              {%- assign collection_icon_url = block.settings.icon | image_url: width: 500 -%}
+            {%- else -%}
+              {%- assign collection_icon_url = collection_asset | asset_url -%}
+            {%- endif -%}
+
+            <button
+              class="warrior-collection-tab{% if collection_index == 1 %} is-active{% endif %}"
+              type="button"
+              data-warrior-collection-tab
+              data-index="{{ collection_index | minus: 1 }}"
+              aria-pressed="{% if collection_index == 1 %}true{% else %}false{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <img src="{{ collection_icon_url }}" alt="" width="120" height="120" loading="lazy">
+              <span>{{ block.settings.title | escape }}</span>
+              {%- if block.settings.description != blank -%}<small>{{ block.settings.description | escape }}</small>{%- endif -%}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+
+      <div class="warrior-gallery" data-warrior-gallery>
+        <button class="warrior-gallery__arrow warrior-gallery__arrow--previous" type="button" data-warrior-gallery-previous aria-label="Ảnh trước">
+          <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
+        </button>
+
+        <div class="warrior-gallery__track" aria-live="polite">
+          {%- for gallery_number in (1..5) -%}
+            {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
+            {%- capture gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
+            {%- assign gallery_image = section.settings[gallery_setting_id] -%}
+            {%- if gallery_image != blank -%}
+              {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+            {%- else -%}
+              {%- assign gallery_image_url = gallery_asset | asset_url -%}
+            {%- endif -%}
+            <figure class="warrior-gallery__slide{% if gallery_number == 1 %} is-active{% endif %}" data-warrior-gallery-slide data-index="{{ gallery_number | minus: 1 }}">
+              <img
+                src="{{ gallery_image_url }}"
+                alt="{{ gallery_image.alt | default: section.settings.gallery_alt | escape }}"
+                width="1400"
+                height="900"
+                loading="lazy"
+              >
+            </figure>
+          {%- endfor -%}
+        </div>
+
+        <button class="warrior-gallery__arrow warrior-gallery__arrow--next" type="button" data-warrior-gallery-next aria-label="Ảnh tiếp theo">
+          <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
+        </button>
+        <div class="warrior-dots warrior-gallery__dots" data-warrior-gallery-dots aria-label="Chọn ảnh"></div>
+      </div>
+    </div>
+
+    <div class="warrior-collections__mobile">
+      {%- assign mobile_collection_index = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'collection' -%}
+          {%- assign mobile_collection_index = mobile_collection_index | plus: 1 -%}
+          {%- case mobile_collection_index -%}
+            {%- when 1 -%}{%- assign mobile_collection_asset = 'warrior-lotus-drop.png' -%}
+            {%- when 2 -%}{%- assign mobile_collection_asset = 'warrior-tab-sunflower.png' -%}
+            {%- else -%}{%- assign mobile_collection_asset = 'warrior-tab-chrysaber.png' -%}
+          {%- endcase -%}
+          {%- if block.settings.icon != blank -%}
+            {%- assign mobile_collection_icon_url = block.settings.icon | image_url: width: 700 -%}
+          {%- else -%}
+            {%- assign mobile_collection_icon_url = mobile_collection_asset | asset_url -%}
+          {%- endif -%}
+
+          <article class="warrior-mobile-collection" {{ block.shopify_attributes }}>
+            <img src="{{ mobile_collection_icon_url }}" alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}" width="700" height="700" loading="lazy">
+            <div class="warrior-dots warrior-mobile-collection__dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span><span></span></div>
+            <h2>{{ block.settings.title | escape }}</h2>
+            {%- if block.settings.description != blank -%}<p>{{ block.settings.description | escape }}</p>{%- endif -%}
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}">{{ block.settings.link_label | default: 'Xem sản phẩm' | escape }}</a>
+            {%- endif -%}
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="warrior-story-art">
+    {%- if section.settings.story_art != blank -%}
+      {{ section.settings.story_art | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '480, 760, 1100, 1600', sizes: '(max-width: 767px) calc(100vw - 48px), 0px', alt: section.settings.story_art.alt }}
+    {%- else -%}
+      <img src="{{ 'warrior-story-art.png' | asset_url }}" alt="{{ section.settings.story_art_alt | escape }}" width="1400" height="1400" loading="lazy">
+    {%- endif -%}
+  </div>
+
+  <div class="warrior-finale" aria-label="{{ section.settings.finale_alt | escape }}">
+    <img class="warrior-finale__flare warrior-finale__flare--left" src="{{ 'warrior-finale-flare.png' | asset_url }}" alt="" width="1100" height="1100" loading="lazy">
+    <img class="warrior-finale__mark" src="{{ 'warrior-finale-mark.png' | asset_url }}" alt="" width="1100" height="1100" loading="lazy">
+    <img class="warrior-finale__flare warrior-finale__flare--right" src="{{ 'warrior-finale-flare.png' | asset_url }}" alt="" width="1100" height="1100" loading="lazy">
+    <img class="warrior-finale__date" src="{{ 'warrior-finale-date.png' | asset_url }}" alt="{{ section.settings.finale_alt | escape }}" width="1600" height="303" loading="lazy">
+  </div>
+</section>
+
+<script src="{{ 'warrior-landing.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Warrior landing",
+  "max_blocks": 13,
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessible_title",
+      "label": "Accessible page title",
+      "default": "Landing Warrior"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#0c0c0c"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#f7a41a"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_desktop",
+      "label": "Hero desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_mobile",
+      "label": "Hero mobile"
+    },
+    {
+      "type": "text",
+      "id": "hero_alt",
+      "label": "Hero alt text",
+      "default": "Nghệ nhân đang rèn kim loại trong xưởng"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_label",
+      "label": "Mobile hero button",
+      "default": "Xem full tại đây"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Mobile hero button link"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "text",
+      "id": "gallery_alt",
+      "label": "Gallery fallback alt text",
+      "default": "Chi tiết bộ sưu tập Warrior"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_1",
+      "label": "Gallery image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_2",
+      "label": "Gallery image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_3",
+      "label": "Gallery image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_4",
+      "label": "Gallery image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_5",
+      "label": "Gallery image 5"
+    },
+    {
+      "type": "header",
+      "content": "Story and finale"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_art",
+      "label": "Mobile story artwork"
+    },
+    {
+      "type": "text",
+      "id": "story_art_alt",
+      "label": "Story artwork alt text",
+      "default": "Bản đồ minh họa hành trình Warrior"
+    },
+    {
+      "type": "text",
+      "id": "finale_alt",
+      "label": "Finale alt text",
+      "default": "Helios 10 Year Anniversary — 8.8.2026"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Chapter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Chapter I"
+        },
+        {
+          "type": "image_picker",
+          "id": "artwork",
+          "label": "Artwork"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        }
+      ]
+    },
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lotus"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon or product artwork"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Collection link"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Xem sản phẩm"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Warrior landing",
+      "blocks": [
+        { "type": "chapter" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}
