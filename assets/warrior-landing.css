@@ -117,6 +117,21 @@
   text-transform: uppercase;
 }
 
+.warrior-chapter-card h2,
+.warrior-chapter-card__description,
+.warrior-chapter-card__caption {
+  opacity: 0;
+  transition: opacity 220ms ease, visibility 220ms ease;
+  visibility: hidden;
+}
+
+.warrior-chapter-card.is-active h2,
+.warrior-chapter-card.is-active .warrior-chapter-card__description,
+.warrior-chapter-card.is-active .warrior-chapter-card__caption {
+  opacity: 1;
+  visibility: visible;
+}
+
 .warrior-chapter-card__art {
   height: 455px;
   object-fit: contain;
