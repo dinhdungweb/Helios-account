@@ -96,14 +96,6 @@
 
         activateCollection(Number(tab.dataset.index) || 0);
       });
-
-      tab.addEventListener('mouseenter', function () {
-        activateCollection(Number(tab.dataset.index) || 0);
-      });
-
-      tab.addEventListener('focus', function () {
-        activateCollection(Number(tab.dataset.index) || 0);
-      });
     });
 
     activateCollection(0);
