@@ -268,9 +268,9 @@
 
 .warrior-collection-tab__media {
   display: block;
-  height: 150px;
+  flex: 0 0 190px;
+  height: 190px;
   position: relative;
-  transition: height 300ms cubic-bezier(0.22, 1, 0.36, 1);
   width: 150px;
 }
 
@@ -312,11 +312,6 @@
 .warrior-collection-tab[data-index="2"] {
   --warrior-icon-image-size: 123px;
   --warrior-hover-image-height: 205px;
-}
-
-.warrior-collection-tab:hover .warrior-collection-tab__media,
-.warrior-collection-tab:focus-visible .warrior-collection-tab__media {
-  height: 190px;
 }
 
 .warrior-collection-tab:hover .warrior-collection-tab__icon,
