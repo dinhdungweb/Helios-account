@@ -16,7 +16,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter I",
-            "artwork": "shopify://shop_images/chapter1-ezgif.com-gif-to-webp-converter.webp",
+            "artwork": "shopify://shop_images/chapter_1.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -25,7 +25,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter II",
-            "artwork": "shopify://shop_images/chap_2.gif",
+            "artwork": "shopify://shop_images/chapter_2.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -34,7 +34,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter III",
-            "artwork": "shopify://shop_images/chap_3.gif",
+            "artwork": "shopify://shop_images/chapter_3.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -43,7 +43,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter IV",
-            "artwork": "shopify://shop_images/chap_4.gif",
+            "artwork": "shopify://shop_images/chapter_4.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -52,7 +52,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter V",
-            "artwork": "shopify://shop_images/chap_5.gif",
+            "artwork": "shopify://shop_images/chapter_5.gif",
             "description": "<p>tếtt.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -61,7 +61,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter VI",
-            "artwork": "shopify://shop_images/chap_6.gif",
+            "artwork": "shopify://shop_images/chapter_6.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -70,7 +70,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter VII",
-            "artwork": "shopify://shop_images/chap_7.gif",
+            "artwork": "shopify://shop_images/chapter_7.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -79,7 +79,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter VIII",
-            "artwork": "shopify://shop_images/chap_8.gif",
+            "artwork": "shopify://shop_images/chapter_8.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -88,7 +88,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter IX",
-            "artwork": "shopify://shop_images/chap_9.gif",
+            "artwork": "shopify://shop_images/chapter_9.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -97,7 +97,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter X",
-            "artwork": "shopify://shop_images/chapter_10.gif",
+            "artwork": "shopify://shop_images/chapter_10_31367afd-f5f9-4a1b-b949-a2f3101fc008.gif",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
