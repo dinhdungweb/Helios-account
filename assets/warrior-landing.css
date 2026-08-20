@@ -76,8 +76,11 @@
   position: absolute;
   text-align: center;
   transform: translateX(0) scale(0.74);
-  transition: opacity 420ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 650ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
   visibility: hidden;
+  will-change: opacity, transform;
 }
 
 .warrior-chapter-card.is-active,
@@ -122,14 +125,21 @@
 .warrior-chapter-card__description,
 .warrior-chapter-card__caption {
   opacity: 0;
-  transition: opacity 220ms ease, visibility 220ms ease;
+  transform: translateY(10px);
+  transition:
+    opacity 480ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 620ms;
   visibility: hidden;
+  will-change: opacity, transform;
 }
 
 .warrior-chapter-card.is-active h2,
 .warrior-chapter-card.is-active .warrior-chapter-card__description,
 .warrior-chapter-card.is-active .warrior-chapter-card__caption {
   opacity: 1;
+  transform: translateY(0);
+  transition-delay: 180ms, 180ms, 0s;
   visibility: visible;
 }
 
@@ -773,6 +783,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .warrior-chapter-card,
+  .warrior-chapter-card h2,
+  .warrior-chapter-card__description,
+  .warrior-chapter-card__caption,
   .warrior-gallery__slide,
   .warrior-arrow,
   .warrior-gallery__arrow,
