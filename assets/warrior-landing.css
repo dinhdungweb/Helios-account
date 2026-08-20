@@ -397,13 +397,15 @@
 }
 
 .warrior-collection-tab:hover .warrior-collection-tab__icon,
-.warrior-collection-tab:focus-visible .warrior-collection-tab__icon {
+.warrior-collection-tab:focus-visible .warrior-collection-tab__icon,
+.warrior-collection-tab.is-active .warrior-collection-tab__icon {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.72);
 }
 
 .warrior-collection-tab:hover .warrior-collection-tab__warrior,
-.warrior-collection-tab:focus-visible .warrior-collection-tab__warrior {
+.warrior-collection-tab:focus-visible .warrior-collection-tab__warrior,
+.warrior-collection-tab.is-active .warrior-collection-tab__warrior {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
@@ -550,10 +552,6 @@
 
 .warrior-gallery__slide--artwork img {
   transform: scale(0.56);
-}
-
-.warrior-gallery__slide--warrior img {
-  transform: scale(0.82);
 }
 
 .warrior-gallery.is-static .warrior-gallery__arrow,
