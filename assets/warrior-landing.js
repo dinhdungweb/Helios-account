@@ -27,8 +27,9 @@
     var previousButton = root.querySelector(options.previousSelector);
     var nextButton = root.querySelector(options.nextSelector);
     var dots = createDots(root.querySelector(options.dotsSelector), slides.length, update);
+    var isTransitioning = false;
 
-    function update(index) {
+    function render(index) {
       current = wrapIndex(index, slides.length);
       var previous = wrapIndex(current - 1, slides.length);
       var next = wrapIndex(current + 1, slides.length);
@@ -44,6 +45,30 @@
         dot.classList.toggle('is-active', dotIndex === current);
         dot.setAttribute('aria-current', dotIndex === current ? 'true' : 'false');
       });
+    }
+
+    function update(index) {
+      var target = wrapIndex(index, slides.length);
+      var stageDuration = Number(options.stagedTransitionMs) || 0;
+
+      if (target === current || isTransitioning) return;
+      if (!stageDuration) {
+        render(target);
+        return;
+      }
+
+      isTransitioning = true;
+      root.classList.add('is-transitioning');
+      slides[current].classList.add('is-leaving');
+
+      window.setTimeout(function () {
+        slides[current].classList.remove('is-leaving');
+        render(target);
+        window.setTimeout(function () {
+          root.classList.remove('is-transitioning');
+          isTransitioning = false;
+        }, Number(options.settleDurationMs) || 0);
+      }, stageDuration);
     }
 
     if (previousButton) previousButton.addEventListener('click', function () { update(current - 1); });
@@ -88,7 +113,7 @@
       activePointerId = null;
     });
 
-    update(0);
+    render(0);
     return { select: update };
   }
 
@@ -135,7 +160,9 @@
         slideSelector: '[data-warrior-chapter]',
         previousSelector: '[data-warrior-chapter-previous]',
         nextSelector: '[data-warrior-chapter-next]',
-        dotsSelector: '[data-warrior-chapter-dots]'
+        dotsSelector: '[data-warrior-chapter-dots]',
+        stagedTransitionMs: 450,
+        settleDurationMs: 1500
       });
     }
 

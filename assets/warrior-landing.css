@@ -128,10 +128,6 @@
 .warrior-chapter-card__caption {
   opacity: 0;
   transform: translateY(10px);
-  transition:
-    opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 850ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    visibility 0s linear 850ms;
   visibility: hidden;
   will-change: opacity, transform;
 }
@@ -139,10 +135,47 @@
 .warrior-chapter-card.is-active h2,
 .warrior-chapter-card.is-active .warrior-chapter-card__description,
 .warrior-chapter-card.is-active .warrior-chapter-card__caption {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 500ms, 500ms, 0s;
+  animation: warrior-chapter-copy-enter 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 500ms both;
   visibility: visible;
+}
+
+.warrior-chapter-card.is-active .warrior-chapter-card__description {
+  animation-delay: 590ms;
+}
+
+.warrior-chapter-card.is-active .warrior-chapter-card__caption {
+  animation-delay: 680ms;
+}
+
+.warrior-chapter-card.is-leaving h2,
+.warrior-chapter-card.is-leaving .warrior-chapter-card__description,
+.warrior-chapter-card.is-leaving .warrior-chapter-card__caption {
+  animation: warrior-chapter-copy-exit 450ms cubic-bezier(0.4, 0, 1, 1) both;
+  visibility: visible;
+}
+
+@keyframes warrior-chapter-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes warrior-chapter-copy-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 .warrior-chapter-card__art {
@@ -784,10 +817,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .warrior-chapter-card,
-  .warrior-chapter-card h2,
-  .warrior-chapter-card__description,
-  .warrior-chapter-card__caption,
   .warrior-gallery__slide,
   .warrior-arrow,
   .warrior-gallery__arrow,
