@@ -48,10 +48,6 @@
   </div>
 
   <div id="warrior-chapters-{{ section.id }}" class="warrior-chapters" data-warrior-chapters>
-    <button class="warrior-arrow warrior-arrow--previous" type="button" data-warrior-chapter-previous aria-label="Chapter trước">
-      <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
-    </button>
-
     <div class="warrior-chapters__viewport" aria-live="polite">
       {%- assign chapter_index = 0 -%}
       {%- for block in section.blocks -%}
@@ -91,12 +87,6 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
-
-    <button class="warrior-arrow warrior-arrow--next" type="button" data-warrior-chapter-next aria-label="Chapter tiếp theo">
-      <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
-    </button>
-
-    <div class="warrior-dots" data-warrior-chapter-dots aria-label="Chọn chapter"></div>
   </div>
 
   <div class="warrior-collections" data-warrior-collections>
