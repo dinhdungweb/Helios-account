@@ -330,6 +330,7 @@
 
 .warrior-collection-tab__title,
 .warrior-collection-tab small {
+  color: var(--warrior-text, #fff);
   display: block;
   font-family: var(--warrior-heading);
   text-transform: uppercase;

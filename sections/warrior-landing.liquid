@@ -128,7 +128,7 @@
             {%- endif -%}
 
             <button
-              class="warrior-collection-tab{% if collection_index == 1 %} is-active{% endif %}"
+              class="warrior-collection-tab no-hover{% if collection_index == 1 %} is-active{% endif %}"
               type="button"
               data-warrior-collection-tab
               data-index="{{ collection_index | minus: 1 }}"
