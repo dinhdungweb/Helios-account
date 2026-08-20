@@ -188,6 +188,7 @@
                     alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}"
                     width="900"
                     height="900"
+                    draggable="false"
                     loading="lazy"
                   >
                 </figure>
@@ -217,6 +218,7 @@
                         alt="{{ gallery_image.alt | default: block.settings.title | default: section.settings.gallery_alt | escape }}"
                         width="1400"
                         height="900"
+                        draggable="false"
                         loading="lazy"
                       >
                     </figure>
@@ -255,7 +257,7 @@
             <div class="warrior-mobile-gallery" data-warrior-mobile-gallery>
               <div class="warrior-mobile-gallery__track" aria-live="polite">
                 <figure class="warrior-mobile-gallery__slide warrior-mobile-gallery__slide--artwork is-active" data-warrior-mobile-gallery-slide>
-                  <img src="{{ mobile_collection_icon_url }}" alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}" width="700" height="700" loading="lazy">
+                  <img src="{{ mobile_collection_icon_url }}" alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}" width="700" height="700" draggable="false" loading="lazy">
                 </figure>
 
                 {%- for gallery_number in (1..5) -%}
@@ -282,6 +284,7 @@
                         alt="{{ mobile_gallery_image.alt | default: block.settings.title | escape }}"
                         width="900"
                         height="700"
+                        draggable="false"
                         loading="lazy"
                       >
                     </figure>
