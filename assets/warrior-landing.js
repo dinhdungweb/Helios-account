@@ -69,7 +69,14 @@
   function setupCollectionTabs(root, galleryApi) {
     var tabs = Array.from(root.querySelectorAll('[data-warrior-collection-tab]'));
     tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
+      tab.addEventListener('click', function (event) {
+        var ctaClicked = event.target.closest('[data-warrior-collection-cta]');
+        var targetUrl = tab.dataset.warriorCollectionLink;
+        if (ctaClicked && targetUrl) {
+          window.location.href = targetUrl;
+          return;
+        }
+
         tabs.forEach(function (item) {
           var active = item === tab;
           item.classList.toggle('is-active', active);

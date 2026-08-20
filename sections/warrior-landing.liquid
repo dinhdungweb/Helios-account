@@ -132,6 +132,7 @@
               type="button"
               data-warrior-collection-tab
               data-index="{{ collection_index | minus: 1 }}"
+              data-warrior-collection-link="{{ block.settings.link }}"
               aria-pressed="{% if collection_index == 1 %}true{% else %}false{% endif %}"
               {{ block.shopify_attributes }}
             >
@@ -141,6 +142,9 @@
               </span>
               <span class="warrior-collection-tab__title">{{ block.settings.title | escape }}</span>
               {%- if block.settings.description != blank -%}<small>{{ block.settings.description | escape }}</small>{%- endif -%}
+              {%- if block.settings.link_label != blank -%}
+                <span class="warrior-collection-tab__cta" data-warrior-collection-cta>{{ block.settings.link_label | escape }}</span>
+              {%- endif -%}
             </button>
           {%- endif -%}
         {%- endfor -%}
@@ -201,8 +205,10 @@
             <div class="warrior-dots warrior-mobile-collection__dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span><span></span></div>
             <h2>{{ block.settings.title | escape }}</h2>
             {%- if block.settings.description != blank -%}<p>{{ block.settings.description | escape }}</p>{%- endif -%}
-            {%- if block.settings.link != blank -%}
+            {%- if block.settings.link != blank and block.settings.link_label != blank -%}
               <a href="{{ block.settings.link }}">{{ block.settings.link_label | default: 'Xem sản phẩm' | escape }}</a>
+            {%- elsif block.settings.link_label != blank -%}
+              <span class="warrior-mobile-collection__cta">{{ block.settings.link_label | escape }}</span>
             {%- endif -%}
           </article>
         {%- endif -%}
@@ -410,7 +416,7 @@
           "type": "text",
           "id": "link_label",
           "label": "Link label",
-          "default": "Xem sản phẩm"
+          "default": "Khám phá dấu ấn"
         }
       ]
     }

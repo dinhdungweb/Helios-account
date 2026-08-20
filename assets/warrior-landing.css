@@ -251,7 +251,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 210px;
+  min-height: 218px;
   opacity: 0.45;
   padding: 10px 0;
   text-align: center;
@@ -332,6 +332,36 @@
   line-height: 1.2;
   margin-top: 6px;
   max-width: 225px;
+}
+
+.warrior-collection-tab__cta {
+  align-items: center;
+  background: #e78a08;
+  border-radius: 3px;
+  color: #1b1b1b;
+  display: inline-flex;
+  font-family: var(--warrior-heading);
+  font-size: 10px;
+  font-weight: 700;
+  height: 18px;
+  justify-content: center;
+  line-height: 1;
+  margin-top: 8px;
+  opacity: 0;
+  padding: 0 8px;
+  pointer-events: none;
+  text-transform: uppercase;
+  transform: translateY(6px);
+  transition: opacity 180ms ease, transform 240ms ease;
+  white-space: nowrap;
+  width: 115px;
+}
+
+.warrior-collection-tab:hover .warrior-collection-tab__cta,
+.warrior-collection-tab:focus-visible .warrior-collection-tab__cta {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .warrior-gallery {
@@ -567,11 +597,14 @@
     text-transform: uppercase;
   }
 
-  .warrior-mobile-collection a {
+  .warrior-mobile-collection a,
+  .warrior-mobile-collection__cta {
     background: var(--warrior-accent, #f7a41a);
     color: #111;
+    display: inline-flex;
     font-size: 7px;
     font-weight: 700;
+    justify-content: center;
     letter-spacing: 0.04em;
     margin-top: 10px;
     padding: 5px 12px;
