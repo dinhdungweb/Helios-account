@@ -84,6 +84,7 @@
                 muted
                 loop
                 playsinline
+                webkit-playsinline
                 preload="none"
                 data-warrior-chapter-video
                 {% if chapter_video_poster_url != blank %}
@@ -95,7 +96,8 @@
                 {% endif %}
               >
                 {%- for source in chapter_video.sources -%}
-                  {%- unless source.mime_type contains 'mpegurl' -%}
+                  {%- assign chapter_source_mime = source.mime_type | downcase -%}
+                  {%- unless chapter_source_mime contains 'mpegurl' -%}
                     <source data-src="{{ source.url }}" type="{{ source.mime_type }}">
                   {%- endunless -%}
                 {%- endfor -%}

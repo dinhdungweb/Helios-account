@@ -19,12 +19,6 @@
     });
   }
 
-  function prefersStaticChapterMedia() {
-    var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    return Boolean(reducedMotion || (connection && connection.saveData));
-  }
-
   function hydrateChapterPoster(slide) {
     var video = slide.querySelector('[data-warrior-chapter-video]');
     if (!video || !video.dataset.poster || video.poster) return;
@@ -51,13 +45,22 @@
 
     hydrateChapterPoster(slide);
 
-    if (prefersStaticChapterMedia()) {
-      video.pause();
-      return;
-    }
+    // iOS Safari checks the DOM properties as well as the HTML attributes.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
 
     if (video.dataset.loaded !== 'true') {
       video.querySelectorAll('source[data-src]').forEach(function (source) {
+        // A looping Shopify video must use MP4. Safari otherwise prefers HLS,
+        // whose playlist can stop after the first frame or fail to loop.
+        if ((source.type || '').toLowerCase().indexOf('mpegurl') !== -1) {
+          source.remove();
+          return;
+        }
         source.src = source.dataset.src;
         source.removeAttribute('data-src');
       });
@@ -70,7 +73,27 @@
     video.preload = 'auto';
     var playPromise = video.play();
     if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(function () { /* The poster remains visible if autoplay is blocked. */ });
+      playPromise.catch(function () {
+        if (video.dataset.playRetryBound === 'true') return;
+        video.dataset.playRetryBound = 'true';
+
+        var retryPlayback = function () {
+          video.dataset.playRetryBound = 'false';
+          var activeSlide = video.closest('.warrior-chapter-card');
+          if (!activeSlide || !activeSlide.classList.contains('is-active')) return;
+
+          var retryPromise = video.play();
+          if (retryPromise && typeof retryPromise.catch === 'function') {
+            retryPromise.catch(function () { /* Keep the poster if the OS still blocks playback. */ });
+          }
+        };
+
+        if (window.PointerEvent) {
+          document.addEventListener('pointerdown', retryPlayback, { once: true, capture: true, passive: true });
+        } else {
+          document.addEventListener('touchstart', retryPlayback, { once: true, capture: true, passive: true });
+        }
+      });
     }
   }
 
