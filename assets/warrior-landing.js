@@ -39,6 +39,17 @@
     image.dataset.loaded = 'false';
   }
 
+  function pauseChapterVideo(video, resetToStart) {
+    if (!video) return;
+    video.pause();
+    video.autoplay = false;
+    video.removeAttribute('autoplay');
+
+    if (resetToStart && video.readyState > 0) {
+      try { video.currentTime = 0; } catch (error) { /* The poster remains visible until metadata is ready. */ }
+    }
+  }
+
   function loadChapterVideo(slide, shouldPlay) {
     var video = slide.querySelector('[data-warrior-chapter-video]');
     if (!video) return;
@@ -49,6 +60,7 @@
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
+    video.autoplay = false;
     video.setAttribute('muted', '');
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
@@ -133,7 +145,7 @@
         if (mediaInView && slideIndex === current) {
           loadChapterVideo(slide, true);
         } else {
-          video.pause();
+          pauseChapterVideo(video, true);
         }
       });
     }
@@ -167,7 +179,6 @@
       if (options.manageChapterMedia && mediaInView) {
         hydrateChapterImage(slides[target]);
         hydrateChapterPoster(slides[target]);
-        loadChapterVideo(slides[target], false);
       }
 
       if (!stageDuration) {
@@ -271,7 +282,7 @@
         if (document.hidden) {
           slides.forEach(function (slide) {
             var video = slide.querySelector('[data-warrior-chapter-video]');
-            if (video) video.pause();
+            pauseChapterVideo(video, false);
           });
         } else {
           syncChapterMedia();
