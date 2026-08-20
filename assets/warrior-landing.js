@@ -52,8 +52,7 @@
       image.src = TRANSPARENT_PIXEL;
     }, { once: true });
 
-    var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
-    image.src = isMobile && image.dataset.srcMobile ? image.dataset.srcMobile : image.dataset.src;
+    image.src = image.dataset.src;
   }
 
   function unloadChapterImage(slide) {
