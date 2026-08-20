@@ -147,10 +147,12 @@
   line-height: 1.2;
   margin: 4px auto 0;
   max-width: 500px;
+  text-align: center;
 }
 
 .warrior-chapter-card__description p {
   margin: 0;
+  text-align: center;
 }
 
 .warrior-chapter-card__caption {
@@ -161,6 +163,7 @@
   line-height: 1.25;
   margin: 14px auto 0;
   max-width: 550px;
+  text-align: center;
   text-transform: uppercase;
 }
 
