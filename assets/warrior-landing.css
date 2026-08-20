@@ -100,11 +100,11 @@
 }
 
 .warrior-chapter-card.is-previous {
-  transform: translateX(-42%) scale(0.72);
+  transform: translateX(-42%) scale(0.85);
 }
 
 .warrior-chapter-card.is-next {
-  transform: translateX(42%) scale(0.72);
+  transform: translateX(42%) scale(0.85);
 }
 
 .warrior-chapter-card h2 {
