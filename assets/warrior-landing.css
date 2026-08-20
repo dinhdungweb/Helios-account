@@ -290,15 +290,30 @@
 }
 
 .warrior-collection-tab__warrior {
-  height: 152px;
+  height: var(--warrior-hover-image-height, 214px);
+  max-width: none;
   opacity: 0;
   transform: translate(-50%, -46%) scale(0.82);
-  width: 145px;
+  width: auto;
+}
+
+/* The exported hover PNGs use different transparent canvas ratios. These
+   heights normalize the visible warriors to the ~185px height in Figma. */
+.warrior-collection-tab[data-index="0"] {
+  --warrior-hover-image-height: 219px;
+}
+
+.warrior-collection-tab[data-index="1"] {
+  --warrior-hover-image-height: 214px;
+}
+
+.warrior-collection-tab[data-index="2"] {
+  --warrior-hover-image-height: 205px;
 }
 
 .warrior-collection-tab:hover .warrior-collection-tab__media,
 .warrior-collection-tab:focus-visible .warrior-collection-tab__media {
-  height: 154px;
+  height: 190px;
 }
 
 .warrior-collection-tab:hover .warrior-collection-tab__icon,
@@ -340,7 +355,7 @@
   border-radius: 3px;
   color: #1b1b1b;
   display: inline-flex;
-  font-family: var(--warrior-heading);
+  font-family: "Jost", Arial, sans-serif;
   font-size: 10px;
   font-weight: 700;
   height: 18px;
