@@ -161,8 +161,8 @@
         previousSelector: '[data-warrior-chapter-previous]',
         nextSelector: '[data-warrior-chapter-next]',
         dotsSelector: '[data-warrior-chapter-dots]',
-        stagedTransitionMs: 450,
-        settleDurationMs: 1500
+        stagedTransitionMs: 350,
+        settleDurationMs: 1200
       });
     }
 

@@ -77,9 +77,9 @@
   text-align: center;
   transform: translateX(0) scale(0.74);
   transition:
-    opacity 1000ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 1500ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    visibility 0s linear 1500ms;
+    opacity 800ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 1200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    visibility 0s linear 1200ms;
   visibility: hidden;
   will-change: opacity, transform;
 }
@@ -135,22 +135,22 @@
 .warrior-chapter-card.is-active h2,
 .warrior-chapter-card.is-active .warrior-chapter-card__description,
 .warrior-chapter-card.is-active .warrior-chapter-card__caption {
-  animation: warrior-chapter-copy-enter 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 500ms both;
+  animation: warrior-chapter-copy-enter 700ms cubic-bezier(0.22, 0.61, 0.36, 1) 350ms both;
   visibility: visible;
 }
 
 .warrior-chapter-card.is-active .warrior-chapter-card__description {
-  animation-delay: 590ms;
+  animation-delay: 410ms;
 }
 
 .warrior-chapter-card.is-active .warrior-chapter-card__caption {
-  animation-delay: 680ms;
+  animation-delay: 470ms;
 }
 
 .warrior-chapter-card.is-leaving h2,
 .warrior-chapter-card.is-leaving .warrior-chapter-card__description,
 .warrior-chapter-card.is-leaving .warrior-chapter-card__caption {
-  animation: warrior-chapter-copy-exit 450ms cubic-bezier(0.4, 0, 1, 1) both;
+  animation: warrior-chapter-copy-exit 350ms cubic-bezier(0.4, 0, 1, 1) both;
   visibility: visible;
 }
 
