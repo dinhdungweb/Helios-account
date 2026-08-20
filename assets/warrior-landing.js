@@ -188,7 +188,9 @@
           slideSelector: '[data-warrior-gallery-slide]',
           previousSelector: '[data-warrior-gallery-previous]',
           nextSelector: '[data-warrior-gallery-next]',
-          dotsSelector: '[data-warrior-gallery-dots]'
+          dotsSelector: '[data-warrior-gallery-dots]',
+          stagedTransitionMs: 260,
+          settleDurationMs: 500
         })
       };
     });
@@ -200,7 +202,9 @@
         slideSelector: '[data-warrior-mobile-gallery-slide]',
         previousSelector: '[data-warrior-mobile-gallery-previous]',
         nextSelector: '[data-warrior-mobile-gallery-next]',
-        dotsSelector: '[data-warrior-mobile-gallery-dots]'
+        dotsSelector: '[data-warrior-mobile-gallery-dots]',
+        stagedTransitionMs: 220,
+        settleDurationMs: 380
       });
     });
   }
