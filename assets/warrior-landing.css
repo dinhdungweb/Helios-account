@@ -268,7 +268,7 @@
 
 .warrior-collection-tab__media {
   display: block;
-  height: 112px;
+  height: 150px;
   position: relative;
   transition: height 300ms cubic-bezier(0.22, 1, 0.36, 1);
   width: 150px;
@@ -284,9 +284,9 @@
 }
 
 .warrior-collection-tab__icon {
-  height: 96px;
+  height: var(--warrior-icon-image-size, 146px);
   opacity: 1;
-  width: 96px;
+  width: var(--warrior-icon-image-size, 146px);
 }
 
 .warrior-collection-tab__warrior {
@@ -300,14 +300,17 @@
 /* The exported hover PNGs use different transparent canvas ratios. These
    heights normalize the visible warriors to the ~185px height in Figma. */
 .warrior-collection-tab[data-index="0"] {
+  --warrior-icon-image-size: 146px;
   --warrior-hover-image-height: 219px;
 }
 
 .warrior-collection-tab[data-index="1"] {
+  --warrior-icon-image-size: 176px;
   --warrior-hover-image-height: 214px;
 }
 
 .warrior-collection-tab[data-index="2"] {
+  --warrior-icon-image-size: 123px;
   --warrior-hover-image-height: 205px;
 }
 
