@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_RnWgY3": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "full_width": true,
@@ -55,8 +56,27 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
+        "image_KarRwm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_wweb_NQSH_19x9_optimized.avif",
+            "mobile_image": "shopify://shop_images/Banner_wweb_NQSH_4x5_optimized.avif",
+            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_qbHR3Y": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Landingpage_PC-01.jpg",
             "mobile_image": "shopify://shop_images/Landing_page_MB-01.jpg",
@@ -75,6 +95,7 @@
         },
         "image_3Aawga": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Silver_wall_16x9_83ba2b2c-c602-45c0-944b-694fca28ebc9.jpg",
             "mobile_image": "shopify://shop_images/Silver_wall_4x5_02bfa8ce-639d-4892-ace6-f13a3d5b2717.jpg",
@@ -93,6 +114,7 @@
         },
         "image_nw333M": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Landingpage_pc_01_1ce72cc9-426e-4a68-941f-0f3f1ecf134f-done.jpg",
             "mobile_image": "shopify://shop_images/BeautyPlus-image-extender.jpg",
@@ -127,36 +149,16 @@
             "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
-        },
-        "image_KarRwm": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/Banner_web_NQSH_19x9_c8cd3e1d-dcd1-4edc-9328-c9ddf4a39b65.jpg",
-            "mobile_image": "shopify://shop_images/Banner_dau_trang_op_2_NQSH_9x16_69c55d00-2d4c-4602-8abc-efb291080b66.jpg",
-            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
         }
       },
       "block_order": [
         "image_nNNj6R",
+        "image_KarRwm",
         "image_qbHR3Y",
         "image_3Aawga",
         "image_nw333M",
-        "image_hgGRLc",
-        "image_KarRwm"
+        "image_hgGRLc"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -179,6 +181,11 @@
         "featured_collection_align": "left",
         "collection": "new-products",
         "layout": "rows",
+        "show_arrows": true,
+        "show_dots": false,
+        "show_progress": false,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
         "featured_addtocart_hide": false,
         "show_add_to_cart": true,
         "show_title": true,
