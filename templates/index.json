@@ -60,7 +60,25 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Banner_wweb_NQSH_19x9_optimized.avif",
-            "mobile_image": "shopify://shop_images/Banner_wweb_NQSH_4x5_optimized.avif",
+            "mobile_image": "shopify://shop_images/Banner_wweb_NQSH_9x16_optimized.jpg",
+            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_HkUphA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/19X9_BANNER_NQSH_1__optimized.jpg",
+            "mobile_image": "shopify://shop_images/namquocsonha_optimized.jpg",
             "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
             "subheading": "",
             "title": "",
@@ -154,6 +172,7 @@
       "block_order": [
         "image_nNNj6R",
         "image_KarRwm",
+        "image_HkUphA",
         "image_qbHR3Y",
         "image_3Aawga",
         "image_nw333M",
