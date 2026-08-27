@@ -326,7 +326,7 @@
     </div>
   </div>
 
-  <div class="warrior-story-art">
+  <div class="warrior-story-art" style="--story-desktop-width: {{ section.settings.story_art_desktop_width }}px;">
     {%- if section.settings.story_art != blank -%}
       {{ section.settings.story_art | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '480, 760, 1100, 1600', sizes: '(max-width: 767px) calc(100vw - 48px), 0px', alt: section.settings.story_art.alt }}
     {%- else -%}
@@ -446,7 +446,17 @@
     {
       "type": "image_picker",
       "id": "story_art",
-      "label": "Mobile story artwork"
+      "label": "Story artwork"
+    },
+    {
+      "type": "range",
+      "id": "story_art_desktop_width",
+      "label": "Story artwork desktop width",
+      "min": 400,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "default": 1400
     },
     {
       "type": "text",

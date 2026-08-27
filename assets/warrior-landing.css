@@ -606,7 +606,7 @@ video.warrior-chapter-card__art {
 .warrior-story-art {
   display: block;
   margin: 0 auto;
-  max-width: 1400px;
+  max-width: var(--story-desktop-width, 1400px);
   padding: 0 24px;
 }
 
