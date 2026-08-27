@@ -348,7 +348,7 @@ video.warrior-chapter-card__art {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 218px;
+  min-height: 160px;
   opacity: 0.45;
   padding: 10px 0;
   text-align: center;
@@ -365,8 +365,8 @@ video.warrior-chapter-card__art {
 
 .warrior-collection-tab__media {
   display: block;
-  flex: 0 0 190px;
-  height: 190px;
+  flex: 0 0 150px;
+  height: 150px;
   position: relative;
   width: 150px;
 }
