@@ -328,7 +328,7 @@
 
   <div class="warrior-story-art" style="--story-desktop-width: {{ section.settings.story_art_desktop_width }}px;">
     {%- if section.settings.story_art != blank -%}
-      {{ section.settings.story_art | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '480, 760, 1100, 1600', sizes: '(max-width: 767px) calc(100vw - 48px), 0px', alt: section.settings.story_art.alt }}
+      {{ section.settings.story_art | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '480, 760, 1100, 1600', sizes: '(max-width: 767px) calc(100vw - 48px), 100vw', alt: section.settings.story_art.alt }}
     {%- else -%}
       <img src="{{ 'warrior-story-art.png' | asset_url }}" alt="{{ section.settings.story_art_alt | escape }}" width="1400" height="1400" loading="lazy">
     {%- endif -%}
