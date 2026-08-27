@@ -525,6 +525,9 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-gallery__slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
   opacity: 0;
   transform: translateX(16%) scale(0.75);
@@ -560,12 +563,15 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-gallery__slide img {
-  height: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   width: 100%;
 }
 
 .warrior-gallery__slide--artwork img {
+  height: 100%;
+  aspect-ratio: auto;
   object-fit: contain;
   transform: scale(0.56);
 }
@@ -765,6 +771,9 @@ video.warrior-chapter-card__art {
   }
 
   .warrior-mobile-gallery__slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0;
     opacity: 0;
     transform: translateX(18%) scale(0.88);
@@ -791,12 +800,15 @@ video.warrior-chapter-card__art {
   }
 
   .warrior-mobile-gallery__slide img {
-    height: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
     object-fit: cover;
     width: 100%;
   }
 
   .warrior-mobile-gallery__slide--artwork img {
+    height: 100%;
+    aspect-ratio: auto;
     object-fit: contain;
     transform: scale(0.72);
   }
