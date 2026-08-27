@@ -133,12 +133,12 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "icon": "shopify://shop_images/nut_drop-3_1_1.png",
             "hover_artwork": "shopify://shop_images/e1bab3e8-326b-4796-8348-503a0c908f10_4.png",
-            "gallery_image_1": "shopify://shop_images/Group_144_2__optimized.webp",
+            "gallery_image_1": "shopify://shop_images/Group_144_2.jpg",
             "gallery_image_2": "shopify://shop_images/DSC00362-2_27_6__optimized.webp",
             "gallery_image_3": "shopify://shop_images/DSC00362-2_27_8__optimized.webp",
             "gallery_image_4": "shopify://shop_images/DSC00362-2_27_7__optimized.webp",
             "gallery_image_5": "shopify://shop_images/DSC00362-2_27_9__optimized.webp",
-            "link": "",
+            "link": "shopify://collections/lotus",
             "link_label": "Khám phá dấu ấn"
           }
         },
@@ -149,7 +149,12 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "icon": "shopify://shop_images/sunflower_2_1.png",
             "hover_artwork": "shopify://shop_images/68b1cb22-908a-4515-849d-06b2055971fd_3.png",
-            "link": "",
+            "gallery_image_1": "shopify://shop_images/Group_144_3__optimized.webp",
+            "gallery_image_2": "shopify://shop_images/DSC00362-2_27_12__optimized.webp",
+            "gallery_image_3": "shopify://shop_images/DSC00362-2_27_13__optimized.webp",
+            "gallery_image_4": "shopify://shop_images/DSC00362-2_27_1__optimized.webp",
+            "gallery_image_5": "shopify://shop_images/DSC00362-2_27_3__optimized.webp",
+            "link": "shopify://collections/sunflower",
             "link_label": "Khám phá dấu ấn"
           }
         },
