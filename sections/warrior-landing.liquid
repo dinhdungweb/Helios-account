@@ -259,7 +259,7 @@
                       {%- else -%}
                         {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
                       {%- endif -%}
-                    {%- else -%}
+                    {%- elsif gallery_number <= 5 -%}
                       {%- capture gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
                       {%- assign gallery_image_url = gallery_asset | asset_url -%}
                     {%- endif -%}
@@ -330,7 +330,7 @@
                       {%- else -%}
                         {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
                       {%- endif -%}
-                    {%- else -%}
+                    {%- elsif gallery_number <= 5 -%}
                       {%- capture mobile_gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
                       {%- assign mobile_gallery_image_url = mobile_gallery_asset | asset_url -%}
                     {%- endif -%}
