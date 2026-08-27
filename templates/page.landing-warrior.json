@@ -9,6 +9,30 @@
  */
 {
   "sections": {
+    "background_video_responsive_xPjj6b": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": true,
+        "section_width": 1400,
+        "video_full_vh": false,
+        "video_size": "cover",
+        "video_height_desktop": 850,
+        "video_height_mobile": 500,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Video landing page 19x9_optimized.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/Video landing page_optimized.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
     "warrior_landing": {
       "type": "warrior-landing",
       "blocks": {
@@ -166,6 +190,7 @@
     }
   },
   "order": [
+    "background_video_responsive_xPjj6b",
     "warrior_landing"
   ]
 }
