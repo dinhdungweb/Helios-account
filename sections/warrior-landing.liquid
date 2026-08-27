@@ -69,14 +69,18 @@
           {%- assign chapter_index = chapter_index | plus: 1 -%}
           {%- capture chapter_asset -%}warrior-chapter-{% case chapter_index %}{% when 1 %}01{% when 2 %}02{% when 3 %}03{% when 4 %}04{% when 5 %}05{% when 6 %}06{% when 7 %}07{% when 8 %}08{% when 9 %}09{% else %}10{% endcase %}.png{%- endcapture -%}
           {%- assign chapter_image_url = blank -%}
+          {%- assign chapter_mobile_image_url = blank -%}
           {%- if block.settings.artwork != blank -%}
             {%- if block.settings.artwork.src contains '.gif' -%}
               {%- assign chapter_image_url = block.settings.artwork | img_url: 'master' -%}
+              {%- assign chapter_mobile_image_url = block.settings.artwork | image_url: width: 480 -%}
             {%- else -%}
               {%- assign chapter_image_url = block.settings.artwork | image_url: width: 1200 -%}
+              {%- assign chapter_mobile_image_url = block.settings.artwork | image_url: width: 640 -%}
             {%- endif -%}
           {%- else -%}
             {%- assign chapter_image_url = chapter_asset | asset_url -%}
+            {%- assign chapter_mobile_image_url = chapter_image_url -%}
           {%- endif -%}
           {%- assign chapter_video = block.settings.animation_video -%}
           {%- assign chapter_video_poster_url = blank -%}
@@ -132,6 +136,7 @@
                   data-loaded="false"
                 {% endif %}
                 data-src="{{ chapter_image_url }}"
+                data-src-mobile="{{ chapter_mobile_image_url }}"
                 alt="{{ block.settings.artwork.alt | default: block.settings.title | escape }}"
                 width="900"
                 height="900"
