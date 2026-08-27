@@ -718,13 +718,13 @@ video.warrior-chapter-card__art {
   }
 
   .warrior-chapter-card__description {
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.35;
     max-width: 260px;
   }
 
   .warrior-chapter-card__caption {
-    font-size: 11px;
+    font-size: 12px;
     margin-top: 8px;
     max-width: 260px;
   }
@@ -851,7 +851,7 @@ video.warrior-chapter-card__art {
 
   .warrior-mobile-collection p {
     font-family: var(--warrior-heading);
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.35;
     margin: 0;
     max-width: 270px;
