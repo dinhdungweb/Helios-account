@@ -6,7 +6,7 @@
 
   if section.settings.hero_desktop != blank
     if section.settings.hero_desktop.src contains '.gif'
-      assign hero_desktop_url = section.settings.hero_desktop | image_url: format: 'gif'
+      assign hero_desktop_url = section.settings.hero_desktop.src
     else
       assign hero_desktop_url = section.settings.hero_desktop | image_url: width: 2000
     endif
@@ -14,13 +14,13 @@
 
   if section.settings.hero_mobile != blank
     if section.settings.hero_mobile.src contains '.gif'
-      assign hero_mobile_url = section.settings.hero_mobile | image_url: format: 'gif'
+      assign hero_mobile_url = section.settings.hero_mobile.src
     else
       assign hero_mobile_url = section.settings.hero_mobile | image_url: width: 1000
     endif
   elsif section.settings.hero_desktop != blank
     if section.settings.hero_desktop.src contains '.gif'
-      assign hero_mobile_url = section.settings.hero_desktop | image_url: format: 'gif'
+      assign hero_mobile_url = section.settings.hero_desktop.src
     else
       assign hero_mobile_url = section.settings.hero_desktop | image_url: width: 1000
     endif
@@ -68,9 +68,10 @@
         {%- if block.type == 'chapter' -%}
           {%- assign chapter_index = chapter_index | plus: 1 -%}
           {%- capture chapter_asset -%}warrior-chapter-{% case chapter_index %}{% when 1 %}01{% when 2 %}02{% when 3 %}03{% when 4 %}04{% when 5 %}05{% when 6 %}06{% when 7 %}07{% when 8 %}08{% when 9 %}09{% else %}10{% endcase %}.png{%- endcapture -%}
+          {%- assign chapter_image_url = blank -%}
           {%- if block.settings.artwork != blank -%}
             {%- if block.settings.artwork.src contains '.gif' -%}
-              {%- assign chapter_image_url = block.settings.artwork | image_url: format: 'gif' -%}
+              {%- assign chapter_image_url = block.settings.artwork.src -%}
             {%- else -%}
               {%- assign chapter_image_url = block.settings.artwork | image_url: width: 1200 -%}
             {%- endif -%}
@@ -241,7 +242,7 @@
 
                   {%- if gallery_image != blank -%}
                     {%- if gallery_image.src contains '.gif' -%}
-                      {%- assign gallery_image_url = gallery_image | image_url: format: 'gif' -%}
+                      {%- assign gallery_image_url = gallery_image.src -%}
                     {%- else -%}
                       {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
                     {%- endif -%}
@@ -249,7 +250,7 @@
                     {%- assign gallery_image = section.settings[gallery_setting_id] -%}
                     {%- if gallery_image != blank -%}
                       {%- if gallery_image.src contains '.gif' -%}
-                        {%- assign gallery_image_url = gallery_image | image_url: format: 'gif' -%}
+                        {%- assign gallery_image_url = gallery_image.src -%}
                       {%- else -%}
                         {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
                       {%- endif -%}
@@ -312,7 +313,7 @@
 
                   {%- if mobile_gallery_image != blank -%}
                     {%- if mobile_gallery_image.src contains '.gif' -%}
-                      {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: format: 'gif' -%}
+                      {%- assign mobile_gallery_image_url = mobile_gallery_image.src -%}
                     {%- else -%}
                       {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
                     {%- endif -%}
@@ -320,7 +321,7 @@
                     {%- assign mobile_gallery_image = section.settings[gallery_setting_id] -%}
                     {%- if mobile_gallery_image != blank -%}
                       {%- if mobile_gallery_image.src contains '.gif' -%}
-                        {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: format: 'gif' -%}
+                        {%- assign mobile_gallery_image_url = mobile_gallery_image.src -%}
                       {%- else -%}
                         {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
                       {%- endif -%}
