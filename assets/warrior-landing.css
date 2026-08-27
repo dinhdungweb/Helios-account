@@ -397,18 +397,18 @@ video.warrior-chapter-card__art {
 /* The exported hover PNGs use different transparent canvas ratios. These
    heights normalize the visible warriors to the ~185px height in Figma. */
 .warrior-collection-tab[data-index="0"] {
-  --warrior-icon-image-size: 146px;
-  --warrior-hover-image-height: 219px;
+  --warrior-icon-image-size: 120px;
+  --warrior-hover-image-height: 180px;
 }
 
 .warrior-collection-tab[data-index="1"] {
-  --warrior-icon-image-size: 176px;
-  --warrior-hover-image-height: 214px;
+  --warrior-icon-image-size: 145px;
+  --warrior-hover-image-height: 175px;
 }
 
 .warrior-collection-tab[data-index="2"] {
-  --warrior-icon-image-size: 123px;
-  --warrior-hover-image-height: 205px;
+  --warrior-icon-image-size: 100px;
+  --warrior-hover-image-height: 168px;
 }
 
 .warrior-collection-tab:hover .warrior-collection-tab__icon,
