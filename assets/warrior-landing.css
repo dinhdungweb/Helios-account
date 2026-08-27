@@ -700,11 +700,11 @@ video.warrior-chapter-card__art {
   }
 
   .warrior-chapter-card.is-previous {
-    transform: translateX(-43%) scale(0.66);
+    transform: translateX(-50%) scale(0.66);
   }
 
   .warrior-chapter-card.is-next {
-    transform: translateX(43%) scale(0.66);
+    transform: translateX(50%) scale(0.66);
   }
 
   .warrior-chapter-card h2 {
