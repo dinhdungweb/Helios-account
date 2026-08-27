@@ -5,13 +5,25 @@
   assign hero_mobile_url = hero_desktop_url
 
   if section.settings.hero_desktop != blank
-    assign hero_desktop_url = section.settings.hero_desktop | image_url: width: 2000
+    if section.settings.hero_desktop.src contains '.gif'
+      assign hero_desktop_url = section.settings.hero_desktop | image_url
+    else
+      assign hero_desktop_url = section.settings.hero_desktop | image_url: width: 2000
+    endif
   endif
 
   if section.settings.hero_mobile != blank
-    assign hero_mobile_url = section.settings.hero_mobile | image_url: width: 1000
+    if section.settings.hero_mobile.src contains '.gif'
+      assign hero_mobile_url = section.settings.hero_mobile | image_url
+    else
+      assign hero_mobile_url = section.settings.hero_mobile | image_url: width: 1000
+    endif
   elsif section.settings.hero_desktop != blank
-    assign hero_mobile_url = section.settings.hero_desktop | image_url: width: 1000
+    if section.settings.hero_desktop.src contains '.gif'
+      assign hero_mobile_url = section.settings.hero_desktop | image_url
+    else
+      assign hero_mobile_url = section.settings.hero_desktop | image_url: width: 1000
+    endif
   endif
 
   assign hero_button_url = section.settings.hero_button_link
@@ -224,11 +236,19 @@
                   {%- assign gallery_image_url = blank -%}
 
                   {%- if gallery_image != blank -%}
-                    {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+                    {%- if gallery_image.src contains '.gif' -%}
+                      {%- assign gallery_image_url = gallery_image | image_url -%}
+                    {%- else -%}
+                      {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+                    {%- endif -%}
                   {%- elsif gallery_collection_index == 1 -%}
                     {%- assign gallery_image = section.settings[gallery_setting_id] -%}
                     {%- if gallery_image != blank -%}
-                      {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+                      {%- if gallery_image.src contains '.gif' -%}
+                        {%- assign gallery_image_url = gallery_image | image_url -%}
+                      {%- else -%}
+                        {%- assign gallery_image_url = gallery_image | image_url: width: 1800 -%}
+                      {%- endif -%}
                     {%- else -%}
                       {%- capture gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
                       {%- assign gallery_image_url = gallery_asset | asset_url -%}
@@ -287,11 +307,19 @@
                   {%- assign mobile_gallery_image_url = blank -%}
 
                   {%- if mobile_gallery_image != blank -%}
-                    {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
+                    {%- if mobile_gallery_image.src contains '.gif' -%}
+                      {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url -%}
+                    {%- else -%}
+                      {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
+                    {%- endif -%}
                   {%- elsif mobile_collection_index == 1 -%}
                     {%- assign mobile_gallery_image = section.settings[gallery_setting_id] -%}
                     {%- if mobile_gallery_image != blank -%}
-                      {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
+                      {%- if mobile_gallery_image.src contains '.gif' -%}
+                        {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url -%}
+                      {%- else -%}
+                        {%- assign mobile_gallery_image_url = mobile_gallery_image | image_url: width: 1000 -%}
+                      {%- endif -%}
                     {%- else -%}
                       {%- capture mobile_gallery_asset -%}warrior-gallery-0{{ gallery_number }}.png{%- endcapture -%}
                       {%- assign mobile_gallery_image_url = mobile_gallery_asset | asset_url -%}
