@@ -617,6 +617,10 @@ video.warrior-chapter-card__art {
   width: 100%;
 }
 
+.warrior-story-art__link {
+  display: block;
+}
+
 .warrior-finale {
   background: transparent;
   height: min(58.9vw, 920px);
@@ -670,6 +674,12 @@ video.warrior-chapter-card__art {
   right: 4%;
   top: 18%;
   transform: scaleX(-1);
+}
+
+.warrior-finale__link {
+  inset: 0;
+  position: absolute;
+  z-index: 4;
 }
 
 @media (max-width: 767px) {

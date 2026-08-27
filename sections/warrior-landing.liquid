@@ -367,18 +367,27 @@
   </div>
 
   <div class="warrior-story-art" style="--story-desktop-width: {{ section.settings.story_art_desktop_width }}px;">
+    {%- if section.settings.story_art_link != blank -%}
+      <a class="warrior-story-art__link" href="{{ section.settings.story_art_link }}">
+    {%- endif -%}
     {%- if section.settings.story_art != blank -%}
       {{ section.settings.story_art | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '480, 760, 1100, 1600', sizes: '(max-width: 767px) calc(100vw - 48px), 100vw', alt: section.settings.story_art.alt }}
     {%- else -%}
       <img src="{{ 'warrior-story-art.png' | asset_url }}" alt="{{ section.settings.story_art_alt | escape }}" width="1400" height="1400" loading="lazy">
     {%- endif -%}
+    {%- if section.settings.story_art_link != blank -%}
+      </a>
+    {%- endif -%}
   </div>
 
-  <div class="warrior-finale" aria-label="{{ section.settings.finale_alt | escape }}">
+  <div class="warrior-finale">
     <img class="warrior-finale__flare warrior-finale__flare--left" src="{{ 'warrior-finale-flare.png' | asset_url }}" alt="" width="1100" height="1100" loading="lazy">
     <img class="warrior-finale__mark" src="{{ 'warrior-finale-mark.png' | asset_url }}" alt="" width="1100" height="1100" loading="lazy">
     <img class="warrior-finale__flare warrior-finale__flare--right" src="{{ 'warrior-finale-flare.png' | asset_url }}" alt="" width="1100" height="1100" loading="lazy">
     <img class="warrior-finale__date" src="{{ 'warrior-finale-date.png' | asset_url }}" alt="{{ section.settings.finale_alt | escape }}" width="1600" height="303" loading="lazy">
+    {%- if section.settings.finale_link != blank -%}
+      <a class="warrior-finale__link" href="{{ section.settings.finale_link }}" aria-label="{{ section.settings.finale_alt | escape }}"></a>
+    {%- endif -%}
   </div>
 </section>
 
@@ -494,6 +503,11 @@
       "label": "Story artwork"
     },
     {
+      "type": "url",
+      "id": "story_art_link",
+      "label": "Story artwork link"
+    },
+    {
       "type": "range",
       "id": "story_art_desktop_width",
       "label": "Story artwork desktop width",
@@ -508,6 +522,11 @@
       "id": "story_art_alt",
       "label": "Story artwork alt text",
       "default": "Bản đồ minh họa hành trình Warrior"
+    },
+    {
+      "type": "url",
+      "id": "finale_link",
+      "label": "Finale link"
     },
     {
       "type": "text",
