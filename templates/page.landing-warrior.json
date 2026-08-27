@@ -86,8 +86,8 @@
           "settings": {
             "title": "Chapter VI",
             "artwork": "shopify://shop_images/chapter_6.gif",
-            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
-            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            "description": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.Chọn những điểm giao khiến hành trình thêm rõ hơn</p>",
+            "caption": "CROSSROADS"
           }
         },
         "chapter_07": {
@@ -95,8 +95,8 @@
           "settings": {
             "title": "Chapter VII",
             "artwork": "shopify://shop_images/chapter_7.gif",
-            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
-            "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+            "description": "<p>HELIOS không chỉ được rèn bằng bạc trong lò, nó được rèn bằng người hiện diện.</p>",
+            "caption": "PEOPLE"
           }
         },
         "chapter_08": {
