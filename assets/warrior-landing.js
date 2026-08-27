@@ -279,14 +279,7 @@
     if (previousButton) previousButton.addEventListener('click', function () { update(current - 1); });
     if (nextButton) nextButton.addEventListener('click', function () { update(current + 1); });
 
-    if (options.clickAdjacentSlides) {
-      slides.forEach(function (slide) {
-        slide.addEventListener('click', function () {
-          if (slide.classList.contains('is-previous')) update(current - 1);
-          if (slide.classList.contains('is-next')) update(current + 1);
-        });
-      });
-    }
+    // Click events on adjacent slides are now handled in the pointerup listener
 
     root.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft') update(current - 1);
@@ -296,17 +289,16 @@
     var startX = null;
     var startY = null;
     var activePointerId = null;
+    var startSlide = null;
 
     root.addEventListener('pointerdown', function (event) {
       if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
       if (event.target.closest('button, a')) return;
 
-      var adjacentSlide = options.clickAdjacentSlides && event.target.closest(options.slideSelector);
-      if (adjacentSlide && (adjacentSlide.classList.contains('is-previous') || adjacentSlide.classList.contains('is-next'))) return;
-
       startX = event.clientX;
       startY = event.clientY;
       activePointerId = event.pointerId;
+      startSlide = event.target.closest(options.slideSelector);
 
       if (root.setPointerCapture) {
         try { root.setPointerCapture(event.pointerId); } catch (error) { /* Pointer capture is optional. */ }
@@ -321,7 +313,15 @@
       startY = null;
       activePointerId = null;
 
-      if (Math.abs(distanceX) < 45 || Math.abs(distanceX) <= Math.abs(distanceY)) return;
+      if (Math.abs(distanceX) < 45 || Math.abs(distanceX) <= Math.abs(distanceY)) {
+        if (options.clickAdjacentSlides && startSlide) {
+          if (startSlide.classList.contains('is-previous')) update(current - 1);
+          if (startSlide.classList.contains('is-next')) update(current + 1);
+        }
+        startSlide = null;
+        return;
+      }
+      startSlide = null;
       event.preventDefault();
       update(current + (distanceX < 0 ? 1 : -1));
     });
@@ -330,6 +330,7 @@
       startX = null;
       startY = null;
       activePointerId = null;
+      startSlide = null;
     });
 
     if (options.manageChapterMedia) {
