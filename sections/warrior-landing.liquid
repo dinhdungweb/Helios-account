@@ -28,24 +28,26 @@
 >
   <h1 class="visually-hidden">{{ page.title | default: section.settings.accessible_title | escape }}</h1>
 
-  <div class="warrior-hero">
-    <picture>
-      <source media="(max-width: 767px)" srcset="{{ hero_mobile_url }}">
-      <img
-        src="{{ hero_desktop_url }}"
-        alt="{{ section.settings.hero_alt | escape }}"
-        width="1440"
-        height="810"
-        fetchpriority="high"
-      >
-    </picture>
+  {%- if section.settings.hero_desktop != blank -%}
+    <div class="warrior-hero">
+      <picture>
+        <source media="(max-width: 767px)" srcset="{{ hero_mobile_url }}">
+        <img
+          src="{{ hero_desktop_url }}"
+          alt="{{ section.settings.hero_alt | escape }}"
+          width="1440"
+          height="810"
+          fetchpriority="high"
+        >
+      </picture>
 
-    {%- if section.settings.hero_button_label != blank -%}
-      <a class="warrior-hero__button" href="{{ hero_button_url }}">
-        {{ section.settings.hero_button_label | escape }}
-      </a>
-    {%- endif -%}
-  </div>
+      {%- if section.settings.hero_button_label != blank -%}
+        <a class="warrior-hero__button" href="{{ hero_button_url }}">
+          {{ section.settings.hero_button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 
   <div id="warrior-chapters-{{ section.id }}" class="warrior-chapters" data-warrior-chapters>
     <div class="warrior-chapters__viewport" aria-live="polite">
