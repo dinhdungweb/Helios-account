@@ -43,6 +43,24 @@
         "image_AD6YEJ": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Banner_wweb_NQSH_19x9_optimized.avif",
+            "mobile_image": "shopify://shop_images/Banner_wweb_NQSH_4x5_optimized.avif",
+            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_kyNjeg": {
+          "type": "image",
+          "settings": {
             "image": "shopify://shop_images/2aOboQoBQ83T0yQJXIJHq67UNsalkJHB7bRiGxIO.jpg",
             "mobile_image": "shopify://shop_images/2aOboQoBQYJJRwODzJj7cVMEGmF6QaSRODs1VfaC.jpg",
             "slide_link": "",
@@ -60,7 +78,8 @@
         }
       },
       "block_order": [
-        "image_AD6YEJ"
+        "image_AD6YEJ",
+        "image_kyNjeg"
       ],
       "name": "Slideshow",
       "settings": {
@@ -342,6 +361,11 @@
         "featured_collection_align": "center",
         "collection": "new-products",
         "layout": "carousel",
+        "show_arrows": true,
+        "show_dots": false,
+        "show_progress": false,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
         "featured_addtocart_hide": false,
         "show_add_to_cart": true,
         "show_title": true,
