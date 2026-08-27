@@ -542,7 +542,8 @@ video.warrior-chapter-card__art {
 
 .warrior-gallery__slide.is-previous,
 .warrior-gallery__slide.is-next {
-  opacity: 0.38;
+  opacity: 0;
+  pointer-events: none;
   z-index: 1;
 }
 
