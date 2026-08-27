@@ -145,11 +145,11 @@
   visibility: visible;
 }
 
-.warrior-chapter-card.is-active .warrior-chapter-card__description {
+.warrior-chapter-card.is-active .warrior-chapter-card__caption {
   animation-delay: 410ms;
 }
 
-.warrior-chapter-card.is-active .warrior-chapter-card__caption {
+.warrior-chapter-card.is-active .warrior-chapter-card__description {
   animation-delay: 470ms;
 }
 
@@ -222,9 +222,10 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-chapter-card__caption {
-  font-family: var(--warrior-heading);
+  font-family: var(--warrior-theme-heading);
   font-size: 14px;
-  font-weight: 700;
+  font-style: var(--warrior-theme-heading-style, normal);
+  font-weight: var(--warrior-theme-heading-weight, 600);
   letter-spacing: 0.03em;
   line-height: 1.25;
   margin: 14px auto 0;

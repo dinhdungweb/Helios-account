@@ -144,11 +144,11 @@
                 decoding="async"
               >
             {%- endif -%}
-            {%- if block.settings.description != blank -%}
-              <div class="warrior-chapter-card__description rte">{{ block.settings.description }}</div>
-            {%- endif -%}
             {%- if block.settings.caption != blank -%}
               <p class="warrior-chapter-card__caption">{{ block.settings.caption | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <div class="warrior-chapter-card__description rte">{{ block.settings.description }}</div>
             {%- endif -%}
           </article>
         {%- endif -%}
