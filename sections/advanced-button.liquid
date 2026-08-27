@@ -1,0 +1,640 @@
+{%- liquid
+  assign button_tag = 'a'
+  if section.settings.button_link == blank
+    assign button_tag = 'span'
+  endif
+-%}
+
+<section
+  id="AdvancedButton-{{ section.id }}"
+  class="advanced-button-section{% unless section.settings.show_background %} advanced-button-section--transparent{% endunless %}"
+  style="
+    --ab-section-bg: {{ section.settings.section_background }};
+    --ab-button-bg: {{ section.settings.button_background }};
+    --ab-button-text: {{ section.settings.button_text_color }};
+    --ab-button-border: {{ section.settings.button_border_color }};
+    --ab-hover-bg: {{ section.settings.hover_background }};
+    --ab-hover-text: {{ section.settings.hover_text_color }};
+    --ab-hover-border: {{ section.settings.hover_border_color }};
+    --ab-focus: {{ section.settings.focus_color }};
+    --ab-heading-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+    --ab-body-family: {{ settings.type_base_font.family }}, {{ settings.type_base_font.fallback_families }};
+    --ab-font-size: {{ section.settings.font_size }}px;
+    --ab-font-size-mobile: {{ section.settings.font_size_mobile }}px;
+    --ab-font-weight: {{ section.settings.font_weight }};
+    --ab-letter-spacing: {{ section.settings.letter_spacing }}em;
+    --ab-padding-x: {{ section.settings.padding_horizontal }}px;
+    --ab-padding-y: {{ section.settings.padding_vertical }}px;
+    --ab-padding-x-mobile: {{ section.settings.padding_horizontal_mobile }}px;
+    --ab-padding-y-mobile: {{ section.settings.padding_vertical_mobile }}px;
+    --ab-border-width: {{ section.settings.border_width }}px;
+    --ab-radius: {{ section.settings.border_radius }}px;
+    --ab-min-width: {{ section.settings.min_width }}px;
+    --ab-section-padding-top: {{ section.settings.padding_top }}px;
+    --ab-section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --ab-section-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ab-section-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ab-icon-size: {{ section.settings.icon_size }}px;
+    --ab-icon-gap: {{ section.settings.icon_gap }}px;
+    --ab-transition-speed: {{ section.settings.transition_speed }}ms;
+  "
+>
+  <div class="advanced-button-section__inner advanced-button-section__inner--{{ section.settings.alignment }} advanced-button-section__inner--mobile-{{ section.settings.alignment_mobile }}">
+    <{{ button_tag }}
+      class="advanced-button__button advanced-button__button--{{ section.settings.button_style }} advanced-button__button--font-{{ section.settings.font_source }} advanced-button__button--hover-{{ section.settings.hover_effect }}{% if section.settings.full_width_desktop %} advanced-button__button--full-desktop{% endif %}{% if section.settings.full_width_mobile %} advanced-button__button--full-mobile{% endif %}{% if section.settings.icon_position == 'left' %} advanced-button__button--icon-left{% endif %}{% if section.settings.button_link == blank %} is-disabled{% endif %}"
+      {% if section.settings.button_link != blank %}
+        href="{{ section.settings.button_link }}"
+        {% if section.settings.open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+      {% else %}
+        role="link"
+        aria-disabled="true"
+      {% endif %}
+      {% if section.settings.aria_label != blank %}aria-label="{{ section.settings.aria_label | escape }}"{% endif %}
+    >
+      <span class="advanced-button__label">{{ section.settings.button_label | escape }}</span>
+
+      {%- if section.settings.icon != 'none' -%}
+        <span class="advanced-button__icon" aria-hidden="true">
+          {%- case section.settings.icon -%}
+            {%- when 'arrow' -%}
+              <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                <path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            {%- when 'chevron' -%}
+              <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                <path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            {%- when 'external' -%}
+              <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                <path d="M14 5h5v5M19 5l-9 9M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+          {%- endcase -%}
+        </span>
+      {%- endif -%}
+    </{{ button_tag }}>
+  </div>
+</section>
+
+{% style %}
+  #AdvancedButton-{{ section.id }} {
+    background: var(--ab-section-bg);
+    padding: var(--ab-section-padding-top) 20px var(--ab-section-padding-bottom);
+  }
+
+  #AdvancedButton-{{ section.id }}.advanced-button-section--transparent {
+    background: transparent;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button-section__inner {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1400px;
+    width: 100%;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button-section__inner--left {
+    justify-content: flex-start;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button-section__inner--center {
+    justify-content: center;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button-section__inner--right {
+    justify-content: flex-end;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button {
+    align-items: center;
+    background: var(--ab-button-bg);
+    border: var(--ab-border-width) solid var(--ab-button-border);
+    border-radius: var(--ab-radius);
+    color: var(--ab-button-text);
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: row;
+    font-size: var(--ab-font-size);
+    font-weight: var(--ab-font-weight);
+    gap: var(--ab-icon-gap);
+    justify-content: center;
+    letter-spacing: var(--ab-letter-spacing);
+    line-height: 1.2;
+    min-width: var(--ab-min-width);
+    padding: var(--ab-padding-y) var(--ab-padding-x);
+    text-align: center;
+    text-decoration: none;
+    text-transform: {{ section.settings.text_transform }};
+    transition:
+      background-color var(--ab-transition-speed) ease,
+      border-color var(--ab-transition-speed) ease,
+      color var(--ab-transition-speed) ease,
+      box-shadow var(--ab-transition-speed) ease,
+      transform var(--ab-transition-speed) ease;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--font-heading {
+    font-family: var(--ab-heading-family) !important;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--font-body {
+    font-family: var(--ab-body-family) !important;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--font-inherit {
+    font-family: inherit !important;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--outline {
+    background: transparent;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--ghost {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--icon-left {
+    flex-direction: row-reverse;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--full-desktop {
+    width: 100%;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button:hover {
+    background: var(--ab-hover-bg);
+    border-color: var(--ab-hover-border);
+    color: var(--ab-hover-text);
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--hover-lift:hover {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+    transform: translateY(-3px);
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button--hover-scale:hover {
+    transform: scale(1.04);
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button:focus-visible {
+    outline: 2px solid var(--ab-focus);
+    outline-offset: 4px;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__button.is-disabled {
+    cursor: default;
+    opacity: 0.65;
+    pointer-events: none;
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__icon {
+    display: inline-flex;
+    flex: 0 0 var(--ab-icon-size);
+    height: var(--ab-icon-size);
+    width: var(--ab-icon-size);
+  }
+
+  #AdvancedButton-{{ section.id }} .advanced-button__icon svg {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    #AdvancedButton-{{ section.id }} {
+      padding: var(--ab-section-padding-top-mobile) 16px var(--ab-section-padding-bottom-mobile);
+    }
+
+    #AdvancedButton-{{ section.id }} .advanced-button-section__inner--mobile-left {
+      justify-content: flex-start;
+    }
+
+    #AdvancedButton-{{ section.id }} .advanced-button-section__inner--mobile-center {
+      justify-content: center;
+    }
+
+    #AdvancedButton-{{ section.id }} .advanced-button-section__inner--mobile-right {
+      justify-content: flex-end;
+    }
+
+    #AdvancedButton-{{ section.id }} .advanced-button__button {
+      font-size: var(--ab-font-size-mobile);
+      padding: var(--ab-padding-y-mobile) var(--ab-padding-x-mobile);
+    }
+
+    #AdvancedButton-{{ section.id }} .advanced-button__button--full-desktop {
+      width: auto;
+    }
+
+    #AdvancedButton-{{ section.id }} .advanced-button__button--full-mobile {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #AdvancedButton-{{ section.id }} .advanced-button__button {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Advanced button",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Button content"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Khám phá ngay"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_tab",
+      "label": "Open link in a new tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessibility label",
+      "info": "Optional. Use when the visible label does not fully describe the link."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Desktop alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "alignment_mobile",
+      "label": "Mobile alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_desktop",
+      "label": "Full width on desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_mobile",
+      "label": "Full width on mobile",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "min_width",
+      "label": "Minimum button width",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Style",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" },
+        { "value": "ghost", "label": "Ghost" }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "hover_background",
+      "label": "Hover background",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "color",
+      "id": "hover_text_color",
+      "label": "Hover text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "hover_border_color",
+      "label": "Hover border",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "color",
+      "id": "focus_color",
+      "label": "Keyboard focus outline",
+      "default": "#fab320"
+    },
+    {
+      "type": "select",
+      "id": "hover_effect",
+      "label": "Hover motion",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "lift", "label": "Lift" },
+        { "value": "scale", "label": "Scale" }
+      ],
+      "default": "lift"
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Transition speed",
+      "min": 0,
+      "max": 600,
+      "step": 25,
+      "unit": "ms",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "font_source",
+      "label": "Font",
+      "options": [
+        { "value": "heading", "label": "Theme heading" },
+        { "value": "body", "label": "Theme body" },
+        { "value": "inherit", "label": "Inherit" }
+      ],
+      "default": "heading"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Desktop font size",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Mobile font size",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Letter case",
+      "options": [
+        { "value": "none", "label": "As entered" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 0.3,
+      "step": 0.01,
+      "unit": "em",
+      "default": 0.05
+    },
+    {
+      "type": "header",
+      "content": "Icon"
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Icon",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "arrow", "label": "Arrow" },
+        { "value": "chevron", "label": "Chevron" },
+        { "value": "external", "label": "External link" }
+      ],
+      "default": "arrow"
+    },
+    {
+      "type": "select",
+      "id": "icon_position",
+      "label": "Icon position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "icon_gap",
+      "label": "Icon gap",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Button spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Desktop horizontal padding",
+      "min": 8,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Desktop vertical padding",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "label": "Mobile horizontal padding",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical_mobile",
+      "label": "Mobile vertical padding",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_background",
+      "label": "Show section background",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advanced button",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
