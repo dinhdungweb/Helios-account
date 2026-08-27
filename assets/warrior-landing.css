@@ -1,5 +1,5 @@
 .warrior-landing {
-  --warrior-heading: "Copperplate", "Copperplate Gothic Light", Georgia, serif;
+  --warrior-heading: "Font-1785468145119", "Copperplate", "Copperplate Gothic Light", Georgia, serif;
   background: var(--warrior-bg, #0c0c0c);
   color: var(--warrior-text, #fff);
   overflow: hidden;
@@ -222,7 +222,7 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-chapter-card__caption {
-  font-family: var(--warrior-heading);
+  font-family: var(--warrior-heading) !important;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -429,7 +429,7 @@ video.warrior-chapter-card__art {
 .warrior-collection-tab small {
   color: var(--warrior-text, #fff);
   display: block;
-  font-family: var(--warrior-heading);
+  font-family: var(--warrior-heading) !important;
   text-transform: uppercase;
 }
 
