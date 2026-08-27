@@ -441,8 +441,10 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-collection-tab small {
+  font-family: var(--warrior-theme-heading);
   font-size: 9px;
-  font-weight: 700;
+  font-style: var(--warrior-theme-heading-style, normal);
+  font-weight: var(--warrior-theme-heading-weight, 600);
   line-height: 1.2;
   margin-top: 6px;
   max-width: 225px;
