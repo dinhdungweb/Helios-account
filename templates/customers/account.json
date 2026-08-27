@@ -84,8 +84,8 @@
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
-        "height_desktop": 600,
-        "height_mobile": 500,
+        "height_desktop": 920,
+        "height_mobile": 680,
         "full_width": true,
         "mobile_overlay_under": false,
         "overlay_style_tint": true,
