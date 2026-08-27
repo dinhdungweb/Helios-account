@@ -215,18 +215,7 @@
               </button>
 
               <div class="warrior-gallery__track" aria-live="polite">
-                <figure class="warrior-gallery__slide warrior-gallery__slide--artwork is-active" data-warrior-gallery-slide data-index="0">
-                  <img
-                    src="{{ gallery_artwork_url }}"
-                    alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}"
-                    width="900"
-                    height="900"
-                    draggable="false"
-                    loading="lazy"
-                  >
-                </figure>
-
-                {%- assign gallery_slide_index = 1 -%}
+                {%- assign gallery_slide_index = 0 -%}
                 {%- for gallery_number in (1..5) -%}
                   {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
                   {%- assign gallery_image = block.settings[gallery_setting_id] -%}
@@ -245,7 +234,7 @@
                   {%- endif -%}
 
                   {%- if gallery_image_url != blank -%}
-                    <figure class="warrior-gallery__slide" data-warrior-gallery-slide data-index="{{ gallery_slide_index }}">
+                    <figure class="warrior-gallery__slide{% if gallery_slide_index == 0 %} is-active{% endif %}" data-warrior-gallery-slide data-index="{{ gallery_slide_index }}">
                       <img
                         src="{{ gallery_image_url }}"
                         alt="{{ gallery_image.alt | default: block.settings.title | default: section.settings.gallery_alt | escape }}"
@@ -289,10 +278,7 @@
           <article class="warrior-mobile-collection" {{ block.shopify_attributes }}>
             <div class="warrior-mobile-gallery" data-warrior-mobile-gallery>
               <div class="warrior-mobile-gallery__track" aria-live="polite">
-                <figure class="warrior-mobile-gallery__slide warrior-mobile-gallery__slide--artwork is-active" data-warrior-mobile-gallery-slide>
-                  <img src="{{ mobile_collection_icon_url }}" alt="{{ block.settings.icon.alt | default: block.settings.title | escape }}" width="700" height="700" draggable="false" loading="lazy">
-                </figure>
-
+                {%- assign mobile_is_first = true -%}
                 {%- for gallery_number in (1..5) -%}
                   {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
                   {%- assign mobile_gallery_image = block.settings[gallery_setting_id] -%}
@@ -311,7 +297,8 @@
                   {%- endif -%}
 
                   {%- if mobile_gallery_image_url != blank -%}
-                    <figure class="warrior-mobile-gallery__slide" data-warrior-mobile-gallery-slide>
+                    <figure class="warrior-mobile-gallery__slide{% if mobile_is_first %} is-active{% endif %}" data-warrior-mobile-gallery-slide>
+                      {%- assign mobile_is_first = false -%}
                       <img
                         src="{{ mobile_gallery_image_url }}"
                         alt="{{ mobile_gallery_image.alt | default: block.settings.title | escape }}"
