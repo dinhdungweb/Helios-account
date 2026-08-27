@@ -567,7 +567,7 @@ video.warrior-chapter-card__art {
   height: auto;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  width: 85%;
+  width: 80%;
 }
 
 .warrior-gallery__slide--artwork img {
@@ -584,11 +584,11 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-gallery__arrow--previous {
-  left: 1.5%;
+  left: 0;
 }
 
 .warrior-gallery__arrow--next {
-  right: 1.5%;
+  right: 0;
 }
 
 .warrior-gallery__dots {
