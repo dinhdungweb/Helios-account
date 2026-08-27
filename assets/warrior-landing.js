@@ -260,9 +260,9 @@
       stageTimer = window.setTimeout(function () {
         slides[current].classList.remove('is-leaving');
         render(target);
+        isTransitioning = false;
         settleTimer = window.setTimeout(function () {
           root.classList.remove('is-transitioning');
-          isTransitioning = false;
         }, Number(options.settleDurationMs) || 0);
       }, stageDuration);
     }
@@ -284,6 +284,10 @@
     root.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft') update(current - 1);
       if (event.key === 'ArrowRight') update(current + 1);
+    });
+
+    root.addEventListener('dragstart', function (event) {
+      event.preventDefault();
     });
 
     var startX = null;
