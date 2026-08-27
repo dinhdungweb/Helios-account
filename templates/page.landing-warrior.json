@@ -40,7 +40,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter I",
-            "artwork": "shopify://shop_images/chapter_1.gif",
+            "artwork": "shopify://shop_images/chapter_1_optimized.webp",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -49,7 +49,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter II",
-            "artwork": "shopify://shop_images/chapter_2.gif",
+            "artwork": "shopify://shop_images/chapter_2_optimized.webp",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -58,7 +58,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter III",
-            "artwork": "shopify://shop_images/chapter_3.gif",
+            "artwork": "shopify://shop_images/chapter_3_optimized.webp",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
@@ -67,7 +67,7 @@
           "type": "chapter",
           "settings": {
             "title": "Chapter IV",
-            "artwork": "shopify://shop_images/chapter_4.gif",
+            "artwork": "shopify://shop_images/chapter_4_optimized.webp",
             "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
             "caption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
           }
