@@ -592,7 +592,7 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-gallery__dots {
-  bottom: 18px;
+  bottom: 80px;
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
@@ -817,7 +817,7 @@ video.warrior-chapter-card__art {
   }
 
   .warrior-mobile-collection__dots {
-    bottom: 3px;
+    bottom: 25px;
     left: 50%;
     position: absolute;
     transform: translateX(-50%);
