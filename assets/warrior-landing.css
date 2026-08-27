@@ -561,11 +561,12 @@ video.warrior-chapter-card__art {
 
 .warrior-gallery__slide img {
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
 }
 
 .warrior-gallery__slide--artwork img {
+  object-fit: contain;
   transform: scale(0.56);
 }
 
@@ -791,11 +792,12 @@ video.warrior-chapter-card__art {
 
   .warrior-mobile-gallery__slide img {
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
   }
 
   .warrior-mobile-gallery__slide--artwork img {
+    object-fit: contain;
     transform: scale(0.72);
   }
 
