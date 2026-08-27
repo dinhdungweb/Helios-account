@@ -222,10 +222,9 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-chapter-card__caption {
-  font-family: var(--warrior-theme-heading);
+  font-family: var(--warrior-heading);
   font-size: 14px;
-  font-style: var(--warrior-theme-heading-style, normal);
-  font-weight: var(--warrior-theme-heading-weight, 600);
+  font-weight: 700;
   letter-spacing: 0.03em;
   line-height: 1.25;
   margin: 14px auto 0;
@@ -442,10 +441,8 @@ video.warrior-chapter-card__art {
 }
 
 .warrior-collection-tab small {
-  font-family: var(--warrior-theme-heading);
   font-size: 9px;
-  font-style: var(--warrior-theme-heading-style, normal);
-  font-weight: var(--warrior-theme-heading-weight, 600);
+  font-weight: 700;
   line-height: 1.2;
   margin-top: 6px;
   max-width: 225px;
