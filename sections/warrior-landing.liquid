@@ -240,7 +240,7 @@
 
               <div class="warrior-gallery__track" aria-live="polite">
                 {%- assign gallery_slide_index = 0 -%}
-                {%- for gallery_number in (1..5) -%}
+                {%- for gallery_number in (1..6) -%}
                   {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
                   {%- assign gallery_image = block.settings[gallery_setting_id] -%}
                   {%- assign gallery_image_url = blank -%}
@@ -311,7 +311,7 @@
             <div class="warrior-mobile-gallery" data-warrior-mobile-gallery>
               <div class="warrior-mobile-gallery__track" aria-live="polite">
                 {%- assign mobile_is_first = true -%}
-                {%- for gallery_number in (1..5) -%}
+                {%- for gallery_number in (1..6) -%}
                   {%- capture gallery_setting_id -%}gallery_image_{{ gallery_number }}{%- endcapture -%}
                   {%- assign mobile_gallery_image = block.settings[gallery_setting_id] -%}
                   {%- assign mobile_gallery_image_url = blank -%}
@@ -480,6 +480,11 @@
       "label": "Gallery image 5"
     },
     {
+      "type": "image_picker",
+      "id": "gallery_image_6",
+      "label": "Gallery image 6"
+    },
+    {
       "type": "header",
       "content": "Story and finale"
     },
@@ -601,6 +606,11 @@
           "type": "image_picker",
           "id": "gallery_image_5",
           "label": "Slide image 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "gallery_image_6",
+          "label": "Slide image 6"
         },
         {
           "type": "url",
