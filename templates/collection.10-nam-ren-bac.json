@@ -50,18 +50,17 @@
     },
     "rich_text_QtxW6q": {
       "type": "rich-text",
-      "disabled": true,
       "custom_css": [
         ".rte p:last-child {margin-top: 0;}"
       ],
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "Đăng nhập member để hưởng trọn ưu đãi!",
-        "title_size": 24,
+        "title": "10 NĂM RÈN BẠC - 1 ĐỜI TẠC BẢN LĨNH",
+        "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
-        "text": "<p><a href=\"https://helios.vn/account\" title=\"https://helios.vn/account\">Đăng nhập</a></p>",
+        "text": "",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
