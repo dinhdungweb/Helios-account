@@ -299,8 +299,36 @@
     "gallery_2_columns_VqBPxe": {
       "type": "gallery-2-columns",
       "blocks": {
+        "image_CWNrVL": {
+          "type": "image",
+          "name": "LOTUS",
+          "settings": {
+            "block_image": "shopify://shop_images/banner-2.jpg",
+            "block_link": "shopify://collections/lotus",
+            "link_target": "_self"
+          }
+        },
+        "image_HjJENb": {
+          "type": "image",
+          "name": "SUNFLOWER",
+          "settings": {
+            "block_image": "shopify://shop_images/CollectionSF-1.jpg",
+            "block_link": "shopify://collections/sunflower",
+            "link_target": "_self"
+          }
+        },
+        "image_PPpYWW": {
+          "type": "image",
+          "name": "Chrysaber",
+          "settings": {
+            "block_image": "shopify://shop_images/9.4_design_nh_banner_chrysaber_2.0-04.jpg",
+            "block_link": "shopify://collections/chrysaber-collection",
+            "link_target": "_self"
+          }
+        },
         "image_wVQMU8": {
           "type": "image",
+          "name": "Silver Wall",
           "settings": {
             "block_image": "shopify://shop_images/Silver_wall_16x9_9939dccd-1341-433b-819c-1d225c0c9932.jpg",
             "block_link": "shopify://collections/helios-x-buc-tuong",
@@ -318,6 +346,7 @@
         },
         "image_TFk7Rc": {
           "type": "image",
+          "name": "Angelic",
           "settings": {
             "block_image": "shopify://shop_images/z7335318956959_276ade0ff9ef6b5b872b18f8f2a60cb2.jpg",
             "block_link": "shopify://collections/angelic-collection",
@@ -326,22 +355,16 @@
         },
         "image_Vgzdnf": {
           "type": "image",
+          "name": "faith",
           "settings": {
             "block_image": "shopify://shop_images/z7211462588789_84ebe2ccf885fd8c3c5c7b837f798904.jpg",
             "block_link": "shopify://collections/faith-collection",
             "link_target": "_self"
           }
         },
-        "image_PPpYWW": {
-          "type": "image",
-          "settings": {
-            "block_image": "shopify://shop_images/9.4_design_nh_banner_chrysaber_2.0-04.jpg",
-            "block_link": "shopify://collections/chrysaber-collection",
-            "link_target": "_self"
-          }
-        },
         "image_8Utggn": {
           "type": "image",
+          "name": "Hellfire",
           "settings": {
             "block_image": "shopify://shop_images/9.1__nh_banner_bst_triminhle_b_n_s_a_11.1-03_ae8b5f63-47e0-4ad1-ada1-6a94c732156d.jpg",
             "block_link": "shopify://collections/hellfire-collection",
@@ -350,6 +373,7 @@
         },
         "image_8G3nfw": {
           "type": "image",
+          "name": "Tề Thiên",
           "settings": {
             "block_image": "shopify://shop_images/web_copy_1_fb7f207e-c66c-49d5-9763-160276fe9bde.jpg",
             "block_link": "shopify://collections/te-thien-collection",
@@ -358,6 +382,7 @@
         },
         "image_TqVQ8r": {
           "type": "image",
+          "name": "Freedom",
           "settings": {
             "block_image": "shopify://shop_images/500KB_banner_FREEDOM_2700x1000_1.jpg",
             "block_link": "shopify://collections/freedom",
@@ -366,6 +391,7 @@
         },
         "image_BtQDXq": {
           "type": "image",
+          "name": "7DSATO",
           "settings": {
             "block_image": "shopify://shop_images/2700x1000_copy.jpg",
             "block_link": "shopify://collections/helios-x-triminhle-7dsato",
@@ -374,22 +400,16 @@
         },
         "image_tqWtLE": {
           "type": "image",
+          "name": "CHÍ HÀO",
           "settings": {
             "block_image": "shopify://shop_images/CH2700x1000copy2.jpg",
             "block_link": "shopify://collections/helios-x-chi-hao",
             "link_target": "_self"
           }
         },
-        "image_CWNrVL": {
-          "type": "image",
-          "settings": {
-            "block_image": "shopify://shop_images/banner-2.jpg",
-            "block_link": "shopify://collections/lotus",
-            "link_target": "_self"
-          }
-        },
         "image_pjWwJq": {
           "type": "image",
+          "name": "ATLANTIS",
           "settings": {
             "block_image": "shopify://shop_images/BANNER_ATLANTIS_1_1950x_1024x1024_6c8261d6-c580-4535-855a-19701efcce32.jpg",
             "block_link": "shopify://collections/atlantis",
@@ -398,6 +418,7 @@
         },
         "image_gWttGj": {
           "type": "image",
+          "name": "BUSHIDO",
           "settings": {
             "block_image": "shopify://shop_images/anh_collection_2_15ff4993b13647628db8c5d0192b4f73_2048x2048_d0272999-e314-4672-80f5-7ecd79860260.png",
             "block_link": "shopify://collections/bushido",
@@ -406,6 +427,7 @@
         },
         "image_cNWbCr": {
           "type": "image",
+          "name": "AMZAON",
           "settings": {
             "block_image": "shopify://shop_images/WEB_-_COVER_AMAZON2_d4ebba7d-a2e4-41e4-8487-de1f0f7d8029.jpg",
             "block_link": "shopify://collections/amazon",
@@ -414,6 +436,7 @@
         },
         "image_Jq6RE7": {
           "type": "image",
+          "name": "ANGELOS",
           "settings": {
             "block_image": "shopify://shop_images/page2700x1000.jpg",
             "block_link": "shopify://collections/angelos",
@@ -422,6 +445,7 @@
         },
         "image_KYkTgz": {
           "type": "image",
+          "name": "LIFE OF A MAN",
           "settings": {
             "block_image": "shopify://shop_images/Mobilebanner2_1024x1024_ce013c42-082b-4f5a-9a36-b4f442e096f2.jpg",
             "block_link": "",
@@ -437,16 +461,9 @@
             "link_target": "_self"
           }
         },
-        "image_HjJENb": {
-          "type": "image",
-          "settings": {
-            "block_image": "shopify://shop_images/CollectionSF-1.jpg",
-            "block_link": "shopify://collections/sunflower",
-            "link_target": "_self"
-          }
-        },
         "image_DAkHDx": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "block_image": "shopify://shop_images/cover_page_-1_c2132691-5b47-4e73-99e2-5652cc683a8d.jpg",
             "block_link": "shopify://collections/helios-x-neko",
@@ -455,29 +472,29 @@
         }
       },
       "block_order": [
+        "image_CWNrVL",
+        "image_HjJENb",
+        "image_PPpYWW",
         "image_wVQMU8",
         "image_KgcQq9",
         "image_TFk7Rc",
         "image_Vgzdnf",
-        "image_PPpYWW",
         "image_8Utggn",
         "image_8G3nfw",
         "image_TqVQ8r",
         "image_BtQDXq",
         "image_tqWtLE",
-        "image_CWNrVL",
         "image_pjWwJq",
         "image_gWttGj",
         "image_cNWbCr",
         "image_Jq6RE7",
         "image_KYkTgz",
         "image_8HQHFp",
-        "image_HjJENb",
         "image_DAkHDx"
       ],
       "name": "Gallery 2 Columns",
       "settings": {
-        "gallery_title": "Our Collections"
+        "gallery_title": "OUR COLLECTIONS"
       }
     }
   },
