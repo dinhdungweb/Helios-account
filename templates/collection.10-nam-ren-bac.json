@@ -329,6 +329,7 @@
         "image_iEydm7",
         "image_6rNgEF"
       ],
+      "disabled": true,
       "name": "Image Grid",
       "settings": {
         "show_on_desktop": true,
