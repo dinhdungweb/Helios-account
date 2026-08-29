@@ -208,6 +208,29 @@
       "type": "tab-description",
       "settings": {}
     },
+    "rich_text_KQMLyb": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "HELIOS Nguyễn Trãi",
+        "title_size": 20,
+        "title_width": 26,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "image_with_text_kUyLYN": {
       "type": "image-with-text",
       "custom_css": [
@@ -369,6 +392,8 @@
       ],
       "name": "Lê Thanh Nghị",
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
         "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 4,
@@ -398,29 +423,6 @@
         "enlarge_text": false,
         "full_width": true,
         "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "rich_text_KQMLyb": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "HELIOS Nguyễn Trãi",
-        "title_size": 20,
-        "title_width": 26,
-        "heading_h1": false,
-        "text": "",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "left",
-        "enlarge_text": false,
-        "full_width": true,
-        "no_padding_bottom": true,
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
@@ -473,6 +475,8 @@
       ],
       "name": "Nguyễn Trãi",
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
         "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 4,
@@ -589,16 +593,16 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
-    "image_with_text_kUyLYN",
-    "image_with_text_xAeKkA",
-    "product_feedback_gallery_XyZ123",
     "rich_text_8yjx4N",
-    "rich_text_Hy4w8R",
-    "grid_image_KpbGfQ",
-    "rich_text_fDwPzE",
     "rich_text_KQMLyb",
     "grid_image_QqpRqi",
     "rich_text_W69Wdt",
+    "image_with_text_kUyLYN",
+    "image_with_text_xAeKkA",
+    "product_feedback_gallery_XyZ123",
+    "rich_text_Hy4w8R",
+    "grid_image_KpbGfQ",
+    "rich_text_fDwPzE",
     "accordions_gkjQkM",
     "product-recommendations"
   ]
