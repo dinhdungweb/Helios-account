@@ -208,31 +208,6 @@
       "type": "tab-description",
       "settings": {}
     },
-    "image_with_text_kUyLYN": {
-      "type": "image-with-text",
-      "custom_css": [
-        ".image-with-text {margin-top: 40px;}"
-      ],
-      "settings": {
-        "subheading": "",
-        "title": "CÂU CHUYỆN TỪ CHẤT LIỆU TẠO NÊN CÁI NHÌN ĐẦY CHIÊM NGHIỆM",
-        "title_size": 24,
-        "title_width": 22,
-        "text": "<p>Với các dòng trang sức bạc, Helios chọn bạc S925 vì độ bền và thẩm mỹ cao. Qua năm tháng, món đồ giữ dáng, đồng hành cùng chủ nhân ở mọi khoảnh khắc, mọi chặng đường.<br/><br/>Ở các chế tác gắn đá, chúng tôi ưu ái những viên đá có vân sóng và sắc độ tự nhiên khác biệt, để mỗi thiết kế mang một dấu ấn độc bản — không chiếc nào giống chiếc nào.<br/><br/>Lớp xi đen như một “lớp phủ thời gian”, tiết chế hào nhoáng để nổi bật chiều sâu trải nghiệm.<br/>Mỗi hành trình đều lưu lại ký ức cá nhân; và với Helios, chất liệu bền vững chính là hành trang tạo nên một cái nhìn trầm ổn, nam tính.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "image": "shopify://shop_images/1_1.webp",
-        "image_width": 100,
-        "image_position": "right",
-        "media_size": "cover",
-        "color_scheme": "custom",
-        "color_bg": "#0c0c0c",
-        "color_text": ""
-      }
-    },
     "image_with_text_xAeKkA": {
       "type": "image-with-text",
       "settings": {
@@ -367,6 +342,8 @@
       ],
       "name": "Nguyễn gia trí",
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
         "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 4,
@@ -470,6 +447,8 @@
       ],
       "name": "Đồng Khởi",
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
         "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 4,
@@ -573,6 +552,8 @@
       ],
       "name": "Bà hạt",
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
         "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 4,
@@ -603,6 +584,31 @@
         "no_padding_bottom": false,
         "color_scheme": "standard",
         "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "image_with_text_kUyLYN": {
+      "type": "image-with-text",
+      "custom_css": [
+        ".image-with-text {margin-top: 40px;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "CÂU CHUYỆN TỪ CHẤT LIỆU TẠO NÊN CÁI NHÌN ĐẦY CHIÊM NGHIỆM",
+        "title_size": 24,
+        "title_width": 22,
+        "text": "<p>Với các dòng trang sức bạc, Helios chọn bạc S925 vì độ bền và thẩm mỹ cao. Qua năm tháng, món đồ giữ dáng, đồng hành cùng chủ nhân ở mọi khoảnh khắc, mọi chặng đường.<br/><br/>Ở các chế tác gắn đá, chúng tôi ưu ái những viên đá có vân sóng và sắc độ tự nhiên khác biệt, để mỗi thiết kế mang một dấu ấn độc bản — không chiếc nào giống chiếc nào.<br/><br/>Lớp xi đen như một “lớp phủ thời gian”, tiết chế hào nhoáng để nổi bật chiều sâu trải nghiệm.<br/>Mỗi hành trình đều lưu lại ký ức cá nhân; và với Helios, chất liệu bền vững chính là hành trang tạo nên một cái nhìn trầm ổn, nam tính.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "image": "shopify://shop_images/1_1.webp",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "cover",
+        "color_scheme": "custom",
+        "color_bg": "#0c0c0c",
         "color_text": ""
       }
     },
@@ -689,9 +695,6 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
-    "image_with_text_kUyLYN",
-    "image_with_text_xAeKkA",
-    "product_feedback_gallery_XyZ123",
     "rich_text_KBHHh9",
     "rich_text_ECre7U",
     "grid_image_QWbchx",
@@ -702,6 +705,9 @@
     "rich_text_xTnhBe",
     "grid_image_3FeCdE",
     "rich_text_6Faif3",
+    "image_with_text_kUyLYN",
+    "image_with_text_xAeKkA",
+    "product_feedback_gallery_XyZ123",
     "accordions_gkjQkM",
     "product-recommendations"
   ]
