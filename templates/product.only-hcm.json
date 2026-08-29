@@ -79,7 +79,7 @@
         "custom_liquid_beCgGM": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div style=\"background-color: #fab320;color: #111;margin: 5px 0; padding: 10px 20px; text-align: center\">SẢN PHẨM CHỈ CÓ TẠI CỬA HÀNG HÀ NỘI</div>"
+            "custom_liquid": "<div style=\"background-color: #fab320;color: #111;margin: 5px 0; padding: 10px 20px; text-align: center\">SẢN PHẨM CHỈ CÓ TẠI CỬA HÀNG HCM</div>"
           }
         },
         "buy_buttons": {
