@@ -274,6 +274,338 @@
         "margin_bottom": 40
       }
     },
+    "rich_text_KBHHh9": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color: #FAB320\">HELIOS HỒ CHÍ MINH</font>",
+        "title_size": 28,
+        "title_width": 26,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "rich_text_ECre7U": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "HELIOS Nguyễn Gia Trí",
+        "title_size": 20,
+        "title_width": 26,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "grid_image_QWbchx": {
+      "type": "grid-image",
+      "blocks": {
+        "image_W4q7aT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/store_NGT_13.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_krM83K": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/store_NGT_16.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_LNrgGw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/store_NGT_9.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_gezBQX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/store_NGT_2.jpg",
+            "link": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_W4q7aT",
+        "image_krM83K",
+        "image_LNrgGw",
+        "image_gezBQX"
+      ],
+      "custom_css": [
+        "#section-id-template--20686354350301__grid_image_QWbchx {padding: 20px !important;}"
+      ],
+      "name": "Nguyễn gia trí",
+      "settings": {
+        "grid_image_full_width": true,
+        "grid_image_with": 1400,
+        "item_for_row": 4,
+        "item_ratio": "3/4",
+        "item_per_row_mobile": "2"
+      }
+    },
+    "rich_text_LMUrNQ": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section-spacing {padding-top: 0 !important;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<ul><li>69/2/29 Nguyễn Gia Trí, Phường Thạnh Mỹ Tây, Hồ Chí Minh.</li><li>Liên hệ: 0938 302 899</li></ul><p><a href=\"https://maps.app.goo.gl/dd8uPk4GBjw4jELk6\" title=\"https://maps.app.goo.gl/dd8uPk4GBjw4jELk6\">Xem trên bản đồ</a></p><p>Là flagship store của HELIOS, nơi bạn cảm nhận trực tiếp chế tác bạc thủ công 1 cách đầy đủ nhất và tìm ra dấu ấn hợp với mình.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "rich_text_angUgj": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "HELIOS Vincom Center Đồng Khởi",
+        "title_size": 20,
+        "title_width": 26,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "grid_image_H49h3Q": {
+      "type": "grid-image",
+      "blocks": {
+        "image_XW3HRj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/05b03e0d4431f06fa92010_1.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_CbKNdX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/5fd00a4f7073c42d9d626.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_tcEPNA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/32bfa550df6c6b32327d13.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_h9W9Uj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/0a134d393705835bda1417_1.jpg",
+            "link": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_XW3HRj",
+        "image_CbKNdX",
+        "image_tcEPNA",
+        "image_h9W9Uj"
+      ],
+      "custom_css": [
+        "#section-id-template--20686354350301__grid_image_H49h3Q {padding: 20px !important;}"
+      ],
+      "name": "Đồng Khởi",
+      "settings": {
+        "grid_image_full_width": true,
+        "grid_image_with": 1400,
+        "item_for_row": 4,
+        "item_ratio": "3/4",
+        "item_per_row_mobile": "2"
+      }
+    },
+    "rich_text_pWfyXb": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section-spacing {padding-top: 0 !important;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<ul><li>Gian 18 - 19, Lô B1-38-48, tầng B1, TTTM Vincom Center Đồng Khởi, Phường Sài Gòn, Hồ Chí Minh.</li><li>Liên hệ: <a>0336 302 899</a></li></ul><p><a href=\"https://maps.app.goo.gl/oKpNaioYGCR6qzBM6\" title=\"https://maps.app.goo.gl/oKpNaioYGCR6qzBM6\">Xem trên bản đồ</a></p><p>Tọa lạc trong khu tổ hợp The New Playground, cửa hàng mang đến không gian kết nối gần hơn với cộng đồng yêu thích chế tác bạc thủ công, từ Việt Nam đến quốc tế.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "rich_text_xTnhBe": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "HELIOS Bà Hạt",
+        "title_size": 20,
+        "title_width": 26,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "grid_image_3FeCdE": {
+      "type": "grid-image",
+      "blocks": {
+        "image_6wANnT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC0619.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_3kLcNU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC0627.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_HpcKxf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z7198406016374_d2a1f466a60ced56741934546419d316.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_f7FUmX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC0629.jpg",
+            "link": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_6wANnT",
+        "image_3kLcNU",
+        "image_HpcKxf",
+        "image_f7FUmX"
+      ],
+      "custom_css": [
+        "#section-id-template--20686354350301__grid_image_3FeCdE {padding: 20px !important;}"
+      ],
+      "name": "Bà hạt",
+      "settings": {
+        "grid_image_full_width": true,
+        "grid_image_with": 1400,
+        "item_for_row": 4,
+        "item_ratio": "3/4",
+        "item_per_row_mobile": "2"
+      }
+    },
+    "rich_text_6Faif3": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section-spacing {padding-top: 0 !important;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<ul><li>371 Bà Hạt, Phường Vườn Lài, Hồ Chí Minh.</li><li>Liên hệ: 0794 302 899</li></ul><p><a href=\"https://maps.app.goo.gl/kSu1JSGap11hTR6R6\" title=\"https://maps.app.goo.gl/kSu1JSGap11hTR6R6\">Xem trên bản đồ</a></p><p>HELIOS Bà Hạt mang đến không gian gần gũi, nơi bạn có thể cảm nhận tinh thần thủ công và khác biệt qua từng chế tác</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "accordions_gkjQkM": {
       "type": "accordions",
       "blocks": {
@@ -360,6 +692,16 @@
     "image_with_text_kUyLYN",
     "image_with_text_xAeKkA",
     "product_feedback_gallery_XyZ123",
+    "rich_text_KBHHh9",
+    "rich_text_ECre7U",
+    "grid_image_QWbchx",
+    "rich_text_LMUrNQ",
+    "rich_text_angUgj",
+    "grid_image_H49h3Q",
+    "rich_text_pWfyXb",
+    "rich_text_xTnhBe",
+    "grid_image_3FeCdE",
+    "rich_text_6Faif3",
     "accordions_gkjQkM",
     "product-recommendations"
   ]
