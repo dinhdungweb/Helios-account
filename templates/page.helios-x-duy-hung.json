@@ -1,0 +1,502 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "background_video_responsive_8JzqBG": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": true,
+        "section_width": 1400,
+        "video_full_vh": false,
+        "video_size": "original",
+        "video_height_desktop": 930,
+        "video_height_mobile": 500,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Duy Hưng 19x9.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/Duy Hưng 4x5.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "image_with_text_EEdQ8y": {
+      "type": "image-with-text",
+      "disabled": true,
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "Những cuộc gặp đã trở thành một phần của hành trình. ",
+        "title_size": 28,
+        "title_width": 12,
+        "text": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 60,
+        "button_style": "auto",
+        "image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
+        "image_width": 100,
+        "image_position": "left",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "custom_spacing_pWXUVM": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 0,
+        "mobile_spacing": 40
+      }
+    },
+    "media_text_block_DV4tJR": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "những cuộc gặp đã trở thành một phần của hành trình. ",
+        "heading_tag": "h2",
+        "heading_size": 26,
+        "heading_alignment": "left",
+        "description": "<p>Qua nhiều dấu mốc, HELIOS đồng hành cùng Duy Hưng từ những khoảnh khắc ngoài đời đến cả những câu chuyện trên màn ảnh.</p>",
+        "text_alignment": "left",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "image",
+        "media_position": "left",
+        "media_layout": "contained",
+        "media_image": "shopify://shop_images/Group_2.png",
+        "media_image_mobile": "shopify://shop_images/Group_2.png",
+        "image_width_desktop": 35,
+        "image_width_mobile": 35,
+        "image_alignment": "center",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "media_ratio": "auto",
+        "section_height": "auto",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "button_bg": "#ffffff",
+        "button_text_color": "#111111",
+        "button_bg_hover": "#eeeeee",
+        "button_text_color_hover": "#ffffff"
+      }
+    },
+    "featured_collection_YGpxHE": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "helios-x-lilwuyn",
+        "layout": "rows",
+        "show_arrows": true,
+        "show_dots": false,
+        "show_progress": false,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": false,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "rich_text_qnGibe": {
+      "type": "rich-text",
+      "custom_css": [
+        ".button-row {margin-top: 0em;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 60,
+        "button_label": "Xem tất cả",
+        "button_link": "shopify://collections/helios-x-lilwuyn",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "custom_spacing_46R8JU": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
+      }
+    },
+    "rich_text_XhpKLy": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Có những món đồ đi cùng một người đủ lâu, để rồi xuất hiện tự nhiên trong nhiều phần khác nhau của hành trình</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "custom",
+        "color_bg": "#222222",
+        "color_text": ""
+      }
+    },
+    "multi_media_with_text_pQwcgY": {
+      "type": "multi-media-with-text",
+      "blocks": {
+        "media_fpDarz": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/DSC02055_optimized.webp",
+            "poster_time": 2.5,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_yGWcme": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/DSC02054_1__optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "media_fpDarz",
+        "media_yGWcme"
+      ],
+      "name": "Multi media with text",
+      "settings": {
+        "eyebrow": "",
+        "heading": "NHỮNG CHẶNG ĐÃ ĐI CÙNG NHAU",
+        "heading_tag": "h2",
+        "text": "<p>Từ những lần xuất hiện ngoài đời đến các dấu mốc tiếp theo, HELIOS vẫn hiện diện cùng Duy Hưng theo một cách tự nhiên.  Mỗi lần gặp lại là thêm một phần của hành trình được nối dài.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_new_tab": false,
+        "media_position": "right",
+        "text_width": 40,
+        "text_alignment": "left",
+        "text_vertical_alignment": "center",
+        "text_max_width": 480,
+        "column_gap": 56,
+        "content_gap_mobile": 28,
+        "mobile_static_layout": "row",
+        "full_width": true,
+        "container_width": 1400,
+        "min_height": 520,
+        "media_ratio": "3 / 4",
+        "media_ratio_mobile": "3 / 4",
+        "media_fit": "cover",
+        "media_gap": 12,
+        "media_radius": 0,
+        "video_autoplay": false,
+        "video_loop": true,
+        "video_muted": true,
+        "video_controls": true,
+        "show_arrows": true,
+        "show_dots": false,
+        "carousel_autoplay": false,
+        "carousel_autoplay_speed": 5,
+        "carousel_transition_duration": 1200,
+        "controls_position": "right",
+        "controls_spacing": 16,
+        "arrow_size": 40,
+        "arrow_inset": 12,
+        "arrow_radius": 50,
+        "dot_size": 8,
+        "eyebrow_size": 13,
+        "eyebrow_weight": "700",
+        "eyebrow_transform": "uppercase",
+        "eyebrow_letter_spacing": 3,
+        "eyebrow_spacing": 12,
+        "heading_size": 28,
+        "heading_size_mobile": 24,
+        "heading_weight": "700",
+        "heading_line_height": 120,
+        "heading_letter_spacing": 0,
+        "heading_spacing": 16,
+        "body_size": 14,
+        "body_size_mobile": 14,
+        "body_line_height": 160,
+        "button_style": "solid",
+        "button_spacing": 24,
+        "button_size": 14,
+        "button_weight": "600",
+        "button_height": 44,
+        "button_horizontal_padding": 24,
+        "button_radius": 0,
+        "background_color": "#000000",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff",
+        "media_background": "#1b1b1b",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "button_border_color": "#ffffff",
+        "control_color": "#ffffff",
+        "control_background": "#000000",
+        "padding_top": 64,
+        "padding_bottom": 0,
+        "side_padding": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 0,
+        "side_padding_mobile": 10
+      }
+    },
+    "multi_media_with_text_qnjaPA": {
+      "type": "multi-media-with-text",
+      "blocks": {
+        "media_NLghH8": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Frame_2_optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_bT38zp": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Frame_3_2__optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "media_NLghH8",
+        "media_bT38zp"
+      ],
+      "name": "Multi media with text",
+      "settings": {
+        "eyebrow": "",
+        "heading": "KHI DẤU ẤN BƯỚC VÀO VAI DIỄN",
+        "heading_tag": "h2",
+        "text": "<p>Sự đồng hành không chỉ dừng lại ngoài đời.  Trong Lửa Trắng, HELIOS tiếp tục xuất hiện cùng Duy Hưng khi anh bước vào một vai diễn khác — một bối cảnh khác, một câu chuyện khác.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_new_tab": false,
+        "media_position": "left",
+        "text_width": 40,
+        "text_alignment": "right",
+        "text_vertical_alignment": "center",
+        "text_max_width": 480,
+        "column_gap": 56,
+        "content_gap_mobile": 28,
+        "mobile_static_layout": "row",
+        "full_width": true,
+        "container_width": 1400,
+        "min_height": 520,
+        "media_ratio": "3 / 4",
+        "media_ratio_mobile": "3 / 4",
+        "media_fit": "cover",
+        "media_gap": 12,
+        "media_radius": 0,
+        "video_autoplay": false,
+        "video_loop": true,
+        "video_muted": true,
+        "video_controls": true,
+        "show_arrows": true,
+        "show_dots": false,
+        "carousel_autoplay": false,
+        "carousel_autoplay_speed": 5,
+        "carousel_transition_duration": 1200,
+        "controls_position": "right",
+        "controls_spacing": 16,
+        "arrow_size": 40,
+        "arrow_inset": 12,
+        "arrow_radius": 50,
+        "dot_size": 8,
+        "eyebrow_size": 13,
+        "eyebrow_weight": "700",
+        "eyebrow_transform": "uppercase",
+        "eyebrow_letter_spacing": 3,
+        "eyebrow_spacing": 12,
+        "heading_size": 28,
+        "heading_size_mobile": 24,
+        "heading_weight": "700",
+        "heading_line_height": 120,
+        "heading_letter_spacing": 0,
+        "heading_spacing": 16,
+        "body_size": 14,
+        "body_size_mobile": 14,
+        "body_line_height": 160,
+        "button_style": "solid",
+        "button_spacing": 24,
+        "button_size": 14,
+        "button_weight": "600",
+        "button_height": 44,
+        "button_horizontal_padding": 24,
+        "button_radius": 0,
+        "background_color": "#000000",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff",
+        "media_background": "#1b1b1b",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "button_border_color": "#ffffff",
+        "control_color": "#ffffff",
+        "control_background": "#000000",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "side_padding": 40,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "side_padding_mobile": 10
+      }
+    },
+    "rich_text_rbndCc": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "chế tác thủ công",
+        "title_size": 26,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Từ bản phác thảo đầu tiên đến công đoạn hoàn thiện cuối cùng, mỗi thiết kế đều được chế tác thủ công từ bạc S925<br/><br/></p><p></p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": true,
+        "color_scheme": "custom",
+        "color_bg": "#222222",
+        "color_text": ""
+      }
+    },
+    "custom_spacing_fGbbea": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 55,
+        "mobile_spacing": 40
+      }
+    },
+    "background_video_responsive_QyPyMN": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": false,
+        "section_width": 1780,
+        "video_full_vh": false,
+        "video_size": "original",
+        "video_height_desktop": 800,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/0813(1) (1)_f049ba4a-f4fb-4e76-adcc-fbbdd9280bc3.mov",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "custom_spacing_KxgbM8": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 55,
+        "mobile_spacing": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "background_video_responsive_8JzqBG",
+    "image_with_text_EEdQ8y",
+    "custom_spacing_pWXUVM",
+    "media_text_block_DV4tJR",
+    "featured_collection_YGpxHE",
+    "rich_text_qnGibe",
+    "custom_spacing_46R8JU",
+    "rich_text_XhpKLy",
+    "multi_media_with_text_pQwcgY",
+    "multi_media_with_text_qnjaPA",
+    "rich_text_rbndCc",
+    "custom_spacing_fGbbea",
+    "background_video_responsive_QyPyMN",
+    "custom_spacing_KxgbM8"
+  ]
+}
