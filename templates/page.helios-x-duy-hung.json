@@ -355,7 +355,7 @@
         "text_alignment": "left",
         "text_vertical_alignment": "center",
         "text_max_width": 480,
-        "column_gap": 56,
+        "column_gap": 92,
         "content_gap_mobile": 28,
         "mobile_static_layout": "row",
         "full_width": true,
