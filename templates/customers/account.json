@@ -43,9 +43,9 @@
         "image_AD6YEJ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Banner_wweb_NQSH_19x9_optimized.avif",
-            "mobile_image": "shopify://shop_images/Banner_wweb_NQSH_4x5_optimized.avif",
-            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "image": "shopify://shop_images/banner_web_optimized_2.webp",
+            "mobile_image": "shopify://shop_images/banner_d_c_optimized_2.webp",
+            "slide_link": "",
             "subheading": "",
             "title": "",
             "title_size": 60,
