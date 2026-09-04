@@ -9,51 +9,6 @@
  */
 {
   "sections": {
-    "background_video_responsive_Uf9e3M": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "video_full_vh": false,
-        "video_size": "cover",
-        "video_height_desktop": 920,
-        "video_height_mobile": 620,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/banner Nhẫn đôi.mp4",
-        "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/banner Nhẫn đôi.mp4",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
-    "rich_text_nTjFQL": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "<font style=\"color: #fab320\">MÓN QUÀ Ý NGHĨA CHO BẠN ĐỒNG HÀNH</font>",
-        "title_size": 30,
-        "title_width": 12,
-        "heading_h1": false,
-        "text": "<p>Như hai thái cực tìm về điểm cân bằng</p><p>Không phô trương nhưng cũng không thể tách rời</p><p>Biến tình yêu thành một “Thế giới đi cùng”</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
     "product_hover_zoom_QBxk7j": {
       "type": "product-hover-zoom",
       "blocks": {
@@ -103,6 +58,48 @@
         "list_width_px": 1600,
         "thumb_size": 300,
         "image_ratio": "4/5"
+      }
+    },
+    "media_text_block_bmCgwe": {
+      "type": "media-text-block",
+      "name": "Media Text Block",
+      "settings": {
+        "subheading": "",
+        "heading": "Nhẫn đôi",
+        "heading_tag": "h2",
+        "heading_size": 32,
+        "heading_alignment": "left",
+        "description": "<p>Nhẫn đôi là biểu tượng của tình yêu và sự cam kết.</p>",
+        "text_alignment": "left",
+        "content_padding": 40,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_open_new": false,
+        "button_label_2": "",
+        "button_link_2": "",
+        "button_style_2": "outline",
+        "button_open_new_2": false,
+        "media_type": "image",
+        "media_position": "right",
+        "media_layout": "full",
+        "media_image": "shopify://shop_images/2aOboQwCzAESYILgg4Bjamgbablylv2MjjZRHgBc.jpg",
+        "image_width_desktop": 100,
+        "image_width_mobile": 100,
+        "image_alignment": "center",
+        "video_url": "",
+        "video_url_mobile": "",
+        "video_loop": true,
+        "media_ratio": "auto",
+        "section_height": "auto",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "button_bg": "#ffffff",
+        "button_text_color": "#111111",
+        "button_bg_hover": "#eeeeee",
+        "button_text_color_hover": "#ffffff"
       }
     },
     "main": {
@@ -178,6 +175,7 @@
         "banner_pdnh3m",
         "banner_TR3bLf"
       ],
+      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": false,
@@ -239,6 +237,7 @@
         "banner_VKtUkF",
         "banner_igf9mM"
       ],
+      "disabled": true,
       "name": "Two Banners",
       "settings": {
         "overlap_header": false,
@@ -254,9 +253,8 @@
     }
   },
   "order": [
-    "background_video_responsive_Uf9e3M",
-    "rich_text_nTjFQL",
     "product_hover_zoom_QBxk7j",
+    "media_text_block_bmCgwe",
     "main",
     "two_banner_p9JjQW",
     "two_banner_DgEJyw"
