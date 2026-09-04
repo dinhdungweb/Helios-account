@@ -60,6 +60,7 @@
         },
         "image_kyNjeg": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/2aOboQoBQ83T0yQJXIJHq67UNsalkJHB7bRiGxIO.jpg",
             "mobile_image": "shopify://shop_images/2aOboQoBQYJJRwODzJj7cVMEGmF6QaSRODs1VfaC.jpg",
