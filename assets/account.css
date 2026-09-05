@@ -1144,16 +1144,16 @@
   color: var(--db-black);
 }
 
-.db-card-action.db-products-view-all {
+.db-card-action.db-member-accent-action {
   color: var(--db-member-card-accent, #f2f2f2);
 }
 
-.dashboard-btn.outline.db-products-view-all {
+.dashboard-btn.outline.db-member-accent-action {
   border-color: var(--db-member-card-accent, #f2f2f2);
   color: var(--db-member-card-accent, #f2f2f2);
 }
 
-.dashboard-btn.outline.db-products-view-all:hover {
+.dashboard-btn.outline.db-member-accent-action:hover {
   background: var(--db-member-card-accent, #f2f2f2);
   color: var(--db-black);
 }

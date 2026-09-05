@@ -530,7 +530,7 @@
             <div class="db-card">
               <div class="db-card-header">
                 <h3 class="db-card-title">{{ section.settings.welcome_collection_title | default: 'Sản Phẩm Đặc Quyền' }}</h3>
-                <a class="db-card-action db-card-action--arrow db-products-view-all" href="{{ welcome_collection.url }}">
+                <a class="db-card-action db-card-action--arrow db-member-accent-action" href="{{ welcome_collection.url }}">
                   {{ section.settings.welcome_collection_view_all_text | default: 'Xem tất cả' }}
                   {% render 'svg-chevron-right' %}
                 </a>
@@ -546,7 +546,7 @@
                 </div>
                 {% if welcome_collection.products.size > products_limit %}
                   <div class="db-products-more">
-                    <a href="{{ welcome_collection.url }}" class="dashboard-btn outline db-products-view-all">
+                    <a href="{{ welcome_collection.url }}" class="dashboard-btn outline db-member-accent-action">
                       {{ section.settings.welcome_collection_view_all_text | default: 'Xem tất cả' }}
                     </a>
                   </div>
@@ -564,8 +564,8 @@
           <div class="db-card" id="section-blacksun" style="margin-top: 20px; margin-bottom: 20px;">
             <div class="db-card-header">
               <h3 class="db-card-title">{{ section.settings.blacksun_blog_title | default: 'Blacksun Club' }}</h3>
-              <a class="db-card-action db-card-action--arrow" href="{{ bs_blog.url }}">
-                Xem tất cả
+              <a class="db-card-action db-card-action--arrow db-member-accent-action" href="{{ bs_blog.url }}">
+                {{ section.settings.blacksun_blog_view_all_text | default: 'Xem tất cả' }}
                 {% render 'svg-chevron-right' %}
               </a>
             </div>
@@ -869,6 +869,12 @@
       "id": "blacksun_blog_title",
       "label": "Tiêu đề section blog",
       "default": "Blacksun Club"
+    },
+    {
+      "type": "text",
+      "id": "blacksun_blog_view_all_text",
+      "label": "Tên nút xem tất cả",
+      "default": "Xem tất cả"
     },
     {
       "type": "range",
