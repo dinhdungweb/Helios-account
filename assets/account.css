@@ -580,7 +580,7 @@
 }
 
 .db-tier-progress-fill {
-  background: var(--db-accent);
+  background: var(--db-member-card-accent, #f2f2f2);
   height: 100%;
   transition: width 1s ease;
 }
@@ -604,7 +604,7 @@
 }
 
 .db-tier-points-value {
-  color: var(--db-accent);
+  color: var(--db-member-card-accent, #f2f2f2);
 }
 
 .db-club-stats {
@@ -1141,6 +1141,20 @@
 .dashboard-btn.outline:hover,
 .db-btn-outline:hover {
   background: var(--db-accent);
+  color: var(--db-black);
+}
+
+.db-card-action.db-products-view-all {
+  color: var(--db-member-card-accent, #f2f2f2);
+}
+
+.dashboard-btn.outline.db-products-view-all {
+  border-color: var(--db-member-card-accent, #f2f2f2);
+  color: var(--db-member-card-accent, #f2f2f2);
+}
+
+.dashboard-btn.outline.db-products-view-all:hover {
+  background: var(--db-member-card-accent, #f2f2f2);
   color: var(--db-black);
 }
 

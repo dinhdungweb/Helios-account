@@ -157,6 +157,7 @@
         "tier_member"
       ],
       "settings": {
+        "member_card_accent_color": "#f2f2f2",
         "show_card_flip_rewards": false,
         "card_flip_rewards_title": "BẠN ĐÃ SƯU TẦM ĐƯỢC",
         "show_card_flip_rewards_button": false,
@@ -167,6 +168,7 @@
         "card_flip_rewards_card_width": 210,
         "welcome_collection": "membership-product",
         "welcome_collection_title": "Sản phẩm đặc quyền member",
+        "welcome_collection_view_all_text": "Xem tất cả",
         "welcome_products_limit": 12,
         "blacksun_blog": "black-sun-club",
         "blacksun_blog_title": "",

@@ -137,7 +137,10 @@
 -%}
 
 {% comment %}=== DASHBOARD WRAPPER ==={% endcomment %}
-<div class="db-wrapper">
+<div
+  class="db-wrapper"
+  style="--db-member-card-accent: {{ section.settings.member_card_accent_color }};"
+>
 
   {% comment %}--- SIDEBAR ---{% endcomment %}
   {% render 'account-nav' %}
@@ -180,7 +183,7 @@
 
 
       {% comment %}--- Tier Card ---{% endcomment %}
-        <div class="db-card">
+        <div class="db-card db-tier-card">
           <div class="db-card-header">
             <h3 class="db-card-title">{{ tier }} Club</h3>
           </div>
@@ -527,8 +530,8 @@
             <div class="db-card">
               <div class="db-card-header">
                 <h3 class="db-card-title">{{ section.settings.welcome_collection_title | default: 'Sản Phẩm Đặc Quyền' }}</h3>
-                <a class="db-card-action db-card-action--arrow" href="{{ welcome_collection.url }}">
-                  Xem tất cả
+                <a class="db-card-action db-card-action--arrow db-products-view-all" href="{{ welcome_collection.url }}">
+                  {{ section.settings.welcome_collection_view_all_text | default: 'Xem tất cả' }}
                   {% render 'svg-chevron-right' %}
                 </a>
               </div>
@@ -543,8 +546,8 @@
                 </div>
                 {% if welcome_collection.products.size > products_limit %}
                   <div class="db-products-more">
-                    <a href="{{ welcome_collection.url }}" class="dashboard-btn outline">
-                      Xem tất cả {{ welcome_collection.title }}
+                    <a href="{{ welcome_collection.url }}" class="dashboard-btn outline db-products-view-all">
+                      {{ section.settings.welcome_collection_view_all_text | default: 'Xem tất cả' }}
                     </a>
                   </div>
                 {% endif %}
@@ -750,6 +753,16 @@
   "settings": [
     {
       "type": "header",
+      "content": "Thẻ thành viên"
+    },
+    {
+      "type": "color",
+      "id": "member_card_accent_color",
+      "label": "Màu nhấn (điểm, tiến trình và nút)",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "header",
       "content": "Thẻ đã lật"
     },
     {
@@ -825,6 +838,12 @@
       "id": "welcome_collection_title",
       "label": "Tiêu đề section",
       "default": "Sản Phẩm Dành Cho Bạn"
+    },
+    {
+      "type": "text",
+      "id": "welcome_collection_view_all_text",
+      "label": "Tên nút xem tất cả",
+      "default": "Xem tất cả"
     },
     {
       "type": "range",
