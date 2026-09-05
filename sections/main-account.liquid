@@ -591,32 +591,49 @@
       {% endif %}
 
       {% comment %}========== ROW 6: COMMUNITY =========={% endcomment %}
-      <div class="db-card" id="section-community">
-        <div class="db-card-header">
-          <h3 class="db-card-title">Helios Community</h3>
-        </div>
+      {% if section.settings.show_community %}
+      <div
+        class="db-card"
+        id="section-community"
+        style="--db-community-button-bg: {{ section.settings.community_button_bg_color }}; --db-community-button-text: {{ section.settings.community_button_text_color }};"
+      >
+        {% if section.settings.community_title != blank %}
+          <div class="db-card-header">
+            <h3 class="db-card-title">{{ section.settings.community_title }}</h3>
+          </div>
+        {% endif %}
         <div class="db-card-body">
           <div class="db-community-layout">
-            <div class="db-community-img">
-              <img 
-                src="https://cdn.shopify.com/s/files/1/0644/2958/8701/files/z6465765703069_030e64083cc975d6127ff8a441409631_95f8c0e0-1f78-4f16-b036-4de58aa1d26c.jpg?v=1743569814" 
-                alt="Helios Community"
-                width="1200"
-                height="800"
-                loading="lazy"
-              />
-            </div>
+            {% if section.settings.community_image != blank %}
+              <div class="db-community-img">
+                {{ section.settings.community_image
+                  | image_url: width: 1200
+                  | image_tag:
+                    alt: section.settings.community_image_alt,
+                    loading: 'lazy',
+                    widths: '480, 720, 960, 1200',
+                    sizes: '(max-width: 767px) 100vw, 40vw'
+                }}
+              </div>
+            {% endif %}
             <div class="db-community-text">
-              <p>Helios Club là cộng đồng dành riêng cho những người 'khác biệt'– những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê 'màu' Helios.</p>
-              <p>Đây là nơi để anh em chia sẻ trải nghiệm, kinh nghiệm sử dụng phụ kiện, những câu chuyện phía sau món đồ; đồng thời là không gian mở để đặt câu hỏi, tư vấn, trao đổi và thảo luận.</p>
-              <p>Nếu bạn yêu thích sự khác biệt: Chào mừng bạn đến với Helios Club!</p>
-              <a href="https://www.facebook.com/groups/508707569692422" target="_blank" class="dashboard-btn" style="margin-top:8px; align-self: flex-start;">
-                Tham gia ngay
-              </a>
+              {% if section.settings.community_content != blank %}
+                <div class="db-community-content rte">{{ section.settings.community_content }}</div>
+              {% endif %}
+              {% if section.settings.community_button_text != blank and section.settings.community_button_link != blank %}
+                <a
+                  href="{{ section.settings.community_button_link }}"
+                  class="dashboard-btn db-community-button"
+                  {% if section.settings.community_button_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+                  {{ section.settings.community_button_text }}
+                </a>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
+      {% endif %}
 
 
 
@@ -884,6 +901,68 @@
       "step": 1,
       "label": "Số lượng bài viết",
       "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Helios Community"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_community",
+      "label": "Hiển thị Helios Community",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "community_title",
+      "label": "Tiêu đề",
+      "default": "Helios Community"
+    },
+    {
+      "type": "image_picker",
+      "id": "community_image",
+      "label": "Hình ảnh"
+    },
+    {
+      "type": "text",
+      "id": "community_image_alt",
+      "label": "Mô tả hình ảnh",
+      "default": "Helios Community"
+    },
+    {
+      "type": "richtext",
+      "id": "community_content",
+      "label": "Nội dung",
+      "default": "<p>Helios Club là cộng đồng dành riêng cho những người 'khác biệt' – những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê 'màu' Helios.</p><p>Đây là nơi để anh em chia sẻ trải nghiệm, kinh nghiệm sử dụng phụ kiện, những câu chuyện phía sau món đồ; đồng thời là không gian mở để đặt câu hỏi, tư vấn, trao đổi và thảo luận.</p><p>Nếu bạn yêu thích sự khác biệt: Chào mừng bạn đến với Helios Club!</p>"
+    },
+    {
+      "type": "text",
+      "id": "community_button_text",
+      "label": "Tên nút",
+      "default": "Tham gia ngay"
+    },
+    {
+      "type": "url",
+      "id": "community_button_link",
+      "label": "Liên kết nút"
+    },
+    {
+      "type": "checkbox",
+      "id": "community_button_new_tab",
+      "label": "Mở liên kết trong tab mới",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "community_button_bg_color",
+      "label": "Màu nền nút",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "community_button_text_color",
+      "label": "Màu chữ nút",
+      "default": "#000000"
     }
   ],
   "blocks": [

@@ -173,7 +173,17 @@
         "blacksun_blog": "black-sun-club",
         "blacksun_blog_title": "",
         "blacksun_blog_view_all_text": "Xem tất cả",
-        "blacksun_blog_limit": 8
+        "blacksun_blog_limit": 8,
+        "show_community": true,
+        "community_title": "Helios Community",
+        "community_image": "shopify://shop_images/z6465765703069_030e64083cc975d6127ff8a441409631_95f8c0e0-1f78-4f16-b036-4de58aa1d26c.jpg",
+        "community_image_alt": "Helios Community",
+        "community_content": "<p>Helios Club là cộng đồng dành riêng cho những người 'khác biệt' – những anh em quan tâm đến thời trang, phụ kiện và đặc biệt là những ai đam mê 'màu' Helios.</p><p>Đây là nơi để anh em chia sẻ trải nghiệm, kinh nghiệm sử dụng phụ kiện, những câu chuyện phía sau món đồ; đồng thời là không gian mở để đặt câu hỏi, tư vấn, trao đổi và thảo luận.</p><p>Nếu bạn yêu thích sự khác biệt: Chào mừng bạn đến với Helios Club!</p>",
+        "community_button_text": "Tham gia ngay",
+        "community_button_link": "https://www.facebook.com/groups/508707569692422",
+        "community_button_new_tab": true,
+        "community_button_bg_color": "#fab320",
+        "community_button_text_color": "#000000"
       }
     },
     "rich_text_cnY8ed": {

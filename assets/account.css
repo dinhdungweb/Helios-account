@@ -1158,6 +1158,19 @@
   color: var(--db-black);
 }
 
+.dashboard-btn.db-community-button {
+  align-self: flex-start;
+  margin-top: 8px;
+  background: var(--db-community-button-bg, #fab320);
+  color: var(--db-community-button-text, #000000);
+}
+
+.dashboard-btn.db-community-button:hover {
+  background: var(--db-community-button-bg, #fab320);
+  color: var(--db-community-button-text, #000000);
+  opacity: 0.85;
+}
+
 /* Empty state */
 .db-empty {
   text-align: center;
