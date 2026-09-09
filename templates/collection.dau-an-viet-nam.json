@@ -302,7 +302,7 @@
       "name": "Centered Slide",
       "settings": {
         "desktop_gap": 8,
-        "desktop_slides": 1.6,
+        "desktop_slides": 1.8,
         "desktop_height": 800,
         "mobile_height": 350,
         "mobile_slides": 1.4,
