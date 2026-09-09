@@ -106,6 +106,14 @@
         "item_per_row_mobile": "1"
       }
     },
+    "custom_spacing_RmEgnP": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 25,
+        "mobile_spacing": 20
+      }
+    },
     "background_video_responsive_LPmckH": {
       "type": "background-video-responsive",
       "name": "Video responsive",
@@ -207,6 +215,7 @@
     "slideshow_7WFatB",
     "rich_text_tdqtUd",
     "grid_image_paMnHj",
+    "custom_spacing_RmEgnP",
     "background_video_responsive_LPmckH",
     "featured_collection_XTm4hY",
     "rich_text_QfVFJB",
