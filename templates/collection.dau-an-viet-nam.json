@@ -251,7 +251,7 @@
             "image_5": "shopify://shop_images/DSC00332-1_3x_optimized.webp",
             "link_5": "",
             "link_6": "",
-            "autoplay": true,
+            "autoplay": false,
             "duration": 25,
             "heading_font": "jost_n4",
             "background_color": "#000000",
