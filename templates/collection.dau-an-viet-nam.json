@@ -16,7 +16,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/banner_3x_optimized.webp",
-            "mobile_image": "shopify://shop_images/banner_d_c_optimized_2.webp",
+            "mobile_image": "shopify://shop_images/banner_landing_page_4x5_optimized.webp",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -301,7 +301,7 @@
       ],
       "name": "Centered Slide",
       "settings": {
-        "desktop_gap": 8,
+        "desktop_gap": 20,
         "desktop_slides": 1.8,
         "desktop_height": 900,
         "mobile_height": 350,
