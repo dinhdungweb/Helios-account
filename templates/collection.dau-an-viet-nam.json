@@ -9,11 +9,73 @@
  */
 {
   "sections": {
+    "slideshow_7WFatB": {
+      "type": "slideshow",
+      "blocks": {
+        "image_B4PMd3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner_web_optimized_2.webp",
+            "mobile_image": "shopify://shop_images/banner_d_c_optimized_2.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_B4PMd3"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "rich_text_tdqtUd": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "đúc non sông vào bạc - mang hành trình lên tay",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>Giữ trọn Việt Nam trong từng đường khắc, tạc nên ký ức qua từng khối bạc</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "main": {
       "type": "main-collection",
       "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
+        "show_collection_content": false,
+        "show_collection_image": false,
         "description_position": "top",
         "layout": "rows",
         "grid": 4,
@@ -36,6 +98,8 @@
     }
   },
   "order": [
+    "slideshow_7WFatB",
+    "rich_text_tdqtUd",
     "main"
   ]
 }
