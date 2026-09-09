@@ -276,6 +276,7 @@
     },
     "rich_text_7G7nfm": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -363,6 +364,7 @@
         "slide_jAtQtx",
         "slide_BUNLhE"
       ],
+      "disabled": true,
       "name": "Centered Slide",
       "settings": {
         "desktop_gap": 20,
