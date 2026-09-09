@@ -78,7 +78,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/NH_NH_G_M-C1-fix-1x1_optimized.webp",
-            "hover_image": "shopify://shop_images/Frame_4x1_optimized.png",
+            "hover_image": "shopify://shop_images/Frame_4x1_optimized.jpg",
             "link": "shopify://products/ho-guom-ring-ha-noi-signature",
             "text": "XEM THÊM"
           }
@@ -87,7 +87,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/NH_NCH_B_NTHANH-c1-2_optimized.webp",
-            "hover_image": "shopify://shop_images/Frame_4x_optimized.png",
+            "hover_image": "shopify://shop_images/Frame_4x_optimized.jpg",
             "link": "shopify://products/ben-thanh-ring-ho-chi-minh-city-signature",
             "text": "XEM THÊM"
           }
