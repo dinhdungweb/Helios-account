@@ -292,7 +292,12 @@
   #ImageMarquee-{{ section.id }}.image-marquee--static .image-marquee__viewport {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #ImageMarquee-{{ section.id }}.image-marquee--static .image-marquee__viewport::-webkit-scrollbar {
+    display: none;
   }
 
   #ImageMarquee-{{ section.id }}.image-marquee--static .image-marquee__track {
@@ -342,11 +347,18 @@
     }
   }
 
+  {%- if section.settings.respect_reduced_motion -%}
   @media (prefers-reduced-motion: reduce) {
     #ImageMarquee-{{ section.id }} .image-marquee__viewport {
       overflow-x: auto;
       -webkit-mask-image: none;
       mask-image: none;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    #ImageMarquee-{{ section.id }} .image-marquee__viewport::-webkit-scrollbar {
+      display: none;
     }
 
     #ImageMarquee-{{ section.id }} .image-marquee__track {
@@ -363,6 +375,7 @@
       transition: none;
     }
   }
+  {%- endif -%}
 {% endstyle %}
 
 <script>
@@ -604,6 +617,13 @@
       "id": "pause_on_hover",
       "label": "Dừng khi rê chuột / focus",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "respect_reduced_motion",
+      "label": "Tôn trọng chế độ giảm chuyển động",
+      "info": "Nếu bật, marquee sẽ dừng khi thiết bị yêu cầu giảm chuyển động.",
+      "default": false
     },
     {
       "type": "checkbox",
