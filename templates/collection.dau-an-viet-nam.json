@@ -233,6 +233,70 @@
         "color_text": ""
       }
     },
+    "17889457271400845f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_6fab907_yg8TRF": {
+          "type": "ai_gen_block_6fab907",
+          "settings": {
+            "heading": "",
+            "image_1": "shopify://shop_images/DSC00189_3x_optimized.webp",
+            "link_1": "",
+            "image_2": "shopify://shop_images/DSC00449-1_3x_optimized.webp",
+            "link_2": "",
+            "image_3": "shopify://shop_images/DSC00245_3x_optimized.webp",
+            "link_3": "",
+            "image_4": "shopify://shop_images/DSC00281_3x_optimized.webp",
+            "link_4": "",
+            "image_5": "shopify://shop_images/DSC00332-1_3x_optimized.webp",
+            "link_5": "",
+            "link_6": "",
+            "autoplay": true,
+            "duration": 25,
+            "heading_font": "jost_n4",
+            "background_color": "#000000",
+            "heading_color": "#f2f2f2",
+            "desktop_width_percent": 100,
+            "image_width": 420,
+            "mobile_image_width": 180,
+            "image_gap": 12,
+            "heading_size": 18,
+            "mobile_heading_size": 14,
+            "vertical_padding": 24,
+            "mobile_padding": 16,
+            "heading_gap": 16
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_6fab907_yg8TRF"
+      ],
+      "settings": {}
+    },
+    "rich_text_7G7nfm": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "ĐEM THEO DẤU ẤN",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "centered_slide_iBKDpE": {
       "type": "centered-slide",
       "blocks": {
@@ -315,6 +379,68 @@
         "mobile_side_blur": 3,
         "mobile_side_scale": 94
       }
+    },
+    "custom_spacing_eqm3x7": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
+      }
+    },
+    "image_with_text_pVqVxD": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "CÂU CHUYỆN TỪ CHẤT LIỆU TẠO NÊN CÁI NHÌN ĐẦY CHIÊM NGHIỆM",
+        "title_size": 26,
+        "title_width": 40,
+        "text": "<p>HELIOS chọn bạc S925 bởi độ bền và tính thẩm mỹ cao, để có thể đi cùng người đàn ông qua năm tháng, giữ lại trên bề mặt những va chạm, ký ức của hành trình. Mỗi thiết kế mang một dấu ấn độc bản.</p><p>Lớp xi đen như một “lớp phủ thời gian”, tiết chế hào nhoáng để nổi bật chiều sâu trải nghiệm. Và với HELIOS, chất liệu bền vững chính là hành trang tạo nên một cái nhìn trầm ẩn, nam tính.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "image": "shopify://shop_images/Frame_3x_optimized.webp",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "custom_spacing_pQc4DT": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
+      }
+    },
+    "image_with_text_Ubkhgw": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "10 NĂM HÀNH TRÌNHCHẾ TÁC THỦ CÔNG BẠC",
+        "title_size": 26,
+        "title_width": 40,
+        "text": "<p>Mỗi món trang sức của Helios đều được chế tác thủ công bởi người thợ kim hoàn lành nghề, mang trọn tâm huyết và niềm đam mê  trong từng nét chạm khắc tỉ mỉ.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "image": "shopify://shop_images/Frame_3x_optimized.webp",
+        "image_width": 100,
+        "image_position": "left",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -327,6 +453,12 @@
     "rich_text_QfVFJB",
     "background_video_responsive_fb8J6K",
     "rich_text_QnMTxf",
-    "centered_slide_iBKDpE"
+    "17889457271400845f",
+    "rich_text_7G7nfm",
+    "centered_slide_iBKDpE",
+    "custom_spacing_eqm3x7",
+    "image_with_text_pVqVxD",
+    "custom_spacing_pQc4DT",
+    "image_with_text_Ubkhgw"
   ]
 }
