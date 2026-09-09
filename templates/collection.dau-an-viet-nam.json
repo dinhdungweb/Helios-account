@@ -331,7 +331,7 @@
         "gap_desktop": 20,
         "gap_mobile": 14,
         "image_height_desktop": 550,
-        "image_height_mobile": 160,
+        "image_height_mobile": 300,
         "image_fit": "cover",
         "enable_animation": true,
         "direction": "left",
