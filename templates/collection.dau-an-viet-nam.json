@@ -521,7 +521,7 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "image": "shopify://shop_images/Frame_3x_optimized.webp",
+        "video_shopify": "shopify://files/videos/Chế tác NQSH_optimized.webm",
         "image_width": 100,
         "image_position": "left",
         "media_size": "contain",
