@@ -78,6 +78,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/NH_NH_G_M-C1-fix-1x1_optimized.webp",
+            "hover_image": "shopify://shop_images/Frame_3x_optimized.webp",
             "link": "shopify://products/ho-guom-ring-ha-noi-signature",
             "text": "XEM THÊM"
           }
