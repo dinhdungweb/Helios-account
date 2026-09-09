@@ -374,7 +374,7 @@
         "transition_speed": 550,
         "show_arrows": false,
         "show_mobile_arrows": false,
-        "show_dots": true,
+        "show_dots": false,
         "mobile_side_opacity": 45,
         "mobile_side_blur": 3,
         "mobile_side_scale": 94
