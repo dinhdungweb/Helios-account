@@ -155,6 +155,52 @@
         "alternate_bg_color": false,
         "show_view_all": false
       }
+    },
+    "rich_text_QfVFJB": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "Đeo lên là mang theo một phần gốc rễ: nơi mình sinh ra,nơi mình thuộc về, và nơi vẫn âm thầm tạo nên bản lĩnhcủa mình qua từng năm tháng.",
+        "title_size": 20,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "background_video_responsive_fb8J6K": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": false,
+        "section_width": 840,
+        "video_full_vh": false,
+        "video_size": "original",
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/VID VFX NQSH Tết Bính Ngọ (online-video-cutter.com)_optimized.webm",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -162,6 +208,8 @@
     "rich_text_tdqtUd",
     "grid_image_paMnHj",
     "background_video_responsive_LPmckH",
-    "featured_collection_XTm4hY"
+    "featured_collection_XTm4hY",
+    "rich_text_QfVFJB",
+    "background_video_responsive_fb8J6K"
   ]
 }
