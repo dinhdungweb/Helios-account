@@ -209,6 +209,29 @@
         "button_label": "",
         "button_link": ""
       }
+    },
+    "rich_text_QnMTxf": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "Không hô hào. Chỉ giữ lại. Yêu nước không phải lúc nào cũng ồn ào Đủ lặng, nhưng đủ nặng để bên mình mỗi ngày",
+        "title_size": 20,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -219,6 +242,7 @@
     "background_video_responsive_LPmckH",
     "featured_collection_XTm4hY",
     "rich_text_QfVFJB",
-    "background_video_responsive_fb8J6K"
+    "background_video_responsive_fb8J6K",
+    "rich_text_QnMTxf"
   ]
 }
