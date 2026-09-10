@@ -246,10 +246,10 @@
     "image_marquee_MgwdYR": {
       "type": "image-marquee",
       "blocks": {
-        "image_XJC9Mb": {
+        "image_Dp7LRd": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC00189_3x_optimized.webp",
+            "image": "shopify://shop_images/2aoboqxzqrfjzfoqucuy6ctjfc1zceoj8n3yxkv62_optimized.webp",
             "alt_text": "",
             "caption": "",
             "link": "",
@@ -259,10 +259,23 @@
             "rotation": 0
           }
         },
-        "image_Dp7LRd": {
+        "image_6C6Fr8": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC00449-1_3x_optimized.webp",
+            "image": "shopify://shop_images/2aoboqxadmkmx86d3kryoo6dtiffrrb3nqbtq9ee4_optimized.webp",
+            "alt_text": "",
+            "caption": "",
+            "link": "",
+            "open_new_tab": false,
+            "width_desktop": 400,
+            "width_mobile": 220,
+            "rotation": 0
+          }
+        },
+        "image_XJC9Mb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2aoboqxzqsu8dgllkwnwghjytvar08c83dbvehna3_optimized.webp",
             "alt_text": "",
             "caption": "",
             "link": "",
@@ -275,7 +288,7 @@
         "image_zGazqY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC00245_3x_optimized.webp",
+            "image": "shopify://shop_images/2aoboqxadmtd32jfql93bw3paejqhoveb1j3powo5_optimized.webp",
             "alt_text": "",
             "caption": "",
             "link": "",
@@ -288,7 +301,20 @@
         "image_QLkCaN": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC00281_3x_optimized.webp",
+            "image": "shopify://shop_images/2aoboqxadmbkb7e92k4blhvhiibkzxbzjqgiwepi6_optimized.webp",
+            "alt_text": "",
+            "caption": "",
+            "link": "",
+            "open_new_tab": false,
+            "width_desktop": 400,
+            "width_mobile": 220,
+            "rotation": 0
+          }
+        },
+        "image_NCMLPG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2aoboqxadmoshcnnwdnwt9ppvmhux5bavuepxtio7_optimized.webp",
             "alt_text": "",
             "caption": "",
             "link": "",
@@ -301,7 +327,7 @@
         "image_EnbEnz": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC00332-1_3x_optimized.webp",
+            "image": "shopify://shop_images/2aoboqxzqr393nda9a2fkfcm8fji6wxqxgtlqqss1_optimized.webp",
             "alt_text": "",
             "caption": "",
             "link": "",
@@ -313,10 +339,12 @@
         }
       },
       "block_order": [
-        "image_XJC9Mb",
         "image_Dp7LRd",
+        "image_6C6Fr8",
+        "image_XJC9Mb",
         "image_zGazqY",
         "image_QLkCaN",
+        "image_NCMLPG",
         "image_EnbEnz"
       ],
       "name": "Image marquee",
