@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_RnWgY3": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "full_width": true,
@@ -55,12 +56,12 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
-        "image_KarRwm": {
+        "image_HkUphA": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Banner_wweb_NQSH_19x9_optimized.avif",
-            "mobile_image": "shopify://shop_images/Banner_wweb_NQSH_9x16_optimized.jpg",
-            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "image": "shopify://shop_images/banner_ngang_landing_page_optimized.webp",
+            "mobile_image": "shopify://shop_images/banner_landing_page_4x5_1__optimized.webp",
+            "slide_link": "shopify://collections/dau-an-viet-nam",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -73,12 +74,12 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
-        "image_HkUphA": {
+        "image_KarRwm": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/19X9_BANNER_NQSH_1__optimized_2.jpg",
-            "mobile_image": "shopify://shop_images/namquocsonha_optimized.jpg",
-            "slide_link": "shopify://collections/nam-quoc-son-ha-chuong-2",
+            "image": "shopify://shop_images/2aoboqxanxjosxjbpilnbhfkmdebz0d9jjvdfh0k9.jpg",
+            "mobile_image": "shopify://shop_images/nh_bia_4x5_1.jpg",
+            "slide_link": "shopify://collections/all-products",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -170,14 +171,13 @@
       },
       "block_order": [
         "image_nNNj6R",
-        "image_KarRwm",
         "image_HkUphA",
+        "image_KarRwm",
         "image_qbHR3Y",
         "image_3Aawga",
         "image_nw333M",
         "image_hgGRLc"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
