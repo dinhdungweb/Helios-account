@@ -48,67 +48,6 @@
         "autoplay_speed": 7
       }
     },
-    "rich_text_tdqtUd": {
-      "type": "rich-text",
-      "disabled": true,
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "đúc non sông vào bạc - mang hành trình lên tay",
-        "title_size": 26,
-        "title_width": 40,
-        "heading_h1": false,
-        "text": "<p>Giữ trọn Việt Nam trong từng đường khắc, tạc nên ký ức qua từng khối bạc</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "grid_image_paMnHj": {
-      "type": "grid-image",
-      "blocks": {
-        "image_pLYzjg": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/NH_NH_G_M-C1-fix-1x1_optimized.webp",
-            "hover_image": "shopify://shop_images/Frame_4x1_optimized.jpg",
-            "link": "shopify://products/ho-guom-ring-ha-noi-signature",
-            "text": "XEM THÊM"
-          }
-        },
-        "image_JpWTFr": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/NH_NCH_B_NTHANH-c1-2_optimized.webp",
-            "hover_image": "shopify://shop_images/Frame_4x_optimized.jpg",
-            "link": "shopify://products/ben-thanh-ring-ho-chi-minh-city-signature",
-            "text": "XEM THÊM"
-          }
-        }
-      },
-      "block_order": [
-        "image_pLYzjg",
-        "image_JpWTFr"
-      ],
-      "name": "Image Grid",
-      "settings": {
-        "show_on_desktop": true,
-        "show_on_mobile": true,
-        "grid_image_full_width": false,
-        "grid_image_with": 1400,
-        "item_for_row": 2,
-        "item_ratio": "1/1",
-        "item_per_row_mobile": "1"
-      }
-    },
     "image_with_text_Ubkhgw": {
       "type": "image-with-text",
       "name": "Media with text",
@@ -168,93 +107,16 @@
         "show_view_all": false
       }
     },
-    "background_video_responsive_LPmckH": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "full_width": true,
-        "section_width": 1400,
-        "video_full_vh": false,
-        "video_size": "original",
-        "video_height_desktop": 700,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/27d27a17013f4354b2e9b45322edaf67.HD-720p-3.0Mbps-81601518.mp4",
-        "video_external_desktop": "",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
-    "rich_text_QfVFJB": {
+    "rich_text_tdqtUd": {
       "type": "rich-text",
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "Đeo lên là mang theo một phần gốc rễ: nơi mình sinh ra,nơi mình thuộc về, và nơi vẫn âm thầm tạo nên bản lĩnh của mình qua từng năm tháng.",
-        "title_size": 20,
+        "title": "không hô hào, chỉ giữ lại.",
+        "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
-        "text": "",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "background_video_responsive_fb8J6K": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "full_width": false,
-        "section_width": 840,
-        "video_full_vh": false,
-        "video_size": "original",
-        "video_height_desktop": 700,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/Dấu ấn VN.mov",
-        "video_external_desktop": "",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
-    "custom_spacing_mbMPG8": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 40,
-        "mobile_spacing": 20
-      }
-    },
-    "rich_text_QnMTxf": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "Không hô hào. Chỉ giữ lại. Yêu nước không phải lúc nào cũng ồn ào Đủ lặng, nhưng đủ nặng để bên mình mỗi ngày",
-        "title_size": 20,
-        "title_width": 40,
-        "heading_h1": false,
-        "text": "",
+        "text": "<p>Yêu nước không phải lúc nào cũng ồn ào</p><p>Đủ lặng nhưng đủ nặng để bên mình mỗi ngày</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
@@ -415,6 +277,245 @@
         "padding_horizontal_mobile": 12
       }
     },
+    "background_video_responsive_LPmckH": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": true,
+        "section_width": 1400,
+        "video_full_vh": false,
+        "video_size": "original",
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/27d27a17013f4354b2e9b45322edaf67.HD-720p-3.0Mbps-81601518.mp4",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "rich_text_QfVFJB": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "có những dấu ấn chỉ có thể cảm nhận trọn vẹnkhi trực tiếp chạm vào từng chi tiết",
+        "title_size": 20,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "grid_image_paMnHj": {
+      "type": "grid-image",
+      "blocks": {
+        "image_pLYzjg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/NH_NH_G_M-C1-fix-1x1_optimized.webp",
+            "hover_image": "shopify://shop_images/Frame_4x1_optimized.jpg",
+            "link": "shopify://products/ho-guom-ring-ha-noi-signature",
+            "text": "XEM THÊM"
+          }
+        },
+        "image_JpWTFr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/NH_NCH_B_NTHANH-c1-2_optimized.webp",
+            "hover_image": "shopify://shop_images/Frame_4x_optimized.jpg",
+            "link": "shopify://products/ben-thanh-ring-ho-chi-minh-city-signature",
+            "text": "XEM THÊM"
+          }
+        }
+      },
+      "block_order": [
+        "image_pLYzjg",
+        "image_JpWTFr"
+      ],
+      "name": "Image Grid",
+      "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
+        "grid_image_full_width": false,
+        "grid_image_with": 1400,
+        "item_for_row": 2,
+        "item_ratio": "1/1",
+        "item_per_row_mobile": "1"
+      }
+    },
+    "multi_media_with_text_krFxjD": {
+      "type": "multi-media-with-text",
+      "blocks": {
+        "media_76JR9J": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_JzqLa3": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "media_76JR9J",
+        "media_JzqLa3"
+      ],
+      "name": "Multi media with text",
+      "settings": {
+        "eyebrow": "",
+        "heading": "MANG THEO DẤU ẤN CỦA TỔ QUỐC",
+        "heading_tag": "h2",
+        "text": "<p>HELIOS chọn bạc S925 vì độ bền và tính thẩm mỹ cao,<br/>đồng hành cùng người đeo qua năm tháng, giữ lại<br/>trên bề mặt những va chạm, ký ức của hành trình. </p><p>Đeo lên là mang theo một phần gốc rễ: nơi mình sinh<br/>ra,nơi mình thuộc về, và nơi vẫn âm thầm tạo nên<br/>bản lĩnh của mình qua từng năm tháng.o.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_new_tab": false,
+        "media_position": "right",
+        "text_width": 40,
+        "text_alignment": "left",
+        "text_vertical_alignment": "center",
+        "text_max_width": 480,
+        "column_gap": 56,
+        "content_gap_mobile": 28,
+        "mobile_static_layout": "row",
+        "full_width": false,
+        "container_width": 1400,
+        "min_height": 520,
+        "media_ratio": "3 / 4",
+        "media_ratio_mobile": "3 / 4",
+        "media_fit": "cover",
+        "media_gap": 16,
+        "media_radius": 0,
+        "video_autoplay": true,
+        "video_loop": true,
+        "video_muted": true,
+        "video_controls": false,
+        "show_arrows": true,
+        "show_dots": false,
+        "carousel_autoplay": false,
+        "carousel_autoplay_speed": 5,
+        "carousel_transition_duration": 700,
+        "controls_position": "right",
+        "controls_spacing": 16,
+        "arrow_size": 40,
+        "arrow_inset": 12,
+        "arrow_radius": 50,
+        "dot_size": 8,
+        "eyebrow_size": 13,
+        "eyebrow_weight": "700",
+        "eyebrow_transform": "uppercase",
+        "eyebrow_letter_spacing": 3,
+        "eyebrow_spacing": 12,
+        "heading_size": 28,
+        "heading_size_mobile": 24,
+        "heading_weight": "700",
+        "heading_line_height": 120,
+        "heading_letter_spacing": 0,
+        "heading_spacing": 16,
+        "body_size": 14,
+        "body_size_mobile": 14,
+        "body_line_height": 160,
+        "button_style": "solid",
+        "button_spacing": 24,
+        "button_size": 14,
+        "button_weight": "600",
+        "button_height": 44,
+        "button_horizontal_padding": 24,
+        "button_radius": 0,
+        "background_color": "#000000",
+        "heading_color": "#ffffff",
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff",
+        "media_background": "#1b1b1b",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "button_border_color": "#ffffff",
+        "control_color": "#ffffff",
+        "control_background": "#000000",
+        "remove_bottom_spacing": false,
+        "padding_top": 32,
+        "padding_bottom": 64,
+        "side_padding": 40,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24,
+        "side_padding_mobile": 10
+      }
+    },
+    "background_video_responsive_fb8J6K": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": false,
+        "section_width": 840,
+        "video_full_vh": false,
+        "video_size": "original",
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Dấu ấn VN.mov",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "rich_text_QnMTxf": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "Giữ trọn Việt Nam trong từng đường khắc,<br>tạc nên ký ức qua từng khối bạc",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "rich_text_7G7nfm": {
       "type": "rich-text",
       "disabled": true,
@@ -530,56 +631,23 @@
         "desktop_spacing": 40,
         "mobile_spacing": 20
       }
-    },
-    "image_with_text_pVqVxD": {
-      "type": "image-with-text",
-      "name": "Media with text",
-      "settings": {
-        "subheading": "",
-        "title": "CÂU CHUYỆN TỪ CHẤT LIỆU TẠO NÊN CÁI NHÌN ĐẦY CHIÊM NGHIỆM",
-        "title_size": 26,
-        "title_width": 40,
-        "text": "<p>HELIOS chọn bạc S925 bởi độ bền và tính thẩm mỹ cao, để có thể đi cùng người đàn ông qua năm tháng, giữ lại trên bề mặt những va chạm, ký ức của hành trình. Mỗi thiết kế mang một dấu ấn độc bản.</p><p>Lớp xi đen như một “lớp phủ thời gian”, tiết chế hào nhoáng để nổi bật chiều sâu trải nghiệm. Và với HELIOS, chất liệu bền vững chính là hành trang tạo nên một cái nhìn trầm ẩn, nam tính.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "image": "shopify://shop_images/Frame_3x_optimized.webp",
-        "image_width": 100,
-        "image_position": "right",
-        "media_size": "contain",
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "custom_spacing_pQc4DT": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 40,
-        "mobile_spacing": 20
-      }
     }
   },
   "order": [
     "slideshow_7WFatB",
-    "rich_text_tdqtUd",
-    "grid_image_paMnHj",
     "image_with_text_Ubkhgw",
     "custom_spacing_RmEgnP",
     "featured_collection_XTm4hY",
+    "rich_text_tdqtUd",
+    "image_marquee_MgwdYR",
     "background_video_responsive_LPmckH",
     "rich_text_QfVFJB",
+    "grid_image_paMnHj",
+    "multi_media_with_text_krFxjD",
     "background_video_responsive_fb8J6K",
-    "custom_spacing_mbMPG8",
     "rich_text_QnMTxf",
-    "image_marquee_MgwdYR",
     "rich_text_7G7nfm",
     "centered_slide_iBKDpE",
-    "custom_spacing_eqm3x7",
-    "image_with_text_pVqVxD",
-    "custom_spacing_pQc4DT"
+    "custom_spacing_eqm3x7"
   ]
 }
