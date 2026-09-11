@@ -64,76 +64,74 @@
     },
     "custom_spacing_pWXUVM": {
       "type": "custom-spacing",
+      "disabled": true,
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 0,
         "mobile_spacing": 40
       }
     },
-    "background_video_responsive_ewgPfw": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "full_width": false,
-        "section_width": 1400,
-        "video_full_vh": false,
-        "video_size": "original",
-        "video_height_desktop": 200,
-        "video_height_mobile": 500,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_external_desktop": "",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
-        "title_image_width_desktop": 290,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
-    "media_text_block_DV4tJR": {
-      "type": "media-text-block",
-      "name": "Media Text Block",
+    "rich_text_z8Hb9T": {
+      "type": "rich-text",
+      "name": "Rich text",
       "settings": {
         "subheading": "",
-        "heading": "những cuộc gặp đã trở thành một phần của hành trình.",
-        "heading_tag": "h2",
-        "heading_size": 26,
-        "heading_alignment": "left",
-        "description": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.</p>",
-        "text_alignment": "left",
-        "content_padding": 40,
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "",
+        "image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
+        "image_width": 250,
         "button_label": "",
         "button_link": "",
-        "button_style": "solid",
-        "button_open_new": false,
-        "button_label_2": "",
-        "button_link_2": "",
-        "button_style_2": "outline",
-        "button_open_new_2": false,
-        "media_type": "image",
-        "media_position": "left",
-        "media_layout": "contained",
-        "media_image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
-        "media_image_mobile": "shopify://shop_images/lil_wuyn_x_helios-01.png",
-        "image_width_desktop": 55,
-        "image_width_mobile": 55,
-        "image_alignment": "center",
-        "video_url": "",
-        "video_url_mobile": "",
-        "video_loop": true,
-        "media_ratio": "auto",
-        "section_height": "auto",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0,
-        "heading_color": "#ffffff",
-        "text_color": "#ffffff",
-        "button_bg": "#ffffff",
-        "button_text_color": "#111111",
-        "button_bg_hover": "#eeeeee",
-        "button_text_color_hover": "#ffffff"
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "slideshow_LHcr6x": {
+      "type": "slideshow",
+      "blocks": {
+        "image_bUbEnk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_12_1__optimized.webp",
+            "mobile_image": "shopify://shop_images/image_12_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "những cuộc gặp đã trở thành một phần của hành trình.",
+            "title_size": 26,
+            "title_width": 20,
+            "heading_h1": false,
+            "text": "<p>Trong 10 năm, HELIOS bước ra khỏi phạm vi của một món bạc để gặp âm nhạc, điện ảnh, võ thuật, cộng đồng và những con người có cùng nhịp.</p>",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--left position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--bottom-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_bUbEnk"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "featured_collection_YGpxHE": {
@@ -513,8 +511,8 @@
     "background_video_responsive_8JzqBG",
     "image_with_text_EEdQ8y",
     "custom_spacing_pWXUVM",
-    "background_video_responsive_ewgPfw",
-    "media_text_block_DV4tJR",
+    "rich_text_z8Hb9T",
+    "slideshow_LHcr6x",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
     "custom_spacing_46R8JU",
