@@ -134,6 +134,29 @@
         "autoplay_speed": 7
       }
     },
+    "rich_text_AjGwF8": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "NHỮNG DẤU ẤN MANG THEO",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "featured_collection_YGpxHE": {
       "type": "featured-collection",
       "name": "Featured collection",
@@ -604,6 +627,7 @@
     "custom_spacing_pWXUVM",
     "rich_text_z8Hb9T",
     "slideshow_LHcr6x",
+    "rich_text_AjGwF8",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
     "custom_spacing_46R8JU",
