@@ -435,11 +435,24 @@
             "link_label": "",
             "new_tab": false
           }
+        },
+        "media_ANDwpE": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/2-2_1_fb43513c-16fd-4b8d-a87e-87dbc458b54d.jpg",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
         }
       },
       "block_order": [
         "media_NLghH8",
-        "media_bT38zp"
+        "media_bT38zp",
+        "media_ANDwpE"
       ],
       "name": "Multi media with text",
       "settings": {
