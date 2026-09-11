@@ -51,12 +51,12 @@
     "image_with_text_Ubkhgw": {
       "type": "image-with-text",
       "custom_css": [
-        "@media screen and (min-width: 768px) {.section-spacing-sm {padding-top: 50px; padding-bottom: 0px;}}"
+        "@media screen and (min-width: 768px) {.section-spacing-sm {padding-top: 50px; padding-bottom: 0px; }}"
       ],
       "name": "Media with text",
       "settings": {
         "subheading": "",
-        "title": "đúc non sông vào bạcmang hành trình lên tay",
+        "title": "đúc non sông vào bạc<br> mang hành trình lên tay",
         "title_size": 26,
         "title_width": 40,
         "text": "<p>Núi non, sông nước, một góc phố quen,</p><p>những biểu tượng mang theo cả ký ức.</p><p>Mỗi thiết kế là một phần lãnh thổ được tạc lên bạc,</p><p>trở thành dấu ấn đồng hành mỗi ngày</p>",
