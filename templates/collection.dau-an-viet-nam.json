@@ -62,7 +62,7 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "video_shopify": "shopify://files/videos/Chế tác NQSH_optimized.webm",
+        "video_shopify": "shopify://files/videos/0911_optimized.webm",
         "image_width": 75,
         "image_position": "right",
         "media_size": "contain",
@@ -383,6 +383,7 @@
           "type": "media",
           "settings": {
             "media_type": "image",
+            "image": "shopify://shop_images/Dungg_optimized.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -394,6 +395,67 @@
           "type": "media",
           "settings": {
             "media_type": "image",
+            "image": "shopify://shop_images/Qu_nh_Qu_nh_2_optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_EJghQC": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Trung_L_ng_optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_GYwqmr": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Trung_Nghia_optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_FfPwqe": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Qu_nh_Qu_nh_1_optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_FCRhje": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Ph_m_Qu_c_Duy_optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_zrpjLD": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Tr_n_Binh_optimized.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -404,7 +466,12 @@
       },
       "block_order": [
         "media_76JR9J",
-        "media_JzqLa3"
+        "media_JzqLa3",
+        "media_EJghQC",
+        "media_GYwqmr",
+        "media_FfPwqe",
+        "media_FCRhje",
+        "media_zrpjLD"
       ],
       "name": "Multi media with text",
       "settings": {
