@@ -134,6 +134,14 @@
         "autoplay_speed": 7
       }
     },
+    "custom_spacing_pFBXtr": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 20
+      }
+    },
     "rich_text_AjGwF8": {
       "type": "rich-text",
       "name": "Rich text",
@@ -627,6 +635,7 @@
     "custom_spacing_pWXUVM",
     "rich_text_z8Hb9T",
     "slideshow_LHcr6x",
+    "custom_spacing_pFBXtr",
     "rich_text_AjGwF8",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
