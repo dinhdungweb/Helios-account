@@ -70,6 +70,29 @@
         "mobile_spacing": 40
       }
     },
+    "background_video_responsive_ewgPfw": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": false,
+        "section_width": 1400,
+        "video_full_vh": false,
+        "video_size": "original",
+        "video_height_desktop": 200,
+        "video_height_mobile": 500,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image": "shopify://shop_images/lil_wuyn_x_helios-01.png",
+        "title_image_width_desktop": 290,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
     "media_text_block_DV4tJR": {
       "type": "media-text-block",
       "name": "Media Text Block",
@@ -490,6 +513,7 @@
     "background_video_responsive_8JzqBG",
     "image_with_text_EEdQ8y",
     "custom_spacing_pWXUVM",
+    "background_video_responsive_ewgPfw",
     "media_text_block_DV4tJR",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
