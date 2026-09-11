@@ -51,7 +51,8 @@
     "image_with_text_Ubkhgw": {
       "type": "image-with-text",
       "custom_css": [
-        "@media screen and (min-width: 768px) {.section-spacing-sm {padding-top: 50px; padding-bottom: 0px; }}"
+        "@media screen and (min-width: 768px) {.section-spacing-sm {padding-top: 50px; padding-bottom: 0px; }}",
+        "@media screen and (max-width: 768px) {.padded-block-y {padding: 20px 10px;}}"
       ],
       "name": "Media with text",
       "settings": {
