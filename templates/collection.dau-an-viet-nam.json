@@ -277,6 +277,14 @@
         "padding_horizontal_mobile": 12
       }
     },
+    "custom_spacing_jmCpdL": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 35,
+        "mobile_spacing": 20
+      }
+    },
     "background_video_responsive_LPmckH": {
       "type": "background-video-responsive",
       "name": "Video responsive",
@@ -298,6 +306,14 @@
         "description": "",
         "button_label": "",
         "button_link": ""
+      }
+    },
+    "custom_spacing_RDRcVJ": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 25,
+        "mobile_spacing": 20
       }
     },
     "rich_text_QfVFJB": {
@@ -640,7 +656,9 @@
     "featured_collection_XTm4hY",
     "rich_text_tdqtUd",
     "image_marquee_MgwdYR",
+    "custom_spacing_jmCpdL",
     "background_video_responsive_LPmckH",
+    "custom_spacing_RDRcVJ",
     "rich_text_QfVFJB",
     "grid_image_paMnHj",
     "multi_media_with_text_krFxjD",
