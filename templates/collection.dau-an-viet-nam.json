@@ -112,11 +112,11 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "không hô hào, chỉ giữ lại.",
+        "title": "không hô hào, chỉ giữ lại",
         "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
-        "text": "<p>Yêu nước không phải lúc nào cũng ồn ào</p><p>Đủ lặng nhưng đủ nặng để bên mình mỗi ngày</p>",
+        "text": "<p>Yêu nước không phải lúc nào cũng ồn ào. Đủ lặng nhưng đủ nặng để bên mình mỗi ngày</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
