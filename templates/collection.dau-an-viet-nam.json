@@ -305,8 +305,8 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "có những dấu ấn chỉ có thể cảm nhận trọn vẹnkhi trực tiếp chạm vào từng chi tiết",
-        "title_size": 20,
+        "title": "có những dấu ấn chỉ có thể cảm nhận trọn vẹn<br>khi trực tiếp chạm vào từng chi tiết",
+        "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
         "text": "",
