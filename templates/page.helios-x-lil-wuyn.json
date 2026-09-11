@@ -267,6 +267,7 @@
     },
     "rich_text_XhpKLy": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
