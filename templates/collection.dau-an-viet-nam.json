@@ -50,6 +50,7 @@
     },
     "rich_text_tdqtUd": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -108,35 +109,36 @@
         "item_per_row_mobile": "1"
       }
     },
+    "image_with_text_Ubkhgw": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "đúc non sông vào bạc - mang hành trình lên tay",
+        "title_size": 26,
+        "title_width": 40,
+        "text": "<p>Núi non, sông nước, một góc phố quen,</p><p>những biểu tượng mang theo cả ký ức.</p><p>Mỗi thiết kế là một phần lãnh thổ được tạc lên bạc,</p><p>trở thành dấu ấn đồng hành mỗi ngày</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "video_shopify": "shopify://files/videos/Chế tác NQSH_optimized.webm",
+        "image_width": 100,
+        "image_position": "right",
+        "media_size": "contain",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "custom_spacing_RmEgnP": {
       "type": "custom-spacing",
+      "disabled": true,
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 25,
         "mobile_spacing": 20
-      }
-    },
-    "background_video_responsive_LPmckH": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "full_width": true,
-        "section_width": 1400,
-        "video_full_vh": false,
-        "video_size": "original",
-        "video_height_desktop": 700,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/27d27a17013f4354b2e9b45322edaf67.HD-720p-3.0Mbps-81601518.mp4",
-        "video_external_desktop": "",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
       }
     },
     "featured_collection_XTm4hY": {
@@ -164,6 +166,29 @@
         "hide_swatches": false,
         "alternate_bg_color": false,
         "show_view_all": false
+      }
+    },
+    "background_video_responsive_LPmckH": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": true,
+        "section_width": 1400,
+        "video_full_vh": false,
+        "video_size": "original",
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/27d27a17013f4354b2e9b45322edaf67.HD-720p-3.0Mbps-81601518.mp4",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
       }
     },
     "rich_text_QfVFJB": {
@@ -536,38 +561,16 @@
         "desktop_spacing": 40,
         "mobile_spacing": 20
       }
-    },
-    "image_with_text_Ubkhgw": {
-      "type": "image-with-text",
-      "name": "Media with text",
-      "settings": {
-        "subheading": "",
-        "title": "10 NĂM HÀNH TRÌNHCHẾ TÁC THỦ CÔNG BẠC",
-        "title_size": 26,
-        "title_width": 40,
-        "text": "<p>Mỗi món trang sức của Helios đều được chế tác thủ công bởi người thợ kim hoàn lành nghề, mang trọn tâm huyết và niềm đam mê  trong từng nét chạm khắc tỉ mỉ.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "video_shopify": "shopify://files/videos/Chế tác NQSH_optimized.webm",
-        "image_width": 100,
-        "image_position": "left",
-        "media_size": "contain",
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
     }
   },
   "order": [
     "slideshow_7WFatB",
     "rich_text_tdqtUd",
     "grid_image_paMnHj",
+    "image_with_text_Ubkhgw",
     "custom_spacing_RmEgnP",
-    "background_video_responsive_LPmckH",
     "featured_collection_XTm4hY",
+    "background_video_responsive_LPmckH",
     "rich_text_QfVFJB",
     "background_video_responsive_fb8J6K",
     "custom_spacing_mbMPG8",
@@ -577,7 +580,6 @@
     "centered_slide_iBKDpE",
     "custom_spacing_eqm3x7",
     "image_with_text_pVqVxD",
-    "custom_spacing_pQc4DT",
-    "image_with_text_Ubkhgw"
+    "custom_spacing_pQc4DT"
   ]
 }
