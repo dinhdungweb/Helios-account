@@ -17,23 +17,6 @@
     "store_location_tabs_helios": {
       "type": "store-location-tabs",
       "blocks": {
-        "store_kHfyVp": {
-          "type": "store",
-          "settings": {
-            "tab": "tab_2",
-            "anchor_id": "",
-            "kicker": "HELIOS STORE",
-            "title": "HELIOS STORE",
-            "badge": "",
-            "address": "<p>Store address</p>",
-            "description": "<p>Describe this store and the experience customers can expect.</p>",
-            "opening_hours": "8:30am - 10pm",
-            "hotline": "0938 302 899",
-            "direction_url": "",
-            "direction_label": "GET DIRECTION",
-            "open_direction_new_tab": true
-          }
-        },
         "nguyen_trai": {
           "type": "store",
           "settings": {
@@ -120,7 +103,6 @@
         }
       },
       "block_order": [
-        "store_kHfyVp",
         "nguyen_trai",
         "nguyen_gia_tri",
         "vincom_dong_khoi",
