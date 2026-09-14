@@ -786,21 +786,24 @@
 
   #StoreTabs-{{ section.id }} .store-tabs__meta {
     align-items: start;
-    display: grid;
-    gap: 0;
-    grid-template-columns: minmax(0, 2fr) minmax(130px, 1fr);
+    display: flex;
+    gap: clamp(32px, 4vw, 64px);
+    justify-content: flex-start;
+    max-width: 100%;
     padding-top: 22px;
+    width: max-content;
   }
 
   #StoreTabs-{{ section.id }} .store-tabs__facts {
-    display: grid;
-    gap: 0;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex: 0 1 auto;
+    gap: clamp(32px, 4vw, 64px);
   }
 
   #StoreTabs-{{ section.id }} .store-tabs__fact {
+    flex: 0 1 auto;
     gap: 12px;
-    padding-right: 20px;
+    padding-right: 0;
   }
 
   #StoreTabs-{{ section.id }} .store-tabs__fact dt,
@@ -816,6 +819,7 @@
     background: transparent;
     color: var(--store-tabs-text);
     flex-direction: column;
+    flex-shrink: 0;
     gap: 8px;
     justify-content: flex-start;
     letter-spacing: 0;
@@ -1025,14 +1029,13 @@
     #StoreTabs-{{ section.id }} .store-tabs__description { font-size: 0.95rem; }
 
     #StoreTabs-{{ section.id }} .store-tabs__meta {
-      gap: 0;
-      grid-template-columns: minmax(0, 2fr) minmax(90px, 1fr);
+      gap: clamp(18px, 5vw, 30px);
       padding-top: 18px;
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__facts {
       border: 0;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(18px, 5vw, 30px);
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__fact { padding: 0 10px 0 0; }
