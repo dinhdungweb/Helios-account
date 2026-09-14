@@ -128,7 +128,7 @@
               {%- endif -%}
             {%- endfor -%}
 
-            <div class="store-tabs__main store-tabs__container{% if image_count == 0 %} store-tabs__main--no-image{% endif %}">
+            <div class="store-tabs__main store-tabs__main--media-{{ block.settings.media_position | default: 'left' }} store-tabs__container{% if image_count == 0 %} store-tabs__main--no-image{% endif %}">
               {%- if image_count > 0 -%}
                 <div
                   class="store-tabs__gallery-shell"
@@ -185,7 +185,7 @@
                 </div>
               {%- endif -%}
 
-              <div class="store-tabs__copy">
+              <div class="store-tabs__copy store-tabs__copy--align-{{ block.settings.text_alignment | default: 'left' }}">
                 {%- if block.settings.address != blank -%}
                   <div class="store-tabs__address rte">{{ block.settings.address }}</div>
                 {%- endif -%}
@@ -679,6 +679,16 @@
 
   #StoreTabs-{{ section.id }} .store-tabs__main--no-image { grid-template-columns: 1fr; }
 
+  #StoreTabs-{{ section.id }} .store-tabs__main--media-right .store-tabs__gallery-shell {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__main--media-right .store-tabs__copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   #StoreTabs-{{ section.id }} .store-tabs__gallery-shell {
     min-width: 0;
     position: relative;
@@ -721,6 +731,27 @@
   #StoreTabs-{{ section.id }} .store-tabs__copy {
     align-self: center;
     max-width: 580px;
+    width: 100%;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__copy--align-left {
+    justify-self: start;
+    text-align: left;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__copy--align-center {
+    justify-self: center;
+    text-align: center;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__copy--align-right {
+    justify-self: end;
+    text-align: right;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__copy--align-justify {
+    justify-self: stretch;
+    text-align: justify;
   }
 
   #StoreTabs-{{ section.id }} .store-tabs__address {
@@ -946,6 +977,12 @@
       gap: 18px;
       grid-template-columns: 1fr;
       padding-inline: 0;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__main--media-right .store-tabs__gallery-shell,
+    #StoreTabs-{{ section.id }} .store-tabs__main--media-right .store-tabs__copy {
+      grid-column: auto;
+      grid-row: auto;
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__copy { padding-inline: 18px; }
@@ -1537,6 +1574,32 @@
           "id": "badge",
           "label": "Badge",
           "info": "Optional, for example: Upcoming"
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" },
+            { "value": "justify", "label": "Justify" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "media_position",
+          "label": "Media position on desktop",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
         },
         {
           "type": "richtext",
