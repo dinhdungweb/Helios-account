@@ -192,37 +192,36 @@
                 {%- if block.settings.description != blank -%}
                   <div class="store-tabs__description rte">{{ block.settings.description }}</div>
                 {%- endif -%}
+                <div class="store-tabs__meta">
+                  <dl class="store-tabs__facts">
+                    {%- if block.settings.opening_hours != blank -%}
+                      <div class="store-tabs__fact">
+                        <dt>{{ section.settings.hours_label | escape }}</dt>
+                        <dd>{{ block.settings.opening_hours | escape }}</dd>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.hotline != blank -%}
+                      <div class="store-tabs__fact">
+                        <dt>{{ section.settings.hotline_label | escape }}</dt>
+                        <dd><a href="tel:{{ block.settings.hotline | remove: ' ' | remove: '.' }}">{{ block.settings.hotline | escape }}</a></dd>
+                      </div>
+                    {%- endif -%}
+                  </dl>
+
+                  {%- if block.settings.direction_url != blank -%}
+                    <a
+                      class="store-tabs__direction"
+                      href="{{ block.settings.direction_url }}"
+                      {% if block.settings.open_direction_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    >
+                      <span>{{ block.settings.direction_label | default: section.settings.direction_label | escape }}</span>
+                      <svg class="store-tabs__pin" viewBox="0 0 32 40" aria-hidden="true" focusable="false">
+                        <path d="M16 1.5C8.55 1.5 2.5 7.55 2.5 15c0 10.1 13.5 23.5 13.5 23.5S29.5 25.1 29.5 15C29.5 7.55 23.45 1.5 16 1.5Zm0 19a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11Z" fill="currentColor"/>
+                      </svg>
+                    </a>
+                  {%- endif -%}
+                </div>
               </div>
-            </div>
-
-            <div class="store-tabs__meta store-tabs__container">
-              <dl class="store-tabs__facts">
-                {%- if block.settings.opening_hours != blank -%}
-                  <div class="store-tabs__fact">
-                    <dt>{{ section.settings.hours_label | escape }}</dt>
-                    <dd>{{ block.settings.opening_hours | escape }}</dd>
-                  </div>
-                {%- endif -%}
-                {%- if block.settings.hotline != blank -%}
-                  <div class="store-tabs__fact">
-                    <dt>{{ section.settings.hotline_label | escape }}</dt>
-                    <dd><a href="tel:{{ block.settings.hotline | remove: ' ' | remove: '.' }}">{{ block.settings.hotline | escape }}</a></dd>
-                  </div>
-                {%- endif -%}
-              </dl>
-
-              {%- if block.settings.direction_url != blank -%}
-                <a
-                  class="store-tabs__direction"
-                  href="{{ block.settings.direction_url }}"
-                  {% if block.settings.open_direction_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
-                >
-                  <span>{{ block.settings.direction_label | default: section.settings.direction_label | escape }}</span>
-                  <svg class="store-tabs__pin" viewBox="0 0 32 40" aria-hidden="true" focusable="false">
-                    <path d="M16 1.5C8.55 1.5 2.5 7.55 2.5 15c0 10.1 13.5 23.5 13.5 23.5S29.5 25.1 29.5 15C29.5 7.55 23.45 1.5 16 1.5Zm0 19a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11Z" fill="currentColor"/>
-                  </svg>
-                </a>
-              {%- endif -%}
             </div>
           </article>
         {%- endif -%}
