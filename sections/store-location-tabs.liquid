@@ -30,7 +30,9 @@
 >
   <div class="store-tabs__intro store-tabs__container">
     {%- if section.settings.eyebrow != blank -%}
-      <p class="store-tabs__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h1 class="store-tabs__eyebrow">{{ section.settings.eyebrow | escape }}</h1>
+    {%- else -%}
+      <h1 class="visually-hidden">{{ page.title | escape }}</h1>
     {%- endif -%}
 
     {%- if section.settings.intro_text != blank -%}
@@ -588,9 +590,15 @@
 
   #StoreTabs-{{ section.id }} .store-tabs__eyebrow { margin-bottom: 10px; }
 
+  #StoreTabs-{{ section.id }} .store-tabs__eyebrow {
+    font-size: 1.125rem;
+    line-height: 1.25;
+    text-align: left;
+  }
+
   #StoreTabs-{{ section.id }} .store-tabs__intro-text {
-    font-size: 13px;
-    line-height: 1.45;
+    font-size: 1rem;
+    line-height: 1.55;
     max-width: 780px;
   }
 
@@ -611,7 +619,7 @@
 
   #StoreTabs-{{ section.id }} .store-tabs__tab {
     color: var(--store-tabs-accent);
-    font-size: 18px;
+    font-size: 1.25rem;
     justify-content: center;
     letter-spacing: 0;
     min-width: 190px;
@@ -644,9 +652,10 @@
 
   #StoreTabs-{{ section.id }} .store-tabs__location-title {
     color: var(--store-tabs-accent);
-    font-size: 18px;
+    font-size: 1.25rem;
     letter-spacing: 0;
     line-height: 1.2;
+    text-align: left;
     text-transform: uppercase;
   }
 
@@ -705,7 +714,7 @@
 
   #StoreTabs-{{ section.id }} .store-tabs__address {
     color: var(--store-tabs-text);
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 700;
     line-height: 1.35;
     margin-bottom: 18px;
@@ -713,8 +722,8 @@
   }
 
   #StoreTabs-{{ section.id }} .store-tabs__description {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.55;
     max-width: 580px;
   }
 
@@ -740,10 +749,10 @@
   #StoreTabs-{{ section.id }} .store-tabs__fact dt,
   #StoreTabs-{{ section.id }} .store-tabs__direction {
     color: var(--store-tabs-text);
-    font-size: 10px;
+    font-size: 0.75rem;
   }
 
-  #StoreTabs-{{ section.id }} .store-tabs__fact dd { font-size: 11px; }
+  #StoreTabs-{{ section.id }} .store-tabs__fact dd { font-size: 0.9rem; }
 
   #StoreTabs-{{ section.id }} .store-tabs__direction {
     align-items: center;
@@ -774,11 +783,12 @@
 
   #StoreTabs-{{ section.id }} .store-tabs__footer-heading {
     color: var(--store-tabs-accent);
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 1.2;
     margin: 0;
     padding-bottom: 16px;
     padding-top: 28px;
+    text-align: left;
     text-transform: uppercase;
   }
 
@@ -805,7 +815,7 @@
   #StoreTabs-{{ section.id }} .store-tabs__footer-cta {
     background: var(--store-tabs-accent);
     color: var(--store-tabs-bg);
-    font-size: 15px;
+    font-size: 0.95rem;
     font-weight: 800;
     left: 50%;
     padding: 10px 15px;
@@ -896,8 +906,8 @@
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__intro-text {
-      font-size: 12px;
-      line-height: 1.45;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__nav {
@@ -907,7 +917,7 @@
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__tab {
-      font-size: 16px;
+      font-size: 1.05rem;
       min-width: 0;
       padding: 10px 12px 9px;
       width: 100%;
@@ -919,7 +929,7 @@
 
     #StoreTabs-{{ section.id }} .store-tabs__location-kicker { font-size: 9px; }
 
-    #StoreTabs-{{ section.id }} .store-tabs__location-title { font-size: 17px; }
+    #StoreTabs-{{ section.id }} .store-tabs__location-title { font-size: 1.1rem; }
 
     #StoreTabs-{{ section.id }} .store-tabs__main {
       gap: 18px;
@@ -945,11 +955,11 @@
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__address {
-      font-size: 13px;
+      font-size: 0.95rem;
       margin-bottom: 12px;
     }
 
-    #StoreTabs-{{ section.id }} .store-tabs__description { font-size: 12px; }
+    #StoreTabs-{{ section.id }} .store-tabs__description { font-size: 0.95rem; }
 
     #StoreTabs-{{ section.id }} .store-tabs__meta {
       gap: 0;
@@ -970,9 +980,9 @@
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__fact dt,
-    #StoreTabs-{{ section.id }} .store-tabs__direction { font-size: 8px; }
+    #StoreTabs-{{ section.id }} .store-tabs__direction { font-size: 0.7rem; }
 
-    #StoreTabs-{{ section.id }} .store-tabs__fact dd { font-size: 9px; }
+    #StoreTabs-{{ section.id }} .store-tabs__fact dd { font-size: 0.8rem; }
 
     #StoreTabs-{{ section.id }} .store-tabs__direction {
       gap: 6px;
@@ -985,7 +995,7 @@
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__footer-heading {
-      font-size: 17px;
+      font-size: 1.1rem;
       padding-bottom: 12px;
       padding-top: 22px;
     }
@@ -993,7 +1003,7 @@
     #StoreTabs-{{ section.id }} .store-tabs__footer-media { aspect-ratio: 3 / 2; }
 
     #StoreTabs-{{ section.id }} .store-tabs__footer-cta {
-      font-size: 12px;
+      font-size: 0.85rem;
       padding: 9px 12px;
     }
   }
