@@ -1,0 +1,1126 @@
+{%- liquid
+  assign tab_1_slug = section.settings.tab_1_slug | handleize | upcase
+  assign tab_2_slug = section.settings.tab_2_slug | handleize | upcase
+  if tab_1_slug == blank
+    assign tab_1_slug = 'HN'
+  endif
+  if tab_2_slug == blank
+    assign tab_2_slug = 'HCMC'
+  endif
+  if tab_2_slug == tab_1_slug
+    assign tab_2_slug = tab_2_slug | append: '-2'
+  endif
+-%}
+
+<section
+  id="StoreTabs-{{ section.id }}"
+  class="store-tabs"
+  data-store-tabs
+  data-default-tab="{{ tab_1_slug }}"
+  data-url-parameter="{{ section.settings.url_parameter | handleize | default: 'store' }}"
+  style="
+    --store-tabs-bg: {{ section.settings.background_color }};
+    --store-tabs-text: {{ section.settings.text_color }};
+    --store-tabs-muted: {{ section.settings.muted_text_color }};
+    --store-tabs-accent: {{ section.settings.accent_color }};
+    --store-tabs-border: {{ section.settings.border_color }};
+    --store-tabs-max-width: {{ section.settings.content_width }}px;
+    --store-tabs-gallery-ratio: {{ section.settings.gallery_ratio }};
+  "
+>
+  <div class="store-tabs__intro store-tabs__container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="store-tabs__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.intro_text != blank -%}
+      <div class="store-tabs__intro-text rte">{{ section.settings.intro_text }}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="store-tabs__nav-wrap">
+    <nav class="store-tabs__nav store-tabs__container" role="tablist" aria-label="{{ section.settings.tabs_aria_label | escape }}">
+      <a
+        id="StoreTab-{{ section.id }}-{{ tab_1_slug }}"
+        class="store-tabs__tab is-active"
+        href="?{{ section.settings.url_parameter | handleize | default: 'store' }}={{ tab_1_slug }}#store-{{ section.id }}-{{ tab_1_slug }}"
+        role="tab"
+        aria-selected="true"
+        aria-controls="store-{{ section.id }}-{{ tab_1_slug }}"
+        data-store-tab="{{ tab_1_slug }}"
+      >
+        {{ section.settings.tab_1_label | escape }}
+      </a>
+      <a
+        id="StoreTab-{{ section.id }}-{{ tab_2_slug }}"
+        class="store-tabs__tab"
+        href="?{{ section.settings.url_parameter | handleize | default: 'store' }}={{ tab_2_slug }}#store-{{ section.id }}-{{ tab_2_slug }}"
+        role="tab"
+        aria-selected="false"
+        aria-controls="store-{{ section.id }}-{{ tab_2_slug }}"
+        tabindex="-1"
+        data-store-tab="{{ tab_2_slug }}"
+      >
+        {{ section.settings.tab_2_label | escape }}
+      </a>
+    </nav>
+  </div>
+
+  {%- for tab_number in (1..2) -%}
+    {%- liquid
+      if tab_number == 1
+        assign tab_key = 'tab_1'
+        assign tab_slug = tab_1_slug
+        assign tab_label = section.settings.tab_1_label
+      else
+        assign tab_key = 'tab_2'
+        assign tab_slug = tab_2_slug
+        assign tab_label = section.settings.tab_2_label
+      endif
+    -%}
+
+    <div
+      id="store-{{ section.id }}-{{ tab_slug }}"
+      class="store-tabs__panel{% if tab_number == 1 %} is-active{% endif %}"
+      role="tabpanel"
+      aria-labelledby="StoreTab-{{ section.id }}-{{ tab_slug }}"
+      data-store-panel="{{ tab_slug }}"
+      {% if tab_number != 1 %}hidden{% endif %}
+    >
+      <h2 class="visually-hidden">{{ tab_label | escape }}</h2>
+
+      {%- assign tab_has_stores = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'store' and block.settings.tab == tab_key -%}
+          {%- assign tab_has_stores = true -%}
+          {%- assign store_title = block.settings.title | default: 'Store location' -%}
+          {%- assign store_anchor = block.settings.anchor_id | handleize -%}
+          {%- if store_anchor == blank -%}
+            {%- assign store_anchor = block.id | handleize -%}
+          {%- endif -%}
+
+          <article
+            id="store-location-{{ store_anchor }}"
+            class="store-tabs__location"
+            data-store-location
+            data-location-tab="{{ tab_slug }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="store-tabs__location-head store-tabs__container">
+              <div class="store-tabs__title-wrap">
+                {%- if block.settings.kicker != blank -%}
+                  <p class="store-tabs__location-kicker">{{ block.settings.kicker | escape }}</p>
+                {%- endif -%}
+                <h3 class="store-tabs__location-title">{{ store_title | escape }}</h3>
+                {%- if block.settings.badge != blank -%}
+                  <span class="store-tabs__badge">{{ block.settings.badge | escape }}</span>
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.address != blank -%}
+                <div class="store-tabs__address rte">{{ block.settings.address }}</div>
+              {%- endif -%}
+            </div>
+
+            {%- assign image_count = 0 -%}
+            {%- for image_index in (1..8) -%}
+              {%- capture image_key -%}image_{{ image_index }}{%- endcapture -%}
+              {%- if block.settings[image_key] != blank -%}
+                {%- assign image_count = image_count | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if image_count > 0 -%}
+              <div
+                class="store-tabs__gallery-shell"
+                data-store-gallery
+                data-autoplay="{{ section.settings.gallery_autoplay }}"
+                data-autoplay-seconds="{{ section.settings.gallery_autoplay_speed }}"
+              >
+                <div class="store-tabs__gallery" data-store-gallery-track tabindex="0" aria-label="{{ store_title | escape }} gallery">
+                  {%- assign rendered_image_index = 0 -%}
+                  {%- for image_index in (1..8) -%}
+                    {%- capture image_key -%}image_{{ image_index }}{%- endcapture -%}
+                    {%- assign gallery_image = block.settings[image_key] -%}
+                    {%- if gallery_image != blank -%}
+                      {%- assign rendered_image_index = rendered_image_index | plus: 1 -%}
+                      {%- assign gallery_alt = gallery_image.alt | default: store_title -%}
+                      {%- if rendered_image_index == 1 -%}
+                        {%- assign image_loading = 'eager' -%}
+                      {%- else -%}
+                        {%- assign image_loading = 'lazy' -%}
+                      {%- endif -%}
+                      <figure class="store-tabs__slide" data-store-slide>
+                        {{
+                          gallery_image
+                          | image_url: width: 1800
+                          | image_tag:
+                            widths: '480, 720, 960, 1200, 1600, 1800',
+                            sizes: '(min-width: 990px) 34vw, 86vw',
+                            loading: image_loading,
+                            class: 'store-tabs__image',
+                            alt: gallery_alt
+                        }}
+                      </figure>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+
+                {%- if image_count > 1 -%}
+                  <div class="store-tabs__gallery-controls store-tabs__container">
+                    <button class="store-tabs__arrow" type="button" data-store-gallery-prev aria-label="{{ section.settings.previous_label | escape }}">
+                      <span aria-hidden="true">&larr;</span>
+                    </button>
+                    <p class="store-tabs__gallery-count" aria-live="polite">
+                      <span data-store-gallery-current>1</span> / {{ image_count }}
+                    </p>
+                    <button class="store-tabs__arrow" type="button" data-store-gallery-next aria-label="{{ section.settings.next_label | escape }}">
+                      <span aria-hidden="true">&rarr;</span>
+                    </button>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            <div class="store-tabs__details store-tabs__container">
+              {%- if block.settings.description != blank -%}
+                <div class="store-tabs__description rte">{{ block.settings.description }}</div>
+              {%- endif -%}
+
+              <dl class="store-tabs__facts">
+                {%- if block.settings.opening_hours != blank -%}
+                  <div class="store-tabs__fact">
+                    <dt>{{ section.settings.hours_label | escape }}</dt>
+                    <dd>{{ block.settings.opening_hours | escape }}</dd>
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.hotline != blank -%}
+                  <div class="store-tabs__fact">
+                    <dt>{{ section.settings.hotline_label | escape }}</dt>
+                    <dd><a href="tel:{{ block.settings.hotline | remove: ' ' | remove: '.' }}">{{ block.settings.hotline | escape }}</a></dd>
+                  </div>
+                {%- endif -%}
+              </dl>
+
+              {%- if block.settings.direction_url != blank -%}
+                <a
+                  class="store-tabs__direction"
+                  href="{{ block.settings.direction_url }}"
+                  {% if block.settings.open_direction_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+                  {{ block.settings.direction_label | default: section.settings.direction_label | escape }}
+                  <span aria-hidden="true">&#8599;</span>
+                </a>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- unless tab_has_stores -%}
+        <div class="store-tabs__empty store-tabs__container">
+          <p>{{ section.settings.empty_tab_text | escape }}</p>
+        </div>
+      {%- endunless -%}
+    </div>
+  {%- endfor -%}
+</section>
+
+<noscript>
+  <style>
+    #StoreTabs-{{ section.id }} .store-tabs__panel[hidden] { display: block; }
+  </style>
+</noscript>
+
+<style>
+  #StoreTabs-{{ section.id }} {
+    background: var(--store-tabs-bg);
+    color: var(--store-tabs-text);
+    overflow: hidden;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #StoreTabs-{{ section.id }} * { box-sizing: border-box; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__container {
+    margin-inline: auto;
+    max-width: calc(var(--store-tabs-max-width) + 80px);
+    padding-inline: 40px;
+    width: 100%;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__intro {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(140px, 0.35fr) minmax(0, 1fr);
+    padding-bottom: 56px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__eyebrow,
+  #StoreTabs-{{ section.id }} .store-tabs__location-kicker {
+    color: var(--store-tabs-accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__intro-text {
+    font-size: clamp(18px, 2vw, 30px);
+    line-height: 1.45;
+    max-width: 900px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__intro-text > *:first-child,
+  #StoreTabs-{{ section.id }} .store-tabs__address > *:first-child,
+  #StoreTabs-{{ section.id }} .store-tabs__description > *:first-child { margin-top: 0; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__intro-text > *:last-child,
+  #StoreTabs-{{ section.id }} .store-tabs__address > *:last-child,
+  #StoreTabs-{{ section.id }} .store-tabs__description > *:last-child { margin-bottom: 0; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__nav-wrap {
+    border-bottom: 1px solid var(--store-tabs-border);
+    border-top: 1px solid var(--store-tabs-border);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--store-tabs-bg);
+    background: color-mix(in srgb, var(--store-tabs-bg) 94%, transparent);
+    backdrop-filter: blur(12px);
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__nav {
+    display: flex;
+    gap: 40px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__nav::-webkit-scrollbar { display: none; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab {
+    color: var(--store-tabs-muted);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: clamp(20px, 2.4vw, 34px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    padding: 26px 0 22px;
+    position: relative;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab::after {
+    background: var(--store-tabs-accent);
+    bottom: -1px;
+    content: '';
+    height: 3px;
+    left: 0;
+    position: absolute;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 180ms ease;
+    width: 100%;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab:hover,
+  #StoreTabs-{{ section.id }} .store-tabs__tab:focus-visible,
+  #StoreTabs-{{ section.id }} .store-tabs__tab.is-active { color: var(--store-tabs-text); }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab.is-active::after { transform: scaleX(1); }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab:focus-visible,
+  #StoreTabs-{{ section.id }} .store-tabs__arrow:focus-visible,
+  #StoreTabs-{{ section.id }} .store-tabs__direction:focus-visible {
+    outline: 2px solid var(--store-tabs-accent);
+    outline-offset: 4px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__panel[hidden] { display: none; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location {
+    border-bottom: 1px solid var(--store-tabs-border);
+    padding: 76px 0;
+    scroll-margin-top: 110px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location-head {
+    align-items: end;
+    display: grid;
+    gap: 48px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.6fr);
+    padding-bottom: 32px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__title-wrap {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location-kicker { flex-basis: 100%; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location-title {
+    font-size: clamp(28px, 4vw, 58px);
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__badge {
+    border: 1px solid var(--store-tabs-accent);
+    color: var(--store-tabs-accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 7px 9px;
+    text-transform: uppercase;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__address {
+    color: var(--store-tabs-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery-shell { position: relative; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery {
+    display: flex;
+    gap: {{ section.settings.gallery_gap }}px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0 max(40px, calc((100vw - var(--store-tabs-max-width)) / 2));
+    scroll-behavior: smooth;
+    scroll-padding-inline: max(40px, calc((100vw - var(--store-tabs-max-width)) / 2));
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery::-webkit-scrollbar { display: none; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__slide {
+    aspect-ratio: var(--store-tabs-gallery-ratio);
+    background: #171717;
+    flex: 0 0 min(34vw, 520px);
+    margin: 0;
+    overflow: hidden;
+    scroll-snap-align: start;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms ease;
+    width: 100%;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__slide:hover .store-tabs__image { transform: scale(1.025); }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery-controls {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 18px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__arrow {
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--store-tabs-border);
+    border-radius: 50%;
+    color: var(--store-tabs-text);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 20px;
+    height: 42px;
+    justify-content: center;
+    padding: 0;
+    transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+    width: 42px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__arrow:hover {
+    background: var(--store-tabs-accent);
+    border-color: var(--store-tabs-accent);
+    color: var(--store-tabs-bg);
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery-count {
+    color: var(--store-tabs-muted);
+    font-size: 12px;
+    margin: 0 4px;
+    min-width: 42px;
+    text-align: center;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__details {
+    align-items: start;
+    display: grid;
+    gap: 48px;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.55fr) auto;
+    padding-top: 32px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__description {
+    color: var(--store-tabs-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 720px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__facts {
+    display: grid;
+    gap: 20px;
+    margin: 0;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__fact {
+    display: grid;
+    gap: 5px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__fact dt {
+    color: var(--store-tabs-muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__fact dd {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__fact a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__direction {
+    align-items: center;
+    background: var(--store-tabs-accent);
+    color: var(--store-tabs-bg);
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 800;
+    gap: 18px;
+    justify-content: space-between;
+    letter-spacing: 0.08em;
+    min-height: 48px;
+    padding: 13px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: filter 180ms ease, transform 180ms ease;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__direction:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__empty {
+    color: var(--store-tabs-muted);
+    padding-block: 72px;
+  }
+
+  @media (max-width: 989px) {
+    #StoreTabs-{{ section.id }} {
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__container { padding-inline: 18px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__intro {
+      gap: 18px;
+      grid-template-columns: 1fr;
+      padding-bottom: 36px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__intro-text { font-size: 18px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__nav {
+      gap: 28px;
+      padding-inline: 18px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__tab {
+      font-size: 19px;
+      padding: 20px 0 17px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__location {
+      padding: 48px 0;
+      scroll-margin-top: 82px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__location-head {
+      align-items: start;
+      gap: 18px;
+      grid-template-columns: 1fr;
+      padding-bottom: 22px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__location-title { font-size: clamp(28px, 9vw, 42px); }
+
+    #StoreTabs-{{ section.id }} .store-tabs__gallery {
+      gap: {{ section.settings.gallery_gap_mobile }}px;
+      padding-inline: 18px;
+      scroll-padding-inline: 18px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__slide { flex-basis: 86vw; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__gallery-controls {
+      justify-content: space-between;
+      padding-top: 14px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__details {
+      gap: 28px;
+      grid-template-columns: 1fr;
+      padding-top: 24px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__facts {
+      border-bottom: 1px solid var(--store-tabs-border);
+      border-top: 1px solid var(--store-tabs-border);
+      gap: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__fact { padding: 18px 0; }
+    #StoreTabs-{{ section.id }} .store-tabs__fact + .store-tabs__fact {
+      border-left: 1px solid var(--store-tabs-border);
+      padding-left: 18px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__direction { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #StoreTabs-{{ section.id }} .store-tabs__gallery { scroll-behavior: auto; }
+    #StoreTabs-{{ section.id }} .store-tabs__image,
+    #StoreTabs-{{ section.id }} .store-tabs__direction,
+    #StoreTabs-{{ section.id }} .store-tabs__tab::after { transition: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('StoreTabs-{{ section.id }}');
+    if (!root || root.dataset.initialized === 'true') return;
+    root.dataset.initialized = 'true';
+
+    const tabs = Array.from(root.querySelectorAll('[data-store-tab]'));
+    const panels = Array.from(root.querySelectorAll('[data-store-panel]'));
+    const parameter = root.dataset.urlParameter || 'store';
+    const defaultTab = root.dataset.defaultTab;
+    const validSlugs = tabs.map((tab) => tab.dataset.storeTab);
+
+    const slugFromUrl = () => {
+      const url = new URL(window.location.href);
+      const querySlug = url.searchParams.get(parameter)?.toUpperCase();
+      if (validSlugs.includes(querySlug)) return querySlug;
+
+      const hash = window.location.hash.replace(/^#store-{{ section.id }}-/i, '').toUpperCase();
+      if (validSlugs.includes(hash)) return hash;
+
+      const locationTarget = document.getElementById(window.location.hash.slice(1));
+      if (locationTarget && root.contains(locationTarget) && locationTarget.matches('[data-store-location]')) {
+        return locationTarget.dataset.locationTab;
+      }
+      return defaultTab;
+    };
+
+    const activateTab = (slug, options = {}) => {
+      if (!validSlugs.includes(slug)) slug = defaultTab;
+
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.storeTab === slug;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.storePanel === slug;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+
+      if (options.updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set(parameter, slug);
+        url.hash = `store-{{ section.id }}-${slug}`;
+        window.history.pushState({ storeTab: slug }, '', url);
+      }
+
+      if (options.focus) {
+        root.querySelector(`[data-store-tab="${slug}"]`)?.focus();
+      }
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', (event) => {
+        event.preventDefault();
+        activateTab(tab.dataset.storeTab, { updateUrl: true });
+      });
+
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex = index;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        else return;
+
+        event.preventDefault();
+        activateTab(tabs[nextIndex].dataset.storeTab, { updateUrl: true, focus: true });
+      });
+    });
+
+    const initializeGallery = (gallery) => {
+      const track = gallery.querySelector('[data-store-gallery-track]');
+      const slides = Array.from(gallery.querySelectorAll('[data-store-slide]'));
+      const current = gallery.querySelector('[data-store-gallery-current]');
+      if (!track || slides.length < 2) return;
+
+      const getIndex = () => {
+        const trackLeft = track.getBoundingClientRect().left;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        slides.forEach((slide, slideIndex) => {
+          const distance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = slideIndex;
+          }
+        });
+        return closestIndex;
+      };
+
+      const goTo = (index) => {
+        const normalized = (index + slides.length) % slides.length;
+        slides[normalized].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      };
+
+      gallery.querySelector('[data-store-gallery-prev]')?.addEventListener('click', () => goTo(getIndex() - 1));
+      gallery.querySelector('[data-store-gallery-next]')?.addEventListener('click', () => goTo(getIndex() + 1));
+
+      let frame;
+      track.addEventListener('scroll', () => {
+        window.cancelAnimationFrame(frame);
+        frame = window.requestAnimationFrame(() => {
+          if (current) current.textContent = String(getIndex() + 1);
+        });
+      }, { passive: true });
+
+      if (gallery.dataset.autoplay === 'true' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const seconds = Number(gallery.dataset.autoplaySeconds) || 5;
+        let timer;
+        const start = () => {
+          window.clearInterval(timer);
+          timer = window.setInterval(() => goTo(getIndex() + 1), seconds * 1000);
+        };
+        const stop = () => window.clearInterval(timer);
+        gallery.addEventListener('mouseenter', stop);
+        gallery.addEventListener('mouseleave', start);
+        gallery.addEventListener('focusin', stop);
+        gallery.addEventListener('focusout', start);
+        document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+        start();
+      }
+    };
+
+    root.querySelectorAll('[data-store-gallery]').forEach(initializeGallery);
+    activateTab(slugFromUrl());
+    const initialHashTarget = document.getElementById(window.location.hash.slice(1));
+    if (initialHashTarget && root.contains(initialHashTarget)) {
+      window.requestAnimationFrame(() => initialHashTarget.scrollIntoView({ block: 'start' }));
+    }
+    window.addEventListener('popstate', () => activateTab(slugFromUrl()));
+    window.addEventListener('hashchange', () => activateTab(slugFromUrl()));
+
+    if (window.Shopify && Shopify.designMode) {
+      document.addEventListener('shopify:block:select', (event) => {
+        const location = event.target.closest('[data-store-location]');
+        if (location && root.contains(location)) activateTab(location.dataset.locationTab);
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Store location tabs",
+  "tag": "section",
+  "class": "section-store-location-tabs",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Introduction"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Introduction",
+      "default": "<p>HELIOS believes that a true connection begins when you hold and feel a creation with your own hands. Discover the craftsmanship, character and story behind every piece at our stores.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tabs and links"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_label",
+      "label": "Tab 1 label",
+      "default": "HA NOI"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_slug",
+      "label": "Tab 1 URL identifier",
+      "info": "Use letters, numbers and hyphens only. Example: HN",
+      "default": "HN"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_label",
+      "label": "Tab 2 label",
+      "default": "HO CHI MINH"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_slug",
+      "label": "Tab 2 URL identifier",
+      "info": "Use letters, numbers and hyphens only. Example: HCMC",
+      "default": "HCMC"
+    },
+    {
+      "type": "text",
+      "id": "url_parameter",
+      "label": "URL parameter",
+      "default": "store"
+    },
+    {
+      "type": "text",
+      "id": "tabs_aria_label",
+      "label": "Tabs accessibility label",
+      "default": "Choose a store area"
+    },
+    {
+      "type": "text",
+      "id": "empty_tab_text",
+      "label": "Empty tab message",
+      "default": "Store information is coming soon."
+    },
+    {
+      "type": "header",
+      "content": "Shared labels"
+    },
+    {
+      "type": "text",
+      "id": "hours_label",
+      "label": "Opening hours label",
+      "default": "OPENING HOURS"
+    },
+    {
+      "type": "text",
+      "id": "hotline_label",
+      "label": "Hotline label",
+      "default": "HOTLINE"
+    },
+    {
+      "type": "text",
+      "id": "direction_label",
+      "label": "Default direction button label",
+      "default": "GET DIRECTION"
+    },
+    {
+      "type": "text",
+      "id": "previous_label",
+      "label": "Previous image label",
+      "default": "Previous image"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Next image label",
+      "default": "Next image"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "select",
+      "id": "gallery_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "4 / 3", "label": "Landscape 4:3" },
+        { "value": "3 / 2", "label": "Landscape 3:2" },
+        { "value": "16 / 9", "label": "Landscape 16:9" },
+        { "value": "1 / 1", "label": "Square" },
+        { "value": "3 / 4", "label": "Portrait 3:4" }
+      ],
+      "default": "3 / 2"
+    },
+    {
+      "type": "range",
+      "id": "gallery_gap",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop image gap",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "gallery_gap_mobile",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile image gap",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_autoplay",
+      "label": "Autoplay galleries",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "gallery_autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay interval",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#050505"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text",
+      "default": "#b7b7b7"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#fab320"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#2e2e2e"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 960,
+      "max": 1600,
+      "step": 40,
+      "unit": "px",
+      "label": "Content width",
+      "default": 1360
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Desktop top padding",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Desktop bottom padding",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "label": "Mobile top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 96,
+      "step": 8,
+      "unit": "px",
+      "label": "Mobile bottom padding",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store",
+      "name": "Store location",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tab",
+          "label": "Show in tab",
+          "options": [
+            { "value": "tab_1", "label": "Tab 1 — Ha Noi" },
+            { "value": "tab_2", "label": "Tab 2 — Ho Chi Minh" }
+          ],
+          "default": "tab_1"
+        },
+        {
+          "type": "text",
+          "id": "anchor_id",
+          "label": "Store anchor identifier",
+          "info": "Example: nguyen-trai. Leave blank to use an automatic unique identifier."
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Small heading",
+          "default": "HELIOS STORE"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Store name",
+          "default": "HELIOS STORE"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "info": "Optional, for example: Upcoming"
+        },
+        {
+          "type": "richtext",
+          "id": "address",
+          "label": "Address",
+          "default": "<p>Store address</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Describe this store and the experience customers can expect.</p>"
+        },
+        {
+          "type": "text",
+          "id": "opening_hours",
+          "label": "Opening hours",
+          "default": "8:30am - 10pm"
+        },
+        {
+          "type": "text",
+          "id": "hotline",
+          "label": "Hotline",
+          "default": "0938 302 899"
+        },
+        {
+          "type": "url",
+          "id": "direction_url",
+          "label": "Direction URL"
+        },
+        {
+          "type": "text",
+          "id": "direction_label",
+          "label": "Direction button label",
+          "default": "GET DIRECTION"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_direction_new_tab",
+          "label": "Open direction in a new tab",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Gallery images"
+        },
+        { "type": "image_picker", "id": "image_1", "label": "Image 1" },
+        { "type": "image_picker", "id": "image_2", "label": "Image 2" },
+        { "type": "image_picker", "id": "image_3", "label": "Image 3" },
+        { "type": "image_picker", "id": "image_4", "label": "Image 4" },
+        { "type": "image_picker", "id": "image_5", "label": "Image 5" },
+        { "type": "image_picker", "id": "image_6", "label": "Image 6" },
+        { "type": "image_picker", "id": "image_7", "label": "Image 7" },
+        { "type": "image_picker", "id": "image_8", "label": "Image 8" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store location tabs",
+      "blocks": [
+        {
+          "type": "store",
+          "settings": {
+            "tab": "tab_1",
+            "anchor_id": "ha-noi-store",
+            "kicker": "HELIOS HA NOI",
+            "title": "HELIOS NGUYEN TRAI"
+          }
+        },
+        {
+          "type": "store",
+          "settings": {
+            "tab": "tab_2",
+            "anchor_id": "ho-chi-minh-store",
+            "kicker": "HELIOS HO CHI MINH",
+            "title": "HELIOS NGUYEN GIA TRI"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
