@@ -43,7 +43,7 @@
       <a
         id="StoreTab-{{ section.id }}-{{ tab_1_slug }}"
         class="store-tabs__tab is-active"
-        href="?{{ section.settings.url_parameter | handleize | default: 'store' }}={{ tab_1_slug }}#store-{{ section.id }}-{{ tab_1_slug }}"
+        href="?{{ section.settings.url_parameter | handleize | default: 'store' }}={{ tab_1_slug }}"
         role="tab"
         aria-selected="true"
         aria-controls="store-{{ section.id }}-{{ tab_1_slug }}"
@@ -54,7 +54,7 @@
       <a
         id="StoreTab-{{ section.id }}-{{ tab_2_slug }}"
         class="store-tabs__tab"
-        href="?{{ section.settings.url_parameter | handleize | default: 'store' }}={{ tab_2_slug }}#store-{{ section.id }}-{{ tab_2_slug }}"
+        href="?{{ section.settings.url_parameter | handleize | default: 'store' }}={{ tab_2_slug }}"
         role="tab"
         aria-selected="false"
         aria-controls="store-{{ section.id }}-{{ tab_2_slug }}"
@@ -660,7 +660,7 @@
       if (options.updateUrl) {
         const url = new URL(window.location.href);
         url.searchParams.set(parameter, slug);
-        url.hash = `store-{{ section.id }}-${slug}`;
+        url.hash = '';
         window.history.pushState({ storeTab: slug }, '', url);
       }
 
@@ -743,6 +743,14 @@
 
     root.querySelectorAll('[data-store-gallery]').forEach(initializeGallery);
     activateTab(slugFromUrl());
+
+    const technicalHashPrefix = '#store-{{ section.id }}-';
+    if (window.location.hash.toLowerCase().startsWith(technicalHashPrefix.toLowerCase())) {
+      const cleanUrl = new URL(window.location.href);
+      cleanUrl.hash = '';
+      window.history.replaceState(window.history.state, '', cleanUrl);
+    }
+
     const initialHashTarget = document.getElementById(window.location.hash.slice(1));
     if (initialHashTarget && root.contains(initialHashTarget)) {
       window.requestAnimationFrame(() => initialHashTarget.scrollIntoView({ block: 'start' }));
