@@ -116,10 +116,6 @@
                   <span class="store-tabs__badge">{{ block.settings.badge | escape }}</span>
                 {%- endif -%}
               </div>
-
-              {%- if block.settings.address != blank -%}
-                <div class="store-tabs__address rte">{{ block.settings.address }}</div>
-              {%- endif -%}
             </div>
 
             {%- assign image_count = 0 -%}
@@ -130,63 +126,70 @@
               {%- endif -%}
             {%- endfor -%}
 
-            {%- if image_count > 0 -%}
-              <div
-                class="store-tabs__gallery-shell"
-                data-store-gallery
-                data-autoplay="{{ section.settings.gallery_autoplay }}"
-                data-autoplay-seconds="{{ section.settings.gallery_autoplay_speed }}"
-              >
-                <div class="store-tabs__gallery" data-store-gallery-track tabindex="0" aria-label="{{ store_title | escape }} gallery">
-                  {%- assign rendered_image_index = 0 -%}
-                  {%- for image_index in (1..8) -%}
-                    {%- capture image_key -%}image_{{ image_index }}{%- endcapture -%}
-                    {%- assign gallery_image = block.settings[image_key] -%}
-                    {%- if gallery_image != blank -%}
-                      {%- assign rendered_image_index = rendered_image_index | plus: 1 -%}
-                      {%- assign gallery_alt = gallery_image.alt | default: store_title -%}
-                      {%- if rendered_image_index == 1 -%}
-                        {%- assign image_loading = 'eager' -%}
-                      {%- else -%}
-                        {%- assign image_loading = 'lazy' -%}
+            <div class="store-tabs__main store-tabs__container{% if image_count == 0 %} store-tabs__main--no-image{% endif %}">
+              {%- if image_count > 0 -%}
+                <div
+                  class="store-tabs__gallery-shell"
+                  data-store-gallery
+                  data-autoplay="{{ section.settings.gallery_autoplay }}"
+                  data-autoplay-seconds="{{ section.settings.gallery_autoplay_speed }}"
+                >
+                  <div class="store-tabs__gallery" data-store-gallery-track tabindex="0" aria-label="{{ store_title | escape }} gallery">
+                    {%- assign rendered_image_index = 0 -%}
+                    {%- for image_index in (1..8) -%}
+                      {%- capture image_key -%}image_{{ image_index }}{%- endcapture -%}
+                      {%- assign gallery_image = block.settings[image_key] -%}
+                      {%- if gallery_image != blank -%}
+                        {%- assign rendered_image_index = rendered_image_index | plus: 1 -%}
+                        {%- assign gallery_alt = gallery_image.alt | default: store_title -%}
+                        {%- if rendered_image_index == 1 -%}
+                          {%- assign image_loading = 'eager' -%}
+                        {%- else -%}
+                          {%- assign image_loading = 'lazy' -%}
+                        {%- endif -%}
+                        <figure class="store-tabs__slide" data-store-slide>
+                          {{
+                            gallery_image
+                            | image_url: width: 1600
+                            | image_tag:
+                              widths: '480, 720, 960, 1200, 1600',
+                              sizes: '(min-width: 990px) 50vw, 100vw',
+                              loading: image_loading,
+                              class: 'store-tabs__image',
+                              alt: gallery_alt
+                          }}
+                        </figure>
                       {%- endif -%}
-                      <figure class="store-tabs__slide" data-store-slide>
-                        {{
-                          gallery_image
-                          | image_url: width: 1800
-                          | image_tag:
-                            widths: '480, 720, 960, 1200, 1600, 1800',
-                            sizes: '(min-width: 990px) 34vw, 86vw',
-                            loading: image_loading,
-                            class: 'store-tabs__image',
-                            alt: gallery_alt
-                        }}
-                      </figure>
-                    {%- endif -%}
-                  {%- endfor -%}
-                </div>
-
-                {%- if image_count > 1 -%}
-                  <div class="store-tabs__gallery-controls store-tabs__container">
-                    <button class="store-tabs__arrow" type="button" data-store-gallery-prev aria-label="{{ section.settings.previous_label | escape }}">
-                      <span aria-hidden="true">&larr;</span>
-                    </button>
-                    <p class="store-tabs__gallery-count" aria-live="polite">
-                      <span data-store-gallery-current>1</span> / {{ image_count }}
-                    </p>
-                    <button class="store-tabs__arrow" type="button" data-store-gallery-next aria-label="{{ section.settings.next_label | escape }}">
-                      <span aria-hidden="true">&rarr;</span>
-                    </button>
+                    {%- endfor -%}
                   </div>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
 
-            <div class="store-tabs__details store-tabs__container">
-              {%- if block.settings.description != blank -%}
-                <div class="store-tabs__description rte">{{ block.settings.description }}</div>
+                  {%- if image_count > 1 -%}
+                    <div class="store-tabs__gallery-controls">
+                      <button class="store-tabs__arrow" type="button" data-store-gallery-prev aria-label="{{ section.settings.previous_label | escape }}">
+                        <span aria-hidden="true">&larr;</span>
+                      </button>
+                      <p class="store-tabs__gallery-count" aria-live="polite">
+                        <span data-store-gallery-current>1</span> / {{ image_count }}
+                      </p>
+                      <button class="store-tabs__arrow" type="button" data-store-gallery-next aria-label="{{ section.settings.next_label | escape }}">
+                        <span aria-hidden="true">&rarr;</span>
+                      </button>
+                    </div>
+                  {%- endif -%}
+                </div>
               {%- endif -%}
 
+              <div class="store-tabs__copy">
+                {%- if block.settings.address != blank -%}
+                  <div class="store-tabs__address rte">{{ block.settings.address }}</div>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <div class="store-tabs__description rte">{{ block.settings.description }}</div>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="store-tabs__meta store-tabs__container">
               <dl class="store-tabs__facts">
                 {%- if block.settings.opening_hours != blank -%}
                   <div class="store-tabs__fact">
@@ -208,8 +211,10 @@
                   href="{{ block.settings.direction_url }}"
                   {% if block.settings.open_direction_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
                 >
-                  {{ block.settings.direction_label | default: section.settings.direction_label | escape }}
-                  <span aria-hidden="true">&#8599;</span>
+                  <span>{{ block.settings.direction_label | default: section.settings.direction_label | escape }}</span>
+                  <svg class="store-tabs__pin" viewBox="0 0 32 40" aria-hidden="true" focusable="false">
+                    <path d="M16 1.5C8.55 1.5 2.5 7.55 2.5 15c0 10.1 13.5 23.5 13.5 23.5S29.5 25.1 29.5 15C29.5 7.55 23.45 1.5 16 1.5Zm0 19a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11Z" fill="currentColor"/>
+                  </svg>
                 </a>
               {%- endif -%}
             </div>
@@ -222,6 +227,49 @@
           <p>{{ section.settings.empty_tab_text | escape }}</p>
         </div>
       {%- endunless -%}
+
+      {%- liquid
+        if tab_number == 1
+          assign footer_heading = section.settings.tab_1_footer_heading
+          assign footer_image = section.settings.tab_1_footer_image
+          assign footer_button_label = section.settings.tab_1_footer_button_label
+          assign footer_button_link = section.settings.tab_1_footer_button_link
+        else
+          assign footer_heading = section.settings.tab_2_footer_heading
+          assign footer_image = section.settings.tab_2_footer_image
+          assign footer_button_label = section.settings.tab_2_footer_button_label
+          assign footer_button_link = section.settings.tab_2_footer_button_link
+        endif
+      -%}
+
+      {%- if footer_heading != blank or footer_image != blank or footer_button_label != blank -%}
+        <div class="store-tabs__footer">
+          {%- if footer_heading != blank -%}
+            <h3 class="store-tabs__footer-heading store-tabs__container">{{ footer_heading | escape }}</h3>
+          {%- endif -%}
+          {%- if footer_image != blank -%}
+            <div class="store-tabs__footer-media">
+              {{
+                footer_image
+                | image_url: width: 2400
+                | image_tag:
+                  widths: '750, 1100, 1500, 2000, 2400',
+                  sizes: '100vw',
+                  loading: 'lazy',
+                  class: 'store-tabs__footer-image',
+                  alt: footer_heading
+              }}
+              {%- if footer_button_label != blank -%}
+                {%- if footer_button_link != blank -%}
+                  <a class="store-tabs__footer-cta" href="{{ footer_button_link }}">{{ footer_button_label | escape }}</a>
+                {%- else -%}
+                  <span class="store-tabs__footer-cta">{{ footer_button_label | escape }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
   {%- endfor -%}
 </section>
@@ -532,6 +580,243 @@
     padding-block: 72px;
   }
 
+  /* Desktop composition follows the approved two-column store mockup. */
+  #StoreTabs-{{ section.id }} .store-tabs__intro {
+    display: block;
+    padding-bottom: 34px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__eyebrow { margin-bottom: 10px; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__intro-text {
+    font-size: 13px;
+    line-height: 1.45;
+    max-width: 780px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__intro-text p + p { margin-top: 8px; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__nav-wrap {
+    backdrop-filter: none;
+    background: var(--store-tabs-bg);
+    border-bottom: 2px solid var(--store-tabs-accent);
+    border-top: 0;
+    position: relative;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__nav {
+    gap: 0;
+    justify-content: center;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab {
+    color: var(--store-tabs-accent);
+    font-size: 18px;
+    justify-content: center;
+    letter-spacing: 0;
+    min-width: 190px;
+    padding: 11px 28px 10px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab::after { display: none; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__tab.is-active,
+  #StoreTabs-{{ section.id }} .store-tabs__tab.is-active:hover {
+    background: var(--store-tabs-accent);
+    color: var(--store-tabs-bg);
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location {
+    padding: 36px 0 48px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location-head {
+    display: block;
+    padding-bottom: 14px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__title-wrap { gap: 8px 12px; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location-kicker {
+    font-size: 10px;
+    margin-bottom: 1px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__location-title {
+    color: var(--store-tabs-accent);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__main {
+    align-items: stretch;
+    display: grid;
+    gap: 36px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__main--no-image { grid-template-columns: 1fr; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery-shell {
+    min-width: 0;
+    position: relative;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery {
+    gap: 0;
+    height: 100%;
+    padding: 0;
+    scroll-padding-inline: 0;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__slide {
+    aspect-ratio: var(--store-tabs-gallery-ratio);
+    flex: 0 0 100%;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery-controls {
+    background: color-mix(in srgb, var(--store-tabs-bg) 84%, transparent);
+    bottom: 10px;
+    gap: 7px;
+    padding: 6px;
+    position: absolute;
+    right: 10px;
+    z-index: 2;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__arrow {
+    border: 0;
+    font-size: 15px;
+    height: 28px;
+    width: 28px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__gallery-count {
+    font-size: 10px;
+    min-width: 34px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__copy {
+    align-self: center;
+    max-width: 580px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__address {
+    color: var(--store-tabs-text);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__description {
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 580px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__meta {
+    align-items: start;
+    display: grid;
+    gap: 0;
+    grid-template-columns: minmax(0, 2fr) minmax(130px, 1fr);
+    padding-top: 22px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__facts {
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__fact {
+    gap: 12px;
+    padding-right: 20px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__fact dt,
+  #StoreTabs-{{ section.id }} .store-tabs__direction {
+    color: var(--store-tabs-text);
+    font-size: 10px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__fact dd { font-size: 11px; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__direction {
+    align-items: center;
+    background: transparent;
+    color: var(--store-tabs-text);
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+    letter-spacing: 0;
+    min-height: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__direction:hover {
+    color: var(--store-tabs-accent);
+    filter: none;
+    transform: none;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__pin {
+    display: block;
+    height: 36px;
+    width: 29px;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__footer { padding-top: 0; }
+
+  #StoreTabs-{{ section.id }} .store-tabs__footer-heading {
+    color: var(--store-tabs-accent);
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0;
+    padding-bottom: 16px;
+    padding-top: 28px;
+    text-transform: uppercase;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__footer-media {
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__footer-media::after {
+    background: rgba(0, 0, 0, 0.18);
+    content: '';
+    inset: 0;
+    position: absolute;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__footer-image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__footer-cta {
+    background: var(--store-tabs-accent);
+    color: var(--store-tabs-bg);
+    font-size: 15px;
+    font-weight: 800;
+    left: 50%;
+    padding: 10px 15px;
+    position: absolute;
+    text-decoration: none;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    z-index: 1;
+  }
+
   @media (max-width: 989px) {
     #StoreTabs-{{ section.id }} {
       padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
@@ -604,6 +889,113 @@
     }
 
     #StoreTabs-{{ section.id }} .store-tabs__direction { width: 100%; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__intro {
+      display: block;
+      padding-bottom: 28px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__intro-text {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__nav {
+      display: grid;
+      gap: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__tab {
+      font-size: 16px;
+      min-width: 0;
+      padding: 10px 12px 9px;
+      width: 100%;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__location { padding: 30px 0 36px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__location-head { padding-bottom: 12px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__location-kicker { font-size: 9px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__location-title { font-size: 17px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__main {
+      gap: 18px;
+      grid-template-columns: 1fr;
+      padding-inline: 0;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__copy { padding-inline: 18px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__gallery {
+      gap: 0;
+      padding-inline: 0;
+      scroll-padding-inline: 0;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__slide { flex-basis: 100%; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__gallery-controls {
+      bottom: 8px;
+      justify-content: center;
+      padding: 5px;
+      right: 8px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__address {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__description { font-size: 12px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__meta {
+      gap: 0;
+      grid-template-columns: minmax(0, 2fr) minmax(90px, 1fr);
+      padding-top: 18px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__facts {
+      border: 0;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__fact { padding: 0 10px 0 0; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__fact + .store-tabs__fact {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__fact dt,
+    #StoreTabs-{{ section.id }} .store-tabs__direction { font-size: 8px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__fact dd { font-size: 9px; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__direction {
+      gap: 6px;
+      width: auto;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__pin {
+      height: 30px;
+      width: 24px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__footer-heading {
+      font-size: 17px;
+      padding-bottom: 12px;
+      padding-top: 22px;
+    }
+
+    #StoreTabs-{{ section.id }} .store-tabs__footer-media { aspect-ratio: 3 / 2; }
+
+    #StoreTabs-{{ section.id }} .store-tabs__footer-cta {
+      font-size: 12px;
+      padding: 9px 12px;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -840,6 +1232,57 @@
     },
     {
       "type": "header",
+      "content": "Tab 1 footer banner"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_footer_heading",
+      "label": "Heading",
+      "default": "HELIOS HANOI UPCOMING STORE"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_1_footer_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_footer_button_label",
+      "label": "Button label",
+      "default": "SUBSCRIBE FOR LATEST NEWS"
+    },
+    {
+      "type": "url",
+      "id": "tab_1_footer_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2 footer banner"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_footer_heading",
+      "label": "Heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "tab_2_footer_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_footer_button_label",
+      "label": "Button label",
+      "default": "SUBSCRIBE FOR LATEST NEWS"
+    },
+    {
+      "type": "url",
+      "id": "tab_2_footer_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
       "content": "Shared labels"
     },
     {
@@ -977,7 +1420,7 @@
       "step": 8,
       "unit": "px",
       "label": "Desktop top padding",
-      "default": 88
+      "default": 40
     },
     {
       "type": "range",
@@ -987,7 +1430,7 @@
       "step": 8,
       "unit": "px",
       "label": "Desktop bottom padding",
-      "default": 88
+      "default": 0
     },
     {
       "type": "range",
@@ -997,7 +1440,7 @@
       "step": 8,
       "unit": "px",
       "label": "Mobile top padding",
-      "default": 48
+      "default": 32
     },
     {
       "type": "range",
@@ -1007,7 +1450,7 @@
       "step": 8,
       "unit": "px",
       "label": "Mobile bottom padding",
-      "default": 48
+      "default": 0
     }
   ],
   "blocks": [

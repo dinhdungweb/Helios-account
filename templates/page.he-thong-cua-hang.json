@@ -22,7 +22,7 @@
           "settings": {
             "tab": "tab_1",
             "anchor_id": "nguyen-trai",
-            "kicker": "HELIOS HA NOI",
+            "kicker": "",
             "title": "HELIOS NGUYEN TRAI",
             "badge": "",
             "address": "<p>672 Nguyen Trai, Thanh Xuan Ward, Hanoi</p>",
@@ -43,7 +43,7 @@
           "settings": {
             "tab": "tab_2",
             "anchor_id": "nguyen-gia-tri",
-            "kicker": "HELIOS HO CHI MINH",
+            "kicker": "",
             "title": "HELIOS NGUYEN GIA TRI",
             "badge": "",
             "address": "<p>69/2/29 Nguyen Gia Tri, Thanh My Tay Ward, Ho Chi Minh City</p>",
@@ -64,7 +64,7 @@
           "settings": {
             "tab": "tab_2",
             "anchor_id": "vincom-dong-khoi",
-            "kicker": "HELIOS HO CHI MINH",
+            "kicker": "",
             "title": "HELIOS VINCOM CENTER DONG KHOI",
             "badge": "",
             "address": "<p>Booth 18–19, Lot B1-38-48, B1 floor, Vincom Center Dong Khoi Shopping Mall, Saigon Ward, Ho Chi Minh City</p>",
@@ -85,7 +85,7 @@
           "settings": {
             "tab": "tab_2",
             "anchor_id": "ba-hat",
-            "kicker": "HELIOS HO CHI MINH",
+            "kicker": "",
             "title": "HELIOS BA HAT",
             "badge": "",
             "address": "<p>371 Ba Hat, Vuon Lai Ward, Ho Chi Minh City</p>",
@@ -110,7 +110,7 @@
       ],
       "settings": {
         "eyebrow": "ABOUT US",
-        "intro_text": "<p>HELIOS believes that a true connection only begins when you hold and feel a creation directly with your own hands and emotions. At that moment, you will recognize the difference each creation brings, the artisanal spirit in every detail, and the unique feeling of owning it.</p>",
+        "intro_text": "<p>HELIOS believes that a true connection only begins when you hold and feel a creation directly with your own hands and emotions.</p><p>At that moment, you will recognize the difference each creation brings, the artisanal spirit in every detail, and the unique feeling of owning it.</p>",
         "tab_1_label": "HA NOI",
         "tab_1_slug": "HN",
         "tab_2_label": "HO CHI MINH",
@@ -118,6 +118,14 @@
         "url_parameter": "store",
         "tabs_aria_label": "Choose a store area",
         "empty_tab_text": "Store information is coming soon.",
+        "tab_1_footer_heading": "HELIOS HANOI UPCOMING STORE",
+        "tab_1_footer_image": "shopify://shop_images/store_NT_6.jpg",
+        "tab_1_footer_button_label": "SUBSCRIBE FOR LATEST NEWS",
+        "tab_1_footer_button_link": "",
+        "tab_2_footer_heading": "",
+        "tab_2_footer_image": "shopify://shop_images/DSC0629.jpg",
+        "tab_2_footer_button_label": "SUBSCRIBE FOR LATEST NEWS",
+        "tab_2_footer_button_link": "",
         "hours_label": "OPENING HOURS",
         "hotline_label": "HOTLINE",
         "direction_label": "GET DIRECTION",
@@ -134,10 +142,10 @@
         "accent_color": "#fab320",
         "border_color": "#2e2e2e",
         "content_width": 1360,
-        "padding_top": 88,
-        "padding_bottom": 88,
-        "padding_top_mobile": 48,
-        "padding_bottom_mobile": 48
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 0
       }
     }
   },
