@@ -1143,7 +1143,7 @@
         });
       }, { passive: true });
 
-      const autoplayEnabled = gallery.dataset.autoplay === 'true' && !reduceMotion;
+      const autoplayEnabled = gallery.dataset.autoplay === 'true';
       const seconds = Number(gallery.dataset.autoplaySeconds) || 5;
       let timer;
       const stop = () => window.clearInterval(timer);
