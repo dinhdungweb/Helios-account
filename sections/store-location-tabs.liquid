@@ -471,11 +471,8 @@
     display: block;
     height: 100%;
     object-fit: cover;
-    transition: transform 500ms ease;
     width: 100%;
   }
-
-  #StoreTabs-{{ section.id }} .store-tabs__slide:hover .store-tabs__image { transform: scale(1.025); }
 
   #StoreTabs-{{ section.id }} .store-tabs__gallery-controls {
     align-items: center;
@@ -1024,7 +1021,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     #StoreTabs-{{ section.id }} .store-tabs__gallery { scroll-behavior: auto; }
-    #StoreTabs-{{ section.id }} .store-tabs__image,
     #StoreTabs-{{ section.id }} .store-tabs__direction,
     #StoreTabs-{{ section.id }} .store-tabs__tab::after { transition: none; }
   }
@@ -1456,11 +1452,11 @@
       "type": "range",
       "id": "content_width",
       "min": 960,
-      "max": 1600,
+      "max": 1800,
       "step": 40,
       "unit": "px",
       "label": "Content width",
-      "default": 1360
+      "default": 1800
     },
     {
       "type": "range",
