@@ -168,13 +168,17 @@
                   {%- if image_count > 1 -%}
                     <div class="store-tabs__gallery-controls">
                       <button class="store-tabs__arrow" type="button" data-store-gallery-prev aria-label="{{ section.settings.previous_label | escape }}">
-                        <span aria-hidden="true">&larr;</span>
+                        <svg class="store-tabs__arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path d="M19 12H5m6-6-6 6 6 6" />
+                        </svg>
                       </button>
                       <p class="store-tabs__gallery-count" aria-live="polite">
                         <span data-store-gallery-current>1</span> / {{ image_count }}
                       </p>
                       <button class="store-tabs__arrow" type="button" data-store-gallery-next aria-label="{{ section.settings.next_label | escape }}">
-                        <span aria-hidden="true">&rarr;</span>
+                        <svg class="store-tabs__arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path d="M5 12h14m-6-6 6 6-6 6" />
+                        </svg>
                       </button>
                     </div>
                   {%- endif -%}
@@ -501,6 +505,16 @@
     background: var(--store-tabs-accent);
     border-color: var(--store-tabs-accent);
     color: var(--store-tabs-bg);
+  }
+
+  #StoreTabs-{{ section.id }} .store-tabs__arrow-icon {
+    fill: none;
+    height: 16px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    width: 16px;
   }
 
   #StoreTabs-{{ section.id }} .store-tabs__gallery-count {
@@ -1096,12 +1110,16 @@
       const current = gallery.querySelector('[data-store-gallery-current]');
       if (!track || slides.length < 2) return;
 
+      const panel = gallery.closest('[data-store-panel]');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       const getIndex = () => {
-        const trackLeft = track.getBoundingClientRect().left;
         let closestIndex = 0;
         let closestDistance = Infinity;
+        const firstSlideLeft = slides[0].offsetLeft;
         slides.forEach((slide, slideIndex) => {
-          const distance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+          const slideScrollPosition = slide.offsetLeft - firstSlideLeft;
+          const distance = Math.abs(track.scrollLeft - slideScrollPosition);
           if (distance < closestDistance) {
             closestDistance = distance;
             closestIndex = slideIndex;
@@ -1112,11 +1130,10 @@
 
       const goTo = (index) => {
         const normalized = (index + slides.length) % slides.length;
-        slides[normalized].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        const left = slides[normalized].offsetLeft - slides[0].offsetLeft;
+        track.scrollTo({ left, behavior: reduceMotion ? 'auto' : 'smooth' });
+        if (current) current.textContent = String(normalized + 1);
       };
-
-      gallery.querySelector('[data-store-gallery-prev]')?.addEventListener('click', () => goTo(getIndex() - 1));
-      gallery.querySelector('[data-store-gallery-next]')?.addEventListener('click', () => goTo(getIndex() + 1));
 
       let frame;
       track.addEventListener('scroll', () => {
@@ -1126,14 +1143,37 @@
         });
       }, { passive: true });
 
-      if (gallery.dataset.autoplay === 'true' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const seconds = Number(gallery.dataset.autoplaySeconds) || 5;
-        let timer;
-        const start = () => {
-          window.clearInterval(timer);
-          timer = window.setInterval(() => goTo(getIndex() + 1), seconds * 1000);
-        };
-        const stop = () => window.clearInterval(timer);
+      const autoplayEnabled = gallery.dataset.autoplay === 'true' && !reduceMotion;
+      const seconds = Number(gallery.dataset.autoplaySeconds) || 5;
+      let timer;
+      const stop = () => window.clearInterval(timer);
+      const start = () => {
+        stop();
+        if (
+          !autoplayEnabled
+          || document.hidden
+          || gallery.matches(':hover')
+          || gallery.contains(document.activeElement)
+        ) return;
+        timer = window.setInterval(() => {
+          if (!panel || !panel.hidden) goTo(getIndex() + 1);
+        }, seconds * 1000);
+      };
+      const restart = () => {
+        stop();
+        start();
+      };
+
+      gallery.querySelector('[data-store-gallery-prev]')?.addEventListener('click', () => {
+        goTo(getIndex() - 1);
+        restart();
+      });
+      gallery.querySelector('[data-store-gallery-next]')?.addEventListener('click', () => {
+        goTo(getIndex() + 1);
+        restart();
+      });
+
+      if (autoplayEnabled) {
         gallery.addEventListener('mouseenter', stop);
         gallery.addEventListener('mouseleave', start);
         gallery.addEventListener('focusin', stop);
