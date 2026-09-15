@@ -113,9 +113,9 @@
       ],
       "name": "Advanced Form to Sheet",
       "settings": {
-        "form-title": "Liên hệ với chúng tôi",
+        "form-title": "HÀNH TRÌNH DẤU ẤN — ĐIỂM HẸN ĐÀ NẴNG",
         "form-subtitle": "",
-        "form-description": "<p>Vui lòng điền thông tin để liên hệ với chúng tôi</p>",
+        "form-description": "<p>HELIOS sẽ có mặt tại Đà Nẵng cùng một dấu ấn đặc biệt dành riêng cho hành trình lần này. <br/>Anh/chị có thể đăng ký trước để đặt giữ sản phẩm giới hạn hoặc những mẫu HELIOS đang quan tâm để chúng tôi chuẩn bị mang theo trực tiếp tại sự kiện.</p>",
         "banner_position": "left",
         "form_action_url": "",
         "success_message": "Gửi thành công! Cảm ơn bạn.",
@@ -123,7 +123,7 @@
         "button_text": "Gửi",
         "button_color": "#fab320",
         "input_border_radius": 0,
-        "form_max_width": 860,
+        "form_max_width": 720,
         "form_alignment": "center"
       }
     }

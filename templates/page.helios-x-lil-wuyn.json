@@ -631,6 +631,77 @@
         "desktop_spacing": 55,
         "mobile_spacing": 40
       }
+    },
+    "journey_timeline_mNrzVK": {
+      "type": "journey-timeline",
+      "blocks": {
+        "journey_item_fnQqKP": {
+          "type": "journey_item",
+          "settings": {
+            "title": "Ra mắt BST Men's Armor",
+            "description": "<p>Dấu ấn đầu tiên trên hành trình đồng hành cùng cộng đồng.</p>",
+            "image_count": 8,
+            "desktop_columns": 3,
+            "mobile_columns": "2",
+            "image_ratio": "3 / 4"
+          }
+        },
+        "journey_item_ytnHa6": {
+          "type": "journey_item",
+          "settings": {
+            "title": "Show Trừ Bảo",
+            "description": "<p>Một hành trình mang cá tính và tinh thần riêng.</p>",
+            "image_count": 2,
+            "desktop_columns": 2,
+            "mobile_columns": "2",
+            "image_ratio": "3 / 4"
+          }
+        },
+        "journey_item_xjqXgE": {
+          "type": "journey_item",
+          "settings": {
+            "title": "Show Đông Fest",
+            "description": "<p>Những khoảnh khắc đáng nhớ trên hành trình.</p>",
+            "image_count": 2,
+            "desktop_columns": 2,
+            "mobile_columns": "2",
+            "image_ratio": "3 / 4"
+          }
+        },
+        "final_item_eWkabm": {
+          "type": "final_item",
+          "settings": {
+            "title": "HÀNH TRÌNH VẪN ĐANG TIẾP DIỄN",
+            "description": "<p>Mỗi hành trình là một dấu ấn. Và hành trình tiếp theo vẫn đang chờ được viết tiếp.</p>",
+            "image_ratio": "16 / 9",
+            "quote": "“Lấy cuộc sống làm mặt giấy, lấy trải nghiệm để vẽ nên mình.”",
+            "quote_alignment": "left"
+          }
+        }
+      },
+      "block_order": [
+        "journey_item_fnQqKP",
+        "journey_item_ytnHa6",
+        "journey_item_xjqXgE",
+        "final_item_eWkabm"
+      ],
+      "name": "Journey Timeline",
+      "settings": {
+        "heading": "NHỮNG HÀNH TRÌNH ĐÃ ĐỒNG HÀNH",
+        "heading_alignment": "left",
+        "heading_size": 28,
+        "max_width": 1200,
+        "copy_width": 35,
+        "gallery_gap": 16,
+        "item_gap": 40,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "background_color": "#000000",
+        "text_color": "#f8f8f8",
+        "muted_text_color": "#b8b8b8",
+        "line_color": "#f8f8f8",
+        "dot_color": "#f8f8f8"
+      }
     }
   },
   "order": [
@@ -652,6 +723,7 @@
     "rich_text_rbndCc",
     "custom_spacing_fGbbea",
     "background_video_responsive_QyPyMN",
-    "custom_spacing_KxgbM8"
+    "custom_spacing_KxgbM8",
+    "journey_timeline_mNrzVK"
   ]
 }
