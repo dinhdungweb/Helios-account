@@ -33,7 +33,7 @@
           "settings": {
             "label": "Số điện thoại",
             "description": "",
-            "entry": "",
+            "entry": "entry.1285596507",
             "placeholder": "Nhập số điện thoại",
             "required": true,
             "input_type": "tel"
