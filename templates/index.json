@@ -331,7 +331,7 @@
             "aspect_ratio_mobile": "4_5",
             "aspect_ratio_desktop": "1_1",
             "title": "SẢN PHẨM MỚI",
-            "title_color": "#FFFFFF",
+            "title_color": "#222222",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
             "v_align": "bottom",
