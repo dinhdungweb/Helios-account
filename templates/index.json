@@ -325,13 +325,13 @@
         "banner_jqKwem": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/IMG_3920.jpg",
+            "image": "shopify://shop_images/1_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "4_5",
             "aspect_ratio_desktop": "1_1",
             "title": "SẢN PHẨM MỚI",
-            "title_color": "#f2f2f2",
+            "title_color": "#FFFFFF",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
             "v_align": "bottom",
@@ -345,12 +345,12 @@
         "banner_jAMpJq": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/p4.jpg",
+            "image": "shopify://shop_images/2_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "4_5",
             "aspect_ratio_desktop": "1_1",
-            "title": "KHUYÊN TAI BẠC",
+            "title": "NHẪN BẠC NAM",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
             "h_align": "center",
@@ -359,7 +359,7 @@
             "x_offset": 0,
             "y_offset": -40,
             "padding": 0,
-            "link": "shopify://collections/khuyen-tai-bac-nam"
+            "link": "shopify://collections/nhan-bac-nam"
           }
         }
       },
@@ -383,30 +383,10 @@
     "two_banner_C3RzCw": {
       "type": "two-banner",
       "blocks": {
-        "banner_CcYr6M": {
-          "type": "banner",
-          "settings": {
-            "image": "shopify://shop_images/p5.jpg",
-            "video_url": "",
-            "video_loop": false,
-            "aspect_ratio_mobile": "2_3",
-            "aspect_ratio_desktop": "1_1",
-            "title": "NHẪN BẠC",
-            "title_color": "#f2f2f2",
-            "title_bg": "rgba(0,0,0,0)",
-            "h_align": "center",
-            "v_align": "bottom",
-            "text_align": "center",
-            "x_offset": 0,
-            "y_offset": -40,
-            "padding": 0,
-            "link": "shopify://collections/nhan-bac-nam"
-          }
-        },
         "banner_wnK37c": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/p3_e1323a37-2a9f-4570-94b4-5aba97e0d80d.jpg",
+            "image": "shopify://shop_images/3_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -422,11 +402,31 @@
             "padding": 0,
             "link": "shopify://collections/mat-day-chuyen-bac-s925"
           }
+        },
+        "banner_CcYr6M": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/4_optimized.webp",
+            "video_url": "",
+            "video_loop": false,
+            "aspect_ratio_mobile": "2_3",
+            "aspect_ratio_desktop": "1_1",
+            "title": "KHUYÊN TAI BẠC",
+            "title_color": "#f2f2f2",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "bottom",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": -40,
+            "padding": 0,
+            "link": "shopify://collections/khuyen-tai-bac-nam"
+          }
         }
       },
       "block_order": [
-        "banner_CcYr6M",
-        "banner_wnK37c"
+        "banner_wnK37c",
+        "banner_CcYr6M"
       ],
       "name": "Two Banners",
       "settings": {
@@ -447,7 +447,7 @@
         "banner_Nmp8fT": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/p12.jpg",
+            "image": "shopify://shop_images/6_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -467,7 +467,7 @@
         "banner_Adiycb": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/P6.jpg",
+            "image": "shopify://shop_images/5_optimized.webp",
             "video_url": "",
             "video_loop": false,
             "aspect_ratio_mobile": "2_3",
@@ -600,6 +600,7 @@
           "type": "text_field",
           "settings": {
             "label": "Tên",
+            "description": "",
             "entry": "",
             "placeholder": "Nhập tên của bạn",
             "required": true,
@@ -610,6 +611,7 @@
           "type": "text_field",
           "settings": {
             "label": "Tên",
+            "description": "",
             "entry": "",
             "placeholder": "Nhập tên của bạn",
             "required": true,
@@ -620,6 +622,7 @@
           "type": "textarea_field",
           "settings": {
             "label": "Tin nhắn",
+            "description": "",
             "entry": "",
             "placeholder": "Nhập tin nhắn của bạn",
             "required": false
@@ -641,7 +644,10 @@
         "success_message": "Gửi thành công! Cảm ơn bạn.",
         "error_message": "Gửi thất bại. Vui lòng thử lại!",
         "button_text": "Gửi",
-        "button_color": "#FAB320"
+        "button_color": "#fab320",
+        "input_border_radius": 0,
+        "form_max_width": 1200,
+        "form_alignment": "center"
       }
     }
   },
