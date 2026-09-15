@@ -21,6 +21,7 @@
           "type": "text_field",
           "settings": {
             "label": "Họ và tên",
+            "description": "",
             "entry": "",
             "placeholder": "Anh/chị vui lòng cho HELIOS biết họ và tên?",
             "required": true,
@@ -31,6 +32,7 @@
           "type": "text_field",
           "settings": {
             "label": "Số điện thoại",
+            "description": "",
             "entry": "",
             "placeholder": "Số điện thoại",
             "required": true,
@@ -41,6 +43,7 @@
           "type": "text_field",
           "settings": {
             "label": "Quan tâm sản phẩm giới hạn Đà Nẵng",
+            "description": "",
             "entry": "",
             "placeholder": "Anh/chị có quan tâm đến sản phẩm giới hạn dành riêng cho Hành trình Dấu Ấn tại Đà Nẵng không?",
             "required": true,
@@ -51,6 +54,7 @@
           "type": "text_field",
           "settings": {
             "label": "Số lượng đặt giữ",
+            "description": "",
             "entry": "",
             "placeholder": "Nếu để giữ trước, anh/chị dự kiến muốn giữ bao nhiêu sản phẩm?",
             "required": true,
@@ -61,6 +65,7 @@
           "type": "text_field",
           "settings": {
             "label": "Sản phẩm HELIOS khác quan tâm",
+            "description": "",
             "entry": "",
             "placeholder": "Ngoài sản phẩm giới hạn tại Đà Nẵng, anh/chị đang quan tâm đến sản phẩm HELIOS nào khác và muốn HELIOS chuẩn bị mang theo?",
             "required": true,
@@ -71,6 +76,7 @@
           "type": "text_field",
           "settings": {
             "label": "Mức độ nhu cầu",
+            "description": "",
             "entry": "",
             "placeholder": "Nhu cầu của anh/chị với các sản phẩm đăng ký xem là gì?",
             "required": true,
@@ -81,6 +87,7 @@
           "type": "text_field",
           "settings": {
             "label": "Khả năng tham gia",
+            "description": "",
             "entry": "",
             "placeholder": "Anh/chị dự kiến có thể ghé gặp HELIOS tại Đà Nẵng ngày 19/09 không?",
             "required": true,
@@ -91,6 +98,7 @@
           "type": "textarea_field",
           "settings": {
             "label": "Ghi chú thêm",
+            "description": "",
             "entry": "",
             "placeholder": "Anh/chị có lưu ý hoặc mong muốn nào khác để HELIOS chuẩn bị tốt hơn cho buổi gặp không?",
             "required": false
@@ -117,7 +125,9 @@
         "success_message": "Gửi thành công! Cảm ơn bạn.",
         "error_message": "Gửi thất bại. Vui lòng thử lại!",
         "button_text": "Gửi",
-        "button_color": "#FAB320"
+        "button_color": "#fab320",
+        "input_border_radius": 0,
+        "form_max_width": 860
       }
     }
   },
