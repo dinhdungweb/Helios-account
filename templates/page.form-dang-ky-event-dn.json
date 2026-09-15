@@ -75,7 +75,7 @@
           "settings": {
             "label": "KHẢ NĂNG THAM GIA",
             "description": "Anh/chị dự kiến có thể ghé gặp HELIOS tại Đà Nẵng ngày 19/09 không?",
-            "entry": "",
+            "entry": "entry.1913097616",
             "options": "Chắc chắn tham gia\nCó thể tham gia\nChưa xác định",
             "required": true
           }
@@ -85,7 +85,7 @@
           "settings": {
             "label": "Ghi chú thêm",
             "description": "Anh/chị có lưu ý hoặc mong muốn nào khác để HELIOS chuẩn bị tốt hơn cho buổi gặp không?",
-            "entry": "",
+            "entry": "entry.1929856712",
             "placeholder": "Nhập ghi chú thêm",
             "required": false
           }
