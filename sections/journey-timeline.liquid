@@ -34,17 +34,37 @@
             {%- liquid
               assign visible_image_count = block.settings.image_count | default: 2
               assign has_gallery = false
+              assign rendered_image_count = 0
+              assign use_slider = false
+              assign desktop_columns = block.settings.desktop_columns | plus: 0
+              assign mobile_columns = block.settings.mobile_columns | plus: 0
+              assign gallery_gap = section.settings.gallery_gap | plus: 0
 
               for image_index in (1..visible_image_count)
                 assign image_key = 'image_' | append: image_index
                 if block.settings[image_key] != blank
                   assign has_gallery = true
+                  assign rendered_image_count = rendered_image_count | plus: 1
                 endif
               endfor
 
               if request.design_mode
                 assign has_gallery = true
+                assign rendered_image_count = visible_image_count
               endif
+
+              if rendered_image_count > 2
+                assign use_slider = true
+              endif
+
+              assign desktop_gap_count = desktop_columns | minus: 1
+              assign desktop_total_gap = gallery_gap | times: desktop_gap_count
+              assign desktop_gap_share = desktop_total_gap | times: 1.0 | divided_by: desktop_columns
+              assign desktop_width_percent = 100.0 | divided_by: desktop_columns
+              assign mobile_gap_count = mobile_columns | minus: 1
+              assign mobile_total_gap = gallery_gap | times: mobile_gap_count
+              assign mobile_gap_share = mobile_total_gap | times: 1.0 | divided_by: mobile_columns
+              assign mobile_width_percent = 100.0 | divided_by: mobile_columns
             -%}
 
             <article class="journey-timeline__item journey-timeline__item--standard" {{ block.shopify_attributes }}>
@@ -62,40 +82,75 @@
                 </div>
 
                 {%- if has_gallery -%}
-                  <div
-                    class="journey-timeline__gallery"
-                    style="
-                      --jt-columns-desktop: {{ block.settings.desktop_columns }};
-                      --jt-columns-mobile: {{ block.settings.mobile_columns }};
-                      --jt-image-ratio: {{ block.settings.image_ratio }};
-                    "
-                  >
-                    {%- for image_index in (1..visible_image_count) -%}
-                      {%- liquid
-                        assign image_key = 'image_' | append: image_index
-                        assign timeline_image = block.settings[image_key]
-                        assign image_alt = timeline_image.alt | default: block.settings.title
-                      -%}
+                  <div class="journey-timeline__gallery-shell">
+                    <div
+                      id="journey-gallery-{{ section.id }}-{{ block.id }}"
+                      class="journey-timeline__gallery{% if use_slider %} journey-timeline__gallery--slider{% endif %}"
+                      style="
+                        --jt-columns-desktop: {{ desktop_columns }};
+                        --jt-columns-mobile: {{ mobile_columns }};
+                        --jt-image-ratio: {{ block.settings.image_ratio }};
+                        --jt-slide-width-desktop: calc({{ desktop_width_percent }}% - {{ desktop_gap_share }}px);
+                        --jt-slide-width-mobile: calc({{ mobile_width_percent }}% - {{ mobile_gap_share }}px);
+                      "
+                      {% if use_slider %}
+                        data-journey-slider
+                        tabindex="0"
+                        role="region"
+                        aria-label="Bộ sưu tập ảnh {{ block.settings.title | escape }}"
+                      {% endif %}
+                    >
+                      {%- for image_index in (1..visible_image_count) -%}
+                        {%- liquid
+                          assign image_key = 'image_' | append: image_index
+                          assign timeline_image = block.settings[image_key]
+                          assign image_alt = timeline_image.alt | default: block.settings.title
+                        -%}
 
-                      {%- if timeline_image != blank -%}
-                        <div class="journey-timeline__image-wrap">
-                          {{-
-                            timeline_image
-                            | image_url: width: 1200
-                            | image_tag:
-                              class: 'journey-timeline__image',
-                              widths: '240, 360, 480, 720, 960, 1200',
-                              sizes: '(min-width: 750px) 30vw, 50vw',
-                              loading: 'lazy',
-                              alt: image_alt
-                          -}}
-                        </div>
-                      {%- elsif request.design_mode -%}
-                        <div class="journey-timeline__image-wrap journey-timeline__image-wrap--placeholder">
-                          {{ 'image' | placeholder_svg_tag: 'journey-timeline__placeholder' }}
-                        </div>
-                      {%- endif -%}
-                    {%- endfor -%}
+                        {%- if timeline_image != blank -%}
+                          <div class="journey-timeline__image-wrap">
+                            {{-
+                              timeline_image
+                              | image_url: width: 1200
+                              | image_tag:
+                                class: 'journey-timeline__image',
+                                widths: '240, 360, 480, 720, 960, 1200',
+                                sizes: '(min-width: 750px) 30vw, 50vw',
+                                loading: 'lazy',
+                                alt: image_alt
+                            -}}
+                          </div>
+                        {%- elsif request.design_mode -%}
+                          <div class="journey-timeline__image-wrap journey-timeline__image-wrap--placeholder">
+                            {{ 'image' | placeholder_svg_tag: 'journey-timeline__placeholder' }}
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+
+                    {%- if use_slider -%}
+                      <div class="journey-timeline__slider-controls" data-journey-slider-controls>
+                        <button
+                          type="button"
+                          class="journey-timeline__slider-button"
+                          data-journey-slider-prev
+                          aria-controls="journey-gallery-{{ section.id }}-{{ block.id }}"
+                          aria-label="Ảnh trước"
+                          disabled
+                        >
+                          <span aria-hidden="true">&#8592;</span>
+                        </button>
+                        <button
+                          type="button"
+                          class="journey-timeline__slider-button"
+                          data-journey-slider-next
+                          aria-controls="journey-gallery-{{ section.id }}-{{ block.id }}"
+                          aria-label="Ảnh tiếp theo"
+                        >
+                          <span aria-hidden="true">&#8594;</span>
+                        </button>
+                      </div>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
               </div>
@@ -279,6 +334,77 @@
     min-width: 0;
   }
 
+  #journey-timeline-{{ section.id }} .journey-timeline__gallery-shell {
+    min-width: 0;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__gallery--slider {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__gallery--slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__gallery--slider:focus-visible {
+    outline: 1px solid var(--jt-line);
+    outline-offset: 4px;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__gallery--slider .journey-timeline__image-wrap {
+    flex: 0 0 var(--jt-slide-width-desktop);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__slider-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__slider-controls[hidden] {
+    display: none;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__slider-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--jt-line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--jt-text);
+    font: inherit;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, opacity 160ms ease;
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__slider-button:hover:not(:disabled),
+  #journey-timeline-{{ section.id }} .journey-timeline__slider-button:focus-visible {
+    background: var(--jt-text);
+    color: var(--jt-background);
+  }
+
+  #journey-timeline-{{ section.id }} .journey-timeline__slider-button:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
   #journey-timeline-{{ section.id }} .journey-timeline__image-wrap,
   #journey-timeline-{{ section.id }} .journey-timeline__final-image-wrap {
     position: relative;
@@ -405,6 +531,10 @@
       grid-template-columns: repeat(var(--jt-columns-mobile), minmax(0, 1fr));
     }
 
+    #journey-timeline-{{ section.id }} .journey-timeline__gallery--slider .journey-timeline__image-wrap {
+      flex-basis: var(--jt-slide-width-mobile);
+    }
+
     #journey-timeline-{{ section.id }} .journey-timeline__copy--final {
       margin-bottom: 16px;
     }
@@ -417,6 +547,72 @@
     }
   }
 {% endstyle %}
+
+<script>
+  (() => {
+    const sectionId = 'journey-timeline-{{ section.id }}';
+
+    const initializeJourneySliders = (root = document) => {
+      const sectionElement = root.id === sectionId ? root : root.querySelector(`#${sectionId}`);
+      if (!sectionElement) return;
+
+      sectionElement.querySelectorAll('[data-journey-slider]').forEach((slider) => {
+        if (slider.dataset.journeySliderInitialized === 'true') return;
+
+        const shell = slider.closest('.journey-timeline__gallery-shell');
+        const controls = shell?.querySelector('[data-journey-slider-controls]');
+        const previousButton = controls?.querySelector('[data-journey-slider-prev]');
+        const nextButton = controls?.querySelector('[data-journey-slider-next]');
+
+        if (!controls || !previousButton || !nextButton) return;
+
+        slider.dataset.journeySliderInitialized = 'true';
+
+        const getScrollStep = () => {
+          const slides = slider.querySelectorAll('.journey-timeline__image-wrap');
+          if (slides.length > 1) return slides[1].offsetLeft - slides[0].offsetLeft;
+          return slides[0]?.getBoundingClientRect().width || slider.clientWidth;
+        };
+
+        const updateControls = () => {
+          const maxScroll = Math.max(0, slider.scrollWidth - slider.clientWidth);
+          controls.hidden = maxScroll <= 1;
+          previousButton.disabled = slider.scrollLeft <= 1;
+          nextButton.disabled = slider.scrollLeft >= maxScroll - 1;
+        };
+
+        const moveSlider = (direction) => {
+          slider.scrollBy({ left: getScrollStep() * direction, behavior: 'smooth' });
+        };
+
+        previousButton.addEventListener('click', () => moveSlider(-1));
+        nextButton.addEventListener('click', () => moveSlider(1));
+        slider.addEventListener('scroll', updateControls, { passive: true });
+        slider.addEventListener('keydown', (event) => {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          moveSlider(event.key === 'ArrowLeft' ? -1 : 1);
+        });
+
+        if ('ResizeObserver' in window) {
+          const resizeObserver = new ResizeObserver(updateControls);
+          resizeObserver.observe(slider);
+        } else {
+          window.addEventListener('resize', updateControls);
+        }
+
+        slider.querySelectorAll('img').forEach((image) => {
+          if (!image.complete) image.addEventListener('load', updateControls, { once: true });
+        });
+
+        requestAnimationFrame(updateControls);
+      });
+    };
+
+    initializeJourneySliders();
+    document.addEventListener('shopify:section:load', (event) => initializeJourneySliders(event.target));
+  })();
+</script>
 
 {% schema %}
 {
