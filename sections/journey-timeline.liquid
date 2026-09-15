@@ -579,13 +579,14 @@
           "default": 2
         },
         {
-          "type": "range",
+          "type": "select",
           "id": "mobile_columns",
-          "min": 1,
-          "max": 2,
-          "step": 1,
           "label": "Số cột ảnh mobile",
-          "default": 2
+          "options": [
+            { "value": "1", "label": "1 cột" },
+            { "value": "2", "label": "2 cột" }
+          ],
+          "default": "2"
         },
         {
           "type": "select",
