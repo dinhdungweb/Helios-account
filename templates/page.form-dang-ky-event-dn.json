@@ -44,7 +44,7 @@
           "settings": {
             "label": "QUAN TÂM SẢN PHẨM GIỚI HẠN ĐÀ NẴNG",
             "description": "Anh/chị có quan tâm đến sản phẩm giới hạn dành riêng cho Hành trình Dấu Ấn tại Đà Nẵng không?",
-            "entry": "",
+            "entry": "entry.2087129904",
             "options": "Muốn đặt giữ trước\nMuốn xem trực tiếp rồi quyết định\nChưa có nhu cầu",
             "required": true
           }
