@@ -76,11 +76,12 @@
               class="form-select"
               {% if block.settings.required %}required{% endif %}>
               <option value="">-- Chọn --</option>
-              {% assign separator = newline %}
               {% if block.settings.options contains ',' %}
-                {% assign separator = ',' %}
+                {% assign options = block.settings.options | split: ',' %}
+              {% else %}
+                {% assign options_with_breaks = block.settings.options | newline_to_br %}
+                {% assign options = options_with_breaks | split: '<br />' %}
               {% endif %}
-              {% assign options = block.settings.options | split: separator %}
               {% for option in options %}
                 {% assign option = option | strip %}
                 {% if option != blank %}
@@ -98,11 +99,12 @@
               {% if block.settings.description != blank %}
                 <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
               {% endif %}
-              {% assign separator = newline %}
               {% if block.settings.options contains ',' %}
-                {% assign separator = ',' %}
+                {% assign options = block.settings.options | split: ',' %}
+              {% else %}
+                {% assign options_with_breaks = block.settings.options | newline_to_br %}
+                {% assign options = options_with_breaks | split: '<br />' %}
               {% endif %}
-              {% assign options = block.settings.options | split: separator %}
               {% for option in options %}
                 {% assign option = option | strip %}
                 {% if option != blank %}
@@ -130,11 +132,12 @@
               {% if block.settings.description != blank %}
                 <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
               {% endif %}
-              {% assign separator = newline %}
               {% if block.settings.options contains ',' %}
-                {% assign separator = ',' %}
+                {% assign options = block.settings.options | split: ',' %}
+              {% else %}
+                {% assign options_with_breaks = block.settings.options | newline_to_br %}
+                {% assign options = options_with_breaks | split: '<br />' %}
               {% endif %}
-              {% assign options = block.settings.options | split: separator %}
               {% for option in options %}
                 {% assign option = option | strip %}
                 {% if option != blank %}
