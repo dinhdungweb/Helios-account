@@ -132,6 +132,10 @@
               {% if block.settings.description != blank %}
                 <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
               {% endif %}
+              {% assign radio_name = block.settings.entry | strip %}
+              {% if radio_name == blank %}
+                {% assign radio_name = 'field-' | append: block.id %}
+              {% endif %}
               {% if block.settings.options contains ',' %}
                 {% assign options = block.settings.options | split: ',' %}
               {% else %}
@@ -145,7 +149,7 @@
                     <input 
                       type="radio" 
                       id="radio-{{ block.id }}-{{ forloop.index }}" 
-                      name="{{ block.settings.entry }}" 
+                      name="{{ radio_name | escape }}"
                       value="{{ option }}"
                       class="form-radio"
                       {% if block.settings.required %}required{% endif %}>
@@ -322,12 +326,22 @@
   .radio-group {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 8px;
+    margin: 0 0 10px;
+    min-height: 0;
+  }
+
+  .checkbox-group:last-child,
+  .radio-group:last-child {
+    margin-bottom: 0;
   }
 
   .form-checkbox,
   .form-radio {
-    margin-right: 8px;
+    flex: 0 0 16px;
+    margin: 0;
+    padding: 0;
+    min-height: 0;
     cursor: pointer;
     width: 16px;
     height: 16px;
@@ -337,6 +351,7 @@
   .radio-label {
     margin: 0;
     font-size: 14px;
+    line-height: 1.4;
     color: #f2f2f2;
     cursor: pointer;
   }
