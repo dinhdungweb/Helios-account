@@ -21,9 +21,9 @@
           "type": "text_field",
           "settings": {
             "label": "Họ và tên",
-            "description": "",
+            "description": "Anh/chị vui lòng cho HELIOS biết họ và tên?",
             "entry": "",
-            "placeholder": "Anh/chị vui lòng cho HELIOS biết họ và tên?",
+            "placeholder": "Nhập họ và tên",
             "required": true,
             "input_type": "text"
           }
@@ -32,75 +32,71 @@
           "type": "text_field",
           "settings": {
             "label": "Số điện thoại",
-            "description": "",
+            "description": "Số điện thoại",
             "entry": "",
-            "placeholder": "Số điện thoại",
+            "placeholder": "Nhập số điện thoại",
             "required": true,
-            "input_type": "text"
+            "input_type": "tel"
           }
         },
         "text_field_hzBkxY": {
-          "type": "text_field",
+          "type": "radio_field",
           "settings": {
             "label": "Quan tâm sản phẩm giới hạn Đà Nẵng",
-            "description": "",
+            "description": "Anh/chị có quan tâm đến sản phẩm giới hạn dành riêng cho Hành trình Dấu Ấn tại Đà Nẵng không?",
             "entry": "",
-            "placeholder": "Anh/chị có quan tâm đến sản phẩm giới hạn dành riêng cho Hành trình Dấu Ấn tại Đà Nẵng không?",
-            "required": true,
-            "input_type": "text"
+            "options": "Muốn đặt giữ trước\nMuốn xem trực tiếp rồi quyết định\nChưa có nhu cầu",
+            "required": true
           }
         },
         "text_field_Ntzqk4": {
-          "type": "text_field",
+          "type": "radio_field",
           "settings": {
             "label": "Số lượng đặt giữ",
-            "description": "",
+            "description": "Nếu đặt giữ trước, anh/chị dự kiến muốn giữ bao nhiêu sản phẩm?",
             "entry": "",
-            "placeholder": "Nếu để giữ trước, anh/chị dự kiến muốn giữ bao nhiêu sản phẩm?",
-            "required": true,
-            "input_type": "text"
+            "options": "1\n2\nKhác",
+            "required": true
           }
         },
         "text_field_BWWGdt": {
           "type": "text_field",
           "settings": {
             "label": "Sản phẩm HELIOS khác quan tâm",
-            "description": "",
+            "description": "Ngoài sản phẩm giới hạn tại Đà Nẵng, anh/chị đang quan tâm đến sản phẩm HELIOS nào khác và muốn HELIOS chuẩn bị mang theo?\n* Vui lòng điền cùng size/ phiên bản của sản phẩm",
             "entry": "",
-            "placeholder": "Ngoài sản phẩm giới hạn tại Đà Nẵng, anh/chị đang quan tâm đến sản phẩm HELIOS nào khác và muốn HELIOS chuẩn bị mang theo?",
+            "placeholder": "Điền tên hoặc link sản phẩm",
             "required": true,
             "input_type": "text"
           }
         },
         "text_field_PMz3n4": {
-          "type": "text_field",
+          "type": "radio_field",
           "settings": {
             "label": "Mức độ nhu cầu",
-            "description": "",
+            "description": "Nhu cầu của anh/chị với các sản phẩm đăng ký xem là gì?",
             "entry": "",
-            "placeholder": "Nhu cầu của anh/chị với các sản phẩm đăng ký xem là gì?",
-            "required": true,
-            "input_type": "text"
+            "options": "Có nhu cầu mua\nMuốn xem & thử trực tiếp\nĐang tham khảo",
+            "required": true
           }
         },
         "text_field_ChMFpN": {
-          "type": "text_field",
+          "type": "radio_field",
           "settings": {
             "label": "Khả năng tham gia",
-            "description": "",
+            "description": "Anh/chị dự kiến có thể ghé gặp HELIOS tại Đà Nẵng ngày 19/09 không?",
             "entry": "",
-            "placeholder": "Anh/chị dự kiến có thể ghé gặp HELIOS tại Đà Nẵng ngày 19/09 không?",
-            "required": true,
-            "input_type": "text"
+            "options": "Chắc chắn tham gia\nCó thể tham gia\nChưa xác định\nKhác",
+            "required": true
           }
         },
         "textarea_field_F93Qqf": {
           "type": "textarea_field",
           "settings": {
             "label": "Ghi chú thêm",
-            "description": "",
+            "description": "Anh/chị có lưu ý hoặc mong muốn nào khác để HELIOS chuẩn bị tốt hơn cho buổi gặp không?",
             "entry": "",
-            "placeholder": "Anh/chị có lưu ý hoặc mong muốn nào khác để HELIOS chuẩn bị tốt hơn cho buổi gặp không?",
+            "placeholder": "Nhập ghi chú thêm",
             "required": false
           }
         }
