@@ -11,6 +11,7 @@
   af-button-color : section.settings.button_color,
   af-input-border-radius : section.settings.input_border_radius,
   af-form-max-width : section.settings.form_max_width,
+  af-form-alignment : section.settings.form_alignment,
   af-form-fields : section.settings.form_fields
 %}
 
@@ -100,6 +101,17 @@
         "unit": "px",
         "label": "Form Max Width",
         "default": 1200
+      },
+      {
+        "type": "select",
+        "id": "form_alignment",
+        "label": "Form Alignment",
+        "default": "center",
+        "options": [
+          {"label": "Left", "value": "left"},
+          {"label": "Center", "value": "center"},
+          {"label": "Right", "value": "right"}
+        ]
       }
     ],
     "blocks": [

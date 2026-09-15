@@ -1,5 +1,15 @@
-<div class="advanced-form-wrapper" data-banner-position="{{ af-banner-position }}">
-  {% if af-banner-image and af-banner-position != 'none' %}
+{% assign af-has-banner = false %}
+{% if af-banner-image and af-banner-position != 'none' %}
+  {% assign af-has-banner = true %}
+{% endif %}
+
+<div
+  class="advanced-form-wrapper"
+  data-banner-position="{{ af-banner-position }}"
+  data-has-banner="{{ af-has-banner }}"
+  data-form-alignment="{{ af-form-alignment | default: 'center' }}"
+>
+  {% if af-has-banner %}
     <div class="advanced-form-banner">
       <img src="{{ af-banner-image | image_url: width: 600 }}" alt="Form Banner" class="form-banner-img">
     </div>
@@ -168,8 +178,16 @@
     align-items: center;
   }
 
-  .advanced-form-wrapper[data-banner-position="none"] {
+  .advanced-form-wrapper[data-has-banner="false"][data-form-alignment="left"] {
+    justify-content: flex-start;
+  }
+
+  .advanced-form-wrapper[data-has-banner="false"][data-form-alignment="center"] {
     justify-content: center;
+  }
+
+  .advanced-form-wrapper[data-has-banner="false"][data-form-alignment="right"] {
+    justify-content: flex-end;
   }
 
   .advanced-form-wrapper[data-banner-position="right"] {
