@@ -22,7 +22,7 @@
           "settings": {
             "label": "Họ và tên",
             "description": "Anh/chị vui lòng cho HELIOS biết họ và tên?",
-            "entry": "",
+            "entry": "entry.1305460640",
             "placeholder": "Nhập họ và tên",
             "required": true,
             "input_type": "text"
