@@ -106,7 +106,7 @@
         "form-subtitle": "",
         "form-description": "<p>HELIOS sẽ có mặt tại Đà Nẵng cùng một dấu ấn đặc biệt dành riêng cho hành trình lần này. <br/>Anh/chị có thể đăng ký trước để đặt giữ sản phẩm giới hạn hoặc những mẫu HELIOS đang quan tâm để chúng tôi chuẩn bị mang theo trực tiếp tại sự kiện.</p>",
         "banner_position": "left",
-        "form_action_url": "",
+        "form_action_url": "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdJVcE0CwMFjpXYLjyNZZoXmSt2hRtj4p21ZNRIvRvjPB7K0w/formResponse",
         "success_message": "Gửi thành công! Cảm ơn bạn.",
         "error_message": "Gửi thất bại. Vui lòng thử lại!",
         "button_text": "Gửi",
