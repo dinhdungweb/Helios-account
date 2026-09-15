@@ -196,6 +196,7 @@
   .advanced-form-content {
     flex: 1;
     min-width: 300px;
+    max-width: {{ af-form-max-width | default: 1200 }}px;
   }
 
   .form-header {
@@ -259,7 +260,7 @@
     color: #f8f8f8;
     border: 1px solid rgba(255, 255, 255, 0.22);
     padding: 10px 12px;
-    border-radius: 4px;
+    border-radius: {{ af-input-border-radius | default: 0 }}px;
     font-size: 14px;
     font-family: inherit;
     color-scheme: dark;

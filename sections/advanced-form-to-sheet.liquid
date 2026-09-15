@@ -9,6 +9,8 @@
   af-error-message : section.settings.error_message,
   af-button-text : section.settings.button_text,
   af-button-color : section.settings.button_color,
+  af-input-border-radius : section.settings.input_border_radius,
+  af-form-max-width : section.settings.form_max_width,
   af-form-fields : section.settings.form_fields
 %}
 
@@ -78,6 +80,26 @@
         "id": "button_color",
         "label": "Button Color",
         "default": "#FAB320"
+      },
+      {
+        "type": "range",
+        "id": "input_border_radius",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Input Corner Radius",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "form_max_width",
+        "min": 320,
+        "max": 1200,
+        "step": 20,
+        "unit": "px",
+        "label": "Form Max Width",
+        "default": 1200
       }
     ],
     "blocks": [
