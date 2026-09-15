@@ -65,7 +65,7 @@
           "settings": {
             "label": "MỨC ĐỘ NHU CẦU",
             "description": "Nhu cầu của anh/chị với các sản phẩm đăng ký xem là gì?",
-            "entry": "",
+            "entry": "entry.1893712082",
             "options": "Có nhu cầu mua\nMuốn xem & thử trực tiếp\nĐang tham khảo",
             "required": true
           }
