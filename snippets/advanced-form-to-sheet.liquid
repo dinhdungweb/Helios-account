@@ -26,6 +26,9 @@
               {{ block.settings.label }}
               {% if block.settings.required %}<span class="required">*</span>{% endif %}
             </label>
+            {% if block.settings.description != blank %}
+              <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
+            {% endif %}
             <input 
               type="{{ block.settings.input_type }}" 
               id="field-{{ block.id }}" 
@@ -39,6 +42,9 @@
               {{ block.settings.label }}
               {% if block.settings.required %}<span class="required">*</span>{% endif %}
             </label>
+            {% if block.settings.description != blank %}
+              <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
+            {% endif %}
             <textarea 
               id="field-{{ block.id }}" 
               name="{{ block.settings.entry }}" 
@@ -51,6 +57,9 @@
               {{ block.settings.label }}
               {% if block.settings.required %}<span class="required">*</span>{% endif %}
             </label>
+            {% if block.settings.description != blank %}
+              <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
+            {% endif %}
             <select 
               id="field-{{ block.id }}" 
               name="{{ block.settings.entry }}" 
@@ -76,6 +85,9 @@
                 {{ block.settings.label }}
                 {% if block.settings.required %}<span class="required">*</span>{% endif %}
               </legend>
+              {% if block.settings.description != blank %}
+                <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
+              {% endif %}
               {% assign separator = newline %}
               {% if block.settings.options contains ',' %}
                 {% assign separator = ',' %}
@@ -105,6 +117,9 @@
                 {{ block.settings.label }}
                 {% if block.settings.required %}<span class="required">*</span>{% endif %}
               </legend>
+              {% if block.settings.description != blank %}
+                <div class="form-field-description">{{ block.settings.description | escape | newline_to_br }}</div>
+              {% endif %}
               {% assign separator = newline %}
               {% if block.settings.options contains ',' %}
                 {% assign separator = ',' %}
@@ -224,6 +239,13 @@
     color: #f2f2f2;
   }
 
+  .form-field-description {
+    margin: -2px 0 10px;
+    color: rgba(242, 242, 242, 0.68);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
   .required {
     color: #e74c3c;
     margin-left: 4px;
@@ -232,21 +254,22 @@
   .form-input,
   .form-select,
   .form-textarea {
-    background-color: #f8f8f8;
+    background-color: rgba(255, 255, 255, 0.06);
     width: 100%;
-    color: #333;
-    border: 1px solid #ddd;
+    color: #f8f8f8;
+    border: 1px solid rgba(255, 255, 255, 0.22);
     padding: 10px 12px;
     border-radius: 4px;
     font-size: 14px;
     font-family: inherit;
+    color-scheme: dark;
     transition: all 0.3s ease;
   }
 
   .form-input:focus,
   .form-select:focus,
   .form-textarea:focus {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
     border-color: #FAB320;
     outline: none;
     box-shadow: 0 0 0 3px rgba(250, 179, 32, 0.1);
@@ -254,7 +277,12 @@
 
   .form-input::placeholder,
   .form-textarea::placeholder {
-    color: #333;
+    color: rgba(248, 248, 248, 0.48);
+  }
+
+  .form-select option {
+    background-color: #171717;
+    color: #f8f8f8;
   }
 
   .form-textarea {
