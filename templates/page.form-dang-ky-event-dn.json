@@ -49,16 +49,6 @@
             "required": true
           }
         },
-        "text_field_Ntzqk4": {
-          "type": "radio_field",
-          "settings": {
-            "label": "SỐ LƯỢNG ĐẶT GIỮ",
-            "description": "Nếu đặt giữ trước, anh/chị dự kiến muốn giữ bao nhiêu sản phẩm?",
-            "entry": "",
-            "options": "1\n2\nKhác",
-            "required": true
-          }
-        },
         "text_field_BWWGdt": {
           "type": "text_field",
           "settings": {
@@ -86,7 +76,7 @@
             "label": "KHẢ NĂNG THAM GIA",
             "description": "Anh/chị dự kiến có thể ghé gặp HELIOS tại Đà Nẵng ngày 19/09 không?",
             "entry": "",
-            "options": "Chắc chắn tham gia\nCó thể tham gia\nChưa xác định\nKhác",
+            "options": "Chắc chắn tham gia\nCó thể tham gia\nChưa xác định",
             "required": true
           }
         },
@@ -105,7 +95,6 @@
         "text_field_Uhnnj3",
         "text_field_47L64G",
         "text_field_hzBkxY",
-        "text_field_Ntzqk4",
         "text_field_BWWGdt",
         "text_field_PMz3n4",
         "text_field_ChMFpN",
