@@ -42,7 +42,7 @@
         "text_field_hzBkxY": {
           "type": "radio_field",
           "settings": {
-            "label": "Quan tâm sản phẩm giới hạn Đà Nẵng",
+            "label": "QUAN TÂM SẢN PHẨM GIỚI HẠN ĐÀ NẴNG",
             "description": "Anh/chị có quan tâm đến sản phẩm giới hạn dành riêng cho Hành trình Dấu Ấn tại Đà Nẵng không?",
             "entry": "",
             "options": "Muốn đặt giữ trước\nMuốn xem trực tiếp rồi quyết định\nChưa có nhu cầu",
@@ -52,7 +52,7 @@
         "text_field_Ntzqk4": {
           "type": "radio_field",
           "settings": {
-            "label": "Số lượng đặt giữ",
+            "label": "SỐ LƯỢNG ĐẶT GIỮ",
             "description": "Nếu đặt giữ trước, anh/chị dự kiến muốn giữ bao nhiêu sản phẩm?",
             "entry": "",
             "options": "1\n2\nKhác",
@@ -73,7 +73,7 @@
         "text_field_PMz3n4": {
           "type": "radio_field",
           "settings": {
-            "label": "Mức độ nhu cầu",
+            "label": "MỨC ĐỘ NHU CẦU",
             "description": "Nhu cầu của anh/chị với các sản phẩm đăng ký xem là gì?",
             "entry": "",
             "options": "Có nhu cầu mua\nMuốn xem & thử trực tiếp\nĐang tham khảo",
@@ -83,7 +83,7 @@
         "text_field_ChMFpN": {
           "type": "radio_field",
           "settings": {
-            "label": "Khả năng tham gia",
+            "label": "KHẢ NĂNG THAM GIA",
             "description": "Anh/chị dự kiến có thể ghé gặp HELIOS tại Đà Nẵng ngày 19/09 không?",
             "entry": "",
             "options": "Chắc chắn tham gia\nCó thể tham gia\nChưa xác định\nKhác",
