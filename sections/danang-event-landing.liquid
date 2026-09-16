@@ -152,7 +152,7 @@
             aria-controls="danang-story-slider-{{ section.id }}"
             aria-label="Ảnh trước"
           >
-            <span aria-hidden="true">&#8592;</span>
+            <span aria-hidden="true">{% render 'svg-chevron-left' %}</span>
           </button>
           <span class="danang-event__gallery-count" aria-live="polite">
             <span data-story-current>1</span>
@@ -166,7 +166,7 @@
             aria-controls="danang-story-slider-{{ section.id }}"
             aria-label="Ảnh tiếp theo"
           >
-            <span aria-hidden="true">&#8594;</span>
+            <span aria-hidden="true">{% render 'svg-chevron-right' %}</span>
           </button>
         </div>
       </div>
@@ -476,6 +476,7 @@
   #danang-event-{{ section.id }} .danang-event__gallery {
     display: flex;
     gap: 0;
+    height: clamp(530px, 54vw, 640px);
     min-width: 0;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
@@ -494,14 +495,17 @@
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery-item {
-    flex: 0 0 min(54vw, 425px);
-    min-height: 530px;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
     overflow: hidden;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery-item:nth-child(even) {
-    transform: translateY(-56px);
+    transform: none;
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery-image {
@@ -510,13 +514,8 @@
 
   #danang-event-{{ section.id }} .danang-event__gallery-controls {
     position: absolute;
-    right: 16px;
-    bottom: 16px;
-    left: 16px;
+    inset: 0;
     z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     pointer-events: none;
   }
 
@@ -540,16 +539,36 @@
     cursor: pointer;
     pointer-events: auto;
     transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-button[data-story-prev] {
+    left: 16px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-button[data-story-next] {
+    right: 16px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-button svg {
+    display: block;
+    width: 24px;
+    height: 24px;
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery-button:hover,
   #danang-event-{{ section.id }} .danang-event__gallery-button:focus-visible {
     background: #fff;
     color: #000;
-    transform: scale(1.06);
+    transform: translateY(-50%) scale(1.06);
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery-count {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
     display: inline-flex;
     gap: 4px;
     align-items: center;
@@ -560,6 +579,7 @@
     color: #fff;
     font-size: 13px;
     line-height: 1;
+    transform: translateX(-50%);
   }
 
   #danang-event-{{ section.id }} .danang-event__statement {
@@ -856,12 +876,13 @@
 
     #danang-event-{{ section.id }} .danang-event__gallery {
       order: 0;
-      padding-left: 16px;
+      height: clamp(420px, 118vw, 560px);
+      padding-left: 0;
     }
 
     #danang-event-{{ section.id }} .danang-event__gallery-item {
-      flex-basis: min(82vw, 340px);
-      min-height: 420px;
+      flex-basis: 100%;
+      min-height: 0;
     }
 
     #danang-event-{{ section.id }} .danang-event__gallery-item:nth-child(even) {
