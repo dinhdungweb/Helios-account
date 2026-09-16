@@ -106,11 +106,11 @@
           {%- endif -%}
           {%- if section.settings.story_button_label != blank -%}
             {%- if story_button_url != blank -%}
-              <a class="danang-event__story-button" href="{{ story_button_url }}">
+              <a class="danang-event__story-button danang-event__story-button--desktop" href="{{ story_button_url }}">
                 {{ section.settings.story_button_label | escape }}
               </a>
             {%- else -%}
-              <button class="danang-event__story-button" type="button">
+              <button class="danang-event__story-button danang-event__story-button--desktop" type="button">
                 {{ section.settings.story_button_label | escape }}
               </button>
             {%- endif -%}
@@ -131,6 +131,18 @@
             {%- endif -%}
           </div>
         </div>
+
+        {%- if section.settings.story_button_label != blank -%}
+          {%- if story_button_url != blank -%}
+            <a class="danang-event__story-button danang-event__story-button--mobile" href="{{ story_button_url }}">
+              {{ section.settings.story_button_label | escape }}
+            </a>
+          {%- else -%}
+            <button class="danang-event__story-button danang-event__story-button--mobile" type="button">
+              {{ section.settings.story_button_label | escape }}
+            </button>
+          {%- endif -%}
+        {%- endif -%}
       </div>
 
       <div
@@ -587,6 +599,10 @@
   #danang-event-{{ section.id }} .danang-event__story-button:focus-visible {
     filter: brightness(1.08);
     transform: translateY(-2px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__story-button--mobile {
+    display: none;
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery {
@@ -1069,6 +1085,17 @@
       color: var(--de-text);
       font-size: 16px;
       line-height: 1.25;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__story-button--desktop {
+      display: none;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__story-button--mobile {
+      display: inline-flex;
+      order: 3;
+      justify-self: start;
+      margin-top: 0;
     }
 
     #danang-event-{{ section.id }} .danang-event__mobile-schedule p {
