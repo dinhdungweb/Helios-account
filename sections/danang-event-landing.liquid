@@ -51,11 +51,15 @@
     <div class="danang-event__story">
       <div class="danang-event__story-copy">
         <div class="danang-event__product-copy">
-          {%- if section.settings.product_title != blank -%}
-            <p class="danang-event__product-title">{{ section.settings.product_title | escape }}</p>
-          {%- endif -%}
-          {%- if section.settings.product_subtitle != blank -%}
-            <p class="danang-event__product-subtitle">{{ section.settings.product_subtitle | escape }}</p>
+          {%- if section.settings.product_title != blank or section.settings.product_subtitle != blank -%}
+            <h2 class="danang-event__product-heading">
+              {%- if section.settings.product_title != blank -%}
+                <span class="danang-event__product-title">{{ section.settings.product_title | escape }}</span>
+              {%- endif -%}
+              {%- if section.settings.product_subtitle != blank -%}
+                <span class="danang-event__product-subtitle">{{ section.settings.product_subtitle | escape }}</span>
+              {%- endif -%}
+            </h2>
           {%- endif -%}
           {%- if section.settings.product_description != blank -%}
             <div class="danang-event__small-copy rte">{{ section.settings.product_description }}</div>
@@ -78,7 +82,7 @@
 
         <div class="danang-event__meeting-copy">
           {%- if section.settings.meeting_title != blank -%}
-            <p class="danang-event__meeting-title">{{ section.settings.meeting_title | escape }}</p>
+            <h2 class="danang-event__meeting-title">{{ section.settings.meeting_title | escape }}</h2>
           {%- endif -%}
           {%- if section.settings.meeting_description != blank -%}
             <div class="danang-event__small-copy rte">{{ section.settings.meeting_description }}</div>
@@ -130,7 +134,7 @@
     </div>
 
     {%- if section.settings.statement != blank -%}
-      <div class="danang-event__statement">{{ section.settings.statement | escape | newline_to_br }}</div>
+      <h2 class="danang-event__statement">{{ section.settings.statement | escape | newline_to_br }}</h2>
     {%- endif -%}
 
     <div class="danang-event__clues">
@@ -297,7 +301,6 @@
     overflow: hidden;
     background: var(--de-bg);
     color: var(--de-text);
-    font-family: "SVN-Aptima Regular", Arial, sans-serif;
   }
 
   #danang-event-{{ section.id }} *,
@@ -336,17 +339,6 @@
     background: var(--de-bg);
   }
 
-  #danang-event-{{ section.id }} .danang-event__title,
-  #danang-event-{{ section.id }} .danang-event__clues-heading,
-  #danang-event-{{ section.id }} .danang-event__product-title,
-  #danang-event-{{ section.id }} .danang-event__event-date,
-  #danang-event-{{ section.id }} .danang-event__event-time,
-  #danang-event-{{ section.id }} .danang-event__meeting-title,
-  #danang-event-{{ section.id }} .danang-event__clue-front-copy,
-  #danang-event-{{ section.id }} .danang-event__statement {
-    font-family: "UTM Copperplate Bold", "Copperplate", Georgia, serif;
-  }
-
   #danang-event-{{ section.id }} .danang-event__title {
     width: min(100% - 40px, var(--de-max-width));
     margin: 0 auto;
@@ -379,8 +371,7 @@
     grid-column: 1 / -1;
   }
 
-  #danang-event-{{ section.id }} .danang-event__product-title,
-  #danang-event-{{ section.id }} .danang-event__product-subtitle,
+  #danang-event-{{ section.id }} .danang-event__product-heading,
   #danang-event-{{ section.id }} .danang-event__event-date,
   #danang-event-{{ section.id }} .danang-event__event-time,
   #danang-event-{{ section.id }} .danang-event__meeting-title,
@@ -390,8 +381,8 @@
 
   #danang-event-{{ section.id }} .danang-event__product-title,
   #danang-event-{{ section.id }} .danang-event__product-subtitle {
+    display: block;
     color: var(--de-accent);
-    font-family: "Copperplate CC Bold", "Copperplate", Georgia, serif;
     font-weight: 700;
     line-height: 1.05;
     text-transform: uppercase;
@@ -625,7 +616,6 @@
     border-radius: 10px;
     background: var(--de-accent);
     color: #000;
-    font-family: "SVN-Aptima Italic", Arial, sans-serif;
     font-size: 20px;
     font-style: italic;
     line-height: 1;
@@ -717,7 +707,6 @@
 
   #danang-event-{{ section.id }} .danang-event__venue-links a {
     color: #fff;
-    font-family: "UTM Copperplate Bold", "Copperplate", Georgia, serif;
     font-size: 15px;
     text-decoration: underline;
     text-underline-offset: 4px;
