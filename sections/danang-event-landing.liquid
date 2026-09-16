@@ -1,8 +1,8 @@
 {%- liquid
   assign hero_fallback = 'https://framerusercontent.com/images/jY718SKNEa7XnH54wYOrDdEaLbY.jpg?scale-down-to=2048&width=5922&height=2961'
   assign venue_fallback = 'https://framerusercontent.com/images/FA26GRdcEnE742dTLtZpPvsGawQ.jpg?width=1280&height=1920'
-  assign map_fallback = 'https://framerusercontent.com/images/6XRMrWs5vrIBXxhcEvGRBb2Gx8.png?scale-down-to=512&width=1668&height=1086'
   assign transition_video_fallback = 'https://framerusercontent.com/assets/EqnwP1D9JpsDIpGeQ6eE7D1FaIU.mp4'
+  assign map_query = section.settings.map_query | default: 'The HangArt, Lạc Long Quân, phường Điện Bàn Đông, Đà Nẵng'
 -%}
 
 <section
@@ -356,20 +356,13 @@
         </div>
 
         <div class="danang-event__map">
-          {%- if section.settings.map_image != blank -%}
-            {{-
-              section.settings.map_image
-              | image_url: width: 1200
-              | image_tag:
-                class: 'danang-event__map-image',
-                widths: '360, 540, 720, 1000, 1200',
-                sizes: '(min-width: 750px) 40vw, 100vw',
-                loading: 'lazy',
-                alt: section.settings.venue_name
-            -}}
-          {%- else -%}
-            <img class="danang-event__map-image" src="{{ map_fallback }}" alt="{{ section.settings.venue_name | escape }}" width="1000" height="650" loading="lazy">
-          {%- endif -%}
+          <iframe
+            src="https://www.google.com/maps?q={{ map_query | url_encode }}&amp;output=embed"
+            title="Bản đồ {{ section.settings.venue_name | escape }}"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -401,8 +394,7 @@
   #danang-event-{{ section.id }} .danang-event__hero-image,
   #danang-event-{{ section.id }} .danang-event__venue-image,
   #danang-event-{{ section.id }} .danang-event__gallery-image,
-  #danang-event-{{ section.id }} .danang-event__clue-image,
-  #danang-event-{{ section.id }} .danang-event__map-image {
+  #danang-event-{{ section.id }} .danang-event__clue-image {
     display: block;
     width: 100%;
     height: 100%;
@@ -891,6 +883,13 @@
   #danang-event-{{ section.id }} .danang-event__map {
     aspect-ratio: 4 / 3;
     overflow: hidden;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 
   @media (max-width: 749px) {
@@ -1557,9 +1556,10 @@
       "label": "Ảnh nền điểm hẹn"
     },
     {
-      "type": "image_picker",
-      "id": "map_image",
-      "label": "Ảnh địa điểm"
+      "type": "text",
+      "id": "map_query",
+      "label": "Địa điểm tìm trên bản đồ",
+      "default": "The HangArt, Lạc Long Quân, phường Điện Bàn Đông, Đà Nẵng"
     },
     {
       "type": "text",
