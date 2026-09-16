@@ -20,29 +20,43 @@
   "
 >
   <div class="danang-event__hero">
-    {%- if section.settings.hero_image != blank -%}
-      {{-
-        section.settings.hero_image
-        | image_url: width: 2600
-        | image_tag:
-          class: 'danang-event__hero-image',
-          widths: '750, 1100, 1500, 2000, 2600',
-          sizes: '100vw',
-          loading: 'eager',
-          fetchpriority: 'high',
-          alt: section.settings.hero_title
-      -}}
-    {%- else -%}
-      <img
-        class="danang-event__hero-image"
-        src="{{ hero_fallback }}"
-        alt="{{ section.settings.hero_title | escape }}"
-        width="2400"
-        height="1200"
-        loading="eager"
-        fetchpriority="high"
-      >
-    {%- endif -%}
+    <picture class="danang-event__hero-picture">
+      {%- if section.settings.hero_mobile_image != blank -%}
+        <source
+          media="(max-width: 749px)"
+          srcset="
+            {{ section.settings.hero_mobile_image | image_url: width: 400 }} 400w,
+            {{ section.settings.hero_mobile_image | image_url: width: 750 }} 750w,
+            {{ section.settings.hero_mobile_image | image_url: width: 1000 }} 1000w
+          "
+          sizes="100vw"
+        >
+      {%- endif -%}
+
+      {%- if section.settings.hero_image != blank -%}
+        {{-
+          section.settings.hero_image
+          | image_url: width: 2600
+          | image_tag:
+            class: 'danang-event__hero-image',
+            widths: '750, 1100, 1500, 2000, 2600',
+            sizes: '100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: section.settings.hero_title
+        -}}
+      {%- else -%}
+        <img
+          class="danang-event__hero-image"
+          src="{{ hero_fallback }}"
+          alt="{{ section.settings.hero_title | escape }}"
+          width="2400"
+          height="1200"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- endif -%}
+    </picture>
   </div>
 
   <div class="danang-event__content">
@@ -405,6 +419,12 @@
     min-height: clamp(420px, 48vw, 680px);
     overflow: hidden;
     background: #090909;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__hero-picture {
+    position: absolute;
+    inset: 0;
+    display: block;
   }
 
   #danang-event-{{ section.id }} .danang-event__hero-image,
@@ -962,6 +982,13 @@
       object-position: center;
     }
 
+    #danang-event-{{ section.id }} .danang-event__hero-picture {
+      right: auto;
+      left: 50%;
+      width: max(100%, 400px);
+      transform: translateX(-50%);
+    }
+
     #danang-event-{{ section.id }} .danang-event__title {
       width: min(100% - 32px, 420px);
       padding: 34px 0 30px;
@@ -1445,7 +1472,12 @@
     {
       "type": "image_picker",
       "id": "hero_image",
-      "label": "Ảnh hero"
+      "label": "Ảnh hero desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_mobile_image",
+      "label": "Ảnh hero mobile"
     },
     {
       "type": "text",
