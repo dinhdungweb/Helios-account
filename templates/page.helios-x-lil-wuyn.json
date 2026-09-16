@@ -639,9 +639,9 @@
           "type": "journey_item",
           "settings": {
             "title": "Ra mắt BST Men's Armor",
-            "description": "<p>Dấu ấn đầu tiên trên hành trình đồng hành cùng cộng đồng.</p>",
-            "image_count": 8,
-            "desktop_columns": 3,
+            "description": "<p>Điểm bắt đầu của một hành trình. Từ Men’s Armor, HELIOS bắt đầu xuất hiện cùng Lil Wuyn như một phần trong hình ảnh anh lựa chọn.</p>",
+            "image_count": 2,
+            "desktop_columns": 2,
             "mobile_columns": "2",
             "image_ratio": "3 / 4"
           }
@@ -649,8 +649,8 @@
         "journey_item_ytnHa6": {
           "type": "journey_item",
           "settings": {
-            "title": "Show Trừ Bảo",
-            "description": "<p>Một hành trình mang cá tính và tinh thần riêng.</p>",
+            "title": "Show trú bão",
+            "description": "<p>Từ đời thường đến sân khấu, những chế tác HELIOS tiếp tục đồng hành cùng Lil Wuyn trong một bối cảnh khác.</p>",
             "image_count": 2,
             "desktop_columns": 2,
             "mobile_columns": "2",
@@ -661,7 +661,7 @@
           "type": "journey_item",
           "settings": {
             "title": "Show Đông Fest",
-            "description": "<p>Những khoảnh khắc đáng nhớ trên hành trình.</p>",
+            "description": "<p>Thêm một sân khấu, thêm một dấu mốc. Những món bạc tiếp tục được mang theo khi hành trình của Lil Wuyn bước sang chặng mới.</p>",
             "image_count": 2,
             "desktop_columns": 2,
             "mobile_columns": "2",
@@ -685,12 +685,11 @@
         "journey_item_xjqXgE",
         "final_item_eWkabm"
       ],
-      "disabled": true,
       "name": "Journey Timeline",
       "settings": {
         "heading": "NHỮNG HÀNH TRÌNH ĐÃ ĐỒNG HÀNH",
         "heading_alignment": "left",
-        "heading_size": 28,
+        "heading_size": 26,
         "max_width": 1200,
         "copy_width": 35,
         "gallery_gap": 16,
