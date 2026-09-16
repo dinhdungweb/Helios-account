@@ -20,11 +20,13 @@
         "clue_1909": {
           "type": "clue",
           "settings": {
-            "reveal_at": "2026-09-16T12:09:00+07:00",
+            "reveal_at": "2026-09-19T00:00:00+07:00",
             "preview_state": "automatic",
             "front_label": "COMING SOON",
             "date_label": "19.09",
-            "accessible_label": "Dấu ấn ngày 19 tháng 9"
+            "accessible_label": "Dấu ấn ngày 19 tháng 9",
+            "front_image": "shopify://shop_images/WsyzbvqlxOAWCNKbEabLvpMED0.avif",
+            "back_image": "shopify://shop_images/AEtzKlb3rqUp5d9rxlbTmgvk0.avif"
           }
         },
         "clue_2009": {
@@ -34,7 +36,9 @@
             "preview_state": "automatic",
             "front_label": "COMING SOON",
             "date_label": "20.09",
-            "accessible_label": "Dấu ấn ngày 20 tháng 9"
+            "accessible_label": "Dấu ấn ngày 20 tháng 9",
+            "front_image": "shopify://shop_images/WsyzbvqlxOAWCNKbEabLvpMED0.avif",
+            "back_image": "shopify://shop_images/m5Ryu9qm3EBWXQRfl2W6E7GRQE.avif"
           }
         },
         "clue_2209": {
@@ -44,7 +48,9 @@
             "preview_state": "automatic",
             "front_label": "COMING SOON",
             "date_label": "22.09",
-            "accessible_label": "Dấu ấn ngày 22 tháng 9"
+            "accessible_label": "Dấu ấn ngày 22 tháng 9",
+            "front_image": "shopify://shop_images/WsyzbvqlxOAWCNKbEabLvpMED0.avif",
+            "back_image": "shopify://shop_images/EkqGIsEHqvKfVNf1GJNUD0As.avif"
           }
         }
       },
