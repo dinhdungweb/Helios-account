@@ -2,6 +2,7 @@
   assign hero_fallback = 'https://framerusercontent.com/images/jY718SKNEa7XnH54wYOrDdEaLbY.jpg?scale-down-to=2048&width=5922&height=2961'
   assign venue_fallback = 'https://framerusercontent.com/images/FA26GRdcEnE742dTLtZpPvsGawQ.jpg?width=1280&height=1920'
   assign map_fallback = 'https://framerusercontent.com/images/6XRMrWs5vrIBXxhcEvGRBb2Gx8.png?scale-down-to=512&width=1668&height=1086'
+  assign transition_video_fallback = 'https://framerusercontent.com/assets/EqnwP1D9JpsDIpGeQ6eE7D1FaIU.mp4'
 -%}
 
 <section
@@ -89,6 +90,21 @@
             <div class="danang-event__small-copy rte">{{ section.settings.meeting_description }}</div>
           {%- endif -%}
         </div>
+
+        <div class="danang-event__mobile-schedule">
+          <div>
+            <p class="danang-event__event-time">{{ section.settings.event_time | escape }}</p>
+            {%- if section.settings.location_address != blank -%}
+              <p>{{ section.settings.location_address | newline_to_br }}</p>
+            {%- endif -%}
+          </div>
+          <div>
+            <p class="danang-event__event-date">{{ section.settings.event_date | escape }}</p>
+            {%- if section.settings.location_intro != blank -%}
+              <p>{{ section.settings.location_intro | escape }}</p>
+            {%- endif -%}
+          </div>
+        </div>
       </div>
 
       <div
@@ -168,9 +184,39 @@
       </div>
     </div>
 
-    {%- if section.settings.statement != blank -%}
-      <h2 class="danang-event__statement">{{ section.settings.statement | escape | newline_to_br }}</h2>
-    {%- endif -%}
+    <div class="danang-event__transition">
+      {%- if section.settings.statement != blank -%}
+        <h2 class="danang-event__statement">{{ section.settings.statement | escape | newline_to_br }}</h2>
+      {%- endif -%}
+
+      <div class="danang-event__transition-media">
+        {%- if section.settings.transition_video != blank -%}
+          {{-
+            section.settings.transition_video
+            | video_tag:
+              class: 'danang-event__transition-video',
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              playsinline: true,
+              preload: 'metadata'
+          -}}
+        {%- else -%}
+          <video
+            class="danang-event__transition-video"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            aria-label="Video chế tác sản phẩm"
+          >
+            <source src="{{ transition_video_fallback }}" type="video/mp4">
+          </video>
+        {%- endif -%}
+      </div>
+    </div>
 
     <div class="danang-event__clues">
       {%- if section.settings.clues_heading != blank -%}
@@ -402,6 +448,10 @@
     align-content: center;
   }
 
+  #danang-event-{{ section.id }} .danang-event__mobile-schedule {
+    display: none;
+  }
+
   #danang-event-{{ section.id }} .danang-event__product-copy,
   #danang-event-{{ section.id }} .danang-event__meeting-copy {
     grid-column: 1 / -1;
@@ -563,17 +613,37 @@
     transform: translateY(-50%) scale(1.06);
   }
 
+  #danang-event-{{ section.id }} .danang-event__transition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(64px, 8vw, 92px);
+    width: 100%;
+    padding: clamp(64px, 7vw, 96px) 20px clamp(72px, 8vw, 112px);
+  }
+
   #danang-event-{{ section.id }} .danang-event__statement {
-    display: grid;
-    place-items: center;
-    min-height: clamp(480px, 62vw, 760px);
     width: min(100% - 40px, 900px);
-    margin: 0 auto;
+    margin: 0;
     font-size: clamp(36px, 5vw, 58px);
     font-weight: 700;
     line-height: 1;
     text-align: center;
     text-transform: uppercase;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__transition-media {
+    width: min(100%, 400px);
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__transition-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   #danang-event-{{ section.id }} .danang-event__clues {
@@ -849,22 +919,56 @@
     #danang-event-{{ section.id }} .danang-event__story-copy {
       display: grid;
       grid-template-columns: 1fr;
-      order: 1;
+      order: 0;
       width: min(100% - 32px, 420px);
       margin: 0 auto;
       gap: 22px;
     }
 
+    #danang-event-{{ section.id }} .danang-event__meeting-copy {
+      order: 1;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__date-copy,
+    #danang-event-{{ section.id }} .danang-event__location-copy {
+      display: none;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__mobile-schedule {
+      display: grid;
+      order: 2;
+      gap: 22px;
+      color: var(--de-text);
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__mobile-schedule p {
+      margin: 0;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__mobile-schedule .danang-event__event-time {
+      margin-bottom: 6px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__mobile-schedule .danang-event__event-date {
+      margin-bottom: 4px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__product-copy {
+      order: 3;
+    }
+
     #danang-event-{{ section.id }} .danang-event__gallery {
-      order: 0;
       height: clamp(420px, 118vw, 560px);
       aspect-ratio: auto;
       padding-left: 0;
     }
 
     #danang-event-{{ section.id }} .danang-event__gallery-shell {
+      order: 1;
       width: min(calc(100% - 32px), var(--de-story-slider-width));
-      margin: 0 auto;
+      margin: 30px auto 0;
     }
 
     #danang-event-{{ section.id }} .danang-event__gallery-item {
@@ -889,10 +993,18 @@
       font-size: 24px;
     }
 
+    #danang-event-{{ section.id }} .danang-event__transition {
+      gap: 64px;
+      padding: 66px 20px 96px;
+    }
+
     #danang-event-{{ section.id }} .danang-event__statement {
-      min-height: 420px;
       width: min(100% - 42px, 370px);
       font-size: clamp(28px, 8vw, 34px);
+    }
+
+    #danang-event-{{ section.id }} .danang-event__transition-media {
+      width: min(100%, 335px);
     }
 
     #danang-event-{{ section.id }} .danang-event__clues {
@@ -1381,6 +1493,11 @@
       "id": "statement",
       "label": "Câu chuyển tiếp",
       "default": "MỘT PHẦN Ở LẠI TRONG GỖ\nMỘT PHẦN THEO NGƯỜI RỜI ĐI"
+    },
+    {
+      "type": "video",
+      "id": "transition_video",
+      "label": "Video dưới câu chuyển tiếp"
     },
     {
       "type": "header",
