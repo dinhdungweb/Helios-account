@@ -519,6 +519,14 @@
         "side_padding_mobile": 10
       }
     },
+    "custom_spacing_fGbbea": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 30,
+        "mobile_spacing": 40
+      }
+    },
     "multi_media_with_text_qnjaPA": {
       "type": "multi-media-with-text",
       "blocks": {
@@ -670,11 +678,11 @@
         "color_text": ""
       }
     },
-    "custom_spacing_fGbbea": {
+    "custom_spacing_kHf44k": {
       "type": "custom-spacing",
       "name": "Custom spacing",
       "settings": {
-        "desktop_spacing": 55,
+        "desktop_spacing": 40,
         "mobile_spacing": 40
       }
     },
@@ -725,9 +733,10 @@
     "rich_text_XhpKLy",
     "grid_image_WBg7Ub",
     "multi_media_with_text_pQwcgY",
+    "custom_spacing_fGbbea",
     "multi_media_with_text_qnjaPA",
     "rich_text_rbndCc",
-    "custom_spacing_fGbbea",
+    "custom_spacing_kHf44k",
     "background_video_responsive_QyPyMN",
     "custom_spacing_KxgbM8"
   ]
