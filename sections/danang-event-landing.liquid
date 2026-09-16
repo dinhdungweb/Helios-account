@@ -309,9 +309,15 @@
             </a>
           {%- endif -%}
           {%- if section.settings.website_label != blank -%}
-            <a class="danang-event__button" href="{{ section.settings.website_link | default: '#' }}">
-              {{ section.settings.website_label | escape }}
-            </a>
+            {%- if section.settings.website_link != blank -%}
+              <a class="danang-event__button" href="{{ section.settings.website_link }}">
+                {{ section.settings.website_label | escape }}
+              </a>
+            {%- else -%}
+              <button class="danang-event__button" type="button">
+                {{ section.settings.website_label | escape }}
+              </button>
+            {%- endif -%}
           {%- endif -%}
         </div>
       </div>
@@ -799,6 +805,14 @@
     line-height: 1;
     text-decoration: none;
     transition: filter 180ms ease, transform 180ms ease;
+  }
+
+  #danang-event-{{ section.id }} button.danang-event__button {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    font-family: inherit;
+    cursor: default;
   }
 
   #danang-event-{{ section.id }} .danang-event__button:hover,
