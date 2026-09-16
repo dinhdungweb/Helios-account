@@ -11,10 +11,53 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "danang_event_landing": {
+      "type": "danang-event-landing",
+      "blocks": {
+        "clue_1909": {
+          "type": "clue",
+          "settings": {
+            "reveal_at": "2026-09-19T00:00:00+07:00",
+            "preview_state": "automatic",
+            "front_label": "COMING SOON",
+            "date_label": "19.09",
+            "accessible_label": "Dấu ấn ngày 19 tháng 9"
+          }
+        },
+        "clue_2009": {
+          "type": "clue",
+          "settings": {
+            "reveal_at": "2026-09-20T00:00:00+07:00",
+            "preview_state": "automatic",
+            "front_label": "COMING SOON",
+            "date_label": "20.09",
+            "accessible_label": "Dấu ấn ngày 20 tháng 9"
+          }
+        },
+        "clue_2209": {
+          "type": "clue",
+          "settings": {
+            "reveal_at": "2026-09-22T00:00:00+07:00",
+            "preview_state": "automatic",
+            "front_label": "COMING SOON",
+            "date_label": "22.09",
+            "accessible_label": "Dấu ấn ngày 22 tháng 9"
+          }
+        }
+      },
+      "block_order": [
+        "clue_1909",
+        "clue_2009",
+        "clue_2209"
+      ],
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "danang_event_landing"
   ]
 }

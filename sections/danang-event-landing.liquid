@@ -1,0 +1,1394 @@
+{%- liquid
+  assign hero_fallback = 'https://framerusercontent.com/images/jY718SKNEa7XnH54wYOrDdEaLbY.jpg?scale-down-to=2048&width=5922&height=2961'
+  assign venue_fallback = 'https://framerusercontent.com/images/FA26GRdcEnE742dTLtZpPvsGawQ.jpg?width=1280&height=1920'
+  assign map_fallback = 'https://framerusercontent.com/images/6XRMrWs5vrIBXxhcEvGRBb2Gx8.png?scale-down-to=512&width=1668&height=1086'
+-%}
+
+<section
+  id="danang-event-{{ section.id }}"
+  class="danang-event"
+  data-danang-event
+  data-refresh-seconds="{{ section.settings.refresh_seconds }}"
+  style="
+    --de-bg: {{ section.settings.background_color }};
+    --de-text: {{ section.settings.text_color }};
+    --de-accent: {{ section.settings.accent_color }};
+    --de-card-radius: {{ section.settings.card_radius }}px;
+    --de-max-width: {{ section.settings.max_width }}px;
+  "
+>
+  <div class="danang-event__hero">
+    {%- if section.settings.hero_image != blank -%}
+      {{-
+        section.settings.hero_image
+        | image_url: width: 2600
+        | image_tag:
+          class: 'danang-event__hero-image',
+          widths: '750, 1100, 1500, 2000, 2600',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.hero_title
+      -}}
+    {%- else -%}
+      <img
+        class="danang-event__hero-image"
+        src="{{ hero_fallback }}"
+        alt="{{ section.settings.hero_title | escape }}"
+        width="2400"
+        height="1200"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  </div>
+
+  <div class="danang-event__content">
+    {%- if section.settings.hero_title != blank -%}
+      <h1 class="danang-event__title">{{ section.settings.hero_title | escape }}</h1>
+    {%- endif -%}
+
+    <div class="danang-event__story">
+      <div class="danang-event__story-copy">
+        <div class="danang-event__product-copy">
+          {%- if section.settings.product_title != blank -%}
+            <p class="danang-event__product-title">{{ section.settings.product_title | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.product_subtitle != blank -%}
+            <p class="danang-event__product-subtitle">{{ section.settings.product_subtitle | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.product_description != blank -%}
+            <div class="danang-event__small-copy rte">{{ section.settings.product_description }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="danang-event__date-copy">
+          <p class="danang-event__event-date">{{ section.settings.event_date | escape }}</p>
+          <p class="danang-event__event-time">{{ section.settings.event_time | escape }}</p>
+        </div>
+
+        <div class="danang-event__location-copy">
+          {%- if section.settings.location_intro != blank -%}
+            <p>{{ section.settings.location_intro | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.location_address != blank -%}
+            <p>{{ section.settings.location_address | newline_to_br }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="danang-event__meeting-copy">
+          {%- if section.settings.meeting_title != blank -%}
+            <p class="danang-event__meeting-title">{{ section.settings.meeting_title | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.meeting_description != blank -%}
+            <div class="danang-event__small-copy rte">{{ section.settings.meeting_description }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="danang-event__gallery" aria-label="Hình ảnh hành trình">
+        {%- for image_index in (1..4) -%}
+          {%- liquid
+            assign image_key = 'story_image_' | append: image_index
+            assign story_image = section.settings[image_key]
+            case image_index
+              when 1
+                assign story_fallback = 'https://framerusercontent.com/images/VvOiW84uaBUDv1cuLOoZyD0ik.jpg?scale-down-to=512&width=2368&height=2961'
+              when 2
+                assign story_fallback = 'https://framerusercontent.com/images/qlgbbNxkZIJzUVB2B1pRQ9kiHs.jpg?scale-down-to=512&width=1014&height=1014'
+              when 3
+                assign story_fallback = 'https://framerusercontent.com/images/BOEl7KUaTgOI9TbjAExt0RKbI.jpg?scale-down-to=512&width=2961&height=4441'
+              else
+                assign story_fallback = 'https://framerusercontent.com/images/85DyDHWeAHx4Dj19UZ0HLXdlucU.jpg?scale-down-to=512&width=3899&height=4874'
+            endcase
+          -%}
+          <div class="danang-event__gallery-item">
+            {%- if story_image != blank -%}
+              {{-
+                story_image
+                | image_url: width: 1000
+                | image_tag:
+                  class: 'danang-event__gallery-image',
+                  widths: '360, 540, 720, 1000',
+                  sizes: '(min-width: 750px) 36vw, 82vw',
+                  loading: 'lazy',
+                  alt: story_image.alt
+              -}}
+            {%- else -%}
+              <img
+                class="danang-event__gallery-image"
+                src="{{ story_fallback }}"
+                alt=""
+                width="700"
+                height="900"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.settings.statement != blank -%}
+      <div class="danang-event__statement">{{ section.settings.statement | escape | newline_to_br }}</div>
+    {%- endif -%}
+
+    <div class="danang-event__clues">
+      {%- if section.settings.clues_heading != blank -%}
+        <h2 class="danang-event__clues-heading">{{ section.settings.clues_heading | escape }}</h2>
+      {%- endif -%}
+
+      <div class="danang-event__clue-grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            case forloop.index
+              when 1
+                assign default_back_image = 'https://framerusercontent.com/images/AEtzKlb3rqUp5d9rxlbTmgvk0.png?scale-down-to=1024&width=1002&height=1251'
+              when 2
+                assign default_back_image = 'https://framerusercontent.com/images/m5Ryu9qm3EBWXQRfl2W6E7GRQE.png?scale-down-to=1024&width=1002&height=1251'
+              else
+                assign default_back_image = 'https://framerusercontent.com/images/EkqGIsEHqvKfVNf1GJNUD0As.png?scale-down-to=1024&width=1002&height=1251'
+            endcase
+            assign default_front_image = 'https://framerusercontent.com/images/WsyzbvqlxOAWCNKbEabLvpMED0.png?scale-down-to=1024&width=2506&height=3301'
+          -%}
+
+          <article
+            class="danang-event__clue"
+            data-clue-card
+            data-reveal-at="{{ block.settings.reveal_at | escape }}"
+            data-preview-state="{{ block.settings.preview_state }}"
+            data-block-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <button
+              class="danang-event__clue-button"
+              type="button"
+              aria-expanded="false"
+              aria-label="{{ block.settings.accessible_label | default: block.settings.date_label | escape }}"
+              disabled
+            >
+              <span class="danang-event__clue-inner">
+                <span class="danang-event__clue-face danang-event__clue-face--front">
+                  {%- if block.settings.front_image != blank -%}
+                    {{-
+                      block.settings.front_image
+                      | image_url: width: 1000
+                      | image_tag:
+                        class: 'danang-event__clue-image',
+                        widths: '360, 540, 720, 1000',
+                        sizes: '(min-width: 750px) 30vw, 100vw',
+                        loading: 'lazy',
+                        alt: ''
+                    -}}
+                  {%- else -%}
+                    <img class="danang-event__clue-image" src="{{ default_front_image }}" alt="" width="1000" height="1320" loading="lazy">
+                  {%- endif -%}
+                  <span class="danang-event__clue-front-copy">
+                    <span>{{ block.settings.front_label | escape }}</span>
+                    <strong>{{ block.settings.date_label | escape }}</strong>
+                  </span>
+                </span>
+
+                <span class="danang-event__clue-face danang-event__clue-face--back">
+                  {%- if block.settings.back_image != blank -%}
+                    {{-
+                      block.settings.back_image
+                      | image_url: width: 1200
+                      | image_tag:
+                        class: 'danang-event__clue-image',
+                        widths: '360, 540, 720, 1000, 1200',
+                        sizes: '(min-width: 750px) 30vw, 100vw',
+                        loading: 'lazy',
+                        alt: block.settings.back_image.alt
+                    -}}
+                  {%- else -%}
+                    <img class="danang-event__clue-image" src="{{ default_back_image }}" alt="" width="1000" height="1250" loading="lazy">
+                  {%- endif -%}
+                  <span class="danang-event__clue-arrow" aria-hidden="true">&#8594;</span>
+                </span>
+              </span>
+            </button>
+            <p class="danang-event__clue-status" aria-live="polite"></p>
+          </article>
+        {%- endfor -%}
+      </div>
+
+      <div class="danang-event__clue-footer">
+        {%- if section.settings.clue_footer_heading != blank -%}
+          <h2>{{ section.settings.clue_footer_heading | escape }}</h2>
+        {%- endif -%}
+        <div class="danang-event__buttons">
+          {%- if section.settings.club_label != blank -%}
+            <a class="danang-event__button" href="{{ section.settings.club_link | default: '#' }}">
+              {{ section.settings.club_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.website_label != blank -%}
+            <a class="danang-event__button" href="{{ section.settings.website_link | default: '#' }}">
+              {{ section.settings.website_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="danang-event__venue">
+      <div class="danang-event__venue-background" aria-hidden="true">
+        {%- if section.settings.venue_image != blank -%}
+          {{-
+            section.settings.venue_image
+            | image_url: width: 2200
+            | image_tag:
+              class: 'danang-event__venue-image',
+              widths: '750, 1100, 1500, 2200',
+              sizes: '100vw',
+              loading: 'lazy',
+              alt: ''
+          -}}
+        {%- else -%}
+          <img class="danang-event__venue-image" src="{{ venue_fallback }}" alt="" width="1280" height="1920" loading="lazy">
+        {%- endif -%}
+      </div>
+
+      <div class="danang-event__venue-content">
+        <div class="danang-event__venue-copy">
+          <h2>{{ section.settings.venue_heading | escape }}</h2>
+          <p class="danang-event__venue-name">{{ section.settings.venue_name | escape }}</p>
+          <p class="danang-event__venue-date">{{ section.settings.venue_date | escape }}</p>
+          <p class="danang-event__venue-note">{{ section.settings.venue_note | escape }}</p>
+          {%- if section.settings.venue_highlight != blank -%}
+            <p class="danang-event__venue-highlight">{{ section.settings.venue_highlight | escape }}</p>
+          {%- endif -%}
+
+          <div class="danang-event__venue-links">
+            {%- if section.settings.booking_label != blank -%}
+              <a href="{{ section.settings.booking_link | default: '#' }}">{{ section.settings.booking_label | escape }}</a>
+            {%- endif -%}
+            {%- if section.settings.club_small_label != blank -%}
+              <a href="{{ section.settings.club_link | default: '#' }}">{{ section.settings.club_small_label | escape }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="danang-event__map">
+          {%- if section.settings.map_image != blank -%}
+            {{-
+              section.settings.map_image
+              | image_url: width: 1200
+              | image_tag:
+                class: 'danang-event__map-image',
+                widths: '360, 540, 720, 1000, 1200',
+                sizes: '(min-width: 750px) 40vw, 100vw',
+                loading: 'lazy',
+                alt: section.settings.venue_name
+            -}}
+          {%- else -%}
+            <img class="danang-event__map-image" src="{{ map_fallback }}" alt="{{ section.settings.venue_name | escape }}" width="1000" height="650" loading="lazy">
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #danang-event-{{ section.id }} {
+    width: 100%;
+    overflow: hidden;
+    background: var(--de-bg);
+    color: var(--de-text);
+    font-family: "SVN-Aptima Regular", Arial, sans-serif;
+  }
+
+  #danang-event-{{ section.id }} *,
+  #danang-event-{{ section.id }} *::before,
+  #danang-event-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__hero {
+    position: relative;
+    width: 100%;
+    min-height: clamp(420px, 48vw, 680px);
+    overflow: hidden;
+    background: #090909;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__hero-image,
+  #danang-event-{{ section.id }} .danang-event__venue-image,
+  #danang-event-{{ section.id }} .danang-event__gallery-image,
+  #danang-event-{{ section.id }} .danang-event__clue-image,
+  #danang-event-{{ section.id }} .danang-event__map-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__hero-image {
+    position: absolute;
+    inset: 0;
+    object-position: center;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__content {
+    width: 100%;
+    background: var(--de-bg);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__title,
+  #danang-event-{{ section.id }} .danang-event__clues-heading,
+  #danang-event-{{ section.id }} .danang-event__product-title,
+  #danang-event-{{ section.id }} .danang-event__event-date,
+  #danang-event-{{ section.id }} .danang-event__event-time,
+  #danang-event-{{ section.id }} .danang-event__meeting-title,
+  #danang-event-{{ section.id }} .danang-event__clue-front-copy,
+  #danang-event-{{ section.id }} .danang-event__statement {
+    font-family: "UTM Copperplate Bold", "Copperplate", Georgia, serif;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__title {
+    width: min(100% - 40px, var(--de-max-width));
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 76px) 0 clamp(28px, 4vw, 52px);
+    font-size: clamp(34px, 5.5vw, 66px);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__story {
+    display: grid;
+    grid-template-columns: minmax(400px, 0.82fr) minmax(0, 1.6fr);
+    gap: clamp(36px, 5vw, 72px);
+    width: min(100% - 40px, var(--de-max-width));
+    margin: 0 auto;
+    padding-bottom: clamp(70px, 9vw, 120px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__story-copy {
+    display: grid;
+    grid-template-columns: 0.45fr 0.55fr;
+    gap: 28px 34px;
+    align-content: center;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__product-copy,
+  #danang-event-{{ section.id }} .danang-event__meeting-copy {
+    grid-column: 1 / -1;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__product-title,
+  #danang-event-{{ section.id }} .danang-event__product-subtitle,
+  #danang-event-{{ section.id }} .danang-event__event-date,
+  #danang-event-{{ section.id }} .danang-event__event-time,
+  #danang-event-{{ section.id }} .danang-event__meeting-title,
+  #danang-event-{{ section.id }} .danang-event__location-copy p {
+    margin: 0;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__product-title,
+  #danang-event-{{ section.id }} .danang-event__product-subtitle {
+    color: var(--de-accent);
+    font-family: "Copperplate CC Bold", "Copperplate", Georgia, serif;
+    font-weight: 700;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__product-title {
+    font-size: clamp(28px, 3.2vw, 44px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__product-subtitle {
+    margin-top: 2px;
+    font-size: clamp(20px, 2.2vw, 30px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__small-copy,
+  #danang-event-{{ section.id }} .danang-event__small-copy p,
+  #danang-event-{{ section.id }} .danang-event__location-copy {
+    margin: 12px 0 0;
+    color: var(--de-text);
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__event-date,
+  #danang-event-{{ section.id }} .danang-event__meeting-title {
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__event-time {
+    margin-top: 14px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__location-copy {
+    margin-top: 4px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__meeting-copy {
+    margin-top: 12px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery {
+    display: flex;
+    gap: 0;
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-item {
+    flex: 0 0 min(54vw, 425px);
+    min-height: 530px;
+    overflow: hidden;
+    scroll-snap-align: start;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-item:nth-child(even) {
+    transform: translateY(-56px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-image {
+    object-position: center;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__statement {
+    display: grid;
+    place-items: center;
+    min-height: clamp(480px, 62vw, 760px);
+    width: min(100% - 40px, 900px);
+    margin: 0 auto;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clues {
+    width: 100%;
+    padding: clamp(46px, 6vw, 82px) 20px clamp(60px, 7vw, 96px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clues-heading {
+    width: min(100%, var(--de-max-width));
+    margin: 0 auto clamp(34px, 4vw, 52px);
+    font-size: clamp(34px, 4.4vw, 54px);
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(24px, 5vw, 62px);
+    width: min(100%, 1000px);
+    margin: 0 auto;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue {
+    min-width: 0;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-button {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1002 / 1408;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--de-card-radius);
+    background: transparent;
+    color: inherit;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-button:disabled {
+    cursor: default;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-button:focus-visible {
+    outline: 2px solid var(--de-accent);
+    outline-offset: 4px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 800ms cubic-bezier(.2, .8, .2, 1);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue.is-open .danang-event__clue-inner {
+    transform: rotateY(180deg);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-face {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--de-card-radius);
+    backface-visibility: hidden;
+    box-shadow: 0 18px 54px rgba(255, 255, 255, 0.08);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-face--back {
+    transform: rotateY(180deg);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-front-copy {
+    position: absolute;
+    right: 16px;
+    bottom: 34px;
+    left: 16px;
+    display: grid;
+    gap: 4px;
+    color: #ededed;
+    font-size: clamp(15px, 1.6vw, 20px);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-front-copy strong {
+    font: inherit;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-arrow {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    color: #fff;
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-footer {
+    width: min(100%, 760px);
+    margin: clamp(44px, 5vw, 68px) auto 0;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__clue-footer h2 {
+    margin: 0 0 28px;
+    color: var(--de-accent);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 10px 22px;
+    border-radius: 10px;
+    background: var(--de-accent);
+    color: #000;
+    font-family: "SVN-Aptima Italic", Arial, sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1;
+    text-decoration: none;
+    transition: filter 180ms ease, transform 180ms ease;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__button:hover,
+  #danang-event-{{ section.id }} .danang-event__button:focus-visible {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-background,
+  #danang-event-{{ section.id }} .danang-event__venue-background::after {
+    position: absolute;
+    inset: 0;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-background::after {
+    content: '';
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.74) 45%, rgba(0, 0, 0, 0.2) 100%);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-image {
+    object-position: center 52%;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.75fr);
+    gap: clamp(40px, 8vw, 120px);
+    align-items: center;
+    width: min(100% - 40px, var(--de-max-width));
+    min-height: 520px;
+    margin: 0 auto;
+    padding: 58px 0;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-copy h2,
+  #danang-event-{{ section.id }} .danang-event__venue-copy p {
+    margin: 0;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-copy h2 {
+    margin-bottom: 14px;
+    font-size: 26px;
+    line-height: 1.15;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-name,
+  #danang-event-{{ section.id }} .danang-event__venue-date {
+    color: var(--de-accent);
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-date {
+    font-weight: 700;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-note {
+    margin-top: 20px !important;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-highlight {
+    margin-top: 34px !important;
+    color: var(--de-accent);
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-links {
+    display: flex;
+    gap: 34px;
+    margin-top: 26px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-links a {
+    color: #fff;
+    font-family: "UTM Copperplate Bold", "Copperplate", Georgia, serif;
+    font-size: 15px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__map {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  @media (max-width: 749px) {
+    #danang-event-{{ section.id }} .danang-event__hero {
+      min-height: 306px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__hero-image {
+      object-position: center;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__title {
+      width: min(100% - 32px, 420px);
+      padding: 34px 0 30px;
+      font-size: clamp(28px, 8vw, 36px);
+      line-height: 1.05;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__story {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding-bottom: 52px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__story-copy {
+      display: grid;
+      grid-template-columns: 1fr;
+      order: 1;
+      width: min(100% - 32px, 420px);
+      margin: 0 auto;
+      gap: 22px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__gallery {
+      order: 0;
+      padding-left: 16px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__gallery-item {
+      flex-basis: min(82vw, 340px);
+      min-height: 420px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__gallery-item:nth-child(even) {
+      transform: none;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__product-title {
+      font-size: 22px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__product-subtitle {
+      font-size: 20px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__event-date,
+    #danang-event-{{ section.id }} .danang-event__meeting-title {
+      font-size: 24px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__statement {
+      min-height: 420px;
+      width: min(100% - 42px, 370px);
+      font-size: clamp(28px, 8vw, 34px);
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clues {
+      padding: 44px 16px 58px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clues-heading {
+      margin-bottom: 28px;
+      font-size: 29px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 420px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-button {
+      height: 116px;
+      aspect-ratio: auto;
+      overflow: hidden;
+      transition: height 700ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue.is-open .danang-event__clue-button {
+      height: min(104vw, 510px);
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-inner,
+    #danang-event-{{ section.id }} .danang-event__clue.is-open .danang-event__clue-inner {
+      transform: none;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-face--front {
+      display: none;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-face--back {
+      transform: none;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue:not(.is-open) .danang-event__clue-face--back::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.42);
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue:not(.is-revealed) .danang-event__clue-image {
+      filter: grayscale(1);
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-image {
+      object-position: center;
+      transition: filter 500ms ease;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-arrow {
+      right: 18px;
+      bottom: 18px;
+      font-size: 28px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-footer {
+      max-width: 420px;
+      margin-top: 36px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__clue-footer h2 {
+      margin-bottom: 18px;
+      font-size: 19px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__buttons {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      width: min(76%, 290px);
+      margin: 0 auto;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__button {
+      min-height: 44px;
+      font-size: 19px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__venue {
+      min-height: 720px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__venue-background::after {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.9) 54%, #000 100%);
+    }
+
+    #danang-event-{{ section.id }} .danang-event__venue-content {
+      grid-template-columns: 1fr;
+      gap: 34px;
+      width: min(100% - 32px, 420px);
+      min-height: 720px;
+      padding: 52px 0;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__venue-copy {
+      align-self: end;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__venue-links {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__map {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #danang-event-{{ section.id }} .danang-event__clue-inner,
+    #danang-event-{{ section.id }} .danang-event__clue-button,
+    #danang-event-{{ section.id }} .danang-event__button {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    const sectionId = 'danang-event-{{ section.id }}';
+
+    const initializeDanangEvent = (scope = document) => {
+      const sectionElement = scope.id === sectionId ? scope : scope.querySelector(`#${sectionId}`);
+      if (!sectionElement || sectionElement.dataset.scheduleInitialized === 'true') return;
+
+      sectionElement.dataset.scheduleInitialized = 'true';
+      const cards = Array.from(sectionElement.querySelectorAll('[data-clue-card]'));
+      const refreshMilliseconds = Math.max(10, Number(sectionElement.dataset.refreshSeconds) || 30) * 1000;
+      const mobileMedia = window.matchMedia('(max-width: 749px)');
+      let previousRevealedIds = new Set();
+      let nextRevealTimeoutId;
+
+      const getScheduledTime = (card) => {
+        const timestamp = Date.parse(card.dataset.revealAt || '');
+        return Number.isNaN(timestamp) ? Number.POSITIVE_INFINITY : timestamp;
+      };
+
+      const isRevealed = (card, now) => {
+        if (card.dataset.previewState === 'revealed') return true;
+        if (card.dataset.previewState === 'locked') return false;
+        return now >= getScheduledTime(card);
+      };
+
+      const setOpen = (card, open) => {
+        const button = card.querySelector('.danang-event__clue-button');
+        card.classList.toggle('is-open', open);
+        button?.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+
+      const updateSchedule = () => {
+        const now = Date.now();
+        const revealedCards = cards.filter((card) => isRevealed(card, now));
+        const revealedIds = new Set(revealedCards.map((card) => card.dataset.blockIndex));
+        const newlyRevealed = revealedCards.filter((card) => !previousRevealedIds.has(card.dataset.blockIndex));
+
+        cards.forEach((card) => {
+          const revealed = revealedIds.has(card.dataset.blockIndex);
+          const button = card.querySelector('.danang-event__clue-button');
+          const status = card.querySelector('.danang-event__clue-status');
+
+          card.classList.toggle('is-revealed', revealed);
+          if (button) button.disabled = !revealed;
+          if (status) status.textContent = revealed ? 'Nội dung đã được mở' : 'Nội dung chưa đến thời gian mở';
+
+          if (!revealed) setOpen(card, false);
+        });
+
+        if (mobileMedia.matches) {
+          const newestRevealed = revealedCards[revealedCards.length - 1];
+          const target = newlyRevealed[newlyRevealed.length - 1] || (previousRevealedIds.size === 0 ? newestRevealed : null);
+          if (target) {
+            revealedCards.forEach((card) => setOpen(card, card === target));
+          }
+        } else {
+          revealedCards.forEach((card) => setOpen(card, true));
+        }
+
+        previousRevealedIds = revealedIds;
+      };
+
+      const scheduleNextReveal = () => {
+        window.clearTimeout(nextRevealTimeoutId);
+        const now = Date.now();
+        const nextTime = cards
+          .filter((card) => card.dataset.previewState === 'automatic')
+          .map(getScheduledTime)
+          .filter((time) => Number.isFinite(time) && time > now)
+          .sort((first, second) => first - second)[0];
+
+        if (!nextTime) return;
+        const maximumTimeout = 2147483647;
+        nextRevealTimeoutId = window.setTimeout(() => {
+          updateSchedule();
+          scheduleNextReveal();
+        }, Math.min(maximumTimeout, Math.max(0, nextTime - now) + 50));
+      };
+
+      cards.forEach((card) => {
+        const button = card.querySelector('.danang-event__clue-button');
+        button?.addEventListener('click', () => {
+          if (!card.classList.contains('is-revealed')) return;
+
+          if (mobileMedia.matches) {
+            const shouldOpen = !card.classList.contains('is-open');
+            cards.forEach((item) => setOpen(item, shouldOpen && item === card));
+          } else {
+            setOpen(card, !card.classList.contains('is-open'));
+          }
+        });
+      });
+
+      const handleBreakpointChange = () => {
+        previousRevealedIds = new Set();
+        updateSchedule();
+      };
+
+      if (typeof mobileMedia.addEventListener === 'function') {
+        mobileMedia.addEventListener('change', handleBreakpointChange);
+      } else {
+        mobileMedia.addListener(handleBreakpointChange);
+      }
+
+      updateSchedule();
+      scheduleNextReveal();
+      const intervalId = window.setInterval(updateSchedule, refreshMilliseconds);
+
+      sectionElement.addEventListener('shopify:block:select', (event) => {
+        const selectedCard = event.target.closest('[data-clue-card]');
+        if (!selectedCard) return;
+        selectedCard.classList.add('is-revealed');
+        selectedCard.querySelector('.danang-event__clue-button')?.removeAttribute('disabled');
+        setOpen(selectedCard, true);
+      });
+
+      const handleSectionUnload = (event) => {
+        if (event.target.id !== sectionId) return;
+        window.clearInterval(intervalId);
+        window.clearTimeout(nextRevealTimeoutId);
+        document.removeEventListener('shopify:section:unload', handleSectionUnload);
+      };
+
+      document.addEventListener('shopify:section:unload', handleSectionUnload);
+    };
+
+    initializeDanangEvent();
+    document.addEventListener('shopify:section:load', (event) => initializeDanangEvent(event.target));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Dấu ấn Đà Nẵng",
+  "tag": "section",
+  "class": "section-danang-event",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Màu sắc và kích thước"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Màu nền",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Màu nhấn",
+      "default": "#ff931f"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 900,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Chiều rộng nội dung",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Độ bo góc thẻ",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Hero và giới thiệu"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Ảnh hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Tiêu đề chính",
+      "default": "DẤU ẤN NƠI MÌNH ĐẾN"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Tên sản phẩm",
+      "default": "DANANG HOIAN"
+    },
+    {
+      "type": "text",
+      "id": "product_subtitle",
+      "label": "Dòng phụ sản phẩm",
+      "default": "Pendant & Wood Panel"
+    },
+    {
+      "type": "richtext",
+      "id": "product_description",
+      "label": "Mô tả sản phẩm",
+      "default": "<p>Bạc gặp gỗ trong một dấu ấn dành riêng cho Đà Nẵng.</p>"
+    },
+    {
+      "type": "text",
+      "id": "event_date",
+      "label": "Ngày sự kiện",
+      "default": "19.09.2026"
+    },
+    {
+      "type": "text",
+      "id": "event_time",
+      "label": "Giờ sự kiện",
+      "default": "14:00 - 17:00"
+    },
+    {
+      "type": "text",
+      "id": "location_intro",
+      "label": "Dòng giới thiệu địa điểm",
+      "default": "Tham gia cùng Helios tại The HangArt"
+    },
+    {
+      "type": "textarea",
+      "id": "location_address",
+      "label": "Địa chỉ",
+      "default": "Lạc Long Quân, phường Điện Bàn Đông,\nĐà Nẵng"
+    },
+    {
+      "type": "text",
+      "id": "meeting_title",
+      "label": "Tiêu đề điểm hẹn",
+      "default": "BA DẤU ẤN - MỘT ĐIỂM HẸN"
+    },
+    {
+      "type": "richtext",
+      "id": "meeting_description",
+      "label": "Mô tả điểm hẹn",
+      "default": "<p>Tìm một trong ba dấu ấn. Mang về điểm hẹn.<br>Nhận món quà của hành trình.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image_1",
+      "label": "Ảnh hành trình 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image_2",
+      "label": "Ảnh hành trình 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image_3",
+      "label": "Ảnh hành trình 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image_4",
+      "label": "Ảnh hành trình 4"
+    },
+    {
+      "type": "textarea",
+      "id": "statement",
+      "label": "Câu chuyển tiếp",
+      "default": "MỘT PHẦN Ở LẠI TRONG GỖ\nMỘT PHẦN THEO NGƯỜI RỜI ĐI"
+    },
+    {
+      "type": "header",
+      "content": "Các dấu ấn"
+    },
+    {
+      "type": "text",
+      "id": "clues_heading",
+      "label": "Tiêu đề",
+      "default": "CHẠM VÀO TỪNG DẤU ẤN"
+    },
+    {
+      "type": "range",
+      "id": "refresh_seconds",
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "s",
+      "label": "Chu kỳ kiểm tra lịch mở",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "clue_footer_heading",
+      "label": "Tiêu đề dưới các dấu ấn",
+      "default": "MỖI NƠI GIỮ MỘT PHẦN MANH MỐI"
+    },
+    {
+      "type": "text",
+      "id": "club_label",
+      "label": "Nhãn nút HELIOS Club",
+      "default": "HELIOS Club"
+    },
+    {
+      "type": "url",
+      "id": "club_link",
+      "label": "Liên kết HELIOS Club"
+    },
+    {
+      "type": "text",
+      "id": "website_label",
+      "label": "Nhãn nút Website",
+      "default": "Website"
+    },
+    {
+      "type": "url",
+      "id": "website_link",
+      "label": "Liên kết Website"
+    },
+    {
+      "type": "header",
+      "content": "Điểm hẹn"
+    },
+    {
+      "type": "image_picker",
+      "id": "venue_image",
+      "label": "Ảnh nền điểm hẹn"
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "Ảnh địa điểm"
+    },
+    {
+      "type": "text",
+      "id": "venue_heading",
+      "label": "Tiêu đề",
+      "default": "ĐIỂM HẸN"
+    },
+    {
+      "type": "text",
+      "id": "venue_name",
+      "label": "Tên địa điểm",
+      "default": "THE HANGART"
+    },
+    {
+      "type": "text",
+      "id": "venue_date",
+      "label": "Ngày giờ",
+      "default": "19.09.2026 · 14:00 – 17:00"
+    },
+    {
+      "type": "text",
+      "id": "venue_note",
+      "label": "Ghi chú thời gian",
+      "default": "Trưng bày & mở bán đến 12h ngày 23.09.2026"
+    },
+    {
+      "type": "text",
+      "id": "venue_highlight",
+      "label": "Dòng nhấn",
+      "default": "Danang Hoian Pendant chỉ có mặt trực tiếp tại đây."
+    },
+    {
+      "type": "text",
+      "id": "booking_label",
+      "label": "Nhãn đặt lịch",
+      "default": "đặt lịch gặp"
+    },
+    {
+      "type": "url",
+      "id": "booking_link",
+      "label": "Liên kết đặt lịch"
+    },
+    {
+      "type": "text",
+      "id": "club_small_label",
+      "label": "Nhãn Club ở điểm hẹn",
+      "default": "tham gia helios club"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "clue",
+      "name": "Dấu ấn theo lịch",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Nhập thời gian ISO có múi giờ, ví dụ: 2026-09-19T00:00:00+07:00. Desktop sẽ tự lật thẻ; mobile sẽ tự mở rộng thẻ mới nhất."
+        },
+        {
+          "type": "text",
+          "id": "reveal_at",
+          "label": "Thời gian mở",
+          "default": "2026-09-19T00:00:00+07:00"
+        },
+        {
+          "type": "select",
+          "id": "preview_state",
+          "label": "Trạng thái xem thử",
+          "options": [
+            { "value": "automatic", "label": "Tự động theo lịch" },
+            { "value": "locked", "label": "Luôn hiện mặt trước" },
+            { "value": "revealed", "label": "Luôn hiện mặt sau" }
+          ],
+          "default": "automatic"
+        },
+        {
+          "type": "text",
+          "id": "front_label",
+          "label": "Nhãn mặt trước",
+          "default": "COMING SOON"
+        },
+        {
+          "type": "text",
+          "id": "date_label",
+          "label": "Ngày hiển thị",
+          "default": "19.09"
+        },
+        {
+          "type": "text",
+          "id": "accessible_label",
+          "label": "Nhãn hỗ trợ đọc màn hình",
+          "default": "Mở dấu ấn"
+        },
+        {
+          "type": "image_picker",
+          "id": "front_image",
+          "label": "Ảnh mặt trước"
+        },
+        {
+          "type": "image_picker",
+          "id": "back_image",
+          "label": "Ảnh mặt sau"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dấu ấn Đà Nẵng",
+      "blocks": [
+        {
+          "type": "clue",
+          "settings": {
+            "reveal_at": "2026-09-19T00:00:00+07:00",
+            "date_label": "19.09",
+            "accessible_label": "Dấu ấn ngày 19 tháng 9"
+          }
+        },
+        {
+          "type": "clue",
+          "settings": {
+            "reveal_at": "2026-09-20T00:00:00+07:00",
+            "date_label": "20.09",
+            "accessible_label": "Dấu ấn ngày 20 tháng 9"
+          }
+        },
+        {
+          "type": "clue",
+          "settings": {
+            "reveal_at": "2026-09-22T00:00:00+07:00",
+            "date_label": "22.09",
+            "accessible_label": "Dấu ấn ngày 22 tháng 9"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
