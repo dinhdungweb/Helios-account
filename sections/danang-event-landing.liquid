@@ -347,10 +347,20 @@
 
           <div class="danang-event__venue-links">
             {%- if section.settings.booking_label != blank -%}
-              <a href="{{ section.settings.booking_link | default: '#' }}">{{ section.settings.booking_label | escape }}</a>
+              <a
+                class="danang-event__venue-button danang-event__venue-button--primary"
+                href="{{ section.settings.booking_link | default: '#' }}"
+              >
+                {{ section.settings.booking_label | escape }}
+              </a>
             {%- endif -%}
             {%- if section.settings.club_small_label != blank -%}
-              <a href="{{ section.settings.club_link | default: '#' }}">{{ section.settings.club_small_label | escape }}</a>
+              <a
+                class="danang-event__venue-button danang-event__venue-button--secondary"
+                href="{{ section.settings.club_link | default: '#' }}"
+              >
+                {{ section.settings.club_small_label | escape }}
+              </a>
             {%- endif -%}
           </div>
         </div>
@@ -869,15 +879,52 @@
 
   #danang-event-{{ section.id }} .danang-event__venue-links {
     display: flex;
-    gap: 34px;
+    gap: 20px;
     margin-top: 26px;
   }
 
-  #danang-event-{{ section.id }} .danang-event__venue-links a {
+  #danang-event-{{ section.id }} .danang-event__venue-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 182px;
+    min-height: 46px;
+    padding: 12px 22px;
+    border: 1px solid #fff;
+    border-radius: 4px;
     color: #fff;
-    font-size: 15px;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-button--primary {
+    border-color: var(--de-accent);
+    background: var(--de-accent);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-button--secondary {
+    background: transparent;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-button:hover,
+  #danang-event-{{ section.id }} .danang-event__venue-button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-button--primary:hover,
+  #danang-event-{{ section.id }} .danang-event__venue-button--primary:focus-visible {
+    filter: brightness(1.08);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__venue-button--secondary:hover,
+  #danang-event-{{ section.id }} .danang-event__venue-button--secondary:focus-visible {
+    background: #fff;
+    color: #000;
   }
 
   #danang-event-{{ section.id }} .danang-event__map {
@@ -1113,6 +1160,11 @@
     #danang-event-{{ section.id }} .danang-event__venue-links {
       flex-direction: column;
       gap: 14px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__venue-button {
+      width: 100%;
+      min-height: 48px;
     }
 
     #danang-event-{{ section.id }} .danang-event__map {
