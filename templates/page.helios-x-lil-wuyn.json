@@ -343,15 +343,14 @@
     },
     "rich_text_XhpKLy": {
       "type": "rich-text",
-      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "",
-        "title_size": 48,
-        "title_width": 12,
+        "title": "NHỮNG DẤU VẾT Ở LẠI",
+        "title_size": 26,
+        "title_width": 40,
         "heading_h1": false,
-        "text": "<p><em>Lấy cuộc sống làm mặt giấy, lấy trải nghiệm để vẽ nên mình.<br/>Có những nét đậm, có những vết xước<br/>Đi đủ lâu, tất cả đều thành dấu ấn.</em></p><p></p>",
+        "text": "<p>Bạc thay đổi khi được sống cùng người đeo. Patina, những vết xước và độ mòn dần trở thành dấu tích của những sân khấu, chuyến đi và khoảnh khắc đã trải qua.</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
@@ -361,7 +360,7 @@
         "full_width": false,
         "no_padding_bottom": false,
         "color_scheme": "custom",
-        "color_bg": "#222222",
+        "color_bg": "",
         "color_text": ""
       }
     },
@@ -723,8 +722,8 @@
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
     "custom_spacing_46R8JU",
-    "grid_image_WBg7Ub",
     "rich_text_XhpKLy",
+    "grid_image_WBg7Ub",
     "multi_media_with_text_pQwcgY",
     "multi_media_with_text_qnjaPA",
     "rich_text_rbndCc",
