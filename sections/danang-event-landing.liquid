@@ -90,46 +90,85 @@
         </div>
       </div>
 
-      <div class="danang-event__gallery" aria-label="Hình ảnh hành trình">
-        {%- for image_index in (1..4) -%}
-          {%- liquid
-            assign image_key = 'story_image_' | append: image_index
-            assign story_image = section.settings[image_key]
-            case image_index
-              when 1
-                assign story_fallback = 'https://framerusercontent.com/images/VvOiW84uaBUDv1cuLOoZyD0ik.jpg?scale-down-to=512&width=2368&height=2961'
-              when 2
-                assign story_fallback = 'https://framerusercontent.com/images/qlgbbNxkZIJzUVB2B1pRQ9kiHs.jpg?scale-down-to=512&width=1014&height=1014'
-              when 3
-                assign story_fallback = 'https://framerusercontent.com/images/BOEl7KUaTgOI9TbjAExt0RKbI.jpg?scale-down-to=512&width=2961&height=4441'
-              else
-                assign story_fallback = 'https://framerusercontent.com/images/85DyDHWeAHx4Dj19UZ0HLXdlucU.jpg?scale-down-to=512&width=3899&height=4874'
-            endcase
-          -%}
-          <div class="danang-event__gallery-item">
-            {%- if story_image != blank -%}
-              {{-
-                story_image
-                | image_url: width: 1000
-                | image_tag:
-                  class: 'danang-event__gallery-image',
-                  widths: '360, 540, 720, 1000',
-                  sizes: '(min-width: 750px) 36vw, 82vw',
-                  loading: 'lazy',
-                  alt: story_image.alt
-              -}}
-            {%- else -%}
-              <img
-                class="danang-event__gallery-image"
-                src="{{ story_fallback }}"
-                alt=""
-                width="700"
-                height="900"
-                loading="lazy"
-              >
-            {%- endif -%}
-          </div>
-        {%- endfor -%}
+      <div
+        class="danang-event__gallery-shell"
+        data-story-slider
+        data-autoplay="{{ section.settings.story_autoplay }}"
+        data-autoplay-seconds="{{ section.settings.story_autoplay_seconds }}"
+      >
+        <div
+          id="danang-story-slider-{{ section.id }}"
+          class="danang-event__gallery"
+          aria-label="Hình ảnh hành trình"
+          role="region"
+          tabindex="0"
+        >
+          {%- for image_index in (1..4) -%}
+            {%- liquid
+              assign image_key = 'story_image_' | append: image_index
+              assign story_image = section.settings[image_key]
+              case image_index
+                when 1
+                  assign story_fallback = 'https://framerusercontent.com/images/VvOiW84uaBUDv1cuLOoZyD0ik.jpg?scale-down-to=512&width=2368&height=2961'
+                when 2
+                  assign story_fallback = 'https://framerusercontent.com/images/qlgbbNxkZIJzUVB2B1pRQ9kiHs.jpg?scale-down-to=512&width=1014&height=1014'
+                when 3
+                  assign story_fallback = 'https://framerusercontent.com/images/BOEl7KUaTgOI9TbjAExt0RKbI.jpg?scale-down-to=512&width=2961&height=4441'
+                else
+                  assign story_fallback = 'https://framerusercontent.com/images/85DyDHWeAHx4Dj19UZ0HLXdlucU.jpg?scale-down-to=512&width=3899&height=4874'
+              endcase
+            -%}
+            <div class="danang-event__gallery-item" data-story-slide>
+              {%- if story_image != blank -%}
+                {{-
+                  story_image
+                  | image_url: width: 1000
+                  | image_tag:
+                    class: 'danang-event__gallery-image',
+                    widths: '360, 540, 720, 1000',
+                    sizes: '(min-width: 750px) 36vw, 82vw',
+                    loading: 'lazy',
+                    alt: story_image.alt
+                -}}
+              {%- else -%}
+                <img
+                  class="danang-event__gallery-image"
+                  src="{{ story_fallback }}"
+                  alt=""
+                  width="700"
+                  height="900"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="danang-event__gallery-controls">
+          <button
+            type="button"
+            class="danang-event__gallery-button"
+            data-story-prev
+            aria-controls="danang-story-slider-{{ section.id }}"
+            aria-label="Ảnh trước"
+          >
+            <span aria-hidden="true">&#8592;</span>
+          </button>
+          <span class="danang-event__gallery-count" aria-live="polite">
+            <span data-story-current>1</span>
+            <span aria-hidden="true">/</span>
+            <span data-story-total>4</span>
+          </span>
+          <button
+            type="button"
+            class="danang-event__gallery-button"
+            data-story-next
+            aria-controls="danang-story-slider-{{ section.id }}"
+            aria-label="Ảnh tiếp theo"
+          >
+            <span aria-hidden="true">&#8594;</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -440,8 +479,14 @@
     min-width: 0;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-shell {
+    position: relative;
+    min-width: 0;
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery::-webkit-scrollbar {
@@ -461,6 +506,60 @@
 
   #danang-event-{{ section.id }} .danang-event__gallery-image {
     object-position: center;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-controls {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font: inherit;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-button:hover,
+  #danang-event-{{ section.id }} .danang-event__gallery-button:focus-visible {
+    background: #fff;
+    color: #000;
+    transform: scale(1.06);
+  }
+
+  #danang-event-{{ section.id }} .danang-event__gallery-count {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    min-height: 30px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.58);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1;
   }
 
   #danang-event-{{ section.id }} .danang-event__statement {
@@ -920,6 +1019,86 @@
       if (!sectionElement || sectionElement.dataset.scheduleInitialized === 'true') return;
 
       sectionElement.dataset.scheduleInitialized = 'true';
+      const sliderShell = sectionElement.querySelector('[data-story-slider]');
+      let sliderAutoplayId;
+
+      if (sliderShell) {
+        const slider = sliderShell.querySelector('.danang-event__gallery');
+        const slides = Array.from(sliderShell.querySelectorAll('[data-story-slide]'));
+        const previousButton = sliderShell.querySelector('[data-story-prev]');
+        const nextButton = sliderShell.querySelector('[data-story-next]');
+        const currentLabel = sliderShell.querySelector('[data-story-current]');
+        const totalLabel = sliderShell.querySelector('[data-story-total]');
+        const autoplayEnabled = sliderShell.dataset.autoplay === 'true';
+        const autoplayDelay = Math.max(3, Number(sliderShell.dataset.autoplaySeconds) || 5) * 1000;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let scrollUpdateId;
+
+        if (totalLabel) totalLabel.textContent = String(slides.length);
+
+        const getCurrentIndex = () => {
+          if (!slider || slides.length === 0) return 0;
+          return slides.reduce((closestIndex, slide, index) => {
+            const closestDistance = Math.abs(slides[closestIndex].offsetLeft - slider.scrollLeft);
+            const currentDistance = Math.abs(slide.offsetLeft - slider.scrollLeft);
+            return currentDistance < closestDistance ? index : closestIndex;
+          }, 0);
+        };
+
+        const updateSlider = () => {
+          if (currentLabel) currentLabel.textContent = String(getCurrentIndex() + 1);
+        };
+
+        const goToSlide = (index) => {
+          if (!slider || slides.length === 0) return;
+          const normalizedIndex = (index + slides.length) % slides.length;
+          slider.scrollTo({
+            left: slides[normalizedIndex].offsetLeft,
+            behavior: reduceMotion.matches ? 'auto' : 'smooth'
+          });
+        };
+
+        const stopAutoplay = () => window.clearInterval(sliderAutoplayId);
+        const startAutoplay = () => {
+          stopAutoplay();
+          if (!autoplayEnabled || reduceMotion.matches || slides.length < 2) return;
+          sliderAutoplayId = window.setInterval(() => goToSlide(getCurrentIndex() + 1), autoplayDelay);
+        };
+
+        previousButton?.addEventListener('click', () => {
+          goToSlide(getCurrentIndex() - 1);
+          startAutoplay();
+        });
+        nextButton?.addEventListener('click', () => {
+          goToSlide(getCurrentIndex() + 1);
+          startAutoplay();
+        });
+        slider?.addEventListener('scroll', () => {
+          window.cancelAnimationFrame(scrollUpdateId);
+          scrollUpdateId = window.requestAnimationFrame(updateSlider);
+        }, { passive: true });
+        slider?.addEventListener('keydown', (event) => {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          goToSlide(getCurrentIndex() + (event.key === 'ArrowLeft' ? -1 : 1));
+          startAutoplay();
+        });
+        sliderShell.addEventListener('mouseenter', stopAutoplay);
+        sliderShell.addEventListener('mouseleave', startAutoplay);
+        sliderShell.addEventListener('focusin', stopAutoplay);
+        sliderShell.addEventListener('focusout', startAutoplay);
+        sliderShell.addEventListener('pointerdown', stopAutoplay, { passive: true });
+        sliderShell.addEventListener('pointerup', startAutoplay, { passive: true });
+
+        if ('ResizeObserver' in window && slider) {
+          const sliderResizeObserver = new ResizeObserver(updateSlider);
+          sliderResizeObserver.observe(slider);
+        }
+
+        updateSlider();
+        startAutoplay();
+      }
+
       const cards = Array.from(sectionElement.querySelectorAll('[data-clue-card]'));
       const refreshMilliseconds = Math.max(10, Number(sectionElement.dataset.refreshSeconds) || 30) * 1000;
       const mobileMedia = window.matchMedia('(max-width: 749px)');
@@ -1032,6 +1211,7 @@
         if (event.target.id !== sectionId) return;
         window.clearInterval(intervalId);
         window.clearTimeout(nextRevealTimeoutId);
+        window.clearInterval(sliderAutoplayId);
         document.removeEventListener('shopify:section:unload', handleSectionUnload);
       };
 
@@ -1180,6 +1360,22 @@
       "type": "image_picker",
       "id": "story_image_4",
       "label": "Ảnh hành trình 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "story_autoplay",
+      "label": "Tự động chạy slide ảnh",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "story_autoplay_seconds",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Thời gian chuyển slide",
+      "default": 5
     },
     {
       "type": "textarea",
