@@ -107,15 +107,15 @@
 
         <div class="danang-event__mobile-schedule">
           <div>
+            <p class="danang-event__event-date">{{ section.settings.event_date | escape }}</p>
             <p class="danang-event__event-time">{{ section.settings.event_time | escape }}</p>
-            {%- if section.settings.location_address != blank -%}
-              <p>{{ section.settings.location_address | newline_to_br }}</p>
-            {%- endif -%}
           </div>
           <div>
-            <p class="danang-event__event-date">{{ section.settings.event_date | escape }}</p>
             {%- if section.settings.location_intro != blank -%}
-              <p>{{ section.settings.location_intro | escape }}</p>
+              <p class="danang-event__mobile-location-intro">{{ section.settings.location_intro | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.location_address != blank -%}
+              <p>{{ section.settings.location_address | newline_to_br }}</p>
             {%- endif -%}
           </div>
         </div>
@@ -1034,12 +1034,12 @@
       margin: 0;
     }
 
-    #danang-event-{{ section.id }} .danang-event__mobile-schedule .danang-event__event-time {
-      margin-bottom: 6px;
-    }
-
     #danang-event-{{ section.id }} .danang-event__mobile-schedule .danang-event__event-date {
       margin-bottom: 4px;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__mobile-location-intro {
+      margin-bottom: 4px !important;
     }
 
     #danang-event-{{ section.id }} .danang-event__product-copy {
