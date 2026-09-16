@@ -26,9 +26,9 @@
         "video_height_mobile": 500,
         "video_link": "",
         "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/LIL WYUN 19x9.mp4",
+        "video_shopify_desktop": "shopify://files/videos/Lil 19x9_optimized_2.webm",
         "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/Lil Wuyn_optimized.webm",
+        "video_shopify_mobile": "shopify://files/videos/Video web lil wuyn 4x5_optimized_2.webm",
         "video_external_mobile": "",
         "subtitle": "",
         "title": "",
@@ -73,6 +73,7 @@
     },
     "rich_text_z8Hb9T": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -134,12 +135,82 @@
         "autoplay_speed": 7
       }
     },
-    "custom_spacing_pFBXtr": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
+    "journey_timeline_mNrzVK": {
+      "type": "journey-timeline",
+      "blocks": {
+        "journey_item_fnQqKP": {
+          "type": "journey_item",
+          "settings": {
+            "title": "Ra mắt BST Men's Armor",
+            "description": "<p>Điểm bắt đầu của một hành trình. Từ Men’s Armor, HELIOS bắt đầu xuất hiện cùng Lil Wuyn như một phần trong hình ảnh anh lựa chọn.</p>",
+            "image_count": 2,
+            "desktop_columns": 2,
+            "mobile_columns": "2",
+            "image_ratio": "auto",
+            "image_1": "shopify://shop_images/image_19.jpg",
+            "image_2": "shopify://shop_images/image_20.jpg"
+          }
+        },
+        "journey_item_ytnHa6": {
+          "type": "journey_item",
+          "settings": {
+            "title": "Show trú bão",
+            "description": "<p>Từ đời thường đến sân khấu, những chế tác HELIOS tiếp tục đồng hành cùng Lil Wuyn trong một bối cảnh khác.</p>",
+            "image_count": 2,
+            "desktop_columns": 2,
+            "mobile_columns": "2",
+            "image_ratio": "auto",
+            "image_1": "shopify://shop_images/image_21.jpg",
+            "image_2": "shopify://shop_images/image_13_1.jpg"
+          }
+        },
+        "journey_item_xjqXgE": {
+          "type": "journey_item",
+          "settings": {
+            "title": "Show Đông Fest",
+            "description": "<p>Thêm một sân khấu, thêm một dấu mốc. Những món bạc tiếp tục được mang theo khi hành trình của Lil Wuyn bước sang chặng mới.</p>",
+            "image_count": 2,
+            "desktop_columns": 2,
+            "mobile_columns": "2",
+            "image_ratio": "auto",
+            "image_1": "shopify://shop_images/DSC09778_1_1.jpg",
+            "image_2": "shopify://shop_images/image_22.jpg"
+          }
+        },
+        "final_item_eWkabm": {
+          "type": "final_item",
+          "settings": {
+            "title": "HÀNH TRÌNH VẪN ĐANG TIẾP DIỄN",
+            "description": "<p>Mỗi thời điểm là một dấu mốc. Từ những lần đầu đồng hành đến những sân khấu và hành trình tiếp theo, HELIOS vẫn hiện diện cùng Lil Wuyn qua từng chặng đường.</p>",
+            "image": "shopify://shop_images/image_16_optimized.webp",
+            "image_ratio": "16 / 9",
+            "quote": "“Lấy cuộc sống làm mặt giấy, lấy trải nghiệm để vẽ nên mình.”",
+            "quote_alignment": "left"
+          }
+        }
+      },
+      "block_order": [
+        "journey_item_fnQqKP",
+        "journey_item_ytnHa6",
+        "journey_item_xjqXgE",
+        "final_item_eWkabm"
+      ],
+      "name": "Journey Timeline",
       "settings": {
-        "desktop_spacing": 20,
-        "mobile_spacing": 20
+        "heading": "NHỮNG HÀNH TRÌNH ĐÃ ĐỒNG HÀNH",
+        "heading_alignment": "center",
+        "heading_size": 26,
+        "max_width": 1200,
+        "copy_width": 35,
+        "gallery_gap": 16,
+        "item_gap": 40,
+        "padding_top": 40,
+        "padding_bottom": 32,
+        "background_color": "#000000",
+        "text_color": "#f8f8f8",
+        "muted_text_color": "#b8b8b8",
+        "line_color": "#f8f8f8",
+        "dot_color": "#f8f8f8"
       }
     },
     "rich_text_AjGwF8": {
@@ -224,45 +295,6 @@
       "settings": {
         "desktop_spacing": 20,
         "mobile_spacing": 20
-      }
-    },
-    "slideshow_JgpQkJ": {
-      "type": "slideshow",
-      "blocks": {
-        "image_VDt7C8": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/image_16_optimized.webp",
-            "mobile_image": "shopify://shop_images/image_14.jpg",
-            "slide_link": "",
-            "subheading": "",
-            "title": "",
-            "title_size": 26,
-            "title_width": 20,
-            "heading_h1": false,
-            "text": "<p>“Lấy cuộc sống làm mặt giấy, lấy trải nghiệm để vẽ nên mình.”</p>",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--left position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--bottom-xs"
-          }
-        }
-      },
-      "block_order": [
-        "image_VDt7C8"
-      ],
-      "name": "Slideshow",
-      "settings": {
-        "height": "adapt",
-        "height_desktop": 600,
-        "height_mobile": 500,
-        "full_width": true,
-        "mobile_overlay_under": false,
-        "overlay_style_tint": false,
-        "slide_transition": "slide",
-        "slide_navigation": "dots",
-        "autoplay": true,
-        "autoplay_speed": 7
       }
     },
     "rich_text_XhpKLy": {
@@ -361,6 +393,7 @@
         "media_w4bmxR",
         "media_nrh7xc"
       ],
+      "disabled": true,
       "name": "Multi media with text",
       "settings": {
         "eyebrow": "",
@@ -488,6 +521,7 @@
         "media_bT38zp",
         "media_ANDwpE"
       ],
+      "disabled": true,
       "name": "Multi media with text",
       "settings": {
         "eyebrow": "",
@@ -631,78 +665,6 @@
         "desktop_spacing": 55,
         "mobile_spacing": 40
       }
-    },
-    "journey_timeline_mNrzVK": {
-      "type": "journey-timeline",
-      "blocks": {
-        "journey_item_fnQqKP": {
-          "type": "journey_item",
-          "settings": {
-            "title": "Ra mắt BST Men's Armor",
-            "description": "<p>Điểm bắt đầu của một hành trình. Từ Men’s Armor, HELIOS bắt đầu xuất hiện cùng Lil Wuyn như một phần trong hình ảnh anh lựa chọn.</p>",
-            "image_count": 2,
-            "desktop_columns": 2,
-            "mobile_columns": "2",
-            "image_ratio": "3 / 4"
-          }
-        },
-        "journey_item_ytnHa6": {
-          "type": "journey_item",
-          "settings": {
-            "title": "Show trú bão",
-            "description": "<p>Từ đời thường đến sân khấu, những chế tác HELIOS tiếp tục đồng hành cùng Lil Wuyn trong một bối cảnh khác.</p>",
-            "image_count": 2,
-            "desktop_columns": 2,
-            "mobile_columns": "2",
-            "image_ratio": "3 / 4"
-          }
-        },
-        "journey_item_xjqXgE": {
-          "type": "journey_item",
-          "settings": {
-            "title": "Show Đông Fest",
-            "description": "<p>Thêm một sân khấu, thêm một dấu mốc. Những món bạc tiếp tục được mang theo khi hành trình của Lil Wuyn bước sang chặng mới.</p>",
-            "image_count": 2,
-            "desktop_columns": 2,
-            "mobile_columns": "2",
-            "image_ratio": "3 / 4"
-          }
-        },
-        "final_item_eWkabm": {
-          "type": "final_item",
-          "settings": {
-            "title": "HÀNH TRÌNH VẪN ĐANG TIẾP DIỄN",
-            "description": "<p>Mỗi hành trình là một dấu ấn. Và hành trình tiếp theo vẫn đang chờ được viết tiếp.</p>",
-            "image_ratio": "16 / 9",
-            "quote": "“Lấy cuộc sống làm mặt giấy, lấy trải nghiệm để vẽ nên mình.”",
-            "quote_alignment": "left"
-          }
-        }
-      },
-      "block_order": [
-        "journey_item_fnQqKP",
-        "journey_item_ytnHa6",
-        "journey_item_xjqXgE",
-        "final_item_eWkabm"
-      ],
-      "disabled": true,
-      "name": "Journey Timeline",
-      "settings": {
-        "heading": "NHỮNG HÀNH TRÌNH ĐÃ ĐỒNG HÀNH",
-        "heading_alignment": "left",
-        "heading_size": 26,
-        "max_width": 1200,
-        "copy_width": 35,
-        "gallery_gap": 16,
-        "item_gap": 40,
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "background_color": "#000000",
-        "text_color": "#f8f8f8",
-        "muted_text_color": "#b8b8b8",
-        "line_color": "#f8f8f8",
-        "dot_color": "#f8f8f8"
-      }
     }
   },
   "order": [
@@ -712,19 +674,17 @@
     "custom_spacing_pWXUVM",
     "rich_text_z8Hb9T",
     "slideshow_LHcr6x",
-    "custom_spacing_pFBXtr",
+    "journey_timeline_mNrzVK",
     "rich_text_AjGwF8",
     "featured_collection_YGpxHE",
     "rich_text_qnGibe",
     "custom_spacing_46R8JU",
-    "slideshow_JgpQkJ",
     "rich_text_XhpKLy",
     "multi_media_with_text_pQwcgY",
     "multi_media_with_text_qnjaPA",
     "rich_text_rbndCc",
     "custom_spacing_fGbbea",
     "background_video_responsive_QyPyMN",
-    "custom_spacing_KxgbM8",
-    "journey_timeline_mNrzVK"
+    "custom_spacing_KxgbM8"
   ]
 }
