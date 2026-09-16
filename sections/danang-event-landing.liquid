@@ -3,6 +3,7 @@
   assign venue_fallback = 'https://framerusercontent.com/images/FA26GRdcEnE742dTLtZpPvsGawQ.jpg?width=1280&height=1920'
   assign transition_video_fallback = 'https://framerusercontent.com/assets/EqnwP1D9JpsDIpGeQ6eE7D1FaIU.mp4'
   assign map_query = section.settings.map_query | default: 'The HangArt, Lạc Long Quân, phường Điện Bàn Đông, Đà Nẵng'
+  assign story_button_url = section.settings.story_button_link | default: section.settings.booking_link
 -%}
 
 <section
@@ -102,6 +103,17 @@
           {%- endif -%}
           {%- if section.settings.meeting_description != blank -%}
             <div class="danang-event__small-copy rte">{{ section.settings.meeting_description }}</div>
+          {%- endif -%}
+          {%- if section.settings.story_button_label != blank -%}
+            {%- if story_button_url != blank -%}
+              <a class="danang-event__story-button" href="{{ story_button_url }}">
+                {{ section.settings.story_button_label | escape }}
+              </a>
+            {%- else -%}
+              <button class="danang-event__story-button" type="button">
+                {{ section.settings.story_button_label | escape }}
+              </button>
+            {%- endif -%}
           {%- endif -%}
         </div>
 
@@ -546,6 +558,35 @@
 
   #danang-event-{{ section.id }} .danang-event__meeting-copy {
     margin-top: 12px;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__story-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 44px;
+    margin-top: 18px;
+    padding: 11px 24px;
+    border: 1px solid var(--de-accent);
+    border-radius: 4px;
+    background: var(--de-accent);
+    color: #000;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter 180ms ease, transform 180ms ease;
+  }
+
+  #danang-event-{{ section.id }} .danang-event__story-button:hover,
+  #danang-event-{{ section.id }} .danang-event__story-button:focus-visible {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
   }
 
   #danang-event-{{ section.id }} .danang-event__gallery {
@@ -1538,6 +1579,17 @@
       "id": "meeting_description",
       "label": "Mô tả điểm hẹn",
       "default": "<p>Tìm một trong ba dấu ấn. Mang về điểm hẹn.<br>Nhận món quà của hành trình.</p>"
+    },
+    {
+      "type": "text",
+      "id": "story_button_label",
+      "label": "Nhãn nút dưới phần text",
+      "default": "ĐẶT LỊCH GẶP"
+    },
+    {
+      "type": "url",
+      "id": "story_button_link",
+      "label": "Liên kết nút dưới phần text"
     },
     {
       "type": "range",
