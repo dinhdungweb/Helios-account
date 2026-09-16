@@ -15,6 +15,7 @@
     --de-accent: {{ section.settings.accent_color }};
     --de-card-radius: {{ section.settings.card_radius }}px;
     --de-max-width: {{ section.settings.max_width }}px;
+    --de-story-slider-width: {{ section.settings.story_slider_width }}px;
   "
 >
   <div class="danang-event__hero">
@@ -391,8 +392,9 @@
 
   #danang-event-{{ section.id }} .danang-event__story {
     display: grid;
-    grid-template-columns: minmax(400px, 0.82fr) minmax(0, 1.6fr);
+    grid-template-columns: minmax(400px, 480px) minmax(0, var(--de-story-slider-width));
     gap: clamp(36px, 5vw, 72px);
+    justify-content: center;
     width: min(100% - 40px, var(--de-max-width));
     margin: 0 auto;
     padding-bottom: clamp(70px, 9vw, 120px);
@@ -476,7 +478,8 @@
   #danang-event-{{ section.id }} .danang-event__gallery {
     display: flex;
     gap: 0;
-    height: clamp(530px, 54vw, 640px);
+    height: auto;
+    aspect-ratio: 4 / 5.25;
     min-width: 0;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
@@ -877,7 +880,13 @@
     #danang-event-{{ section.id }} .danang-event__gallery {
       order: 0;
       height: clamp(420px, 118vw, 560px);
+      aspect-ratio: auto;
       padding-left: 0;
+    }
+
+    #danang-event-{{ section.id }} .danang-event__gallery-shell {
+      width: min(calc(100% - 32px), var(--de-story-slider-width));
+      margin: 0 auto;
     }
 
     #danang-event-{{ section.id }} .danang-event__gallery-item {
@@ -1361,6 +1370,16 @@
       "id": "meeting_description",
       "label": "Mô tả điểm hẹn",
       "default": "<p>Tìm một trong ba dấu ấn. Mang về điểm hẹn.<br>Nhận món quà của hành trình.</p>"
+    },
+    {
+      "type": "range",
+      "id": "story_slider_width",
+      "min": 320,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Độ rộng slide ảnh",
+      "default": 420
     },
     {
       "type": "image_picker",
