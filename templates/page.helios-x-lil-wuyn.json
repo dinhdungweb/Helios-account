@@ -297,6 +297,29 @@
         "mobile_spacing": 20
       }
     },
+    "rich_text_XhpKLy": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "NHỮNG DẤU VẾT Ở LẠI",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>Bạc thay đổi khi được sống cùng người đeo. Patina, những vết xước và độ mòn dần trở thành dấu tích của những sân khấu, chuyến đi và khoảnh khắc đã trải qua.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "custom",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "grid_image_WBg7Ub": {
       "type": "grid-image",
       "blocks": {
@@ -339,29 +362,6 @@
         "item_for_row": 3,
         "item_ratio": "natural",
         "item_per_row_mobile": "1"
-      }
-    },
-    "rich_text_XhpKLy": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "NHỮNG DẤU VẾT Ở LẠI",
-        "title_size": 26,
-        "title_width": 40,
-        "heading_h1": false,
-        "text": "<p>Bạc thay đổi khi được sống cùng người đeo. Patina, những vết xước và độ mòn dần trở thành dấu tích của những sân khấu, chuyến đi và khoảnh khắc đã trải qua.</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": true,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "custom",
-        "color_bg": "",
-        "color_text": ""
       }
     },
     "multi_media_with_text_pQwcgY": {
