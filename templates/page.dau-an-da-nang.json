@@ -56,7 +56,7 @@
       "settings": {
         "background_color": "#000000",
         "text_color": "#ffffff",
-        "accent_color": "#FAB320",
+        "accent_color": "#fab320",
         "max_width": 1200,
         "card_radius": 12,
         "hero_title": "DẤU ẤN NƠI MÌNH ĐẾN",
@@ -77,16 +77,17 @@
         "refresh_seconds": 30,
         "clue_footer_heading": "MỖI NƠI GIỮ MỘT PHẦN MANH MỐI",
         "club_label": "HELIOS Club",
-        "club_link": "",
+        "club_link": "https://www.facebook.com/groups/508707569692422",
         "website_label": "Website",
         "website_link": "",
+        "map_query": "The HangArt, Lạc Long Quân, phường Điện Bàn Đông, Đà Nẵng",
         "venue_heading": "ĐIỂM HẸN",
         "venue_name": "THE HANGART",
         "venue_date": "19.09.2026 · 14:00 – 17:00",
         "venue_note": "Trưng bày & mở bán đến 12h ngày 23.09.2026",
         "venue_highlight": "Danang Hoian Pendant chỉ có mặt trực tiếp tại đây.",
-        "booking_label": "đặt lịch gặp",
-        "booking_link": "",
+        "booking_label": "đặt lịch",
+        "booking_link": "shopify://pages/diem-hen-da-nang",
         "club_small_label": "tham gia helios club"
       }
     }
