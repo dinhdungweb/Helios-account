@@ -111,14 +111,26 @@
       <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-02.jpg' | asset_url }}" alt="" width="1000" height="1499" loading="lazy"></span>
       <span class="vbl-slider__slide vbl-slider__slide--product vbl-slider__slide--pendant-product"><img src="{{ 'vermilion-landing-pendant-03.png' | asset_url }}" alt="" width="700" height="1050" loading="lazy"></span>
     </button>
-    <div class="vbl-product-copy vbl-product-copy--pendant"><h2>Vermilion<br>Bird<br>Pendant</h2><p>Form mặt dây được kéo dài như một chiếc lông vũ đang rơi, cũng giống một vệt lửa được giữ trong khuôn. Tất cả tạo cảm giác Chu Tước không đứng yên. Nó bay theo trục của mình.</p></div>
+    <div class="vbl-product-copy vbl-product-copy--pendant">
+      <div class="vbl-product-copy__heading">
+        <h2>Vermilion<br>Bird<br>Pendant</h2>
+        {%- if section.settings.pendant_link != blank -%}<a class="vbl__detail-button" href="{{ section.settings.pendant_link }}">Xem chi tiết</a>{%- else -%}<span class="vbl__detail-button">Xem chi tiết</span>{%- endif -%}
+      </div>
+      <p>Form mặt dây được kéo dài như một chiếc lông vũ đang rơi, cũng giống một vệt lửa được giữ trong khuôn. Tất cả tạo cảm giác Chu Tước không đứng yên. Nó bay theo trục của mình.</p>
+    </div>
 
     <button class="vbl-slider vbl-slider--mobile vbl-slider--ring" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Ring">
       <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-ring-01.jpg' | asset_url }}" alt="Vermilion Bird Ring" width="1000" height="1000" loading="lazy"></span>
       <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-02.jpg' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
       <span class="vbl-slider__slide vbl-slider__slide--product"><img src="{{ 'vermilion-landing-ring-03.png' | asset_url }}" alt="" width="700" height="1050" loading="lazy"></span>
     </button>
-    <div class="vbl-product-copy vbl-product-copy--ring"><h2>Vermilion<br>Bird Ring</h2><p>Bao quanh viên đá là lớp cánh Chu Tước ôm lấy phần trung tâm, như cách một người giữ lửa: không để tắt, nhưng cũng không để nó thiêu rụi mọi thứ.</p></div>
+    <div class="vbl-product-copy vbl-product-copy--ring">
+      <div class="vbl-product-copy__heading">
+        <h2>Vermilion<br>Bird Ring</h2>
+        {%- if section.settings.ring_link != blank -%}<a class="vbl__detail-button" href="{{ section.settings.ring_link }}">Xem chi tiết</a>{%- else -%}<span class="vbl__detail-button">Xem chi tiết</span>{%- endif -%}
+      </div>
+      <p>Bao quanh viên đá là lớp cánh Chu Tước ôm lấy phần trung tâm, như cách một người giữ lửa: không để tắt, nhưng cũng không để nó thiêu rụi mọi thứ.</p>
+    </div>
 
     <div class="vbl-marquee vbl-marquee--mobile">
       <div class="vbl-marquee__track{% if section.settings.pause_marquee %} vbl-marquee__track--pausable{% endif %}">
@@ -230,6 +242,7 @@
     #VermilionLanding-{{ section.id }} .vbl-product-copy--pendant { top: 44.519343%; }
     #VermilionLanding-{{ section.id }} .vbl-product-copy--ring { top: 56.037514%; }
     #VermilionLanding-{{ section.id }} .vbl-product-copy h2 { font-size: min(3.9801vw,16px); line-height: 1; }
+    #VermilionLanding-{{ section.id }} .vbl__canvas--mobile .vbl__detail-button { width: min(24.875622vw,100px); height: min(5.970149vw,24px); margin-top: min(2.487562vw,10px); border-radius: min(2.487562vw,10px); font-size: min(2.238806vw,9px); }
     #VermilionLanding-{{ section.id }} .vbl-product-copy > p { font: 400 min(2.487562vw,10px)/1.1 'Crete Round',Georgia,serif; }
     #VermilionLanding-{{ section.id }} .vbl-marquee--mobile { left: -10.945274%; top: 60.550996%; width: 121.641791%; height: 7.327081%; }
     #VermilionLanding-{{ section.id }} .vbl-marquee__group { gap: min(2.238806vw,9px); padding-right: min(2.238806vw,9px); }
