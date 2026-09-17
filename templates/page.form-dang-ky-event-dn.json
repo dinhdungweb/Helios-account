@@ -56,7 +56,7 @@
             "description": "Ngoài sản phẩm giới hạn tại Đà Nẵng, anh/chị đang quan tâm đến sản phẩm HELIOS nào khác và muốn HELIOS chuẩn bị mang theo?\n* Vui lòng điền cùng size/ phiên bản của sản phẩm",
             "entry": "entry.1055084982",
             "placeholder": "Điền tên hoặc link sản phẩm",
-            "required": true,
+            "required": false,
             "input_type": "text"
           }
         },
@@ -67,7 +67,7 @@
             "description": "Nhu cầu của anh/chị với các sản phẩm đăng ký xem là gì?",
             "entry": "entry.1893712082",
             "options": "Có nhu cầu mua\nMuốn xem & thử trực tiếp\nĐang tham khảo",
-            "required": true
+            "required": false
           }
         },
         "text_field_ChMFpN": {
