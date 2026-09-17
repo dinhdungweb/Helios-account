@@ -1,0 +1,378 @@
+{%- liquid
+  assign marquee_background = section.settings.background_color
+-%}
+
+<section
+  id="VermilionMarquee-{{ section.id }}"
+  class="vermilion-marquee"
+  style="
+    --vm-background: {{ marquee_background }};
+    --vm-duration: {{ section.settings.speed }}s;
+    --vm-padding-top: {{ section.settings.padding_top }}px;
+    --vm-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="vermilion-marquee__presentation vermilion-marquee__presentation--desktop">
+    <div class="vermilion-marquee__frame">
+      <div class="vermilion-marquee__track{% if section.settings.pause_on_hover %} vermilion-marquee__track--pausable{% endif %}">
+        {%- for duplicate in (1..2) -%}
+          <div class="vermilion-marquee__group"{% if duplicate == 2 %} aria-hidden="true"{% endif %}>
+            {%- for index in (1..5) -%}
+              {%- liquid
+                assign image_key = 'image_' | append: index
+                assign alt_key = 'image_' | append: index | append: '_alt'
+                assign item_image = section.settings[image_key]
+                assign item_alt = section.settings[alt_key]
+                if duplicate == 2
+                  assign item_alt = blank
+                endif
+              -%}
+              <div class="vermilion-marquee__item">
+                {%- if item_image != blank -%}
+                  {{-
+                    item_image
+                    | image_url: width: 1200
+                    | image_tag:
+                      widths: '308, 434, 616, 868, 1200',
+                      sizes: '22.604vw',
+                      loading: 'lazy',
+                      alt: item_alt,
+                      class: 'vermilion-marquee__image'
+                  -}}
+                {%- else -%}
+                  {%- case index -%}
+                    {%- when 1 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-01.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 2 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-02.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 3 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-03.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 4 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-04.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 5 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-05.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                  {%- endcase -%}
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <span class="vermilion-marquee__mask vermilion-marquee__mask--top" aria-hidden="true"></span>
+    <span class="vermilion-marquee__mask vermilion-marquee__mask--bottom" aria-hidden="true"></span>
+  </div>
+
+  <div class="vermilion-marquee__presentation vermilion-marquee__presentation--mobile">
+    <div class="vermilion-marquee__frame">
+      <div class="vermilion-marquee__track{% if section.settings.pause_on_hover %} vermilion-marquee__track--pausable{% endif %}">
+        {%- for duplicate in (1..2) -%}
+          <div class="vermilion-marquee__group"{% if duplicate == 2 %} aria-hidden="true"{% endif %}>
+            {%- for index in (1..5) -%}
+              {%- liquid
+                assign image_key = 'image_' | append: index
+                assign alt_key = 'image_' | append: index | append: '_alt'
+                assign item_image = section.settings[image_key]
+                assign item_alt = section.settings[alt_key]
+                if duplicate == 2
+                  assign item_alt = blank
+                endif
+              -%}
+              <div class="vermilion-marquee__item">
+                {%- if item_image != blank -%}
+                  {{-
+                    item_image
+                    | image_url: width: 640
+                    | image_tag:
+                      widths: '154, 308, 462, 616',
+                      sizes: '38.308vw',
+                      loading: 'lazy',
+                      alt: item_alt,
+                      class: 'vermilion-marquee__image'
+                  -}}
+                {%- else -%}
+                  {%- case index -%}
+                    {%- when 1 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-01.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 2 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-02.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 3 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-03.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 4 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-04.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                    {%- when 5 -%}
+                      <img class="vermilion-marquee__image" src="{{ 'vermilion-marquee-05.jpg' | asset_url }}" alt="{{ item_alt | escape }}" width="939" height="1408" loading="lazy">
+                  {%- endcase -%}
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+  #VermilionMarquee-{{ section.id }} {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    padding-block: var(--vm-padding-top) var(--vm-padding-bottom);
+    background: var(--vm-background);
+  }
+
+  #VermilionMarquee-{{ section.id }},
+  #VermilionMarquee-{{ section.id }} *,
+  #VermilionMarquee-{{ section.id }} *::before,
+  #VermilionMarquee-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation {
+    position: relative;
+    width: 100%;
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--desktop {
+    height: min(36.6666667vw, 704px);
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--mobile {
+    display: none;
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--desktop .vermilion-marquee__frame {
+    position: relative;
+    width: min(70.4166667vw, 1352px);
+    height: 100%;
+    margin-inline: auto;
+    overflow: hidden;
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__track {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    will-change: transform;
+    animation: vermilion-marquee-scroll-{{ section.id }} var(--vm-duration) linear infinite;
+  }
+
+  #VermilionMarquee-{{ section.id }}:hover .vermilion-marquee__track--pausable,
+  #VermilionMarquee-{{ section.id }}:focus-within .vermilion-marquee__track--pausable {
+    animation-play-state: paused;
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--desktop .vermilion-marquee__group {
+    display: flex;
+    flex: none;
+    height: 100%;
+    gap: min(1.3020833vw, 25px);
+    padding-right: min(1.3020833vw, 25px);
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--desktop .vermilion-marquee__item {
+    flex: 0 0 min(22.6041667vw, 434px);
+    width: min(22.6041667vw, 434px);
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__mask {
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+    display: block;
+    width: min(87.5vw, 1680px);
+    height: min(10.3125vw, 198px);
+    border-radius: 50%;
+    background: var(--vm-background);
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__mask--top {
+    top: max(-149px, -7.7604167vw);
+  }
+
+  #VermilionMarquee-{{ section.id }} .vermilion-marquee__mask--bottom {
+    bottom: max(-111px, -5.78125vw);
+  }
+
+  @keyframes vermilion-marquee-scroll-{{ section.id }} {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @media (max-width: 749px) {
+    #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--desktop {
+      display: none;
+    }
+
+    #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--mobile {
+      display: block;
+      height: min(62.189055vw, 250px);
+    }
+
+    #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--mobile .vermilion-marquee__frame {
+      position: relative;
+      width: min(121.641791vw, 489px);
+      height: 100%;
+      margin-left: 50%;
+      margin-right: 0;
+      overflow: hidden;
+      transform: translateX(-50%);
+    }
+
+    #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--mobile .vermilion-marquee__group {
+      display: flex;
+      flex: none;
+      height: 100%;
+      gap: min(2.238806vw, 9px);
+      padding-right: min(2.238806vw, 9px);
+    }
+
+    #VermilionMarquee-{{ section.id }} .vermilion-marquee__presentation--mobile .vermilion-marquee__item {
+      flex: 0 0 min(38.308458vw, 154px);
+      width: min(38.308458vw, 154px);
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #VermilionMarquee-{{ section.id }} .vermilion-marquee__track {
+      animation-play-state: paused;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Vermilion image marquee",
+  "tag": "section",
+  "class": "section-vermilion-marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Vermilion Bird campaign gallery"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Animation duration",
+      "info": "Higher values move more slowly.",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover or focus",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "image_1_alt",
+      "label": "Image 1 alt text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "image_2_alt",
+      "label": "Image 2 alt text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "text",
+      "id": "image_3_alt",
+      "label": "Image 3 alt text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "text",
+      "id": "image_4_alt",
+      "label": "Image 4 alt text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5"
+    },
+    {
+      "type": "text",
+      "id": "image_5_alt",
+      "label": "Image 5 alt text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vermilion image marquee"
+    }
+  ]
+}
+{% endschema %}
