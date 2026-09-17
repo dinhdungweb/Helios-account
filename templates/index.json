@@ -592,63 +592,6 @@
         "color_bg": "",
         "color_text": ""
       }
-    },
-    "advanced_form_to_sheet_eV98NF": {
-      "type": "advanced-form-to-sheet",
-      "blocks": {
-        "text_field_PCbBpz": {
-          "type": "text_field",
-          "settings": {
-            "label": "Tên",
-            "description": "",
-            "entry": "",
-            "placeholder": "Nhập tên của bạn",
-            "required": true,
-            "input_type": "text"
-          }
-        },
-        "text_field_9gEWKT": {
-          "type": "text_field",
-          "settings": {
-            "label": "Tên",
-            "description": "",
-            "entry": "",
-            "placeholder": "Nhập tên của bạn",
-            "required": true,
-            "input_type": "text"
-          }
-        },
-        "textarea_field_HHW4dy": {
-          "type": "textarea_field",
-          "settings": {
-            "label": "Tin nhắn",
-            "description": "",
-            "entry": "",
-            "placeholder": "Nhập tin nhắn của bạn",
-            "required": false
-          }
-        }
-      },
-      "block_order": [
-        "text_field_PCbBpz",
-        "text_field_9gEWKT",
-        "textarea_field_HHW4dy"
-      ],
-      "name": "Advanced Form to Sheet",
-      "settings": {
-        "form-title": "Liên hệ với chúng tôi",
-        "form-subtitle": "",
-        "form-description": "<p>Vui lòng điền thông tin để liên hệ với chúng tôi</p>",
-        "banner_position": "left",
-        "form_action_url": "",
-        "success_message": "Gửi thành công! Cảm ơn bạn.",
-        "error_message": "Gửi thất bại. Vui lòng thử lại!",
-        "button_text": "Gửi",
-        "button_color": "#fab320",
-        "input_border_radius": 0,
-        "form_max_width": 1200,
-        "form_alignment": "center"
-      }
     }
   },
   "order": [
@@ -661,7 +604,6 @@
     "two_banner_qNEPMY",
     "two_banner_E4NazD",
     "popup_overlay_custom_pFebVj",
-    "newsletter_DpyaEH",
-    "advanced_form_to_sheet_eV98NF"
+    "newsletter_DpyaEH"
   ]
 }
