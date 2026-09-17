@@ -13,6 +13,9 @@
       "type": "vermilion-bird-landing",
       "settings": {
         "background_color": "#000000",
+        "video": "shopify://files/videos/EqnwP1D9JpsDIpGeQ6eE7D1FaIU_optimized.webm",
+        "ring_link": "shopify://products/aegis-chrysaber-helios-silver",
+        "pendant_link": "shopify://products/aerion-helios-black-silver",
         "marquee_speed": 20,
         "pause_marquee": false
       }
