@@ -1,0 +1,276 @@
+<vermilion-bird-landing
+  id="VermilionLanding-{{ section.id }}"
+  class="vbl"
+  style="--vbl-bg: {{ section.settings.background_color }}; --vbl-marquee-duration: {{ section.settings.marquee_speed }}s;"
+>
+  <div class="vbl__canvas vbl__canvas--desktop">
+    <div class="vbl__hero-bg" aria-hidden="true">
+      <img class="vbl__hero-art" src="{{ 'vermilion-landing-hero-art.png' | asset_url }}" alt="" width="1592" height="1040" loading="eager" fetchpriority="high">
+    </div>
+
+    <img class="vbl__title-art" src="{{ 'vermilion-landing-title.png' | asset_url }}" alt="Chu Tước" width="1500" height="1500" loading="eager" fetchpriority="high">
+    <p class="vbl__intro">Trong Tứ Tượng, Chu Tước trấn giữ phương Nam, gắn với hành Hỏa và hình ảnh của sức sống, chuyển động và nguồn năng lượng mạnh mẽ.</p>
+    <img class="vbl__model vbl__model--desktop" src="{{ 'vermilion-landing-model.png' | asset_url }}" alt="" width="1500" height="1500" loading="eager">
+
+    <button class="vbl-slider vbl-slider--desktop vbl-slider--ring" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Ring">
+      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-ring-01.jpg' | asset_url }}" alt="Vermilion Bird Ring" width="1000" height="1000" loading="lazy"></span>
+      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-02.jpg' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+      <span class="vbl-slider__slide vbl-slider__slide--product"><img src="{{ 'vermilion-landing-ring-03.png' | asset_url }}" alt="" width="700" height="1050" loading="lazy"></span>
+    </button>
+
+    <div class="vbl-product-copy vbl-product-copy--ring">
+      <h2>Vermilion Bird<br>Ring</h2>
+      <div class="vbl-product-copy__body">
+        <p>Trên mặt nhẫn, viên black opal ánh lửa nằm như một đốm cháy trong đêm. Không rực lên một cách ồn ào, mà âm ỉ, sâu và có lực.</p>
+        <p>Cấu trúc nhẫn kéo theo nhịp cánh, mây và chuyển động. Tất cả tạo nên cảm giác đang bay lên, nhưng không mất trục.</p>
+      </div>
+      {%- if section.settings.ring_link != blank -%}
+        <a class="vbl__detail-button" href="{{ section.settings.ring_link }}">Xem chi tiết</a>
+      {%- else -%}
+        <span class="vbl__detail-button">Xem chi tiết</span>
+      {%- endif -%}
+    </div>
+
+    <button class="vbl-slider vbl-slider--desktop vbl-slider--pendant" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Pendant">
+      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-pendant-01.jpg' | asset_url }}" alt="Vermilion Bird Pendant" width="1000" height="1499" loading="lazy"></span>
+      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-02.jpg' | asset_url }}" alt="" width="1000" height="1499" loading="lazy"></span>
+      <span class="vbl-slider__slide vbl-slider__slide--product vbl-slider__slide--pendant-product"><img src="{{ 'vermilion-landing-pendant-03.png' | asset_url }}" alt="" width="700" height="1050" loading="lazy"></span>
+    </button>
+
+    <div class="vbl-product-copy vbl-product-copy--pendant">
+      <h2>Vermilion Bird<br>Pendant</h2>
+      <div class="vbl-product-copy__body">
+        <p>Form mặt dây được kéo dài như một chiếc lông vũ đang rơi, cũng giống một vệt lửa được giữ trong khuôn. Trên thân là lớp cánh, mây và chuyển động; tất cả tạo cảm giác Chu Tước không đứng yên, nhưng cũng không loạn. Nó bay theo trục của mình.</p>
+      </div>
+      {%- if section.settings.pendant_link != blank -%}
+        <a class="vbl__detail-button" href="{{ section.settings.pendant_link }}">Xem chi tiết</a>
+      {%- else -%}
+        <span class="vbl__detail-button">Xem chi tiết</span>
+      {%- endif -%}
+    </div>
+
+    <div class="vbl-video vbl-video--desktop">
+      {%- if section.settings.video_link != blank -%}<a class="vbl-video__link" href="{{ section.settings.video_link }}" aria-label="Xem video Chu Tước">{%- endif -%}
+      <span class="vbl-video__surface"><img src="{{ 'vermilion-landing-play.svg' | asset_url }}" alt="" width="82" height="82" loading="lazy"></span>
+      {%- if section.settings.video_link != blank -%}</a>{%- endif -%}
+      <img class="vbl-video__flame" src="{{ 'vermilion-landing-video-flame.jpg' | asset_url }}" alt="" width="600" height="1031" loading="lazy">
+    </div>
+
+    <div class="vbl-marquee vbl-marquee--desktop">
+      <div class="vbl-marquee__track{% if section.settings.pause_marquee %} vbl-marquee__track--pausable{% endif %}">
+        {%- for duplicate in (1..2) -%}
+          <div class="vbl-marquee__group"{% if duplicate == 2 %} aria-hidden="true"{% endif %}>
+            {%- for index in (1..5) -%}
+              <span class="vbl-marquee__item"><img src="{{ 'vermilion-marquee-0' | append: index | append: '.jpg' | asset_url }}" alt="" width="939" height="1408" loading="lazy"></span>
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <span class="vbl-marquee-mask vbl-marquee-mask--top" aria-hidden="true"></span>
+    <span class="vbl-marquee-mask vbl-marquee-mask--bottom" aria-hidden="true"></span>
+
+    <div class="vbl-statement vbl-statement--desktop">
+      <p>Không đại diện cho sự bốc đồng. Hỏa có hướng.<br>Đủ nhiệt lượng để hành động. đủ mạnh để chuyển hóa<br>và đủ tỉnh táo để bước qua một giai đoạn cũ<br>mà không đánh mất chính mình.</p>
+      <img src="{{ 'vermilion-landing-emblem.png' | asset_url }}" alt="" width="600" height="600" loading="lazy">
+    </div>
+
+    <div class="vbl-finale-bg" aria-hidden="true"><img src="{{ 'vermilion-landing-red-texture.jpg' | asset_url }}" alt="" width="720" height="1280" loading="lazy"></div>
+    <img class="vbl-opal-image vbl-opal-image--desktop" src="{{ 'vermilion-landing-opal-ring.jpg' | asset_url }}" alt="Black Opal Vermilion Bird Ring" width="1600" height="1067" loading="lazy">
+    <div class="vbl-finale-copy vbl-finale-copy--desktop">
+      <h2>Black Opal<small>Sắc lửa độc bản</small></h2>
+      <div class="vbl-finale-copy__columns">
+        <div><p>Đặt giữa đôi cánh Chu Tước, Black Opal trở thành hình ảnh của một ngọn lửa sống: Luôn biến đổi, nhưng không mất phương hướng.</p><p>Mỗi chiếc nhẫn vì thế mang một sắc lửa riêng, độc bản như chính hành trình của người đeo.</p></div>
+        <p>Không có hai viên đá cùng một sắc lửa. Cũng không có hai hành trình cùng một dấu ấn.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="vbl__canvas vbl__canvas--mobile">
+    <div class="vbl__hero-bg" aria-hidden="true"><img class="vbl__hero-art" src="{{ 'vermilion-landing-hero-art.png' | asset_url }}" alt="" width="1592" height="1040" loading="eager" fetchpriority="high"></div>
+    <img class="vbl__title-art" src="{{ 'vermilion-landing-title.png' | asset_url }}" alt="Chu Tước" width="1500" height="1500" loading="eager" fetchpriority="high">
+    <p class="vbl__intro">Trong Tứ Tượng, Chu Tước trấn giữ phương Nam, gắn với hành Hỏa và hình ảnh của sức sống, chuyển động và nguồn năng lượng mạnh mẽ.</p>
+
+    <div class="vbl-video vbl-video--mobile">
+      {%- if section.settings.video_link != blank -%}<a class="vbl-video__link" href="{{ section.settings.video_link }}" aria-label="Xem video Chu Tước">{%- endif -%}
+      <span class="vbl-video__surface"><img src="{{ 'vermilion-landing-play.svg' | asset_url }}" alt="" width="40" height="40" loading="lazy"></span>
+      {%- if section.settings.video_link != blank -%}</a>{%- endif -%}
+      <img class="vbl-video__flame" src="{{ 'vermilion-landing-video-flame.jpg' | asset_url }}" alt="" width="600" height="1031" loading="lazy">
+    </div>
+
+    <img class="vbl__model vbl__model--mobile" src="{{ 'vermilion-landing-model.png' | asset_url }}" alt="" width="1500" height="1500" loading="lazy">
+
+    <button class="vbl-slider vbl-slider--mobile vbl-slider--pendant" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Pendant">
+      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-pendant-01.jpg' | asset_url }}" alt="Vermilion Bird Pendant" width="1000" height="1499" loading="lazy"></span>
+      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-02.jpg' | asset_url }}" alt="" width="1000" height="1499" loading="lazy"></span>
+      <span class="vbl-slider__slide vbl-slider__slide--product vbl-slider__slide--pendant-product"><img src="{{ 'vermilion-landing-pendant-03.png' | asset_url }}" alt="" width="700" height="1050" loading="lazy"></span>
+    </button>
+    <div class="vbl-product-copy vbl-product-copy--pendant"><h2>Vermilion<br>Bird<br>Pendant</h2><p>Form mặt dây được kéo dài như một chiếc lông vũ đang rơi, cũng giống một vệt lửa được giữ trong khuôn. Tất cả tạo cảm giác Chu Tước không đứng yên. Nó bay theo trục của mình.</p></div>
+
+    <button class="vbl-slider vbl-slider--mobile vbl-slider--ring" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Ring">
+      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-ring-01.jpg' | asset_url }}" alt="Vermilion Bird Ring" width="1000" height="1000" loading="lazy"></span>
+      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-02.jpg' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+      <span class="vbl-slider__slide vbl-slider__slide--product"><img src="{{ 'vermilion-landing-ring-03.png' | asset_url }}" alt="" width="700" height="1050" loading="lazy"></span>
+    </button>
+    <div class="vbl-product-copy vbl-product-copy--ring"><h2>Vermilion<br>Bird Ring</h2><p>Bao quanh viên đá là lớp cánh Chu Tước ôm lấy phần trung tâm, như cách một người giữ lửa: không để tắt, nhưng cũng không để nó thiêu rụi mọi thứ.</p></div>
+
+    <div class="vbl-marquee vbl-marquee--mobile">
+      <div class="vbl-marquee__track{% if section.settings.pause_marquee %} vbl-marquee__track--pausable{% endif %}">
+        {%- for duplicate in (1..2) -%}<div class="vbl-marquee__group"{% if duplicate == 2 %} aria-hidden="true"{% endif %}>{%- for index in (1..5) -%}<span class="vbl-marquee__item"><img src="{{ 'vermilion-marquee-0' | append: index | append: '.jpg' | asset_url }}" alt="" width="939" height="1408" loading="lazy"></span>{%- endfor -%}</div>{%- endfor -%}
+      </div>
+    </div>
+
+    <div class="vbl-statement vbl-statement--mobile"><p>Không đại diện cho sự bốc đồng. Hỏa có hướng.<br>Đủ nhiệt lượng để hành động. đủ mạnh để chuyển hóa<br>và đủ tỉnh táo để bước qua một giai đoạn cũ<br>mà không đánh mất chính mình.</p><img src="{{ 'vermilion-landing-emblem.png' | asset_url }}" alt="" width="600" height="600" loading="lazy"></div>
+    <img class="vbl-opal-image vbl-opal-image--mobile" src="{{ 'vermilion-landing-opal-ring.jpg' | asset_url }}" alt="Black Opal Vermilion Bird Ring" width="1600" height="1067" loading="lazy">
+    <div class="vbl-finale-bg" aria-hidden="true"><img src="{{ 'vermilion-landing-red-texture.jpg' | asset_url }}" alt="" width="720" height="1280" loading="lazy"></div>
+    <div class="vbl-finale-copy vbl-finale-copy--mobile"><h2>Black Opal<small>Sắc lửa độc bản</small></h2><p>Đặt giữa đôi cánh Chu Tước,<br>Black Opal trở thành hình ảnh của một ngọn lửa sống: Luôn biến đổi, nhưng không mất phương hướng.</p><p>Mỗi chiếc nhẫn vì thế mang một sắc lửa riêng, độc bản như chính hành trình của người đeo.</p><p>Không có hai viên đá cùng một sắc lửa. Cũng không có hai hành trình cùng một dấu ấn.</p></div>
+  </div>
+</vermilion-bird-landing>
+
+{% style %}
+  @font-face {
+    font-family: 'Crete Round';
+    src: url('{{ 'crete-round-regular.ttf' | asset_url }}') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+  #VermilionLanding-{{ section.id }} {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    color: #fff;
+    background: var(--vbl-bg);
+  }
+  #VermilionLanding-{{ section.id }}, #VermilionLanding-{{ section.id }} * { box-sizing: border-box; }
+  #VermilionLanding-{{ section.id }} img { display: block; max-width: none; }
+  #VermilionLanding-{{ section.id }} p, #VermilionLanding-{{ section.id }} h2 { margin: 0; }
+  #VermilionLanding-{{ section.id }} .vbl__canvas { position: relative; width: 100%; margin-inline: auto; overflow: hidden; background: var(--vbl-bg); }
+  #VermilionLanding-{{ section.id }} .vbl__canvas--desktop { max-width: 1920px; aspect-ratio: 1920 / 7880; }
+  #VermilionLanding-{{ section.id }} .vbl__canvas--mobile { display: none; }
+  #VermilionLanding-{{ section.id }} .vbl__hero-bg { position: absolute; inset: 0 0 auto; height: 18.870558%; background: linear-gradient(180deg,#f9d693 0%,#f3882b 11.173%,#ca3b0d 26.93%,#701909 49.038%,#220909 69.712%,#040404 100%); overflow: hidden; }
+  #VermilionLanding-{{ section.id }} .vbl__hero-art { position: absolute; top: -19.82%; left: 0; width: 100%; height: 84.35%; object-fit: cover; mix-blend-mode: screen; opacity: .8; }
+  #VermilionLanding-{{ section.id }} .vbl__title-art { position: absolute; left: 21.979167%; top: 6.878173%; width: 56.09375%; height: 8.19797%; object-fit: cover; }
+  #VermilionLanding-{{ section.id }} .vbl__intro { position: absolute; left: 27.864583%; top: 14.708122%; width: 44.270833%; color: rgba(255,255,255,.7); font: 700 min(1.302083vw,25px)/1.15 'UTM Copperplate','Copperplate','Copperplate Gothic','Times New Roman',serif; text-align: center; text-transform: uppercase; }
+  #VermilionLanding-{{ section.id }} .vbl__model--desktop { position: absolute; left: -.260417%; top: 12.13198%; width: 100.260417%; height: 24.428934%; object-fit: cover; mix-blend-mode: luminosity; }
+  #VermilionLanding-{{ section.id }} .vbl-slider { position: absolute; display: block; padding: 0; border: 0; overflow: hidden; background: #111; cursor: pointer; appearance: none; }
+  #VermilionLanding-{{ section.id }} .vbl-slider--desktop { left: 18.90625%; width: 24.583333%; aspect-ratio: 1; }
+  #VermilionLanding-{{ section.id }} .vbl-slider--desktop.vbl-slider--ring { top: 36.903553%; }
+  #VermilionLanding-{{ section.id }} .vbl-slider--desktop.vbl-slider--pendant { top: 43.654822%; }
+  #VermilionLanding-{{ section.id }} .vbl-slider__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; }
+  #VermilionLanding-{{ section.id }} .vbl-slider__slide.is-active { opacity: 1; }
+  #VermilionLanding-{{ section.id }} .vbl-slider__slide img { width: 100%; height: 100%; object-fit: cover; }
+  #VermilionLanding-{{ section.id }} .vbl-slider--pendant .vbl-slider__slide:first-child img { object-position: center 90%; filter: grayscale(1); }
+  #VermilionLanding-{{ section.id }} .vbl-slider__slide--product { padding: 14%; }
+  #VermilionLanding-{{ section.id }} .vbl-slider__slide--product img { object-fit: contain; }
+  #VermilionLanding-{{ section.id }} .vbl-slider__slide--pendant-product img { transform: rotate(-44.34deg); }
+  #VermilionLanding-{{ section.id }} .vbl-product-copy { position: absolute; left: 56.510417%; color: rgba(255,255,255,.7); }
+  #VermilionLanding-{{ section.id }} .vbl-product-copy--ring { top: 38.248731%; width: 27.083333%; }
+  #VermilionLanding-{{ section.id }} .vbl-product-copy--pendant { top: 44.898477%; width: 32.916667%; }
+  #VermilionLanding-{{ section.id }} .vbl-product-copy h2 { font: 700 min(2.083333vw,40px)/1 'UTM Copperplate','Copperplate','Copperplate Gothic','Times New Roman',serif; text-transform: uppercase; }
+  #VermilionLanding-{{ section.id }} .vbl-product-copy__body { width: 300px; max-width: 47.5%; margin-top: min(3.020833vw,58px); font: 400 min(.78125vw,15px)/1.2 'Crete Round',Georgia,serif; }
+  #VermilionLanding-{{ section.id }} .vbl-product-copy__body p + p { margin-top: min(.625vw,12px); }
+  #VermilionLanding-{{ section.id }} .vbl__detail-button { display: grid; width: min(9.895833vw,190px); height: min(1.510417vw,29px); margin-top: min(1.041667vw,20px); place-items: center; border-radius: 10px; color: #fff; background: #969696; font: 700 min(.78125vw,15px)/1 'UTM Copperplate','Copperplate','Copperplate Gothic','Times New Roman',serif; text-decoration: none; text-transform: uppercase; }
+  #VermilionLanding-{{ section.id }} .vbl-video { position: absolute; }
+  #VermilionLanding-{{ section.id }} .vbl-video--desktop { left: 37.8125%; top: 53.807107%; width: 36.393159%; height: 11.06599%; }
+  #VermilionLanding-{{ section.id }} .vbl-video__link { display: block; width: 90.08%; height: 90.28%; }
+  #VermilionLanding-{{ section.id }} .vbl-video__surface { display: grid; width: 90.08%; height: 90.28%; place-items: center; border-radius: min(1.041667vw,20px); background: #262626; }
+  #VermilionLanding-{{ section.id }} .vbl-video__link .vbl-video__surface { width: 100%; height: 100%; }
+  #VermilionLanding-{{ section.id }} .vbl-video__surface img { width: 13.02%; height: auto; }
+  #VermilionLanding-{{ section.id }} .vbl-video__flame { position: absolute; right: 0; bottom: 0; width: 36.87%; height: 46.12%; object-fit: cover; mix-blend-mode: screen; transform: rotate(-1.45deg); pointer-events: none; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee { position: absolute; overflow: hidden; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee--desktop { left: 14.791667%; top: 66.928934%; width: 70.416667%; height: 8.93401%; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee__track { display: flex; width: max-content; height: 100%; will-change: transform; animation: vbl-marquee-{{ section.id }} var(--vbl-marquee-duration) linear infinite; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee__group { display: flex; flex: none; height: 100%; gap: min(1.302083vw,25px); padding-right: min(1.302083vw,25px); }
+  #VermilionLanding-{{ section.id }} .vbl-marquee__item { flex: 0 0 min(22.604167vw,434px); width: min(22.604167vw,434px); height: 100%; overflow: hidden; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee__item img { width: 100%; height: 100%; object-fit: cover; }
+  #VermilionLanding-{{ section.id }}:hover .vbl-marquee__track--pausable { animation-play-state: paused; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee-mask { position: absolute; left: 6.25%; z-index: 2; width: 87.5%; height: 2.51269%; border-radius: 50%; background: var(--vbl-bg); pointer-events: none; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee-mask--top { top: 65.038071%; }
+  #VermilionLanding-{{ section.id }} .vbl-marquee-mask--bottom { top: 74.758883%; }
+  #VermilionLanding-{{ section.id }} .vbl-statement--desktop { position: absolute; left: 26.302083%; top: 76.535533%; width: 47.395833%; text-align: center; }
+  #VermilionLanding-{{ section.id }} .vbl-statement p { color: rgba(255,255,255,.7); font: 700 min(1.302083vw,25px)/1.35 'UTM Copperplate','Copperplate','Copperplate Gothic','Times New Roman',serif; text-transform: uppercase; }
+  #VermilionLanding-{{ section.id }} .vbl-statement--desktop img { width: 26.153846%; margin: 0 auto; }
+  #VermilionLanding-{{ section.id }} .vbl-finale-bg { position: absolute; z-index: 0; left: 6.666667%; top: 86.43401%; width: 86.666667%; height: 4.65736%; overflow: hidden; background: #300000; }
+  #VermilionLanding-{{ section.id }} .vbl-finale-bg img { position: absolute; left: 50%; top: 50%; width: 56.49%; height: 455.59%; object-fit: cover; opacity: .3; transform: translate(-50%,-50%) rotate(-90deg); }
+  #VermilionLanding-{{ section.id }} .vbl-opal-image--desktop { position: absolute; z-index: 2; left: 54.947917%; top: 83.56599%; width: 28.854167%; height: 7.005076%; object-fit: cover; }
+  #VermilionLanding-{{ section.id }} .vbl-finale-copy--desktop { position: absolute; z-index: 3; left: 17.1875%; top: 84.822335%; width: 32.8125%; color: rgba(255,255,255,.7); }
+  #VermilionLanding-{{ section.id }} .vbl-finale-copy h2 { font: 700 min(2.083333vw,40px)/1 'UTM Copperplate','Copperplate','Copperplate Gothic','Times New Roman',serif; text-transform: uppercase; }
+  #VermilionLanding-{{ section.id }} .vbl-finale-copy h2 small { display: block; font-size: .625em; }
+  #VermilionLanding-{{ section.id }} .vbl-finale-copy__columns { display: grid; grid-template-columns: 1fr 1fr; gap: min(1.5625vw,30px); margin-top: min(3.802083vw,73px); font: 400 min(1.041667vw,20px)/1.15 'Crete Round',Georgia,serif; }
+  #VermilionLanding-{{ section.id }} .vbl-finale-copy__columns p + p { margin-top: min(.885417vw,17px); }
+  @keyframes vbl-marquee-{{ section.id }} { to { transform: translate3d(-50%,0,0); } }
+
+  @media (max-width: 749px) {
+    #VermilionLanding-{{ section.id }} .vbl__canvas--desktop { display: none; }
+    #VermilionLanding-{{ section.id }} .vbl__canvas--mobile { display: block; max-width: 402px; aspect-ratio: 402 / 3412; }
+    #VermilionLanding-{{ section.id }} .vbl__hero-bg { height: 7.004689%; }
+    #VermilionLanding-{{ section.id }} .vbl__hero-art { top: -5.7%; height: 109.76%; opacity: .5; }
+    #VermilionLanding-{{ section.id }} .vbl__title-art { left: 18.159204%; top: 4.572098%; width: 63.681592%; height: 4.513482%; }
+    #VermilionLanding-{{ section.id }} .vbl__intro { left: 18.159204%; top: 9.08558%; width: 63.681592%; font-size: min(2.487562vw,10px); line-height: 1.2; }
+    #VermilionLanding-{{ section.id }} .vbl-video--mobile { left: 2.985075%; top: 11.37163%; width: 94.029851%; height: 11.869871%; }
+    #VermilionLanding-{{ section.id }} .vbl-video__link, #VermilionLanding-{{ section.id }} .vbl-video__surface { width: 78.793651%; height: 92%; margin-left: 12.169312%; }
+    #VermilionLanding-{{ section.id }} .vbl-video__surface { border-radius: min(4.975124vw,20px); }
+    #VermilionLanding-{{ section.id }} .vbl-video__surface img { width: 13.02%; }
+    #VermilionLanding-{{ section.id }} .vbl-video__flame { right: 0; bottom: 0; width: 27.593%; height: 40.189%; }
+    #VermilionLanding-{{ section.id }} .vbl__model--mobile { position: absolute; left: 0; top: 21.834701%; width: 100%; height: 15.005862%; object-fit: contain; }
+    #VermilionLanding-{{ section.id }} .vbl-slider--mobile { left: 15.174129%; width: 69.651741%; aspect-ratio: 1; }
+    #VermilionLanding-{{ section.id }} .vbl-slider--mobile.vbl-slider--pendant { top: 35.814771%; }
+    #VermilionLanding-{{ section.id }} .vbl-slider--mobile.vbl-slider--ring { top: 47.303634%; }
+    #VermilionLanding-{{ section.id }} .vbl-product-copy { display: grid; left: 15.174129%; width: 69.651741%; grid-template-columns: 49.026786% 51%; color: rgba(255,255,255,.8); }
+    #VermilionLanding-{{ section.id }} .vbl-product-copy--pendant { top: 44.519343%; }
+    #VermilionLanding-{{ section.id }} .vbl-product-copy--ring { top: 56.037514%; }
+    #VermilionLanding-{{ section.id }} .vbl-product-copy h2 { font-size: min(3.9801vw,16px); line-height: 1; }
+    #VermilionLanding-{{ section.id }} .vbl-product-copy > p { font: 400 min(2.487562vw,10px)/1.1 'Crete Round',Georgia,serif; }
+    #VermilionLanding-{{ section.id }} .vbl-marquee--mobile { left: -10.945274%; top: 60.550996%; width: 121.641791%; height: 7.327081%; }
+    #VermilionLanding-{{ section.id }} .vbl-marquee__group { gap: min(2.238806vw,9px); padding-right: min(2.238806vw,9px); }
+    #VermilionLanding-{{ section.id }} .vbl-marquee__item { flex-basis: min(38.308458vw,154px); width: min(38.308458vw,154px); }
+    #VermilionLanding-{{ section.id }} .vbl-statement--mobile { position: absolute; left: 7.21393%; top: 70.28136%; width: 88.059701%; text-align: center; }
+    #VermilionLanding-{{ section.id }} .vbl-statement p { font-size: min(2.487562vw,10px); line-height: 1.35; }
+    #VermilionLanding-{{ section.id }} .vbl-statement--mobile img { width: 30.508475%; margin: 0 auto; }
+    #VermilionLanding-{{ section.id }} .vbl-opal-image--mobile { position: absolute; z-index: 2; left: 16.41791%; top: 76.817116%; width: 67.164179%; height: 7.913247%; object-fit: cover; }
+    #VermilionLanding-{{ section.id }} .vbl-finale-bg { left: .497512%; top: 86.54748%; width: 99.502488%; height: 8.352872%; }
+    #VermilionLanding-{{ section.id }} .vbl-finale-copy--mobile { position: absolute; z-index: 3; left: 0; top: 87.368113%; width: 100%; color: rgba(255,255,255,.8); text-align: center; }
+    #VermilionLanding-{{ section.id }} .vbl-finale-copy h2 { font-size: min(4.975124vw,20px); }
+    #VermilionLanding-{{ section.id }} .vbl-finale-copy h2 small { font-size: 1em; }
+    #VermilionLanding-{{ section.id }} .vbl-finale-copy--mobile > p { width: 52.238806%; margin: min(5.721393vw,23px) auto 0; font: 400 min(2.487562vw,10px)/1.1 'Crete Round',Georgia,serif; }
+    #VermilionLanding-{{ section.id }} .vbl-finale-copy--mobile > p + p { margin-top: min(4.726368vw,19px); }
+  }
+  @media (prefers-reduced-motion: reduce) { #VermilionLanding-{{ section.id }} .vbl-marquee__track { animation-play-state: paused; } #VermilionLanding-{{ section.id }} .vbl-slider__slide { transition: none; } }
+{% endstyle %}
+
+<script>
+  if (!customElements.get('vermilion-bird-landing')) {
+    customElements.define('vermilion-bird-landing', class extends HTMLElement {
+      connectedCallback() {
+        this.querySelectorAll('[data-vbl-slider]').forEach((slider) => {
+          if (slider.dataset.vblBound === 'true') return;
+          slider.dataset.vblBound = 'true';
+          slider.addEventListener('click', () => {
+            const slides = Array.from(slider.querySelectorAll('.vbl-slider__slide'));
+            const current = Math.max(0, slides.findIndex((slide) => slide.classList.contains('is-active')));
+            slides[current].classList.remove('is-active');
+            slides[(current + 1) % slides.length].classList.add('is-active');
+          });
+        });
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Vermilion Bird landing",
+  "tag": "section",
+  "class": "section-vermilion-bird-landing",
+  "settings": [
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#000000" },
+    { "type": "url", "id": "video_link", "label": "Video link" },
+    { "type": "url", "id": "ring_link", "label": "Ring product link" },
+    { "type": "url", "id": "pendant_link", "label": "Pendant product link" },
+    { "type": "range", "id": "marquee_speed", "label": "Marquee duration", "min": 5, "max": 60, "step": 1, "unit": "s", "default": 20 },
+    { "type": "checkbox", "id": "pause_marquee", "label": "Pause marquee on hover", "default": false }
+  ],
+  "presets": [{ "name": "Vermilion Bird landing" }]
+}
+{% endschema %}

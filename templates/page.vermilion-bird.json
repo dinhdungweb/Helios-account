@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "vermilion-bird-landing",
+      "settings": {
+        "background_color": "#000000",
+        "marquee_speed": 20,
+        "pause_marquee": false
+      }
+    }
+  },
+  "order": ["main"]
+}
