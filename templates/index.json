@@ -74,6 +74,24 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
+        "image_qbHR3Y": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/g_i_Hi_u_4.jpg",
+            "mobile_image": "shopify://shop_images/g_i_hi_u2_optimized.webp",
+            "slide_link": "shopify://pages/dau-an-noi-minh-den",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_KarRwm": {
           "type": "image",
           "settings": {
@@ -89,25 +107,6 @@
             "enlarge_text": true,
             "button_label": "",
             "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        },
-        "image_qbHR3Y": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/Landingpage_PC-01.jpg",
-            "mobile_image": "shopify://shop_images/Landing_page_MB-01.jpg",
-            "slide_link": "shopify://collections/chuan-bi-cho-dieu-lon-hon",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
@@ -172,8 +171,8 @@
       "block_order": [
         "image_nNNj6R",
         "image_HkUphA",
-        "image_KarRwm",
         "image_qbHR3Y",
+        "image_KarRwm",
         "image_3Aawga",
         "image_nw333M",
         "image_hgGRLc"
