@@ -50,9 +50,12 @@
     </div>
 
     <div class="vbl-video vbl-video--desktop">
-      {%- if section.settings.video_link != blank -%}<a class="vbl-video__link" href="{{ section.settings.video_link }}" aria-label="Xem video Chu Tước">{%- endif -%}
-      <span class="vbl-video__surface"><img src="{{ 'vermilion-landing-play.svg' | asset_url }}" alt="" width="82" height="82" loading="lazy"></span>
-      {%- if section.settings.video_link != blank -%}</a>{%- endif -%}
+      <div class="vbl-video__surface"{% if section.settings.video != blank %} data-vbl-video role="button" tabindex="0" aria-label="Phát video Chu Tước" aria-pressed="false"{% endif %}>
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: image_size: '1200x', autoplay: false, loop: false, muted: false, controls: false, playsinline: true, preload: 'metadata', class: 'vbl-video__media' }}
+        {%- endif -%}
+        <span class="vbl-video__play"><img src="{{ 'vermilion-landing-play.svg' | asset_url }}" alt="" width="82" height="82" loading="lazy"></span>
+      </div>
       <img class="vbl-video__flame" src="{{ 'vermilion-landing-video-flame.jpg' | asset_url }}" alt="" width="600" height="1031" loading="lazy">
     </div>
 
@@ -92,9 +95,12 @@
     <p class="vbl__intro">Trong Tứ Tượng, Chu Tước trấn giữ phương Nam, gắn với hành Hỏa và hình ảnh của sức sống, chuyển động và nguồn năng lượng mạnh mẽ.</p>
 
     <div class="vbl-video vbl-video--mobile">
-      {%- if section.settings.video_link != blank -%}<a class="vbl-video__link" href="{{ section.settings.video_link }}" aria-label="Xem video Chu Tước">{%- endif -%}
-      <span class="vbl-video__surface"><img src="{{ 'vermilion-landing-play.svg' | asset_url }}" alt="" width="40" height="40" loading="lazy"></span>
-      {%- if section.settings.video_link != blank -%}</a>{%- endif -%}
+      <div class="vbl-video__surface"{% if section.settings.video != blank %} data-vbl-video role="button" tabindex="0" aria-label="Phát video Chu Tước" aria-pressed="false"{% endif %}>
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: image_size: '800x', autoplay: false, loop: false, muted: false, controls: false, playsinline: true, preload: 'metadata', class: 'vbl-video__media' }}
+        {%- endif -%}
+        <span class="vbl-video__play"><img src="{{ 'vermilion-landing-play.svg' | asset_url }}" alt="" width="40" height="40" loading="lazy"></span>
+      </div>
       <img class="vbl-video__flame" src="{{ 'vermilion-landing-video-flame.jpg' | asset_url }}" alt="" width="600" height="1031" loading="lazy">
     </div>
 
@@ -173,10 +179,12 @@
   #VermilionLanding-{{ section.id }} .vbl__detail-button { display: grid; width: min(9.895833vw,190px); height: min(1.510417vw,29px); margin-top: min(1.041667vw,20px); place-items: center; border-radius: 10px; color: #fff; background: #969696; font: 700 min(.78125vw,15px)/1 'UTM Copperplate','Copperplate','Copperplate Gothic','Times New Roman',serif; text-decoration: none; text-transform: uppercase; }
   #VermilionLanding-{{ section.id }} .vbl-video { position: absolute; }
   #VermilionLanding-{{ section.id }} .vbl-video--desktop { left: 37.8125%; top: 53.807107%; width: 36.393159%; height: 11.06599%; }
-  #VermilionLanding-{{ section.id }} .vbl-video__link { display: block; width: 90.08%; height: 90.28%; }
-  #VermilionLanding-{{ section.id }} .vbl-video__surface { display: grid; width: 90.08%; height: 90.28%; place-items: center; border-radius: min(1.041667vw,20px); background: #262626; }
-  #VermilionLanding-{{ section.id }} .vbl-video__link .vbl-video__surface { width: 100%; height: 100%; }
-  #VermilionLanding-{{ section.id }} .vbl-video__surface img { width: 13.02%; height: auto; }
+  #VermilionLanding-{{ section.id }} .vbl-video__surface { position: relative; width: 90.08%; height: 90.28%; overflow: hidden; border-radius: min(1.041667vw,20px); background: #262626; }
+  #VermilionLanding-{{ section.id }} .vbl-video__surface[data-vbl-video] { cursor: pointer; }
+  #VermilionLanding-{{ section.id }} .vbl-video__media { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #VermilionLanding-{{ section.id }} .vbl-video__play { position: absolute; z-index: 2; inset: 0; display: grid; place-items: center; transition: opacity .2s ease; pointer-events: none; }
+  #VermilionLanding-{{ section.id }} .vbl-video__play img { width: 13.02%; height: auto; }
+  #VermilionLanding-{{ section.id }} .vbl-video__surface.is-playing .vbl-video__play { opacity: 0; }
   #VermilionLanding-{{ section.id }} .vbl-video__flame { position: absolute; right: 0; bottom: 0; width: 36.87%; height: 46.12%; object-fit: cover; mix-blend-mode: screen; transform: rotate(-1.45deg); pointer-events: none; }
   #VermilionLanding-{{ section.id }} .vbl-marquee { position: absolute; overflow: hidden; }
   #VermilionLanding-{{ section.id }} .vbl-marquee--desktop { left: 14.791667%; top: 66.928934%; width: 70.416667%; height: 8.93401%; }
@@ -209,9 +217,9 @@
     #VermilionLanding-{{ section.id }} .vbl__title-art { left: 18.159204%; top: 4.572098%; width: 63.681592%; height: 4.513482%; }
     #VermilionLanding-{{ section.id }} .vbl__intro { left: 18.159204%; top: 9.08558%; width: 63.681592%; font-size: min(2.487562vw,10px); line-height: 1.2; }
     #VermilionLanding-{{ section.id }} .vbl-video--mobile { left: 2.985075%; top: 11.37163%; width: 94.029851%; height: 11.869871%; }
-    #VermilionLanding-{{ section.id }} .vbl-video__link, #VermilionLanding-{{ section.id }} .vbl-video__surface { width: 78.793651%; height: 92%; margin-left: 12.169312%; }
+    #VermilionLanding-{{ section.id }} .vbl-video__surface { width: 78.793651%; height: 92%; margin-left: 12.169312%; }
     #VermilionLanding-{{ section.id }} .vbl-video__surface { border-radius: min(4.975124vw,20px); }
-    #VermilionLanding-{{ section.id }} .vbl-video__surface img { width: 13.02%; }
+    #VermilionLanding-{{ section.id }} .vbl-video__play img { width: 13.02%; }
     #VermilionLanding-{{ section.id }} .vbl-video__flame { right: 0; bottom: 0; width: 27.593%; height: 40.189%; }
     #VermilionLanding-{{ section.id }} .vbl__model--mobile { position: absolute; left: 0; top: 21.834701%; width: 100%; height: 15.005862%; object-fit: contain; }
     #VermilionLanding-{{ section.id }} .vbl-slider--mobile { left: 15.174129%; width: 69.651741%; aspect-ratio: 1; }
@@ -253,6 +261,36 @@
             slides[(current + 1) % slides.length].classList.add('is-active');
           });
         });
+
+        this.querySelectorAll('[data-vbl-video]').forEach((surface) => {
+          if (surface.dataset.vblBound === 'true') return;
+          surface.dataset.vblBound = 'true';
+          const video = surface.querySelector('video');
+          if (!video) return;
+
+          const syncState = () => {
+            const isPlaying = !video.paused && !video.ended;
+            surface.classList.toggle('is-playing', isPlaying);
+            surface.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+          };
+          const toggleVideo = () => {
+            if (video.paused || video.ended) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          };
+
+          surface.addEventListener('click', toggleVideo);
+          surface.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            toggleVideo();
+          });
+          video.addEventListener('play', syncState);
+          video.addEventListener('pause', syncState);
+          video.addEventListener('ended', syncState);
+        });
       }
     });
   }
@@ -265,7 +303,7 @@
   "class": "section-vermilion-bird-landing",
   "settings": [
     { "type": "color", "id": "background_color", "label": "Background", "default": "#000000" },
-    { "type": "url", "id": "video_link", "label": "Video link" },
+    { "type": "video", "id": "video", "label": "Shopify video" },
     { "type": "url", "id": "ring_link", "label": "Ring product link" },
     { "type": "url", "id": "pendant_link", "label": "Pendant product link" },
     { "type": "range", "id": "marquee_speed", "label": "Marquee duration", "min": 5, "max": 60, "step": 1, "unit": "s", "default": 20 },
