@@ -208,47 +208,6 @@
       "type": "tab-description",
       "settings": {}
     },
-    "image_with_text_xAeKkA": {
-      "type": "image-with-text",
-      "settings": {
-        "subheading": "",
-        "title": "10 NĂM HÀNH TRÌNH CHẾ TÁC THỦ CÔNG BẠC",
-        "title_size": 24,
-        "title_width": 12,
-        "text": "<p>Mỗi món trang sức của Helios đều được chế tác thủ công bởi người thợ kim hoàn lành nghề, mang trọn tâm huyết và niềm đam mê trong từng nét chạm khắc tỉ mỉ.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "image": "shopify://shop_images/che-tac-thu-cong.webp",
-        "image_width": 100,
-        "image_position": "left",
-        "media_size": "cover",
-        "color_scheme": "custom",
-        "color_bg": "#0c0c0c",
-        "color_text": ""
-      }
-    },
-    "product_feedback_gallery_XyZ123": {
-      "type": "product-feedback-gallery",
-      "settings": {
-        "heading": "Feedback Từ Khách Hàng",
-        "description": "<p>Những hình ảnh thực tế từ khách hàng đã sử dụng sản phẩm</p>",
-        "section_width": "custom",
-        "custom_width": 1350,
-        "images_per_row_desktop": 4,
-        "images_per_row_tablet": 2,
-        "images_per_row_mobile": 2,
-        "heading_color": "#ffffff",
-        "text_color": "#777777",
-        "grid_gap": 20,
-        "border_radius": 6,
-        "show_overlay": false,
-        "margin_top": 72,
-        "margin_bottom": 40
-      }
-    },
     "rich_text_KBHHh9": {
       "type": "rich-text",
       "name": "Rich text",
@@ -603,13 +562,54 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "image": "shopify://shop_images/1_1.webp",
+        "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten-31_86b29b7d-91c4-4be9-b5b5-a7dd3dd9bdc2.jpg",
         "image_width": 100,
         "image_position": "right",
         "media_size": "cover",
         "color_scheme": "custom",
         "color_bg": "#0c0c0c",
         "color_text": ""
+      }
+    },
+    "image_with_text_xAeKkA": {
+      "type": "image-with-text",
+      "settings": {
+        "subheading": "",
+        "title": "10 NĂM HÀNH TRÌNH CHẾ TÁC THỦ CÔNG BẠC",
+        "title_size": 24,
+        "title_width": 12,
+        "text": "<p>Mỗi món trang sức của Helios đều được chế tác thủ công bởi người thợ kim hoàn lành nghề, mang trọn tâm huyết và niềm đam mê trong từng nét chạm khắc tỉ mỉ.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "left",
+        "text_width": 50,
+        "button_style": "auto",
+        "video_shopify": "shopify://files/videos/0813(1) (1)_f049ba4a-f4fb-4e76-adcc-fbbdd9280bc3.mov",
+        "image_width": 100,
+        "image_position": "left",
+        "media_size": "contain",
+        "color_scheme": "custom",
+        "color_bg": "#0c0c0c",
+        "color_text": ""
+      }
+    },
+    "product_feedback_gallery_XyZ123": {
+      "type": "product-feedback-gallery",
+      "settings": {
+        "heading": "Feedback Từ Khách Hàng",
+        "description": "<p>Những hình ảnh thực tế từ khách hàng đã sử dụng sản phẩm</p>",
+        "section_width": "custom",
+        "custom_width": 1350,
+        "images_per_row_desktop": 4,
+        "images_per_row_tablet": 2,
+        "images_per_row_mobile": 2,
+        "heading_color": "#ffffff",
+        "text_color": "#777777",
+        "grid_gap": 20,
+        "border_radius": 6,
+        "show_overlay": false,
+        "margin_top": 72,
+        "margin_bottom": 40
       }
     },
     "accordions_gkjQkM": {
