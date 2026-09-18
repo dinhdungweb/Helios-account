@@ -208,6 +208,29 @@
       "type": "tab-description",
       "settings": {}
     },
+    "rich_text_8yjx4N": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color: #fab320\">HELIOS HÀ NỘI</font>",
+        "title_size": 28,
+        "title_width": 26,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "rich_text_KQMLyb": {
       "type": "rich-text",
       "name": "Rich text",
@@ -231,6 +254,88 @@
         "color_text": ""
       }
     },
+    "grid_image_QqpRqi": {
+      "type": "grid-image",
+      "blocks": {
+        "image_EyhGa8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/76_230cbc38-f5ac-4ab0-adaa-e56f0b019019.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_G9PMw4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/store_NT_12.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_RCWmK3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_4410.jpg",
+            "link": "",
+            "text": ""
+          }
+        },
+        "image_HMeztf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/store_NT_6.jpg",
+            "link": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_EyhGa8",
+        "image_G9PMw4",
+        "image_RCWmK3",
+        "image_HMeztf"
+      ],
+      "custom_css": [
+        "#section-id-template--20686354350301__grid_image_QqpRqi {padding: 20px !important;}"
+      ],
+      "name": "Nguyễn Trãi",
+      "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
+        "grid_image_full_width": true,
+        "grid_image_with": 1400,
+        "item_for_row": 4,
+        "item_ratio": "3/4",
+        "item_per_row_mobile": "2"
+      }
+    },
+    "rich_text_W69Wdt": {
+      "type": "rich-text",
+      "custom_css": [
+        ".section-spacing {padding-top: 0 !important;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<ul><li>672 Nguyễn Trãi, Phường Thanh Xuân, Hà Nội.</li><li>Liên hệ: 0395 302 899</li></ul><p><a href=\"https://maps.app.goo.gl/GYErQs3ydBzUCpKu7\" title=\"https://maps.app.goo.gl/GYErQs3ydBzUCpKu7\">Xem trên bản đồ</a></p><p>HELIOS Nguyễn Trãi mang đến không gian trọn vẹn hơn, từ những chế tác bạc tinh xảo đến các thiết kế kính đậm dấu ấn HELIOS.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "image_with_text_kUyLYN": {
       "type": "image-with-text",
       "custom_css": [
@@ -247,7 +352,7 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "image": "shopify://shop_images/1_1.webp",
+        "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten-31_86b29b7d-91c4-4be9-b5b5-a7dd3dd9bdc2.jpg",
         "image_width": 100,
         "image_position": "right",
         "media_size": "cover",
@@ -269,10 +374,10 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "image": "shopify://shop_images/che-tac-thu-cong.webp",
+        "video_shopify": "shopify://files/videos/0813(1) (1)_f049ba4a-f4fb-4e76-adcc-fbbdd9280bc3.mov",
         "image_width": 100,
         "image_position": "left",
-        "media_size": "cover",
+        "media_size": "contain",
         "color_scheme": "custom",
         "color_bg": "#0c0c0c",
         "color_text": ""
@@ -295,29 +400,6 @@
         "show_overlay": false,
         "margin_top": 72,
         "margin_bottom": 40
-      }
-    },
-    "rich_text_8yjx4N": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "<font style=\"color: #fab320\">HELIOS HÀ NỘI</font>",
-        "title_size": 28,
-        "title_width": 26,
-        "heading_h1": false,
-        "text": "",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "left",
-        "enlarge_text": false,
-        "full_width": true,
-        "no_padding_bottom": true,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
       }
     },
     "rich_text_Hy4w8R": {
@@ -415,88 +497,6 @@
         "title_width": 12,
         "heading_h1": false,
         "text": "<ul><li>4/104 Lê Thanh Nghị, Phường Bạch Mai, Hà Nội. </li><li>Liên hệ:  0964 302 899</li></ul><p><a href=\"https://maps.app.goo.gl/XP94Adbqn8jx6QCm6\" title=\"https://maps.app.goo.gl/XP94Adbqn8jx6QCm6\">Xem trên bản đồ</a></p><p>Nơi bắt đầu hành trình của HELIOS, trải nghiệm phong cách sống đầy bản lĩnh ngay tại cửa hàng đầu tiên của chúng tôi.</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "left",
-        "enlarge_text": false,
-        "full_width": true,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "grid_image_QqpRqi": {
-      "type": "grid-image",
-      "blocks": {
-        "image_EyhGa8": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/76_230cbc38-f5ac-4ab0-adaa-e56f0b019019.jpg",
-            "link": "",
-            "text": ""
-          }
-        },
-        "image_G9PMw4": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/store_NT_12.jpg",
-            "link": "",
-            "text": ""
-          }
-        },
-        "image_RCWmK3": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/IMG_4410.jpg",
-            "link": "",
-            "text": ""
-          }
-        },
-        "image_HMeztf": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/store_NT_6.jpg",
-            "link": "",
-            "text": ""
-          }
-        }
-      },
-      "block_order": [
-        "image_EyhGa8",
-        "image_G9PMw4",
-        "image_RCWmK3",
-        "image_HMeztf"
-      ],
-      "custom_css": [
-        "#section-id-template--20686354350301__grid_image_QqpRqi {padding: 20px !important;}"
-      ],
-      "name": "Nguyễn Trãi",
-      "settings": {
-        "show_on_desktop": true,
-        "show_on_mobile": true,
-        "grid_image_full_width": true,
-        "grid_image_with": 1400,
-        "item_for_row": 4,
-        "item_ratio": "3/4",
-        "item_per_row_mobile": "2"
-      }
-    },
-    "rich_text_W69Wdt": {
-      "type": "rich-text",
-      "custom_css": [
-        ".section-spacing {padding-top: 0 !important;}"
-      ],
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "title_size": 48,
-        "title_width": 12,
-        "heading_h1": false,
-        "text": "<ul><li>672 Nguyễn Trãi, Phường Thanh Xuân, Hà Nội.</li><li>Liên hệ: 0395 302 899</li></ul><p><a href=\"https://maps.app.goo.gl/GYErQs3ydBzUCpKu7\" title=\"https://maps.app.goo.gl/GYErQs3ydBzUCpKu7\">Xem trên bản đồ</a></p><p>HELIOS Nguyễn Trãi mang đến không gian trọn vẹn hơn, từ những chế tác bạc tinh xảo đến các thiết kế kính đậm dấu ấn HELIOS.</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
