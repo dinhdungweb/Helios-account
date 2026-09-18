@@ -12,11 +12,17 @@
     <p class="vbl__intro">Trong Tứ Tượng, Chu Tước trấn giữ phương Nam, gắn với hành Hỏa và hình ảnh của sức sống, chuyển động và nguồn năng lượng mạnh mẽ.</p>
     <img class="vbl__model vbl__model--desktop" src="{{ 'vermilion-landing-model.webp' | asset_url }}" alt="" width="1500" height="1500" loading="eager">
 
-    <button class="vbl-slider vbl-slider--desktop vbl-slider--ring" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Ring">
-      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-ring-01.jpg' | asset_url }}" alt="Vermilion Bird Ring" width="1000" height="1000" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-02.jpg' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
-    </button>
+    {%- if section.settings.ring_video != blank -%}
+      <div class="vbl-slider vbl-slider--desktop vbl-slider--ring vbl-slider--video">
+        {{ section.settings.ring_video | video_tag: image_size: '1000x', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'none', class: 'vbl-slider__video' }}
+      </div>
+    {%- else -%}
+      <button class="vbl-slider vbl-slider--desktop vbl-slider--ring" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Ring">
+        <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-ring-01.jpg' | asset_url }}" alt="Vermilion Bird Ring" width="1000" height="1000" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-02.jpg' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+      </button>
+    {%- endif -%}
 
     <div class="vbl-product-copy vbl-product-copy--ring">
       <h2>Vermilion Bird<br>Ring</h2>
@@ -31,11 +37,17 @@
       {%- endif -%}
     </div>
 
-    <button class="vbl-slider vbl-slider--desktop vbl-slider--pendant" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Pendant">
-      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-pendant-01.jpg' | asset_url }}" alt="Vermilion Bird Pendant" width="1000" height="1499" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-02.jpg' | asset_url }}" alt="" width="1000" height="1499" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
-    </button>
+    {%- if section.settings.pendant_video != blank -%}
+      <div class="vbl-slider vbl-slider--desktop vbl-slider--pendant vbl-slider--video">
+        {{ section.settings.pendant_video | video_tag: image_size: '1000x', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'none', class: 'vbl-slider__video' }}
+      </div>
+    {%- else -%}
+      <button class="vbl-slider vbl-slider--desktop vbl-slider--pendant" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Pendant">
+        <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-pendant-01.jpg' | asset_url }}" alt="Vermilion Bird Pendant" width="1000" height="1499" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-02.jpg' | asset_url }}" alt="" width="1000" height="1499" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+      </button>
+    {%- endif -%}
 
     <div class="vbl-product-copy vbl-product-copy--pendant">
       <h2>Vermilion Bird<br>Pendant</h2>
@@ -106,11 +118,17 @@
 
     <img class="vbl__model vbl__model--mobile" src="{{ 'vermilion-landing-model.webp' | asset_url }}" alt="" width="1500" height="1500" loading="lazy">
 
-    <button class="vbl-slider vbl-slider--mobile vbl-slider--pendant" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Pendant">
-      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-pendant-01.jpg' | asset_url }}" alt="Vermilion Bird Pendant" width="1000" height="1499" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-02.jpg' | asset_url }}" alt="" width="1000" height="1499" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
-    </button>
+    {%- if section.settings.pendant_video != blank -%}
+      <div class="vbl-slider vbl-slider--mobile vbl-slider--pendant vbl-slider--video">
+        {{ section.settings.pendant_video | video_tag: image_size: '800x', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'none', class: 'vbl-slider__video' }}
+      </div>
+    {%- else -%}
+      <button class="vbl-slider vbl-slider--mobile vbl-slider--pendant" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Pendant">
+        <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-pendant-01.jpg' | asset_url }}" alt="Vermilion Bird Pendant" width="1000" height="1499" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-02.jpg' | asset_url }}" alt="" width="1000" height="1499" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-pendant-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+      </button>
+    {%- endif -%}
     <div class="vbl-product-copy vbl-product-copy--pendant">
       <div class="vbl-product-copy__heading">
         <h2>Vermilion<br>Bird<br>Pendant</h2>
@@ -119,11 +137,17 @@
       <p>Form mặt dây được kéo dài như một chiếc lông vũ đang rơi, cũng giống một vệt lửa được giữ trong khuôn. Tất cả tạo cảm giác Chu Tước không đứng yên. Nó bay theo trục của mình.</p>
     </div>
 
-    <button class="vbl-slider vbl-slider--mobile vbl-slider--ring" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Ring">
-      <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-ring-01.jpg' | asset_url }}" alt="Vermilion Bird Ring" width="1000" height="1000" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-02.jpg' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
-      <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
-    </button>
+    {%- if section.settings.ring_video != blank -%}
+      <div class="vbl-slider vbl-slider--mobile vbl-slider--ring vbl-slider--video">
+        {{ section.settings.ring_video | video_tag: image_size: '800x', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'none', class: 'vbl-slider__video' }}
+      </div>
+    {%- else -%}
+      <button class="vbl-slider vbl-slider--mobile vbl-slider--ring" type="button" data-vbl-slider aria-label="Chuyển ảnh Vermilion Bird Ring">
+        <span class="vbl-slider__slide is-active"><img src="{{ 'vermilion-landing-ring-01.jpg' | asset_url }}" alt="Vermilion Bird Ring" width="1000" height="1000" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-02.jpg' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+        <span class="vbl-slider__slide"><img src="{{ 'vermilion-landing-ring-03.webp' | asset_url }}" alt="" width="1000" height="1000" loading="lazy"></span>
+      </button>
+    {%- endif -%}
     <div class="vbl-product-copy vbl-product-copy--ring">
       <div class="vbl-product-copy__heading">
         <h2>Vermilion<br>Bird Ring</h2>
@@ -178,6 +202,8 @@
   #VermilionLanding-{{ section.id }} .vbl-slider__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .35s ease; }
   #VermilionLanding-{{ section.id }} .vbl-slider__slide.is-active { opacity: 1; }
   #VermilionLanding-{{ section.id }} .vbl-slider__slide img { width: 100%; height: 100%; object-fit: cover; }
+  #VermilionLanding-{{ section.id }} .vbl-slider--video { cursor: default; }
+  #VermilionLanding-{{ section.id }} .vbl-slider__video { display: block; width: 100%; height: 100%; object-fit: cover; }
   #VermilionLanding-{{ section.id }} .vbl-slider--pendant .vbl-slider__slide:first-child img { object-position: center 90%; filter: grayscale(1); }
   #VermilionLanding-{{ section.id }} .vbl-slider__slide--product { padding: 14%; }
   #VermilionLanding-{{ section.id }} .vbl-slider__slide--product img { object-fit: contain; }
@@ -306,6 +332,61 @@
           video.addEventListener('pause', syncState);
           video.addEventListener('ended', syncState);
         });
+
+        const productVideos = Array.from(this.querySelectorAll('.vbl-slider__video'));
+        if (productVideos.length) {
+          this.productVideoMedia = window.matchMedia('(max-width: 749px)');
+          this.syncProductVideos = () => {
+            const isMobile = this.productVideoMedia.matches;
+            productVideos.forEach((video) => {
+              const canvas = video.closest('.vbl__canvas');
+              const isActiveCanvas = isMobile
+                ? canvas?.classList.contains('vbl__canvas--mobile')
+                : canvas?.classList.contains('vbl__canvas--desktop');
+              const shouldPlay = isActiveCanvas && video.dataset.vblInView === 'true';
+              if (shouldPlay) {
+                video.play().catch(() => {});
+              } else {
+                video.pause();
+              }
+            });
+          };
+
+          productVideos.forEach((video) => {
+            video.muted = true;
+            video.loop = true;
+            video.dataset.vblInView = 'false';
+          });
+
+          if ('IntersectionObserver' in window) {
+            this.productVideoObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                entry.target.dataset.vblInView = entry.isIntersecting ? 'true' : 'false';
+              });
+              this.syncProductVideos();
+            }, { rootMargin: '100px 0px' });
+            productVideos.forEach((video) => this.productVideoObserver.observe(video));
+          } else {
+            productVideos.forEach((video) => { video.dataset.vblInView = 'true'; });
+          }
+
+          if (this.productVideoMedia.addEventListener) {
+            this.productVideoMedia.addEventListener('change', this.syncProductVideos);
+          } else {
+            this.productVideoMedia.addListener(this.syncProductVideos);
+          }
+          this.syncProductVideos();
+        }
+      }
+
+      disconnectedCallback() {
+        this.productVideoObserver?.disconnect();
+        if (!this.productVideoMedia || !this.syncProductVideos) return;
+        if (this.productVideoMedia.removeEventListener) {
+          this.productVideoMedia.removeEventListener('change', this.syncProductVideos);
+        } else {
+          this.productVideoMedia.removeListener(this.syncProductVideos);
+        }
       }
     });
   }
@@ -318,7 +399,10 @@
   "class": "section-vermilion-bird-landing",
   "settings": [
     { "type": "color", "id": "background_color", "label": "Background", "default": "#000000" },
-    { "type": "video", "id": "video", "label": "Shopify video" },
+    { "type": "video", "id": "video", "label": "Main Shopify video" },
+    { "type": "header", "content": "Product media videos" },
+    { "type": "video", "id": "ring_video", "label": "Ring video (optional)" },
+    { "type": "video", "id": "pendant_video", "label": "Pendant video (optional)" },
     { "type": "url", "id": "ring_link", "label": "Ring product link" },
     { "type": "url", "id": "pendant_link", "label": "Pendant product link" },
     { "type": "range", "id": "marquee_speed", "label": "Marquee duration", "min": 5, "max": 60, "step": 1, "unit": "s", "default": 20 },
