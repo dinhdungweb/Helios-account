@@ -78,9 +78,8 @@
         },
         "custom_liquid_beCgGM": {
           "type": "custom_liquid",
-          "disabled": true,
           "settings": {
-            "custom_liquid": "<a style=\"color:#fab320; text-decoration: underline; text-underline-offset: 5px;\" href=\"https://helios.vn/account\" title=\"Đăng nhập\">Đăng nhập</a></font> Member để hưởng trọn ưu đãi!"
+            "custom_liquid": "<font style=\"color:#fab320;\">Sản phẩm chỉ bán đến hết ngày 22/09/2026</font>"
           }
         },
         "buy_buttons": {
