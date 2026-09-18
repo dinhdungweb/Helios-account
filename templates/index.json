@@ -39,11 +39,10 @@
       "blocks": {
         "image_nNNj6R": {
           "type": "image",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/2aOboQnjhCdI6ccBbvQ9BjRvJN7YZVCX0iRhmx16.jpg",
-            "mobile_image": "shopify://shop_images/2aOboQnjhoqvPUR6NhbgOejO36hBNJeqEuO8iX5c.jpg",
-            "slide_link": "https://forms.gle/WnWrP8pMZARH4qrQ9",
+            "image": "shopify://shop_images/banner_19.9_optimized_2.webp",
+            "mobile_image": "shopify://shop_images/banner_4.5_optimized.webp",
+            "slide_link": "shopify://collections/chu-tuoc",
             "subheading": "",
             "title": "",
             "title_size": 60,
