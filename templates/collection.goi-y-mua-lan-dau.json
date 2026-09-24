@@ -51,7 +51,7 @@
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "title": "SỰ KHỞI ĐẦU",
+        "title": "Sự khởi đầu",
         "featured_collection_align": "left",
         "collection": "sự-khởi-dầu",
         "layout": "carousel",
@@ -78,7 +78,7 @@
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "title": "SẢN PHẨM BIỂU TƯỢNG",
+        "title": "Sản phẩm biểu tượng",
         "featured_collection_align": "left",
         "collection": "sản-phẩm-biểu-tượng",
         "layout": "carousel",
@@ -105,7 +105,7 @@
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "title": "SẢN PHẨM NỔI BẬT",
+        "title": "Sản phẩm nổi bật",
         "featured_collection_align": "left",
         "collection": "sản-phẩm-nổi-bật",
         "layout": "carousel",
