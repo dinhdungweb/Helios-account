@@ -79,7 +79,7 @@
         "custom_liquid_beCgGM": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<font style=\"color:#fab320;\">Sản phẩm chỉ bán đến hết ngày 22/09/2026</font>"
+            "custom_liquid": "<font style=\"color:#fab320;\">Thời gian trả Order: 5 ngày<br>Sản phẩm chỉ bán đến hết ngày 22/10/2026</font>"
           }
         },
         "buy_buttons": {
