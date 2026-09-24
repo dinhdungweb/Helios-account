@@ -47,6 +47,87 @@
         "padding-bottom": 0
       }
     },
+    "featured_collection_Rc7P8P": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "SỰ KHỞI ĐẦU",
+        "featured_collection_align": "left",
+        "collection": "sự-khởi-dầu",
+        "layout": "carousel",
+        "show_arrows": false,
+        "show_dots": false,
+        "show_progress": true,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "featured_collection_tAQdzc": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "SẢN PHẨM BIỂU TƯỢNG",
+        "featured_collection_align": "left",
+        "collection": "sản-phẩm-biểu-tượng",
+        "layout": "carousel",
+        "show_arrows": false,
+        "show_dots": false,
+        "show_progress": true,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "featured_collection_4YBbUy": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "SẢN PHẨM NỔI BẬT",
+        "featured_collection_align": "left",
+        "collection": "sản-phẩm-nổi-bật",
+        "layout": "carousel",
+        "show_arrows": false,
+        "show_dots": false,
+        "show_progress": true,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "main": {
       "type": "main-collection",
       "settings": {
@@ -75,6 +156,9 @@
   },
   "order": [
     "video_with_text_WYVaXC",
+    "featured_collection_Rc7P8P",
+    "featured_collection_tAQdzc",
+    "featured_collection_4YBbUy",
     "main"
   ]
 }
