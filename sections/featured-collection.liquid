@@ -47,19 +47,19 @@
     background: var(--featured-collection-dot-active-color);
   }
   @media (min-width: 768px) {
-    .section-id-{{ section.id }} .product-list--multirow .swiper-wrapper {
-      flex-wrap: wrap;
+    .section-id-{{ section.id }} .product-list--mobile-multirow .swiper-wrapper {
+      flex-wrap: nowrap;
     }
-    .section-id-{{ section.id }} .product-list--multirow .swiper-slide:nth-child(even) {
-      margin-top: 20px;
+    .section-id-{{ section.id }} .product-list--mobile-multirow .swiper-slide {
+      margin-top: 0;
     }
   }
   @media (max-width: 767px) {
-    .section-id-{{ section.id }} .product-list--multirow .swiper-wrapper {
-      flex-wrap: nowrap;
+    .section-id-{{ section.id }} .product-list--mobile-multirow .swiper-wrapper {
+      flex-wrap: wrap;
     }
-    .section-id-{{ section.id }} .product-list--multirow .swiper-slide {
-      margin-top: 0;
+    .section-id-{{ section.id }} .product-list--mobile-multirow .swiper-slide:not(:nth-child({{ section.settings.rows }}n + 1)) {
+      margin-top: 10px;
     }
   }
 {% endstyle %}
@@ -94,9 +94,10 @@
   {% endif %}
 
   {% if section.settings.layout == 'carousel' %}
-    <div class="swiper-container product-list product-list--{{ section.settings.layout }}{% if section.settings.carousel_rows == '2' %} product-list--multirow{% endif %}"
+    <div class="swiper-container product-list product-list--{{ section.settings.layout }}{% if section.settings.rows > 1 %} product-list--mobile-multirow{% endif %}"
          data-products-in-view="{{ section.settings.grid }}"
-         data-products-rows="{{ section.settings.carousel_rows }}">
+         data-products-in-view-mobile="{{ section.settings.grid_mobile }}"
+         data-products-rows-mobile="{{ section.settings.rows }}">
 
       <div class="swiper-wrapper" data-normheights=".image" data-normheights-inner="img">
         {% if section.settings.collection != blank %}
@@ -216,23 +217,6 @@
         "content": "Carousel navigation"
       },
       {
-        "type": "select",
-        "id": "carousel_rows",
-        "label": "Desktop carousel rows",
-        "options": [
-          {
-            "value": "1",
-            "label": "1"
-          },
-          {
-            "value": "2",
-            "label": "2"
-          }
-        ],
-        "default": "1",
-        "info": "Only applies to Carousel layout. Mobile always uses 1 row."
-      },
-      {
         "type": "checkbox",
         "id": "show_arrows",
         "label": "Show arrows",
@@ -317,7 +301,7 @@
         "min": 1,
         "max": 4,
         "default": 2,
-        "info": "Does not apply to carousel layout"
+        "info": "Applies to Grid layout and Carousel layout on mobile."
       },
       {
         "type": "select",

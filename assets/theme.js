@@ -4817,26 +4817,28 @@ document.addEventListener("DOMContentLoaded", () => {
   theme.initProductSlider = function ($swiperCont) {
     let isBlog = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     const slidesInView = $swiperCont.data('products-in-view');
-    const configuredRows = parseInt($swiperCont.attr('data-products-rows'), 10);
-    const desktopRows = Number.isNaN(configuredRows) ? 1 : Math.max(1, configuredRows);
+    const configuredMobileSlidesInView = parseInt($swiperCont.attr('data-products-in-view-mobile'), 10);
+    const mobileSlidesInView = Number.isNaN(configuredMobileSlidesInView) ? 2 : Math.max(1, configuredMobileSlidesInView);
+    const configuredMobileRows = parseInt($swiperCont.attr('data-products-rows-mobile'), 10);
+    const mobileRows = Number.isNaN(configuredMobileRows) ? 1 : Math.max(1, configuredMobileRows);
 
     let breakpoints = {
       767: {
-        slidesPerView: 2,
-        slidesPerColumn: 1,
+        slidesPerView: mobileSlidesInView,
+        slidesPerColumn: mobileRows,
         spaceBetween: 10
       },
       900: {
         slidesPerView: slidesInView === 4 || slidesInView === 4 ? 3 : slidesInView,
-        slidesPerColumn: desktopRows
+        slidesPerColumn: 1
       },
       1439: {
         slidesPerView: slidesInView === 4 || slidesInView === 4 ? 4 : slidesInView,
-        slidesPerColumn: desktopRows
+        slidesPerColumn: 1
       },
       3000: {
         slidesPerView: slidesInView,
-        slidesPerColumn: desktopRows,
+        slidesPerColumn: 1,
         spaceBetween: 20
       }
     };
@@ -4893,7 +4895,7 @@ document.addEventListener("DOMContentLoaded", () => {
       grabCursor: true,
       createPagination: false,
       slidesPerView: slidesInView,
-      slidesPerColumn: desktopRows,
+      slidesPerColumn: 1,
       slidesPerColumnFill: 'column',
       spaceBetween: 20,
       mousewheel: {
