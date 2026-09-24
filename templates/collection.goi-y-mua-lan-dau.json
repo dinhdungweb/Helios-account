@@ -133,8 +133,8 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "Khám phá danh mục sản phẩm",
-        "title_size": 24,
+        "title": "khám phá danh mục sản phẩm",
+        "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
         "text": "",
