@@ -128,6 +128,67 @@
         "show_view_all": false
       }
     },
+    "rich_text_yj7zRP": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "KHÁM PHÁ DANH MỤC SẢN PHẨM",
+        "title_size": 24,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "left",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "slideshow_Q8cnhQ": {
+      "type": "slideshow",
+      "blocks": {
+        "image_KxkR8h": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_48.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_KxkR8h"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
     "main": {
       "type": "main-collection",
       "settings": {
@@ -159,6 +220,8 @@
     "featured_collection_Rc7P8P",
     "featured_collection_tAQdzc",
     "featured_collection_4YBbUy",
+    "rich_text_yj7zRP",
+    "slideshow_Q8cnhQ",
     "main"
   ]
 }
