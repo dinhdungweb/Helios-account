@@ -4817,20 +4817,26 @@ document.addEventListener("DOMContentLoaded", () => {
   theme.initProductSlider = function ($swiperCont) {
     let isBlog = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     const slidesInView = $swiperCont.data('products-in-view');
+    const configuredRows = parseInt($swiperCont.attr('data-products-rows'), 10);
+    const desktopRows = Number.isNaN(configuredRows) ? 1 : Math.max(1, configuredRows);
 
     let breakpoints = {
       767: {
         slidesPerView: 2,
+        slidesPerColumn: 1,
         spaceBetween: 10
       },
       900: {
-        slidesPerView: slidesInView === 4 || slidesInView === 4 ? 3 : slidesInView
+        slidesPerView: slidesInView === 4 || slidesInView === 4 ? 3 : slidesInView,
+        slidesPerColumn: desktopRows
       },
       1439: {
-        slidesPerView: slidesInView === 4 || slidesInView === 4 ? 4 : slidesInView
+        slidesPerView: slidesInView === 4 || slidesInView === 4 ? 4 : slidesInView,
+        slidesPerColumn: desktopRows
       },
       3000: {
         slidesPerView: slidesInView,
+        slidesPerColumn: desktopRows,
         spaceBetween: 20
       }
     };
@@ -4887,6 +4893,8 @@ document.addEventListener("DOMContentLoaded", () => {
       grabCursor: true,
       createPagination: false,
       slidesPerView: slidesInView,
+      slidesPerColumn: desktopRows,
+      slidesPerColumnFill: 'column',
       spaceBetween: 20,
       mousewheel: {
         invert: true,
@@ -4904,6 +4912,17 @@ document.addEventListener("DOMContentLoaded", () => {
       on: {
         init: function () {
           lazySizes.autoSizer.checkElems();
+        },
+        breakpoint: function () {
+          if (this.params.slidesPerColumn === 1 && this.slides) {
+            this.slides.each(function () {
+              this.style.webkitBoxOrdinalGroup = '';
+              this.style.MozBoxOrdinalGroup = '';
+              this.style.msFlexOrder = '';
+              this.style.webkitOrder = '';
+              this.style.order = '';
+            });
+          }
         }
       }
     };

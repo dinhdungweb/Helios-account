@@ -46,6 +46,22 @@
     width: 24px;
     background: var(--featured-collection-dot-active-color);
   }
+  @media (min-width: 768px) {
+    .section-id-{{ section.id }} .product-list--multirow .swiper-wrapper {
+      flex-wrap: wrap;
+    }
+    .section-id-{{ section.id }} .product-list--multirow .swiper-slide:nth-child(even) {
+      margin-top: 20px;
+    }
+  }
+  @media (max-width: 767px) {
+    .section-id-{{ section.id }} .product-list--multirow .swiper-wrapper {
+      flex-wrap: nowrap;
+    }
+    .section-id-{{ section.id }} .product-list--multirow .swiper-slide {
+      margin-top: 0;
+    }
+  }
 {% endstyle %}
 <div
   class="section-id-{{ section.id }} wide-container half-gutter section-spacing {% if section.settings.alternate_bg_color %}use-alt-bg {% endif %}"
@@ -78,8 +94,9 @@
   {% endif %}
 
   {% if section.settings.layout == 'carousel' %}
-    <div class="swiper-container product-list product-list--{{ section.settings.layout }}"
-         data-products-in-view="{{ section.settings.grid }}">
+    <div class="swiper-container product-list product-list--{{ section.settings.layout }}{% if section.settings.carousel_rows > 1 %} product-list--multirow{% endif %}"
+         data-products-in-view="{{ section.settings.grid }}"
+         data-products-rows="{{ section.settings.carousel_rows }}">
 
       <div class="swiper-wrapper" data-normheights=".image" data-normheights-inner="img">
         {% if section.settings.collection != blank %}
@@ -197,6 +214,16 @@
       {
         "type": "header",
         "content": "Carousel navigation"
+      },
+      {
+        "type": "range",
+        "id": "carousel_rows",
+        "label": "Desktop carousel rows",
+        "min": 1,
+        "max": 2,
+        "step": 1,
+        "default": 1,
+        "info": "Only applies to Carousel layout. Mobile always uses 1 row."
       },
       {
         "type": "checkbox",
