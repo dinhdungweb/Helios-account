@@ -75,6 +75,7 @@
         },
         "image_qbHR3Y": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/g_i_Hi_u_4.jpg",
             "mobile_image": "shopify://shop_images/g_i_hi_u2_optimized.webp",
