@@ -64,18 +64,6 @@
             "size_chart_page_accessories": "huong-dan-do-size-ao"
           }
         },
-        "inventory_level": {
-          "type": "inventory_level",
-          "disabled": true,
-          "settings": {
-            "inventory_threshold": 10,
-            "show_inventory_notice": "low",
-            "show_inventory_count": "never",
-            "show_inventory_indicator_bar": true,
-            "col_indicator_below": "#dd9a1a",
-            "col_indicator_above": "#108043"
-          }
-        },
         "custom_liquid_beCgGM": {
           "type": "custom_liquid",
           "settings": {
@@ -103,30 +91,6 @@
             "hide_swatches": false
           }
         },
-        "trust_icons_TyrExf": {
-          "type": "trust_icons",
-          "settings": {
-            "icon_size": 26,
-            "show_icon1": true,
-            "text1": "<p><a href=\"https://helios.vn/pages/chinh-sach-bao-hanh\" title=\"https://helios.vn/pages/chinh-sach-bao-hanh\">Miễn phí đánh sáng trọn đời</a></p>",
-            "icon1": "price_tag",
-            "show_icon2": true,
-            "text2": "<p><a href=\"https://helios.vn/pages/chinh-sach-doi-tra-san-pham\" title=\"https://helios.vn/pages/chinh-sach-doi-tra-san-pham\">Đổi sản phẩm trong vòng 7 ngày với đơn online</a></p>",
-            "icon2": "box",
-            "show_icon3": true,
-            "text3": "<p><a href=\"https://helios.vn/pages/giao-hang\" title=\"https://helios.vn/pages/giao-hang\">Freeship toàn quốc với đơn trên 500.000Đ</a></p>",
-            "icon3": "truck",
-            "show_icon4": false,
-            "text4": "<p>Trust label</p>",
-            "icon4": "check_mark"
-          }
-        },
-        "richtext_3YiAcR": {
-          "type": "richtext",
-          "settings": {
-            "text": "{{ product.metafields.custom.short_description | metafield_tag }}"
-          }
-        },
         "text_HiAnXA": {
           "type": "text",
           "disabled": true,
@@ -140,7 +104,17 @@
           "settings": {
             "icon": "none",
             "title": "Thông tin thêm",
-            "content": "<p>Đối với các kích cỡ ngoại size, chúng tôi cần một thời gian để nghiên cứu, căn chỉnh để đảm bảo chất lượng đầu ra của sản phẩm. Do đó, thời gian pre-order có thể lên tới 12 - 14 ngày!</p>",
+            "content": "{{ product.metafields.custom.short_description | metafield_tag }}",
+            "page": "",
+            "open": false
+          }
+        },
+        "accordion_cnTXdD": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Chính sách mua hàng",
+            "content": "<p>- Miễn phí đánh sáng trọn đời</p><p>- Đổi sản phẩm trong vòng 7 ngày với đơn online</p><p>- Freeship toàn quốc với đơn trên 500.000Đ</p><p><em>Lưu ý:&nbsp;</em></p><p>Đối với các kích cỡ ngoại size, chúng tôi cần một thời gian để nghiên cứu, căn chỉnh để đảm bảo chất lượng đầu ra của sản phẩm. Do đó, thời gian pre-order có thể lên tới 12 - 14 ngày</p>",
             "page": "",
             "open": false
           }
@@ -173,14 +147,12 @@
         "rating",
         "richtext_3g4Dzi",
         "variant_picker",
-        "inventory_level",
         "custom_liquid_beCgGM",
         "buy_buttons",
         "complementary_pwBz8L",
-        "trust_icons_TyrExf",
-        "richtext_3YiAcR",
         "text_HiAnXA",
         "accordion_9czNHQ",
+        "accordion_cnTXdD",
         "accordion_RN6Adz",
         "accordion_WnzprC"
       ],
@@ -206,7 +178,16 @@
     },
     "tab_description_Mct6Bb": {
       "type": "tab-description",
-      "settings": {}
+      "settings": {
+        "description_tab_label": "Mô tả sản phẩm",
+        "show_reviews_tab": true,
+        "reviews_tab_label": "Đánh giá",
+        "show_review_count": true,
+        "expand_label": "Xem thêm",
+        "collapse_label": "Thu gọn",
+        "collapsed_height": 350,
+        "fade_color": "#000000"
+      }
     },
     "rich_text_KBHHh9": {
       "type": "rich-text",
@@ -546,51 +527,35 @@
         "color_text": ""
       }
     },
-    "image_with_text_kUyLYN": {
-      "type": "image-with-text",
-      "custom_css": [
-        ".image-with-text {margin-top: 40px;}"
-      ],
+    "custom_spacing_AwUVxN": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
       "settings": {
-        "subheading": "",
-        "title": "CÂU CHUYỆN TỪ CHẤT LIỆU TẠO NÊN CÁI NHÌN ĐẦY CHIÊM NGHIỆM",
-        "title_size": 24,
-        "title_width": 22,
-        "text": "<p>Với các dòng trang sức bạc, Helios chọn bạc S925 vì độ bền và thẩm mỹ cao. Qua năm tháng, món đồ giữ dáng, đồng hành cùng chủ nhân ở mọi khoảnh khắc, mọi chặng đường.<br/><br/>Ở các chế tác gắn đá, chúng tôi ưu ái những viên đá có vân sóng và sắc độ tự nhiên khác biệt, để mỗi thiết kế mang một dấu ấn độc bản — không chiếc nào giống chiếc nào.<br/><br/>Lớp xi đen như một “lớp phủ thời gian”, tiết chế hào nhoáng để nổi bật chiều sâu trải nghiệm.<br/>Mỗi hành trình đều lưu lại ký ức cá nhân; và với Helios, chất liệu bền vững chính là hành trang tạo nên một cái nhìn trầm ổn, nam tính.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten-31_86b29b7d-91c4-4be9-b5b5-a7dd3dd9bdc2.jpg",
-        "image_width": 100,
-        "image_position": "right",
-        "media_size": "cover",
-        "color_scheme": "custom",
-        "color_bg": "#0c0c0c",
-        "color_text": ""
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
       }
     },
-    "image_with_text_xAeKkA": {
-      "type": "image-with-text",
+    "background_video_ABXAcX": {
+      "type": "background-video",
+      "name": "Background video",
       "settings": {
+        "video_shopify": "shopify://files/videos/Video web trang sản _optimized.webm",
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "subheading": "",
-        "title": "10 NĂM HÀNH TRÌNH CHẾ TÁC THỦ CÔNG BẠC",
-        "title_size": 24,
-        "title_width": 12,
-        "text": "<p>Mỗi món trang sức của Helios đều được chế tác thủ công bởi người thợ kim hoàn lành nghề, mang trọn tâm huyết và niềm đam mê trong từng nét chạm khắc tỉ mỉ.</p>",
+        "title": "HELIOS 10 NĂM RÈN BẠC - MỘT ĐỜI TẠC BẢN LĨNH",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>Nơi mỗi chế tác được hoàn thiện bằng tay bởi nghệ nhân Việt, đồng hành cùng người đàn ông dám giữ lấy khác biệt, sống tự do theo cách của mình.<br/><br/></p>",
+        "enlarge_text": false,
         "button_label": "",
         "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "video_shopify": "shopify://files/videos/0813(1) (1)_f049ba4a-f4fb-4e76-adcc-fbbdd9280bc3.mov",
-        "image_width": 100,
-        "image_position": "left",
-        "media_size": "contain",
-        "color_scheme": "custom",
-        "color_bg": "#0c0c0c",
-        "color_text": ""
+        "overlay_position": "position--hcenter position--vcenter",
+        "height": "fixed",
+        "height_desktop": 640,
+        "height_mobile": 500,
+        "full_width": true,
+        "overlay_style_tint": true
       }
     },
     "product_feedback_gallery_XyZ123": {
@@ -705,8 +670,8 @@
     "rich_text_xTnhBe",
     "grid_image_3FeCdE",
     "rich_text_6Faif3",
-    "image_with_text_kUyLYN",
-    "image_with_text_xAeKkA",
+    "custom_spacing_AwUVxN",
+    "background_video_ABXAcX",
     "product_feedback_gallery_XyZ123",
     "accordions_gkjQkM",
     "product-recommendations"
