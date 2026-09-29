@@ -4594,6 +4594,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
 
+      // Keep only the server-selected media visible until Swiper can lay out the
+      // slides. Removing this class immediately before construction prevents a
+      // paint where the uninitialised slides are stacked vertically.
+      $gallery.removeClass('product-slider--initializing');
       swiper = new Swiper($swiperCont, swiperOpts);
       swiper.on('slideChange', function () {
         let activeIndex = swiper.realIndex; // Lấy index của slide hiện tại

@@ -6,7 +6,9 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign featured_media = current_variant.featured_media | default: product.featured_media
+  assign featured_media_aspect_ratio = featured_media.preview_image.aspect_ratio | default: 1
   assign media_columns_to_show = 1
+  assign gallery_layout = section.settings.media_style
   assign swatch_option_name_lowercase = settings.swatch_option_name | downcase
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
   assign show_app_blocks_in_quickbuy = false
@@ -24,6 +26,10 @@
     endif
   endif
 
+  if is_featured_product or section.settings.media_style == 'one-column'
+    assign gallery_layout = 'carousel'
+  endif
+
   assign has_buy_buttons = false
   for block in section.blocks
     if block.type == 'buy_buttons'
@@ -35,7 +41,7 @@
 {% style %}
   @media(max-width: 767px){
     .product-area__media .swiper-container:not(.swiper-container-horizontal) {
-      padding-bottom: {{ 1 | divided_by: product.media.first.aspect_ratio | times: 100 }}%;
+      padding-bottom: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;
       min-height: 300px; 
       position: relative;
       overflow: hidden;
@@ -47,6 +53,21 @@
       width: 100%;
       height: 100%;
     }
+  }
+
+  .product-slider--initializing .swiper-slide {
+    display: none !important;
+    width: 100% !important;
+  }
+
+  .product-slider--initializing .swiper-slide.current-img {
+    display: block !important;
+  }
+
+  .product-slider--initializing .swiper-button-prev,
+  .product-slider--initializing .swiper-button-next,
+  .product-slider--initializing .swiper-pagination {
+    visibility: hidden;
   }
 {% endstyle %}
 
@@ -92,7 +113,7 @@
                  data-media-thumb-id="{{ media.id }}"
                  data-slide-to="{{ media.position | minus: 1 }}">
               <a href="javascript:void(0);"
-                 {% if forloop.first %} class="thumb-active"{% endif %}
+                 {% if featured_media == media %} class="thumb-active"{% endif %}
                  aria-label="{{ media.alt | escape }}">
                   {% render 'responsive-image', image: media.preview_image %}
                   {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
@@ -116,7 +137,6 @@
     {%- endif -%}
 
     <div class="theme-gallery product-slider
-        <div class="theme-gallery product-slider
          {% if is_featured_product %}featured-product__gallery{% endif %}
          {% if product.media.size == 1 %}theme-gallery--loner{% endif %}
          {% if section.settings.enable_zoom %}theme-gallery--zoom-enabled cursor-{{ section.settings.zoom_cursor }}{% endif %}
@@ -125,14 +145,12 @@
             theme-gallery--thumbs-enabled
           {% endif %}
         {% endif %}
-
-         data-layout="{% if section.settings.media_style == 'one-column' %}carousel{% else %}{{ section.settings.media_style }}{% endif %}"
-    
+         {% if gallery_layout == 'carousel' %}product-slider--initializing{% endif %}"
          data-product-id="{{ product.id }}"
          data-column-count="{{ media_columns_to_show }}"
          data-media-count="{{ product.media.size }}"
          data-media-crop="{{ section.settings.media_crop }}"
-         data-layout="{%- if is_featured_product -%}carousel{%- else -%}{{ section.settings.media_style }}{%- endif -%}"
+         data-layout="{{ gallery_layout }}"
          data-scroll-to-variant-media="{{ section.settings.scroll_to_variant_media }}"
          data-variant-image-grouping="{{ section.settings.variant_media_grouping }}"
          data-variant-image-grouping-option={{ section.settings.variant_media_grouping_option | escape | downcase | default: "color,colour,couleur,farbe" | json }}
@@ -140,23 +158,31 @@
     >
       <div class="theme-viewport swiper-container swiper media-swiper-slide"
         data-swiper-nav-style="{{ section.settings.slide_nav_style }}"
-        data-layout="{% if section.settings.media_style == 'one-column' %}carousel{% else %}{{ section.settings.media_style }}{% endif %}">
+        data-layout="{{ gallery_layout }}">
         <div class="theme-images swiper-wrapper">
           {% if product != blank %}
             {% for media in product.media %}
+              {%- liquid
+                assign prevent_media_lazyload = false
+                if featured_media == media
+                  assign prevent_media_lazyload = true
+                elsif gallery_layout != 'carousel' and forloop.first
+                  assign prevent_media_lazyload = true
+                endif
+              -%}
               <div class="theme-img theme-img-{{ forloop.index }} swiper-slide {% if featured_media == media %}current-img{% endif %}"
                       {% if media.media_type == "image" %}
                         data-full-size="{{ media.preview_image | image_url: width: 3000 }}"
                       {% endif %}
               >
                 {%- if media_columns_to_show != 1 -%}
-                  {% render 'media', media: media, animation_type: 'cc-fade-in', prevent_lazyload: forloop.first %}
+                  {% render 'media', media: media, animation_type: 'cc-fade-in', prevent_lazyload: prevent_media_lazyload %}
                 {%- else -%}
                   {%- if is_featured_product -%}
                     {%- comment -%} animate_delay removed because it was unused {%- endcomment -%}
                     {% render 'media', media: media, animate: false, animation_type: "cc-fade-in-up" %}
                   {%- else -%}
-                    {% render 'media', media: media, prevent_lazyload: forloop.first %}
+                    {% render 'media', media: media, prevent_lazyload: prevent_media_lazyload %}
                   {%- endif -%}
                 {%- endif -%}
 
