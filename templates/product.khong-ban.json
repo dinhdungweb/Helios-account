@@ -30,7 +30,7 @@
           "type": "title",
           "settings": {
             "heading_h1": true,
-            "title_size_desktop": 32,
+            "title_size_desktop": 26,
             "title_size_mobile": 24
           }
         },
