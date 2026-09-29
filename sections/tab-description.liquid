@@ -19,7 +19,7 @@
   <div class="product-description-tabs__list" role="tablist" aria-label="Thông tin sản phẩm">
     <button
       id="{{ description_tab_id }}"
-      class="product-description-tabs__tab is-active"
+      class="product-description-tabs__tab is-active no-hover"
       type="button"
       role="tab"
       aria-selected="true"
@@ -37,7 +37,7 @@
     {%- if section.settings.show_reviews_tab -%}
       <button
         id="{{ reviews_tab_id }}"
-        class="product-description-tabs__tab"
+        class="product-description-tabs__tab no-hover"
         type="button"
         role="tab"
         aria-selected="false"
@@ -72,7 +72,7 @@
       </div>
 
       <button
-        class="product-description-tabs__toggle"
+        class="product-description-tabs__toggle no-hover"
         type="button"
         aria-expanded="false"
         aria-controls="{{ description_content_id }}"
@@ -207,6 +207,11 @@
     font: inherit;
     font-size: 1.2rem;
     cursor: pointer;
+  }
+
+  .product-description-tabs__toggle:hover {
+    background-color: transparent !important;
+    color: inherit;
   }
 
   .product-description-tabs.is-collapsible:not(.is-expanded) .product-description-tabs__toggle {
