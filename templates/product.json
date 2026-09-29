@@ -208,6 +208,14 @@
       "type": "tab-description",
       "settings": {}
     },
+    "custom_spacing_Bx9JEX": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 50,
+        "mobile_spacing": 30
+      }
+    },
     "background_video_jhNGKc": {
       "type": "background-video",
       "name": "Background video",
@@ -382,6 +390,7 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
+    "custom_spacing_Bx9JEX",
     "background_video_jhNGKc",
     "image_with_text_kUyLYN",
     "image_with_text_xAeKkA",
