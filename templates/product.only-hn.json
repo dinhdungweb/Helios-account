@@ -103,30 +103,6 @@
             "hide_swatches": false
           }
         },
-        "trust_icons_TyrExf": {
-          "type": "trust_icons",
-          "settings": {
-            "icon_size": 26,
-            "show_icon1": true,
-            "text1": "<p><a href=\"https://helios.vn/pages/chinh-sach-bao-hanh\" title=\"https://helios.vn/pages/chinh-sach-bao-hanh\">Miễn phí đánh sáng trọn đời</a></p>",
-            "icon1": "price_tag",
-            "show_icon2": true,
-            "text2": "<p><a href=\"https://helios.vn/pages/chinh-sach-doi-tra-san-pham\" title=\"https://helios.vn/pages/chinh-sach-doi-tra-san-pham\">Đổi sản phẩm trong vòng 7 ngày với đơn online</a></p>",
-            "icon2": "box",
-            "show_icon3": true,
-            "text3": "<p><a href=\"https://helios.vn/pages/giao-hang\" title=\"https://helios.vn/pages/giao-hang\">Freeship toàn quốc với đơn trên 500.000Đ</a></p>",
-            "icon3": "truck",
-            "show_icon4": false,
-            "text4": "<p>Trust label</p>",
-            "icon4": "check_mark"
-          }
-        },
-        "richtext_3YiAcR": {
-          "type": "richtext",
-          "settings": {
-            "text": "{{ product.metafields.custom.short_description | metafield_tag }}"
-          }
-        },
         "text_HiAnXA": {
           "type": "text",
           "disabled": true,
@@ -141,6 +117,16 @@
             "icon": "none",
             "title": "Thông tin thêm",
             "content": "<p>Đối với các kích cỡ ngoại size, chúng tôi cần một thời gian để nghiên cứu, căn chỉnh để đảm bảo chất lượng đầu ra của sản phẩm. Do đó, thời gian pre-order có thể lên tới 12 - 14 ngày!</p>",
+            "page": "",
+            "open": false
+          }
+        },
+        "accordion_dpr9hw": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Chính sách mua hàng",
+            "content": "<p>- Miễn phí đánh sáng trọn đời</p><p>- Đổi sản phẩm trong vòng 7 ngày với đơn online</p><p>- Freeship toàn quốc với đơn trên 500.000Đ</p><p><em>Lưu ý:&nbsp;</em></p><p>Đối với các kích cỡ ngoại size, chúng tôi cần một thời gian để nghiên cứu, căn chỉnh để đảm bảo chất lượng đầu ra của sản phẩm. Do đó, thời gian pre-order có thể lên tới 12 - 14 ngày</p>",
             "page": "",
             "open": false
           }
@@ -177,10 +163,9 @@
         "custom_liquid_beCgGM",
         "buy_buttons",
         "complementary_pwBz8L",
-        "trust_icons_TyrExf",
-        "richtext_3YiAcR",
         "text_HiAnXA",
         "accordion_9czNHQ",
+        "accordion_dpr9hw",
         "accordion_RN6Adz",
         "accordion_WnzprC"
       ],
@@ -206,7 +191,16 @@
     },
     "tab_description_Mct6Bb": {
       "type": "tab-description",
-      "settings": {}
+      "settings": {
+        "description_tab_label": "Mô tả sản phẩm",
+        "show_reviews_tab": true,
+        "reviews_tab_label": "Đánh giá",
+        "show_review_count": true,
+        "expand_label": "Xem thêm",
+        "collapse_label": "Thu gọn",
+        "collapsed_height": 350,
+        "fade_color": "#000000"
+      }
     },
     "rich_text_8yjx4N": {
       "type": "rich-text",
