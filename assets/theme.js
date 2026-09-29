@@ -4158,8 +4158,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function initThumbnails() {
       $('.carousel-wrapper .carousel:not(.slick-initialized)', $productThumbnails).each(function ($slick) {
         $(this).on('init reInit setPosition', function () {
-          $(this).closest('.product-area__thumbs').removeClass('product-thumbnails--initializing');
-
           var lastSlide = $(this).find('.slick-slide:last');
           if (lastSlide.length > 0) {
             var slideInnerWidth = lastSlide.position().left + lastSlide.outerWidth(true);
@@ -4235,11 +4233,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (theme.viewport.isSm()) {
         _this.adjustGalleryMargin = () => {
-          $gallery.css('margin-top', `-${$productThumbnails.outerHeight()}px`);
+          var thumbnailHeight = $productThumbnails.outerHeight();
+          $gallery.css('margin-top', `-${thumbnailHeight}px`);
+          $productThumbnails.removeClass('product-thumbnails--initializing');
         };
         _this.adjustGalleryMargin();
         $(window).on('resize.thumbHeight', _this.adjustGalleryMargin);
         $(window).on('debouncedresizewidth.thumbHeight', _this.adjustGalleryMargin);
+      } else {
+        $productThumbnails.removeClass('product-thumbnails--initializing');
       }
     }
 
