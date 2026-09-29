@@ -70,6 +70,23 @@
     visibility: hidden;
   }
 
+  @media (min-width: 768px) {
+    /* Keep the thumbnail rail out of the document flow until Slick is ready. */
+    .product-area__media > .product-thumbnails--initializing {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      margin-left: 0 !important;
+    }
+  }
+
+  @media (min-width: 1130px) {
+    .product-area.product-area--restrict-width.product-area--one-col
+      .product-area__media > .product-thumbnails--initializing {
+      left: 19px !important;
+    }
+  }
+
   @media (max-width: 767px) {
     /* Keep thumbnails in their final horizontal shape before Slick starts. */
     .product-area__thumbs .carousel:not(.slick-initialized) {
@@ -122,7 +139,7 @@
        data-cc-animate data-cc-animate-duration="1s">
 
     {%- if section.settings.show_thumbnails and product.media.size > 1 and section.settings.media_style == "one-column" or section.settings.media_style == "carousel" -%}
-      <div class="product-area__thumbs" data-cc-animate>
+      <div class="product-area__thumbs product-thumbnails--initializing" data-cc-animate>
         <div class="carousel-wrapper">
           <div class="carousel">
             {% for media in product.media %}

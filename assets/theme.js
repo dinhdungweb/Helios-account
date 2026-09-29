@@ -4158,6 +4158,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function initThumbnails() {
       $('.carousel-wrapper .carousel:not(.slick-initialized)', $productThumbnails).each(function ($slick) {
         $(this).on('init reInit setPosition', function () {
+          $(this).closest('.product-area__thumbs').removeClass('product-thumbnails--initializing');
+
           var lastSlide = $(this).find('.slick-slide:last');
           if (lastSlide.length > 0) {
             var slideInnerWidth = lastSlide.position().left + lastSlide.outerWidth(true);
@@ -4231,7 +4233,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      if (theme.viewport.isMd()) {
+      if (theme.viewport.isSm()) {
         _this.adjustGalleryMargin = () => {
           $gallery.css('margin-top', `-${$productThumbnails.outerHeight()}px`);
         };
