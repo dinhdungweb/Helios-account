@@ -69,6 +69,23 @@
   .product-slider--initializing .swiper-pagination {
     visibility: hidden;
   }
+
+  @media (max-width: 767px) {
+    /* Keep thumbnails in their final horizontal shape before Slick starts. */
+    .product-area__thumbs .carousel:not(.slick-initialized) {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      height: 72px;
+      overflow: hidden;
+    }
+
+    .product-area__thumbs .carousel:not(.slick-initialized) .product-area__thumbs__thumb {
+      flex: 0 0 auto;
+      width: auto;
+      height: 70px;
+    }
+  }
 {% endstyle %}
 
 <div class="product-area

@@ -4241,27 +4241,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    function reinitThumbnailsForMobile() {
-      // Hủy slider nếu đã được khởi tạo
-      if ($('.slick-slider', $productThumbnails).hasClass('slick-initialized')) {
-        $('.slick-slider', $productThumbnails).slick('unslick');
-      }
-      // Khởi tạo lại slider với cấu hình mới
-      initThumbnails();
-    }
-
-    // sử dụng sự kiện resize
-    $(window).on('debouncedresize.thumbHeight', function () {
-      // Kiểm tra nếu đang ở chế độ mobile
-      if (theme.viewport.isXs() || theme.viewport.isSm()) {
-        reinitThumbnailsForMobile();
-      }
-    });
-
-
     function destroyThumbnails() {
       $('.carousel-wrapper .carousel', $productThumbnails).off('init reInit setPosition');
-      $('.slick-slider', $productThumbnails).slick('unslick');
+      $('.slick-slider.slick-initialized', $productThumbnails).slick('unslick');
       $(window).off('resize.thumbHeight');
       $(window).off('debouncedresizewidth.thumbHeight');
     }
@@ -4739,9 +4721,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if ($productThumbnails.length) {
-        if (theme.viewport.isMd()) {
-          initThumbnails();
-        }
+        initThumbnails();
       }
     });
   };
