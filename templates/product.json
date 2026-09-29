@@ -30,7 +30,7 @@
           "type": "title",
           "settings": {
             "heading_h1": true,
-            "title_size_desktop": 32,
+            "title_size_desktop": 28,
             "title_size_mobile": 24
           }
         },
@@ -206,7 +206,16 @@
     },
     "tab_description_Mct6Bb": {
       "type": "tab-description",
-      "settings": {}
+      "settings": {
+        "description_tab_label": "Mô tả sản phẩm",
+        "show_reviews_tab": true,
+        "reviews_tab_label": "Đánh giá",
+        "show_review_count": true,
+        "expand_label": "Xem thêm",
+        "collapse_label": "Thu gọn",
+        "collapsed_height": 350,
+        "fade_color": "#000000"
+      }
     },
     "custom_spacing_Bx9JEX": {
       "type": "custom-spacing",
