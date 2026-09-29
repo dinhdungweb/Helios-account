@@ -228,7 +228,7 @@
         "button_link": "",
         "overlay_position": "position--hcenter position--vcenter",
         "height": "fixed",
-        "height_desktop": 640,
+        "height_desktop": 600,
         "height_mobile": 500,
         "full_width": true,
         "overlay_style_tint": true
