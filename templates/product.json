@@ -212,8 +212,8 @@
       "type": "custom-spacing",
       "name": "Custom spacing",
       "settings": {
-        "desktop_spacing": 50,
-        "mobile_spacing": 30
+        "desktop_spacing": 60,
+        "mobile_spacing": 35
       }
     },
     "background_video_jhNGKc": {
@@ -233,7 +233,7 @@
         "button_link": "",
         "overlay_position": "position--hcenter position--vcenter",
         "height": "fixed",
-        "height_desktop": 600,
+        "height_desktop": 700,
         "height_mobile": 500,
         "full_width": true,
         "overlay_style_tint": true
