@@ -234,6 +234,9 @@
       "block_order": [
         "judge_me_reviews_review_widget_tkmTbn"
       ],
+      "custom_css": [
+        ".section-spacing {padding-top: 40px; padding-bottom: 0px;}"
+      ],
       "settings": {
         "skip_container": true
       }
