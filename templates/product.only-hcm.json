@@ -103,8 +103,8 @@
           "type": "accordion",
           "settings": {
             "icon": "none",
-            "title": "Thông tin thêm",
-            "content": "{{ product.metafields.custom.short_description | metafield_tag }}",
+            "title": "Thông tin chi tiết",
+            "content": "{{ product.metafields.custom.short_description | metafield_tag }}{{ product.description }}",
             "page": "",
             "open": false
           }
@@ -178,6 +178,7 @@
     },
     "tab_description_Mct6Bb": {
       "type": "tab-description",
+      "disabled": true,
       "settings": {
         "description_tab_label": "Mô tả sản phẩm",
         "show_reviews_tab": true,
@@ -187,6 +188,30 @@
         "collapse_label": "Thu gọn",
         "collapsed_height": 350,
         "fade_color": "#000000"
+      }
+    },
+    "179076357929d17fc9": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_nFHwrX": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_nFHwrX"
+      ],
+      "custom_css": [
+        ".section-spacing {padding-top: 10px; padding-bottom: 0px;}",
+        ".jdgm-review-widget--small .jdgm-rev-widg,.jdgm-review-widget--medium .jdgm-rev-widg {padding: 16px 10px;}"
+      ],
+      "settings": {
+        "skip_container": true
       }
     },
     "rich_text_KBHHh9": {
@@ -660,6 +685,7 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
+    "179076357929d17fc9",
     "rich_text_KBHHh9",
     "rich_text_ECre7U",
     "grid_image_QWbchx",
