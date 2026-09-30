@@ -129,7 +129,7 @@
           "type": "accordion",
           "settings": {
             "icon": "none",
-            "title": "Thông tin thêm",
+            "title": "Thông tin chi tiết",
             "content": "{{ product.metafields.custom.short_description | metafield_tag }}{{ product.description }}",
             "page": "",
             "open": false
