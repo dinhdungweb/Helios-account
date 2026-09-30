@@ -130,7 +130,7 @@
           "settings": {
             "icon": "none",
             "title": "Thông tin thêm",
-            "content": "{{ product.metafields.custom.short_description | metafield_tag }}",
+            "content": "{{ product.metafields.custom.short_description | metafield_tag }}{{ product.description }}",
             "page": "",
             "open": false
           }
@@ -206,6 +206,7 @@
     },
     "tab_description_Mct6Bb": {
       "type": "tab-description",
+      "disabled": true,
       "settings": {
         "description_tab_label": "Mô tả sản phẩm",
         "show_reviews_tab": true,
