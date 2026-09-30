@@ -1181,7 +1181,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".product-area .product-detail-accordion {margin-top: 0;}"
+      ".product-area .product-detail-accordion {margin-top: 0;}",
+      "shopify-section-template--22853201559773__17907591362a40ee49 .container {max-width: 1400px !important; width: 100% !important;}"
     ]
   }
 }
