@@ -235,7 +235,7 @@
         "judge_me_reviews_review_widget_tkmTbn"
       ],
       "custom_css": [
-        ".section-spacing {padding-top: 20px; padding-bottom: 0px;}"
+        ".section-spacing {padding-top: 0px; padding-bottom: 0px;}"
       ],
       "settings": {
         "skip_container": true
