@@ -235,7 +235,8 @@
         "judge_me_reviews_review_widget_tkmTbn"
       ],
       "custom_css": [
-        ".section-spacing {padding-top: 10px; padding-bottom: 0px;}"
+        ".section-spacing {padding-top: 10px; padding-bottom: 0px;}",
+        ".jdgm-review-widget--small .jdgm-rev-widg, .jdgm-review-widget--medium .jdgm-rev-widg {padding: 16px 10px;}"
       ],
       "settings": {
         "skip_container": true
