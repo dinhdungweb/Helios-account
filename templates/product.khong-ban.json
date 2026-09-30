@@ -116,8 +116,8 @@
           "type": "accordion",
           "settings": {
             "icon": "none",
-            "title": "Thông tin thêm",
-            "content": "<p>Đối với các kích cỡ ngoại size, chúng tôi cần một thời gian để nghiên cứu, căn chỉnh để đảm bảo chất lượng đầu ra của sản phẩm. Do đó, thời gian pre-order có thể lên tới 12 - 14 ngày!</p>",
+            "title": "Thông tin chi tiết",
+            "content": "{{ product.metafields.custom.short_description | metafield_tag }}{{ product.description }}",
             "page": "",
             "open": false
           }
@@ -192,6 +192,7 @@
     },
     "tab_description_Mct6Bb": {
       "type": "tab-description",
+      "disabled": true,
       "settings": {
         "description_tab_label": "Mô tả sản phẩm",
         "show_reviews_tab": true,
@@ -201,6 +202,26 @@
         "collapse_label": "Thu gọn",
         "collapsed_height": 350,
         "fade_color": "#000000"
+      }
+    },
+    "1790763274a3c41106": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_XYHbER": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_XYHbER"
+      ],
+      "settings": {
+        "skip_container": false
       }
     },
     "custom_spacing_Cm6aKp": {
@@ -336,6 +357,7 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
+    "1790763274a3c41106",
     "custom_spacing_Cm6aKp",
     "background_video_cxdPnB",
     "product_feedback_gallery_XyZ123",
