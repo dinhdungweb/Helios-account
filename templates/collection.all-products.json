@@ -55,8 +55,8 @@
         "text_alignment": "left",
         "desktop_video_url": "",
         "mobile_video_url": "",
-        "desktop_image_url": "shopify://shop_images/Resize_Sainte_croix_Banner_web_2x3_cd4cf16e-9b78-41cf-b3e0-0f143562c556.jpg",
-        "mobile_image_url": "shopify://shop_images/Resize_Sainte_croix_Banner_web_2x3_cd4cf16e-9b78-41cf-b3e0-0f143562c556.jpg",
+        "desktop_image_url": "shopify://shop_images/NH_1_optimized.webp",
+        "mobile_image_url": "shopify://shop_images/NH_1_optimized.webp",
         "heading": "ALL PRODUCTS",
         "paragraph": "Mọi sản phẩm bạn đang tìm kiếm đều ở đây. Nếu bạn gặp khó khăn, chúng tôi có vài gợi ý",
         "padding-bottom": 16
@@ -109,11 +109,11 @@
           "settings": {
             "position_in_grid": 7,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/Resize_pusi_Banner_web_2x3_9f663dd8-23ad-4977-ba19-0a3445b7b804.jpg",
-            "mobile_image": "shopify://shop_images/Resize_pusi_Banner_web_1x1_bfa9a4db-0cc2-4f55-9601-75b57d0cbc46.jpg",
+            "image": "shopify://shop_images/NH_2_optimized.webp",
+            "mobile_image": "shopify://shop_images/NH_2.jpg",
             "heading": "",
             "content": "",
-            "link_url": "shopify://products/pusi-helios-silver"
+            "link_url": "shopify://products/rhodes-origin-ring-helios-silver"
           }
         },
         "promotion_image_egT8fp": {
@@ -121,11 +121,11 @@
           "settings": {
             "position_in_grid": 15,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/z7211707034893_1a56a4ee44e3bf183ad8e9f596b2ac1a.jpg",
-            "mobile_image": "shopify://shop_images/z7211707034893_1a56a4ee44e3bf183ad8e9f596b2ac1a_ed15616a-ef31-430a-a488-bfcf41a0ec45.jpg",
+            "image": "shopify://shop_images/nh_3_optimized.webp",
+            "mobile_image": "shopify://shop_images/nh_3_07e6e6ee-6ad9-4221-aecb-5c3f3cdc34da.jpg",
             "heading": "Khẳng định bản lĩnh vững vàng",
             "content": "",
-            "link_url": "shopify://collections/men-armor"
+            "link_url": "shopify://products/kinh-hawaii-helios"
           }
         },
         "promotion_image_8A8P8K": {
@@ -133,11 +133,11 @@
           "settings": {
             "position_in_grid": 31,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/z7048815292340_0954504efa928d871dd28d6d29487666.jpg",
-            "mobile_image": "shopify://shop_images/Up_bai_1900_x_900_px_1080_x_1350_px_22.jpg",
-            "heading": "Những item phù hợp nhất cho mùa hè 2026",
+            "image": "shopify://shop_images/nh_4_optimized.webp",
+            "mobile_image": "shopify://shop_images/nh_4_281019f3-4ba7-4a63-8937-da9b54b491f9.jpg",
+            "heading": "",
             "content": "",
-            "link_url": "shopify://collections/goi-y-cho-mua-thu"
+            "link_url": "shopify://collections/nguoi-moi-nen-chon"
           }
         }
       },
