@@ -236,7 +236,7 @@
       ],
       "custom_css": [
         ".section-spacing {padding-top: 10px; padding-bottom: 0px;}",
-        ".jdgm-review-widget--small .jdgm-rev-widg, .jdgm-review-widget--medium .jdgm-rev-widg {padding: 16px 10px;}"
+        ".jdgm-review-widget--small .jdgm-rev-widg,.jdgm-review-widget--medium .jdgm-rev-widg {padding: 16px 10px;}"
       ],
       "settings": {
         "skip_container": true
