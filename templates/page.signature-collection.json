@@ -281,7 +281,7 @@
         "slides_per_view_mobile": "1",
         "show_arrows": true,
         "show_dots": false,
-        "carousel_autoplay": false,
+        "carousel_autoplay": true,
         "carousel_autoplay_speed": 5,
         "carousel_transition_duration": 700,
         "controls_position": "right",
