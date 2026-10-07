@@ -482,6 +482,157 @@
         "padding_bottom_mobile": 24,
         "side_padding_mobile": 10
       }
+    },
+    "rich_text_xrF4ek": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "ĐIỀU GÌ LÀM NÊN MỘT BIỂU TƯỢNG?",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>Lotus, Sunflower hay Chrysaber không chỉ là hình thái, mà đại diện cho những cách khác nhau để nhìn về sức mạnh, bản sắc và sự trưởng thành.Một biểu tượng chỉ thực sự trở thành signature khi nó không còn chỉ thuộc về người tạo ra nó — mà bắt đầu mang câu chuyện của chính người đeo.</p><p><strong>ĐÂU LÀ SIGNATURE CỦA BẠN?&nbsp;</strong></p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "slideshow_E9aT3W": {
+      "type": "slideshow",
+      "blocks": {
+        "image_RJixNr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/P1020907_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_zRGGRP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_7894.JPG_compressed_1__optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_mGh4c8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC00463.JPG_compressed_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_qinFLK": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC06362-1.jpg_compressed_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_ezrRNn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/z8227832933520_feed0d4817d77d647bbca7f8139f3894.jpg_compressed_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_FtmFM3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG_7908.JPG_compressed_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_RJixNr",
+        "image_zRGGRP",
+        "image_mGh4c8",
+        "image_qinFLK",
+        "image_ezrRNn",
+        "image_FtmFM3"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": false,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
     }
   },
   "order": [
@@ -489,6 +640,8 @@
     "rich_text_7NcJMf",
     "multi_media_with_text_C7GhKk",
     "multi_media_with_text_knebdg",
-    "multi_media_with_text_LnqhjJ"
+    "multi_media_with_text_LnqhjJ",
+    "rich_text_xrF4ek",
+    "slideshow_E9aT3W"
   ]
 }
