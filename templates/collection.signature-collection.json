@@ -9,11 +9,34 @@
  */
 {
   "sections": {
+    "rich_text_CRKPe3": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "SIGNATURE COLLECTION",
+        "title_size": 26,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p>Ba bộ sưu tập biểu tượng của HELIOS — Lotus, Sunflower và Chrysaber — nơi những hình tượng quen thuộc được tái hiện qua ngôn ngữ thiết kế riêng của thương hiệu. Từ hoa sen, hướng dương đến hoa cúc và thanh kiếm, mỗi biểu tượng mang một câu chuyện khác nhau nhưng cùng gặp nhau ở tinh thần đối lập: vẻ đẹp và sức mạnh, mềm mại và gai góc, ánh sáng và bóng tối.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "main": {
       "type": "main-collection",
       "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
+        "show_collection_content": false,
+        "show_collection_image": false,
         "description_position": "top",
         "layout": "rows",
         "grid": 4,
@@ -36,6 +59,7 @@
     }
   },
   "order": [
+    "rich_text_CRKPe3",
     "main"
   ]
 }
