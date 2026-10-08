@@ -1,4 +1,4 @@
-{% comment %}Multi media with text v1.1.1{% endcomment %}
+{% comment %}Multi media with text v1.2.0{% endcomment %}
 {%- liquid
   assign media_count = section.blocks.size
   assign is_carousel = false
@@ -50,7 +50,7 @@
 
 <section
   id="MultiMediaText-{{ section.id }}"
-  class="mmt mmt--media-{{ section.settings.media_position }}"
+  class="mmt mmt--media-{{ section.settings.media_position }} mmt--mobile-media-{{ section.settings.mobile_media_position }}"
   data-mmt-section
   data-autoplay="{{ section.settings.carousel_autoplay }}"
   data-autoplay-speed="{{ section.settings.carousel_autoplay_speed | times: 1000 }}"
@@ -684,18 +684,25 @@
       gap: var(--mmt-content-gap-mobile);
     }
 
-    #MultiMediaText-{{ section.id }} .mmt__text,
-    #MultiMediaText-{{ section.id }}.mmt--media-left .mmt__text,
-    #MultiMediaText-{{ section.id }}.mmt--media-right .mmt__text {
+    #MultiMediaText-{{ section.id }}.mmt--mobile-media-bottom .mmt__text {
       order: 1;
       flex: 0 0 auto;
       width: 100%;
     }
 
-    #MultiMediaText-{{ section.id }} .mmt__media,
-    #MultiMediaText-{{ section.id }}.mmt--media-left .mmt__media,
-    #MultiMediaText-{{ section.id }}.mmt--media-right .mmt__media {
+    #MultiMediaText-{{ section.id }}.mmt--mobile-media-bottom .mmt__media {
       order: 2;
+      width: 100%;
+    }
+
+    #MultiMediaText-{{ section.id }}.mmt--mobile-media-top .mmt__media {
+      order: 1;
+      width: 100%;
+    }
+
+    #MultiMediaText-{{ section.id }}.mmt--mobile-media-top .mmt__text {
+      order: 2;
+      flex: 0 0 auto;
       width: 100%;
     }
 
@@ -1104,6 +1111,16 @@
       "options": [
         { "value": "left", "label": "Media bên trái" },
         { "value": "right", "label": "Media bên phải" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_media_position",
+      "label": "Vị trí media trên mobile",
+      "default": "bottom",
+      "options": [
+        { "value": "top", "label": "Media trên phần chữ" },
+        { "value": "bottom", "label": "Media dưới phần chữ" }
       ]
     },
     {
