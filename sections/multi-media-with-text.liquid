@@ -1,4 +1,4 @@
-{% comment %}Multi media with text v1.2.0{% endcomment %}
+{% comment %}Multi media with text v1.2.1{% endcomment %}
 {%- liquid
   assign media_count = section.blocks.size
   assign is_carousel = false
@@ -366,6 +366,7 @@
     color: var(--mmt-text);
     font-size: var(--mmt-body-size);
     line-height: {{ section.settings.body_line_height | divided_by: 100.0 }};
+    text-align: {{ section.settings.text_alignment }};
   }
 
   #MultiMediaText-{{ section.id }} .mmt__body {
