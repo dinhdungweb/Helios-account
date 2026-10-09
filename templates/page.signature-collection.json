@@ -516,9 +516,10 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
+            "image": "shopify://shop_images/nut_drop-3_1_1.png",
             "image_width": 700,
-            "title": "Column",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "title": "Lotus",
+            "text": "<p>Giữ mình giữa những điều hỗn loạn</p>",
             "button_label": "",
             "link": ""
           }
@@ -527,9 +528,10 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
+            "image": "shopify://shop_images/sunflower_2_1.png",
             "image_width": 700,
-            "title": "Column",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "title": "Sunflower",
+            "text": "<p>Giữ hướng về phía ánh sáng</p>",
             "button_label": "",
             "link": ""
           }
@@ -538,9 +540,10 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
+            "image": "shopify://shop_images/kiem_chrys_1.png",
             "image_width": 700,
-            "title": "Column",
-            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "title": "Chrysaber",
+            "text": "<p>Cân bằng, sức mạnh có kiểm soát</p>",
             "button_label": "",
             "link": ""
           }
@@ -554,7 +557,7 @@
       "name": "Text columns with media",
       "settings": {
         "title": "",
-        "text_alignment": "left",
+        "text_alignment": "center",
         "button_style": "primary",
         "media_shape": "natural",
         "alternate_bg_color": false,
