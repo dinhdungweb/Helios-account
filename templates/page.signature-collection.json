@@ -44,7 +44,7 @@
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC03779.jpg_compressed_optimized.webp",
+            "image": "shopify://shop_images/DSC9809_optimized_2.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -56,7 +56,7 @@
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC03754.jpg_compressed_optimized.webp",
+            "image": "shopify://shop_images/DSC03754_optimized_2.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -68,7 +68,7 @@
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC06088.JPG_compressed_1__optimized.webp",
+            "image": "shopify://shop_images/DSC01495_optimized_2.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -80,7 +80,7 @@
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC03720.jpg_compressed_optimized.webp",
+            "image": "shopify://shop_images/DSC01345.JPG_compressed_optimized_2.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -92,7 +92,19 @@
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC04087.jpg_compressed_optimized.webp",
+            "image": "shopify://shop_images/DSC04629.JPG_compressed_optimized.webp",
+            "poster_time": 1,
+            "alt_text": "",
+            "link": "",
+            "link_label": "",
+            "new_tab": false
+          }
+        },
+        "media_AzYGat": {
+          "type": "media",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/DSC01308.JPG_compressed_optimized_2.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -106,7 +118,8 @@
         "media_MychnH",
         "media_px9tVt",
         "media_h3t84g",
-        "media_RHzKMd"
+        "media_RHzKMd",
+        "media_AzYGat"
       ],
       "name": "Multi media with text",
       "settings": {
@@ -491,7 +504,7 @@
       "name": "Rich text",
       "settings": {
         "subheading": "",
-        "title": "HELIOS KHÔNG LÀM PHỤ KIỆN<br>HELIOS LÀM DẤU ẤN CỦA BẢN LĨNH",
+        "title": "helios không làm phụ kiệnHELIOS LÀM DẤU ẤN CỦA BẢN LĨNH",
         "title_size": 26,
         "title_width": 40,
         "heading_h1": false,
@@ -516,10 +529,9 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/nut_drop-3_1_1.png",
             "image_width": 700,
-            "title": "Lotus",
-            "text": "<p>Giữ mình giữa những điều hỗn loạn</p>",
+            "title": "Column",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
             "button_label": "",
             "link": ""
           }
@@ -528,10 +540,9 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/sunflower_2_1.png",
             "image_width": 700,
-            "title": "Sunflower",
-            "text": "<p>Giữ hướng về phía ánh sáng</p>",
+            "title": "Column",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
             "button_label": "",
             "link": ""
           }
@@ -540,10 +551,9 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/kiem_chrys_1.png",
             "image_width": 700,
-            "title": "Chrysaber",
-            "text": "<p>Cân bằng, sức mạnh có kiểm soát</p>",
+            "title": "Column",
+            "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
             "button_label": "",
             "link": ""
           }
@@ -555,12 +565,12 @@
         "text_block_K8n94C"
       ],
       "custom_css": [
-        ".section-spacing {padding-top: 20px; padding-bottom: 50px;}"
+        ".section-spacing {padding-top: 20px; padding-bottom: 60px;}"
       ],
       "name": "Text columns with media",
       "settings": {
         "title": "",
-        "text_alignment": "center",
+        "text_alignment": "left",
         "button_style": "primary",
         "media_shape": "natural",
         "alternate_bg_color": false,
@@ -606,7 +616,6 @@
         },
         "image_mGh4c8": {
           "type": "image",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/DSC00463.JPG_compressed_optimized.webp",
             "slide_link": "",
@@ -641,7 +650,6 @@
         },
         "image_ezrRNn": {
           "type": "image",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/z8227832933520_feed0d4817d77d647bbca7f8139f3894.jpg_compressed_optimized.webp",
             "slide_link": "",
