@@ -606,6 +606,7 @@
         },
         "image_mGh4c8": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/DSC00463.JPG_compressed_optimized.webp",
             "slide_link": "",
@@ -640,6 +641,7 @@
         },
         "image_ezrRNn": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/z8227832933520_feed0d4817d77d647bbca7f8139f3894.jpg_compressed_optimized.webp",
             "slide_link": "",
