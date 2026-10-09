@@ -554,6 +554,9 @@
         "text_block_qdfnKF",
         "text_block_K8n94C"
       ],
+      "custom_css": [
+        ".section-spacing {padding-top: 20px; padding-bottom: 50px;}"
+      ],
       "name": "Text columns with media",
       "settings": {
         "title": "",
