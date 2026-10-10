@@ -534,7 +534,7 @@
             "title": "Lotus",
             "text": "<p>Giữ mình giữa những điều hỗn loạn</p>",
             "button_label": "",
-            "link": ""
+            "link": "shopify://collections/lotus"
           }
         },
         "text_block_qdfnKF": {
@@ -546,7 +546,7 @@
             "title": "Sunflower",
             "text": "<p>Giữ hướng về phía ánh sáng</p>",
             "button_label": "",
-            "link": ""
+            "link": "shopify://collections/sunflower"
           }
         },
         "text_block_K8n94C": {
@@ -556,9 +556,9 @@
             "image": "shopify://shop_images/kiem_chrys_1.png",
             "image_width": 700,
             "title": "Chrysaber",
-            "text": "<p><br/>Cân bằng, sức mạnh có kiểm soát<br/><br/></p>",
+            "text": "<p>Cân bằng, sức mạnh có kiểm soát</p>",
             "button_label": "",
-            "link": ""
+            "link": "shopify://collections/chrysaber-collection"
           }
         }
       },
