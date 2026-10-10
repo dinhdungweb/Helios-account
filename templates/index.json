@@ -37,6 +37,24 @@
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
+        "image_KarRwm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner_copy2.jpg",
+            "mobile_image": "shopify://shop_images/banner_copy.jpg",
+            "slide_link": "shopify://collections/all-products",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_nNNj6R": {
           "type": "image",
           "settings": {
@@ -89,24 +107,6 @@
             "enlarge_text": true,
             "button_label": "",
             "overlay_position": "position--hcenter position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        },
-        "image_KarRwm": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/2aoboqxanxjosxjbpilnbhfkmdebz0d9jjvdfh0k9.jpg",
-            "mobile_image": "shopify://shop_images/nh_bia_4x5_1.jpg",
-            "slide_link": "shopify://collections/all-products",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
@@ -169,10 +169,10 @@
         }
       },
       "block_order": [
+        "image_KarRwm",
         "image_nNNj6R",
         "image_HkUphA",
         "image_qbHR3Y",
-        "image_KarRwm",
         "image_3Aawga",
         "image_nw333M",
         "image_hgGRLc"
