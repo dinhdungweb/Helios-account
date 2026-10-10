@@ -42,7 +42,7 @@
           "settings": {
             "image": "shopify://shop_images/banner_copy2.jpg",
             "mobile_image": "shopify://shop_images/banner_copy.jpg",
-            "slide_link": "shopify://collections/all-products",
+            "slide_link": "shopify://pages/helios-signature-collections",
             "subheading": "",
             "title": "",
             "title_size": 60,
