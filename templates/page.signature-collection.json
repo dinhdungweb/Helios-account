@@ -40,11 +40,11 @@
     "multi_media_with_text_C7GhKk": {
       "type": "multi-media-with-text",
       "blocks": {
-        "media_Ryyah8": {
+        "media_MychnH": {
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC9809_optimized_2.webp",
+            "image": "shopify://shop_images/DSC07078.JPG_compressed_1__optimized.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -52,11 +52,11 @@
             "new_tab": false
           }
         },
-        "media_MychnH": {
+        "media_Ryyah8": {
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC03754_optimized_2.webp",
+            "image": "shopify://shop_images/DSC09271.JPG_compressed_optimized.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -68,43 +68,7 @@
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC01495_optimized_2.webp",
-            "poster_time": 1,
-            "alt_text": "",
-            "link": "",
-            "link_label": "",
-            "new_tab": false
-          }
-        },
-        "media_h3t84g": {
-          "type": "media",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/DSC01345.JPG_compressed_optimized_2.webp",
-            "poster_time": 1,
-            "alt_text": "",
-            "link": "",
-            "link_label": "",
-            "new_tab": false
-          }
-        },
-        "media_RHzKMd": {
-          "type": "media",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/DSC04629.JPG_compressed_optimized.webp",
-            "poster_time": 1,
-            "alt_text": "",
-            "link": "",
-            "link_label": "",
-            "new_tab": false
-          }
-        },
-        "media_AzYGat": {
-          "type": "media",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/DSC01308.JPG_compressed_optimized_2.webp",
+            "image": "shopify://shop_images/2025-08-04_12-02-19_C_S4_.jpg_compressed_optimized.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -114,12 +78,9 @@
         }
       },
       "block_order": [
-        "media_Ryyah8",
         "media_MychnH",
-        "media_px9tVt",
-        "media_h3t84g",
-        "media_RHzKMd",
-        "media_AzYGat"
+        "media_Ryyah8",
+        "media_px9tVt"
       ],
       "name": "Multi media with text",
       "settings": {
