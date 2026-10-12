@@ -296,11 +296,11 @@
     "multi_media_with_text_LnqhjJ": {
       "type": "multi-media-with-text",
       "blocks": {
-        "media_V8PxGA": {
+        "media_JkDTte": {
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/P1020839_optimized.webp",
+            "image": "shopify://shop_images/P1020907_optimized.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -308,11 +308,11 @@
             "new_tab": false
           }
         },
-        "media_JkDTte": {
+        "media_V8PxGA": {
           "type": "media",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/DSC03515_optimized.webp",
+            "image": "shopify://shop_images/P1020839_optimized.webp",
             "poster_time": 1,
             "alt_text": "",
             "link": "",
@@ -331,38 +331,12 @@
             "link_label": "",
             "new_tab": false
           }
-        },
-        "media_mTjiQw": {
-          "type": "media",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/P1020800_optimized.webp",
-            "poster_time": 1,
-            "alt_text": "",
-            "link": "",
-            "link_label": "",
-            "new_tab": false
-          }
-        },
-        "media_9dKJNB": {
-          "type": "media",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/DSC03337_optimized.webp",
-            "poster_time": 1,
-            "alt_text": "",
-            "link": "",
-            "link_label": "",
-            "new_tab": false
-          }
         }
       },
       "block_order": [
-        "media_V8PxGA",
         "media_JkDTte",
-        "media_w7BGVb",
-        "media_mTjiQw",
-        "media_9dKJNB"
+        "media_V8PxGA",
+        "media_w7BGVb"
       ],
       "name": "Multi media with text",
       "settings": {
