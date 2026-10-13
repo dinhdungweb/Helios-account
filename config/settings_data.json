@@ -464,6 +464,11 @@
         "type": "shopify://apps/microsoft-clarity/blocks/brandAgents_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
         "disabled": false,
         "settings": {}
+      },
+      "1536251165049345536": {
+        "type": "shopify://apps/bp-linked-product-variants/blocks/app-card-injector/019c2ccf-d77b-791c-90ab-910f5942c557",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
