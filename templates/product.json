@@ -64,6 +64,10 @@
             "size_chart_page_accessories": "huong-dan-do-size-ao"
           }
         },
+        "bp_linked_product_variants_linked_products_ncKb7L": {
+          "type": "shopify://apps/bp-linked-product-variants/blocks/linked-products/019c2ccf-d77b-791c-90ab-910f5942c557",
+          "settings": {}
+        },
         "custom_liquid_beCgGM": {
           "type": "custom_liquid",
           "disabled": true,
@@ -173,6 +177,7 @@
         "price",
         "richtext_3g4Dzi",
         "variant_picker",
+        "bp_linked_product_variants_linked_products_ncKb7L",
         "custom_liquid_beCgGM",
         "buy_buttons",
         "complementary_pwBz8L",
