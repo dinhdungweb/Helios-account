@@ -18,15 +18,15 @@
             "image": "shopify://shop_images/2025-06-24_12-10-16_B_R8_S4.jpg",
             "slide_link": "",
             "subheading": "",
-            "title": "",
-            "title_size": 60,
+            "title": "LOTUS COLLECTION",
+            "title_size": 26,
             "title_width": 12,
             "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
+            "text": "<p>Bộ sưu tập tái hiện hoa sen Việt Nam qua lăng kính Gothic — nơi vẻ đẹp ngay thẳng gặp gỡ những tạo hình mạnh mẽ.</p><p>Bén rễ từ nơi tối, hoa sen vươn về ánh sáng. Lotus kể về hành trình trưởng thành — đón nhận những gì đã trải qua, có thể đổi thay từ đó, nhưng không để chúng định nghĩa mình.</p>",
+            "enlarge_text": false,
             "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+            "overlay_position": "position--left position--bottom",
+            "overlay_position_mobile": "position--left-xs position--bottom-xs"
           }
         }
       },
@@ -44,29 +44,6 @@
         "slide_navigation": "dots",
         "autoplay": true,
         "autoplay_speed": 7
-      }
-    },
-    "rich_text_Pp6aFp": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "Lotus Collection",
-        "title_size": 48,
-        "title_width": 12,
-        "heading_h1": false,
-        "text": "<p>BST signature từ Helios, được hình thành từ sự kết hợp giữa phong cách Gothic bí ẩn và hoa sen Việt Nam.</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
       }
     },
     "gallery_6txjqa": {
@@ -225,7 +202,6 @@
   },
   "order": [
     "slideshow_qTdnGD",
-    "rich_text_Pp6aFp",
     "gallery_6txjqa",
     "main",
     "7b793b1a-02a5-4b2f-a6cc-13bed19fb0ae"
