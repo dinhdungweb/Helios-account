@@ -100,6 +100,7 @@
         "image_PYQWEf",
         "image_4mcTGd"
       ],
+      "disabled": true,
       "settings": {
         "title": "",
         "grid": 3,
@@ -111,6 +112,44 @@
         "enable_carousel": true,
         "overlay_style_tint": false,
         "alternate_bg_color": false
+      }
+    },
+    "slideshow_93HFCq": {
+      "type": "slideshow",
+      "blocks": {
+        "image_3WVtUA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner_copy2.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_3WVtUA"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "fixed",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "main": {
@@ -203,6 +242,7 @@
   "order": [
     "slideshow_qTdnGD",
     "gallery_6txjqa",
+    "slideshow_93HFCq",
     "main",
     "7b793b1a-02a5-4b2f-a6cc-13bed19fb0ae"
   ]
