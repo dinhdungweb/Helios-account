@@ -2006,15 +2006,31 @@
             "default": "Mẫu sản phẩm"
           },
           {
+            "type": "select",
+            "id": "display_style",
+            "label": "Display style",
+            "options": [
+              {
+                "value": "image",
+                "label": "Images"
+              },
+              {
+                "value": "text",
+                "label": "Text (like size options)"
+              }
+            ],
+            "default": "image"
+          },
+          {
             "type": "checkbox",
             "id": "show_selected_title",
-            "label": "Show selected product title",
+            "label": "Show selected product title (images only)",
             "default": true
           },
           {
             "type": "checkbox",
             "id": "show_product_titles",
-            "label": "Show title below each image",
+            "label": "Show title below each image (images only)",
             "default": false
           },
           {

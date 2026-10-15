@@ -68,6 +68,7 @@
           "type": "linked_products",
           "settings": {
             "heading": "Mẫu sản phẩm",
+            "display_style": "text",
             "show_selected_title": true,
             "show_product_titles": false,
             "swatch_size": 64,

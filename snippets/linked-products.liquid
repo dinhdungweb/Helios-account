@@ -10,6 +10,7 @@
   assign linked_products = product.metafields.custom.linked_products.value
   assign linked_product_ids = linked_products | map: 'id'
   assign current_product_is_linked = false
+  assign display_style = block.settings.display_style | default: 'image'
 
   if linked_product_ids contains product.id
     assign current_product_is_linked = true
@@ -18,13 +19,13 @@
 
 {%- if linked_products != blank -%}
   <div
-    class="linked-products product-detail__gap-lg"
+    class="linked-products linked-products--{{ display_style }} product-detail__gap-lg"
     style="--linked-product-swatch-size: {{ block.settings.swatch_size }}px; --linked-product-image-fit: {{ block.settings.image_fit }};"
     {{ block.shopify_attributes }}
   >
     <div class="linked-products__heading">
       <span class="linked-products__label">{{ block.settings.heading | escape }}</span>
-      {%- if block.settings.show_selected_title -%}
+      {%- if block.settings.show_selected_title and display_style == 'image' -%}
         <span class="linked-products__selected">{{ product.title | escape }}</span>
       {%- endif -%}
     </div>
@@ -38,7 +39,9 @@
             aria-label="{{ product.title | escape }}"
             title="{{ product.title | escape }}"
           >
-            {%- if product.featured_image != blank -%}
+            {%- if display_style == 'text' -%}
+              <span class="linked-products__text">{{ product.title | escape }}</span>
+            {%- elsif product.featured_image != blank -%}
               {%- assign current_image_alt = product.featured_image.alt | default: product.title | escape -%}
               {{- product.featured_image
                 | image_url: width: 192, height: 192, crop: 'center'
@@ -52,7 +55,7 @@
               <span class="linked-products__placeholder" aria-hidden="true">{{ product.title | slice: 0 | upcase }}</span>
             {%- endif -%}
           </span>
-          {%- if block.settings.show_product_titles -%}
+          {%- if block.settings.show_product_titles and display_style == 'image' -%}
             <span class="linked-products__item-title">{{ product.title | escape }}</span>
           {%- endif -%}
         </div>
@@ -81,7 +84,9 @@
             >
           {%- endif -%}
 
-          {%- if linked_product.featured_image != blank -%}
+          {%- if display_style == 'text' -%}
+            <span class="linked-products__text">{{ linked_product.title | escape }}</span>
+          {%- elsif linked_product.featured_image != blank -%}
             {%- assign linked_image_alt = linked_product.featured_image.alt | default: linked_product.title | escape -%}
             {{- linked_product.featured_image
               | image_url: width: 192, height: 192, crop: 'center'
@@ -101,7 +106,7 @@
             </a>
           {%- endif -%}
 
-          {%- if block.settings.show_product_titles -%}
+          {%- if block.settings.show_product_titles and display_style == 'image' -%}
             <span class="linked-products__item-title">{{ linked_product.title | escape }}</span>
           {%- endif -%}
         </div>
@@ -190,6 +195,55 @@
       line-height: 1.25;
       text-align: center;
       text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .linked-products--text .linked-products__list {
+      gap: 8px 20px;
+    }
+
+    .linked-products--text .linked-products__list-item {
+      width: auto;
+    }
+
+    .linked-products--text .linked-products__item {
+      width: auto;
+      height: auto;
+      min-height: 30px;
+      padding: 0 0 5px;
+      overflow: visible;
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      border-radius: 0;
+      opacity: 0.72;
+      text-decoration: none;
+      box-shadow: none;
+    }
+
+    .linked-products--text a.linked-products__item:hover,
+    .linked-products--text a.linked-products__item:focus-visible {
+      opacity: 1;
+      border-bottom-color: currentColor;
+    }
+
+    .linked-products--text a.linked-products__item:focus-visible {
+      outline-offset: 3px;
+    }
+
+    .linked-products--text .linked-products__item.is-current {
+      opacity: 1;
+      border-color: transparent;
+      border-bottom-color: currentColor;
+      box-shadow: none;
+    }
+
+    .linked-products--text .linked-products__item.is-unavailable {
+      opacity: 0.45;
+    }
+
+    .linked-products__text {
+      line-height: 1.4;
       white-space: nowrap;
     }
   {% endstyle %}
