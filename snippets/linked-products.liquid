@@ -11,6 +11,7 @@
   assign linked_product_ids = linked_products | map: 'id'
   assign current_product_is_linked = false
   assign display_style = block.settings.display_style | default: 'image'
+  assign linked_products_heading = product.metafields.custom.linked_products_heading.value | default: block.settings.heading
 
   if linked_product_ids contains product.id
     assign current_product_is_linked = true
@@ -24,7 +25,7 @@
     {{ block.shopify_attributes }}
   >
     <div class="linked-products__heading">
-      <span class="linked-products__label">{{ block.settings.heading | escape }}</span>
+      <span class="linked-products__label">{{ linked_products_heading | escape }}</span>
       {%- if block.settings.show_selected_title and display_style == 'image' -%}
         <span class="linked-products__selected">{{ product.title | escape }}</span>
       {%- endif -%}
@@ -216,7 +217,7 @@
       border: 0;
       border-bottom: 2px solid transparent;
       border-radius: 0;
-      opacity: 0.72;
+      opacity: 1;
       text-decoration: none;
       box-shadow: none;
     }
@@ -239,7 +240,7 @@
     }
 
     .linked-products--text .linked-products__item.is-unavailable {
-      opacity: 0.45;
+      opacity: 1;
     }
 
     .linked-products__text {

@@ -1997,12 +1997,13 @@
         "settings": [
           {
             "type": "paragraph",
-            "content": "Uses the product metafield custom.linked_products. Create it as a list of product references, then select the products that belong together."
+            "content": "Uses custom.linked_products (list of products) and custom.linked_products_heading (single line text) from each product."
           },
           {
             "type": "text",
             "id": "heading",
-            "label": "Heading",
+            "label": "Fallback heading",
+            "info": "Used only when custom.linked_products_heading is blank on the product.",
             "default": "Mẫu sản phẩm"
           },
           {
