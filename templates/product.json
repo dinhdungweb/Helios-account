@@ -67,7 +67,7 @@
         "linked_products": {
           "type": "linked_products",
           "settings": {
-            "heading": "Mẫu sản phẩm",
+            "heading": "Loại",
             "display_style": "text",
             "show_selected_title": true,
             "show_product_titles": false,
