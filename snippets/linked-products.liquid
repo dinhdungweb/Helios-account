@@ -1,0 +1,196 @@
+{%- comment -%}
+  Renders products connected through the product metafield:
+  custom.linked_products (List of products / list.product_reference).
+
+  The current product is shown automatically when it is not included in the
+  metafield, so merchants only need to select the other products in a group.
+{%- endcomment -%}
+
+{%- liquid
+  assign linked_products = product.metafields.custom.linked_products.value
+  assign linked_product_ids = linked_products | map: 'id'
+  assign current_product_is_linked = false
+
+  if linked_product_ids contains product.id
+    assign current_product_is_linked = true
+  endif
+-%}
+
+{%- if linked_products != blank -%}
+  <div
+    class="linked-products product-detail__gap-lg"
+    style="--linked-product-swatch-size: {{ block.settings.swatch_size }}px; --linked-product-image-fit: {{ block.settings.image_fit }};"
+    {{ block.shopify_attributes }}
+  >
+    <div class="linked-products__heading">
+      <span class="linked-products__label">{{ block.settings.heading | escape }}</span>
+      {%- if block.settings.show_selected_title -%}
+        <span class="linked-products__selected">{{ product.title | escape }}</span>
+      {%- endif -%}
+    </div>
+
+    <div class="linked-products__list" role="list">
+      {%- unless current_product_is_linked -%}
+        <div class="linked-products__list-item" role="listitem">
+          <span
+            class="linked-products__item is-current{% unless product.available %} is-unavailable{% endunless %}"
+            aria-current="page"
+            aria-label="{{ product.title | escape }}"
+            title="{{ product.title | escape }}"
+          >
+            {%- if product.featured_image != blank -%}
+              {%- assign current_image_alt = product.featured_image.alt | default: product.title | escape -%}
+              {{- product.featured_image
+                | image_url: width: 192, height: 192, crop: 'center'
+                | image_tag:
+                  class: 'linked-products__image',
+                  loading: 'lazy',
+                  widths: '96, 144, 192',
+                  alt: current_image_alt
+              -}}
+            {%- else -%}
+              <span class="linked-products__placeholder" aria-hidden="true">{{ product.title | slice: 0 | upcase }}</span>
+            {%- endif -%}
+          </span>
+          {%- if block.settings.show_product_titles -%}
+            <span class="linked-products__item-title">{{ product.title | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endunless -%}
+
+      {%- for linked_product in linked_products -%}
+        {%- assign is_current_product = false -%}
+        {%- if linked_product.id == product.id -%}
+          {%- assign is_current_product = true -%}
+        {%- endif -%}
+
+        <div class="linked-products__list-item" role="listitem">
+          {%- if is_current_product -%}
+            <span
+              class="linked-products__item is-current{% unless linked_product.available %} is-unavailable{% endunless %}"
+              aria-current="page"
+              aria-label="{{ linked_product.title | escape }}"
+              title="{{ linked_product.title | escape }}"
+            >
+          {%- else -%}
+            <a
+              class="linked-products__item{% unless linked_product.available %} is-unavailable{% endunless %}"
+              href="{{ linked_product.url }}"
+              aria-label="{{ linked_product.title | escape }}"
+              title="{{ linked_product.title | escape }}"
+            >
+          {%- endif -%}
+
+          {%- if linked_product.featured_image != blank -%}
+            {%- assign linked_image_alt = linked_product.featured_image.alt | default: linked_product.title | escape -%}
+            {{- linked_product.featured_image
+              | image_url: width: 192, height: 192, crop: 'center'
+              | image_tag:
+                class: 'linked-products__image',
+                loading: 'lazy',
+                widths: '96, 144, 192',
+                alt: linked_image_alt
+            -}}
+          {%- else -%}
+            <span class="linked-products__placeholder" aria-hidden="true">{{ linked_product.title | slice: 0 | upcase }}</span>
+          {%- endif -%}
+
+          {%- if is_current_product -%}
+            </span>
+          {%- else -%}
+            </a>
+          {%- endif -%}
+
+          {%- if block.settings.show_product_titles -%}
+            <span class="linked-products__item-title">{{ linked_product.title | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {% style %}
+    .linked-products__heading {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35em;
+      margin-bottom: 10px;
+    }
+
+    .linked-products__label {
+      font-weight: 600;
+    }
+
+    .linked-products__label::after {
+      content: ':';
+    }
+
+    .linked-products__selected {
+      opacity: 0.75;
+    }
+
+    .linked-products__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .linked-products__list-item {
+      width: var(--linked-product-swatch-size);
+    }
+
+    .linked-products__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--linked-product-swatch-size);
+      height: var(--linked-product-swatch-size);
+      overflow: hidden;
+      color: inherit;
+      background: rgba(127, 127, 127, 0.08);
+      border: 1px solid rgba(127, 127, 127, 0.45);
+      border-radius: 4px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    a.linked-products__item:hover,
+    a.linked-products__item:focus-visible {
+      border-color: currentColor;
+    }
+
+    a.linked-products__item:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    .linked-products__item.is-current {
+      border-color: currentColor;
+      box-shadow: 0 0 0 1px currentColor;
+    }
+
+    .linked-products__item.is-unavailable .linked-products__image {
+      opacity: 0.45;
+    }
+
+    .linked-products__image {
+      width: 100%;
+      height: 100%;
+      object-fit: var(--linked-product-image-fit);
+    }
+
+    .linked-products__placeholder {
+      font-weight: 600;
+    }
+
+    .linked-products__item-title {
+      display: block;
+      margin-top: 5px;
+      overflow: hidden;
+      font-size: 0.75em;
+      line-height: 1.25;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  {% endstyle %}
+{%- endif -%}

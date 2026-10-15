@@ -114,7 +114,9 @@
               autocapitalize="off"
               spellcheck="false"
               placeholder="Email"
-              {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
+              {% if form.errors contains 'email' %}
+                aria-invalid="true"
+              {% endif %}
               required
             >
           </div>
@@ -144,7 +146,9 @@
               autocomplete="new-password"
               minlength="5"
               placeholder="Mật khẩu"
-              {% if form.errors contains 'password' %}aria-invalid="true"{% endif %}
+              {% if form.errors contains 'password' %}
+                aria-invalid="true"
+              {% endif %}
               required
             >
           </div>

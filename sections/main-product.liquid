@@ -598,6 +598,9 @@
                 {%- when 'review_summary' -%}
                   <span class="shopify-product-reviews-badge" data-id="{{ product.id }}" {{ block.shopify_attributes }}></span>
 
+                {%- when 'linked_products' -%}
+                  {% render 'linked-products', product: product, block: block %}
+
                 {%- when 'description' -%}
                   {% if product.description != blank %}
                     {% if block.settings.display == "accordion_open" or block.settings.display == "accordion_closed" %}
@@ -1984,6 +1987,61 @@
             "type": "page",
             "id": "size_chart_page_accessories",
             "label": "Size Chart Page for Accessories"
+          }
+        ]
+      },
+      {
+        "type": "linked_products",
+        "name": "Linked products",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Uses the product metafield custom.linked_products. Create it as a list of product references, then select the products that belong together."
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Mẫu sản phẩm"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_selected_title",
+            "label": "Show selected product title",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "show_product_titles",
+            "label": "Show title below each image",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "swatch_size",
+            "min": 44,
+            "max": 96,
+            "step": 4,
+            "unit": "px",
+            "label": "Image size",
+            "default": 64
+          },
+          {
+            "type": "select",
+            "id": "image_fit",
+            "label": "Image fit",
+            "options": [
+              {
+                "value": "cover",
+                "label": "Crop"
+              },
+              {
+                "value": "contain",
+                "label": "Fit"
+              }
+            ],
+            "default": "cover"
           }
         ]
       },
