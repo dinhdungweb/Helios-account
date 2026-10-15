@@ -145,7 +145,7 @@
       "settings": {
         "title": "",
         "grid": 3,
-        "desktop_image_height": 550,
+        "desktop_image_height": 560,
         "mobile_image_height": 400,
         "title_size": 44,
         "enable_margin": false,
