@@ -449,6 +449,7 @@
     },
     "background_video_responsive_fAbAGc": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "full_width": true,
@@ -540,6 +541,7 @@
       "block_order": [
         "image_Ubxgyb"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -556,6 +558,7 @@
     },
     "image_with_text_MHwbEz": {
       "type": "image-with-text",
+      "disabled": true,
       "name": "Media with text",
       "settings": {
         "subheading": "",
@@ -601,6 +604,7 @@
       "block_order": [
         "image_pCwB4Y"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -640,6 +644,7 @@
       "block_order": [
         "image_9HwNtj"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -678,6 +683,7 @@
       "block_order": [
         "image_bTKJc4"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -694,6 +700,7 @@
     },
     "image_with_text_pgmHrd": {
       "type": "image-with-text",
+      "disabled": true,
       "name": "Media with text",
       "settings": {
         "subheading": "",
@@ -717,6 +724,7 @@
     },
     "images_gallery_3JWHVn": {
       "type": "images-gallery",
+      "disabled": true,
       "name": "Gallery Center",
       "settings": {
         "background_image": "shopify://shop_images/29.4_NH_b_n_v_WEB_CHRYSABER-01_2.jpg",
@@ -746,6 +754,7 @@
       "block_order": [
         "text_block_AAd9Kb"
       ],
+      "disabled": true,
       "custom_css": [
         "div#section-id-template--19317385199837__text_columns_with_images_yPfLW9 {padding: 0;}"
       ],
@@ -760,6 +769,7 @@
     },
     "custom_liquid_nYDkgb": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "Custom Liquid/HTML",
       "settings": {
         "no_margins": true,
