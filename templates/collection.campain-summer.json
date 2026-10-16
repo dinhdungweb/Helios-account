@@ -15,19 +15,19 @@
         "image_dQ9LrH": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/banner_chrysaber_SIZE_WEB_B_N_CO_M_U_N_2.jpg",
-            "mobile_image": "shopify://shop_images/9.4_design_nh_banner_chrysaber_2.0-02.jpg",
-            "slide_link": "#scroll-chrysaber",
+            "image": "shopify://shop_images/DSC03581_optimized.webp",
+            "mobile_image": "shopify://shop_images/DSC03581_optimized.webp",
+            "slide_link": "",
             "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
+            "title": "CHRYSABER COLLECTION",
+            "title_size": 26,
+            "title_width": 40,
             "heading_h1": false,
-            "text": "",
+            "text": "<p>Chrysaber khai thác sự dung hòa giữa hoa cúc và thanh kiếm — một cuộc đối thoại giữa những thái cực: sâu sắc và thanh khiết; sắc bén và lý trí.&nbsp;</p><p>Không lựa chọn loại bỏ một phần bản thân, để những khác biệt cùng tồn tại, tìm thấy cân bằng và từ đó, tự do.</p>",
             "enlarge_text": false,
-            "button_label": "Đặt hàng ngay",
-            "overlay_position": "position--hcenter position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--bottom-xs"
+            "button_label": "",
+            "overlay_position": "position--left position--bottom",
+            "overlay_position_mobile": "position--left-xs position--bottom-xs"
           }
         }
       },
@@ -35,9 +35,9 @@
         "image_dQ9LrH"
       ],
       "settings": {
-        "height": "adapt",
-        "height_desktop": 600,
-        "height_mobile": 500,
+        "height": "fixed",
+        "height_desktop": 920,
+        "height_mobile": 560,
         "full_width": true,
         "mobile_overlay_under": false,
         "overlay_style_tint": true,
@@ -61,6 +61,7 @@
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": true,
         "show_vendor": false,
+        "quick_links": "",
         "show_filter_counts": false,
         "show_filter_deadends": false,
         "ajax_products": false,
@@ -433,6 +434,14 @@
         "heading": "Chrysaber Magazine",
         "width": 1200,
         "height": 848.4,
+        "desktop_spacing_top": 48,
+        "desktop_spacing_bottom": 48,
+        "desktop_inner_padding_top": 32,
+        "desktop_inner_padding_bottom": 32,
+        "mobile_spacing_top": 48,
+        "mobile_spacing_bottom": 48,
+        "mobile_inner_padding_top": 20,
+        "mobile_inner_padding_bottom": 20,
         "allow_fullscreen": false,
         "background_image": "shopify://shop_images/29.4_NH_b_n_v_WEB_CHRYSABER-01.jpg",
         "background_image_mobile": "shopify://shop_images/29.4_NH_b_n_v_WEB_CHRYSABER-02.jpg"
@@ -442,7 +451,10 @@
       "type": "background-video-responsive",
       "name": "Video responsive",
       "settings": {
+        "full_width": true,
+        "section_width": 1400,
         "video_full_vh": false,
+        "video_size": "cover",
         "video_height_desktop": 700,
         "video_height_mobile": 450,
         "video_link": "",
