@@ -15,7 +15,7 @@
         "image_zMRfgK": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/2025-06-24_12-10-16_B_R8_S4.jpg",
+            "image": "shopify://shop_images/DSC01495_2__optimized_2.webp",
             "slide_link": "",
             "subheading": "",
             "title": "LOTUS COLLECTION",
@@ -35,7 +35,7 @@
       ],
       "settings": {
         "height": "fixed",
-        "height_desktop": 700,
+        "height_desktop": 920,
         "height_mobile": 600,
         "full_width": true,
         "mobile_overlay_under": false,
