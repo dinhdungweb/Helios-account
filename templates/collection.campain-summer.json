@@ -47,6 +47,74 @@
         "autoplay_speed": 7
       }
     },
+    "gallery_qjcdwf": {
+      "type": "gallery",
+      "blocks": {
+        "image_6YBbit": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/trunk_optimized.webp",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_mNN7iN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/chrysaber_optimized.webp",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "",
+            "text_alignment": "position--left position--bottom"
+          }
+        },
+        "image_Ldwfn9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/cala_optimized.webp",
+            "video_external": "",
+            "enlarge_image": false,
+            "subheading": "",
+            "title": "",
+            "title_width": 12,
+            "heading_h1": false,
+            "button_label": "",
+            "link": "",
+            "text_alignment": "position--left position--bottom"
+          }
+        }
+      },
+      "block_order": [
+        "image_6YBbit",
+        "image_mNN7iN",
+        "image_Ldwfn9"
+      ],
+      "name": "Gallery",
+      "settings": {
+        "title": "",
+        "grid": 3,
+        "desktop_image_height": 640,
+        "mobile_image_height": 400,
+        "title_size": 44,
+        "enable_margin": false,
+        "full_width": true,
+        "enable_carousel": true,
+        "overlay_style_tint": false,
+        "alternate_bg_color": false
+      }
+    },
     "main": {
       "type": "main-collection",
       "custom_css": [],
@@ -803,6 +871,7 @@
   },
   "order": [
     "slideshow_KwDHjn",
+    "gallery_qjcdwf",
     "main",
     "magazine_flipbook_nR9Ckx",
     "background_video_responsive_fAbAGc",
