@@ -16,6 +16,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/DSC01495_2__optimized_2.webp",
+            "mobile_image": "shopify://shop_images/DSC00390_optimized_2.webp",
             "slide_link": "",
             "subheading": "",
             "title": "LOTUS COLLECTION",
