@@ -43,8 +43,8 @@
         "image_AD6YEJ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/banner_web_optimized_2.webp",
-            "mobile_image": "shopify://shop_images/banner_d_c_optimized_2.webp",
+            "image": "shopify://shop_images/banner_copy2.jpg",
+            "mobile_image": "shopify://shop_images/banner_copy.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -182,7 +182,7 @@
         "community_button_text": "Tham gia ngay",
         "community_button_link": "https://www.facebook.com/groups/508707569692422",
         "community_button_new_tab": true,
-        "community_button_bg_color": "#F2F2F2",
+        "community_button_bg_color": "#f2f2f2",
         "community_button_text_color": "#000000"
       }
     },
