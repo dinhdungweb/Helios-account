@@ -37,6 +37,24 @@
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
+        "image_HkUphA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1792214586807_2359740545583841509_g8350574569212514233_ec5911f747452a3da38f9a89ae502594.jpg",
+            "mobile_image": "shopify://shop_images/1792215672930_2359740545583841509_g8350574569212514233_376533b719882ef3e7726dfd39ec78b4.jpg",
+            "slide_link": "shopify://products/withered-jack-pendant",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
         "image_KarRwm": {
           "type": "image",
           "settings": {
@@ -70,24 +88,6 @@
             "enlarge_text": true,
             "button_label": "",
             "overlay_position": "position--hcenter position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        },
-        "image_HkUphA": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/banner_ngang_landing_page_optimized.webp",
-            "mobile_image": "shopify://shop_images/banner_landing_page_4x5_1__optimized.webp",
-            "slide_link": "shopify://collections/dau-an-viet-nam",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
@@ -169,9 +169,9 @@
         }
       },
       "block_order": [
+        "image_HkUphA",
         "image_KarRwm",
         "image_nNNj6R",
-        "image_HkUphA",
         "image_qbHR3Y",
         "image_3Aawga",
         "image_nw333M",
