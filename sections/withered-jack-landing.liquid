@@ -478,11 +478,11 @@
   }
 
   #WitheredJack-{{ section.id }} .wjl-story__heading-line--one {
-    transform: scaleX(.72);
+    transform: scaleX(.68);
   }
 
   #WitheredJack-{{ section.id }} .wjl-story__heading-line--two {
-    transform: scaleX(.82);
+    transform: scaleX(.66);
   }
 
   #WitheredJack-{{ section.id }} .wjl-story p {
@@ -500,6 +500,12 @@
   @keyframes wjl-gallery-{{ section.id }} {
     from { transform: translate3d(var(--wjl-track-start),0,0); }
     to { transform: translate3d(calc(var(--wjl-track-start) - var(--wjl-track-cycle)),0,0); }
+  }
+
+  @media (min-width: 750px) {
+    #WitheredJack-{{ section.id }} .wjl__canvas {
+      margin-top: max(-16vw, -307px);
+    }
   }
 
   @media (hover: hover) {
