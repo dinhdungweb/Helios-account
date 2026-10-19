@@ -295,11 +295,11 @@
     position: absolute;
     z-index: 4;
     top: 28.228355%;
-    left: 71.875%;
+    left: 57.986111%;
     display: grid;
     width: 11.805556%;
-    height: .716242%;
-    place-items: start center;
+    height: min(3.333333vw, 64px);
+    place-items: center;
     color: #000;
     font-family: 'Abril Fatface', Georgia, serif;
     font-size: min(1.736111vw,33.333px);
@@ -315,13 +315,13 @@
     right: 0;
     bottom: 0;
     left: 0;
-    height: 76.47%;
+    height: 100%;
     background: #d01313;
     content: '';
   }
 
   #WitheredJack-{{ section.id }} .wjl__detail span {
-    transform: translateY(-1px);
+    display: block;
   }
 
   #WitheredJack-{{ section.id }} .wjl__tagline {
@@ -505,6 +505,16 @@
   @media (min-width: 750px) {
     #WitheredJack-{{ section.id }} .wjl__canvas {
       margin-top: max(-16vw, -307px);
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product__title {
+      text-align: left;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product__title span,
+    #WitheredJack-{{ section.id }} .wjl-product__title small {
+      width: max-content;
+      text-align: left;
     }
   }
 
