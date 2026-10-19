@@ -1,0 +1,731 @@
+<withered-jack-landing
+  id="WitheredJack-{{ section.id }}"
+  class="wjl header-overlap-section needs-alt-logo"
+  style="--wjl-bg: {{ section.settings.background_color }}; --wjl-gallery-duration: {{ section.settings.gallery_duration }}s;"
+>
+  <div class="wjl__canvas">
+    <div class="wjl__background" aria-hidden="true">
+      {%- if section.settings.hero_background != blank -%}
+        <img
+          src="{{ section.settings.hero_background | image_url: width: 2400 }}"
+          alt=""
+          width="{{ section.settings.hero_background.width }}"
+          height="{{ section.settings.hero_background.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="wjl__mobile-red" aria-hidden="true"></div>
+
+    <div class="wjl__package">
+      {%- if section.settings.packaging_image != blank -%}
+        <img
+          src="{{ section.settings.packaging_image | image_url: width: 1800 }}"
+          alt="Withered Jack Pendant"
+          width="{{ section.settings.packaging_image.width }}"
+          height="{{ section.settings.packaging_image.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="wjl-product">
+      <h1 class="wjl-product__title">
+        <span>{{ section.settings.product_heading }}</span>
+        <small>{{ section.settings.product_subheading }}</small>
+      </h1>
+      <div class="wjl-product__body">
+        <p>{{ section.settings.product_text_1 }}</p>
+        <p>{{ section.settings.product_text_2 }}</p>
+      </div>
+    </div>
+
+    {%- if section.settings.product_link != blank -%}
+      <a class="wjl__detail" href="{{ section.settings.product_link }}">
+        <span>{{ section.settings.button_label }}</span>
+      </a>
+    {%- else -%}
+      <span class="wjl__detail" aria-hidden="true">
+        <span>{{ section.settings.button_label }}</span>
+      </span>
+    {%- endif -%}
+
+    <p class="wjl__tagline">
+      {{ section.settings.tagline_line_1 }}<br>
+      {{ section.settings.tagline_line_2 }}
+    </p>
+
+    <div class="wjl-gallery" aria-label="Withered Jack editorial gallery">
+      <div class="wjl-gallery__track{% if section.settings.enable_gallery_motion %} is-moving{% endif %}">
+        {%- for block in section.blocks offset: 5 limit: 2 -%}
+          {%- if block.settings.image != blank -%}
+            <span class="wjl-gallery__item" aria-hidden="true">
+              <img
+                src="{{ block.settings.image | image_url: width: 1400 }}"
+                alt=""
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                loading="lazy"
+              >
+            </span>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- for gallery_pass in (1..2) -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image != blank -%}
+              <span
+                class="wjl-gallery__item"
+                {% if gallery_pass == 1 %}{{ block.shopify_attributes }}{% else %}aria-hidden="true"{% endif %}
+              >
+                <img
+                  src="{{ block.settings.image | image_url: width: 1400 }}"
+                  alt="{% if gallery_pass == 1 %}{{ block.settings.alt | escape }}{% endif %}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  loading="lazy"
+                >
+              </span>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <span class="wjl-gallery__edge wjl-gallery__edge--left" aria-hidden="true"></span>
+    <span class="wjl-gallery__edge wjl-gallery__edge--right" aria-hidden="true"></span>
+
+    {%- if section.settings.gallery_mask != blank -%}
+      <img
+        class="wjl-gallery__mask wjl-gallery__mask--top"
+        src="{{ section.settings.gallery_mask | image_url: width: 1600 }}"
+        alt=""
+        width="{{ section.settings.gallery_mask.width }}"
+        height="{{ section.settings.gallery_mask.height }}"
+        loading="lazy"
+      >
+      <img
+        class="wjl-gallery__mask wjl-gallery__mask--bottom"
+        src="{{ section.settings.gallery_mask | image_url: width: 1600 }}"
+        alt=""
+        width="{{ section.settings.gallery_mask.width }}"
+        height="{{ section.settings.gallery_mask.height }}"
+        loading="lazy"
+      >
+    {%- endif -%}
+
+    <div class="wjl-art wjl-art--sketch" aria-hidden="true">
+      {%- if section.settings.sketch_image != blank -%}
+        <img
+          src="{{ section.settings.sketch_image | image_url: width: 1600 }}"
+          alt=""
+          width="{{ section.settings.sketch_image.width }}"
+          height="{{ section.settings.sketch_image.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="wjl-art wjl-art--paper" aria-hidden="true">
+      {%- if section.settings.paper_image != blank -%}
+        <img
+          src="{{ section.settings.paper_image | image_url: width: 1600 }}"
+          alt=""
+          width="{{ section.settings.paper_image.width }}"
+          height="{{ section.settings.paper_image.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="wjl-story">
+      <h2>
+        <span class="wjl-story__heading-line wjl-story__heading-line--one">{{ section.settings.story_heading_line_1 }}</span>
+        <span class="wjl-story__heading-line wjl-story__heading-line--two">{{ section.settings.story_heading_line_2 }}</span>
+      </h2>
+      <p class="wjl-story__first">{{ section.settings.story_text_1 }}</p>
+      <p class="wjl-story__second">{{ section.settings.story_text_2 }}</p>
+    </div>
+  </div>
+</withered-jack-landing>
+
+{% style %}
+  @font-face {
+    font-family: 'Abyssinica SIL';
+    src: url('{{ 'abyssinica-sil-regular.woff2' | asset_url }}') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  #WitheredJack-{{ section.id }} {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    color: #cfcfcf;
+    background: var(--wjl-bg);
+  }
+
+  #WitheredJack-{{ section.id }},
+  #WitheredJack-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #WitheredJack-{{ section.id }} h1,
+  #WitheredJack-{{ section.id }} h2,
+  #WitheredJack-{{ section.id }} p {
+    margin: 0;
+  }
+
+  #WitheredJack-{{ section.id }} img {
+    display: block;
+    max-width: none;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__canvas {
+    position: relative;
+    width: 100%;
+    max-width: 1920px;
+    aspect-ratio: 1440 / 4747;
+    margin-inline: auto;
+    overflow: hidden;
+    background: var(--wjl-bg);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__background {
+    position: absolute;
+    z-index: 0;
+    top: 26.037497%;
+    left: 0;
+    width: 100%;
+    height: 41.352433%;
+    overflow: hidden;
+    background: #000;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__background img {
+    width: 100%;
+    height: 91.69%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__mobile-red {
+    display: none;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__package {
+    position: absolute;
+    z-index: 2;
+    top: 14.767221%;
+    left: 1.458333%;
+    display: grid;
+    width: 56.929514%;
+    height: 20.434548%;
+    place-items: center;
+    mix-blend-mode: plus-lighter;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__package img {
+    width: 86.414%;
+    height: 91.084%;
+    object-fit: cover;
+    transform: rotate(-7.65deg);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product {
+    position: absolute;
+    z-index: 3;
+    top: 19.170002%;
+    left: 57.986111%;
+    width: 27.777778%;
+    text-align: left;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product__title,
+  #WitheredJack-{{ section.id }} .wjl-story h2 {
+    color: #d01313;
+    font-family: 'Arial Narrow', 'Aptos Narrow', 'Roboto Condensed', sans-serif;
+    font-style: normal;
+    font-stretch: condensed;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    text-transform: uppercase;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product__title {
+    height: min(9.027778vw,173.333px);
+    line-height: 0;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product__title span,
+  #WitheredJack-{{ section.id }} .wjl-product__title small {
+    display: block;
+    white-space: nowrap;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product__title span {
+    font-size: min(5.555556vw,106.667px);
+    line-height: min(3.819444vw,73.333px);
+    transform: scaleX(.75);
+    transform-origin: left center;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product__title small {
+    font-size: min(4.166667vw,80px);
+    line-height: min(3.819444vw,73.333px);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product__body {
+    width: 92.5%;
+    margin-top: min(2.847222vw,54.667px);
+    font-family: 'Abyssinica SIL', Georgia, 'Times New Roman', serif;
+    font-size: min(1.388889vw,26.667px);
+    font-weight: 400;
+    line-height: 1.18;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-product__body p + p {
+    margin-top: 1.18em;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__detail {
+    position: absolute;
+    z-index: 4;
+    top: 28.228355%;
+    left: 71.875%;
+    display: grid;
+    width: 11.805556%;
+    height: .716242%;
+    place-items: start center;
+    color: #000;
+    font-family: 'Abril Fatface', Georgia, serif;
+    font-size: min(1.736111vw,33.333px);
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__detail::before {
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 76.47%;
+    background: #d01313;
+    content: '';
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__detail span {
+    transform: translateY(-1px);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl__tagline {
+    position: absolute;
+    z-index: 3;
+    top: 63.808721%;
+    left: 50%;
+    color: #cfcfcf;
+    font-family: 'Abyssinica SIL', Georgia, 'Times New Roman', serif;
+    font-size: min(1.388889vw,26.667px);
+    line-height: 1.15;
+    text-align: center;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery {
+    position: absolute;
+    z-index: 2;
+    top: 69.327997%;
+    left: 0;
+    width: 100%;
+    height: 8.615968%;
+    overflow: hidden;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__track {
+    --wjl-track-start: max(-32.847222vw, -630.667px);
+    --wjl-track-cycle: min(146.805556vw, 2818.667px);
+    position: absolute;
+    inset: 0 auto 0 0;
+    display: flex;
+    width: max-content;
+    height: 100%;
+    gap: min(2.222222vw,42.667px);
+    transform: translate3d(var(--wjl-track-start),0,0);
+    will-change: transform;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__track.is-moving {
+    animation: wjl-gallery-{{ section.id }} var(--wjl-gallery-duration) linear 1.2s infinite both;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__item {
+    display: block;
+    flex: 0 0 min(18.75vw,360px);
+    width: min(18.75vw,360px);
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__edge {
+    position: absolute;
+    z-index: 3;
+    top: 69.327997%;
+    height: 8.615968%;
+    background: var(--wjl-bg);
+    pointer-events: none;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__edge--left {
+    left: 0;
+    width: 6.875%;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__edge--right {
+    right: 0;
+    width: 7.569444%;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__mask {
+    position: absolute;
+    z-index: 4;
+    left: 9.027778%;
+    width: 82.291667%;
+    height: 1.579945%;
+    pointer-events: none;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__mask--top {
+    top: 68.527491%;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-gallery__mask--bottom {
+    top: 77.143459%;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-art {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-art--sketch {
+    top: 80.582262%;
+    left: 4.194681%;
+    width: 55.100903%;
+    height: 15.152054%;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-art--sketch img {
+    width: 82.424%;
+    height: 74.104%;
+    object-fit: cover;
+    transform: rotate(-19.31deg);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-art--paper {
+    top: 83.737097%;
+    left: 10.555556%;
+    width: 42.750694%;
+    height: 9.728881%;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-art--paper img {
+    width: 94.957%;
+    height: 90.312%;
+    object-fit: cover;
+    transform: rotate(4.52deg);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story {
+    position: absolute;
+    z-index: 4;
+    top: 85.864757%;
+    left: 62.847222%;
+    width: 27.777778%;
+    color: #cfcfcf;
+    font-family: 'Abyssinica SIL', Georgia, 'Times New Roman', serif;
+    font-size: min(1.111111vw,21.333px);
+    line-height: 1.18;
+    text-align: left;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story h2 {
+    height: min(9.027778vw,173.333px);
+    font-size: min(4.166667vw,80px);
+    line-height: min(3.819444vw,73.333px);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story__heading-line {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    transform-origin: left center;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story__heading-line--one {
+    transform: scaleX(.72);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story__heading-line--two {
+    transform: scaleX(.82);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story p {
+    width: 92.5%;
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story__first {
+    margin-top: min(2.222222vw,42.667px);
+  }
+
+  #WitheredJack-{{ section.id }} .wjl-story__second {
+    margin-top: min(2.222222vw,42.667px);
+  }
+
+  @keyframes wjl-gallery-{{ section.id }} {
+    from { transform: translate3d(var(--wjl-track-start),0,0); }
+    to { transform: translate3d(calc(var(--wjl-track-start) - var(--wjl-track-cycle)),0,0); }
+  }
+
+  @media (hover: hover) {
+    #WitheredJack-{{ section.id }} .wjl-gallery:hover .wjl-gallery__track.is-moving {
+      animation-play-state: paused;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #WitheredJack-{{ section.id }} .wjl__canvas {
+      max-width: none;
+      aspect-ratio: 412 / 3447;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl__background {
+      top: 32.017697%;
+      left: -23.300971%;
+      width: 141.747573%;
+      height: 23.121555%;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl__mobile-red {
+      position: absolute;
+      z-index: 1;
+      top: 67.653032%;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 13.402959%;
+      background: #d01313;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl__package {
+      top: 17.232376%;
+      left: 3.702427%;
+      width: 92.575%;
+      height: 13.632579%;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl__package img {
+      width: 96.635%;
+      height: 97.824%;
+      transform: rotate(-1.62deg);
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product {
+      top: 31.029185%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product__title {
+      width: 36.650485%;
+      height: calc(53 / 412 * 100vw);
+      margin-inline: auto;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product__title span {
+      font-size: calc(32 / 412 * 100vw);
+      line-height: calc(27 / 412 * 100vw);
+      transform: scaleX(.72);
+      transform-origin: center;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product__title small {
+      font-size: calc(20 / 412 * 100vw);
+      line-height: calc(19 / 412 * 100vw);
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product__body {
+      width: 55.582524%;
+      margin: calc(13 / 412 * 100vw) auto 0;
+      font-size: calc(10 / 412 * 100vw);
+      line-height: 1.2;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-product__body p + p {
+      margin-top: 2em;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl__detail {
+      display: none;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl__tagline {
+      top: 53.437772%;
+      width: 61.893204%;
+      font-size: calc(15 / 412 * 100vw);
+      line-height: 1.15;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-gallery {
+      top: 56.309835%;
+      left: 6.067961%;
+      width: 88.834951%;
+      height: 16.391065%;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-gallery__track {
+      --wjl-track-start: -459.487vw;
+      --wjl-track-cycle: 802.5825vw;
+      gap: 23.980097vw;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-gallery__item {
+      flex-basis: 90.674515vw;
+      width: 90.674515vw;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-gallery__edge,
+    #WitheredJack-{{ section.id }} .wjl-gallery__mask {
+      display: none;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-art--sketch {
+      top: 73.077082%;
+      left: 2.184466%;
+      width: 95.38835%;
+      height: 10.071628%;
+      mix-blend-mode: screen;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-art--sketch img {
+      width: 85.852%;
+      height: 79.207%;
+      transform: rotate(-13.72deg);
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-art--paper {
+      top: 74.686481%;
+      left: 7.957282%;
+      width: 84.085437%;
+      height: 7.539687%;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-art--paper img {
+      width: 94.953%;
+      height: 90.301%;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-story {
+      top: 84.479257%;
+      left: 19.660194%;
+      width: 60.679612%;
+      height: 8.152016%;
+      color: #fff;
+      font-size: calc(12 / 412 * 100vw);
+      line-height: 1.12;
+      text-align: center;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-story h2 {
+      height: calc(76 / 412 * 100vw);
+      font-size: calc(40 / 412 * 100vw);
+      line-height: calc(42 / 412 * 100vw);
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-story__heading-line {
+      transform-origin: center;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-story p {
+      position: absolute;
+      left: 50%;
+      width: 93.283581%;
+      transform: translateX(-50%);
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-story__first {
+      top: calc(139 / 412 * 100vw);
+      margin: 0;
+    }
+
+    #WitheredJack-{{ section.id }} .wjl-story__second {
+      top: calc(214 / 412 * 100vw);
+      margin: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #WitheredJack-{{ section.id }} .wjl-gallery__track.is-moving {
+      animation: none;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Withered Jack landing",
+  "tag": "section",
+  "class": "section-withered-jack-landing",
+  "settings": [
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#000000" },
+    { "type": "image_picker", "id": "hero_background", "label": "Main background" },
+    { "type": "image_picker", "id": "packaging_image", "label": "Packaging image" },
+    { "type": "image_picker", "id": "sketch_image", "label": "Sketch image" },
+    { "type": "image_picker", "id": "paper_image", "label": "Paper image" },
+    { "type": "image_picker", "id": "gallery_mask", "label": "Desktop gallery mask" },
+    { "type": "text", "id": "product_heading", "label": "Product heading", "default": "WITHERED JACK" },
+    { "type": "text", "id": "product_subheading", "label": "Product subheading", "default": "PENDANT" },
+    { "type": "textarea", "id": "product_text_1", "label": "Product text 1", "default": "Withered Jack Pendant được lấy từ hình ảnh một quả bí ngô đã héo rũ, nhưng không dừng lại ở cảm giác mùa lễ hội." },
+    { "type": "textarea", "id": "product_text_2", "label": "Product text 2", "default": "Từng tròn đầy, giờ chỉ còn lại một cái đầu méo mó với hốc mắt trống, nụ cười lệch và dấu vết của thời gian." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "see more" },
+    { "type": "url", "id": "product_link", "label": "Product link" },
+    { "type": "text", "id": "tagline_line_1", "label": "Tagline line 1", "default": "Made to wear, ready to play" },
+    { "type": "text", "id": "tagline_line_2", "label": "Tagline line 2", "default": "Jack has more than one way to stay" },
+    { "type": "text", "id": "story_heading_line_1", "label": "Story heading line 1", "default": "TỪ JACK-O’-LANTERN" },
+    { "type": "text", "id": "story_heading_line_2", "label": "Story heading line 2", "default": "ĐẾN WITHERED JACK" },
+    { "type": "textarea", "id": "story_text_1", "label": "Story text 1", "default": "Withered Jack bắt đầu từ hình ảnh jack-o’-lantern quen thuộc, nhưng được đẩy sang một trạng thái tối hơn." },
+    { "type": "textarea", "id": "story_text_2", "label": "Story text 2", "default": "Phần cuống bí vẫn được giữ lại để nhận ra nguồn gốc ban đầu, trong khi khuôn mặt được kéo dần về hình thái đầu lâu với hốc mắt sâu, nụ cười lệch và những đường nét héo rũ." },
+    { "type": "checkbox", "id": "enable_gallery_motion", "label": "Animate gallery", "default": true },
+    { "type": "range", "id": "gallery_duration", "label": "Gallery duration", "min": 20, "max": 60, "step": 1, "unit": "s", "default": 38 }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_image",
+      "name": "Gallery image",
+      "limit": 7,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text" }
+      ]
+    }
+  ],
+  "max_blocks": 7,
+  "presets": [{ "name": "Withered Jack landing" }]
+}
+{% endschema %}

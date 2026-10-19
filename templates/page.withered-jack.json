@@ -1,0 +1,90 @@
+{
+  "sections": {
+    "main": {
+      "type": "withered-jack-landing",
+      "blocks": {
+        "gallery_01": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/withered-jack-gallery-01.webp",
+            "alt": "Withered Jack pendant editorial image 1"
+          }
+        },
+        "gallery_02": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/withered-jack-gallery-02.webp",
+            "alt": "Withered Jack pendant editorial image 2"
+          }
+        },
+        "gallery_03": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/withered-jack-gallery-03.webp",
+            "alt": "Withered Jack pendant editorial image 3"
+          }
+        },
+        "gallery_04": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/withered-jack-gallery-04.webp",
+            "alt": "Withered Jack pendant editorial image 4"
+          }
+        },
+        "gallery_05": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/withered-jack-gallery-05.webp",
+            "alt": "Withered Jack pendant editorial image 5"
+          }
+        },
+        "gallery_06": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/withered-jack-gallery-06.webp",
+            "alt": "Withered Jack pendant editorial image 6"
+          }
+        },
+        "gallery_07": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/withered-jack-gallery-07.webp",
+            "alt": "Withered Jack pendant editorial image 7"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_01",
+        "gallery_02",
+        "gallery_03",
+        "gallery_04",
+        "gallery_05",
+        "gallery_06",
+        "gallery_07"
+      ],
+      "settings": {
+        "background_color": "#000000",
+        "hero_background": "shopify://shop_images/withered-jack-background.webp",
+        "packaging_image": "shopify://shop_images/withered-jack-packaging.webp",
+        "sketch_image": "shopify://shop_images/withered-jack-sketch.webp",
+        "paper_image": "shopify://shop_images/withered-jack-paper.webp",
+        "gallery_mask": "shopify://shop_images/withered-jack-gallery-mask.webp",
+        "product_heading": "WITHERED JACK",
+        "product_subheading": "PENDANT",
+        "product_text_1": "Withered Jack Pendant được lấy từ hình ảnh một quả bí ngô đã héo rũ, nhưng không dừng lại ở cảm giác mùa lễ hội.",
+        "product_text_2": "Từng tròn đầy, giờ chỉ còn lại một cái đầu méo mó với hốc mắt trống, nụ cười lệch và dấu vết của thời gian.",
+        "button_label": "see more",
+        "product_link": "shopify://products/withered-jack-pendant",
+        "tagline_line_1": "Made to wear, ready to play",
+        "tagline_line_2": "Jack has more than one way to stay",
+        "story_heading_line_1": "TỪ JACK-O’-LANTERN",
+        "story_heading_line_2": "ĐẾN WITHERED JACK",
+        "story_text_1": "Withered Jack bắt đầu từ hình ảnh jack-o’-lantern quen thuộc, nhưng được đẩy sang một trạng thái tối hơn.",
+        "story_text_2": "Phần cuống bí vẫn được giữ lại để nhận ra nguồn gốc ban đầu, trong khi khuôn mặt được kéo dần về hình thái đầu lâu với hốc mắt sâu, nụ cười lệch và những đường nét héo rũ.",
+        "enable_gallery_motion": true,
+        "gallery_duration": 38
+      }
+    }
+  },
+  "order": ["main"]
+}
