@@ -68,7 +68,7 @@
           "type": "linked_products",
           "settings": {
             "heading": "Loại",
-            "display_style": "text",
+            "display_style": "image",
             "show_selected_title": true,
             "show_product_titles": false,
             "swatch_size": 64,
