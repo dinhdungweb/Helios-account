@@ -39,7 +39,7 @@
         "image_84PHAU": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_2.png",
+            "image": "shopify://shop_images/khongchivui_text_optimized.webp",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -62,7 +62,7 @@
         "height": "adapt",
         "height_desktop": 600,
         "height_mobile": 500,
-        "full_width": true,
+        "full_width": false,
         "mobile_overlay_under": false,
         "overlay_style_tint": false,
         "slide_transition": "slide",
