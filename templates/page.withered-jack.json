@@ -40,7 +40,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/khongchivui_text_optimized.webp",
-            "slide_link": "",
+            "slide_link": "shopify://products/withered-jack-pendant",
             "subheading": "",
             "title": "",
             "title_size": 60,
