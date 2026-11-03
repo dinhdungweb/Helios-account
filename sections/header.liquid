@@ -303,7 +303,7 @@
               </a>
             {% else %}
               <a data-cc-animate-click href="{{ routes.account_url }}" class="nav-account">
-                <div class="name">Xin chào, {{ customer.name }}</div>
+                <div class="name">{{ 'helios.hello' | t }} {{ customer.name }}</div>
               </a>
             {% endif %}
           {% endif %}
@@ -428,7 +428,7 @@
                   </a>
                 {% else %}
                   <a data-cc-animate-click href="{{ routes.account_url }}" class="nav-account">
-                    <div class="name">Xin chào, {{ customer.name }}</div>
+                    <div class="name">{{ 'helios.hello' | t }} {{ customer.name }}</div>
                   </a>
                 {% endif %}
               </div>

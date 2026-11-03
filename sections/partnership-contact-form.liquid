@@ -231,7 +231,7 @@
       </div>
 
       <fieldset class="partnership-form__group">
-        <legend class="partnership-form__legend">Thông tin liên hệ</legend>
+        <legend class="partnership-form__legend">{{ 'helios.contact_information' | t }}</legend>
         <div class="partnership-form__field">
           <label class="partnership-form__label" for="PartnershipEmail-{{ section.id }}">
             Email <span class="partnership-form__required" aria-hidden="true">*</span>
@@ -250,15 +250,15 @@
       </fieldset>
 
       <fieldset class="partnership-form__group">
-        <legend class="partnership-form__legend">Lý do hợp tác</legend>
+        <legend class="partnership-form__legend">{{ 'helios.reasons_for_partnering' | t }}</legend>
 
         <div class="partnership-form__field">
           <label class="partnership-form__label" for="PartnershipWhy-{{ section.id }}">
-            Vì sao bạn quan tâm đến HELIOS?
+            {{ 'helios.why_are_you_interested_in_helios' | t }}
             <span class="partnership-form__required" aria-hidden="true">*</span>
           </label>
           <span class="partnership-form__hint" id="PartnershipWhyHint-{{ section.id }}">
-            Điều gì trong sản phẩm, tinh thần hoặc cách HELIOS xây thương hiệu phù hợp với thị trường và định hướng của bạn?
+            {{ 'helios.what_about_helios_products_values_or_approach_to_branding_fits_y' | t }}
           </span>
           <textarea
             class="partnership-form__textarea"
@@ -272,11 +272,11 @@
 
         <div class="partnership-form__field">
           <label class="partnership-form__label" for="PartnershipGoal-{{ section.id }}">
-            Bạn muốn cùng HELIOS xây điều gì trong 12–24 tháng tới?
+            {{ 'helios.what_would_you_like_to_build_with_helios_over_the_next_12_24_mon' | t }}
             <span class="partnership-form__required" aria-hidden="true">*</span>
           </label>
           <span class="partnership-form__hint" id="PartnershipGoalHint-{{ section.id }}">
-            Hãy mô tả mục tiêu thực tế: thị trường, điểm bán, kênh phân phối, dự án hoặc cộng đồng bạn muốn phát triển.
+            {{ 'helios.describe_your_goals_markets_stores_distribution_channels_project' | t }}
           </span>
           <textarea
             class="partnership-form__textarea"
@@ -290,11 +290,11 @@
 
         <div class="partnership-form__field">
           <label class="partnership-form__label" for="PartnershipSupport-{{ section.id }}">
-            Bạn kỳ vọng HELIOS hỗ trợ điều gì?
+            {{ 'helios.what_support_would_you_like_from_helios' | t }}
             <span class="partnership-form__required" aria-hidden="true">*</span>
           </label>
           <span class="partnership-form__hint" id="PartnershipSupportHint-{{ section.id }}">
-            Sản phẩm, đào tạo, nội dung, hình ảnh, vận hành, launch, trưng bày hoặc những phần khác.
+            {{ 'helios.products_training_content_imagery_operations_launches_displays_o' | t }}
           </span>
           <textarea
             class="partnership-form__textarea"
@@ -308,21 +308,21 @@
       </fieldset>
 
       <fieldset class="partnership-form__group">
-        <legend class="partnership-form__legend">Tài liệu giới thiệu</legend>
+        <legend class="partnership-form__legend">{{ 'helios.supporting_documents' | t }}</legend>
         <div class="partnership-form__field">
           <label class="partnership-form__label" for="PartnershipDocuments-{{ section.id }}">
-            Link tài liệu
-            <span class="partnership-form__optional">(Không bắt buộc)</span>
+            {{ 'helios.document_links' | t }}
+            <span class="partnership-form__optional">{{ 'helios.optional' | t }}</span>
           </label>
           <span class="partnership-form__hint" id="PartnershipDocumentsHint-{{ section.id }}">
-            Dán một hoặc nhiều link Google Drive/Dropbox và nhớ bật quyền xem cho HELIOS.
+            {{ 'helios.paste_one_or_more_google_drive_or_dropbox_links_and_enable_viewi' | t }}
           </span>
           <ul class="partnership-form__documents">
             <li>Company profile</li>
             <li>Retail portfolio</li>
             <li>Brand deck</li>
-            <li>Hình ảnh điểm bán</li>
-            <li>Tài liệu thị trường</li>
+            <li>{{ 'helios.store_photos' | t }}</li>
+            <li>{{ 'helios.market_documents' | t }}</li>
           </ul>
           <textarea
             class="partnership-form__textarea"
@@ -362,12 +362,13 @@
       const apiUrl = section.dataset.apiUrl.trim();
       const templateFile = section.dataset.templateFile.trim();
       if (!apiUrl || !templateFile) {
-        showStatus(errorMessage + ' Thiếu cấu hình API.', true);
+        showStatus(errorMessage + (" " + window.theme.t('api_configuration_is_missing')), true);
         return;
       }
 
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
+      payload.locale = window.theme.locale;
       payload.section_id = section.dataset.sectionId;
       payload.template_file = templateFile;
       payload.page_url = window.location.href;

@@ -41,7 +41,7 @@
     this.renderQueued = false;
 
     this.canvas = createElement('canvas', 'magazine-webgl-canvas');
-    this.canvas.setAttribute('aria-label', 'Trình xem tạp chí 3D');
+    this.canvas.setAttribute('aria-label', window.theme.t('3d_magazine_viewer'));
     this.canvas.setAttribute('role', 'img');
     this.fallback = createElement('div', 'magazine-webgl-fallback');
     this.fallback.setAttribute('aria-hidden', 'true');

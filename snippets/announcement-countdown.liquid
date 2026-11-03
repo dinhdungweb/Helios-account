@@ -1,3 +1,10 @@
+{%- liquid
+  assign helios_the_event_is_live_join_now = 'helios.the_event_is_live_join_now' | t
+  assign helios_days = 'helios.days' | t
+  assign helios_hours_61cd69 = 'helios.hours_61cd69' | t
+  assign helios_minutes_579c04 = 'helios.minutes_579c04' | t
+  assign helios_seconds = 'helios.seconds' | t
+-%}
 {% comment %}
   Announcement Countdown Bar Snippet - HELIOS Style
   Can be rendered inside header.liquid or announcement-countdown.liquid section.
@@ -36,14 +43,14 @@
       assign ac_prefix = settings_obj.countdown_prefix_text | default: settings_obj.prefix_text | default: 'D-DAY 8/8/2026'
       assign ac_sep = settings_obj.countdown_separator | default: settings_obj.separator | default: '·'
       assign ac_target = settings_obj.countdown_target_date | default: settings_obj.target_date | default: '2026-08-08T20:00:00'
-      assign ac_expired = settings_obj.countdown_expired_text | default: settings_obj.expired_text | default: 'SỰ KIỆN ĐANG DIỄN RA - TRUY CẬP NGAY'
+      assign ac_expired = settings_obj.countdown_expired_text | default: settings_obj.expired_text | default: helios_the_event_is_live_join_now
       assign ac_show_sec = settings_obj.countdown_show_seconds | default: settings_obj.show_seconds | default: false
       assign ac_link = settings_obj.countdown_bar_link | default: settings_obj.bar_link
 
-      assign ac_l_days = settings_obj.countdown_label_days | default: settings_obj.label_days | default: 'NGÀY'
-      assign ac_l_hours = settings_obj.countdown_label_hours | default: settings_obj.label_hours | default: 'GIỜ'
-      assign ac_l_mins = settings_obj.countdown_label_minutes | default: settings_obj.label_minutes | default: 'PHÚT'
-      assign ac_l_secs = settings_obj.countdown_label_seconds | default: settings_obj.label_seconds | default: 'GIÂY'
+      assign ac_l_days = settings_obj.countdown_label_days | default: settings_obj.label_days | default: helios_days
+      assign ac_l_hours = settings_obj.countdown_label_hours | default: settings_obj.label_hours | default: helios_hours_61cd69
+      assign ac_l_mins = settings_obj.countdown_label_minutes | default: settings_obj.label_minutes | default: helios_minutes_579c04
+      assign ac_l_secs = settings_obj.countdown_label_seconds | default: settings_obj.label_seconds | default: helios_seconds
     -%}
 
     <style>

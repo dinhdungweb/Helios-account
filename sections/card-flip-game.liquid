@@ -706,7 +706,7 @@
       customerEmail: root.dataset.customerEmail || '',
       backImage: root.dataset.backImage || '',
       backLabel: (root.dataset.backLabel || '').trim(),
-      cardAriaLabel: 'Lật thẻ',
+      cardAriaLabel: window.theme.t('flip_a_card'),
       savingText: {{ section.settings.saving_message | json }},
       savedText: {{ section.settings.saved_message | json }},
       errorText: {{ section.settings.error_message | json }},
@@ -821,7 +821,7 @@
     async function syncServerState() {
       if (!config.apiBase || !config.customerId) return;
 
-      const params = new URLSearchParams({
+      const params = new URLSearchParams({ locale: window.theme.locale,
         customer_id: config.customerId,
         campaign_id: config.campaignId
       });
@@ -844,7 +844,7 @@
     async function syncInventory() {
       if (!config.apiBase) return;
 
-      const params = new URLSearchParams({ campaign_id: config.campaignId });
+      const params = new URLSearchParams({ locale: window.theme.locale, campaign_id: config.campaignId });
       const response = await fetch(config.apiBase + '/card-flip/inventory?' + params.toString(), {
         method: 'GET',
         cache: 'no-store'
@@ -990,7 +990,7 @@
       const response = await fetch(config.apiBase + '/card-flip/play', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+        body: JSON.stringify({ locale: window.theme.locale,
           customer_id: config.customerId,
           customer_email: config.customerEmail,
           campaign_id: config.campaignId,

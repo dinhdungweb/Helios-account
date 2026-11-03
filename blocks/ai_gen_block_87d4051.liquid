@@ -170,7 +170,7 @@
   <div class="ai-countdown-popup-{{ ai_gen_id }}">
     <button 
       class="ai-countdown-popup-close-{{ ai_gen_id }}"
-      aria-label="Đóng popup"
+      aria-label="{{ 'helios.close_popup' | t | escape }}"
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -194,19 +194,19 @@
       <div class="ai-countdown-timer-{{ ai_gen_id }}">
         <div class="ai-countdown-unit-{{ ai_gen_id }}">
           <div class="ai-countdown-number-{{ ai_gen_id }}" data-days>00</div>
-          <div class="ai-countdown-label-{{ ai_gen_id }}">Ngày</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">{{ 'helios.date' | t }}</div>
         </div>
         <div class="ai-countdown-unit-{{ ai_gen_id }}">
           <div class="ai-countdown-number-{{ ai_gen_id }}" data-hours>00</div>
-          <div class="ai-countdown-label-{{ ai_gen_id }}">Giờ</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">{{ 'helios.hours_75f923' | t }}</div>
         </div>
         <div class="ai-countdown-unit-{{ ai_gen_id }}">
           <div class="ai-countdown-number-{{ ai_gen_id }}" data-minutes>00</div>
-          <div class="ai-countdown-label-{{ ai_gen_id }}">Phút</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">{{ 'helios.minutes_34ca51' | t }}</div>
         </div>
         <div class="ai-countdown-unit-{{ ai_gen_id }}">
           <div class="ai-countdown-number-{{ ai_gen_id }}" data-seconds>00</div>
-          <div class="ai-countdown-label-{{ ai_gen_id }}">Giây</div>
+          <div class="ai-countdown-label-{{ ai_gen_id }}">{{ 'helios.seconds_70b78c' | t }}</div>
         </div>
       </div>
 

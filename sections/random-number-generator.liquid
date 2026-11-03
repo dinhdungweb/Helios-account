@@ -1,3 +1,12 @@
+{%- liquid
+  assign helios_minimum_number = 'helios.minimum_number' | t
+  assign helios_maximum_number = 'helios.maximum_number' | t
+  assign helios_generate_random_numbers = 'helios.generate_random_numbers' | t
+  assign helios_allow_duplicate_numbers = 'helios.allow_duplicate_numbers' | t
+  assign helios_quantity = 'helios.quantity' | t
+  assign helios_result_history = 'helios.result_history' | t
+  assign helios_clear_history = 'helios.clear_history' | t
+-%}
 <!-- sections/random-number-generator.liquid -->
 {{ 'random-generator.css' | asset_url | stylesheet_tag }}
 
@@ -26,7 +35,7 @@
       <div class="generator-controls">
         <div class="input-group">
           <div class="input-field">
-            <label for="min-{{ section.id }}">{{ section.settings.min_label | default: 'Số tối thiểu' }}</label>
+            <label for="min-{{ section.id }}">{{ section.settings.min_label | default: helios_minimum_number }}</label>
             <input 
               type="number" 
               id="min-{{ section.id }}" 
@@ -37,7 +46,7 @@
           </div>
           
           <div class="input-field">
-            <label for="max-{{ section.id }}">{{ section.settings.max_label | default: 'Số tối đa' }}</label>
+            <label for="max-{{ section.id }}">{{ section.settings.max_label | default: helios_maximum_number }}</label>
             <input 
               type="number" 
               id="max-{{ section.id }}" 
@@ -54,7 +63,7 @@
           id="generate-btn-{{ section.id }}"
           onclick="generateRandomNumber('{{ section.id }}')"
         >
-          {{ section.settings.button_text | default: 'Quay số ngẫu nhiên' }}
+          {{ section.settings.button_text | default: helios_generate_random_numbers }}
         </button>
 
         <!-- Additional Options -->
@@ -67,12 +76,12 @@
                 {% if section.settings.allow_duplicates %}checked{% endif %}
               >
               <span class="checkmark"></span>
-              {{ section.settings.duplicates_label | default: 'Cho phép số trùng lặp' }}
+              {{ section.settings.duplicates_label | default: helios_allow_duplicate_numbers }}
             </label>
           </div>
 
           <div class="option-group">
-            <label for="quantity-{{ section.id }}">{{ section.settings.quantity_label | default: 'Số lượng' }}</label>
+            <label for="quantity-{{ section.id }}">{{ section.settings.quantity_label | default: helios_quantity }}</label>
             <select id="quantity-{{ section.id }}">
               <option value="1" selected>1</option>
               <option value="2">2</option>
@@ -87,9 +96,9 @@
       <!-- History -->
       {% if section.settings.show_history %}
         <div class="history-section">
-          <h3>{{ section.settings.history_title | default: 'Lịch sử kết quả' }}</h3>
+          <h3>{{ section.settings.history_title | default: helios_result_history }}</h3>
           <div class="history-list" id="history-{{ section.id }}">
-            <p class="no-history">Chưa có kết quả nào được tạo</p>
+            <p class="no-history">{{ 'helios.no_results_yet' | t }}</p>
           </div>
           <button 
             class="clear-history-btn" 
@@ -97,7 +106,7 @@
             onclick="clearHistory('{{ section.id }}')"
             style="display: none;"
           >
-            {{ section.settings.clear_history_text | default: 'Xóa lịch sử' }}
+            {{ section.settings.clear_history_text | default: helios_clear_history }}
           </button>
         </div>
       {% endif %}
@@ -401,13 +410,13 @@ function generateRandomNumber(sectionId) {
   }
   
   if (!duplicates && quantity > (max - min + 1)) {
-    alert('Không thể tạo ' + quantity + ' số không trùng lặp trong khoảng từ ' + min + ' đến ' + max);
+    alert((window.theme.t('cannot_generate') + " ") + quantity + (" " + window.theme.t('unique_numbers_between') + " ") + min + (" " + window.theme.t('and') + " ") + max);
     return;
   }
   
   // Animation
   button.disabled = true;
-  button.textContent = 'Đang quay...';
+  button.textContent = window.theme.t('generating');
   resultElement.style.transform = 'scale(0.8)';
   
   // Generate random numbers
@@ -443,7 +452,7 @@ function generateRandomNumber(sectionId) {
     // Reset button
     resultElement.style.transform = 'scale(1)';
     button.disabled = false;
-    button.textContent = '{{ section.settings.button_text | default: "Quay số ngẫu nhiên" }}';
+    button.textContent = {{ section.settings.button_text | default: helios_generate_random_numbers | json }};
     
     // Add celebration effect
     createConfetti();
@@ -488,7 +497,7 @@ function clearHistory(sectionId) {
   const clearButton = document.getElementById('clear-history-' + sectionId);
   
   if (historyElement) {
-    historyElement.innerHTML = '<p class="no-history">Chưa có kết quả nào được tạo</p>';
+    historyElement.innerHTML = window.theme.t('no_results_yet_3c7cc4_html');
   }
   
   if (clearButton) {

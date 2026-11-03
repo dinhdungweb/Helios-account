@@ -49,12 +49,12 @@
 {% endschema %}
 
 <div class="job-section">
-  <h2 class="job-title">Cơ hội nghề nghiệp</h2>
+  <h2 class="job-title">{{ 'helios.career_opportunities' | t }}</h2>
 
   <div class="job-filters">
     <!-- Vị trí tuyển dụng -->
     <select id="filter-job_title">
-      <option value="">Vị trí tuyển dụng</option>
+      <option value="">{{ 'helios.open_positions' | t }}</option>
       {% assign job_titles = section.blocks | map: "settings" | map: "job_title" | uniq %}
       {% for title in job_titles %}
         {% if title != blank %}<option value="{{ title }}">{{ title }}</option>{% endif %}
@@ -63,7 +63,7 @@
   
     <!-- Phòng ban -->
     <select id="filter-department">
-      <option value="">Phòng ban làm việc</option>
+      <option value="">{{ 'helios.department' | t }}</option>
       {% assign departments = section.blocks | map: "settings" | map: "department" | uniq %}
       {% for d in departments %}
         {% if d != blank %}<option value="{{ d }}">{{ d }}</option>{% endif %}
@@ -72,25 +72,25 @@
   
     <!-- Địa điểm -->
     <select id="filter-location">
-      <option value="">Địa điểm</option>
+      <option value="">{{ 'helios.location_c98059' | t }}</option>
       {% assign locations = section.blocks | map: "settings" | map: "location" | uniq %}
       {% for l in locations %}
         {% if l != blank %}<option value="{{ l }}">{{ l }}</option>{% endif %}
       {% endfor %}
     </select>
   
-    <button onclick="filterJobs()">Tìm kiếm</button>
+    <button onclick="filterJobs()">{{ 'helios.search' | t }}</button>
   </div>
 
   <table class="job-table" id="job-table">
     <thead>
       <tr>
         <th>STT</th>
-        <th>Vị trí tuyển dụng</th>
-        <th>Đang tuyển</th>
-        <th>Số lượng</th>
-        <th>Địa điểm làm</th>
-        <th>Hạn nộp hồ sơ</th>
+        <th>{{ 'helios.open_positions' | t }}</th>
+        <th>{{ 'helios.hiring' | t }}</th>
+        <th>{{ 'helios.quantity' | t }}</th>
+        <th>{{ 'helios.work_location' | t }}</th>
+        <th>{{ 'helios.application_deadline' | t }}</th>
       </tr>
     </thead>
     <tbody>
@@ -101,17 +101,17 @@
             data-department="{{ block.settings.department }}"
             data-location="{{ block.settings.location }}">
           <td data-label="STT">{{ forloop.index }}</td>
-          <td data-label="Vị trí">{{ block.settings.job_title }}</td>
-          <td data-label="Đang tuyển">
+          <td data-label="{{ 'helios.position' | t | escape }}">{{ block.settings.job_title }}</td>
+          <td data-label="{{ 'helios.hiring' | t | escape }}">
             {% if block.settings.deadline < today %}
-              <span class="closed">Đã hết hạn</span>
+              <span class="closed">{{ 'helios.expired' | t }}</span>
             {% else %}
-              <a href="{{ block.settings.apply_link }}" class="apply-button">Ứng tuyển</a>
+              <a href="{{ block.settings.apply_link }}" class="apply-button">{{ 'helios.apply' | t }}</a>
             {% endif %}
           </td>
-          <td data-label="Số lượng">1</td>
-          <td data-label="Địa điểm">{{ block.settings.location }}</td>
-          <td data-label="Hạn nộp">{{ block.settings.deadline | date: "%d/%m/%Y" }}</td>
+          <td data-label="{{ 'helios.quantity' | t | escape }}">1</td>
+          <td data-label="{{ 'helios.location_c98059' | t | escape }}">{{ block.settings.location }}</td>
+          <td data-label="{{ 'helios.deadline' | t | escape }}">{{ block.settings.deadline | date: "%d/%m/%Y" }}</td>
         </tr>
       {% endfor %}
     </tbody>

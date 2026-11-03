@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     console.log('Slots data loaded successfully');
   } catch (error) {
     console.error('Error loading slots:', error);
-    showModal(false, 'Đã xảy ra lỗi', 'Không thể tải danh sách lịch hẹn. Vui lòng tải lại trang.');
+    showModal(false, window.theme.t('an_error_occurred'), window.theme.t('unable_to_load_appointments_please_reload_the_page'));
     return;
   }
 
@@ -111,22 +111,9 @@ function isTimeExpired(dateString, timeString) {
   }
 }
 
-  function formatDateToVietnamese(dateString) {
-    try {
-      const parts = dateString.split(' ');
-      const dayOfWeek = `${parts[0]} ${parts[1]}`;
-      const month = parts[2];
-      const day = parts[3];
-      const monthMap = {
-        Jan: 'Tháng 1', Feb: 'Tháng 2', Mar: 'Tháng 3', Apr: 'Tháng 4',
-        May: 'Tháng 5', Jun: 'Tháng 6', Jul: 'Tháng 7', Aug: 'Tháng 8',
-        Sep: 'Tháng 9', Oct: 'Tháng 10', Nov: 'Tháng 11', Dec: 'Tháng 12'
-      };
-      return `${dayOfWeek} ${day} ${monthMap[month] || month}`;
-    } catch (error) {
-      console.error('Error formatting date:', error);
-      return dateString; // Fallback
-    }
+  function formatBookingDate(dateString) {
+    const parts = window.theme.bookingDateParts(dateString);
+    return parts.weekday + ' ' + parts.dayMonth;
   }
 
   function parseDateKey(dateString) {
@@ -163,12 +150,12 @@ function isTimeExpired(dateString, timeString) {
       const startOfCurrentWeek = getStartOfWeek(today);
       const startOfSlotWeek = getStartOfWeek(slotDate);
       const diffWeeks = Math.floor((startOfSlotWeek - startOfCurrentWeek) / (1000 * 60 * 60 * 24 * 7));
-      if (diffWeeks === 0) return 'Tuần Này';
-      else if (diffWeeks === 1) return 'Tuần Sau';
-      else return `Trong ${diffWeeks} Tuần`;
+      if (diffWeeks === 0) return window.theme.t('this_week');
+      else if (diffWeeks === 1) return window.theme.t('next_week');
+      else return window.theme.t('in_weeks', { count: diffWeeks });
     } catch (error) {
       console.error('Error getting week label:', error);
-      return 'Tuần Này'; // Fallback
+      return window.theme.t('this_week'); // Fallback
     }
   }
 
@@ -176,7 +163,7 @@ function isTimeExpired(dateString, timeString) {
     button.addEventListener('click', function () {
       const type = this.getAttribute('data-type');
       if (appointmentTitle) {
-        appointmentTitle.textContent = type === 'showroom' ? 'Đặt Lịch Showroom' : 'Đặt Lịch Hẹn Trực Tuyến';
+        appointmentTitle.textContent = type === 'showroom' ? window.theme.t('book_a_showroom_visit') : window.theme.t('book_an_online_appointment');
       }
       
       if (appointmentOptions) appointmentOptions.style.display = 'none';
@@ -190,12 +177,8 @@ function isTimeExpired(dateString, timeString) {
         .forEach(date => {
           if (!availableSlots[date] || availableSlots[date].length === 0) return;
           
-          const formattedDate = formatDateToVietnamese(date);
           const weekLabel = getWeekLabel(date);
-
-          const parts = formattedDate.split(' ');
-          const weekday = parts.slice(0, 2).join(' ');
-          const dayMonth = parts.slice(2).join(' ');
+          const { weekday, dayMonth } = window.theme.bookingDateParts(date);
 
           const column = document.createElement('div');
           column.classList.add('schedule-column');
@@ -204,7 +187,7 @@ function isTimeExpired(dateString, timeString) {
               <h4>${weekLabel}</h4>
               <div class="date-box">
                 <div class="weekday">${weekday}</div>
-                <div class="day-month">Ngày ${dayMonth}</div>
+                <div class="day-month">${window.theme.t('date')} ${dayMonth}</div>
               </div>
             </div>
           `;
@@ -242,7 +225,7 @@ function isTimeExpired(dateString, timeString) {
         if (scheduleSection) scheduleSection.style.display = 'none';
         if (infoSection) infoSection.style.display = 'block';
       } else {
-        showModal(false, 'Chưa chọn khung giờ', 'Vui lòng chọn một khung giờ.');
+        showModal(false, window.theme.t('no_time_slot_selected'), window.theme.t('please_select_a_time_slot'));
       }
     });
   }
@@ -253,12 +236,12 @@ function isTimeExpired(dateString, timeString) {
     
     if (!(bookingForm instanceof HTMLFormElement)) {
       console.error('bookingForm is not a valid form element:', bookingForm);
-      showModal(false, 'Lỗi hệ thống', 'Không thể xử lý form. Vui lòng tải lại trang.');
+      showModal(false, window.theme.t('system_error_b3af2f'), window.theme.t('unable_to_process_the_form_please_reload_the_page'));
       return;
     }
     
     if (!selectedTimeSlot) {
-      showModal(false, 'Lỗi', 'Vui lòng chọn khung giờ trước khi gửi form.');
+      showModal(false, window.theme.t('error'), window.theme.t('please_select_a_time_slot_before_submitting_the_form'));
       return;
     }
     
@@ -272,25 +255,25 @@ function isTimeExpired(dateString, timeString) {
     const handleOtherField = (checkboxName, inputName) => {
       const checkboxValue = formData.get(checkboxName);
       const inputValue = formData.get(inputName);
-      return (checkboxValue === 'Khác' && inputValue) ? inputValue.trim() : '';
+      return (checkboxValue && inputValue) ? inputValue.trim() : '';
     };
     
     const productTypes = getCheckboxValues('product_type[]');
     const otherProduct = handleOtherField('product_type_other_check', 'product_type_other');
     if (otherProduct) {
-      productTypes.push(`Khác: ${otherProduct}`);
+      productTypes.push(`${window.theme.t('other')} ${otherProduct}`);
     }
     
     const needs = getCheckboxValues('needs[]');
     const otherNeeds = handleOtherField('needs_other_check', 'needs_other');
     if (otherNeeds) {
-      needs.push(`Khác: ${otherNeeds}`);
+      needs.push(`${window.theme.t('other')} ${otherNeeds}`);
     }
     
     const styles = getCheckboxValues('style[]');
     const collectionStyle = handleOtherField('style_collection_check', 'style_collection');
     if (collectionStyle) {
-      styles.push(`Theo BST cụ thể: ${collectionStyle}`);
+      styles.push(`${window.theme.t('specific_collection')} ${collectionStyle}`);
     }
     
     const firstName = formData.get('first_name');
@@ -299,7 +282,7 @@ function isTimeExpired(dateString, timeString) {
     const email = formData.get('email');
     
     if (!firstName || !lastName || !phone || !email) {
-      showModal(false, 'Thiếu thông tin', 'Vui lòng điền đầy đủ các trường bắt buộc (*).');
+      showModal(false, window.theme.t('missing_information'), window.theme.t('please_fill_in_all_required_fields'));
       return;
     }
     
@@ -323,7 +306,7 @@ function isTimeExpired(dateString, timeString) {
       const result = await saveBooking(data);
       
       if (result.success) {
-        showModal(true, 'BẠN ĐÃ ĐẶT LỊCH THÀNH CÔNG', 'Helios đã nhận được thông tin đăng ký từ bạn – Đừng quên kiểm tra email để xem lại chi tiết cuộc hẹn!');
+        showModal(true, window.theme.t('appointment_booked_successfully'), window.theme.t('helios_has_received_your_booking_check_your_email_for_the_appoin'));
         
         try {
           if (typeof emailjs !== 'undefined') {
@@ -333,7 +316,7 @@ function isTimeExpired(dateString, timeString) {
               phone: data.phone,
               email: data.email,
               notes: data.notes,
-              date: formatDateToVietnamese(data.date),
+              date: formatBookingDate(data.date),
               time: data.time,
               specific_product: data.specific_product,
               product_types: data.product_types.join(', '),
@@ -366,13 +349,13 @@ function isTimeExpired(dateString, timeString) {
           console.warn('Error updating slots:', updateError);
         }
       } else if (result.reason === 'duplicate') {
-        showModal(false, 'Khung giờ không khả dụng', 'Khung giờ này vừa được đặt. Vui lòng chọn một khung giờ khác.');
+        showModal(false, window.theme.t('time_slot_unavailable'), window.theme.t('this_time_slot_has_just_been_booked_please_choose_another_time'));
       } else {
-        showModal(false, 'Đã xảy ra lỗi', result.message || 'Lỗi khi đặt lịch hẹn. Vui lòng thử lại.');
+        showModal(false, window.theme.t('an_error_occurred'), result.message || window.theme.t('unable_to_book_your_appointment_please_try_again'));
       }
     } catch (error) {
       console.error('Error saving booking:', error);
-      showModal(false, 'Đã xảy ra lỗi', 'Lỗi khi đặt lịch hẹn. Vui lòng thử lại.');
+      showModal(false, window.theme.t('an_error_occurred'), window.theme.t('unable_to_book_your_appointment_please_try_again'));
     }
   });
 
@@ -388,38 +371,38 @@ function isTimeExpired(dateString, timeString) {
       
       const email = emailInput.value.trim();
       if (!email) {
-        bookingResults.innerHTML = '<p>Vui lòng nhập email.</p>';
+        bookingResults.innerHTML = window.theme.t('please_enter_your_email_html');
         return;
       }
 
-      bookingResults.innerHTML = '<p>Đang tìm lịch hẹn...</p>';
+      bookingResults.innerHTML = window.theme.t('looking_for_appointments_html');
       
       try {
         const bookings = await getBookingsByEmail(email);
         
         if (bookings.length === 0) {
-          bookingResults.innerHTML = '<p>Không tìm thấy lịch hẹn nào với email này.</p>';
+          bookingResults.innerHTML = window.theme.t('no_appointments_found_for_this_email_html');
           return;
         }
 
         const html = bookings.map(booking => `
           <div style="background: #1a1a1a; margin-bottom: 15px; padding: 15px 20px; border: 1px solid #333; text-align: left">
-            <p><strong>Ngày:</strong> ${formatDateToVietnamese(booking.date)}</p>
-            <p><strong>Giờ:</strong> ${booking.time}</p>
-            ${booking.specific_product ? `<p><strong>Sản phẩm muốn xem:</strong> ${booking.specific_product}</p>` : ''}
-            ${booking.product_types && booking.product_types.length ? `<p><strong>Loại sản phẩm:</strong> ${booking.product_types.join(', ')}</p>` : ''}
-            ${booking.needs ? `<p><strong>Nhu cầu:</strong> ${booking.needs}</p>` : ''}
-            ${booking.styles ? `<p><strong>Phong cách:</strong> ${booking.styles}</p>` : ''}
-            ${booking.budget ? `<p><strong>Ngân sách:</strong> ${booking.budget}</p>` : ''}
-            ${booking.notes ? `<p><strong>Ghi chú:</strong> ${booking.notes}</p>` : ''}
+            <p><strong>${window.theme.t('date_312fb1')}</strong> ${formatBookingDate(booking.date)}</p>
+            <p><strong>${window.theme.t('time_c28788')}</strong> ${booking.time}</p>
+            ${booking.specific_product ? `<p><strong>${window.theme.t('requested_products')}</strong> ${booking.specific_product}</p>` : ''}
+            ${booking.product_types && booking.product_types.length ? `<p><strong>${window.theme.t('product_types')}</strong> ${booking.product_types.join(', ')}</p>` : ''}
+            ${booking.needs ? `<p><strong>${window.theme.t('needs')}</strong> ${booking.needs}</p>` : ''}
+            ${booking.styles ? `<p><strong>${window.theme.t('style')}</strong> ${booking.styles}</p>` : ''}
+            ${booking.budget ? `<p><strong>${window.theme.t('budget')}</strong> ${booking.budget}</p>` : ''}
+            ${booking.notes ? `<p><strong>${window.theme.t('notes')}</strong> ${booking.notes}</p>` : ''}
           </div>
         `).join('');
 
-        bookingResults.innerHTML = `<h3 style="margin-bottom: 20px;">Kết quả tra cứu:</h3>${html}`;
+        bookingResults.innerHTML = `<h3 style="margin-bottom: 20px;">${window.theme.t('search_results')}</h3>${html}`;
 
       } catch (err) {
         console.error('Error fetching bookings:', err);
-        bookingResults.innerHTML = '<p>Đã xảy ra lỗi khi tìm kiếm lịch hẹn. Vui lòng thử lại.</p>';
+        bookingResults.innerHTML = window.theme.t('unable_to_search_for_appointments_please_try_again_html');
       }
     });
   }

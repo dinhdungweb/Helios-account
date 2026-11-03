@@ -1,3 +1,6 @@
+{%- liquid
+  assign helios_view_product = 'helios.view_product' | t
+-%}
 {{ 'warrior-landing.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
@@ -158,7 +161,7 @@
 
   <div class="warrior-collections" data-warrior-collections>
     <div class="warrior-collections__desktop">
-      <nav class="warrior-collection-tabs" aria-label="Bộ sưu tập">
+      <nav class="warrior-collection-tabs" aria-label="{{ 'helios.collection' | t | escape }}">
         {%- assign collection_index = 0 -%}
         {%- for block in section.blocks -%}
           {%- if block.type == 'collection' -%}
@@ -234,7 +237,7 @@
               data-collection-index="{{ gallery_collection_index | minus: 1 }}"
               aria-hidden="{% if gallery_collection_index == 1 %}false{% else %}true{% endif %}"
             >
-              <button class="warrior-gallery__arrow warrior-gallery__arrow--previous" type="button" data-warrior-gallery-previous aria-label="Ảnh trước">
+              <button class="warrior-gallery__arrow warrior-gallery__arrow--previous" type="button" data-warrior-gallery-previous aria-label="{{ 'helios.previous_image' | t | escape }}">
                 <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
               </button>
 
@@ -281,10 +284,10 @@
                 {%- endfor -%}
               </div>
 
-              <button class="warrior-gallery__arrow warrior-gallery__arrow--next" type="button" data-warrior-gallery-next aria-label="Ảnh tiếp theo">
+              <button class="warrior-gallery__arrow warrior-gallery__arrow--next" type="button" data-warrior-gallery-next aria-label="{{ 'helios.next_image' | t | escape }}">
                 <img src="{{ 'warrior-arrow.svg' | asset_url }}" alt="" width="42" height="52">
               </button>
-              <div class="warrior-dots warrior-gallery__dots" data-warrior-gallery-dots aria-label="Chọn ảnh"></div>
+              <div class="warrior-dots warrior-gallery__dots" data-warrior-gallery-dots aria-label="{{ 'helios.select_image' | t | escape }}"></div>
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -351,12 +354,12 @@
                   {%- endif -%}
                 {%- endfor -%}
               </div>
-              <div class="warrior-dots warrior-mobile-collection__dots" data-warrior-mobile-gallery-dots aria-label="Chọn ảnh"></div>
+              <div class="warrior-dots warrior-mobile-collection__dots" data-warrior-mobile-gallery-dots aria-label="{{ 'helios.select_image' | t | escape }}"></div>
             </div>
             <h2>{{ block.settings.title | escape }}</h2>
             {%- if block.settings.description != blank -%}<p>{{ block.settings.description | escape }}</p>{%- endif -%}
             {%- if block.settings.link != blank and block.settings.link_label != blank -%}
-              <a href="{{ block.settings.link }}">{{ block.settings.link_label | default: 'Xem sản phẩm' | escape }}</a>
+              <a href="{{ block.settings.link }}">{{ block.settings.link_label | default: helios_view_product | escape }}</a>
             {%- elsif block.settings.link_label != blank -%}
               <span class="warrior-mobile-collection__cta">{{ block.settings.link_label | escape }}</span>
             {%- endif -%}

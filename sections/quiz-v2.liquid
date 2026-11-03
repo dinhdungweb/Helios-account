@@ -66,7 +66,7 @@
               {%- endfor -%}
             </div>
           {%- else -%}
-            <p class="feature-subheader">Chưa gán collection đề xuất cho kết luận này.</p>
+            <p class="feature-subheader">{{ 'helios.no_recommended_collection_has_been_assigned_to_this_result' | t }}</p>
           {%- endif -%}
         </div>
       {%- endfor -%}
@@ -115,7 +115,7 @@
           "desc": {{ block.settings.result_description | json }},
           "image": {%- if block.settings.result_image -%}{{ block.settings.result_image | image_url: width: 1600 | json }}{%- else -%}null{%- endif -%},
           "cta": { 
-            "label": {%- if block.settings.result_product_handle != blank -%}"Xem sản phẩm"{%- else -%}""{%- endif -%}, 
+            "label": {%- if block.settings.result_product_handle != blank -%}{{ 'helios.view_product' | t | json }}{%- else -%}""{%- endif -%},
             "link": {%- if block.settings.result_product_handle != blank -%}{{ '/products/' | append: block.settings.result_product_handle | json }}{%- else -%}""{%- endif -%}
           },
           "rule": {}

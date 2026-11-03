@@ -17,12 +17,12 @@
       <div class="points-hero">
         <div class="points-hero-inner">
           <div class="points-stat">
-            <span class="points-stat-label">Điểm Thưởng Hiện Có</span>
+            <span class="points-stat-label">{{ 'helios.available_reward_points' | t }}</span>
             <span class="points-stat-value" id="currentPointsDisplay" data-points="{{ points | default: 0 }}">{{ points | default: 0 }}</span>
           </div>
           <div class="points-stat">
-            <span class="points-stat-label">Quy Đổi</span>
-            <span class="points-stat-info">1.000 điểm = 1.000 VND (Gift Card)</span>
+            <span class="points-stat-label">{{ 'helios.exchange_rate' | t }}</span>
+            <span class="points-stat-info">{{ 'helios.1_000_points_1_000_vnd_gift_card' | t }}</span>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
               <input type="radio" name="discount_value" value="50000" checked>
               <div class="exchange-card-inner">
                 <span class="card-amount">50.000 VND</span>
-                <span class="card-points">50.000 điểm</span>
+                <span class="card-points">{{ 'helios.50_000_points' | t }}</span>
               </div>
             </label>
             
@@ -45,7 +45,7 @@
               <input type="radio" name="discount_value" value="100000">
               <div class="exchange-card-inner">
                 <span class="card-amount">100.000 VND</span>
-                <span class="card-points">100.000 điểm</span>
+                <span class="card-points">{{ 'helios.100_000_points' | t }}</span>
               </div>
             </label>
             
@@ -53,7 +53,7 @@
               <input type="radio" name="discount_value" value="200000" {% if points < 200000 %}disabled{% endif %}>
               <div class="exchange-card-inner">
                 <span class="card-amount">200.000 VND</span>
-                <span class="card-points">200.000 điểm</span>
+                <span class="card-points">{{ 'helios.200_000_points' | t }}</span>
               </div>
             </label>
             
@@ -61,13 +61,13 @@
               <input type="radio" name="discount_value" value="500000" {% if points < 500000 %}disabled{% endif %}>
               <div class="exchange-card-inner">
                 <span class="card-amount">500.000 VND</span>
-                <span class="card-points">500.000 điểm</span>
+                <span class="card-points">{{ 'helios.500_000_points' | t }}</span>
               </div>
             </label>
           </div>
           
           <button type="submit" class="dashboard-btn exchange-submit-btn" id="acc-exchange-btn">
-            <span class="btn-text">Đổi Điểm Ngay</span>
+            <span class="btn-text">{{ 'helios.redeem_points_now' | t }}</span>
             <span class="btn-loading" style="display:none;">
               <span class="loading-spinner"></span>
             </span>
@@ -84,8 +84,8 @@
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
         </div>
-        <p>Bạn cần ít nhất <strong>50.000 điểm</strong> để đổi thẻ quà tặng.</p>
-        <p class="current-points">Điểm hiện tại: <strong>{{ points }}</strong></p>
+        <p>{{ 'helios.gift_card_minimum_html' | t }}</p>
+        <p class="current-points">{{ 'helios.current_points' | t }} <strong>{{ points }}</strong></p>
       </div>
       {% endif %}
       
@@ -94,20 +94,20 @@
     {% comment %}--- RIGHT COLUMN: HISTORY ---{% endcomment %}
     <div class="points-column points-column-right">
       <div class="points-history-section">
-        <h4 class="section-title">Lịch Sử Đổi Điểm</h4>
+        <h4 class="section-title">{{ 'helios.points_redemption_history' | t }}</h4>
         <div class="table-responsive">
           <table class="dashboard-table" id="acc-reward-history">
             <thead>
               <tr>
-                <th>Ngày</th>
-                <th>Điểm</th>
-                <th>Mã Thẻ Quà Tặng</th>
-                <th>Giá Trị</th>
-                <th>Hạn SD</th>
+                <th>{{ 'helios.date' | t }}</th>
+                <th>{{ 'helios.points_024af4' | t }}</th>
+                <th>{{ 'helios.gift_card_code' | t }}</th>
+                <th>{{ 'helios.value' | t }}</th>
+                <th>{{ 'helios.expires' | t }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td colspan="5" class="loading-cell">Chưa có lịch sử đổi điểm</td></tr>
+              <tr><td colspan="5" class="loading-cell">{{ 'helios.no_redemption_history_yet' | t }}</td></tr>
             </tbody>
           </table>
         </div>
@@ -128,7 +128,7 @@
     </button>
     <h3 class="modal-title" id="modalTitle"></h3>
     <div class="modal-body" id="modalBody"></div>
-    <button class="dashboard-btn modal-action-btn" id="modalActionBtn">Đóng</button>
+    <button class="dashboard-btn modal-action-btn" id="modalActionBtn">{{ 'helios.close' | t }}</button>
   </div>
 </div>
 
@@ -690,7 +690,7 @@
   
   // Format number with dot separator (Vietnamese style)
   function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return Number(num).toLocaleString(window.theme.locale);
   }
   
   // Format points display on load
@@ -738,7 +738,7 @@
       
       const discountValue = form.querySelector('input[name="discount_value"]:checked')?.value;
       if (!discountValue) {
-        showModal('error', 'Lỗi', '<p>Vui lòng chọn mức đổi điểm!</p>');
+        showModal('error', window.theme.t('error'), window.theme.t('please_select_a_redemption_amount_html'));
         return;
       }
       
@@ -751,7 +751,7 @@
         const response = await fetch(`${API_URL}/api/rewards/exchange`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+          body: JSON.stringify({ locale: window.theme.locale,
             customer_id: customerId,
             discount_value: parseInt(discountValue)
           })
@@ -761,26 +761,26 @@
         
         if (response.ok) {
           const successHtml = `
-            <p>Bạn đã đổi quà thành công! Dưới đây là mã thẻ quà tặng của bạn.</p>
+            <p>${window.theme.t('your_reward_has_been_redeemed_your_gift_card_code_is_below')}</p>
             <div class="discount-code">${data.discount_code}</div>
             <div class="detail-row">
-              <span class="detail-label">Giá trị</span>
+              <span class="detail-label">${window.theme.t('value_670afe')}</span>
               <span class="detail-value">${parseInt(discountValue).toLocaleString()} VND</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">Điểm đã dùng</span>
+              <span class="detail-label">${window.theme.t('points_used')}</span>
               <span class="detail-value">${data.points_used.toLocaleString()}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">Điểm còn lại</span>
+              <span class="detail-label">${window.theme.t('remaining_points')}</span>
               <span class="detail-value">${formatNumber(data.remaining_points)}</span>
             </div>
             <div class="detail-row">
-              <span class="detail-label">Hạn sử dụng</span>
-              <span class="detail-value">${new Date(data.expires_on).toLocaleDateString('vi-VN')}</span>
+              <span class="detail-label">${window.theme.t('expiry_date')}</span>
+              <span class="detail-value">${new Date(data.expires_on).toLocaleDateString(window.theme.locale)}</span>
             </div>
           `;
-          showModal('success', 'Đổi Điểm Thành Công', successHtml);
+          showModal('success', window.theme.t('points_redeemed_successfully'), successHtml);
           // Update points in tab
           document.getElementById('currentPointsDisplay').textContent = formatNumber(data.remaining_points);
           // Update points in hero section
@@ -788,11 +788,11 @@
           if (heroPoints) heroPoints.textContent = formatNumber(data.remaining_points);
           loadHistory();
         } else {
-          showModal('error', 'Đổi Điểm Thất Bại', `<p>${data.error}</p>`);
+          showModal('error', window.theme.t('points_redemption_failed'), `<p>${data.error}</p>`);
         }
       } catch (error) {
         console.error('Exchange error:', error);
-        showModal('error', 'Lỗi Hệ Thống', '<p>Có lỗi xảy ra, vui lòng thử lại sau!</p>');
+        showModal('error', window.theme.t('system_error'), window.theme.t('something_went_wrong_please_try_again_later_html'));
       }
       
       btnText.style.display = 'inline';
@@ -813,11 +813,11 @@
       if (data.history && data.history.length > 0) {
         tbody.innerHTML = data.history.map(item => `
           <tr>
-            <td data-label="Ngày">${new Date(item.date).toLocaleDateString('vi-VN')}</td>
-            <td data-label="Điểm">-${formatNumber(item.points_used)}</td>
-            <td data-label="Mã"><code>${item.discount_code}</code></td>
-            <td data-label="Giá trị">${formatNumber(item.amount_vnd)} VND</td>
-            <td data-label="Hạn SD">${item.expires_on ? new Date(item.expires_on).toLocaleDateString('vi-VN') : '-'}</td>
+            <td data-label="${window.theme.escapeHtml(window.theme.t('date'))}">${new Date(item.date).toLocaleDateString(window.theme.locale)}</td>
+            <td data-label="${window.theme.escapeHtml(window.theme.t('points_024af4'))}">-${formatNumber(item.points_used)}</td>
+            <td data-label="${window.theme.escapeHtml(window.theme.t('code'))}"><code>${item.discount_code}</code></td>
+            <td data-label="${window.theme.escapeHtml(window.theme.t('value_670afe'))}">${formatNumber(item.amount_vnd)} VND</td>
+            <td data-label="${window.theme.escapeHtml(window.theme.t('expires'))}">${item.expires_on ? new Date(item.expires_on).toLocaleDateString(window.theme.locale) : '-'}</td>
           </tr>
         `).join('');
         
@@ -826,11 +826,11 @@
           if (pointsDisplay) pointsDisplay.textContent = formatNumber(data.points);
         }
       } else {
-        tbody.innerHTML = '<tr><td colspan="4" class="empty-cell">Chưa có lịch sử đổi điểm</td></tr>';
+        tbody.innerHTML = window.theme.t('no_redemption_history_yet_1f218a_html');
       }
     } catch (error) {
       console.error('Load history error:', error);
-      tbody.innerHTML = '<tr><td colspan="4" class="empty-cell">Không thể tải lịch sử</td></tr>';
+      tbody.innerHTML = window.theme.t('unable_to_load_history_html');
     }
   }
   

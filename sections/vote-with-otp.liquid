@@ -1,17 +1,17 @@
 <div class="vote-container">
   <!-- Form nhập số điện thoại -->
   <div id="phone-auth-container">
-    <label for="phone-number">Nhập số điện thoại để vote:</label>
-    <input type="tel" id="phone-number" placeholder="Nhập số điện thoại">
-    <button id="send-otp">Gửi OTP</button>
+    <label for="phone-number">{{ 'helios.enter_your_phone_number_to_vote' | t }}</label>
+    <input type="tel" id="phone-number" placeholder="{{ 'helios.enter_your_phone_number' | t | escape }}">
+    <button id="send-otp">{{ 'helios.send_otp' | t }}</button>
     <div id="recaptcha-container"></div> <!-- Captcha chống spam -->
   </div>
 
   <!-- Form nhập OTP -->
   <div id="otp-verification-container" style="display: none;">
-    <label for="otp-code">Nhập mã OTP:</label>
-    <input type="text" id="otp-code" placeholder="Nhập mã OTP">
-    <button id="verify-otp">Xác minh OTP</button>
+    <label for="otp-code">{{ 'helios.enter_your_otp' | t }}</label>
+    <input type="text" id="otp-code" placeholder="{{ 'helios.enter_your_otp_b61814' | t | escape }}">
+    <button id="verify-otp">{{ 'helios.verify_otp' | t }}</button>
   </div>
 
   <!-- Hiển thị kết quả vote -->
@@ -83,10 +83,10 @@ button:hover {
         confirmationResult = confirmation;
         document.getElementById("phone-auth-container").style.display = "none";
         document.getElementById("otp-verification-container").style.display = "block";
-        alert("Mã OTP đã được gửi đến số điện thoại của bạn!");
+        alert(window.theme.t('an_otp_has_been_sent_to_your_phone'));
       })
       .catch((error) => {
-        alert("Lỗi gửi OTP: " + error.message);
+        alert((window.theme.t('error_sending_otp') + " ") + error.message);
       });
   });
 
@@ -99,13 +99,13 @@ button:hover {
         const user = result.user;
         document.getElementById("otp-verification-container").style.display = "none";
         document.getElementById("vote-result").style.display = "block";
-        document.getElementById("vote-message").innerText = "✅ Xác minh thành công! Bạn đã vote!";
+        document.getElementById("vote-message").innerText = window.theme.t('verified_your_vote_has_been_recorded');
 
         // Lưu số điện thoại đã vote
         saveVoteToShopify(user.phoneNumber);
       })
       .catch((error) => {
-        alert("Lỗi xác minh OTP: " + error.message);
+        alert((window.theme.t('otp_verification_error') + " ") + error.message);
       });
   });
 
@@ -120,6 +120,6 @@ button:hover {
     })
     .then(response => response.json())
     .then(data => console.log("Vote saved:", data))
-    .catch(error => console.error("Lỗi khi lưu vote:", error));
+    .catch(error => console.error(window.theme.t('error_saving_vote'), error));
   }
 </script>

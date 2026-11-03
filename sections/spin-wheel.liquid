@@ -115,9 +115,9 @@
 <!-- Modal kết quả -->
 <div id="lucky-wheel-modal" class="wheel-modal" style="display: none;">
   <div class="wheel-modal-box">
-    <h2>🎉 Bạn đã trúng thưởng!</h2>
+    <h2>{{ 'helios.you_won_a_prize' | t }}</h2>
     <p id="modal-prize-text"></p>
-    <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">Đóng</button>
+    <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">{{ 'helios.close' | t }}</button>
   </div>
 </div>
 
@@ -126,15 +126,15 @@
   {% if customer == null %}
     <!-- Chưa đăng nhập -->
     <div class="wheel-message">
-      <h3>Vui lòng đăng nhập để tham gia vòng quay may mắn</h3>
-      <a href="/account/login" class="login-button">Đăng nhập</a>
+      <h3>{{ 'helios.please_sign_in_to_spin_the_wheel' | t }}</h3>
+      <a href="/account/login" class="login-button">{{ 'helios.sign_in' | t }}</a>
     </div>
   {% elsif can_spin == false %}
     <!-- Chưa đủ hạng -->
     <div class="wheel-message">
-      <h3>Chỉ khách hàng hạng SILVER trở lên mới được tham gia</h3>
-      <p>Hạng hiện tại của bạn: <strong>{{ tier }}</strong></p>
-      <p>Chi tiêu thêm để lên hạng SILVER và nhận quyền quay thưởng!</p>
+      <h3>{{ 'helios.only_silver_members_and_above_can_participate' | t }}</h3>
+      <p>{{ 'helios.your_current_tier' | t }} <strong>{{ tier }}</strong></p>
+      <p>{{ 'helios.keep_shopping_to_reach_silver_and_unlock_the_prize_wheel' | t }}</p>
     </div>
   {% else %}
     <!-- Được phép quay -->
@@ -402,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     
-    return `${hours} giờ ${minutes} phút`;
+    return `${hours} ${window.theme.t('hours')} ${minutes} ${window.theme.t('minutes')}`;
   }
 
   document.getElementById('lucky-wheel-spin').addEventListener('click', function () {
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     if (lastSpin === currentDate) {
       const timeLeft = getTimeUntilMidnight();
-      alert(`Bạn đã quay hôm nay rồi!\nQuay lại sau: ${timeLeft}`);
+      alert(`${window.theme.t('you_have_already_spun_today_come_back_in')} ${timeLeft}`);
       return;
     }
     

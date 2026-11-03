@@ -1,5 +1,5 @@
 <div class="care-about">
-  <h2 style="padding-bottom: 0px; background-color: #fff;color: #000; padding: 10px 15px;font-size: 20px; font-weight: 600;margin-bottom: 15px;">QUAN TÂM NHẤT</h2>
+  <h2 style="padding-bottom: 0px; background-color: #fff;color: #000; padding: 10px 15px;font-size: 20px; font-weight: 600;margin-bottom: 15px;">{{ 'helios.most_popular' | t }}</h2>
   
   {% assign count = 0 %}
   {% for article in blog.articles %}
@@ -23,7 +23,7 @@
   {% endfor %}
 
   {% if count == 0 %}
-    <p>Không có bài viết nào được quan tâm nhất.</p>
+    <p>{{ 'helios.no_popular_articles_yet' | t }}</p>
   {% endif %}
 </div>
 

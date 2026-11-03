@@ -1,8 +1,11 @@
 {%- liquid
+  assign helios_the_hangart_lac_long_quan_dien_ban_dong_ward_da_nang = 'helios.the_hangart_lac_long_quan_dien_ban_dong_ward_da_nang' | t
+-%}
+{%- liquid
   assign hero_fallback = 'https://framerusercontent.com/images/jY718SKNEa7XnH54wYOrDdEaLbY.jpg?scale-down-to=2048&width=5922&height=2961'
   assign venue_fallback = 'https://framerusercontent.com/images/FA26GRdcEnE742dTLtZpPvsGawQ.jpg?width=1280&height=1920'
   assign transition_video_fallback = 'https://framerusercontent.com/assets/EqnwP1D9JpsDIpGeQ6eE7D1FaIU.mp4'
-  assign map_query = section.settings.map_query | default: 'The HangArt, Lạc Long Quân, phường Điện Bàn Đông, Đà Nẵng'
+  assign map_query = section.settings.map_query | default: helios_the_hangart_lac_long_quan_dien_ban_dong_ward_da_nang
   assign story_button_url = section.settings.story_button_link | default: section.settings.booking_link
 -%}
 
@@ -154,7 +157,7 @@
         <div
           id="danang-story-slider-{{ section.id }}"
           class="danang-event__gallery"
-          aria-label="Hình ảnh hành trình"
+          aria-label="{{ 'helios.journey_images' | t | escape }}"
           role="region"
           tabindex="0"
         >
@@ -205,7 +208,7 @@
             class="danang-event__gallery-button"
             data-story-prev
             aria-controls="danang-story-slider-{{ section.id }}"
-            aria-label="Ảnh trước"
+            aria-label="{{ 'helios.previous_image' | t | escape }}"
           >
             <span aria-hidden="true">{% render 'svg-chevron-left' %}</span>
           </button>
@@ -214,7 +217,7 @@
             class="danang-event__gallery-button"
             data-story-next
             aria-controls="danang-story-slider-{{ section.id }}"
-            aria-label="Ảnh tiếp theo"
+            aria-label="{{ 'helios.next_image' | t | escape }}"
           >
             <span aria-hidden="true">{% render 'svg-chevron-right' %}</span>
           </button>
@@ -248,7 +251,7 @@
             muted
             playsinline
             preload="metadata"
-            aria-label="Video chế tác sản phẩm"
+            aria-label="{{ 'helios.product_craftsmanship_video' | t | escape }}"
           >
             <source src="{{ transition_video_fallback }}" type="video/mp4">
           </video>
@@ -412,7 +415,7 @@
         <div class="danang-event__map">
           <iframe
             src="https://www.google.com/maps?q={{ map_query | url_encode }}&amp;output=embed&amp;t=k"
-            title="Bản đồ {{ section.settings.venue_name | escape }}"
+            title="{{ 'helios.map' | t | escape }} {{ section.settings.venue_name | escape }}"
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
@@ -1396,7 +1399,7 @@
 
           card.classList.toggle('is-revealed', revealed);
           if (button) button.disabled = !revealed;
-          if (status) status.textContent = revealed ? 'Nội dung đã được mở' : 'Nội dung chưa đến thời gian mở';
+          if (status) status.textContent = revealed ? window.theme.t('content_unlocked') : window.theme.t('this_content_is_not_available_yet');
 
           if (!revealed) setOpen(card, false);
         });

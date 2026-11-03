@@ -1,3 +1,10 @@
+{%- liquid
+  assign helios_no_longer_available = 'helios.no_longer_available' | t
+  assign helios_not_for_sale = 'helios.not_for_sale' | t
+-%}
+{%- liquid
+  assign helios_contact_us_for_pricing = 'helios.contact_us_for_pricing' | t
+-%}
 {% comment %}
   Snippet: Check Content Lock (Unified)
   Usage: {% render 'check-content-lock', customer: customer, product: product, locked_product_ids: locked_product_ids %}
@@ -25,16 +32,16 @@
   {% assign lock_status = 3 %}
   {% assign lock_type = 'khongban' %}
   {% if product.tags contains 'dungban' %}
-    {% assign lock_message = 'Dừng bán' %}
+    {% assign lock_message = helios_no_longer_available %}
   {% else %}
-    {% assign lock_message = 'Không bán' %}
+    {% assign lock_message = helios_not_for_sale %}
   {% endif %}
 
 {% comment %} 2. Sản phẩm có tag "angia" - Giá liên hệ (đặc biệt, không phải lock) {% endcomment %}
 {% elsif product.tags contains 'angia' %}
   {% assign lock_status = 2 %}
   {% assign lock_type = 'angia' %}
-  {% assign lock_message = 'Giá liên hệ' %}
+  {% assign lock_message = helios_contact_us_for_pricing %}
 
 {% comment %} 2. Sản phẩm KHÔNG trong metaobject → Không khóa {% endcomment %}
 {% elsif locked_product_ids contains product.id %}

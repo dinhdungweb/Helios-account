@@ -3,48 +3,48 @@
 {% assign rewards_api_url = 'https://helios-tier-pricing-api.vercel.app' %}
 
 <div class="customer-rewards-points">
-  <h1>Chương Trình Điểm Thưởng</h1>
+  <h1>{{ 'helios.rewards_program' | t }}</h1>
   
   {% if customer_points >= 5000 %}
       <form id="reward-exchange-form">
           <input type="hidden" id="customerId" value="{{ customer.id }}">
           <input type="hidden" id="customerEmail" value="{{ customer.email }}">
           <div class="rewards-point-header flex justify-between mb-14">
-            <div>Xin chào, <strong>{{ customer.name }}</strong>!</div>
-            <div>Điểm: <strong>{{ customer_points }}</strong></div>
+            <div>{{ 'helios.hello' | t }} <strong>{{ customer.name }}</strong>!</div>
+            <div>{{ 'helios.points_f959b4' | t }} <strong>{{ customer_points }}</strong></div>
           </div>
-          <label for="discount">Chọn mức giảm giá:</label>
+          <label for="discount">{{ 'helios.select_a_discount_amount' | t }}</label>
           <select id="discountValue">
-              <option value="50000">50.000 VND - 5000 Điểm</option>
-              <option value="100000">100.000 VND - 10000 Điểm</option>
+              <option value="50000">{{ 'helios.50_000_vnd_5_000_points' | t }}</option>
+              <option value="100000">{{ 'helios.100_000_vnd_10_000_points' | t }}</option>
           </select>
-          <button type="submit" id="exchange-btn">Đổi Điểm </button>
+          <button type="submit" id="exchange-btn">{{ 'helios.redeem_points' | t }} </button>
           <button id="loading-icon" style="display: none;"><span class="loading-icon"></span></button>
           
       </form>
   {% else %}
-      <p>Bạn cần ít nhất 5000 điểm để đổi mã giảm giá.</p>
+      <p>{{ 'helios.you_need_at_least_5_000_points_to_redeem_a_discount_code' | t }}</p>
   {% endif %}
   
-  <h2>Lịch Sử Đổi Điểm</h2>
+  <h2>{{ 'helios.points_redemption_history' | t }}</h2>
   <table id="reward-history">
       <thead>
           <tr>
-              <th>Ngày</th>
-              <th>Điểm Đã Dùng</th>
-              <th>Hành Động</th>
-              <th>Mã Giảm Giá</th>
-              <th>Giá Trị (VND)</th>
+              <th>{{ 'helios.date' | t }}</th>
+              <th>{{ 'helios.points_used_b0c600' | t }}</th>
+              <th>{{ 'helios.action' | t }}</th>
+              <th>{{ 'helios.discount_code' | t }}</th>
+              <th>{{ 'helios.value_vnd' | t }}</th>
           </tr>
       </thead>
       <tbody>
-          <tr><td colspan="5" class="empty-message">Đang tải dữ liệu...</td></tr>
+          <tr><td colspan="5" class="empty-message">{{ 'helios.loading_data' | t }}</td></tr>
       </tbody>
   </table>
   <div class="rewards-pagination">
-      <button class="page-btn" id="prevPage" disabled>← Trước</button>
+      <button class="page-btn" id="prevPage" disabled>{{ 'helios.previous' | t }}</button>
       <span id="pageInfo"></span>
-      <button class="page-btn" id="nextPage" disabled>Tiếp →</button>
+      <button class="page-btn" id="nextPage" disabled>{{ 'helios.next' | t }}</button>
   </div>
 </div>
 <style>
@@ -192,20 +192,20 @@ document.getElementById("reward-exchange-form")?.addEventListener("submit", asyn
         const response = await fetch("{{ rewards_api_url }}/api/rewards/exchange", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ customer_id: customerId, discount_value: parseInt(discountValue) })
+            body: JSON.stringify({ locale: window.theme.locale, customer_id: customerId, discount_value: parseInt(discountValue) })
         });
 
         const data = await response.json();
         if (response.ok) {
-            alert(`Mã giảm giá của bạn: ${data.discount_code}\nĐiểm còn lại: ${data.remaining_points}`);
+            alert(`${window.theme.t('your_discount_code')} ${data.discount_code}\n${window.theme.t('remaining_points')} ${data.remaining_points}`);
             fetchRewardHistory(); // Cập nhật lịch sử ngay sau khi đổi điểm
             location.reload(); // Reload để cập nhật điểm hiển thị
         } else {
-            alert(`Lỗi: ${data.error}`);
+            alert(`${window.theme.t('error_0194e4')} ${data.error}`);
         }
     } catch (error) {
-        console.error("❌ Lỗi khi đổi điểm:", error.message);
-        alert("Có lỗi xảy ra, vui lòng thử lại!");
+        console.error(window.theme.t('error_redeeming_points'), error.message);
+        alert(window.theme.t('something_went_wrong_please_try_again'));
     }
 
     // Hiện lại nút và ẩn loading sau khi xử lý xong
@@ -227,14 +227,14 @@ async function fetchRewardHistory() {
         historyData = data.history || [];
 
         if (historyData.length === 0) {
-            document.querySelector("#reward-history tbody").innerHTML = "<tr><td colspan='5' class='empty-message'>Chưa có lịch sử đổi điểm</td></tr>";
+            document.querySelector("#reward-history tbody").innerHTML = window.theme.t('no_redemption_history_yet_f09da2_html');
             return;
         }
 
         historyData.sort((a, b) => new Date(b.date) - new Date(a.date)); // Hiển thị mới nhất trước
         renderTable();
     } catch (error) {
-        console.error("❌ Lỗi khi tải lịch sử:", error.message);
+        console.error(window.theme.t('error_loading_history'), error.message);
     }
 }
 
@@ -250,7 +250,7 @@ function renderTable() {
             <td>${new Date(item.date).toLocaleDateString()}</td>
             <td>${item.points_used}</td>
             <td>${item.action}</td>
-            <td>${item.discount_code !== "Không có" ? item.discount_code : "N/A"}</td>
+            <td>${item.discount_code !== window.theme.t('none') ? item.discount_code : "N/A"}</td>
             <td>${item.amount_vnd.toLocaleString()} VND</td>
         </tr>`;
         tableBody.innerHTML += row;

@@ -122,7 +122,7 @@
     <h2 class="magazine-flipbook-heading">{{ section.settings.heading }}</h2>
   {% endif %}
   <div class="magazine-loading" id="loading-{{ section.id }}" role="status" aria-live="polite">
-    <span id="loading-text-{{ section.id }}">Đang tải...</span>
+    <span id="loading-text-{{ section.id }}">{{ 'helios.loading' | t }}</span>
     <div class="progress-bar"><div class="progress-bar-inner" id="progress-{{ section.id }}"></div></div>
   </div>
   <div class="magazine-reader">
@@ -131,28 +131,28 @@
         <div id="magazine-{{ section.id }}" class="magazine-flipbook-container"></div>
       </div>
     </div>
-    <button type="button" aria-label="Trang trước" class="magazine-side-button prev-page" disabled>{% render 'svg-chevron-left' %}</button>
-    <button type="button" aria-label="Trang tiếp theo" class="magazine-side-button next-page">{% render 'svg-chevron-right' %}</button>
-    <div class="magazine-thumbnails" aria-label="Danh sách trang"></div>
-    <div class="magazine-toolbar" role="toolbar" aria-label="Công cụ xem tạp chí">
-      <button type="button" class="magazine-toolbar-button thumbnails-toggle" aria-label="Hiện ảnh thu nhỏ" aria-expanded="false">
+    <button type="button" aria-label="{{ 'helios.previous_page' | t | escape }}" class="magazine-side-button prev-page" disabled>{% render 'svg-chevron-left' %}</button>
+    <button type="button" aria-label="{{ 'helios.next_page' | t | escape }}" class="magazine-side-button next-page">{% render 'svg-chevron-right' %}</button>
+    <div class="magazine-thumbnails" aria-label="{{ 'helios.page_list' | t | escape }}"></div>
+    <div class="magazine-toolbar" role="toolbar" aria-label="{{ 'helios.magazine_viewer_tools' | t | escape }}">
+      <button type="button" class="magazine-toolbar-button thumbnails-toggle" aria-label="{{ 'helios.show_thumbnails' | t | escape }}" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="8"></rect><rect x="14" y="3" width="7" height="8"></rect><rect x="3" y="15" width="7" height="6"></rect><rect x="14" y="15" width="7" height="6"></rect></svg>
       </button>
-      <button type="button" class="magazine-toolbar-button toolbar-prev" aria-label="Trang trước" disabled>{% render 'svg-chevron-left' %}</button>
+      <button type="button" class="magazine-toolbar-button toolbar-prev" aria-label="{{ 'helios.previous_page' | t | escape }}" disabled>{% render 'svg-chevron-left' %}</button>
       <span class="page-counter" aria-live="polite">
-        <input id="current-page-{{ section.id }}" class="current-page-input" type="number" min="1" value="1" aria-label="Trang hiện tại">
+        <input id="current-page-{{ section.id }}" class="current-page-input" type="number" min="1" value="1" aria-label="{{ 'helios.current_page' | t | escape }}">
         <span>/</span>
         <span id="total-pages-{{ section.id }}">0</span>
       </span>
-      <button type="button" class="magazine-toolbar-button toolbar-next" aria-label="Trang tiếp theo">{% render 'svg-chevron-right' %}</button>
-      <button type="button" class="magazine-toolbar-button zoom-out" aria-label="Thu nhỏ" disabled>
+      <button type="button" class="magazine-toolbar-button toolbar-next" aria-label="{{ 'helios.next_page' | t | escape }}">{% render 'svg-chevron-right' %}</button>
+      <button type="button" class="magazine-toolbar-button zoom-out" aria-label="{{ 'helios.zoom_out' | t | escape }}" disabled>
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5M7.5 10.5h6"></path></svg>
       </button>
-      <button type="button" class="magazine-toolbar-button zoom-in" aria-label="Phóng to">
+      <button type="button" class="magazine-toolbar-button zoom-in" aria-label="{{ 'helios.zoom_in' | t | escape }}">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5M7.5 10.5h6M10.5 7.5v6"></path></svg>
       </button>
       {% if section.settings.allow_fullscreen %}
-      <button type="button" aria-label="Xem toàn màn hình" class="magazine-toolbar-button fullscreen-toggle">
+      <button type="button" aria-label="{{ 'helios.view_fullscreen' | t | escape }}" class="magazine-toolbar-button fullscreen-toggle">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"></path></svg>
       </button>
       {% endif %}
@@ -172,7 +172,7 @@
       {%- for block in section.blocks -%}
         {%- if block.settings.page_image != blank -%}
           {%- assign page_number = rendered_page_count | plus: 1 -%}
-          {%- assign fallback_alt = 'Trang tạp chí ' | append: page_number -%}
+          {%- assign fallback_alt = 'helios.magazine_page' | t: page: page_number -%}
           {%- assign page_alt = block.settings.page_image.alt | default: fallback_alt -%}
           {%- if rendered_page_count > 0 -%},{%- endif -%}
           {
@@ -195,7 +195,7 @@
         .then(loadTurnLibrary)
         .then(initializeFlipbook)
         .catch(function(error) {
-          showLoadError('Không thể tải trình lật trang. Vui lòng tải lại trang.');
+          showLoadError(window.theme.t('unable_to_load_the_page_viewer_please_reload_the_page'));
           console.error('Magazine Flipbook:', error);
         });
     }
@@ -299,7 +299,7 @@
       const bookAspectRatio = pageAspectRatio * 2;
 
       if (pages.length === 0) {
-        loadingText.textContent = 'Chưa có trang tạp chí.';
+        loadingText.textContent = window.theme.t('no_magazine_pages_yet');
         progressBar.parentElement.hidden = true;
         setNavigationDisabled(true, true);
         zoomOutButton.disabled = true;
@@ -319,7 +319,7 @@
         thumbnailButton.type = 'button';
         thumbnailButton.className = 'magazine-thumbnail';
         thumbnailButton.dataset.page = String(index + 1);
-        thumbnailButton.setAttribute('aria-label', 'Mở trang ' + (index + 1));
+        thumbnailButton.setAttribute('aria-label', (window.theme.t('open_page') + " ") + (index + 1));
         thumbnailImage.src = pageData.thumb;
         thumbnailImage.alt = '';
         thumbnailImage.loading = 'lazy';
@@ -359,7 +359,7 @@
           }
         });
       } catch (error) {
-        showLoadError('Không thể khởi tạo trình lật trang. Vui lòng tải lại trang.');
+        showLoadError(window.theme.t('unable_to_start_the_page_viewer_please_reload_the_page'));
         console.error('Magazine Flipbook:', error);
         return;
       }
@@ -395,7 +395,7 @@
         loading.hidden = true;
         root.dataset.flipbookInitialized = 'true';
       }).catch(function(error) {
-        showLoadError('Không thể tải ảnh tạp chí. Vui lòng tải lại trang.');
+        showLoadError(window.theme.t('unable_to_load_magazine_images_please_reload_the_page'));
         console.error('Magazine Flipbook:', error);
       });
 
@@ -665,7 +665,7 @@
         const open = !thumbnailsPanel.classList.contains('is-open');
         thumbnailsPanel.classList.toggle('is-open', open);
         thumbnailsButton.setAttribute('aria-expanded', String(open));
-        thumbnailsButton.setAttribute('aria-label', open ? 'Ẩn ảnh thu nhỏ' : 'Hiện ảnh thu nhỏ');
+        thumbnailsButton.setAttribute('aria-label', open ? window.theme.t('hide_thumbnails') : window.theme.t('show_thumbnails'));
         if (open) {
           const activeThumbnail = thumbnailsPanel.querySelector('.magazine-thumbnail.is-active');
           if (activeThumbnail) activeThumbnail.scrollIntoView({ block: 'nearest', inline: 'center' });
@@ -775,7 +775,7 @@
         const active = isRootFullscreen();
         document.body.style.overflow = active ? 'hidden' : originalBodyOverflow;
         if (fullscreenButton) {
-          fullscreenButton.setAttribute('aria-label', active ? 'Thoát toàn màn hình' : 'Xem toàn màn hình');
+          fullscreenButton.setAttribute('aria-label', active ? window.theme.t('exit_fullscreen') : window.theme.t('view_fullscreen'));
         }
         scheduleResize();
       }

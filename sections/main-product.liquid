@@ -1,3 +1,6 @@
+{%- liquid
+  assign helios_sign_in = 'helios.sign_in' | t
+-%}
 {{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
 {% assign lock_pages_metaobject = shop.metaobjects.lock_pages[settings.lock_pages_metaobject] %}
 {% assign locked_product_ids = lock_pages_metaobject.products_to_lock.value | map: 'id' %}
@@ -436,13 +439,13 @@
 
                 {%- when 'price' -%}
                   {% if product.tags contains 'angia' %}
-                    <div class="price theme-money" style="color:#FAB320; font-weight: bold">Giá liên hệ</div>
+                    <div class="price theme-money" style="color:#FAB320; font-weight: bold">{{ 'helios.contact_us_for_pricing' | t }}</div>
                   {% elsif settings.lock_pages_tag_enable %}
                     
                     {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
-                      Đăng nhập để hiện giá
+                      {{ 'helios.sign_in_to_view_pricing' | t }}
                     {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}   
-                      Đăng nhập để hiện giá
+                      {{ 'helios.sign_in_to_view_pricing' | t }}
                     {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
                       <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
                         {% render 'tier-price', 
@@ -474,9 +477,9 @@
                     {% elsif customer %}
                       <!-- Nếu khách hàng đăng nhập nhưng không có tag "gold" -->
                       {% if settings.lock_all_product_prices %}
-                        Đăng nhập để hiện giá
+                        {{ 'helios.sign_in_to_view_pricing' | t }}
                       {% elsif locked_product_ids and locked_product_ids contains product.id %}
-                        Đăng nhập để hiện giá
+                        {{ 'helios.sign_in_to_view_pricing' | t }}
                       {% else %}  
                         <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
                           {% render 'tier-price', 
@@ -886,7 +889,7 @@
 
                 {%- when 'buy_buttons' -%}
                   {% if product.tags contains 'angia' %}
-                    <a href="https://www.facebook.com/messages/t/145307665986095" class="button" style="width: 100%; margin: 20px 0; text-align: center;">Liên hệ tư vấn và báo giá</a>
+                    <a href="https://www.facebook.com/messages/t/145307665986095" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ 'helios.contact_us_for_advice_and_pricing' | t }}</a>
                   {% elsif settings.lock_pages_tag_enable %}
                     
                     {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
@@ -966,11 +969,11 @@
                       <!-- Nếu khách hàng đăng nhập nhưng không có tag "gold" -->
                       {% if settings.lock_all_product_prices %}
                         <div class="button" style="width: 100%; margin: 20px 0; text-align: center;">
-                          Bạn không có quyền xem sản phẩm này
+                          {{ 'helios.you_do_not_have_access_to_this_product' | t }}
                         </div>
                       {% elsif locked_product_ids and locked_product_ids contains product.id %}
                         <div class="button" style="width: 100%; margin: 20px 0; text-align: center;">
-                          Sản phẩm này bị khóa
+                          {{ 'helios.this_product_is_locked' | t }}
                         </div>
                       {% else %}
                         {% form 'product', product, id: product_form_id, class: product_form_class %}
@@ -1122,10 +1125,10 @@
                     
                     {% if lock_status == 2 %}
                       {% comment %} Special case: Giá liên hệ - hiển thị nút liên hệ {% endcomment %}
-                      <a href="/pages/lien-he" class="button" style="width: 100%; margin: 20px 0; text-align: center;">Liên hệ</a>
+                      <a href="/pages/lien-he" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ 'helios.contact_us' | t }}</a>
                     {% elsif lock_status == 1 %}
                       {% comment %} Content is locked {% endcomment %}
-                      <a href="{{ routes.account_url }}" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ settings.button_locked_text | default: 'Đăng nhập' }}</a>
+                      <a href="{{ routes.account_url }}" class="button" style="width: 100%; margin: 20px 0; text-align: center;">{{ settings.button_locked_text | default: helios_sign_in }}</a>
                     {% else %}
                       {% comment %} Content is unlocked - show form {% endcomment %}
                       {% form 'product', product, id: product_form_id, class: product_form_class %}

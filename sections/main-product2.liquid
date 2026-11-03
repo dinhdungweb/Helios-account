@@ -347,9 +347,9 @@
 
                 {%- when 'price' -%}
                   {% if customer == nil and settings.enable_locked_content and settings.lock_all_product_prices %}
-                    Giá không khả dụng
+                    {{ 'helios.price_unavailable' | t }}
                   {% elsif customer == nil and settings.enable_locked_content and locked_product_ids contains product.id %}   
-                    Giá không khả dụng
+                    {{ 'helios.price_unavailable' | t }}
                   {% elsif customer and customer.tags contains settings.lock_pages_customer_segmentstion %}
                     <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
                       {% render 'tier-price', 
@@ -381,9 +381,9 @@
                   {% elsif customer %}
                     <!-- Nếu khách hàng đăng nhập nhưng không có tag "gold" -->
                     {% if settings.lock_all_product_prices %}
-                      Giá không khả dụng
+                      {{ 'helios.price_unavailable' | t }}
                     {% elsif locked_product_ids and locked_product_ids contains product.id %}
-                      Giá không khả dụng
+                      {{ 'helios.price_unavailable' | t }}
                     {% else %}  
                       <div class="price-area product-detail__gap-sm" {{ block.shopify_attributes }}>
                         {% render 'tier-price', 
@@ -722,11 +722,11 @@
                     <!-- Nếu khách hàng đăng nhập nhưng không có tag "gold" -->
                     {% if settings.lock_all_product_prices %}
                       <div class="button" style="width: 100%; margin: 20px 0; text-align: center;">
-                        ❌ Bạn không có quyền xem sản phẩm này
+                        {{ 'helios.you_do_not_have_access_to_this_product_aefd22' | t }}
                       </div>
                     {% elsif locked_product_ids and locked_product_ids contains product.id %}
                       <div class="button" style="width: 100%; margin: 20px 0; text-align: center;">
-                        ❌ Sản phẩm này bị khóa
+                        {{ 'helios.this_product_is_locked_8c5290' | t }}
                       </div>
                     {% else %}
                       {% form 'product', product, id: product_form_id, class: product_form_class %}

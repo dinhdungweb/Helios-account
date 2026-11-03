@@ -25,10 +25,10 @@
           <textarea id="message" name="{{ cf-entry5 }}" placeholder="{{ cf-placeholder5 }}"></textarea>
           {% endif %}
           {% if cf-entry6 != "" %}
-          <label for="dropdown-form">Lựa chọn của bạn?</label>
+          <label for="dropdown-form">{{ 'helios.your_choice' | t }}</label>
           <select id="dropdown-form" name="{{ cf-entry6 }}">
             <option value="Private">Private</option>
-            <option value="Public nhưng ẩn danh">Public nhưng ẩn danh</option>
+            <option value="Public nhưng ẩn danh">{{ 'helios.public_but_anonymous' | t }}</option>
           </select>
           {% endif %}
           <div class="d-flex jc-center mt-30">
@@ -57,7 +57,7 @@ document.getElementById("ajax-form").addEventListener("submit", function (e) {
     })
         .then(() => {
             document.getElementById("form-message").style.display = "block";
-            document.getElementById("form-message").innerText = "Gửi thành công!";
+            document.getElementById("form-message").innerText = window.theme.t('submitted_successfully');
             document.getElementById("form-message").style.color = "green";
 
             form.reset();
@@ -65,7 +65,7 @@ document.getElementById("ajax-form").addEventListener("submit", function (e) {
         .catch((error) => {
             console.error("Error:", error);
             document.getElementById("form-message").style.display = "block";
-            document.getElementById("form-message").innerText = "Gửi thất bại. Vui lòng thử lại!";
+            document.getElementById("form-message").innerText = window.theme.t('submission_failed_please_try_again');
             document.getElementById("form-message").style.color = "red";
         });
 });

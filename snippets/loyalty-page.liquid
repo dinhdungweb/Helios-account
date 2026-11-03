@@ -12,7 +12,7 @@ Custom code: auto customer discount
 {% if customer %}
   
   {% if customer.tags contains discount_customer_tag_gold %}
-    <h2>Chào mừng thành viên {{ customer.last_name }} {{ discount_customer_tag_gold }} {{ customer.email }} {{ customer.has_avatar? }}</h2>
+    <h2>{{ 'helios.welcome_member' | t }} {{ customer.last_name }} {{ discount_customer_tag_gold }} {{ customer.email }} {{ customer.has_avatar? }}</h2>
     <script>
       window.addEventListener('load', function() {
         var currentUrl = window.location.pathname;
@@ -22,9 +22,9 @@ Custom code: auto customer discount
           fetch("/discount/{{ discount_code_gold }}")
             .then(response => {
               if (response.ok) {
-                alert('Mã giảm giá {{ discount_code_gold }} đã được áp dụng!');
+                alert(window.theme.t('discount_applied', { code: {{ discount_code_gold | json }} }));
               } else {
-                alert('Không thể áp dụng mã giảm giá {{ discount_code_gold }}.');
+                alert(window.theme.t('discount_failed', { code: {{ discount_code_gold | json }} }));
               }
             })
             .catch(error => {
@@ -35,7 +35,7 @@ Custom code: auto customer discount
       
     </script>
   {% elsif customer.tags contains discount_customer_tag_silver %}
-    <h2>Chào mừng thành viên {{ discount_customer_tag_silver }}</h2>
+    <h2>{{ 'helios.welcome_member' | t }} {{ discount_customer_tag_silver }}</h2>
     <script>
       window.addEventListener('load', function() {
         var currentUrl = window.location.pathname;
@@ -45,9 +45,9 @@ Custom code: auto customer discount
           fetch("/discount/{{ discount_code_silver }}")
             .then(response => {
               if (response.ok) {
-                alert('Mã giảm giá {{ discount_code_silver }} đã được áp dụng!');
+                alert(window.theme.t('discount_applied', { code: {{ discount_code_silver | json }} }));
               } else {
-                alert('Không thể áp dụng mã giảm giá {{ discount_code_silver }}.');
+                alert(window.theme.t('discount_failed', { code: {{ discount_code_silver | json }} }));
               }
             })
             .catch(error => {
@@ -57,7 +57,7 @@ Custom code: auto customer discount
       });
     </script>
   {% elsif customer.tags contains discount_customer_tag_bronze %}
-    <h2>Chào mừng thành viên {{ discount_customer_tag_bronze }}</h2>{{ customer.email }}
+    <h2>{{ 'helios.welcome_member' | t }} {{ discount_customer_tag_bronze }}</h2>{{ customer.email }}
     <script>
       window.addEventListener('load', function() {
         var currentUrl = window.location.pathname; 
@@ -67,9 +67,9 @@ Custom code: auto customer discount
           fetch("/discount/{{ discount_code_bronze }}")
             .then(response => {
               if (response.ok) {
-                alert('Mã giảm giá {{ discount_code_bronze }} đã được áp dụng!');
+                alert(window.theme.t('discount_applied', { code: {{ discount_code_bronze | json }} }));
               } else {
-                alert('Không thể áp dụng mã giảm giá {{ discount_code_bronze }}.');
+                alert(window.theme.t('discount_failed', { code: {{ discount_code_bronze | json }} }));
               }
             })
             .catch(error => {
@@ -79,8 +79,8 @@ Custom code: auto customer discount
       });
     </script>
   {% else %}
-    <p>Bạn không có mã giảm giá nào khả dụng.</p>
+    <p>{{ 'helios.you_have_no_available_discount_codes' | t }}</p>
   {% endif %}
 {% else %}
-  <p>Bạn chưa đăng nhập! Vui lòng đăng nhập để sử dụng tiện ích này.</p>
+  <p>{{ 'helios.please_sign_in_to_use_this_feature' | t }}</p>
 {% endif %}

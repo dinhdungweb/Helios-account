@@ -12,7 +12,7 @@
     return Array.from({ length: count }, function (_, index) {
       var dot = document.createElement('button');
       dot.type = 'button';
-      dot.setAttribute('aria-label', 'Chọn mục ' + (index + 1));
+      dot.setAttribute('aria-label', (window.theme.t('select_an_option') + " ") + (index + 1));
       dot.addEventListener('click', function () { onSelect(index); });
       container.appendChild(dot);
       return dot;

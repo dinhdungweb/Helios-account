@@ -162,7 +162,7 @@
                     {%- endif -%}
 
                     {%- if section.settings.video_autoplay == false and section.settings.video_controls -%}
-                      <button class="mmt__video-play" type="button" data-mmt-video-play aria-label="Phát video">
+                      <button class="mmt__video-play" type="button" data-mmt-video-play aria-label="{{ 'helios.play_video' | t | escape }}">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
                       </button>
                     {%- endif -%}
@@ -234,10 +234,10 @@
 
         {%- if is_carousel and section.settings.show_arrows -%}
           <div class="mmt__arrows">
-            <button class="mmt__arrow mmt__arrow--prev" type="button" data-mmt-prev aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="Media trước">
+            <button class="mmt__arrow mmt__arrow--prev" type="button" data-mmt-prev aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="{{ 'helios.previous_media' | t | escape }}">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
             </button>
-            <button class="mmt__arrow mmt__arrow--next" type="button" data-mmt-next aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="Media tiếp theo">
+            <button class="mmt__arrow mmt__arrow--next" type="button" data-mmt-next aria-controls="MultiMediaViewport-{{ section.id }}" aria-label="{{ 'helios.next_media' | t | escape }}">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
             </button>
           </div>
@@ -245,7 +245,7 @@
       </div>
 
       {%- if is_carousel and section.settings.show_dots -%}
-        <div class="mmt__dots mmt__dots--{{ section.settings.controls_position }}" data-mmt-dots aria-label="Chọn media">
+        <div class="mmt__dots mmt__dots--{{ section.settings.controls_position }}" data-mmt-dots aria-label="{{ 'helios.select_media' | t | escape }}">
           {%- for block in section.blocks -%}
             <button
               class="mmt__dot{% if forloop.first %} is-active{% endif %}"

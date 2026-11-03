@@ -75,7 +75,7 @@
               name="{{ block.settings.entry }}" 
               class="form-select"
               {% if block.settings.required %}required{% endif %}>
-              <option value="">-- Chọn --</option>
+              <option value="">{{ 'helios.select' | t }}</option>
               {% if block.settings.options contains ',' %}
                 {% assign options = block.settings.options | split: ',' %}
               {% else %}

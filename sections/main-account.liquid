@@ -1,3 +1,9 @@
+{%- liquid
+  assign helios_lucky_card = 'helios.lucky_card' | t
+  assign helios_not_provided = 'helios.not_provided' | t
+  assign helios_exclusive_products = 'helios.exclusive_products' | t
+  assign helios_view_all = 'helios.view_all' | t
+-%}
 {{ 'account.css' | asset_url | stylesheet_tag: preload: true }}
 
 {% comment %}--- TIER LOGIC (unchanged) ---{% endcomment %}
@@ -162,10 +168,10 @@
         hidden
       >
         <div>
-          <strong>Đăng ký tài khoản thành công!</strong>
-          <p>Chào mừng bạn đến với Helios Club. Tài khoản của bạn đã sẵn sàng để sử dụng.</p>
+          <strong>{{ 'helios.account_created_successfully' | t }}</strong>
+          <p>{{ 'helios.welcome_to_helios_club_your_account_is_ready_to_use' | t }}</p>
         </div>
-        <button type="button" aria-label="Đóng thông báo" data-registration-success-close>&times;</button>
+        <button type="button" aria-label="{{ 'helios.dismiss_notification' | t | escape }}" data-registration-success-close>&times;</button>
       </div>
 
       {% comment %}========== ROW 1: WELCOME + STATS =========={% endcomment %}
@@ -173,7 +179,7 @@
         <div class="db-welcome-card">
           <div class="db-welcome-avatar" style="background-image: url('https://cdn.shopify.com/s/files/1/0644/2958/8701/files/464413022_945803257578038_2084379289906124096_n.jpg?v=1764122552');"></div>
           <div class="db-welcome-info">
-            <p class="db-welcome-label">Chào mừng trở lại,</p>
+            <p class="db-welcome-label">{{ 'helios.welcome_back' | t }}</p>
             <h2 class="db-welcome-name">{{ customer.name }}</h2>
             <div class="db-welcome-msg">
               {% render 'account-tier-content', tier: tier, type: 'welcome' %}
@@ -190,20 +196,20 @@
           <div class="db-card-body">
             <div class="db-tier-header-info">
               <div class="db-tier-level">
-                <div class="db-tier-sub">Hạng hiện tại</div>
+                <div class="db-tier-sub">{{ 'helios.current_tier' | t }}</div>
                 <div class="db-tier-name">{{ tier }}</div>
               </div>
               <div class="db-tier-points">
-                <div class="db-tier-points-label">Điểm hiện có</div>
-                <div class="db-tier-points-value">{{ fmt_pts }} <span class="db-tier-points-unit">điểm</span></div>
+                <div class="db-tier-points-label">{{ 'helios.available_points' | t }}</div>
+                <div class="db-tier-points-value">{{ fmt_pts }} <span class="db-tier-points-unit">{{ 'helios.points' | t }}</span></div>
               </div>
             </div>
 
             <p class="db-tier-progress-msg">
               {% if next_tier == "MAX LEVEL" %}
-                Bạn đã đạt hạng cao nhất!
+                {{ 'helios.you_have_reached_the_highest_tier' | t }}
               {% else %}
-                Chi tiêu thêm <strong>{{ fmt_rem }}đ</strong> để lên hạng <strong>{{ next_tier }}</strong>
+                {{ 'helios.tier_progress_html' | t: amount: fmt_rem, tier: next_tier }}
               {% endif %}
             </p>
             <div class="db-tier-progress-bar">
@@ -264,7 +270,7 @@
                       {% endif %}
                     </div>
                     <div class="db-card-flip-info">
-                      <h4>{{ reward.result_title | default: reward.card_title | default: 'Thẻ may mắn' }}</h4>
+                      <h4>{{ reward.result_title | default: reward.card_title | default: helios_lucky_card }}</h4>
                       {% if reward.played_at != blank %}
                         <time datetime="{{ reward.played_at | escape }}">{{ reward.played_at | date: '%d/%m/%Y' }}</time>
                       {% endif %}
@@ -285,9 +291,9 @@
         {% comment %}--- Benefits Card ---{% endcomment %}
         <div class="db-card">
           <div class="db-card-header">
-            <h3 class="db-card-title">Quyền lợi hạng {{ tier }}</h3>
+            <h3 class="db-card-title">{{ 'helios.benefits_for_tier_title' | t: tier: tier }}</h3>
             <a class="db-card-action db-card-action--arrow" href="#">
-              Xem tất cả quyền lợi
+              {{ 'helios.view_all_benefits' | t }}
               {% render 'svg-chevron-right' %}
             </a>
           </div>
@@ -299,115 +305,115 @@
               {% if current_tier contains 'BLACK DIAMOND' %}
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 10% sản phẩm Bạc & Hợp kim
+                  {{ 'helios.10_off_silver_and_alloy_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 5% sản phẩm Vàng & Kim cương
+                  {{ 'helios.5_off_gold_and_diamond_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Ưu đãi miễn phí vận chuyển (Freeship)
+                  {{ 'helios.free_shipping' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Đặt trước 1 tuần khi ra mắt BST mới
+                  {{ 'helios.pre_order_new_collections_one_week_early' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Quà sinh nhật khách hàng đặc biệt
+                  {{ 'helios.special_birthday_gift' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Sản phẩm quà tặng đặc biệt dành riêng cho khách hàng
+                  {{ 'helios.exclusive_customer_gifts' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Hỗ trợ 100% chi phí vận chuyển khi đổi sản phẩm
+                  {{ 'helios.100_shipping_coverage_on_exchanges' | t }}
                 </li>
               {% elsif current_tier contains 'DIAMOND' %}
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 8% sản phẩm Bạc & Hợp kim
+                  {{ 'helios.8_off_silver_and_alloy_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 4% sản phẩm Vàng & Kim cương
+                  {{ 'helios.4_off_gold_and_diamond_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Ưu đãi miễn phí vận chuyển (Freeship)
+                  {{ 'helios.free_shipping' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Đặt trước 1 tuần khi ra mắt BST mới
+                  {{ 'helios.pre_order_new_collections_one_week_early' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Quà sinh nhật khách hàng đặc biệt
+                  {{ 'helios.special_birthday_gift' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Hỗ trợ 100% chi phí vận chuyển khi đổi sản phẩm
+                  {{ 'helios.100_shipping_coverage_on_exchanges' | t }}
                 </li>
               {% elsif current_tier contains 'PLATINUM' %}
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 6% sản phẩm Bạc & Hợp kim
+                  {{ 'helios.6_off_silver_and_alloy_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 3% sản phẩm Vàng & Kim cương
+                  {{ 'helios.3_off_gold_and_diamond_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Ưu đãi miễn phí vận chuyển (Freeship)
+                  {{ 'helios.free_shipping' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Đặt trước 1 tuần khi ra mắt BST mới
+                  {{ 'helios.pre_order_new_collections_one_week_early' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Quà sinh nhật khách hàng đặc biệt
+                  {{ 'helios.special_birthday_gift' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Hỗ trợ 100% chi phí vận chuyển khi đổi sản phẩm
+                  {{ 'helios.100_shipping_coverage_on_exchanges' | t }}
                 </li>
               {% elsif current_tier contains 'GOLD' %}
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 4% sản phẩm Bạc & Hợp kim
+                  {{ 'helios.4_off_silver_and_alloy_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 2% sản phẩm Vàng & Kim cương
+                  {{ 'helios.2_off_gold_and_diamond_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Ưu đãi miễn phí vận chuyển (Freeship)
+                  {{ 'helios.free_shipping' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Hỗ trợ 50% chi phí vận chuyển khi đổi sản phẩm
+                  {{ 'helios.50_shipping_coverage_on_exchanges' | t }}
                 </li>
               {% elsif current_tier contains 'SILVER' %}
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Chiết khấu 2% sản phẩm Bạc & Hợp kim
+                  {{ 'helios.2_off_silver_and_alloy_products' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Ưu đãi Freeship tùy theo chương trình từng thời điểm
+                  {{ 'helios.free_shipping_offers_during_selected_promotions' | t }}
                 </li>
                 <li>
                   <span class="db-benefits-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                  Hỗ trợ 50% chi phí vận chuyển khi đổi sản phẩm
+                  {{ 'helios.50_shipping_coverage_on_exchanges' | t }}
                 </li>
               {% else %}
                 <li style="color: #999; list-style: none;">
-                  Tiếp tục mua sắm để thăng hạng và mở khóa các quyền lợi hấp dẫn từ hạng Silver.
+                  {{ 'helios.keep_shopping_to_reach_silver_and_unlock_more_member_benefits' | t }}
                 </li>
               {% endif %}
             </ul>
@@ -420,13 +426,13 @@
         {% comment %}--- Account Info + Address Card ---{% endcomment %}
         <div class="db-card">
           <div class="db-card-header">
-            <h3 class="db-card-title">Thông tin tài khoản</h3>
+            <h3 class="db-card-title">{{ 'helios.account_information' | t }}</h3>
           </div>
           <div class="db-card-body">
             <div class="db-info-item">
               <span class="db-info-label">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                Họ và tên
+                {{ 'helios.full_name' | t }}
               </span>
               <span class="db-info-value">{{ customer.name }}</span>
             </div>
@@ -440,27 +446,27 @@
             <div class="db-info-item">
               <span class="db-info-label">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                Số điện thoại
+                {{ 'helios.phone_number' | t }}
               </span>
-              <span class="db-info-value">{{ customer.phone | default: 'Chưa cập nhật' }}</span>
+              <span class="db-info-value">{{ customer.phone | default: helios_not_provided }}</span>
             </div>
 
             {% comment %}--- Address Sub-section ---{% endcomment %}
             <div class="db-address-section">
               <div class="db-address-head">
-                <h4>Địa chỉ của tôi</h4>
-                <a class="db-card-action" href="{{ routes.account_addresses_url }}">Quản lý</a>
+                <h4>{{ 'helios.my_addresses' | t }}</h4>
+                <a class="db-card-action" href="{{ routes.account_addresses_url }}">{{ 'helios.manage' | t }}</a>
               </div>
               {% if customer.default_address %}
                 <div class="db-address-text">
-                  <p><strong>Địa chỉ mặc định</strong></p>
+                  <p><strong>{{ 'helios.default_address' | t }}</strong></p>
                   <p>{{ customer.default_address.street }}</p>
                   <p>{{ customer.default_address.city }}{% if customer.default_address.province_code %}, {{ customer.default_address.province_code }}{% endif %}</p>
                   <p>{{ customer.default_address.country }}</p>
                 </div>
               {% endif %}
               <a class="db-add-address" href="{{ routes.account_addresses_url }}">
-                + Thêm địa chỉ mới
+                {{ 'helios.add_a_new_address' | t }}
               </a>
             </div>
           </div>
@@ -475,9 +481,9 @@
         {% comment %}--- Recent Orders ---{% endcomment %}
         <div class="db-card">
           <div class="db-card-header">
-            <h3 class="db-card-title">Đơn hàng gần đây</h3>
+            <h3 class="db-card-title">{{ 'helios.recent_orders' | t }}</h3>
             {% if customer.orders.size > 5 %}
-              <span class="db-card-action">Xem tất cả đơn hàng</span>
+              <span class="db-card-action">{{ 'helios.view_all_orders' | t }}</span>
             {% endif %}
           </div>
           <div class="db-card-body" style="padding: 0;">
@@ -485,25 +491,25 @@
               <table class="db-mini-table">
                 <thead>
                   <tr>
-                    <th>Mã đơn hàng</th>
-                    <th>Ngày đặt</th>
-                    <th>Trạng thái</th>
-                    <th>Tổng tiền</th>
+                    <th>{{ 'helios.order_number' | t }}</th>
+                    <th>{{ 'helios.order_date' | t }}</th>
+                    <th>{{ 'helios.status' | t }}</th>
+                    <th>{{ 'helios.total' | t }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for order in customer.orders limit: 5 %}
                   <tr>
-                    <td data-label="Mã đơn"><a href="{{ order.customer_url }}" class="order-link">{{ order.name }}</a></td>
-                    <td data-label="Ngày đặt">{{ order.created_at | date: "%d/%m/%Y" }}</td>
-                    <td data-label="Trạng thái"><span class="db-status-badge {{ order.financial_status_label | handle }}">{{ order.financial_status_label }}</span></td>
-                    <td data-label="Tổng tiền" class="order-total">{{ order.total_price | money }}</td>
+                    <td data-label="{{ 'helios.order_number_e67a09' | t | escape }}"><a href="{{ order.customer_url }}" class="order-link">{{ order.name }}</a></td>
+                    <td data-label="{{ 'helios.order_date' | t | escape }}">{{ order.created_at | date: "%d/%m/%Y" }}</td>
+                    <td data-label="{{ 'helios.status' | t | escape }}"><span class="db-status-badge {{ order.financial_status_label | handle }}">{{ order.financial_status_label }}</span></td>
+                    <td data-label="{{ 'helios.total' | t | escape }}" class="order-total">{{ order.total_price | money }}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
               </table>
             {% else %}
-              <div class="db-empty">Bạn chưa có đơn hàng nào.</div>
+              <div class="db-empty">{{ 'helios.you_have_no_orders_yet' | t }}</div>
             {% endif %}
           </div>
         </div>
@@ -529,9 +535,9 @@
           <div class="db-products-row" id="section-products">
             <div class="db-card">
               <div class="db-card-header">
-                <h3 class="db-card-title">{{ section.settings.welcome_collection_title | default: 'Sản Phẩm Đặc Quyền' }}</h3>
+                <h3 class="db-card-title">{{ section.settings.welcome_collection_title | default: helios_exclusive_products }}</h3>
                 <a class="db-card-action db-card-action--arrow db-member-accent-action" href="{{ welcome_collection.url }}">
-                  {{ section.settings.welcome_collection_view_all_text | default: 'Xem tất cả' }}
+                  {{ section.settings.welcome_collection_view_all_text | default: helios_view_all }}
                   {% render 'svg-chevron-right' %}
                 </a>
               </div>
@@ -547,7 +553,7 @@
                 {% if welcome_collection.products.size > products_limit %}
                   <div class="db-products-more">
                     <a href="{{ welcome_collection.url }}" class="dashboard-btn outline db-member-accent-action">
-                      {{ section.settings.welcome_collection_view_all_text | default: 'Xem tất cả' }}
+                      {{ section.settings.welcome_collection_view_all_text | default: helios_view_all }}
                     </a>
                   </div>
                 {% endif %}
@@ -565,7 +571,7 @@
             <div class="db-card-header">
               <h3 class="db-card-title">{{ section.settings.blacksun_blog_title | default: 'Blacksun Club' }}</h3>
               <a class="db-card-action db-card-action--arrow db-member-accent-action" href="{{ bs_blog.url }}">
-                {{ section.settings.blacksun_blog_view_all_text | default: 'Xem tất cả' }}
+                {{ section.settings.blacksun_blog_view_all_text | default: helios_view_all }}
                 {% render 'svg-chevron-right' %}
               </a>
             </div>

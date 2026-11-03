@@ -68,7 +68,7 @@
     var elProgressBar = $('.quiz-progressbar__bar', section);
 
     function renderNoQuestions(){
-      elCard.innerHTML = '<p>Chưa cấu hình câu hỏi cho quiz.</p>';
+      elCard.innerHTML = window.theme.t('no_quiz_questions_have_been_configured_html');
       elResult.hidden = true;
       section.classList.remove('show-result');
       elCard.setAttribute('data-state','question');
@@ -85,7 +85,7 @@
       // Calculate progress: at question 1/5 = 0%, 2/5 = 20%, ..., 5/5 = 80%
       // Result screen will show 100%
       var pct = total ? Math.round(state.index / total * 100) : 0;
-      elProgress.textContent = 'Câu ' + current + '/' + total;
+      elProgress.textContent = (window.theme.t('question') + " ") + current + '/' + total;
       if(elProgressBar){
         elProgressBar.style.width = pct + '%';
         elProgressBar.parentElement && elProgressBar.parentElement.setAttribute('aria-valuenow', pct);
@@ -124,7 +124,7 @@
       content.className = 'quiz-question__content';
       var title = document.createElement('div');
       title.className = 'quiz-question__title';
-      title.textContent = q.text || 'Câu hỏi';
+      title.textContent = q.text || window.theme.t('question_0b18f8');
       content.appendChild(title);
 
       var list = document.createElement('div');
@@ -133,9 +133,9 @@
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'quiz-option';
-        btn.textContent = opt.label || ('Lựa chọn ' + (i+1));
+        btn.textContent = opt.label || ((window.theme.t('option') + " ") + (i+1));
         btn.setAttribute('data-index', i);
-        btn.setAttribute('aria-label', opt.label || ('Lựa chọn ' + (i+1)));
+        btn.setAttribute('aria-label', opt.label || ((window.theme.t('option') + " ") + (i+1)));
         
         // Add click handler with animation
         btn.addEventListener('click', function(){ 
@@ -162,8 +162,8 @@
       if(state.index > 0){
         var back = document.createElement('button');
         back.className = 'quiz-btn-secondary';
-        back.innerHTML = '← Quay lại';
-        back.setAttribute('aria-label', 'Quay lại câu hỏi trước');
+        back.innerHTML = window.theme.t('back');
+        back.setAttribute('aria-label', window.theme.t('back_to_the_previous_question'));
         back.addEventListener('click', function(){ 
           state.index--; 
           renderQuestion(); 
@@ -202,7 +202,7 @@
         }
       } catch(e) {
         console.error('Quiz: Error selecting option', e);
-        elCard.innerHTML = '<p style="color:#ff6b6b;">Đã xảy ra lỗi. Vui lòng thử lại.</p>';
+        elCard.innerHTML = window.theme.t('something_went_wrong_please_try_again_a844d0_html');
       }
     }
 
@@ -286,19 +286,19 @@
       console.log('Quiz result:', r);
       
       if(!r){ 
-        elCard.innerHTML = '<p style="color:#ff6b6b;">Không tìm thấy kết luận phù hợp. Vui lòng kiểm tra cấu hình.</p>'; 
+        elCard.innerHTML = window.theme.t('no_matching_result_found_please_check_the_configuration_html');
         return; 
       }
       
       // Validate result has content
       if(!r.title && !r.desc){
         console.error('Quiz: Result has no title or description', r);
-        elCard.innerHTML = '<p style="color:#ff6b6b;">Kết luận chưa có nội dung. Vui lòng cấu hình trong Theme Editor.</p>'; 
+        elCard.innerHTML = window.theme.t('this_result_has_no_content_please_configure_it_in_the_theme_edit_html');
         return;
       }
       
-      $('.quiz-result__title', section).textContent = r.title || 'Kết quả';
-      $('.quiz-result__desc', section).innerHTML = r.desc || '<p>Chưa có mô tả.</p>';
+      $('.quiz-result__title', section).textContent = r.title || window.theme.t('result');
+      $('.quiz-result__desc', section).innerHTML = r.desc || window.theme.t('no_description_yet_html');
       var media = $('.quiz-result__media', section);
       media.innerHTML = '';
       if(r.image){
@@ -314,8 +314,8 @@
       if(restartEnabled){
         var restart = document.createElement('button'); 
         restart.className='quiz-btn-secondary'; 
-        restart.innerHTML='↻ Làm lại';
-        restart.setAttribute('aria-label', 'Làm lại quiz từ đầu');
+        restart.innerHTML=window.theme.t('restart');
+        restart.setAttribute('aria-label', window.theme.t('restart_the_quiz'));
         restart.addEventListener('click', function(){ restartQuiz(); }); 
         ctaWrap.appendChild(restart);
       }
@@ -331,7 +331,7 @@
       
       // Update progress to show completion
       if(showProgress){
-        elProgress.textContent = 'Hoàn thành!';
+        elProgress.textContent = window.theme.t('complete');
       }
       if(elProgressBar){ 
         elProgressBar.style.width = '100%'; 

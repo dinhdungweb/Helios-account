@@ -41,7 +41,7 @@
 
             <!-- Confirm Password -->
             <div class="input-row" data-cc-animate data-cc-animate-delay="0.75s">
-              <input aria-label="Xác nhận mật khẩu" placeholder="Xác nhận mật khẩu" type="password" id="confirm_password" required />
+              <input aria-label="{{ 'helios.confirm_password' | t | escape }}" placeholder="{{ 'helios.confirm_password' | t | escape }}" type="password" id="confirm_password" required />
             </div>
 
             <!-- TỰ ĐỘNG GÁN TAG -->
@@ -68,7 +68,7 @@
     var password = document.getElementById("password").value;
     var confirm_password = document.getElementById("confirm_password").value;
     if (password !== confirm_password) {
-      alert("Mật khẩu không khớp. Vui lòng nhập lại.");
+      alert(window.theme.t('passwords_do_not_match_please_try_again'));
       return false;
     }
     return true;

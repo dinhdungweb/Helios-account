@@ -81,11 +81,13 @@
         return;
       }
 
-      // Check if button text indicates sold out or pre-order
-      const btnText = (addToCartBtn.textContent || addToCartBtn.value || '').toLowerCase();
-      if (btnText.includes('hết hàng') || btnText.includes('sold out') || 
-          btnText.includes('unavailable') || btnText.includes('pre-order') ||
-          btnText.includes('đặt trước')) {
+      // Read product state and the theme's translated availability labels.
+      const productArea = form.closest('[data-is-preorder]');
+      const btnText = (addToCartBtn.textContent || addToCartBtn.value || '').trim().toLowerCase();
+      const unavailableLabels = ['buttonNoStock', 'buttonNoVariant', 'buttonPreorder']
+        .map(key => String(window.theme.strings[key] || '').trim().toLowerCase()).filter(Boolean);
+      if ((productArea && productArea.dataset.isPreorder === 'true') ||
+          unavailableLabels.some(label => btnText.includes(label))) {
         return;
       }
 
@@ -97,7 +99,7 @@
       const checkoutBtn = document.createElement('button');
       checkoutBtn.type = 'button';
       checkoutBtn.className = 'button tier-checkout-button';
-      checkoutBtn.textContent = 'Mua ngay';
+      checkoutBtn.textContent = window.theme.t('buy_now');
       checkoutBtn.style.cssText = `
         width: 100%;
         padding: 18px 30px;
@@ -139,7 +141,7 @@
         };
 
         this.disabled = true;
-        this.textContent = 'Đang xử lý...';
+        this.textContent = window.theme.t('processing');
         this.style.opacity = '0.6';
 
         try {
@@ -218,7 +220,7 @@
 
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
-          alert('Có lỗi xảy ra. Vui lòng thử lại!');
+          alert(window.theme.t('something_went_wrong_please_try_again_32c034'));
           resetButton();
         }
       });

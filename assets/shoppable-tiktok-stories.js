@@ -448,12 +448,12 @@
 
     if (playButton) {
       playButton.classList.toggle('is-playing', isPlaying);
-      playButton.setAttribute('aria-label', isPlaying ? 'Tạm dừng video' : 'Phát video');
+      playButton.setAttribute('aria-label', isPlaying ? window.theme.t('pause_video') : window.theme.t('play_video'));
     }
 
     if (muteButton) {
       muteButton.classList.toggle('is-muted', isMuted);
-      muteButton.setAttribute('aria-label', isMuted ? 'Bật âm thanh' : 'Tắt âm thanh');
+      muteButton.setAttribute('aria-label', isMuted ? window.theme.t('unmute') : window.theme.t('mute'));
     }
   };
 

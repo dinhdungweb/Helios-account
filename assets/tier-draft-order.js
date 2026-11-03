@@ -23,7 +23,7 @@
         if (e.detail && typeof e.detail.onError === 'function') {
           e.detail.onError(error);
         }
-        alert('Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại!');
+        alert(window.theme.t('unable_to_create_your_order_please_try_again'));
       }
     });
   }
@@ -44,16 +44,16 @@
           const originalText = checkoutBtn.textContent || checkoutBtn.value;
           checkoutBtn.disabled = true;
           if (checkoutBtn.textContent) {
-            checkoutBtn.textContent = 'Đang xử lý...';
+            checkoutBtn.textContent = window.theme.t('processing');
           } else {
-            checkoutBtn.value = 'Đang xử lý...';
+            checkoutBtn.value = window.theme.t('processing');
           }
 
           try {
             await createDraftOrderCheckout();
           } catch (error) {
             console.error('[TierDraftOrder] Error:', error);
-            alert('Có lỗi xảy ra. Vui lòng thử lại!');
+            alert(window.theme.t('something_went_wrong_please_try_again_32c034'));
             checkoutBtn.disabled = false;
             if (checkoutBtn.textContent) {
               checkoutBtn.textContent = originalText;
@@ -167,7 +167,7 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
+      body: JSON.stringify({ locale: window.theme.locale,
         customer_id: customerId,
         customer_email: customerEmail,
         currency: currency,

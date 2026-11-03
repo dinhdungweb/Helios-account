@@ -51,7 +51,7 @@
     #popup-overlay-{{ section.id }} .overlay__close svg { width:22px; height:22px; }
   </style>
 
-  <button class="overlay__close" aria-label="Đóng">{% render 'svg-close' %}</button>
+  <button class="overlay__close" aria-label="{{ 'helios.close' | t | escape }}">{% render 'svg-close' %}</button>
   <div class="overlay__backdrop" data-close="true"></div>
 
   <div class="overlay__modal" role="document">

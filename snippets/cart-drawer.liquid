@@ -1,3 +1,7 @@
+{%- liquid
+  assign helios_free_gift = 'helios.free_gift' | t
+  assign helios_free_gift_message = 'helios.congratulations_you_have_received_a_free_gift' | t
+-%}
 {% comment %} ========== FREE GIFT CONFIG ========== {% endcomment %}
 {% assign free_gift_enabled = settings.free_gift_enabled %}
 {% assign free_gift_product = settings.free_gift_product %}
@@ -20,18 +24,18 @@
     giftProductId: {{ free_gift_product_id | default: 'null' }},
     giftVariantId: {{ free_gift_variant_id | default: 'null' }},
     giftQuantity: {{ settings.free_gift_quantity | default: 1 }},
-    giftLabel: '{{ settings.free_gift_label | default: "Quà tặng miễn phí" | escape }}',
-    giftMessage: '{{ settings.free_gift_message | default: "Chúc mừng! Bạn được tặng quà miễn phí" | escape }}'
+    giftLabel: {{ settings.free_gift_label | default: helios_free_gift | json | replace: '<', '\u003c' }},
+    giftMessage: {{ settings.free_gift_message | default: helios_free_gift_message | json | replace: '<', '\u003c' }}
   };
 </script>
 
 <div class="cart-drawer">
   <div class="cart-drawer-box">
     <header class="cart-drawer-header">
-      <div class="cart-title">Shopping Cart</div>
+      <div class="cart-title">{{ 'cart.general.title' | t }}</div>
       <div class="cart-drawer-header-right">
-        <span class="cart-drawer-header-right-items">{{ cart.item_count }} sản phẩm</span>
-        <button id="btn-close" title="Đóng" class="cart-drawer-header-right-close" type="button">
+        <span class="cart-drawer-header-right-items">{{ 'helios.cart_items' | t: count: cart.item_count }}</span>
+        <button id="btn-close" title="{{ 'helios.close' | t | escape }}" class="cart-drawer-header-right-close" type="button">
           {% render 'svg-close' %}
         </button>
       </div>
@@ -39,7 +43,7 @@
 
     {% form 'cart', cart, class: 'cart-drawer-form' %}
       {% if cart.item_count == 0 %}
-        <p class="cart-drawer-empty">Giỏ hàng của bạn đang trống!</p>
+        <p class="cart-drawer-empty">{{ 'helios.your_cart_is_empty' | t }}</p>
       {% else %}
         <div class="cart-drawer-items">
           {% for item in cart.items %}
@@ -57,7 +61,7 @@
                  data-is-gift="{{ is_gift_item }}">
               
               {% if is_gift_item %}
-                <div class="free-gift-badge">Quà tặng miễn phí</div>
+                <div class="free-gift-badge">{{ 'helios.free_gift' | t }}</div>
               {% endif %}
 
               <div class="cart-drawer-item-image">
@@ -72,7 +76,7 @@
                     <span>{{ item.variant.title }}</span>
                     <div class="cart-price">
                       {% if is_gift_item %}
-                        <span class="free-gift-price">MIỄN PHÍ</span>
+                        <span class="free-gift-price">{{ 'helios.free' | t }}</span>
                         <span class="free-gift-original-price">{{ item.original_price | money }}</span>
                       {% else %}
                         {% comment %} Always show tier pricing if enabled {% endcomment %}
@@ -159,16 +163,16 @@
                     <img src="{{ free_gift_product.featured_image | image_url: width: 80, height: 80 }}" alt="{{ free_gift_product.title }}" width="80" height="80">
                   </div>
                   <div class="free-gift-checkbox-content">
-                    <div class="free-gift-checkbox-label"><span class="free-gift-icon">{% render 'svg-gift' %}</span> Quà tặng miễn phí</div>
+                    <div class="free-gift-checkbox-label"><span class="free-gift-icon">{% render 'svg-gift' %}</span> {{ 'helios.free_gift' | t }}</div>
                     <div class="free-gift-checkbox-title">{{ free_gift_product.title }}</div>
                     <div class="free-gift-checkbox-price">
-                      <span class="free-gift-price-free">MIỄN PHÍ</span>
+                      <span class="free-gift-price-free">{{ 'helios.free' | t }}</span>
                       <span class="free-gift-price-original">{{ free_gift_product.price | money }}</span>
                     </div>
                   </div>
                   <div class="free-gift-checkbox-action">
                     <button type="button" class="free-gift-add-btn" data-variant-id="{{ free_gift_variant_id }}">
-                      Thêm quà
+                      {{ 'helios.add_gift' | t }}
                     </button>
                   </div>
                 </div>
@@ -209,7 +213,7 @@
                           {% endfor %}
                       
                           {% if sold_out %}
-                              <button class="add-to-cart-btn product-variant-submit-button" disabled>Hết hàng</button>
+                              <button class="add-to-cart-btn product-variant-submit-button" disabled>{{ 'helios.sold_out' | t }}</button>
                           {% else %}
                               <div class="product-variant-dropdown">
                                   <form class="product-add-to-cart" action="/cart/add" method="post">
@@ -218,12 +222,12 @@
                                               <option value="{{ variant.id }}" {% unless variant.available %}disabled="disabled"{% endunless %}>
                                                   {{ variant.title }}
                                                   {% unless variant.available %}
-                                                      - Hết hàng
+                                                      {{ 'helios.sold_out_3afee2' | t }}
                                                   {% endunless %}
                                               </option>
                                           {% endfor %}
                                       </select>
-                                      <button class="add-to-cart-btn product-variant-submit-button" data-product-variant="{{product.first_available_variant.id}}">Thêm vào giỏ hàng</button>
+                                      <button class="add-to-cart-btn product-variant-submit-button" data-product-variant="{{product.first_available_variant.id}}">{{ 'helios.add_to_cart' | t }}</button>
                                   </form>
                               </div>
                           {% endif %}
@@ -232,9 +236,9 @@
                               <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
                               <button class="add-to-cart-btn product-variant-submit-button" data-product-variant="{{product.first_available_variant.id}}">
                                   {% if product.available %}
-                                      Thêm vào giỏ hàng
+                                      {{ 'helios.add_to_cart' | t }}
                                   {% else %}
-                                      Hết hàng
+                                      {{ 'helios.sold_out' | t }}
                                   {% endif %}
                               </button>
                           {% endform %}
@@ -482,12 +486,12 @@
           {% comment %} Show price breakdown {% endcomment %}
           {% if has_tier and tier_discount_percent > 0 %}
             <div class="cart-drawer-footer-row">
-              <h3>Tổng phụ</h3>
+              <h3>{{ 'helios.subtotal' | t }}</h3>
               <span>{{ cart_subtotal_no_gift | money }}</span>
             </div>
             <div class="cart-drawer-footer-row">
               {% comment %} Don't show percentage as it may not be accurate with product-specific discounts {% endcomment %}
-              <h3>Giảm giá {{ customer_tier }}</h3>
+              <h3>{{ 'helios.discount' | t }} {{ customer_tier }}</h3>
               <span>- {{ cart_tier_discount | money }}</span>
             </div>
           {% endif %}
@@ -495,18 +499,18 @@
           {% if cart.total_discounts > 0 %}
             {% unless has_tier and tier_discount_percent > 0 %}
               <div class="cart-drawer-footer-row">
-                <h3>Tổng phụ</h3>
+                <h3>{{ 'helios.subtotal' | t }}</h3>
                 <span>{{ cart_subtotal_no_gift | money }}</span>
               </div>
             {% endunless %}
             <div class="cart-drawer-footer-row">
-              <h3>Giảm giá khác</h3>
+              <h3>{{ 'helios.other_discounts' | t }}</h3>
               <span>- {{ cart.total_discounts | money }}</span>
             </div>
           {% endif %}
           
           <div class="cart-drawer-footer-row">
-            <h3>Tổng cộng</h3>
+            <h3>{{ 'helios.total_6c4fa8' | t }}</h3>
             {% if has_tier and tier_discount_percent > 0 %}
               <span>{{ cart_tier_total | money }}</span>
             {% else %}
@@ -522,7 +526,7 @@
           </div>
           <div class="cart-drawer-item-main-grid">
             <!-- <a href="/cart/"><button class="cart-drawer-second-button">Xem giỏ hàng</button></a> -->
-            <a href="/checkout"><button type="submit" name="checkout" class="cart-drawer-button">Thanh toán</button></a>
+            <a href="/checkout"><button type="submit" name="checkout" class="cart-drawer-button">{{ 'helios.checkout' | t }}</button></a>
           </div>
         </footer>
       {% endif %}

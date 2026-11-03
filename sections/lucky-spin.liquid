@@ -124,9 +124,9 @@
 <!-- Modal kết quả -->
 <div id="lucky-wheel-modal" class="wheel-modal" style="display: none;">
   <div class="wheel-modal-box">
-    <h2>🎉 Bạn đã trúng thưởng!</h2>
+    <h2>{{ 'helios.you_won_a_prize' | t }}</h2>
     <p id="modal-prize-text"></p>
-    <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">Đóng</button>
+    <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">{{ 'helios.close' | t }}</button>
   </div>
 </div>
 
@@ -354,10 +354,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if (prizes.length === 0) {
     // Add default prizes if none are defined
     prizes.push(
-      { text: "Giảm 10%", color: "#2196f3", code: "LUCKY10", probability: 25 },
-      { text: "Giảm 20%", color: "#4caf50", code: "LUCKY20", probability: 25 },
-      { text: "Giảm 30%", color: "#ff9800", code: "LUCKY30", probability: 25 },
-      { text: "Quà tặng", color: "#f44336", code: "GIFT", probability: 25 }
+      { text: window.theme.t('10_off'), color: "#2196f3", code: "LUCKY10", probability: 25 },
+      { text: window.theme.t('20_off'), color: "#4caf50", code: "LUCKY20", probability: 25 },
+      { text: window.theme.t('30_off'), color: "#ff9800", code: "LUCKY30", probability: 25 },
+      { text: window.theme.t('gift'), color: "#f44336", code: "GIFT", probability: 25 }
     );
   }
 
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentRotation = targetAngle % (Math.PI * 2); // Keep within 2PI
 
         setTimeout(() => {
-          document.getElementById('modal-prize-text').innerText = `${selectedPrize.text} - Mã: ${selectedPrize.code}`;
+          document.getElementById('modal-prize-text').innerText = `${selectedPrize.text} ${window.theme.t('code_6bd3c6')} ${selectedPrize.code}`;
           document.getElementById('lucky-wheel-modal').style.display = 'flex';
         }, 500);
         return;

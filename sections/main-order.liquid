@@ -20,7 +20,7 @@
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
               </svg>
-              Quay lại danh sách đơn hàng
+              {{ 'helios.back_to_orders' | t }}
             </a>
           </div>
 
@@ -53,7 +53,7 @@
             {% if order.shipping_address %}
             <div class="db-address-block" style="background: var(--db-surface-2); padding: 15px; border: 1px solid var(--db-border);">
               <h5 class="db-address-block-title" style="margin: 0 0 10px; font-size:12px; font-weight:700; text-transform:uppercase; color:var(--db-accent);">{{ 'customer.order.shipping_address' | t }}</h5>
-              <p style="font-size:11px; margin:0 0 8px;"><span style="color:var(--db-text-muted);">Trạng thái giao hàng:</span> <span class="db-status-badge {{ order.fulfillment_status }}" style="margin-left:4px;">{{ order.fulfillment_status_label }}</span></p>
+              <p style="font-size:11px; margin:0 0 8px;"><span style="color:var(--db-text-muted);">{{ 'helios.fulfillment_status' | t }}</span> <span class="db-status-badge {{ order.fulfillment_status }}" style="margin-left:4px;">{{ order.fulfillment_status_label }}</span></p>
               <div class="address-details" style="font-size:13px; color:var(--db-text-2); line-height: 1.6;">
                 <p style="margin:0 0 4px; font-weight:600; color:var(--db-text);">{{ order.shipping_address.name }}</p>
                 {% if order.shipping_address.company != blank %}<p style="margin:0 0 4px;">{{ order.shipping_address.company }}</p>{% endif %}

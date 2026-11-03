@@ -3,7 +3,7 @@
 {%- assign related_articles_count = 0 -%}
 
 <div id="relatedblogs">
-  <h3 class="blog-title">Bài Viết Liên Quan:</h3>
+  <h3 class="blog-title">{{ 'helios.related_articles' | t }}</h3>
 <ol>
   {%- for other_article in blog.articles -%}
     {%- if other_article.id != article.id -%}
@@ -33,7 +33,7 @@
 </ol>
 </div>
 {%- if related_articles_count == 0 -%}
-<p>Không có bài viết liên quan.</p>
+<p>{{ 'helios.no_related_articles' | t }}</p>
 {%- endif -%}
 <style type="text/css">
       .rb_contents {

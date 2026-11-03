@@ -22,7 +22,7 @@
         </div>
         
         <div class="input-row" data-cc-animate data-cc-animate-delay="0.65s">
-          <input type="tel" name="customer[note]" placeholder="Số điện thoại" pattern="[0-9]{10,11}" title="Nhập số điện thoại hợp lệ (10-11 số)" id="email" class="large" size="30" required />
+          <input type="tel" name="customer[note]" placeholder="{{ 'helios.phone_number' | t | escape }}" pattern="[0-9]{10,11}" title="{{ 'helios.enter_a_valid_phone_number_with_10_11_digits_882f53' | t | escape }}" id="email" class="large" size="30" required />
         </div>
 
         <div class="input-row" data-cc-animate data-cc-animate-delay="0.8s">

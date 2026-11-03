@@ -2,39 +2,39 @@
 {% comment %} {% if customer and customer.tags contains 'schedule-admin' %} {% endcomment %}
 <div class="admin-booking">
   <div class="admin-header">
-    <h2>Quản lý Lịch Hẹn</h2>
+    <h2>{{ 'helios.appointment_management' | t }}</h2>
     <div class="admin-actions">
       <div class="search-filter">
-        <input type="text" id="search-bookings" placeholder="Tìm kiếm theo tên hoặc email...">
+        <input type="text" id="search-bookings" placeholder="{{ 'helios.search_by_name_or_email' | t | escape }}">
         <select id="filter-service">
-          <option value="">Tất cả dịch vụ</option>
-          <option value="Đến showroom">Đến showroom</option>
-          <option value="Hẹn trực tuyến">Hẹn trực tuyến</option>
+          <option value="">{{ 'helios.all_services' | t }}</option>
+          <option value="Đến showroom">{{ 'helios.showroom_visit' | t }}</option>
+          <option value="Hẹn trực tuyến">{{ 'helios.online_appointment' | t }}</option>
         </select>
         <select id="filter-status">
-          <option value="">Tất cả trạng thái</option>
-          <option value="pending">Đang chờ</option>
-          <option value="confirmed">Đã xác nhận</option>
-          <option value="completed">Hoàn thành</option>
-          <option value="cancelled">Đã hủy</option>
+          <option value="">{{ 'helios.all_statuses' | t }}</option>
+          <option value="pending">{{ 'helios.pending' | t }}</option>
+          <option value="confirmed">{{ 'helios.confirmed' | t }}</option>
+          <option value="completed">{{ 'helios.completed' | t }}</option>
+          <option value="cancelled">{{ 'helios.cancelled' | t }}</option>
         </select>
       </div>
-      <button id="refresh-btn" class="refresh-button">Làm mới dữ liệu</button>
+      <button id="refresh-btn" class="refresh-button">{{ 'helios.refresh_data' | t }}</button>
     </div>
   </div>
 
   <div class="booking-stats">
     <div class="stat-item">
       <span class="stat-number" id="total-bookings">0</span>
-      <span class="stat-label">Tổng số lịch hẹn</span>
+      <span class="stat-label">{{ 'helios.total_appointments' | t }}</span>
     </div>
     <div class="stat-item">
       <span class="stat-number" id="pending-bookings">0</span>
-      <span class="stat-label">Lịch chờ xác nhận</span>
+      <span class="stat-label">{{ 'helios.pending_appointments' | t }}</span>
     </div>
     <div class="stat-item">
       <span class="stat-number" id="today-bookings">0</span>
-      <span class="stat-label">Lịch hẹn hôm nay</span>
+      <span class="stat-label">{{ 'helios.today_s_appointments' | t }}</span>
     </div>
   </div>
 
@@ -42,13 +42,13 @@
     <table class="booking-table">
       <thead>
         <tr>
-          <th class="sortable" data-sort="name">Họ Tên</th>
-          <th>Liên hệ</th>
-          <th class="sortable" data-sort="date">Ngày & Giờ</th>
-          <th>Dịch Vụ</th>
-          <th>Chi tiết</th>
-          <th>Trạng thái</th>
-          <th>Thao Tác</th>
+          <th class="sortable" data-sort="name">{{ 'helios.full_name_c04e2a' | t }}</th>
+          <th>{{ 'helios.contact_us' | t }}</th>
+          <th class="sortable" data-sort="date">{{ 'helios.date_and_time' | t }}</th>
+          <th>{{ 'helios.service' | t }}</th>
+          <th>{{ 'helios.details' | t }}</th>
+          <th>{{ 'helios.status' | t }}</th>
+          <th>{{ 'helios.actions' | t }}</th>
         </tr>
       </thead>
       <tbody id="booking-list"></tbody>
@@ -59,7 +59,7 @@
   <div id="booking-modal" class="booking-modal">
     <div class="modal-content">
       <span class="close-modal">&times;</span>
-      <h3>Chi tiết lịch hẹn</h3>
+      <h3>{{ 'helios.appointment_details' | t }}</h3>
       <div id="modal-content"></div>
     </div>
   </div>
@@ -86,17 +86,9 @@
     const auth = getAuth(app);
 
     // Hàm chuyển đổi ngày sang tiếng Việt
-    function formatDateToVietnamese(dateString) {
-      const parts = dateString.split(' ');
-      const dayOfWeek = `${parts[0]} ${parts[1]}`;  // Ví dụ "Thu 7"
-      const month = parts[2];
-      const day = parts[3];
-      const monthMap = {
-        Jan: 'Tháng 1', Feb: 'Tháng 2', Mar: 'Tháng 3', Apr: 'Tháng 4',
-        May: 'Tháng 5', Jun: 'Tháng 6', Jul: 'Tháng 7', Aug: 'Tháng 8',
-        Sep: 'Tháng 9', Oct: 'Tháng 10', Nov: 'Tháng 11', Dec: 'Tháng 12'
-      };
-      return `${dayOfWeek} ${day} ${monthMap[month] || month}`;
+    function formatBookingDate(dateString) {
+      const parts = window.theme.bookingDateParts(dateString);
+      return parts.weekday + ' ' + parts.dayMonth;
     }
     
     // Biến lưu trữ danh sách lịch hẹn
@@ -126,8 +118,8 @@
         // Hiển thị dữ liệu
         displayBookings(bookings);
       } catch (error) {
-        console.error("Lỗi khi tải lịch hẹn:", error);
-        showNotification("Lỗi khi tải dữ liệu lịch hẹn", "error");
+        console.error(window.theme.t('error_loading_appointments'), error);
+        showNotification(window.theme.t('unable_to_load_appointment_data'), "error");
       }
     }
     
@@ -163,14 +155,14 @@
       bookingList.innerHTML = '';
       
       if (bookings.length === 0) {
-        bookingList.innerHTML = `<tr><td colspan="7" class="no-data">Không có lịch hẹn nào</td></tr>`;
+        bookingList.innerHTML = `<tr><td colspan="7" class="no-data">${window.theme.t('no_appointments')}</td></tr>`;
         return;
       }
       
       bookings.forEach((booking) => {
         const row = document.createElement('tr');
         row.classList.add(`status-${booking.status}`);
-        const formattedDate = formatDateToVietnamese(booking.date);
+        const formattedDate = formatBookingDate(booking.date);
         
         // Tạo badge cho trạng thái
         const statusBadge = getStatusBadge(booking.status);
@@ -195,16 +187,16 @@
           </td>
           <td>${booking.service}</td>
           <td>
-            <button class="view-details-button" data-booking-id="${booking.id}">Xem chi tiết</button>
+            <button class="view-details-button" data-booking-id="${booking.id}">${window.theme.t('view_details')}</button>
           </td>
           <td>
             <div class="status-selector">
               ${statusBadge}
               <select class="status-dropdown" data-booking-id="${booking.id}">
-                <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Đang chờ</option>
-                <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Đã xác nhận</option>
-                <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>Hoàn thành</option>
-                <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Đã hủy</option>
+                <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>${window.theme.t('pending')}</option>
+                <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>${window.theme.t('confirmed')}</option>
+                <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>${window.theme.t('completed')}</option>
+                <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>${window.theme.t('cancelled')}</option>
               </select>
             </div>
           </td>
@@ -233,10 +225,10 @@
     // Tạo badge cho trạng thái
     function getStatusBadge(status) {
       const statusMap = {
-        'pending': { label: 'Đang chờ', class: 'status-pending' },
-        'confirmed': { label: 'Đã xác nhận', class: 'status-confirmed' },
-        'completed': { label: 'Hoàn thành', class: 'status-completed' },
-        'cancelled': { label: 'Đã hủy', class: 'status-cancelled' }
+        'pending': { label: window.theme.t('pending'), class: 'status-pending' },
+        'confirmed': { label: window.theme.t('confirmed'), class: 'status-confirmed' },
+        'completed': { label: window.theme.t('completed'), class: 'status-completed' },
+        'cancelled': { label: window.theme.t('cancelled'), class: 'status-cancelled' }
       };
       
       const statusInfo = statusMap[status] || statusMap['pending'];
@@ -281,7 +273,7 @@
     
     // Hàm xác nhận xóa
     function confirmDelete(bookingId) {
-      if (confirm("Bạn có chắc chắn muốn xóa lịch hẹn này không?")) {
+      if (confirm(window.theme.t('are_you_sure_you_want_to_delete_this_appointment'))) {
         deleteBooking(bookingId);
       }
     }
@@ -294,57 +286,57 @@
       const modal = document.getElementById('booking-modal');
       const modalContent = document.getElementById('modal-content');
       
-      const formattedDate = formatDateToVietnamese(booking.date);
+      const formattedDate = formatBookingDate(booking.date);
       
       let detailsHTML = `
         <div class="booking-details">
           <div class="detail-group">
-            <h4>Thông tin khách hàng</h4>
-            <p><strong>Họ và tên:</strong> ${booking.first_name} ${booking.last_name}</p>
+            <h4>${window.theme.t('customer_information')}</h4>
+            <p><strong>${window.theme.t('full_name_e51e34')}</strong> ${booking.first_name} ${booking.last_name}</p>
             <p><strong>Email:</strong> ${booking.email}</p>
-            <p><strong>Điện thoại:</strong> ${booking.phone}</p>
+            <p><strong>${window.theme.t('phone')}</strong> ${booking.phone}</p>
           </div>
           
           <div class="detail-group">
-            <h4>Thông tin cuộc hẹn</h4>
-            <p><strong>Ngày:</strong> ${formattedDate}</p>
-            <p><strong>Giờ:</strong> ${booking.time}</p>
-            <p><strong>Loại dịch vụ:</strong> ${booking.service}</p>
-            <p><strong>Trạng thái:</strong> ${getStatusLabel(booking.status)}</p>
+            <h4>${window.theme.t('appointment_information')}</h4>
+            <p><strong>${window.theme.t('date_312fb1')}</strong> ${formattedDate}</p>
+            <p><strong>${window.theme.t('time_c28788')}</strong> ${booking.time}</p>
+            <p><strong>${window.theme.t('service_type')}</strong> ${booking.service}</p>
+            <p><strong>${window.theme.t('status_d7b882')}</strong> ${getStatusLabel(booking.status)}</p>
           </div>
       `;
       
       // Thông tin chi tiết về nhu cầu
       detailsHTML += `<div class="detail-group">
-        <h4>Chi tiết yêu cầu</h4>`;
+        <h4>${window.theme.t('request_details')}</h4>`;
       
       if (booking.specific_product) {
-        detailsHTML += `<p><strong>Sản phẩm muốn xem:</strong> ${booking.specific_product}</p>`;
+        detailsHTML += `<p><strong>${window.theme.t('requested_products')}</strong> ${booking.specific_product}</p>`;
       }
       
       if (booking.product_types && booking.product_types.length) {
-        detailsHTML += `<p><strong>Loại sản phẩm:</strong> ${booking.product_types.join(', ')}</p>`;
+        detailsHTML += `<p><strong>${window.theme.t('product_types')}</strong> ${booking.product_types.join(', ')}</p>`;
       }
       
       if (booking.needs && booking.needs.length) {
-        detailsHTML += `<p><strong>Nhu cầu:</strong> ${booking.needs.join(', ')}</p>`;
+        detailsHTML += `<p><strong>${window.theme.t('needs')}</strong> ${booking.needs.join(', ')}</p>`;
       }
       
       if (booking.styles && booking.styles.length) {
-        detailsHTML += `<p><strong>Phong cách:</strong> ${booking.styles.join(', ')}</p>`;
+        detailsHTML += `<p><strong>${window.theme.t('style')}</strong> ${booking.styles.join(', ')}</p>`;
       }
       
       if (booking.budget) {
-        detailsHTML += `<p><strong>Ngân sách:</strong> ${booking.budget}</p>`;
+        detailsHTML += `<p><strong>${window.theme.t('budget')}</strong> ${booking.budget}</p>`;
       }
       
-      detailsHTML += `<p><strong>Ghi chú:</strong> ${booking.notes || 'Không có ghi chú'}</p>
+      detailsHTML += `<p><strong>${window.theme.t('notes')}</strong> ${booking.notes || window.theme.t('no_notes')}</p>
       </div>`;
       
       detailsHTML += `
         <div class="modal-actions">
-          <button class="confirm-button" data-booking-id="${bookingId}">Xác nhận lịch hẹn</button>
-          <button class="cancel-button" data-booking-id="${bookingId}">Hủy lịch hẹn</button>
+          <button class="confirm-button" data-booking-id="${bookingId}">${window.theme.t('confirm_appointment')}</button>
+          <button class="cancel-button" data-booking-id="${bookingId}">${window.theme.t('cancel_appointment')}</button>
         </div>
       </div>
       `;
@@ -379,13 +371,13 @@
     // Lấy label cho trạng thái
     function getStatusLabel(status) {
       const statusMap = {
-        'pending': 'Đang chờ xác nhận',
-        'confirmed': 'Đã xác nhận',
-        'completed': 'Hoàn thành',
-        'cancelled': 'Đã hủy'
+        'pending': window.theme.t('awaiting_confirmation'),
+        'confirmed': window.theme.t('confirmed'),
+        'completed': window.theme.t('completed'),
+        'cancelled': window.theme.t('cancelled')
       };
       
-      return statusMap[status] || 'Đang chờ xác nhận';
+      return statusMap[status] || window.theme.t('awaiting_confirmation');
     }
     
     // Hàm hiển thị modal chỉnh sửa
@@ -397,24 +389,24 @@
       const modalContent = document.getElementById('modal-content');
       
       modalContent.innerHTML = `
-        <h3>Chỉnh sửa lịch hẹn</h3>
+        <h3>${window.theme.t('edit_appointment')}</h3>
         <form id="edit-form">
           <div class="form-group">
-            <label>Ghi chú:</label>
+            <label>${window.theme.t('notes')}</label>
             <textarea id="edit-notes" rows="4">${booking.notes || ''}</textarea>
           </div>
           <div class="form-group">
-            <label>Trạng thái:</label>
+            <label>${window.theme.t('status_d7b882')}</label>
             <select id="edit-status">
-              <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Đang chờ</option>
-              <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Đã xác nhận</option>
-              <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>Hoàn thành</option>
-              <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Đã hủy</option>
+              <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>${window.theme.t('pending')}</option>
+              <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>${window.theme.t('confirmed')}</option>
+              <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>${window.theme.t('completed')}</option>
+              <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>${window.theme.t('cancelled')}</option>
             </select>
           </div>
           <div class="form-actions">
-            <button type="button" id="save-edit" data-booking-id="${bookingId}">Lưu thay đổi</button>
-            <button type="button" id="cancel-edit">Hủy</button>
+            <button type="button" id="save-edit" data-booking-id="${bookingId}">${window.theme.t('save_changes')}</button>
+            <button type="button" id="cancel-edit">${window.theme.t('cancel')}</button>
           </div>
         </form>
       `;
@@ -445,11 +437,11 @@
     async function deleteBooking(bookingId) {
       try {
         await deleteDoc(doc(db, "bookings", bookingId));
-        showNotification("Lịch hẹn đã được xóa thành công", "success");
+        showNotification(window.theme.t('appointment_deleted_successfully'), "success");
         loadBookings(); // Tải lại danh sách
       } catch (error) {
         console.error("Error removing booking:", error);
-        showNotification("Lỗi khi xóa lịch hẹn", "error");
+        showNotification(window.theme.t('unable_to_delete_appointment'), "error");
       }
     }
     
@@ -457,7 +449,7 @@
     async function updateBookingStatus(bookingId, status) {
       try {
         await updateDoc(doc(db, "bookings", bookingId), { status });
-        showNotification(`Trạng thái lịch hẹn đã được cập nhật thành ${getStatusLabel(status)}`, "success");
+        showNotification(`${window.theme.t('appointment_status_updated_to')} ${getStatusLabel(status)}`, "success");
         
         // Cập nhật lại trong danh sách
         const bookingIndex = allBookings.findIndex(b => b.id === bookingId);
@@ -467,7 +459,7 @@
         }
       } catch (error) {
         console.error("Error updating booking status:", error);
-        showNotification("Lỗi khi cập nhật trạng thái", "error");
+        showNotification(window.theme.t('unable_to_update_status'), "error");
       }
     }
     
@@ -475,7 +467,7 @@
     async function updateBookingDetails(bookingId, updates) {
       try {
         await updateDoc(doc(db, "bookings", bookingId), updates);
-        showNotification("Thông tin lịch hẹn đã được cập nhật", "success");
+        showNotification(window.theme.t('appointment_information_updated'), "success");
         
         // Cập nhật lại trong danh sách
         const bookingIndex = allBookings.findIndex(b => b.id === bookingId);
@@ -485,7 +477,7 @@
         }
       } catch (error) {
         console.error("Error updating booking details:", error);
-        showNotification("Lỗi khi cập nhật thông tin", "error");
+        showNotification(window.theme.t('unable_to_update_information'), "error");
       }
     }
     

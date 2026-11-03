@@ -23,13 +23,13 @@
       {% if page.metafields.custom.salary %}
       <div class="job-item">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 1v22M17 5H7a4 4 0 0 0 0 8h10a4 4 0 0 1 0 8H6" /></svg>
-        <span class="label">Mức lương:</span> {{ page.metafields.custom.salary }}
+        <span class="label">{{ 'helios.salary' | t }}</span> {{ page.metafields.custom.salary }}
       </div>
       {% endif %}
       {% if page.metafields.custom.working_time %}
       <div class="job-item">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-        <span class="label">Thời gian:</span> {{ page.metafields.custom.working_time }}
+        <span class="label">{{ 'helios.time_a96cbe' | t }}</span> {{ page.metafields.custom.working_time }}
       </div>
       {% endif %}
     </div>
@@ -38,13 +38,13 @@
       {% if page.metafields.custom.experience %}
       <div class="job-item">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg>
-        <span class="label">Kinh nghiệm:</span> {{ page.metafields.custom.experience }}
+        <span class="label">{{ 'helios.experience' | t }}</span> {{ page.metafields.custom.experience }}
       </div>
       {% endif %}
       {% if page.metafields.custom.gender %}
       <div class="job-item">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 14c2.21 0 4-1.79 4-4S18.21 6 16 6s-4 1.79-4 4 1.79 4 4 4zM8 14c2.21 0 4-1.79 4-4S10.21 6 8 6 4 7.79 4 10s1.79 4 4 4zM8 16c-2.67 0-8 1.34-8 4v2h8v-2c0-.68.28-1.3.73-1.77M16 16c-1.37 0-2.61.35-3.61.95" /></svg>
-        <span class="label">Giới tính:</span> {{ page.metafields.custom.gender }}
+        <span class="label">{{ 'helios.gender' | t }}</span> {{ page.metafields.custom.gender }}
       </div>
       {% endif %}
     </div>
@@ -53,13 +53,13 @@
       {% if page.metafields.custom.education %}
       <div class="job-item">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16v2H4zM4 8h16v2H4zM4 12h16v2H4zM4 16h16v2H4z" /></svg>
-        <span class="label">Trình độ:</span> {{ page.metafields.custom.education }}
+        <span class="label">{{ 'helios.qualifications' | t }}</span> {{ page.metafields.custom.education }}
       </div>
       {% endif %}
       {% if page.metafields.custom.location %}
       <div class="job-item">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 6-9 13-9 13S3 16 3 10a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
-        <span class="label">Địa điểm:</span> {{ page.metafields.custom.location }}
+        <span class="label">{{ 'helios.location' | t }}</span> {{ page.metafields.custom.location }}
       </div>
       {% endif %}
     </div>

@@ -33,14 +33,14 @@
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
         <circle cx="12" cy="7" r="4"></circle>
       </svg>
-      My Account
+      {{ 'customer.account.title' | t }}
     </a>
 
     <a class="db-nav-item" {% if is_account_page %}data-scroll="section-benefits" href="#"{% else %}href="{{ routes.account_url }}#section-benefits"{% endif %}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
       </svg>
-      Quyền Lợi
+      {{ 'helios.benefits' | t }}
     </a>
 
     <a class="db-nav-item" {% if is_account_page %}data-scroll="section-orders" href="#"{% else %}href="{{ routes.account_url }}#section-orders"{% endif %}>
@@ -49,7 +49,7 @@
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <path d="M16 10a4 4 0 0 1-8 0"></path>
       </svg>
-      Orders
+      {{ 'customer.orders.title' | t }}
     </a>
 
     <a class="db-nav-item" {% if is_account_page %}data-scroll="section-community" href="#"{% else %}href="{{ routes.account_url }}#section-community"{% endif %}>
@@ -59,14 +59,14 @@
         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
       </svg>
-      Cộng Đồng
+      {{ 'helios.community' | t }}
     </a>
 
     <a class="db-nav-item" {% if is_account_page %}data-scroll="section-products" href="#"{% else %}href="{{ routes.account_url }}#section-products"{% endif %}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
       </svg>
-      Sản Phẩm Member
+      {{ 'helios.member_products' | t }}
     </a>
 
     <a class="db-nav-item" {% if is_account_page %}data-scroll="section-blacksun" href="#"{% else %}href="{{ routes.account_url }}#section-blacksun"{% endif %}>
@@ -85,7 +85,7 @@
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
         <circle cx="12" cy="10" r="3"></circle>
       </svg>
-      Addresses
+      {{ 'customer.addresses.title' | t }}
     </a>
 
     {% comment %}Render Custom Tabs from Blocks{% endcomment %}
@@ -120,9 +120,9 @@
         <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
       </svg>
     </div>
-    <h4>Cần hỗ trợ?</h4>
-    <p>Đội ngũ HELIOS luôn sẵn sàng hỗ trợ bạn.</p>
-    <a href="https://www.facebook.com/Official.Heliosvn" target="_blank" class="db-support-btn">Liên hệ ngay</a>
+    <h4>{{ 'helios.need_help' | t }}</h4>
+    <p>{{ 'helios.the_helios_team_is_here_to_help' | t }}</p>
+    <a href="https://www.facebook.com/Official.Heliosvn" target="_blank" class="db-support-btn">{{ 'helios.contact_us_now' | t }}</a>
   </div>
 
   <div class="db-sidebar-footer">
@@ -132,7 +132,7 @@
         <polyline points="16 17 21 12 16 7"></polyline>
         <line x1="21" y1="12" x2="9" y2="12"></line>
       </svg>
-      Đăng Xuất
+      {{ 'helios.sign_out' | t }}
     </a>
   </div>
 </aside>

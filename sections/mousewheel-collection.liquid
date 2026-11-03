@@ -254,7 +254,7 @@
                     {% else %}
                       <div class="placeholder-container">
                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                        <div class="placeholder-text">Banner Trái</div>
+                        <div class="placeholder-text">{{ 'helios.left_banner' | t }}</div>
                       </div>
                     {% endif %}
                   </div>
@@ -322,7 +322,7 @@
                     {% else %}
                       <div class="placeholder-container">
                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                        <div class="placeholder-text">Banner Phải</div>
+                        <div class="placeholder-text">{{ 'helios.right_banner' | t }}</div>
                       </div>
                     {% endif %}
                   </div>
@@ -808,7 +808,7 @@
                     {% unless has_slides %}
                       <div class="placeholder-container">
                         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                        <div class="placeholder-text">Không có slide nào được cấu hình với hình ảnh</div>
+                        <div class="placeholder-text">{{ 'helios.no_slides_with_images_have_been_configured' | t }}</div>
                       </div>
                     {% endunless %}
                   </div>

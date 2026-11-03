@@ -1,3 +1,6 @@
+{%- liquid
+  assign helios_customer_feedback = 'helios.customer_feedback' | t
+-%}
 {% comment %}
   Product Feedback Gallery Section
   Displays customer feedback images from product metafields
@@ -29,7 +32,7 @@
             <div class="feedback-image-wrapper">
               <img 
                 src="{{ image | image_url: width: 800 }}" 
-                alt="{{ section.settings.heading | default: 'Feedback từ khách hàng' }} {{ forloop.index }}"
+                alt="{{ section.settings.heading | default: helios_customer_feedback }} {{ forloop.index }}"
                 loading="lazy"
                 width="400"
                 height="400"

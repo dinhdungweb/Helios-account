@@ -1,16 +1,16 @@
 <div class="vote-container">
   <!-- Form nhập email -->
   <div id="email-auth-container">
-    <label for="email">Nhập email để vote:</label>
-    <input type="email" id="email" placeholder="Nhập email của bạn">
-    <button id="send-email-otp">Gửi mã xác minh</button>
+    <label for="email">{{ 'helios.enter_your_email_to_vote' | t }}</label>
+    <input type="email" id="email" placeholder="{{ 'helios.enter_your_email_574dd0' | t | escape }}">
+    <button id="send-email-otp">{{ 'helios.send_verification_code' | t }}</button>
   </div>
 
   <!-- Form nhập mã xác minh -->
   <div id="otp-verification-container" style="display: none;">
-    <label for="otp-code">Nhập mã xác minh:</label>
-    <input type="text" id="otp-code" placeholder="Nhập mã xác minh">
-    <button id="verify-email-otp">Xác minh</button>
+    <label for="otp-code">{{ 'helios.enter_verification_code' | t }}</label>
+    <input type="text" id="otp-code" placeholder="{{ 'helios.enter_verification_code_028796' | t | escape }}">
+    <button id="verify-email-otp">{{ 'helios.verify' | t }}</button>
   </div>
 
   <!-- Kết quả vote -->
@@ -80,20 +80,20 @@ document.getElementById("send-email-otp").addEventListener("click", () => {
   const email = document.getElementById("email").value.trim();
 
   if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-    alert("❌ Email không hợp lệ! Vui lòng nhập đúng email.");
+    alert(window.theme.t('invalid_email_please_enter_a_valid_email_address'));
     return;
   }
 
   sendSignInLinkToEmail(auth, email, actionCodeSettings)
     .then(() => {
       localStorage.setItem("emailForSignIn", email);
-      alert("✅ Mã xác minh đã gửi đến email của bạn! Vui lòng kiểm tra hộp thư.");
+      alert(window.theme.t('a_verification_code_has_been_sent_to_your_email_please_check_you'));
       document.getElementById("email-auth-container").style.display = "none";
       document.getElementById("otp-verification-container").style.display = "block";
     })
     .catch((error) => {
-      console.error("❌ Lỗi gửi email:", error);
-      alert("❌ Lỗi gửi email: " + error.message);
+      console.error(window.theme.t('error_sending_email'), error);
+      alert((window.theme.t('error_sending_email') + " ") + error.message);
     });
 });
 
@@ -103,18 +103,18 @@ document.getElementById("verify-email-otp").addEventListener("click", () => {
     let email = localStorage.getItem("emailForSignIn");
 
     if (!email) {
-      email = prompt("Nhập lại email của bạn:");
+      email = prompt(window.theme.t('re_enter_your_email'));
     }
 
     signInWithEmailLink(auth, email, window.location.href)
       .then((result) => {
         document.getElementById("otp-verification-container").style.display = "none";
         document.getElementById("vote-result").style.display = "block";
-        document.getElementById("vote-message").innerText = "✅ Xác minh thành công! Bạn đã vote!";
+        document.getElementById("vote-message").innerText = window.theme.t('verified_your_vote_has_been_recorded');
         saveVoteToShopify(email);
       })
       .catch((error) => {
-        alert("❌ Lỗi xác minh email: " + error.message);
+        alert((window.theme.t('email_verification_error') + " ") + error.message);
       });
   }
 });
@@ -129,22 +129,22 @@ function saveVoteToShopify(email) {
     body: JSON.stringify({ email: email })
   })
   .then(response => response.json())
-  .then(data => console.log("✅ Vote đã được lưu:", data))
-  .catch(error => console.error("❌ Lỗi khi lưu vote:", error));
+  .then(data => console.log(window.theme.t('vote_saved'), data))
+  .catch(error => console.error(window.theme.t('error_saving_vote_b8630e'), error));
 }
 document.addEventListener("DOMContentLoaded", () => {
   if (isSignInWithEmailLink(auth, window.location.href)) {
     let email = localStorage.getItem("emailForSignIn");
 
     if (!email) {
-      email = prompt("Nhập email của bạn để xác minh:");
+      email = prompt(window.theme.t('enter_your_email_to_verify'));
     }
 
     signInWithEmailLink(auth, email, window.location.href)
       .then((result) => {
         document.getElementById("otp-verification-container").style.display = "none";
         document.getElementById("vote-result").style.display = "block";
-        document.getElementById("vote-message").innerText = "✅ Xác minh thành công! Bạn đã vote!";
+        document.getElementById("vote-message").innerText = window.theme.t('verified_your_vote_has_been_recorded');
 
         saveVoteToShopify(email);
 
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2000);
       })
       .catch((error) => {
-        alert("❌ Lỗi xác minh email: " + error.message);
+        alert((window.theme.t('email_verification_error') + " ") + error.message);
       });
   }
 });

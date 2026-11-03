@@ -97,7 +97,7 @@
                         data-journey-slider
                         tabindex="0"
                         role="region"
-                        aria-label="Bộ sưu tập ảnh {{ block.settings.title | escape }}"
+                        aria-label="{{ 'helios.photo_gallery' | t | escape }} {{ block.settings.title | escape }}"
                       {% endif %}
                     >
                       {%- for image_index in (1..visible_image_count) -%}
@@ -135,7 +135,7 @@
                           class="journey-timeline__slider-button"
                           data-journey-slider-prev
                           aria-controls="journey-gallery-{{ section.id }}-{{ block.id }}"
-                          aria-label="Ảnh trước"
+                          aria-label="{{ 'helios.previous_image' | t | escape }}"
                           disabled
                         >
                           <span aria-hidden="true">&#8592;</span>
@@ -145,7 +145,7 @@
                           class="journey-timeline__slider-button"
                           data-journey-slider-next
                           aria-controls="journey-gallery-{{ section.id }}-{{ block.id }}"
-                          aria-label="Ảnh tiếp theo"
+                          aria-label="{{ 'helios.next_image' | t | escape }}"
                         >
                           <span aria-hidden="true">&#8594;</span>
                         </button>

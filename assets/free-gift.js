@@ -17,8 +17,8 @@
     giftProductId: null,
     giftVariantId: null,
     giftQuantity: 1,
-    giftLabel: 'Quà tặng miễn phí',
-    giftMessage: 'Chúc mừng! Bạn được tặng quà miễn phí'
+    giftLabel: window.theme.t('free_gift'),
+    giftMessage: window.theme.t('congratulations_you_have_received_a_free_gift')
   };
 
   let isProcessing = false;
@@ -363,7 +363,7 @@
         e.stopPropagation();
 
         addBtn.disabled = true;
-        addBtn.textContent = 'Đang thêm...';
+        addBtn.textContent = window.theme.t('adding');
 
         try {
           await addGift();
@@ -371,7 +371,7 @@
           console.error('[FreeGift] Error:', err);
         } finally {
           addBtn.disabled = false;
-          addBtn.textContent = 'Thêm quà';
+          addBtn.textContent = window.theme.t('add_gift');
         }
       }
     }, true);

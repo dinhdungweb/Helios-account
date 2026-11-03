@@ -4,14 +4,14 @@
       <div class="customer-info-name flex align-center">
         <div class="customer-avatar"></div>
         <div class="customer-name-email">
-          <div>Xin chào, <strong>{{ customer.name }}</strong></div>
+          <div>{{ 'helios.hello' | t }} <strong>{{ customer.name }}</strong></div>
           <div class="text-ellipsis">{{ customer.email }}</div>
         </div>
       </div> 
-      <a href="{{ routes.account_logout_url }}" class="logout-button">Đăng xuất</a>
+      <a href="{{ routes.account_logout_url }}" class="logout-button">{{ 'helios.sign_out_d513aa' | t }}</a>
     </div>
     <div class="customer-total-spent flex justify-between align-center mt-14 mb-5">
-      <div>Tổng chi tiêu: </div>
+      <div>{{ 'helios.total_spending' | t }} </div>
       <div>
         {% assign formatted_total_spent = total_spent | floor | split: '' | reverse %}
         {% assign formatted_number = '' %}
@@ -29,8 +29,8 @@
       </div>
     </div>
     <div class="customer-tier flex justify-between align-center mb-14">
-      <div>Hạng — <strong>{{ tier }}</strong></div>
-      <div>Điểm — <strong>{{ points }}</strong></div>
+      <div>{{ 'helios.tier' | t }} <strong>{{ tier }}</strong></div>
+      <div>{{ 'helios.points_7ae80b' | t }} <strong>{{ points }}</strong></div>
     </div>
     <div class="progress-container">
       <div class="progress-bar">
@@ -38,7 +38,7 @@
       </div>
       <p class="progress-status">
         {% if tier == "BLACK DIAMOND" %}
-          Bạn đã đạt hạng cao nhất!
+          {{ 'helios.you_have_reached_the_highest_tier' | t }}
         {% else %}
           {% assign formatted_remaining_amount = remaining_amount | floor | split: '' | reverse %}
           {% assign formatted_remaining = '' %}
@@ -53,7 +53,7 @@
           
           {% assign formatted_remaining = formatted_remaining | split: '' | reverse | join: '' %}
 
-          Cần tiêu thêm <strong>{{ formatted_remaining }} VND</strong> để lên hạng <strong>{{ next_tier }}</strong>.
+          {{ 'helios.tier_progress_currency_html' | t: amount: formatted_remaining, tier: next_tier }}
         {% endif %}
       </p>
     </div>
@@ -61,8 +61,8 @@
   </div>
   <ul class="account-tabs">
     <li class="tab-link active" data-tab="rewards">Welcome to Helios</li>
-    <li class="tab-link" data-tab="account">Tài khoản</li>
-    <li class="tab-link" data-tab="orders">Đơn hàng</li>
+    <li class="tab-link" data-tab="account">{{ 'helios.account' | t }}</li>
+    <li class="tab-link" data-tab="orders">{{ 'helios.orders' | t }}</li>
     <li class="tab-link" data-tab="benefits">Benefits / Promos</li>
     <li class="tab-link" data-tab="discord">Helios Club</li>
     

@@ -1,3 +1,6 @@
+{%- liquid
+  assign helios_product_name = 'helios.product_name' | t
+-%}
 {{ 'product-hover-zoom.css' | asset_url | stylesheet_tag }}
 
 <section class="product-hover-zoom-section" style="--section-height: {{ section.settings.section_height }}px; --list-width: {{ section.settings.list_width_px }}px; --thumb-size: {{ section.settings.thumb_size }}px; --image-ratio: {{ section.settings.image_ratio }};">
@@ -21,7 +24,7 @@
           {%- endif -%}
           <div class="product-hover-zoom__info">
             <p class="product-hover-zoom__name">
-              {{ product.title | default: 'Tên sản phẩm' }}
+              {{ product.title | default: helios_product_name }}
             </p>
             <p class="product-hover-zoom__price">
               {%- if product != blank -%}

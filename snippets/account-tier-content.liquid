@@ -36,6 +36,6 @@
 {% comment %}Fallback for default welcome message if no block matches or for non-tiered members{% endcomment %}
 {% if content_found == false and type == 'welcome' %}
   <div class="welcome-tier">
-    <span>Chào mừng bạn đến với Helios! Hành trình của bạn đã bắt đầu.</span>
+    <span>{{ 'helios.welcome_to_helios_your_journey_has_begun' | t }}</span>
   </div>
 {% endif %}

@@ -1,4 +1,10 @@
 {%- liquid
+  assign helios_product_description = 'helios.product_description' | t
+  assign helios_reviews = 'helios.reviews' | t
+  assign helios_read_more = 'helios.read_more' | t
+  assign helios_show_less = 'helios.show_less' | t
+-%}
+{%- liquid
   assign rating_count = product.metafields.reviews.rating_count | default: 0
   assign description_tab_id = 'ProductDescriptionTab-' | append: section.id
   assign description_panel_id = 'ProductDescriptionPanel-' | append: section.id
@@ -16,7 +22,7 @@
   "
   data-collapsed-height="{{ section.settings.collapsed_height }}"
 >
-  <div class="product-description-tabs__list" role="tablist" aria-label="Thông tin sản phẩm">
+  <div class="product-description-tabs__list" role="tablist" aria-label="{{ 'helios.product_information' | t | escape }}">
     <button
       id="{{ description_tab_id }}"
       class="product-description-tabs__tab is-active no-hover"
@@ -26,7 +32,7 @@
       aria-controls="{{ description_panel_id }}"
       data-tab="description"
     >
-      <span>{{ section.settings.description_tab_label | default: 'Mô tả sản phẩm' | escape }}</span>
+      <span>{{ section.settings.description_tab_label | default: helios_product_description | escape }}</span>
     </button>
 
     {%- if section.settings.show_reviews_tab -%}
@@ -41,7 +47,7 @@
         data-tab="reviews"
       >
         <span>
-          {{- section.settings.reviews_tab_label | default: 'Đánh giá' | escape -}}
+          {{- section.settings.reviews_tab_label | default: helios_reviews | escape -}}
           {%- if section.settings.show_review_count %} ({{ rating_count }}){% endif -%}
         </span>
       </button>
@@ -71,11 +77,11 @@
         hidden
       >
         <span class="product-description-tabs__toggle-label" data-expand-label>
-          {{ section.settings.expand_label | default: 'Xem thêm' | escape }}
+          {{ section.settings.expand_label | default: helios_read_more | escape }}
           {% render 'svg-chevron-down' %}
         </span>
         <span class="product-description-tabs__toggle-label" data-collapse-label hidden>
-          {{ section.settings.collapse_label | default: 'Thu gọn' | escape }}
+          {{ section.settings.collapse_label | default: helios_show_less | escape }}
           <svg class="icon-chevron-up" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
             <path d="M12 8.4l6.9 6.9-1.4 1.4L12 11.2 6.5 16.7 5.1 15.3z"></path>
           </svg>

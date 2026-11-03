@@ -1,40 +1,40 @@
 {% comment %} {% if customer != nil %} {% endcomment %}
   <!-- sections/booking-form.liquid -->
   <div class="booking-container">
-    <h2 class="section-title">ĐẶT LỊCH HẸN</h2>
+    <h2 class="section-title">{{ 'helios.book_an_appointment' | t }}</h2>
 
     <!-- Bước 1: Chọn loại lịch hẹn -->
     <div class="appointment-options">
       <div class="appointment-card">
-        <h3>Hẹn trực tuyến</h3>
-        <p>Chọn thời gian phù hợp với bạn cho cuộc hẹn tư vấn 1:1 cùng Helios tại đây.</p>
-        <button class="book-btn" data-type="virtual">Đặt lịch hẹn</button>
+        <h3>{{ 'helios.online_appointment' | t }}</h3>
+        <p>{{ 'helios.choose_a_convenient_time_for_a_one_to_one_consultation_with_heli' | t }}</p>
+        <button class="book-btn" data-type="virtual">{{ 'helios.book_an_appointment_d2e02e' | t }}</button>
       </div>
     </div>
 
     <!-- Bước 2: Chọn ngày và giờ -->
     <div class="schedule-section" style="display: none;">
-      <h2 class="section-title" id="appointment-title">Chọn khung giờ</h2>
-      <p class="timezone-info">Múi giờ: Việt Nam (GMT+07:00)</p>
+      <h2 class="section-title" id="appointment-title">{{ 'helios.choose_a_time_slot' | t }}</h2>
+      <p class="timezone-info">{{ 'helios.time_zone_vietnam_gmt_07_00' | t }}</p>
 
       <div class="schedule-grid"></div>
-      <button id="next-to-info" class="next-btn">Tiếp tục</button>
+      <button id="next-to-info" class="next-btn">{{ 'helios.continue' | t }}</button>
     </div>
 
     <!-- Bước 3: Nhập thông tin cá nhân -->
     <div class="info-section" style="display: none;">
-      <h2 class="section-title">Thông tin của bạn</h2>
+      <h2 class="section-title">{{ 'helios.your_information' | t }}</h2>
       <form id="booking-form" class="booking-form">
         <label>
-          <p>Họ*</p>
+          <p>{{ 'helios.last_name_705cb3' | t }}</p>
           <input type="text" name="first_name" required>
         </label>
         <label>
-          <p>Tên*</p>
+          <p>{{ 'helios.first_name_930c53' | t }}</p>
           <input type="text" name="last_name" required>
         </label>
         <label>
-          <p>Số điện thoại*</p>
+          <p>{{ 'helios.phone_number_84a263' | t }}</p>
           <div class="phone-input">
             <select class="country-code" name="country_code">
               <option value="+84">+84</option>
@@ -49,110 +49,110 @@
         
         <!-- Thêm trường về sản phẩm đã biết -->
         <div class="form-section">
-          <h3 class="form-section-title">Bạn đã có món muốn xem?</h3>
-          <p class="form-section-subtitle">Hãy ghi rõ tên hoặc mã sản phẩm – Helios sẽ chuẩn bị sẵn cho bạn.</p>
+          <h3 class="form-section-title">{{ 'helios.already_have_a_product_in_mind' | t }}</h3>
+          <p class="form-section-subtitle">{{ 'helios.enter_the_product_name_or_code_so_helios_can_prepare_it_for_you' | t }}</p>
           <label>
-            <p>Tên hoặc mã sản phẩm</p>
-            <input type="text" name="specific_product" placeholder="Nhập tên hoặc mã sản phẩm...">
+            <p>{{ 'helios.product_name_or_code' | t }}</p>
+            <input type="text" name="specific_product" placeholder="{{ 'helios.enter_product_name_or_code' | t | escape }}">
           </label>
         </div>
         
         <!-- Thêm trường về gợi ý sản phẩm -->
         <div class="form-section">
-          <h3 class="form-section-title">Bạn chưa biết chọn gì?</h3>
-          <p class="form-section-subtitle">Hãy điền các thông tin dưới đây – Helios sẽ gợi ý những thiết kế phù hợp nhất với phong cách và nhu cầu của bạn.</p>
+          <h3 class="form-section-title">{{ 'helios.not_sure_what_to_choose' | t }}</h3>
+          <p class="form-section-subtitle">{{ 'helios.tell_us_more_below_and_helios_will_suggest_designs_that_suit_you' | t }}</p>
           
           <div class="checkbox-group">
-            <p class="checkbox-group-label">Sản phẩm bạn tìm kiếm</p>
+            <p class="checkbox-group-label">{{ 'helios.products_you_are_looking_for' | t }}</p>
             <div class="checkbox-options">
-              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Nhẫn"> Nhẫn</label>
-              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Vòng tay"> Vòng tay</label>
-              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Dây chuyền"> Dây chuyền</label>
-              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Mặt dây"> Mặt dây</label>
-              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Khuyên tai"> Khuyên tai</label>
-              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Kính"> Kính</label>
-              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Phụ kiện da"> Phụ kiện da</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Nhẫn"> {{ 'helios.rings' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Vòng tay"> {{ 'helios.bracelets' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Dây chuyền"> {{ 'helios.necklaces' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Mặt dây"> {{ 'helios.pendants' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Khuyên tai"> {{ 'helios.earrings' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Kính"> {{ 'helios.eyewear' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="product_type[]" value="Phụ kiện da"> {{ 'helios.leather_accessories' | t }}</label>
               <label class="checkbox-label">
                 <input type="checkbox" name="product_type_other_check" value="Khác" class="other-checkbox">
-                <span>Khác:</span>
-                <input type="text" name="product_type_other" class="other-input" placeholder="Nhập loại sản phẩm khác...">
+                <span>{{ 'helios.other' | t }}</span>
+                <input type="text" name="product_type_other" class="other-input" placeholder="{{ 'helios.enter_another_product_type' | t | escape }}">
               </label>
             </div>
           </div>
           
           <div class="checkbox-group">
-            <p class="checkbox-group-label">Nhu cầu của bạn</p>
+            <p class="checkbox-group-label">{{ 'helios.your_needs' | t }}</p>
             <div class="checkbox-options">
-              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Sử dụng hàng ngày"> Sử dụng hàng ngày</label>
-              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Sử dụng trong các sự kiện đặc biệt"> Sử dụng trong các sự kiện đặc biệt</label>
-              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Làm quà tặng"> Làm quà tặng</label>
+              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Sử dụng hàng ngày"> {{ 'helios.everyday_wear' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Sử dụng trong các sự kiện đặc biệt"> {{ 'helios.special_occasions' | t }}</label>
+              <label class="checkbox-label"><input type="checkbox" name="needs[]" value="Làm quà tặng"> {{ 'helios.gifts' | t }}</label>
               <label class="checkbox-label">
                 <input type="checkbox" name="needs_other_check" value="Khác" class="other-checkbox">
-                <span>Khác:</span>
-                <input type="text" name="needs_other" class="other-input" placeholder="Nhập nhu cầu khác...">
+                <span>{{ 'helios.other' | t }}</span>
+                <input type="text" name="needs_other" class="other-input" placeholder="{{ 'helios.enter_other_needs' | t | escape }}">
               </label>
             </div>
           </div>
           
           <div class="checkbox-group">
-            <p class="checkbox-group-label">Phong cách bạn muốn tìm</p>
+            <p class="checkbox-group-label">{{ 'helios.your_preferred_style' | t }}</p>
             <div class="checkbox-options">
               <label class="checkbox-label">
                 <input type="checkbox" name="style[]" value="Mạnh mẽ">
-                <span class="style-name">Mạnh mẽ</span>
-                <span class="style-desc">Thiết kế nam tính, góc cạnh, dày dặn.</span>
+                <span class="style-name">{{ 'helios.bold' | t }}</span>
+                <span class="style-desc">{{ 'helios.masculine_angular_substantial_designs' | t }}</span>
               </label>
               <label class="checkbox-label">
                 <input type="checkbox" name="style[]" value="Tối giản">
-                <span class="style-name">Tối giản</span>
-                <span class="style-desc">Thiết kế mảnh, ít chi tiết, dễ phối đồ hàng ngày.</span>
+                <span class="style-name">{{ 'helios.minimalist' | t }}</span>
+                <span class="style-desc">{{ 'helios.slim_simple_designs_for_easy_everyday_styling' | t }}</span>
               </label>
               <label class="checkbox-label">
                 <input type="checkbox" name="style[]" value="Cá tính">
-                <span class="style-name">Cá tính</span>
-                <span class="style-desc">Thiết kế với điểm nhấn độc đáo, khác biệt với số đông.</span>
+                <span class="style-name">{{ 'helios.distinctive' | t }}</span>
+                <span class="style-desc">{{ 'helios.designs_with_unique_accents_that_stand_out' | t }}</span>
               </label>
               <label class="checkbox-label">
                 <input type="checkbox" name="style[]" value="Nghệ thuật">
-                <span class="style-name">Nghệ thuật</span>
-                <span class="style-desc">Thiết kế mang ý nghĩa biểu tượng, được lấy cảm hứng từ những câu chuyện thần thoại, văn hoá...</span>
+                <span class="style-name">{{ 'helios.artistic' | t }}</span>
+                <span class="style-desc">{{ 'helios.symbolic_designs_inspired_by_mythology_and_culture' | t }}</span>
               </label>
               <label class="checkbox-label">
                 <input type="checkbox" name="style_collection_check" value="Theo BST cụ thể" class="other-checkbox">
-                <span>Theo BST cụ thể:</span>
-                <input type="text" name="style_collection" class="other-input" placeholder="Nhập tên bộ sưu tập...">
+                <span>{{ 'helios.specific_collection' | t }}</span>
+                <input type="text" name="style_collection" class="other-input" placeholder="{{ 'helios.enter_collection_name' | t | escape }}">
               </label>
             </div>
           </div>
           
           <div class="checkbox-group">
-            <p class="checkbox-group-label">Ngân sách dự kiến</p>
+            <p class="checkbox-group-label">{{ 'helios.estimated_budget' | t }}</p>
             <div class="checkbox-options">
-              <label class="checkbox-label"><input type="radio" name="budget" value="Dưới 1 triệu"> Dưới 1 triệu</label>
-              <label class="checkbox-label"><input type="radio" name="budget" value="1–3 triệu"> 1–3 triệu</label>
-              <label class="checkbox-label"><input type="radio" name="budget" value="Trên 3 triệu"> Trên 3 triệu</label>
+              <label class="checkbox-label"><input type="radio" name="budget" value="Dưới 1 triệu"> {{ 'helios.under_1_million_vnd' | t }}</label>
+              <label class="checkbox-label"><input type="radio" name="budget" value="1–3 triệu"> {{ 'helios.1_3_million_vnd' | t }}</label>
+              <label class="checkbox-label"><input type="radio" name="budget" value="Trên 3 triệu"> {{ 'helios.over_3_million_vnd' | t }}</label>
             </div>
           </div>
         </div>
         
         <label>
-          <p>Ghi chú thêm (nếu có)</p>
-          <textarea name="notes" placeholder="Bạn muốn lưu ý điều gì?"></textarea>
+          <p>{{ 'helios.additional_notes_optional' | t }}</p>
+          <textarea name="notes" placeholder="{{ 'helios.anything_else_we_should_know' | t | escape }}"></textarea>
         </label>
         <div class="confirm-btn-div">
-          <button type="submit" class="confirm-btn">Xác nhận lịch hẹn</button>
+          <button type="submit" class="confirm-btn">{{ 'helios.confirm_appointment' | t }}</button>
         </div>
       </form>
     </div>
     <!-- Tra cứu lịch hẹn -->
     <div class="booking-lookup-section">
-      <h3>Tra cứu lịch hẹn</h2>
+      <h3>{{ 'helios.lookup_appointments' | t }}</h3>
       <form id="lookup-form" class="lookup-form">
         <label>
-          Nhập email của bạn:
+          {{ 'helios.enter_your_email' | t }}
           <input type="email" name="lookup_email" required placeholder="you@example.com" />
         </label>
-        <button type="submit" class="lookup-btn">Xem lịch hẹn</button>
+        <button type="submit" class="lookup-btn">{{ 'helios.view_appointments' | t }}</button>
       </form>
       <div id="booking-results" class="booking-results"></div>
     </div>
@@ -181,7 +181,7 @@
       </div>
       <h3 id="modal-title" class="modal-title"></h3>
       <p id="modal-message" class="modal-message"></p>
-      <button id="modal-button" class="modal-button">Đồng ý</button>
+      <button id="modal-button" class="modal-button">{{ 'helios.ok' | t }}</button>
     </div>
   </div>
 {% comment %} {% else %}
@@ -308,9 +308,11 @@
 
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
 <script>
-  emailjs.init('Lr7kNsBdZNxnx1oH7');
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.emailjs) emailjs.init('Lr7kNsBdZNxnx1oH7');
+  });
 </script>
 
 <script src="{{ 'firebase-init.js' | asset_url }}" type="module"></script>

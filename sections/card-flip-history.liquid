@@ -42,7 +42,7 @@
       </div>
 
       <button class="card-flip-history__button card-flip-history__button--secondary card-flip-history__button--inventory" type="button" data-open-inventory>
-        Quản lý kho thẻ
+        {{ 'helios.manage_card_inventory' | t }}
       </button>
     </header>
 
@@ -53,8 +53,8 @@
       </label>
 
       <label class="card-flip-history__field card-flip-history__field--search">
-        <span>Tìm kiếm</span>
-        <input type="search" name="search" autocomplete="off" placeholder="Email, customer ID, kết quả, mã...">
+        <span>{{ 'helios.search' | t }}</span>
+        <input type="search" name="search" autocomplete="off" placeholder="{{ 'helios.email_customer_id_result_code' | t | escape }}">
       </label>
 
       <button class="card-flip-history__button" type="submit">{{ section.settings.load_button_text }}</button>
@@ -64,14 +64,14 @@
 
     <div class="card-flip-history__modal" data-inventory-modal aria-hidden="true">
       <div class="card-flip-history__modal-dialog" role="dialog" aria-modal="true" aria-labelledby="{{ history_dom_id }}-inventory-title">
-        <button class="card-flip-history__modal-close" type="button" data-close-inventory aria-label="Đóng">
+        <button class="card-flip-history__modal-close" type="button" data-close-inventory aria-label="{{ 'helios.close' | t | escape }}">
           <span aria-hidden="true">&times;</span>
         </button>
 
         <form class="card-flip-history__inventory" data-inventory-form>
           <div class="card-flip-history__inventory-heading">
-            <strong id="{{ history_dom_id }}-inventory-title">Kho tất cả thẻ</strong>
-            <span>Nhập tổng số lượng phát hành cho từng thẻ. Để trống nếu chưa muốn giới hạn.</span>
+            <strong id="{{ history_dom_id }}-inventory-title">{{ 'helios.all_card_inventory' | t }}</strong>
+            <span>{{ 'helios.enter_the_total_quantity_for_each_card_leave_blank_for_unlimited' | t }}</span>
           </div>
 
           <div class="card-flip-history__inventory-grid">
@@ -80,15 +80,15 @@
               {% assign inventory_parts = inventory_item | split: '|' %}
               <label class="card-flip-history__field">
                 <span>{{ inventory_parts[1] }}</span>
-                <input type="number" name="{{ inventory_parts[0] }}" data-inventory-key="{{ inventory_parts[0] }}" min="0" step="1" placeholder="Chưa giới hạn">
-                <small data-inventory-stat="{{ inventory_parts[0] }}">Chưa giới hạn · Đã trúng: 0</small>
+                <input type="number" name="{{ inventory_parts[0] }}" data-inventory-key="{{ inventory_parts[0] }}" min="0" step="1" placeholder="{{ 'helios.unlimited' | t | escape }}">
+                <small data-inventory-stat="{{ inventory_parts[0] }}">{{ 'helios.unlimited_claimed_0' | t }}</small>
               </label>
             {% endfor %}
           </div>
 
           <div class="card-flip-history__inventory-actions">
-            <button class="card-flip-history__button" type="submit" data-save-inventory>Lưu số lượng</button>
-            <button class="card-flip-history__button card-flip-history__button--secondary" type="button" data-close-inventory>Hủy</button>
+            <button class="card-flip-history__button" type="submit" data-save-inventory>{{ 'helios.save_quantities' | t }}</button>
+            <button class="card-flip-history__button card-flip-history__button--secondary" type="button" data-close-inventory>{{ 'helios.cancel' | t }}</button>
           </div>
         </form>
       </div>
@@ -98,19 +98,19 @@
 
     <div class="card-flip-history__stats" data-history-stats hidden>
       <div class="card-flip-history__stat">
-        <span>Tổng lượt mở</span>
+        <span>{{ 'helios.total_flips' | t }}</span>
         <strong data-stat-total>0</strong>
       </div>
       <div class="card-flip-history__stat">
-        <span>Khách tham gia</span>
+        <span>{{ 'helios.participants' | t }}</span>
         <strong data-stat-customers>0</strong>
       </div>
       <div class="card-flip-history__stat">
-        <span>Đang hiển thị</span>
+        <span>{{ 'helios.showing' | t }}</span>
         <strong data-stat-visible>0</strong>
       </div>
       <div class="card-flip-history__stat">
-        <span>Tối đa hiển thị</span>
+        <span>{{ 'helios.display_limit' | t }}</span>
         <strong data-stat-limit>0</strong>
       </div>
     </div>
@@ -119,14 +119,14 @@
       <table class="card-flip-history__table">
         <thead>
           <tr>
-            <th>Thời gian</th>
+            <th>{{ 'helios.time' | t }}</th>
             <th>Customer ID</th>
             <th>Email</th>
-            <th>Mã đơn hàng</th>
-            <th>Kết quả</th>
-            <th>Mã</th>
-            <th>Vị trí</th>
-            <th>Ảnh</th>
+            <th>{{ 'helios.order_number' | t }}</th>
+            <th>{{ 'helios.result' | t }}</th>
+            <th>{{ 'helios.code' | t }}</th>
+            <th>{{ 'helios.position' | t }}</th>
+            <th>{{ 'helios.image' | t }}</th>
           </tr>
         </thead>
         <tbody data-history-table></tbody>
@@ -621,7 +621,7 @@
       tableBody.innerHTML = '';
       tableWrap.hidden = true;
 
-      const params = new URLSearchParams({
+      const params = new URLSearchParams({ locale: window.theme.locale,
         campaign_id: campaignId,
         max_customers: String(config.maxCustomers)
       });
@@ -779,7 +779,7 @@
       if (!config.apiBase) return;
 
       try {
-        const params = new URLSearchParams({ campaign_id: campaignId });
+        const params = new URLSearchParams({ locale: window.theme.locale, campaign_id: campaignId });
         const response = await fetch(config.apiBase + '/card-flip/inventory?' + params.toString(), {
           method: 'GET',
           cache: 'no-store'
@@ -803,8 +803,8 @@
         if (input) input.value = card.managed === false ? '' : toInt(card.capacity, 0);
         if (stat) {
           stat.textContent = card.managed === false
-            ? 'Chưa giới hạn · Đã trúng: ' + toInt(card.claimed, 0)
-            : 'Đã trúng: ' + toInt(card.claimed, 0) + ' · Còn lại: ' + toInt(card.remaining, 0);
+            ? (window.theme.t('unlimited_claimed') + " ") + toInt(card.claimed, 0)
+            : (window.theme.t('claimed') + " ") + toInt(card.claimed, 0) + (" " + window.theme.t('remaining') + " ") + toInt(card.remaining, 0);
         }
       });
     }
@@ -812,7 +812,7 @@
     async function saveInventory(event) {
       event.preventDefault();
       const campaignId = form.elements.campaign_id.value.trim() || config.defaultCampaignId;
-      const password = window.prompt('Nhập mật khẩu quản trị để cập nhật kho thẻ');
+      const password = window.prompt(window.theme.t('enter_the_admin_password_to_update_card_inventory'));
       if (password === null) return;
       if (!password.trim()) {
         setStatus(config.deletePasswordRequiredText);
@@ -820,7 +820,7 @@
       }
 
       saveInventoryButton.disabled = true;
-      setStatus('Đang cập nhật kho thẻ...');
+      setStatus(window.theme.t('updating_card_inventory'));
 
       try {
         const capacities = {};
@@ -833,7 +833,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           cache: 'no-store',
-          body: JSON.stringify({
+          body: JSON.stringify({ locale: window.theme.locale,
             campaign_id: campaignId,
             password: password,
             capacities: capacities
@@ -846,7 +846,7 @@
         }
 
         renderInventory(data.cards);
-        setStatus('Đã cập nhật kho tất cả thẻ.');
+        setStatus(window.theme.t('card_inventory_updated'));
         closeInventoryModal();
       } catch (error) {
         setStatus(error.message || config.errorText);
@@ -888,7 +888,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           cache: 'no-store',
-          body: JSON.stringify({
+          body: JSON.stringify({ locale: window.theme.locale,
             campaign_id: campaignId,
             password: password,
             customer_ids: customerIds
@@ -918,18 +918,18 @@
     function getSummaryStatus(data) {
       if (!currentRows.length) return config.emptyText;
       if (data.is_limited) {
-        return 'Đang hiển thị ' + currentRows.length + ' / ' + data.total_entries + ' lượt.';
+        return (window.theme.t('showing') + " ") + currentRows.length + ' / ' + data.total_entries + (" " + window.theme.t('flips'));
       }
       if (data.has_more_customers && data.scanned_customers) {
-        return 'Đang hiển thị ' + currentRows.length + ' lượt gần nhất trong ' + data.scanned_customers + ' khách đã quét.';
+        return (window.theme.t('showing') + " ") + currentRows.length + (" " + window.theme.t('latest_flips_from') + " ") + data.scanned_customers + (" " + window.theme.t('customers_checked'));
       }
       return '';
     }
 
     function getDisplayLimit() {
-      if (!lastSummary) return config.limit > 0 ? config.limit : 'Tất cả';
-      if (lastSummary.limit === 'all' || lastSummary.limit === 0) return 'Tất cả';
-      return lastSummary.limit || (config.limit > 0 ? config.limit : 'Tất cả');
+      if (!lastSummary) return config.limit > 0 ? config.limit : window.theme.t('all');
+      if (lastSummary.limit === 'all' || lastSummary.limit === 0) return window.theme.t('all');
+      return lastSummary.limit || (config.limit > 0 ? config.limit : window.theme.t('all'));
     }
 
     function csvValue(value) {

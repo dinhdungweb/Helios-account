@@ -170,7 +170,7 @@ function addCartDrawerListeners() {
   document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
     button.addEventListener("click", async (e) => {
       e.preventDefault();
-      button.textContent = "Đang thêm...";
+      button.textContent = window.theme.t('adding');
       const variantID = button.dataset.productVariant;
       const quantity = 1;
 
@@ -188,11 +188,11 @@ function addCartDrawerListeners() {
           updateCartItemCounts(cart.item_count);
           await updateCartDrawer();
           openCartDrawer();
-          button.textContent = "Thêm vào giỏ hàng";
+          button.textContent = window.theme.t('add_to_cart');
         }
       } catch (error) {
         console.error("Error adding to cart:", error);
-        button.textContent = "Thêm vào giỏ hàng";
+        button.textContent = window.theme.t('add_to_cart');
       }
     });
   });
