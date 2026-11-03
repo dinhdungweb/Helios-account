@@ -1,4 +1,69 @@
-{% if section.settings.mode != 'disabled' %}
+{%- liquid
+  assign popup_visible = false
+  if section.settings.display_scope == 'all'
+    assign popup_visible = true
+  elsif section.settings.display_scope == 'home' and template.name == 'index'
+    assign popup_visible = true
+  elsif section.settings.display_scope == 'selected'
+    assign current_path = request.path
+    assign current_path_last = current_path | slice: -1, 1
+    if current_path != '/' and current_path_last == '/'
+      assign current_path_size = current_path.size | minus: 1
+      assign current_path = current_path | slice: 0, current_path_size
+    endif
+
+    assign allowed_paths = section.settings.allowed_paths | split: ','
+    for allowed_path in allowed_paths
+      assign target_path = allowed_path | strip
+      if target_path != blank
+        assign target_last = target_path | slice: -1, 1
+        if target_last == '*'
+          assign prefix_size = target_path.size | minus: 1
+          assign path_prefix = target_path | slice: 0, prefix_size
+          assign actual_prefix = current_path | slice: 0, prefix_size
+          if actual_prefix == path_prefix
+            assign popup_visible = true
+            break
+          endif
+        else
+          if target_path != '/' and target_last == '/'
+            assign target_size = target_path.size | minus: 1
+            assign target_path = target_path | slice: 0, target_size
+          endif
+          if current_path == target_path
+            assign popup_visible = true
+            break
+          endif
+        endif
+      endif
+    endfor
+  endif
+
+  if request.design_mode
+    assign popup_visible = true
+  endif
+-%}
+
+{% if section.settings.mode != 'disabled' and popup_visible %}
+
+  <style>
+    .section-{{ section.id }} .cc-popup-modal {
+      background-color: {{ section.settings.popup_background_color }};
+      color: {{ section.settings.popup_text_color }};
+    }
+    .section-{{ section.id }} .cc-popup-modal.cc-popup-modal--has-image .cc-popup-content,
+    .section-{{ section.id }} .cc-popup-close {
+      color: {{ section.settings.popup_text_color }} !important;
+    }
+    .section-{{ section.id }} .cc-popup-close svg {
+      stroke: {{ section.settings.popup_text_color }} !important;
+    }
+    .section-{{ section.id }} .cc-popup-form-submit {
+      background-color: {{ section.settings.button_background_color }} !important;
+      border-color: {{ section.settings.button_background_color }} !important;
+      color: {{ section.settings.button_text_color }} !important;
+    }
+  </style>
 
   <section class="section-{{ section.id }} cc-popup cc-popup--{{ section.settings.position }}"
     data-freeze-scroll="false"
@@ -68,7 +133,7 @@
 
                     {% if form.posted_successfully? %}
                       <div class="cc-popup-form__response cc-popup-form__response--success">
-                        <h4>{{ 'general.popup_section.success' | t }}</h4>
+                        <h4>{{ section.settings.success_text | escape }}</h4>
                       </div>
                     {% else %}
                       {% if form.errors %}
@@ -78,13 +143,14 @@
                           {% endfor %}
                         </div>
                       {% endif %}
-                      <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter"/>
+                      <input type="hidden" name="contact[tags]" value="prospect,newsletter,{{ section.settings.customer_tag | escape }}"/>
                       <div class="cc-popup-form__inputs">
                         <div class="cc-popup-form__input-wrapper">
-                          <input type="email" required class="cc-popup-form-input" value="" id="cc-popup-mailinglist_email" name="contact[email]" placeholder="{{ 'general.popup_section.email_placeholder' | t }}" />
+                          <label class="visually-hidden" for="cc-popup-mailinglist_email">{{ section.settings.email_placeholder | escape }}</label>
+                          <input type="email" required class="cc-popup-form-input" value="" id="cc-popup-mailinglist_email" name="contact[email]" autocomplete="email" placeholder="{{ section.settings.email_placeholder | escape }}" />
                         </div>
                         <div class="cc-popup-form-buttons">
-                          <button class="btn btn--primary button cc-popup-form-submit" type="submit">{{ 'general.popup_section.submit' | t }}</button>
+                          <button class="btn btn--primary button cc-popup-form-submit" type="submit">{{ section.settings.submit_text | escape }}</button>
                         </div>
                       </div>
                     {% endif %}
@@ -133,6 +199,27 @@
           }
         ],
         "info": "Test mode displays your popup each time even after dismissing it. Switch to Enabled once you are happy with how your popup looks."
+      },
+      {
+        "type": "header",
+        "content": "Trang hiển thị"
+      },
+      {
+        "type": "select",
+        "id": "display_scope",
+        "label": "Hiển thị trên",
+        "default": "all",
+        "options": [
+          { "value": "all", "label": "Toàn bộ website" },
+          { "value": "home", "label": "Chỉ trang chủ" },
+          { "value": "selected", "label": "Các đường dẫn đã chọn" }
+        ]
+      },
+      {
+        "type": "textarea",
+        "id": "allowed_paths",
+        "label": "Đường dẫn được hiển thị",
+        "info": "Chỉ dùng khi chọn Các đường dẫn đã chọn. Nhập đường dẫn bắt đầu bằng /, cách nhau bằng dấu phẩy. Ví dụ: /pages/gioi-thieu, /collections/nhan-bac-nam, /products/*"
       },
       {
         "type": "range",
@@ -213,10 +300,63 @@
         "default": true
       },
       {
+        "type": "text",
+        "id": "email_placeholder",
+        "label": "Gợi ý ô email",
+        "default": "Địa chỉ email của bạn"
+      },
+      {
+        "type": "text",
+        "id": "submit_text",
+        "label": "Chữ trên nút đăng ký",
+        "default": "Đăng ký"
+      },
+      {
+        "type": "text",
+        "id": "success_text",
+        "label": "Thông báo đăng ký thành công",
+        "default": "Cảm ơn bạn đã đăng ký!"
+      },
+      {
+        "type": "text",
+        "id": "customer_tag",
+        "label": "Nhãn khách hàng",
+        "default": "newsletter-popup",
+        "info": "Email đăng ký sẽ có thêm nhãn này trong Shopify Customers."
+      },
+      {
         "type": "richtext",
         "id": "accept_content",
         "label": "Text",
         "default": "<p>By signing up, you agree to receive marketing messages at the phone number or email provided. Msg and data rates may apply. View our privacy policy and terms of service for more info.</p>"
+      },
+      {
+        "type": "header",
+        "content": "Màu sắc"
+      },
+      {
+        "type": "color",
+        "id": "popup_background_color",
+        "label": "Nền popup",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "popup_text_color",
+        "label": "Chữ popup",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button_background_color",
+        "label": "Nền nút đăng ký",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "Chữ nút đăng ký",
+        "default": "#000000"
       },
       {
         "type": "header",
