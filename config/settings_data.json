@@ -350,7 +350,7 @@
       "popup": {
         "type": "popup",
         "settings": {
-          "mode": "enabled",
+          "mode": "testing",
           "display_scope": "selected",
           "allowed_paths": "/blogs/collab",
           "popup_delay_seconds": 4,

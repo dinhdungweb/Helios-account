@@ -11,10 +11,58 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
+    },
+    "background_video_responsive_Yqg6UJ": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "full_width": true,
+        "section_width": 1400,
+        "video_full_vh": false,
+        "video_size": "cover",
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "rich_text_QERqMT": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "19 phố Hàng Da, PHƯỜNG Hoàn Kiếm, Hà Nội",
+        "title": "HELIOS SẮP RA MẮT",
+        "title_size": 30,
+        "title_width": 30,
+        "heading_h1": false,
+        "text": "<p>Điểm gặp trang sức bạc thủ công giữa lòng Hà Nội, nơi bạn trực tiếp khám phá, thử và chọn một dấu ấn mang theo mình.</p><p>Những thiết kế bạc S925 thủ công được làm bởi bàn tay nghệ nhân Việt, mỗi món bạc mang theo những biểu tượng và câu chuyện riêng đồng hành cùng người đàn ông.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "background_video_responsive_Yqg6UJ",
+    "rich_text_QERqMT"
   ]
 }
