@@ -102,6 +102,164 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "image_marquee_AkyXn7": {
+      "type": "image-marquee",
+      "blocks": {
+        "image_MHqAWV": {
+          "type": "image",
+          "settings": {
+            "alt_text": "",
+            "caption": "",
+            "link": "",
+            "open_new_tab": false,
+            "width_desktop": 320,
+            "width_mobile": 220,
+            "rotation": 0
+          }
+        },
+        "image_BbkB4W": {
+          "type": "image",
+          "settings": {
+            "alt_text": "",
+            "caption": "",
+            "link": "",
+            "open_new_tab": false,
+            "width_desktop": 320,
+            "width_mobile": 220,
+            "rotation": 0
+          }
+        },
+        "image_XWBUf8": {
+          "type": "image",
+          "settings": {
+            "alt_text": "",
+            "caption": "",
+            "link": "",
+            "open_new_tab": false,
+            "width_desktop": 320,
+            "width_mobile": 220,
+            "rotation": 0
+          }
+        },
+        "image_Aq8waE": {
+          "type": "image",
+          "settings": {
+            "alt_text": "",
+            "caption": "",
+            "link": "",
+            "open_new_tab": false,
+            "width_desktop": 320,
+            "width_mobile": 220,
+            "rotation": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_MHqAWV",
+        "image_BbkB4W",
+        "image_XWBUf8",
+        "image_Aq8waE"
+      ],
+      "name": "Image marquee",
+      "settings": {
+        "heading": "Khám phá bộ sưu tập",
+        "subheading": "",
+        "text_alignment": "center",
+        "title_size": 42,
+        "title_size_mobile": 30,
+        "full_width": true,
+        "content_width": 1400,
+        "vertical_alignment": "center",
+        "gap_desktop": 24,
+        "gap_mobile": 14,
+        "image_height_desktop": 240,
+        "image_height_mobile": 160,
+        "image_fit": "cover",
+        "enable_animation": true,
+        "direction": "left",
+        "speed": 30,
+        "speed_mobile": 24,
+        "pause_on_hover": true,
+        "respect_reduced_motion": false,
+        "edge_fade": true,
+        "fade_width": 80,
+        "background_color": "#000000",
+        "background_gradient": "",
+        "text_color": "#F2F2F2",
+        "caption_color": "#EAF0F0",
+        "item_background": "#f4f4f4",
+        "border_color": "#000000",
+        "border_width": 0,
+        "corner_radius": 12,
+        "image_opacity": 100,
+        "grayscale": false,
+        "color_on_hover": true,
+        "hover_scale": 104,
+        "shadow_opacity": 8,
+        "caption_size": 14,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "padding_horizontal": 24,
+        "padding_horizontal_mobile": 16
+      }
+    },
+    "accordions_eBW66V": {
+      "type": "accordions",
+      "blocks": {
+        "accordion_Hqz3wt": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Title",
+            "text": "<p>Add the content to appear when the content is expanded</p>",
+            "open": false
+          }
+        },
+        "accordion_wkkQ6z": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Title",
+            "text": "<p>Add the content to appear when the content is expanded</p>",
+            "open": false
+          }
+        },
+        "accordion_bDmrG6": {
+          "type": "accordion",
+          "settings": {
+            "icon": "none",
+            "title": "Title",
+            "text": "<p>Add the content to appear when the content is expanded</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "accordion_Hqz3wt",
+        "accordion_wkkQ6z",
+        "accordion_bDmrG6"
+      ],
+      "name": "Expandable content",
+      "settings": {
+        "title": "Expandable content",
+        "alternate_bg_color": false,
+        "view_all_page": ""
+      }
+    },
+    "newsletter_mE4ye6": {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": {
+        "subheading": "",
+        "title": "Subscribe to our newsletter",
+        "text": "<p>Sign up to our newsletter and we'll keep you up to date with the latest arrivals</p>",
+        "height_desktop": 500,
+        "height_mobile": 400,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
@@ -109,6 +267,9 @@
     "background_video_responsive_Yqg6UJ",
     "rich_text_QERqMT",
     "image_with_text_eRXydk",
-    "image_with_text_bBzrGK"
+    "image_with_text_bBzrGK",
+    "image_marquee_AkyXn7",
+    "accordions_eBW66V",
+    "newsletter_mE4ye6"
   ]
 }
