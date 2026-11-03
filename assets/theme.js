@@ -66,7 +66,7 @@ async function handleRemoveItem(event, button) {
 // Cập nhật nội dung ngăn kéo giỏ hàng
 async function updateCartDrawer() {
   try {
-    const res = await fetch("/?section_id=cart-drawer");
+    const res = await fetch(`${window.location.pathname}?section_id=cart-drawer`);
     const text = await res.text();
     const html = document.createElement("div");
     html.innerHTML = text;
