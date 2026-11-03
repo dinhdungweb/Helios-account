@@ -350,14 +350,24 @@
       "popup": {
         "type": "popup",
         "settings": {
-          "mode": "disabled",
+          "mode": "enabled",
+          "display_scope": "selected",
+          "allowed_paths": "/blogs/collab",
           "popup_delay_seconds": 4,
           "popup_dismiss_for_days": 26,
           "position": "center",
           "title": "ĐĂNG KÍ NHẬN NGAY ƯU ĐÃI",
           "text": "",
           "show_newsletter": true,
+          "email_placeholder": "Địa chỉ email của bạn",
+          "submit_text": "Đăng ký",
+          "success_text": "Cảm ơn bạn đã đăng ký!",
+          "customer_tag": "newsletter-popup",
           "accept_content": "<p>Việc đăng ký đồng nghĩa với việc bạn đồng ý nhận các email tin tức và khuyến mại qua email đã cung cấp. Xem chính sách bảo mật và điều khoản dịch vụ của chúng tôi để biết thêm chi tiết.</p>",
+          "popup_background_color": "#000000",
+          "popup_text_color": "#ffffff",
+          "button_background_color": "#ffffff",
+          "button_text_color": "#000000",
           "show_social_icons": true
         }
       },
