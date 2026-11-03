@@ -58,11 +58,57 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "image_with_text_eRXydk": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "Media with text",
+        "title_size": 28,
+        "title_width": 12,
+        "text": "<p>Use this text to share information about your store. Describe products, share announcements, or welcome customers to your store.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "center",
+        "text_width": 50,
+        "button_style": "auto",
+        "image_width": 90,
+        "image_position": "right",
+        "media_size": "cover",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "image_with_text_bBzrGK": {
+      "type": "image-with-text",
+      "name": "Media with text",
+      "settings": {
+        "subheading": "",
+        "title": "Media with text",
+        "title_size": 28,
+        "title_width": 12,
+        "text": "<p>Use this text to share information about your store. Describe products, share announcements, or welcome customers to your store.</p>",
+        "button_label": "",
+        "button_link": "",
+        "text_alignment": "center",
+        "text_width": 50,
+        "button_style": "auto",
+        "image_width": 90,
+        "image_position": "left",
+        "media_size": "cover",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
     "main",
     "background_video_responsive_Yqg6UJ",
-    "rich_text_QERqMT"
+    "rich_text_QERqMT",
+    "image_with_text_eRXydk",
+    "image_with_text_bBzrGK"
   ]
 }
