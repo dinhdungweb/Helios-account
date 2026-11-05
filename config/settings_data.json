@@ -358,6 +358,9 @@
           "position": "center",
           "title": "ĐĂNG KÝ NHẬN TIN & ƯU ĐÃI",
           "text": "",
+          "layout": "horizontal",
+          "horizontal_image": "shopify://shop_images/lenm_uflowerdrop-21.jpg",
+          "image_position": "left",
           "show_newsletter": true,
           "email_placeholder": "Địa chỉ email của bạn",
           "submit_text": "Đăng ký nhận email",
@@ -365,7 +368,7 @@
           "customer_tag": "newsletter-popup",
           "consent_label": "Tôi đồng ý nhận email về sản phẩm mới và ưu đãi từ HELIOS.",
           "frequency_text": "Email được gửi theo từng chiến dịch, không theo lịch cố định.",
-          "privacy_policy_url": "shopify://pages/chinh-sach-bao-mat-moi",
+          "privacy_policy_url": "shopify://pages/chinh-sach-bao-mat",
           "popup_background_color": "#000000",
           "popup_text_color": "#ffffff",
           "button_background_color": "#ffffff",
@@ -609,6 +612,10 @@
             "popup_dismiss_for_days": 24,
             "position": "center",
             "show_newsletter": true,
+            "popup_background_color": "#000000",
+            "popup_text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -750,6 +757,10 @@
             "popup_dismiss_for_days": 2,
             "position": "center",
             "show_newsletter": true,
+            "popup_background_color": "#000000",
+            "popup_text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -893,6 +904,10 @@
             "popup_dismiss_for_days": 2,
             "position": "bottom-right",
             "show_newsletter": true,
+            "popup_background_color": "#000000",
+            "popup_text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -1020,6 +1035,10 @@
             "popup_dismiss_for_days": 24,
             "position": "center",
             "show_newsletter": true,
+            "popup_background_color": "#000000",
+            "popup_text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -1160,6 +1179,10 @@
             "popup_dismiss_for_days": 2,
             "position": "center",
             "show_newsletter": true,
+            "popup_background_color": "#000000",
+            "popup_text_color": "#ffffff",
+            "button_background_color": "#ffffff",
+            "button_text_color": "#000000",
             "show_social_icons": true
           }
         },
