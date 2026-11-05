@@ -367,6 +367,7 @@
           "success_text": "Cảm ơn bạn đã đăng ký!",
           "customer_tag": "newsletter-popup",
           "consent_label": "Tôi đồng ý nhận email về sản phẩm mới và ưu đãi từ HELIOS.",
+          "consent_checked_by_default": true,
           "frequency_text": "Email được gửi theo từng chiến dịch, không theo lịch cố định.",
           "privacy_policy_url": "shopify://pages/chinh-sach-bao-mat",
           "popup_background_color": "#000000",

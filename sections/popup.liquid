@@ -76,6 +76,11 @@
       align-items: flex-start;
       gap: 9px;
       cursor: pointer;
+      margin: 0;
+      font-size: 1em;
+      line-height: 1.45;
+      letter-spacing: normal;
+      text-transform: none;
     }
     .section-{{ section.id }} .cc-popup-consent-label input {
       flex: none;
@@ -238,7 +243,7 @@
                         </div>
                         <div class="cc-popup-consent">
                           <label class="cc-popup-consent-label" for="cc-popup-marketing-consent">
-                            <input type="checkbox" id="cc-popup-marketing-consent" name="email_marketing_consent" value="yes" required>
+                            <input type="checkbox" id="cc-popup-marketing-consent" name="email_marketing_consent" value="yes" required{% if section.settings.consent_checked_by_default %} checked{% endif %}>
                             <span>{{ section.settings.consent_label | escape }}</span>
                           </label>
                         </div>
@@ -454,6 +459,12 @@
         "id": "consent_label",
         "label": "Nội dung ô đồng ý",
         "default": "Tôi đồng ý nhận email về sản phẩm mới và ưu đãi từ HELIOS."
+      },
+      {
+        "type": "checkbox",
+        "id": "consent_checked_by_default",
+        "label": "Tích sẵn ô đồng ý",
+        "default": true
       },
       {
         "type": "text",
