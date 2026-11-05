@@ -2464,6 +2464,13 @@ document.addEventListener("DOMContentLoaded", () => {
       this.$container = $(container);
       this.popup = new ccPopup(this.$container, this.namespace);
 
+      // Normalize Vietnamese combining marks before the popup title is displayed.
+      this.$container.find('.cc-popup-title').each(function () {
+        if (typeof this.textContent.normalize === 'function') {
+          this.textContent = this.textContent.normalize('NFC');
+        }
+      });
+
       var dismissForDays = this.$container.data('dismiss-for-days'),
         delaySeconds = this.$container.data('delay-seconds'),
         showPopup = true,
