@@ -137,7 +137,7 @@
     .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-content {
       width: 100%;
       min-width: 0;
-      padding: 5px 25px 30px;
+      padding: 25px 25px 30px;
     }
     .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-close {
       top: 8px;
@@ -148,6 +148,12 @@
     }
     .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-close svg {
       stroke: #ffffff !important;
+    }
+    @media (max-width: 767px) {
+      .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-form,
+      .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-title {
+        margin-top: 0;
+      }
     }
     @media (min-width: 768px) {
       .section-{{ section.id }} .cc-popup-modal--horizontal-has-image {
