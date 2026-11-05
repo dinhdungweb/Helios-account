@@ -42,6 +42,8 @@
   if request.design_mode
     assign popup_visible = true
   endif
+
+  assign privacy_policy_url = section.settings.privacy_policy_url | default: shop.privacy_policy.url
 -%}
 
 {% if section.settings.mode != 'disabled' and popup_visible %}
@@ -62,6 +64,36 @@
       background-color: {{ section.settings.button_background_color }} !important;
       border-color: {{ section.settings.button_background_color }} !important;
       color: {{ section.settings.button_text_color }} !important;
+    }
+    .section-{{ section.id }} .cc-popup-consent {
+      margin: 8px 0 12px;
+      text-align: left;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .section-{{ section.id }} .cc-popup-consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      cursor: pointer;
+    }
+    .section-{{ section.id }} .cc-popup-consent-label input {
+      flex: none;
+      width: 16px;
+      height: 16px;
+      margin: 2px 0 0;
+      accent-color: {{ section.settings.popup_text_color }};
+    }
+    .section-{{ section.id }} .cc-popup-consent-note {
+      margin: 10px 0 0;
+      text-align: left;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .section-{{ section.id }} .cc-popup-consent-note a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
     .section-{{ section.id }} .cc-popup-modal--horizontal {
       padding: 0;
@@ -179,14 +211,6 @@
                 {%- endif -%}
               {%- endcapture -%}
 
-              {%- capture popup_accept_content -%}
-                <div class="cc-popup-accept">
-                  {%- if section.settings.accept_content != blank -%}
-                    {{ section.settings.accept_content }}
-                  {%- endif -%}
-                </div>
-              {%- endcapture -%}
-              
               {%- if section.settings.show_newsletter == true -%}
                 <div class="cc-popup-form">
                   {% form 'customer', id: 'cc-popup' %}
@@ -212,20 +236,32 @@
                           <label class="visually-hidden" for="cc-popup-mailinglist_email">{{ section.settings.email_placeholder | escape }}</label>
                           <input type="email" required class="cc-popup-form-input" value="" id="cc-popup-mailinglist_email" name="contact[email]" autocomplete="email" placeholder="{{ section.settings.email_placeholder | escape }}" />
                         </div>
+                        <div class="cc-popup-consent">
+                          <label class="cc-popup-consent-label" for="cc-popup-marketing-consent">
+                            <input type="checkbox" id="cc-popup-marketing-consent" name="email_marketing_consent" value="yes" required>
+                            <span>{{ section.settings.consent_label | escape }}</span>
+                          </label>
+                        </div>
                         <div class="cc-popup-form-buttons">
                           <button class="btn btn--primary button cc-popup-form-submit" type="submit">{{ section.settings.submit_text | escape }}</button>
                         </div>
                       </div>
+                      <p class="cc-popup-consent-note">
+                        {{ section.settings.frequency_text | escape }}
+                        {% if privacy_policy_url != blank %}
+                          <a href="{{ privacy_policy_url | escape }}">Chính sách bảo mật</a>
+                        {% elsif request.design_mode %}
+                          <span>Hãy thêm Chính sách bảo mật trong Shopify hoặc chọn liên kết bên dưới.</span>
+                        {% endif %}
+                      </p>
                     {% endif %}
 
                     {{ popup_bottom_content }}
-                    {{ popup_accept_content }}
                   {% endform %}
                 </div>
               {%- else -%}
                 {{ popup_top_content }}
                 {{ popup_bottom_content }}
-                {{ popup_accept_content }}
               {%- endif -%}
             </div>
           </div>
@@ -398,7 +434,7 @@
         "type": "text",
         "id": "submit_text",
         "label": "Chữ trên nút đăng ký",
-        "default": "Đăng ký"
+        "default": "Đăng ký nhận email"
       },
       {
         "type": "text",
@@ -414,10 +450,22 @@
         "info": "Email đăng ký sẽ có thêm nhãn này trong Shopify Customers."
       },
       {
-        "type": "richtext",
-        "id": "accept_content",
-        "label": "Text",
-        "default": "<p>By signing up, you agree to receive marketing messages at the phone number or email provided. Msg and data rates may apply. View our privacy policy and terms of service for more info.</p>"
+        "type": "text",
+        "id": "consent_label",
+        "label": "Nội dung ô đồng ý",
+        "default": "Tôi đồng ý nhận email về sản phẩm mới và ưu đãi từ HELIOS."
+      },
+      {
+        "type": "text",
+        "id": "frequency_text",
+        "label": "Tần suất gửi email",
+        "default": "Email được gửi theo từng chiến dịch, không theo lịch cố định."
+      },
+      {
+        "type": "url",
+        "id": "privacy_policy_url",
+        "label": "Liên kết Chính sách bảo mật",
+        "info": "Để trống để dùng Chính sách bảo mật trong Shopify Settings > Policies."
       },
       {
         "type": "header",
