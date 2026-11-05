@@ -375,7 +375,7 @@
           "button_background_color": "#ffffff",
           "button_text_color": "#000000",
           "popup_backdrop_overlay_color": "#000000",
-          "popup_backdrop_overlay_opacity": 40,
+          "popup_backdrop_overlay_opacity": 55,
           "show_social_icons": true
         }
       },
@@ -619,6 +619,7 @@
             "popup_text_color": "#ffffff",
             "button_background_color": "#ffffff",
             "button_text_color": "#000000",
+            "popup_backdrop_overlay_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -764,6 +765,7 @@
             "popup_text_color": "#ffffff",
             "button_background_color": "#ffffff",
             "button_text_color": "#000000",
+            "popup_backdrop_overlay_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -911,6 +913,7 @@
             "popup_text_color": "#ffffff",
             "button_background_color": "#ffffff",
             "button_text_color": "#000000",
+            "popup_backdrop_overlay_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -1042,6 +1045,7 @@
             "popup_text_color": "#ffffff",
             "button_background_color": "#ffffff",
             "button_text_color": "#000000",
+            "popup_backdrop_overlay_color": "#000000",
             "show_social_icons": true
           }
         },
@@ -1186,6 +1190,7 @@
             "popup_text_color": "#ffffff",
             "button_background_color": "#ffffff",
             "button_text_color": "#000000",
+            "popup_backdrop_overlay_color": "#000000",
             "show_social_icons": true
           }
         },
