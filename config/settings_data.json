@@ -352,7 +352,7 @@
         "settings": {
           "mode": "testing",
           "display_scope": "selected",
-          "allowed_paths": "/blogs/collab",
+          "allowed_paths": "/pages/he-thong-cua-hang, /pages/helios-signature-collections, /pages/helios-x-lil-wuyn, /collections/10-nam-ren-bac-1-doi-tac-ban-linh, /pages/quy-trinh-phat-trien-san-pham, /collections/nguoi-moi-nen-chon, /collections/lotus, /collections/chu-tuoc",
           "traffic_scope": "ads_only",
           "popup_delay_seconds": 4,
           "popup_dismiss_for_days": 26,
