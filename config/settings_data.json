@@ -366,7 +366,7 @@
           "submit_text": "Đăng ký nhận email",
           "success_text": "Cảm ơn bạn đã đăng ký!",
           "customer_tag": "newsletter-popup",
-          "consent_label": "Tôi đồng ý nhận email về sản phẩm mới và ưu đãi từ HELIOS.",
+          "consent_label": "Tôi đồng ý nhận email về sản phẩm và ưu đãi từ HELIOS.",
           "consent_checked_by_default": true,
           "frequency_text": "Bằng việc đăng ký bạn đồng ý với",
           "privacy_policy_url": "shopify://pages/chinh-sach-bao-mat",
