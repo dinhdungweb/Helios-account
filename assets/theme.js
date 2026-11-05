@@ -214,6 +214,38 @@ document.addEventListener("DOMContentLoaded", () => {
     sections: []
   };
 
+  // Keep paid campaign attribution while visitors browse within the same tab.
+  const popupPaidTrafficStorageKey = 'cc-theme-popup-paid-until';
+  const popupPaidTrafficLifetime = 30 * 60 * 1000;
+  const popupPaidVisit = (() => {
+    const params = new URLSearchParams(window.location.search);
+    const paidMedium = (params.get('utm_medium') || '').trim().toLowerCase().replace(/[\s-]+/g, '_');
+    const paidMediums = [
+      'paid', 'paid_search', 'paid_social', 'paid_display', 'paid_video',
+      'paid_shopping', 'paidsearch', 'paidsocial', 'cpc', 'ppc', 'cpm',
+      'cpv', 'display', 'retargeting', 'remarketing', 'programmatic'
+    ];
+    const clickIds = ['gclid', 'gbraid', 'wbraid', 'msclkid', 'ttclid'];
+    const hasPaidSignal = paidMediums.includes(paidMedium) ||
+      clickIds.some(key => Boolean(params.get(key))) || Boolean(params.get('gad_source'));
+    const now = Date.now();
+    let paidUntil = 0;
+
+    try {
+      paidUntil = Number(window.sessionStorage.getItem(popupPaidTrafficStorageKey)) || 0;
+      if (hasPaidSignal) {
+        paidUntil = now + popupPaidTrafficLifetime;
+        window.sessionStorage.setItem(popupPaidTrafficStorageKey, String(paidUntil));
+      } else if (paidUntil && paidUntil <= now) {
+        window.sessionStorage.removeItem(popupPaidTrafficStorageKey);
+      }
+    } catch (error) {
+      // The current landing URL can still qualify when storage is unavailable.
+    }
+
+    return hasPaidSignal || paidUntil > now;
+  })();
+
   theme.Shopify = {
     formatMoney: function (t, r) {
       function e(t, r) {
@@ -2476,6 +2508,8 @@ document.addEventListener("DOMContentLoaded", () => {
         showPopup = true,
         testMode = this.$container.data('test-mode'),
         lastDismissed = window.localStorage.getItem(dismissedStorageKey);
+      const adsOnly = this.$container.data('traffic-scope') === 'ads_only';
+      const hasFormResponse = this.$container.find('.cc-popup-form__response').length > 0;
 
       // Should we show it during this page view?
       // Check when it was last dismissed
@@ -2487,7 +2521,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Check for error or success messages
-      if (this.$container.find('.cc-popup-form__response').length) {
+      if (hasFormResponse) {
         showPopup = true;
         delaySeconds = 1;
 
@@ -2503,7 +2537,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Show popup, if appropriate
-      if (showPopup || testMode) {
+      if ((showPopup || testMode) && (!adsOnly || popupPaidVisit || Shopify.designMode || hasFormResponse)) {
         setTimeout(() => {
           this.popup.open();
         }, delaySeconds * 1000);

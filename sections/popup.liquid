@@ -187,6 +187,7 @@
     data-freeze-scroll="false"
     data-section-id="{{ section.id }}"
     data-section-type="newsletter-popup"
+    data-traffic-scope="{{ section.settings.traffic_scope | default: 'all' }}"
     data-dismiss-for-days="{{ section.settings.popup_dismiss_for_days }}"
     data-delay-seconds="{{ section.settings.popup_delay_seconds }}"
     data-test-mode="{% if section.settings.mode == 'testing' %}true{% else %}false{% endif %}">
@@ -346,6 +347,17 @@
         "id": "allowed_paths",
         "label": "Đường dẫn được hiển thị",
         "info": "Chỉ dùng khi chọn Các đường dẫn đã chọn. Nhập đường dẫn bắt đầu bằng /, cách nhau bằng dấu phẩy. Ví dụ: /pages/gioi-thieu, /collections/nhan-bac-nam, /products/*"
+      },
+      {
+        "type": "select",
+        "id": "traffic_scope",
+        "label": "Nguồn truy cập",
+        "default": "all",
+        "options": [
+          { "value": "all", "label": "Tất cả khách truy cập" },
+          { "value": "ads_only", "label": "Chỉ khách từ quảng cáo" }
+        ],
+        "info": "Nhận diện qua utm_medium trả phí hoặc mã nhấp quảng cáo Google, Microsoft, TikTok. Quảng cáo Meta cần gắn utm_medium=paid_social. Dấu hiệu được giữ 30 phút trong cùng tab."
       },
       {
         "type": "range",

@@ -353,6 +353,7 @@
           "mode": "testing",
           "display_scope": "selected",
           "allowed_paths": "/blogs/collab",
+          "traffic_scope": "ads_only",
           "popup_delay_seconds": 4,
           "popup_dismiss_for_days": 26,
           "position": "center",
