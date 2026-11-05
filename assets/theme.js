@@ -214,37 +214,9 @@ document.addEventListener("DOMContentLoaded", () => {
     sections: []
   };
 
-  // Keep paid campaign attribution while visitors browse within the same tab.
-  const popupPaidTrafficStorageKey = 'cc-theme-popup-paid-until';
-  const popupPaidTrafficLifetime = 30 * 60 * 1000;
-  const popupPaidVisit = (() => {
-    const params = new URLSearchParams(window.location.search);
-    const paidMedium = (params.get('utm_medium') || '').trim().toLowerCase().replace(/[\s-]+/g, '_');
-    const paidMediums = [
-      'paid', 'paid_search', 'paid_social', 'paid_display', 'paid_video',
-      'paid_shopping', 'paidsearch', 'paidsocial', 'cpc', 'ppc', 'cpm',
-      'cpv', 'display', 'retargeting', 'remarketing', 'programmatic'
-    ];
-    const clickIds = ['gclid', 'gbraid', 'wbraid', 'msclkid', 'ttclid'];
-    const hasPaidSignal = paidMediums.includes(paidMedium) ||
-      clickIds.some(key => Boolean(params.get(key))) || Boolean(params.get('gad_source'));
-    const now = Date.now();
-    let paidUntil = 0;
-
-    try {
-      paidUntil = Number(window.sessionStorage.getItem(popupPaidTrafficStorageKey)) || 0;
-      if (hasPaidSignal) {
-        paidUntil = now + popupPaidTrafficLifetime;
-        window.sessionStorage.setItem(popupPaidTrafficStorageKey, String(paidUntil));
-      } else if (paidUntil && paidUntil <= now) {
-        window.sessionStorage.removeItem(popupPaidTrafficStorageKey);
-      }
-    } catch (error) {
-      // The current landing URL can still qualify when storage is unavailable.
-    }
-
-    return hasPaidSignal || paidUntil > now;
-  })();
+  // Only the current URL's explicit paid tag qualifies for the ads-only popup.
+  const popupPaidVisit = (new URLSearchParams(window.location.search).get('utm_medium') || '')
+    .trim().toLowerCase() === 'paid';
 
   theme.Shopify = {
     formatMoney: function (t, r) {
@@ -2537,7 +2509,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Show popup, if appropriate
-      if ((showPopup || testMode) && (!adsOnly || popupPaidVisit || Shopify.designMode || hasFormResponse)) {
+      if ((showPopup || testMode) && (!adsOnly || popupPaidVisit || hasFormResponse)) {
         setTimeout(() => {
           this.popup.open();
         }, delaySeconds * 1000);

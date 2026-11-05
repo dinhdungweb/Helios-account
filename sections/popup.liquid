@@ -355,9 +355,9 @@
         "default": "all",
         "options": [
           { "value": "all", "label": "Tất cả khách truy cập" },
-          { "value": "ads_only", "label": "Chỉ khách từ quảng cáo" }
+          { "value": "ads_only", "label": "Chỉ URL có utm_medium=paid" }
         ],
-        "info": "Nhận diện qua utm_medium trả phí hoặc mã nhấp quảng cáo Google, Microsoft, TikTok. Quảng cáo Meta cần gắn utm_medium=paid. Dấu hiệu được giữ 30 phút trong cùng tab."
+        "info": "Trên website, popup chỉ tự hiện khi URL hiện tại có utm_medium=paid. Test mode không bỏ qua điều kiện này. Phản hồi gửi email vẫn được hiển thị."
       },
       {
         "type": "range",
