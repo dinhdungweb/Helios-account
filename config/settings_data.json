@@ -376,7 +376,7 @@
           "button_text_color": "#000000",
           "popup_backdrop_overlay_color": "#000000",
           "popup_backdrop_overlay_opacity": 80,
-          "show_social_icons": true
+          "show_social_icons": false
         }
       },
       "newsletter": {
