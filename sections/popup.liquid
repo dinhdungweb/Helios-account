@@ -44,6 +44,8 @@
   endif
 
   assign privacy_policy_url = section.settings.privacy_policy_url | default: shop.privacy_policy.url
+  assign popup_image_overlay_alpha = section.settings.popup_image_overlay_opacity | divided_by: 100.0
+  assign popup_backdrop_overlay_alpha = section.settings.popup_backdrop_overlay_opacity | divided_by: 100.0
 -%}
 
 {% if section.settings.mode != 'disabled' and popup_visible %}
@@ -52,6 +54,19 @@
     .section-{{ section.id }} .cc-popup-modal {
       background-color: {{ section.settings.popup_background_color }};
       color: {{ section.settings.popup_text_color }};
+    }
+    {% if section.settings.popup_backdrop_overlay_opacity > 0 %}
+      .section-{{ section.id }}.cc-popup:not(.store-availabilities-modal) .cc-popup-background {
+        background: {{ section.settings.popup_backdrop_overlay_color | color_modify: 'alpha', popup_backdrop_overlay_alpha }} !important;
+        pointer-events: auto;
+      }
+    {% endif %}
+    @media (max-width: 767px) {
+      .section-{{ section.id }} .cc-popup-modal {
+        box-sizing: border-box;
+        width: calc(100% - 24px);
+        margin: 0 12px;
+      }
     }
     .section-{{ section.id }} .cc-popup-modal.cc-popup-modal--has-image .cc-popup-content,
     .section-{{ section.id }} .cc-popup-close {
@@ -114,6 +129,13 @@
       flex: none;
       overflow: hidden;
     }
+    .section-{{ section.id }} .cc-popup-horizontal-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: {{ section.settings.popup_image_overlay_color | color_modify: 'alpha', popup_image_overlay_alpha }};
+      pointer-events: none;
+    }
     .section-{{ section.id }} .cc-popup-horizontal-image {
       display: block;
       width: 100%;
@@ -123,7 +145,7 @@
     .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-content {
       width: 100%;
       min-width: 0;
-      padding: 20px 28px 30px;
+      padding: 15px 28px 30px;
     }
     .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-close {
       top: 8px;
@@ -505,6 +527,42 @@
         "id": "button_text_color",
         "label": "Chữ nút đăng ký",
         "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Lớp phủ popup"
+      },
+      {
+        "type": "color",
+        "id": "popup_image_overlay_color",
+        "label": "Màu phủ trên ảnh ngang",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "popup_image_overlay_opacity",
+        "label": "Độ phủ trên ảnh ngang",
+        "min": 0,
+        "max": 80,
+        "step": 5,
+        "unit": "%",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "popup_backdrop_overlay_color",
+        "label": "Màu phủ nền phía sau",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "popup_backdrop_overlay_opacity",
+        "label": "Độ phủ nền phía sau",
+        "min": 0,
+        "max": 80,
+        "step": 5,
+        "unit": "%",
+        "default": 0
       },
       {
         "type": "header",
