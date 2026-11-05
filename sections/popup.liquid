@@ -63,6 +63,65 @@
       border-color: {{ section.settings.button_background_color }} !important;
       color: {{ section.settings.button_text_color }} !important;
     }
+    .section-{{ section.id }} .cc-popup-modal--horizontal {
+      padding: 0;
+      max-height: calc(100vh - 24px);
+      overflow-y: auto;
+    }
+    .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-container {
+      flex-direction: column;
+    }
+    .section-{{ section.id }} .cc-popup-horizontal-media {
+      position: relative;
+      height: 220px;
+      flex: none;
+      overflow: hidden;
+    }
+    .section-{{ section.id }} .cc-popup-horizontal-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-content {
+      width: 100%;
+      min-width: 0;
+      padding: 40px 28px 30px;
+    }
+    .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-close {
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.65) !important;
+      border-radius: 50%;
+    }
+    .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-close svg {
+      stroke: #ffffff !important;
+    }
+    @media (min-width: 768px) {
+      .section-{{ section.id }} .cc-popup-modal--horizontal-has-image {
+        width: min(760px, calc(100vw - 48px));
+      }
+      .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-container {
+        flex-direction: row;
+      }
+      .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-container--reverse {
+        flex-direction: row-reverse;
+      }
+      .section-{{ section.id }} .cc-popup-horizontal-media {
+        width: 44%;
+        height: auto;
+        min-height: 380px;
+      }
+      .section-{{ section.id }} .cc-popup-horizontal-image {
+        position: absolute;
+        inset: 0;
+      }
+      .section-{{ section.id }} .cc-popup-modal--horizontal .cc-popup-content {
+        flex: 1;
+        padding: 48px 38px;
+      }
+    }
   </style>
 
   <section class="section-{{ section.id }} cc-popup cc-popup--{{ section.settings.position }}"
@@ -73,7 +132,7 @@
     data-delay-seconds="{{ section.settings.popup_delay_seconds }}"
     data-test-mode="{% if section.settings.mode == 'testing' %}true{% else %}false{% endif %}">
     <div class="cc-popup-background"></div>
-    <div class="cc-popup-modal {% if section.settings.image != blank %} cc-popup-modal--has-image{% endif %}"
+    <div class="cc-popup-modal{% if section.settings.layout == 'horizontal' %} cc-popup-modal--horizontal{% if section.settings.horizontal_image != blank %} cc-popup-modal--horizontal-has-image{% endif %}{% elsif section.settings.image != blank %} cc-popup-modal--has-image{% endif %}"
          role="dialog"
          aria-modal="true">
 
@@ -81,9 +140,13 @@
         {% render 'popup-close' %}
       </button>
 
-      <div class="cc-popup-container {% if section.settings.image_position == 'right' %} cc-popup-container--reverse{% endif %}">
+      <div class="cc-popup-container{% if section.settings.layout == 'horizontal' and section.settings.image_position == 'right' %} cc-popup-container--reverse{% endif %}">
 
-        {%- if section.settings.image != blank -%}
+        {%- if section.settings.layout == 'horizontal' and section.settings.horizontal_image != blank -%}
+          <div class="cc-popup-horizontal-media">
+            {{ section.settings.horizontal_image | image_url: width: 960 | image_tag: widths: '360, 540, 720, 960', sizes: '(min-width: 768px) 340px, 100vw', loading: 'lazy', class: 'cc-popup-horizontal-image' }}
+          </div>
+        {%- elsif section.settings.layout != 'horizontal' and section.settings.image != blank -%}
           <div class="cc-popup-image">
             {% render 'responsive-image', image: section.settings.image, cover: true %}
           </div>
@@ -282,8 +345,34 @@
       {
         "type": "image_picker",
         "id": "image",
-        "label": "Image",
-        "info": "Image displays on desktop only"
+        "label": "Ảnh nền",
+        "info": "Dùng cho bố cục ảnh nền."
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Bố cục ảnh",
+        "default": "background",
+        "options": [
+          { "value": "background", "label": "Ảnh nền" },
+          { "value": "horizontal", "label": "Ảnh và nội dung nằm ngang" }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "horizontal_image",
+        "label": "Ảnh cho bố cục ngang",
+        "info": "Hiển thị cạnh nội dung trên desktop và phía trên nội dung trên điện thoại."
+      },
+      {
+        "type": "select",
+        "id": "image_position",
+        "label": "Vị trí ảnh trên desktop",
+        "default": "left",
+        "options": [
+          { "value": "left", "label": "Bên trái" },
+          { "value": "right", "label": "Bên phải" }
+        ]
       },
       {
         "type": "header",
