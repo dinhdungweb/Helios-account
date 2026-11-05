@@ -44,7 +44,6 @@
   endif
 
   assign privacy_policy_url = section.settings.privacy_policy_url | default: shop.privacy_policy.url
-  assign popup_image_overlay_alpha = section.settings.popup_image_overlay_opacity | divided_by: 100.0
   assign popup_backdrop_overlay_alpha = section.settings.popup_backdrop_overlay_opacity | divided_by: 100.0
 -%}
 
@@ -128,13 +127,6 @@
       height: 270px;
       flex: none;
       overflow: hidden;
-    }
-    .section-{{ section.id }} .cc-popup-horizontal-media::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: {{ section.settings.popup_image_overlay_color | color_modify: 'alpha', popup_image_overlay_alpha }};
-      pointer-events: none;
     }
     .section-{{ section.id }} .cc-popup-horizontal-image {
       display: block;
@@ -530,39 +522,23 @@
       },
       {
         "type": "header",
-        "content": "Lớp phủ popup"
-      },
-      {
-        "type": "color",
-        "id": "popup_image_overlay_color",
-        "label": "Màu phủ trên ảnh ngang",
-        "default": "#000000"
-      },
-      {
-        "type": "range",
-        "id": "popup_image_overlay_opacity",
-        "label": "Độ phủ trên ảnh ngang",
-        "min": 0,
-        "max": 80,
-        "step": 5,
-        "unit": "%",
-        "default": 0
+        "content": "Lớp phủ trang phía sau popup"
       },
       {
         "type": "color",
         "id": "popup_backdrop_overlay_color",
-        "label": "Màu phủ nền phía sau",
+        "label": "Màu phủ trang phía sau",
         "default": "#000000"
       },
       {
         "type": "range",
         "id": "popup_backdrop_overlay_opacity",
-        "label": "Độ phủ nền phía sau",
+        "label": "Độ phủ trang phía sau",
         "min": 0,
         "max": 80,
         "step": 5,
         "unit": "%",
-        "default": 0
+        "default": 40
       },
       {
         "type": "header",
