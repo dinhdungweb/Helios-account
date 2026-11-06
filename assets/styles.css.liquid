@@ -16055,3 +16055,61 @@ body.template-suffix-uprize-collection #page-content .swiper-button-prev,
 body.template-suffix-uprize-collection #page-content .swiper-button-next {
   background-color: #ffffff;
 }
+
+/* ---- Filter drawer: body background, close button, scrollbar ---- */
+.cc-product-filter--drawer .cc-filter-drawer-container {
+  background-color: {{ col_page_bg }};
+  {%- if settings.col_page_bg_gradient != blank %}
+  background: {{ settings.col_page_bg_gradient }};
+  background-attachment: fixed;
+  {%- endif %}
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar {
+  width: 6px;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+}
+.cc-product-filter--drawer .cc-filter-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 1;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.cc-product-filter--drawer .cc-filter-close:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: rotate(90deg);
+}
+.cc-product-filter--drawer .cc-filter-drawer-container {
+  padding-top: 64px;
+}
