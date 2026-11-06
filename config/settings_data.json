@@ -41,7 +41,7 @@
     "image_overlay_text": "#f2f2f2",
     "image_overlay_bg": "#000000",
     "image_overlay_opacity": 16,
-    "alt_bg_col": "#343434",
+    "alt_bg_col": "#00000000",
     "alt_bg_text_col": "#f2f2f2",
     "popup_text": "#f2f2f2",
     "popup_background": "#000000",
