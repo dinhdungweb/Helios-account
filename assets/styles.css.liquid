@@ -16015,15 +16015,15 @@ h6, .h6 {
   }
 }
 .shopify-payment-button .shopify-payment-button__button--unbranded {
-  background-color: #000!important;
-  color: #f2f2f2!important;
-  border: 1px solid #f2f2f2;
+  background-color: {{ settings.col_buy_now_bg | default: '#000000' }} !important;
+  color: {{ settings.col_buy_now_text | default: '#f2f2f2' }} !important;
+  border: 1px solid {{ settings.col_buy_now_border | default: '#f2f2f2' }};
   /* border-radius: var(--btn-border-radius, 0); */
   padding: 12px 24px;
 }
 .shopify-payment-button .shopify-payment-button__button--unbranded:hover:not([disabled]) {
-  background-color: #fab320 !important;
-  color: #111 !important;
+  background-color: {{ settings.col_buy_now_bg_hover | default: '#fab320' }} !important;
+  color: {{ settings.col_buy_now_text_hover | default: '#111111' }} !important;
 }
 /* ---- Uprize collection: white body (header/footer keep theme colors) ---- */
 body.template-suffix-uprize-collection,
