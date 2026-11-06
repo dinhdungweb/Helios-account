@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": true,
         "show_collection_image": true,
@@ -33,9 +34,76 @@
         "enable_sorting": true,
         "show_featured_in_sort": true
       }
+    },
+    "slideshow_xgA7TR": {
+      "type": "slideshow",
+      "blocks": {
+        "image_XQKd9e": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC03581_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "uprize collection",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "<p>and optional subtext</p>",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_XQKd9e"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "fixed",
+        "height_desktop": 440,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": true,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "featured_collection_xnChk9": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "10-nam-ren-bac-1-doi-tac-ban-linh",
+        "layout": "rows",
+        "show_arrows": true,
+        "show_dots": false,
+        "show_progress": false,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "slideshow_xgA7TR",
+    "featured_collection_xnChk9"
   ]
 }
