@@ -157,7 +157,75 @@
       }
     };
   </script>
-  <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"9tZHWfrTTsR3TvKv9LxVbG",debug:true});</script>
+  // chat gpt pixel
+  <script>
+(() => {
+  if (window.__heliosOpenAIPixel) return;
+  window.__heliosOpenAIPixel = true;
+  let initialized = false;
+  let pageSent = false;
+
+  function applyConsent() {
+    const p = window.Shopify?.customerPrivacy;
+    if (!p) return;
+    const allowed = p.analyticsProcessingAllowed()
+      && p.marketingAllowed()
+      && p.saleOfDataAllowed();
+
+    if (!allowed) {
+      if (initialized) window.oaiq("consent", false);
+      return;
+    }
+
+    if (!window.oaiq) {
+      const q = function () { q.q.push(arguments); };
+      q.q = [];
+      window.oaiq = q;
+      const js = document.createElement("script");
+      js.async = true;
+      js.src = "https://bzrcdn.openai.com/sdk/oaiq.min.js";
+      document.head.appendChild(js);
+    }
+
+    window.oaiq("consent", true);
+    if (!initialized) {
+      window.oaiq("init", {
+        pixelId: "9tZHWfrTTsR3TvKv9LxVbG",
+        debug: true
+      });
+      initialized = true;
+    }
+    if (!pageSent) {
+      window.oaiq("measure", "page_viewed", { type: "contents" });
+      pageSent = true;
+    }
+  }
+
+  function start() {
+    if (!window.Shopify?.loadFeatures) {
+      console.warn("OpenAI Pixel: Shopify privacy API unavailable.");
+      return;
+    }
+    window.Shopify.loadFeatures(
+      [{ name: "consent-tracking-api", version: "0.2" }],
+      (error) => {
+        if (error) {
+          console.warn("OpenAI Pixel: privacy API failed to load.", error);
+          return;
+        }
+        applyConsent();
+      }
+    );
+  }
+
+  document.addEventListener("visitorConsentCollected", applyConsent);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
+  }
+})();
+</script>
 
   {% render 'helios-i18n' %}
 </head>
