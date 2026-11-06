@@ -85,8 +85,8 @@
         "sticky_sidebar": true,
         "collapse_filters_method": "all",
         "collapse_sort_by": false,
-        "enable_sorting": false,
-        "show_featured_in_sort": false
+        "enable_sorting": true,
+        "show_featured_in_sort": true
       }
     }
   },
