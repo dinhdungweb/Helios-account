@@ -2118,6 +2118,10 @@ body {
   color: {{ col_text }};
   overflow: auto;
   background-color: {{ col_page_bg }};
+  {%- if settings.col_page_bg_gradient != blank %}
+  background: {{ settings.col_page_bg_gradient }};
+  background-attachment: fixed;
+  {%- endif %}
   background-position: top center;
   padding-top: var(--nav-height);
   /* Fonts on Macs look bad without these */

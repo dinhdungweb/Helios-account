@@ -69,6 +69,12 @@
         "label": "Page background"
       },
       {
+        "type": "color_background",
+        "id": "col_page_bg_gradient",
+        "label": "Page background gradient",
+        "info": "Overrides the page background color when set. Keep the solid color above as a fallback."
+      },
+      {
         "type": "color",
         "id": "col_stars",
         "label": "Review stars",
