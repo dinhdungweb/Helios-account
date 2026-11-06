@@ -93,7 +93,7 @@
         "show_review": true,
         "show_vendor": false,
         "grid": 4,
-        "rows": 2,
+        "rows": 4,
         "grid_mobile": "2",
         "hide_swatches": false,
         "alternate_bg_color": false,
