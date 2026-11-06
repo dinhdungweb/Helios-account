@@ -15,7 +15,7 @@
     "col_text": "#d2d2d2",
     "col_headings": "#ffffff",
     "col_links": "#ffffff",
-    "col_page_bg": "",
+    "col_page_bg": "#343434",
     "col_page_bg_gradient": "radial-gradient(rgba(67, 67, 67, 1), rgba(52, 52, 52, 1) 40%, rgba(0, 0, 0, 1) 100%)",
     "col_stars": "#d2d2d2",
     "col_head_links": "#f2f2f2",
