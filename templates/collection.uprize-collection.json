@@ -41,14 +41,15 @@
         "image_XQKd9e": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC03581_optimized.webp",
+            "image": "shopify://shop_images/IMG_1174.jpg",
+            "mobile_image": "shopify://shop_images/IMG_1175.jpg",
             "slide_link": "",
             "subheading": "",
-            "title": "helios x uprize mema",
+            "title": "",
             "title_size": 60,
             "title_width": 12,
             "heading_h1": false,
-            "text": "<p>and optional subtext</p>",
+            "text": "",
             "enlarge_text": true,
             "button_label": "",
             "overlay_position": "position--hcenter position--vcenter",
@@ -59,7 +60,6 @@
       "block_order": [
         "image_XQKd9e"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "fixed",
