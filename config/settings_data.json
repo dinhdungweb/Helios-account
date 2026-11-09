@@ -437,7 +437,7 @@
       "cart-drawer": {
         "type": "cart-drawer",
         "settings": {
-          "recommend-product-heading": "Recommend Products",
+          "recommend-product-heading": "Sản phẩm đề xuất",
           "product-list": [
             "bo-dung-cu-ve-sinh-bac",
             "hop-go-helios"
