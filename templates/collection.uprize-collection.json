@@ -59,6 +59,7 @@
       "block_order": [
         "image_XQKd9e"
       ],
+      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "fixed",
@@ -75,6 +76,7 @@
     },
     "featured_collection_xnChk9": {
       "type": "featured-collection",
+      "disabled": true,
       "name": "Featured collection",
       "settings": {
         "title": "",
@@ -99,11 +101,53 @@
         "alternate_bg_color": false,
         "show_view_all": false
       }
+    },
+    "custom_spacing_X4xn3W": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
+      }
+    },
+    "custom_spacing_ebHRRE": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
+      }
+    },
+    "rich_text_44bHnC": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "Comming soon",
+        "title": "helios x uprize mema",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Use this text to share information about your store with your customers. Describe products, share announcements, or welcome customers to your store. Add <strong>bold</strong>, <em>italic</em> and <a href=\"/\" title=\"/\">hyperlinks</a>.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "#000000",
+        "color_text": ""
+      }
     }
   },
   "order": [
     "main",
     "slideshow_xgA7TR",
-    "featured_collection_xnChk9"
+    "featured_collection_xnChk9",
+    "custom_spacing_X4xn3W",
+    "rich_text_44bHnC",
+    "custom_spacing_ebHRRE"
   ]
 }
