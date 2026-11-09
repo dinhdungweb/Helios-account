@@ -104,6 +104,7 @@
     },
     "custom_spacing_X4xn3W": {
       "type": "custom-spacing",
+      "disabled": true,
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 40,
@@ -112,6 +113,7 @@
     },
     "rich_text_44bHnC": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "helios x uprize",
@@ -135,6 +137,7 @@
     },
     "custom_spacing_ebHRRE": {
       "type": "custom-spacing",
+      "disabled": true,
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 40,
