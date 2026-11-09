@@ -110,24 +110,16 @@
         "mobile_spacing": 20
       }
     },
-    "custom_spacing_ebHRRE": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 40,
-        "mobile_spacing": 20
-      }
-    },
     "rich_text_44bHnC": {
       "type": "rich-text",
       "name": "Rich text",
       "settings": {
-        "subheading": "Comming soon",
-        "title": "helios x uprize mema",
+        "subheading": "helios x uprize",
+        "title": "mema collection",
         "title_size": 48,
         "title_width": 12,
         "heading_h1": false,
-        "text": "<p>Use this text to share information about your store with your customers. Describe products, share announcements, or welcome customers to your store. Add <strong>bold</strong>, <em>italic</em> and <a href=\"/\" title=\"/\">hyperlinks</a>.</p>",
+        "text": "<p>Comming soon 11/11</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
@@ -139,6 +131,14 @@
         "color_scheme": "standard",
         "color_bg": "#000000",
         "color_text": ""
+      }
+    },
+    "custom_spacing_ebHRRE": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
       }
     }
   },
