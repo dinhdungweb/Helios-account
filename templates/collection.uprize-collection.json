@@ -9,6 +9,63 @@
  */
 {
   "sections": {
+    "mema_editorial_hero_TwbhYe": {
+      "type": "mema-editorial-hero",
+      "disabled": true,
+      "name": "MEMA editorial hero",
+      "settings": {
+        "eyebrow": "HELIOS x BEX&O.D",
+        "heading": "MEMA Collection",
+        "lead": "YOU ARE LOVED.",
+        "quote": "“Có những điều mình muốn giữ lại bằng bạc.”",
+        "body": "<p>BEX và O.D đưa những chi tiết họ để tâm vào bản phác. Từ đó, HELIOS phát triển năm thiết kế, với nét nối và điểm xanh RIZER xuyên suốt bộ sưu tập.</p>",
+        "button_label": "",
+        "button_link": "",
+        "image_fit": "cover",
+        "image_position_desktop": "center center",
+        "image_position_mobile": "center center",
+        "panel_width": 28,
+        "desktop_height": 610,
+        "desktop_padding": 24,
+        "text_alignment": "left",
+        "heading_alignment": "left",
+        "heading_size": 30,
+        "body_size": 13,
+        "mobile_order": "text_first",
+        "mobile_image_height": 430,
+        "mobile_padding": 24,
+        "mobile_text_alignment": "left",
+        "mobile_heading_alignment": "left",
+        "mobile_heading_size": 30,
+        "mobile_body_size": 14,
+        "panel_background": "#ffffff",
+        "text_color": "#111111"
+      }
+    },
+    "rich_text_JTDfAL": {
+      "type": "rich-text",
+      "disabled": true,
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "SPECIAL GIFT FOR RIZER",
+        "title_size": 24,
+        "title_width": 38,
+        "heading_h1": false,
+        "text": "<p>Một món quà đặc biệt dành cho RIZER, những người đã luôn hiện diện&nbsp;<br/>và đồng hành cùng UPRIZE qua từng khoảnh khắc.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "main": {
       "type": "main-collection",
       "disabled": true,
@@ -33,6 +90,30 @@
         "collapse_sort_by": false,
         "enable_sorting": true,
         "show_featured_in_sort": true
+      }
+    },
+    "rich_text_kwfXU7": {
+      "type": "rich-text",
+      "disabled": true,
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "URL - You Are Loved",
+        "title_size": 24,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p><strong>U</strong> — UPRIZE · <strong>R</strong> — RIZER · <strong>L</strong> — LOVE<br/>UPRIZE và RIZER là hai điểm. Nét bạc nối hai điểm là dấu hiệu nhận diện của MEMA,&nbsp;<br/>ghi lại một kết nối được tạo nên từ cả hai phía.&nbsp;</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
       }
     },
     "slideshow_xgA7TR": {
@@ -146,7 +227,10 @@
     }
   },
   "order": [
+    "mema_editorial_hero_TwbhYe",
+    "rich_text_JTDfAL",
     "main",
+    "rich_text_kwfXU7",
     "slideshow_xgA7TR",
     "featured_collection_xnChk9",
     "custom_spacing_X4xn3W",
