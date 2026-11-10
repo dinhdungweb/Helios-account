@@ -1,342 +1,363 @@
 <style>
-  #shopify-section-{{ section.id }} .mema-sets {
-    --sets-background: {{ section.settings.background_color }};
-    --sets-middle: {{ section.settings.middle_background }};
-    --sets-card: {{ section.settings.card_background }};
-    --sets-text: {{ section.settings.text_color }};
-    --sets-muted: {{ section.settings.muted_color }};
-    --sets-active: {{ section.settings.active_color }};
-    --sets-gap: {{ section.settings.column_gap }}px;
-    --sets-radius: {{ section.settings.card_radius }}px;
-    --sets-min-height: {{ section.settings.desktop_height }}px;
-    --sets-mobile-image-height: {{ section.settings.mobile_image_height }}px;
-    color: var(--sets-text);
-    background-color: var(--sets-background);
-    overflow: hidden;
+  #shopify-section-{{ section.id }} .mema-scroll {
+    --mema-bg: {{ section.settings.background_color }};
+    --mema-content-bg: {{ section.settings.middle_background }};
+    --mema-text: {{ section.settings.text_color }};
+    --mema-muted: {{ section.settings.muted_color }};
+    --mema-accent: {{ section.settings.active_color }};
+    --mema-gap: {{ section.settings.column_gap }}px;
+    --mema-side-padding: {{ section.settings.side_padding }}px;
+    --mema-text-padding: {{ section.settings.middle_padding }}px;
+    --mema-image-padding: {{ section.settings.image_padding }}px;
+    --mema-step-height: {{ section.settings.desktop_height }}px;
+    --mema-image-height: {{ section.settings.desktop_image_height }}px;
+    --mema-mobile-image-height: {{ section.settings.mobile_image_height }}px;
+    --mema-sticky-top: {{ section.settings.sticky_top }}px;
+    --mema-heading-size: {{ section.settings.heading_size }}px;
+    --mema-body-size: {{ section.settings.body_size }}px;
+    --mema-subtitle-size: {{ section.settings.subtitle_size }}px;
+    color: var(--mema-text);
+    background: var(--mema-bg);
   }
-  #shopify-section-{{ section.id }} .mema-sets *,
-  #shopify-section-{{ section.id }} .mema-sets *::before,
-  #shopify-section-{{ section.id }} .mema-sets *::after { box-sizing: border-box; }
-  #shopify-section-{{ section.id }} .mema-sets__inner {
+  #shopify-section-{{ section.id }} .mema-scroll *,
+  #shopify-section-{{ section.id }} .mema-scroll *::before,
+  #shopify-section-{{ section.id }} .mema-scroll *::after { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .mema-scroll__desktop {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--sets-gap);
-    align-items: stretch;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1fr);
+    gap: var(--mema-gap);
     max-width: {{ section.settings.max_width }}px;
-    min-height: var(--sets-min-height);
     margin: 0 auto;
   }
-  #shopify-section-{{ section.id }} .mema-sets__choices {
+  #shopify-section-{{ section.id }} .mema-scroll--image-left .mema-scroll__content-list {
+    grid-column: 2;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll--image-left .mema-scroll__media {
+    grid-column: 1;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__content-list {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    padding: 0 var(--mema-side-padding);
+    background: var(--mema-content-bg);
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__item {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: {{ section.settings.card_gap }}px;
-    padding: 20px {{ section.settings.middle_padding }}px;
-    background: var(--sets-middle);
+    min-height: max(var(--mema-step-height), 80vh);
+    padding: var(--mema-text-padding) 0;
+    opacity: 1;
+    transition: opacity .35s ease;
   }
-  #shopify-section-{{ section.id }} .mema-sets__choice {
-    display: grid;
-    grid-template-columns: 24px minmax(0, 1fr) 14px;
-    align-items: start;
-    gap: 12px;
-    position: relative;
-    width: 100%;
-    padding: 17px 16px;
-    border: 0;
-    border-radius: var(--sets-radius);
-    background: transparent;
-    color: var(--sets-text);
-    text-align: left;
-    cursor: pointer;
-    font: inherit;
-    transition: background-color .2s ease, box-shadow .2s ease;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__choice:hover,
-  #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"] {
-    background: var(--sets-card);
-  }
-  #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"] {
-    box-shadow: 0 5px 18px rgba(0, 0, 0, .035);
-  }
-  #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"]::before {
-    content: '';
-    position: absolute;
-    top: 18px;
-    bottom: 18px;
-    left: 0;
-    width: 2px;
-    background: var(--sets-active);
-  }
-  #shopify-section-{{ section.id }} .mema-sets__choice:focus-visible {
-    outline: 2px solid var(--sets-active);
-    outline-offset: 2px;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__number {
-    display: block;
-    padding-top: 2px;
-    color: var(--sets-muted);
-    font-size: 10px;
-    line-height: 1.4;
-    letter-spacing: .08em;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__copy { display: block; min-width: 0; }
-  #shopify-section-{{ section.id }} .mema-sets__title {
-    display: block;
-    font-size: {{ section.settings.card_title_size }}px;
-    font-weight: 500;
-    line-height: 1.3;
-    letter-spacing: .025em;
-    text-transform: uppercase;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__subtitle {
-    display: block;
-    margin-top: 7px;
-    color: var(--sets-muted);
-    font-size: {{ section.settings.card_detail_size }}px;
-    line-height: 1.4;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__divider {
-    display: block;
-    height: 1px;
-    margin: 12px 0 9px;
-    background: var(--sets-muted);
-    opacity: .3;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__details {
-    display: block;
-    font-size: {{ section.settings.card_detail_size }}px;
-    line-height: 1.45;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__arrow {
-    display: block;
-    width: 8px;
-    height: 8px;
-    margin-top: 4px;
-    border-top: 1px solid currentColor;
-    border-right: 1px solid currentColor;
-    color: var(--sets-muted);
-    transform: rotate(45deg);
-    transition: transform .2s ease, color .2s ease;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"] .mema-sets__arrow {
-    color: var(--sets-active);
-    transform: translateX(2px) rotate(45deg);
-  }
-  #shopify-section-{{ section.id }} .mema-sets__visual {
+  #shopify-section-{{ section.id }} .mema-scroll[data-initialized="true"] .mema-scroll__item { opacity: .38; }
+  #shopify-section-{{ section.id }} .mema-scroll[data-initialized="true"] .mema-scroll__item.is-active { opacity: 1; }
+  #shopify-section-{{ section.id }} .mema-scroll__counter {
     display: flex;
     align-items: center;
-    justify-content: center;
-    min-width: 0;
-    padding: {{ section.settings.image_padding }}px {{ section.settings.side_padding }}px {{ section.settings.image_padding }}px 0;
+    gap: 12px;
+    margin-bottom: 25px;
+    color: var(--mema-accent);
+    font-size: 11px;
+    line-height: 1.2;
+    letter-spacing: .12em;
   }
-  #shopify-section-{{ section.id }} .mema-sets__panel { width: 100%; text-align: center; }
-  #shopify-section-{{ section.id }} .mema-sets__panel[hidden] { display: none !important; }
-  #shopify-section-{{ section.id }} .mema-sets__picture,
-  #shopify-section-{{ section.id }} .mema-sets__image { display: block; width: 100%; }
-  #shopify-section-{{ section.id }} .mema-sets__image {
-    max-height: calc(var(--sets-min-height) - {{ section.settings.image_padding | times: 2 }}px);
+  #shopify-section-{{ section.id }} .mema-scroll__counter::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__heading {
+    margin: 0;
+    color: inherit;
+    font-size: var(--mema-heading-size);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: -.025em;
+    text-transform: uppercase;
+    overflow-wrap: break-word;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__subtitle {
+    margin: 16px 0 0;
+    color: var(--mema-muted);
+    font-size: var(--mema-subtitle-size);
+    line-height: 1.45;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__rule {
+    width: min(100%, 320px);
+    height: 1px;
+    margin: 22px 0 18px;
+    background: var(--mema-muted);
+    opacity: .4;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__details {
+    margin: 0;
+    font-size: var(--mema-body-size);
+    line-height: 1.55;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__link {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 24px;
+    color: inherit;
+    font-size: var(--mema-subtitle-size);
+    line-height: 1.4;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__media {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: var(--mema-sticky-top);
+    align-self: start;
+    height: min(var(--mema-image-height), calc(100vh - var(--mema-sticky-top) - 24px));
+    min-height: 280px;
+    margin-top: var(--mema-image-padding);
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__media-panel {
+    position: absolute;
+    inset: 0 var(--mema-image-padding);
+    opacity: 0;
+    visibility: hidden;
+    clip-path: inset(100% 0 0 0);
+    transition: opacity .35s ease, clip-path .5s ease, visibility 0s .5s;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__media-panel.is-active {
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    clip-path: inset(0 0 0 0);
+    transition: opacity .35s ease, clip-path .5s ease;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll[data-effect="fade"] .mema-scroll__media-panel {
+    clip-path: none;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__media-inner,
+  #shopify-section-{{ section.id }} .mema-scroll__picture,
+  #shopify-section-{{ section.id }} .mema-scroll__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #shopify-section-{{ section.id }} .mema-scroll__image {
     object-fit: {{ section.settings.image_fit }};
     object-position: center;
   }
-  #shopify-section-{{ section.id }} .mema-sets__placeholder {
+  #shopify-section-{{ section.id }} .mema-scroll__placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 14px;
-    width: min(100%, 280px);
-    aspect-ratio: 3 / 4;
-    max-height: calc(var(--sets-min-height) - 40px);
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
     border: 1px dashed #d4d4d4;
     background: #fafafa;
     color: #a7a7a7;
   }
-  #shopify-section-{{ section.id }} .mema-sets__placeholder-icon {
-    display: block;
-    width: 42px;
-    height: 42px;
-  }
-  #shopify-section-{{ section.id }} .mema-sets__placeholder-label {
-    color: var(--sets-muted);
+  #shopify-section-{{ section.id }} .mema-scroll__placeholder-icon { width: 42px; height: 42px; }
+  #shopify-section-{{ section.id }} .mema-scroll__placeholder-label {
+    color: var(--mema-muted);
     font-size: 10px;
     line-height: 1.4;
     letter-spacing: .16em;
     text-transform: uppercase;
   }
-  #shopify-section-{{ section.id }} .mema-sets__link {
-    display: inline-block;
-    margin-top: 12px;
-    color: var(--sets-text);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
+  #shopify-section-{{ section.id }} .mema-scroll__mobile { display: none; }
   @media (max-width: 899px) {
-    #shopify-section-{{ section.id }} .mema-sets__inner {
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      gap: 0;
-    }
-    #shopify-section-{{ section.id }} .mema-sets__choices {
-      flex-direction: row;
-      justify-content: flex-start;
-      gap: 10px;
+    #shopify-section-{{ section.id }} .mema-scroll__desktop { display: none; }
+    #shopify-section-{{ section.id }} .mema-scroll__mobile {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: min({{ section.settings.mobile_item_width }}vw, 440px);
+      gap: {{ section.settings.card_gap }}px;
       overflow-x: auto;
-      padding: 14px 20px;
-      scroll-snap-type: x proximity;
+      padding: 20px;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-inline: contain;
       scrollbar-width: thin;
     }
-    #shopify-section-{{ section.id }} .mema-sets__choice {
-      flex: 0 0 min(76vw, 260px);
+    #shopify-section-{{ section.id }} .mema-scroll--stack-mobile .mema-scroll__mobile {
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    #shopify-section-{{ section.id }} .mema-scroll__mobile-item {
+      min-width: 0;
       scroll-snap-align: start;
-      padding: 16px 14px;
     }
-    #shopify-section-{{ section.id }} .mema-sets__visual {
-      min-height: var(--sets-mobile-image-height);
-      padding: 20px;
+    #shopify-section-{{ section.id }} .mema-scroll__mobile-media {
+      height: var(--mema-mobile-image-height);
+      overflow: hidden;
+      border-radius: {{ section.settings.card_radius }}px;
     }
-    #shopify-section-{{ section.id }} .mema-sets__image {
-      max-height: var(--sets-mobile-image-height);
-      width: 100%;
+    #shopify-section-{{ section.id }} .mema-scroll__mobile-media .mema-scroll__image {
       object-fit: contain;
     }
-    #shopify-section-{{ section.id }} .mema-sets__placeholder { max-height: var(--sets-mobile-image-height); }
+    #shopify-section-{{ section.id }} .mema-scroll__mobile-copy {
+      padding: 25px 4px 20px;
+    }
+    #shopify-section-{{ section.id }} .mema-scroll__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+    #shopify-section-{{ section.id }} .mema-scroll__counter { margin-bottom: 18px; }
+    #shopify-section-{{ section.id }} .mema-scroll__rule { margin: 17px 0 15px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    #shopify-section-{{ section.id }} .mema-sets__choice { transition: none; }
+    #shopify-section-{{ section.id }} .mema-scroll__item,
+    #shopify-section-{{ section.id }} .mema-scroll__media-panel { transition: none; }
   }
 </style>
 
-<section id="mema-sets-{{ section.id }}" class="mema-sets" aria-label="{{ section.settings.accessible_label | escape }}">
-  <div class="mema-sets__inner">
-    <div class="mema-sets__choices" role="tablist" aria-label="{{ section.settings.accessible_label | escape }}">
+<section id="mema-scroll-{{ section.id }}"
+  class="mema-scroll{% if section.settings.image_position == 'left' %} mema-scroll--image-left{% endif %}{% if section.settings.stack_on_mobile %} mema-scroll--stack-mobile{% endif %}"
+  data-effect="{{ section.settings.desktop_image_effect }}"
+  aria-label="{{ section.settings.accessible_label | escape }}">
+  <div class="mema-scroll__desktop">
+    <div class="mema-scroll__content-list">
       {%- for block in section.blocks -%}
-        <button type="button" class="mema-sets__choice" id="mema-set-tab-{{ section.id }}-{{ block.id }}" role="tab"
-          aria-controls="mema-set-panel-{{ section.id }}-{{ block.id }}"
-          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-          tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
-          {{ block.shopify_attributes }}>
-          <span class="mema-sets__number" aria-hidden="true">{{ forloop.index | prepend: '0' }}</span>
-          <span class="mema-sets__copy">
-            <span class="mema-sets__title">{{ block.settings.title | escape }}</span>
-            {%- if block.settings.subtitle != blank -%}<span class="mema-sets__subtitle">{{ block.settings.subtitle | escape }}</span>{%- endif -%}
-            {%- if block.settings.details != blank -%}
-              <span class="mema-sets__divider" aria-hidden="true"></span>
-              <span class="mema-sets__details">{{ block.settings.details | escape | newline_to_br }}</span>
-            {%- endif -%}
-          </span>
-          <span class="mema-sets__arrow" aria-hidden="true"></span>
-        </button>
-      {%- endfor -%}
-    </div>
-    <div class="mema-sets__visual">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign set_image = block.settings.image_desktop | default: block.settings.image_mobile
-          assign set_alt = set_image.alt | default: block.settings.title
-        -%}
-        <div class="mema-sets__panel" id="mema-set-panel-{{ section.id }}-{{ block.id }}" role="tabpanel"
-          aria-labelledby="mema-set-tab-{{ section.id }}-{{ block.id }}" tabindex="0"{% unless forloop.first %} hidden{% endunless %}>
-          {%- if set_image != blank -%}
-            <picture class="mema-sets__picture">
-              {%- if block.settings.image_mobile != blank -%}
-                <source media="(max-width: 899px)" srcset="{{ block.settings.image_mobile | image_url: width: 480 }} 480w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w, {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w" sizes="(max-width: 899px) 100vw">
-              {%- endif -%}
-              <img class="mema-sets__image" src="{{ set_image | image_url: width: 900 }}"
-                srcset="{{ set_image | image_url: width: 480 }} 480w, {{ set_image | image_url: width: 750 }} 750w, {{ set_image | image_url: width: 1100 }} 1100w"
-                sizes="(max-width: 899px) 100vw, 33vw" width="{{ set_image.width }}" height="{{ set_image.height }}"
-                alt="{{ set_alt | escape }}" loading="lazy">
-            </picture>
-          {%- else -%}
-            <div class="mema-sets__placeholder" role="img" aria-label="{{ block.settings.title | escape }} image placeholder">
-              <svg class="mema-sets__placeholder-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                <rect x="5" y="8" width="38" height="32" rx="1"></rect>
-                <circle cx="32" cy="18" r="3"></circle>
-                <path d="m8 36 12-13 9 9 5-5 6 7"></path>
-              </svg>
-              {%- if section.settings.placeholder_label != blank -%}
-                <span class="mema-sets__placeholder-label">{{ section.settings.placeholder_label | escape }}</span>
-              {%- endif -%}
-            </div>
+        <div class="mema-scroll__item{% if forloop.first %} is-active{% endif %}" data-mema-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          {%- if section.settings.show_counter -%}<span class="mema-scroll__counter">{{ forloop.index | prepend: '0' }}</span>{%- endif -%}
+          {%- if block.settings.title != blank -%}<h2 class="mema-scroll__heading">{{ block.settings.title | escape }}</h2>{%- endif -%}
+          {%- if block.settings.subtitle != blank -%}<p class="mema-scroll__subtitle">{{ block.settings.subtitle | escape }}</p>{%- endif -%}
+          {%- if block.settings.details != blank -%}
+            <div class="mema-scroll__rule" aria-hidden="true"></div>
+            <p class="mema-scroll__details">{{ block.settings.details | escape | newline_to_br }}</p>
           {%- endif -%}
           {%- if block.settings.link_label != blank and block.settings.link != blank -%}
-            <a class="mema-sets__link" href="{{ block.settings.link }}">{{ block.settings.link_label | escape }}</a>
+            <a class="mema-scroll__link" href="{{ block.settings.link }}">{{ block.settings.link_label | escape }}</a>
           {%- endif -%}
         </div>
       {%- endfor -%}
     </div>
+    <div class="mema-scroll__media">
+      {%- for block in section.blocks -%}
+        <div class="mema-scroll__media-panel{% if forloop.first %} is-active{% endif %}" data-mema-panel="{{ forloop.index0 }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+          {% render 'mema-set-image', block: block, placeholder_label: section.settings.placeholder_label %}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="mema-scroll__mobile">
+    {%- for block in section.blocks -%}
+      <article class="mema-scroll__mobile-item" data-mema-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+        <div class="mema-scroll__mobile-media">
+          {% render 'mema-set-image', block: block, placeholder_label: section.settings.placeholder_label %}
+        </div>
+        <div class="mema-scroll__mobile-copy">
+          {%- if section.settings.show_counter -%}<span class="mema-scroll__counter">{{ forloop.index | prepend: '0' }}</span>{%- endif -%}
+          {%- if block.settings.title != blank -%}<h2 class="mema-scroll__heading">{{ block.settings.title | escape }}</h2>{%- endif -%}
+          {%- if block.settings.subtitle != blank -%}<p class="mema-scroll__subtitle">{{ block.settings.subtitle | escape }}</p>{%- endif -%}
+          {%- if block.settings.details != blank -%}
+            <div class="mema-scroll__rule" aria-hidden="true"></div>
+            <p class="mema-scroll__details">{{ block.settings.details | escape | newline_to_br }}</p>
+          {%- endif -%}
+          {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+            <a class="mema-scroll__link" href="{{ block.settings.link }}">{{ block.settings.link_label | escape }}</a>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
   </div>
 </section>
 
 <script>
   (() => {
-    const root = document.getElementById('mema-sets-{{ section.id }}');
+    const root = document.getElementById('mema-scroll-{{ section.id }}');
     if (!root || root.dataset.initialized === 'true') return;
     root.dataset.initialized = 'true';
-    const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
-    const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
-    const activate = (tab, focus) => {
-      if (!tab) return;
-      tabs.forEach((item) => {
-        const active = item === tab;
-        item.setAttribute('aria-selected', String(active));
-        item.tabIndex = active ? 0 : -1;
+    const items = Array.from(root.querySelectorAll('.mema-scroll__desktop .mema-scroll__item'));
+    const panels = Array.from(root.querySelectorAll('.mema-scroll__media-panel'));
+    const abort = new AbortController();
+    let frame = 0;
+    let activeIndex = 0;
+    const activate = (index) => {
+      if (index === activeIndex || index < 0 || index >= items.length) return;
+      activeIndex = index;
+      items.forEach((item, i) => item.classList.toggle('is-active', i === index));
+      panels.forEach((panel, i) => {
+        panel.classList.toggle('is-active', i === index);
+        panel.setAttribute('aria-hidden', String(i !== index));
       });
-      panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute('aria-controls'); });
-      if (focus) tab.focus();
     };
-    root.addEventListener('click', (event) => activate(event.target.closest('[role="tab"]'), false));
-    root.addEventListener('keydown', (event) => {
-      const index = tabs.indexOf(event.target);
-      if (index < 0) return;
-      let next = index;
-      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % tabs.length;
-      else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + tabs.length) % tabs.length;
-      else if (event.key === 'Home') next = 0;
-      else if (event.key === 'End') next = tabs.length - 1;
-      else return;
-      event.preventDefault();
-      activate(tabs[next], true);
-    });
+    const update = () => {
+      frame = 0;
+      if (!root.isConnected) { abort.abort(); return; }
+      if (window.innerWidth < 900 || items.length < 2) return;
+      const bounds = root.getBoundingClientRect();
+      if (bounds.bottom < 0 || bounds.top > window.innerHeight) return;
+      const anchor = window.innerHeight * .5;
+      let nearest = 0;
+      let distance = Infinity;
+      items.forEach((item, i) => {
+        const rect = item.getBoundingClientRect();
+        const current = Math.abs((rect.top + rect.bottom) / 2 - anchor);
+        if (current < distance) { distance = current; nearest = i; }
+      });
+      activate(nearest);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener('scroll', schedule, { passive: true, signal: abort.signal });
+    window.addEventListener('resize', schedule, { signal: abort.signal });
     root.addEventListener('shopify:block:select', (event) => {
-      const tab = event.target.closest('[role="tab"]');
-      activate(tab, false);
-    });
+      const target = event.target.closest('[data-mema-index]');
+      if (!target || !root.contains(target)) return;
+      const index = Number(target.dataset.memaIndex);
+      activate(index);
+      target.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    }, { signal: abort.signal });
+    document.addEventListener('shopify:section:unload', (event) => {
+      if (event.target.contains(root)) abort.abort();
+    }, { signal: abort.signal });
+    schedule();
   })();
 </script>
 
 {% schema %}
 {
-  "name": "MEMA set selector",
+  "name": "MEMA image text scroll",
   "settings": [
-    { "type": "text", "id": "accessible_label", "label": "Section label", "default": "Choose a set" },
-    { "type": "header", "content": "Layout" },
+    { "type": "text", "id": "accessible_label", "label": "Section label", "default": "MEMA sets" },
+    { "type": "header", "content": "Desktop scrolling" },
     { "type": "range", "id": "max_width", "label": "Maximum width", "min": 800, "max": 1600, "step": 20, "unit": "px", "default": 1000 },
-    { "type": "range", "id": "desktop_height", "label": "Desktop minimum height", "min": 320, "max": 800, "step": 10, "unit": "px", "default": 390 },
-    { "type": "range", "id": "column_gap", "label": "Column gap", "min": 0, "max": 48, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "side_padding", "label": "Image right padding", "min": 0, "max": 64, "step": 2, "unit": "px", "default": 32 },
-    { "type": "range", "id": "middle_padding", "label": "Set column padding", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 18 },
-    { "type": "range", "id": "image_padding", "label": "Image padding", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 24 },
-    { "type": "range", "id": "mobile_image_height", "label": "Mobile image height", "min": 240, "max": 700, "step": 10, "unit": "px", "default": 420 },
+    { "type": "range", "id": "desktop_height", "label": "Minimum height per set", "min": 320, "max": 800, "step": 10, "unit": "px", "default": 500 },
+    { "type": "range", "id": "desktop_image_height", "label": "Image height", "min": 300, "max": 800, "step": 10, "unit": "px", "default": 560 },
+    { "type": "range", "id": "sticky_top", "label": "Sticky offset from top", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 80 },
+    { "type": "range", "id": "column_gap", "label": "Column gap", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 32 },
+    { "type": "range", "id": "side_padding", "label": "Text side padding", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 32 },
+    { "type": "range", "id": "middle_padding", "label": "Text vertical padding", "min": 8, "max": 80, "step": 2, "unit": "px", "default": 24 },
+    { "type": "range", "id": "image_padding", "label": "Image side padding", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 24 },
+    { "type": "select", "id": "image_position", "label": "Image position", "default": "right", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }] },
+    { "type": "select", "id": "desktop_image_effect", "label": "Image transition", "default": "reveal", "options": [{ "value": "reveal", "label": "Reveal" }, { "value": "fade", "label": "Fade" }] },
     { "type": "select", "id": "image_fit", "label": "Desktop image fit", "default": "contain", "options": [{ "value": "contain", "label": "Show full image" }, { "value": "cover", "label": "Fill area" }] },
+    { "type": "checkbox", "id": "show_counter", "label": "Show set number", "default": true },
+    { "type": "header", "content": "Mobile scrolling" },
+    { "type": "checkbox", "id": "stack_on_mobile", "label": "Stack sets instead of swipe", "default": false },
+    { "type": "range", "id": "mobile_item_width", "label": "Swipe item width", "min": 60, "max": 95, "step": 1, "unit": "%", "default": 82 },
+    { "type": "range", "id": "mobile_image_height", "label": "Image height", "min": 240, "max": 700, "step": 10, "unit": "px", "default": 420 },
+    { "type": "range", "id": "card_gap", "label": "Space between sets", "min": 4, "max": 40, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "card_radius", "label": "Image corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 0 },
+    { "type": "header", "content": "Text and placeholder" },
+    { "type": "range", "id": "heading_size", "label": "Desktop heading size", "min": 20, "max": 60, "step": 2, "unit": "px", "default": 32 },
+    { "type": "range", "id": "mobile_heading_size", "label": "Mobile heading size", "min": 18, "max": 42, "step": 2, "unit": "px", "default": 26 },
+    { "type": "range", "id": "subtitle_size", "label": "Subtitle size", "min": 11, "max": 22, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "body_size", "label": "Detail size", "min": 11, "max": 22, "step": 1, "unit": "px", "default": 14 },
     { "type": "text", "id": "placeholder_label", "label": "Image placeholder label", "default": "SET IMAGE" },
-    { "type": "header", "content": "Cards and text" },
-    { "type": "range", "id": "card_gap", "label": "Space between sets", "min": 4, "max": 32, "step": 2, "unit": "px", "default": 14 },
-    { "type": "range", "id": "card_radius", "label": "Selected set corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 12 },
-    { "type": "range", "id": "card_title_size", "label": "Set name size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 14 },
-    { "type": "range", "id": "card_detail_size", "label": "Set detail size", "min": 10, "max": 20, "step": 1, "unit": "px", "default": 11 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
-    { "type": "color", "id": "middle_background", "label": "Set column background", "default": "#f8f8f8" },
-    { "type": "color", "id": "card_background", "label": "Selected set background", "default": "#ffffff" },
+    { "type": "color", "id": "middle_background", "label": "Text background", "default": "#f8f8f8" },
     { "type": "color", "id": "text_color", "label": "Main text", "default": "#171717" },
     { "type": "color", "id": "muted_color", "label": "Secondary text and rule", "default": "#777777" },
-    { "type": "color", "id": "active_color", "label": "Selected set border", "default": "#444444" }
+    { "type": "color", "id": "active_color", "label": "Counter accent", "default": "#444444" }
   ],
   "blocks": [{
     "type": "set",
-    "name": "Set option",
+    "name": "Set",
     "limit": 8,
     "settings": [
       { "type": "text", "id": "title", "label": "Set name", "default": "LIMITED SET" },
@@ -349,7 +370,7 @@
     ]
   }],
   "presets": [{
-    "name": "MEMA set selector",
+    "name": "MEMA image text scroll",
     "blocks": [
       { "type": "set", "settings": { "title": "LIMITED SET", "subtitle": "Vòng tay + Vòng cổ đặc biệt", "details": "1 Minibook Love - 2 Love Notes\n2 Individual Card + 2 Duo Card" } },
       { "type": "set", "settings": { "title": "STANDARD SET", "subtitle": "Vòng tay + Mặt dây + Nhẫn", "details": "1 Minibook Love - 2 Love Notes\n1 Individual Card + 1 Duo Card" } },

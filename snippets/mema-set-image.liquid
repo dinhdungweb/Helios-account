@@ -1,0 +1,30 @@
+{%- liquid
+  assign set_image = block.settings.image_desktop | default: block.settings.image_mobile
+  assign set_alt = set_image.alt | default: block.settings.title
+-%}
+<div class="mema-scroll__media-inner">
+  {%- if set_image != blank -%}
+    <picture class="mema-scroll__picture">
+      {%- if block.settings.image_mobile != blank -%}
+        <source media="(max-width: 899px)"
+          srcset="{{ block.settings.image_mobile | image_url: width: 480 }} 480w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w, {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w"
+          sizes="(max-width: 899px) 82vw">
+      {%- endif -%}
+      <img class="mema-scroll__image"
+        src="{{ set_image | image_url: width: 1100 }}"
+        srcset="{{ set_image | image_url: width: 480 }} 480w, {{ set_image | image_url: width: 750 }} 750w, {{ set_image | image_url: width: 1100 }} 1100w, {{ set_image | image_url: width: 1500 }} 1500w"
+        sizes="(max-width: 899px) 82vw, 50vw"
+        width="{{ set_image.width }}" height="{{ set_image.height }}"
+        alt="{{ set_alt | escape }}" loading="lazy">
+    </picture>
+  {%- else -%}
+    <div class="mema-scroll__placeholder" role="img" aria-label="{{ block.settings.title | escape }} image placeholder">
+      <svg class="mema-scroll__placeholder-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <rect x="5" y="8" width="38" height="32" rx="1"></rect>
+        <circle cx="32" cy="18" r="3"></circle>
+        <path d="m8 36 12-13 9 9 5-5 6 7"></path>
+      </svg>
+      {%- if placeholder_label != blank -%}<span class="mema-scroll__placeholder-label">{{ placeholder_label | escape }}</span>{%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
