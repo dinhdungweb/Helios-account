@@ -11,7 +11,6 @@
   "sections": {
     "mema_editorial_hero_TwbhYe": {
       "type": "mema-editorial-hero",
-      "disabled": true,
       "name": "MEMA editorial hero",
       "settings": {
         "eyebrow": "HELIOS x BEX&O.D",
@@ -44,7 +43,6 @@
     },
     "rich_text_JTDfAL": {
       "type": "rich-text",
-      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -66,35 +64,8 @@
         "color_text": ""
       }
     },
-    "main": {
-      "type": "main-collection",
-      "disabled": true,
-      "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
-        "description_position": "top",
-        "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
-        "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
-        "show_vendor": false,
-        "quick_links": "quicklink-collection",
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
-      }
-    },
     "rich_text_kwfXU7": {
       "type": "rich-text",
-      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -176,7 +147,6 @@
         "image_BHRP4g",
         "image_XQKd9e"
       ],
-      "disabled": true,
       "name": "Slideshow",
       "settings": {
         "height": "adapt",
@@ -235,16 +205,30 @@
         "accessible_label": "Choose a set",
         "max_width": 1600,
         "desktop_height": 550,
+        "desktop_image_height": 560,
+        "sticky_top": 80,
         "column_gap": 16,
         "side_padding": 32,
         "middle_padding": 18,
         "image_padding": 24,
+        "image_position": "right",
+        "desktop_image_effect": "reveal",
         "image_fit": "contain",
+        "show_counter": true,
+        "stack_on_mobile": false,
+        "mobile_item_width": 82,
         "mobile_image_height": 420,
         "card_gap": 14,
         "card_radius": 12,
+        "heading_size": 32,
+        "heading_alignment": "left",
+        "mobile_heading_size": 26,
+        "mobile_heading_alignment": "left",
+        "subtitle_size": 14,
+        "body_size": 14,
+        "placeholder_label": "SET IMAGE",
         "background_color": "#ffffff",
-        "middle_background": "#00000000",
+        "middle_background": "rgba(0,0,0,0)",
         "text_color": "#171717",
         "muted_color": "#777777",
         "active_color": "#444444"
@@ -291,7 +275,6 @@
     },
     "featured_collection_xnChk9": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "Featured collection",
       "settings": {
         "title": "",
@@ -362,13 +345,12 @@
   },
   "order": [
     "mema_editorial_hero_TwbhYe",
+    "featured_collection_xnChk9",
     "rich_text_JTDfAL",
-    "main",
+    "mema_set_selector_BjEbTJ",
     "rich_text_kwfXU7",
     "slideshow_xgA7TR",
-    "mema_set_selector_BjEbTJ",
     "slideshow_db3WDi",
-    "featured_collection_xnChk9",
     "custom_spacing_X4xn3W",
     "rich_text_44bHnC",
     "custom_spacing_ebHRRE"
