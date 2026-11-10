@@ -41,6 +41,7 @@
     min-width: 0;
     padding: 0 var(--mema-side-padding);
     background: var(--mema-content-bg);
+    text-align: left;
   }
   #shopify-section-{{ section.id }} .mema-scroll__item {
     display: flex;
@@ -73,6 +74,7 @@
   #shopify-section-{{ section.id }} .mema-scroll__heading {
     margin: 0;
     color: inherit;
+    text-align: {{ section.settings.heading_alignment }};
     font-size: var(--mema-heading-size);
     font-weight: 400;
     line-height: 1.16;
@@ -201,9 +203,11 @@
     }
     #shopify-section-{{ section.id }} .mema-scroll__mobile-copy {
       padding: 25px 4px 20px;
+      text-align: left;
     }
     #shopify-section-{{ section.id }} .mema-scroll__heading {
       font-size: {{ section.settings.mobile_heading_size }}px;
+      text-align: {{ section.settings.mobile_heading_alignment }};
     }
     #shopify-section-{{ section.id }} .mema-scroll__counter { margin-bottom: 18px; }
     #shopify-section-{{ section.id }} .mema-scroll__rule { margin: 17px 0 15px; }
@@ -344,7 +348,9 @@
     { "type": "range", "id": "card_radius", "label": "Image corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 0 },
     { "type": "header", "content": "Text and placeholder" },
     { "type": "range", "id": "heading_size", "label": "Desktop heading size", "min": 20, "max": 60, "step": 2, "unit": "px", "default": 32 },
+    { "type": "select", "id": "heading_alignment", "label": "Desktop heading alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
     { "type": "range", "id": "mobile_heading_size", "label": "Mobile heading size", "min": 18, "max": 42, "step": 2, "unit": "px", "default": 26 },
+    { "type": "select", "id": "mobile_heading_alignment", "label": "Mobile heading alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
     { "type": "range", "id": "subtitle_size", "label": "Subtitle size", "min": 11, "max": 22, "step": 1, "unit": "px", "default": 14 },
     { "type": "range", "id": "body_size", "label": "Detail size", "min": 11, "max": 22, "step": 1, "unit": "px", "default": 14 },
     { "type": "text", "id": "placeholder_label", "label": "Image placeholder label", "default": "SET IMAGE" },
