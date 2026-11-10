@@ -179,8 +179,10 @@
       gap: {{ section.settings.card_gap }}px;
       overflow-x: auto;
       padding: 20px;
-      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 20px;
+      scroll-snap-type: x proximity;
       overscroll-behavior-inline: contain;
+      -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
     }
     #shopify-section-{{ section.id }} .mema-scroll--stack-mobile .mema-scroll__mobile {
