@@ -88,6 +88,9 @@
     font-size: var(--mema-subtitle-size);
     line-height: 1.45;
   }
+  #shopify-section-{{ section.id }} .mema-scroll__subtitle p { margin: 0; }
+  #shopify-section-{{ section.id }} .mema-scroll__subtitle p + p { margin-top: .5em; }
+  #shopify-section-{{ section.id }} .mema-scroll__subtitle a { color: inherit; }
   #shopify-section-{{ section.id }} .mema-scroll__rule {
     width: min(100%, 320px);
     height: 1px;
@@ -229,7 +232,7 @@
         <div class="mema-scroll__item{% if forloop.first %} is-active{% endif %}" data-mema-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
           {%- if section.settings.show_counter -%}<span class="mema-scroll__counter">{{ forloop.index | prepend: '0' }}</span>{%- endif -%}
           {%- if block.settings.title != blank -%}<h2 class="mema-scroll__heading">{{ block.settings.title | escape }}</h2>{%- endif -%}
-          {%- if block.settings.subtitle != blank -%}<p class="mema-scroll__subtitle">{{ block.settings.subtitle | escape }}</p>{%- endif -%}
+          {%- if block.settings.subtitle != blank -%}<div class="mema-scroll__subtitle">{{ block.settings.subtitle }}</div>{%- endif -%}
           {%- if block.settings.details != blank -%}
             <div class="mema-scroll__rule" aria-hidden="true"></div>
             <p class="mema-scroll__details">{{ block.settings.details | escape | newline_to_br }}</p>
@@ -257,7 +260,7 @@
         <div class="mema-scroll__mobile-copy">
           {%- if section.settings.show_counter -%}<span class="mema-scroll__counter">{{ forloop.index | prepend: '0' }}</span>{%- endif -%}
           {%- if block.settings.title != blank -%}<h2 class="mema-scroll__heading">{{ block.settings.title | escape }}</h2>{%- endif -%}
-          {%- if block.settings.subtitle != blank -%}<p class="mema-scroll__subtitle">{{ block.settings.subtitle | escape }}</p>{%- endif -%}
+          {%- if block.settings.subtitle != blank -%}<div class="mema-scroll__subtitle">{{ block.settings.subtitle }}</div>{%- endif -%}
           {%- if block.settings.details != blank -%}
             <div class="mema-scroll__rule" aria-hidden="true"></div>
             <p class="mema-scroll__details">{{ block.settings.details | escape | newline_to_br }}</p>
@@ -371,7 +374,7 @@
     "limit": 8,
     "settings": [
       { "type": "text", "id": "title", "label": "Set name", "default": "LIMITED SET" },
-      { "type": "text", "id": "subtitle", "label": "Short description", "default": "Vòng tay + Vòng cổ đặc biệt" },
+      { "type": "richtext", "id": "subtitle", "label": "Short description", "default": "<p>Vòng tay + Vòng cổ đặc biệt</p>" },
       { "type": "textarea", "id": "details", "label": "Included items", "default": "1 Minibook Love - 2 Love Notes\n2 Individual Card + 2 Duo Card" },
       { "type": "image_picker", "id": "image_desktop", "label": "Desktop image" },
       { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Optional. Uses desktop image when empty." },
@@ -382,9 +385,9 @@
   "presets": [{
     "name": "MEMA image text scroll",
     "blocks": [
-      { "type": "set", "settings": { "title": "LIMITED SET", "subtitle": "Vòng tay + Vòng cổ đặc biệt", "details": "1 Minibook Love - 2 Love Notes\n2 Individual Card + 2 Duo Card" } },
-      { "type": "set", "settings": { "title": "STANDARD SET", "subtitle": "Vòng tay + Mặt dây + Nhẫn", "details": "1 Minibook Love - 2 Love Notes\n1 Individual Card + 1 Duo Card" } },
-      { "type": "set", "settings": { "title": "STANDARD INDIVIDUAL", "subtitle": "Mua lẻ từng sản phẩm Standard", "details": "1 Minibook Love - 2 Love Notes\nKhông kèm Card" } }
+      { "type": "set", "settings": { "title": "LIMITED SET", "subtitle": "<p>Vòng tay + Vòng cổ đặc biệt</p>", "details": "1 Minibook Love - 2 Love Notes\n2 Individual Card + 2 Duo Card" } },
+      { "type": "set", "settings": { "title": "STANDARD SET", "subtitle": "<p>Vòng tay + Mặt dây + Nhẫn</p>", "details": "1 Minibook Love - 2 Love Notes\n1 Individual Card + 1 Duo Card" } },
+      { "type": "set", "settings": { "title": "STANDARD INDIVIDUAL", "subtitle": "<p>Mua lẻ từng sản phẩm Standard</p>", "details": "1 Minibook Love - 2 Love Notes\nKhông kèm Card" } }
     ]
   }]
 }

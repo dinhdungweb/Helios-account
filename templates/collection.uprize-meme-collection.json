@@ -138,7 +138,7 @@
           "type": "set",
           "settings": {
             "title": "LIMITED SET",
-            "subtitle": "Vòng tay + Vòng cổ đặc biệt",
+            "subtitle": "<p>Vòng tay + Vòng cổ đặc biệt</p>",
             "details": "1 Minibook Love - 2 Love Notes\n2 Individual Card + 2 Duo Card",
             "image_desktop": "shopify://shop_images/2aoborbedyes8twg2ivalsmlvqvbu78zjry3ykj64_optimized.webp",
             "link_label": "",
@@ -149,7 +149,7 @@
           "type": "set",
           "settings": {
             "title": "STANDARD SET",
-            "subtitle": "Vòng tay + Mặt dây + Nhẫn",
+            "subtitle": "<p>Vòng tay + Mặt dây + Nhẫn</p>",
             "details": "1 Minibook Love - 2 Love Notes\n1 Individual Card + 1 Duo Card",
             "image_desktop": "shopify://shop_images/2aoborbedzfx0dfesumfsakhujwpkseh2gndmbyy6_optimized.webp",
             "link_label": "",
@@ -160,7 +160,7 @@
           "type": "set",
           "settings": {
             "title": "STANDARD INDIVIDUAL",
-            "subtitle": "Mua lẻ từng sản phẩm Standard",
+            "subtitle": "<p>Mua lẻ từng sản phẩm Standard</p>",
             "details": "1 Minibook Love - 2 Love Notes\nKhông kèm Card",
             "image_desktop": "shopify://shop_images/2aoborbedzauoirnjezyjysp3nvljwl50ohqdpdi5_optimized.webp",
             "link_label": "",
