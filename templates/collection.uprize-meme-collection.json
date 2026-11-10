@@ -49,7 +49,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Banner_PC_1.jpg",
-            "mobile_image": "shopify://shop_images/Banner_Mobile_1_e05c29e1-9fe3-46f3-8854-1bbd19fc3ae9.jpg",
+            "mobile_image": "shopify://shop_images/Banner_Mobile_2.jpg",
             "slide_link": "",
             "subheading": "",
             "title": "",
@@ -178,7 +178,7 @@
         "accessible_label": "Choose a set",
         "max_width": 1600,
         "desktop_height": 600,
-        "desktop_image_height": 800,
+        "desktop_image_height": 700,
         "sticky_top": 110,
         "column_gap": 16,
         "side_padding": 20,
