@@ -173,16 +173,26 @@
   @media (max-width: 899px) {
     #shopify-section-{{ section.id }} .mema-scroll__desktop { display: none; }
     #shopify-section-{{ section.id }} .mema-scroll__mobile {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: min({{ section.settings.mobile_slide_width }}vw, 440px);
       gap: {{ section.settings.card_gap }}px;
       width: 100%;
-      max-width: 640px;
-      margin: 0 auto;
+      overflow: auto hidden;
       padding: 20px;
+      scroll-padding-inline: 20px;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    #shopify-section-{{ section.id }} .mema-scroll__mobile::-webkit-scrollbar {
+      display: none;
     }
     #shopify-section-{{ section.id }} .mema-scroll__mobile-item {
       min-width: 0;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
     }
     #shopify-section-{{ section.id }} .mema-scroll__mobile-media {
       height: var(--mema-mobile-image-height);
@@ -303,8 +313,12 @@
       const target = event.target.closest('[data-mema-index]');
       if (!target || !root.contains(target)) return;
       const index = Number(target.dataset.memaIndex);
-      activate(index);
-      target.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+      if (target.closest('.mema-scroll__mobile')) {
+        target.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
+      } else {
+        activate(index);
+        target.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
     }, { signal: abort.signal });
     document.addEventListener('shopify:section:unload', (event) => {
       if (event.target.contains(root)) abort.abort();
@@ -331,7 +345,8 @@
     { "type": "select", "id": "desktop_image_effect", "label": "Image transition", "default": "reveal", "options": [{ "value": "reveal", "label": "Reveal" }, { "value": "fade", "label": "Fade" }] },
     { "type": "select", "id": "image_fit", "label": "Desktop image fit", "default": "contain", "options": [{ "value": "contain", "label": "Show full image" }, { "value": "cover", "label": "Fill area" }] },
     { "type": "checkbox", "id": "show_counter", "label": "Show set number", "default": true },
-    { "type": "header", "content": "Mobile layout" },
+    { "type": "header", "content": "Mobile carousel" },
+    { "type": "range", "id": "mobile_slide_width", "label": "Slide width", "min": 65, "max": 95, "step": 1, "unit": "%", "default": 73 },
     { "type": "range", "id": "mobile_image_height", "label": "Image height", "min": 240, "max": 700, "step": 10, "unit": "px", "default": 420 },
     { "type": "range", "id": "card_gap", "label": "Space between sets", "min": 4, "max": 40, "step": 2, "unit": "px", "default": 16 },
     { "type": "range", "id": "card_radius", "label": "Image corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 0 },
