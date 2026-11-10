@@ -1,7 +1,6 @@
 <style>
   #shopify-section-{{ section.id }} .mema-sets {
     --sets-background: {{ section.settings.background_color }};
-    --sets-dot: {{ section.settings.dot_color }};
     --sets-middle: {{ section.settings.middle_background }};
     --sets-card: {{ section.settings.card_background }};
     --sets-text: {{ section.settings.text_color }};
@@ -13,8 +12,6 @@
     --sets-mobile-image-height: {{ section.settings.mobile_image_height }}px;
     color: var(--sets-text);
     background-color: var(--sets-background);
-    background-image: radial-gradient(var(--sets-dot) 1px, transparent 1px);
-    background-size: 14px 14px;
     overflow: hidden;
   }
   #shopify-section-{{ section.id }} .mema-sets *,
@@ -251,7 +248,6 @@
     { "type": "range", "id": "card_detail_size", "label": "Set detail size", "min": 10, "max": 20, "step": 1, "unit": "px", "default": 11 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
-    { "type": "color", "id": "dot_color", "label": "Dot pattern", "default": "#d9e5e8" },
     { "type": "color", "id": "middle_background", "label": "Set column background", "default": "#f8f8f8" },
     { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
     { "type": "color", "id": "text_color", "label": "Main text", "default": "#171717" },
