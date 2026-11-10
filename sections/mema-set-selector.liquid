@@ -173,27 +173,16 @@
   @media (max-width: 899px) {
     #shopify-section-{{ section.id }} .mema-scroll__desktop { display: none; }
     #shopify-section-{{ section.id }} .mema-scroll__mobile {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: min({{ section.settings.mobile_item_width }}vw, 440px);
-      gap: {{ section.settings.card_gap }}px;
-      overflow-x: auto;
-      padding: 20px;
-      scroll-padding-inline: 20px;
-      scroll-snap-type: x proximity;
-      overscroll-behavior-inline: contain;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-    }
-    #shopify-section-{{ section.id }} .mema-scroll--stack-mobile .mema-scroll__mobile {
       display: flex;
       flex-direction: column;
-      overflow: visible;
-      scroll-snap-type: none;
+      gap: {{ section.settings.card_gap }}px;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 20px;
     }
     #shopify-section-{{ section.id }} .mema-scroll__mobile-item {
       min-width: 0;
-      scroll-snap-align: start;
     }
     #shopify-section-{{ section.id }} .mema-scroll__mobile-media {
       height: var(--mema-mobile-image-height);
@@ -221,7 +210,7 @@
 </style>
 
 <section id="mema-scroll-{{ section.id }}"
-  class="mema-scroll{% if section.settings.image_position == 'left' %} mema-scroll--image-left{% endif %}{% if section.settings.stack_on_mobile %} mema-scroll--stack-mobile{% endif %}"
+  class="mema-scroll{% if section.settings.image_position == 'left' %} mema-scroll--image-left{% endif %}"
   data-effect="{{ section.settings.desktop_image_effect }}"
   aria-label="{{ section.settings.accessible_label | escape }}">
   <div class="mema-scroll__desktop">
@@ -342,9 +331,7 @@
     { "type": "select", "id": "desktop_image_effect", "label": "Image transition", "default": "reveal", "options": [{ "value": "reveal", "label": "Reveal" }, { "value": "fade", "label": "Fade" }] },
     { "type": "select", "id": "image_fit", "label": "Desktop image fit", "default": "contain", "options": [{ "value": "contain", "label": "Show full image" }, { "value": "cover", "label": "Fill area" }] },
     { "type": "checkbox", "id": "show_counter", "label": "Show set number", "default": true },
-    { "type": "header", "content": "Mobile scrolling" },
-    { "type": "checkbox", "id": "stack_on_mobile", "label": "Stack sets instead of swipe", "default": false },
-    { "type": "range", "id": "mobile_item_width", "label": "Swipe item width", "min": 60, "max": 95, "step": 1, "unit": "%", "default": 82 },
+    { "type": "header", "content": "Mobile layout" },
     { "type": "range", "id": "mobile_image_height", "label": "Image height", "min": 240, "max": 700, "step": 10, "unit": "px", "default": 420 },
     { "type": "range", "id": "card_gap", "label": "Space between sets", "min": 4, "max": 40, "step": 2, "unit": "px", "default": 16 },
     { "type": "range", "id": "card_radius", "label": "Image corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 0 },

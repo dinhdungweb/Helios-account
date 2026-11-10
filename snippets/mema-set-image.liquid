@@ -8,12 +8,12 @@
       {%- if block.settings.image_mobile != blank -%}
         <source media="(max-width: 899px)"
           srcset="{{ block.settings.image_mobile | image_url: width: 480 }} 480w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w, {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w"
-          sizes="(max-width: 899px) 82vw">
+          sizes="(max-width: 899px) 100vw">
       {%- endif -%}
       <img class="mema-scroll__image"
         src="{{ set_image | image_url: width: 1100 }}"
         srcset="{{ set_image | image_url: width: 480 }} 480w, {{ set_image | image_url: width: 750 }} 750w, {{ set_image | image_url: width: 1100 }} 1100w, {{ set_image | image_url: width: 1500 }} 1500w"
-        sizes="(max-width: 899px) 82vw, 50vw"
+        sizes="(max-width: 899px) 100vw, 50vw"
         width="{{ set_image.width }}" height="{{ set_image.height }}"
         alt="{{ set_alt | escape }}" loading="lazy">
     </picture>
