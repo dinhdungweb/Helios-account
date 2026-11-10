@@ -41,6 +41,7 @@
   }
   #shopify-section-{{ section.id }} .mema-hero__heading {
     margin: clamp(64px, 13vh, 128px) 0 0;
+    text-align: {{ section.settings.heading_alignment }};
     font-size: var(--mema-heading-size);
     font-weight: 400;
     line-height: 1.12;
@@ -111,6 +112,7 @@
     }
     #shopify-section-{{ section.id }} .mema-hero__heading {
       margin-top: 40px;
+      text-align: {{ section.settings.mobile_heading_alignment }};
       font-size: var(--mema-mobile-heading-size);
     }
     #shopify-section-{{ section.id }} .mema-hero__story {
@@ -185,6 +187,7 @@
     { "type": "range", "id": "desktop_height", "label": "Minimum height", "min": 400, "max": 900, "step": 10, "unit": "px", "default": 610 },
     { "type": "range", "id": "desktop_padding", "label": "Text padding", "min": 16, "max": 80, "step": 2, "unit": "px", "default": 24 },
     { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
+    { "type": "select", "id": "heading_alignment", "label": "Heading alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
     { "type": "range", "id": "heading_size", "label": "Heading size", "min": 20, "max": 72, "step": 2, "unit": "px", "default": 30 },
     { "type": "range", "id": "body_size", "label": "Body size", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 13 },
     { "type": "header", "content": "Mobile layout" },
@@ -192,6 +195,7 @@
     { "type": "range", "id": "mobile_image_height", "label": "Image height", "min": 220, "max": 800, "step": 10, "unit": "px", "default": 430 },
     { "type": "range", "id": "mobile_padding", "label": "Text padding", "min": 16, "max": 48, "step": 2, "unit": "px", "default": 24 },
     { "type": "select", "id": "mobile_text_alignment", "label": "Text alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
+    { "type": "select", "id": "mobile_heading_alignment", "label": "Heading alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
     { "type": "range", "id": "mobile_heading_size", "label": "Heading size", "min": 20, "max": 52, "step": 2, "unit": "px", "default": 30 },
     { "type": "range", "id": "mobile_body_size", "label": "Body size", "min": 12, "max": 22, "step": 1, "unit": "px", "default": 14 },
     { "type": "header", "content": "Colors" },
