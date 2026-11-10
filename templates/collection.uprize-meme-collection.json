@@ -177,9 +177,9 @@
       "settings": {
         "accessible_label": "Choose a set",
         "max_width": 1600,
-        "desktop_height": 620,
-        "desktop_image_height": 600,
-        "sticky_top": 100,
+        "desktop_height": 650,
+        "desktop_image_height": 650,
+        "sticky_top": 110,
         "column_gap": 16,
         "side_padding": 32,
         "middle_padding": 18,
