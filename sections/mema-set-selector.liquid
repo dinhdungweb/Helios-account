@@ -132,14 +132,38 @@
   #shopify-section-{{ section.id }} .mema-sets__panel { width: 100%; text-align: center; }
   #shopify-section-{{ section.id }} .mema-sets__panel[hidden] { display: none !important; }
   #shopify-section-{{ section.id }} .mema-sets__picture,
-  #shopify-section-{{ section.id }} .mema-sets__image,
-  #shopify-section-{{ section.id }} .mema-sets__placeholder { display: block; width: 100%; }
+  #shopify-section-{{ section.id }} .mema-sets__image { display: block; width: 100%; }
   #shopify-section-{{ section.id }} .mema-sets__image {
     max-height: calc(var(--sets-min-height) - {{ section.settings.image_padding | times: 2 }}px);
     object-fit: {{ section.settings.image_fit }};
     object-position: center;
   }
-  #shopify-section-{{ section.id }} .mema-sets__placeholder { max-height: calc(var(--sets-min-height) - 40px); }
+  #shopify-section-{{ section.id }} .mema-sets__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: min(100%, 280px);
+    aspect-ratio: 3 / 4;
+    max-height: calc(var(--sets-min-height) - 40px);
+    margin: 0 auto;
+    border: 1px dashed #d4d4d4;
+    background: #fafafa;
+    color: #a7a7a7;
+  }
+  #shopify-section-{{ section.id }} .mema-sets__placeholder-icon {
+    display: block;
+    width: 42px;
+    height: 42px;
+  }
+  #shopify-section-{{ section.id }} .mema-sets__placeholder-label {
+    color: var(--sets-muted);
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
   #shopify-section-{{ section.id }} .mema-sets__link {
     display: inline-block;
     margin-top: 12px;
@@ -225,7 +249,16 @@
                 alt="{{ set_alt | escape }}" loading="lazy">
             </picture>
           {%- else -%}
-            {{ 'image' | placeholder_svg_tag: 'mema-sets__placeholder' }}
+            <div class="mema-sets__placeholder" role="img" aria-label="{{ block.settings.title | escape }} image placeholder">
+              <svg class="mema-sets__placeholder-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+                <rect x="5" y="8" width="38" height="32" rx="1"></rect>
+                <circle cx="32" cy="18" r="3"></circle>
+                <path d="m8 36 12-13 9 9 5-5 6 7"></path>
+              </svg>
+              {%- if section.settings.placeholder_label != blank -%}
+                <span class="mema-sets__placeholder-label">{{ section.settings.placeholder_label | escape }}</span>
+              {%- endif -%}
+            </div>
           {%- endif -%}
           {%- if block.settings.link_label != blank and block.settings.link != blank -%}
             <a class="mema-sets__link" href="{{ block.settings.link }}">{{ block.settings.link_label | escape }}</a>
@@ -287,6 +320,7 @@
     { "type": "range", "id": "image_padding", "label": "Image padding", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 24 },
     { "type": "range", "id": "mobile_image_height", "label": "Mobile image height", "min": 240, "max": 700, "step": 10, "unit": "px", "default": 420 },
     { "type": "select", "id": "image_fit", "label": "Desktop image fit", "default": "contain", "options": [{ "value": "contain", "label": "Show full image" }, { "value": "cover", "label": "Fill area" }] },
+    { "type": "text", "id": "placeholder_label", "label": "Image placeholder label", "default": "SET IMAGE" },
     { "type": "header", "content": "Cards and text" },
     { "type": "range", "id": "card_gap", "label": "Space between sets", "min": 4, "max": 32, "step": 2, "unit": "px", "default": 14 },
     { "type": "range", "id": "card_radius", "label": "Selected set corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 12 },
