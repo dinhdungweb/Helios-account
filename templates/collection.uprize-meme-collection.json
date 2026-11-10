@@ -193,7 +193,7 @@
         "card_radius": 0,
         "heading_size": 32,
         "heading_alignment": "left",
-        "mobile_heading_size": 26,
+        "mobile_heading_size": 22,
         "mobile_heading_alignment": "left",
         "subtitle_size": 14,
         "body_size": 14,
