@@ -178,7 +178,7 @@
         "accessible_label": "Choose a set",
         "max_width": 1600,
         "desktop_height": 600,
-        "desktop_image_height": 590,
+        "desktop_image_height": 650,
         "sticky_top": 110,
         "column_gap": 16,
         "side_padding": 20,
