@@ -41,6 +41,33 @@
         "text_color": "#111111"
       }
     },
+    "featured_collection_xnChk9": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "10-nam-ren-bac-1-doi-tac-ban-linh",
+        "layout": "rows",
+        "show_arrows": true,
+        "show_dots": false,
+        "show_progress": false,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "rich_text_JTDfAL": {
       "type": "rich-text",
       "name": "Rich text",
@@ -62,6 +89,79 @@
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
+      }
+    },
+    "mema_set_selector_BjEbTJ": {
+      "type": "mema-set-selector",
+      "blocks": {
+        "set_fJtcip": {
+          "type": "set",
+          "settings": {
+            "title": "LIMITED SET",
+            "subtitle": "Vòng tay + Vòng cổ đặc biệt",
+            "details": "1 Minibook Love - 2 Love Notes\n2 Individual Card + 2 Duo Card",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "set_cNbBQG": {
+          "type": "set",
+          "settings": {
+            "title": "STANDARD SET",
+            "subtitle": "Vòng tay + Mặt dây + Nhẫn",
+            "details": "1 Minibook Love - 2 Love Notes\n1 Individual Card + 1 Duo Card",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "set_niye43": {
+          "type": "set",
+          "settings": {
+            "title": "STANDARD INDIVIDUAL",
+            "subtitle": "Mua lẻ từng sản phẩm Standard",
+            "details": "1 Minibook Love - 2 Love Notes\nKhông kèm Card",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "set_fJtcip",
+        "set_cNbBQG",
+        "set_niye43"
+      ],
+      "name": "MEMA set selector",
+      "settings": {
+        "accessible_label": "Choose a set",
+        "max_width": 1600,
+        "desktop_height": 550,
+        "desktop_image_height": 560,
+        "sticky_top": 80,
+        "column_gap": 16,
+        "side_padding": 32,
+        "middle_padding": 18,
+        "image_padding": 24,
+        "image_position": "right",
+        "desktop_image_effect": "reveal",
+        "image_fit": "contain",
+        "show_counter": true,
+        "stack_on_mobile": false,
+        "mobile_item_width": 82,
+        "mobile_image_height": 420,
+        "card_gap": 14,
+        "card_radius": 12,
+        "heading_size": 32,
+        "heading_alignment": "left",
+        "mobile_heading_size": 26,
+        "mobile_heading_alignment": "left",
+        "subtitle_size": 14,
+        "body_size": 14,
+        "placeholder_label": "SET IMAGE",
+        "background_color": "#ffffff",
+        "middle_background": "rgba(0,0,0,0)",
+        "text_color": "#171717",
+        "muted_color": "#777777",
+        "active_color": "#444444"
       }
     },
     "rich_text_kwfXU7": {
@@ -160,187 +260,6 @@
         "autoplay": true,
         "autoplay_speed": 7
       }
-    },
-    "mema_set_selector_BjEbTJ": {
-      "type": "mema-set-selector",
-      "blocks": {
-        "set_fJtcip": {
-          "type": "set",
-          "settings": {
-            "title": "LIMITED SET",
-            "subtitle": "Vòng tay + Vòng cổ đặc biệt",
-            "details": "1 Minibook Love - 2 Love Notes\n2 Individual Card + 2 Duo Card",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "set_cNbBQG": {
-          "type": "set",
-          "settings": {
-            "title": "STANDARD SET",
-            "subtitle": "Vòng tay + Mặt dây + Nhẫn",
-            "details": "1 Minibook Love - 2 Love Notes\n1 Individual Card + 1 Duo Card",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "set_niye43": {
-          "type": "set",
-          "settings": {
-            "title": "STANDARD INDIVIDUAL",
-            "subtitle": "Mua lẻ từng sản phẩm Standard",
-            "details": "1 Minibook Love - 2 Love Notes\nKhông kèm Card",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "set_fJtcip",
-        "set_cNbBQG",
-        "set_niye43"
-      ],
-      "name": "MEMA set selector",
-      "settings": {
-        "accessible_label": "Choose a set",
-        "max_width": 1600,
-        "desktop_height": 550,
-        "desktop_image_height": 560,
-        "sticky_top": 80,
-        "column_gap": 16,
-        "side_padding": 32,
-        "middle_padding": 18,
-        "image_padding": 24,
-        "image_position": "right",
-        "desktop_image_effect": "reveal",
-        "image_fit": "contain",
-        "show_counter": true,
-        "stack_on_mobile": false,
-        "mobile_item_width": 82,
-        "mobile_image_height": 420,
-        "card_gap": 14,
-        "card_radius": 12,
-        "heading_size": 32,
-        "heading_alignment": "left",
-        "mobile_heading_size": 26,
-        "mobile_heading_alignment": "left",
-        "subtitle_size": 14,
-        "body_size": 14,
-        "placeholder_label": "SET IMAGE",
-        "background_color": "#ffffff",
-        "middle_background": "rgba(0,0,0,0)",
-        "text_color": "#171717",
-        "muted_color": "#777777",
-        "active_color": "#444444"
-      }
-    },
-    "slideshow_db3WDi": {
-      "type": "slideshow",
-      "blocks": {
-        "image_bj3xB8": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/IMG_1174.jpg",
-            "mobile_image": "shopify://shop_images/IMG_1175.jpg",
-            "slide_link": "",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        }
-      },
-      "block_order": [
-        "image_bj3xB8"
-      ],
-      "name": "Slideshow",
-      "settings": {
-        "height": "adapt",
-        "height_desktop": 480,
-        "height_mobile": 500,
-        "full_width": true,
-        "mobile_overlay_under": false,
-        "overlay_style_tint": true,
-        "slide_transition": "slide",
-        "slide_navigation": "dots",
-        "autoplay": true,
-        "autoplay_speed": 7
-      }
-    },
-    "featured_collection_xnChk9": {
-      "type": "featured-collection",
-      "name": "Featured collection",
-      "settings": {
-        "title": "",
-        "featured_collection_align": "left",
-        "collection": "10-nam-ren-bac-1-doi-tac-ban-linh",
-        "layout": "rows",
-        "show_arrows": true,
-        "show_dots": false,
-        "show_progress": false,
-        "dot_color": "#777777",
-        "dot_active_color": "#ffffff",
-        "featured_addtocart_hide": false,
-        "show_add_to_cart": true,
-        "show_title": true,
-        "show_price": true,
-        "show_review": true,
-        "show_vendor": false,
-        "grid": 4,
-        "rows": 2,
-        "grid_mobile": "2",
-        "hide_swatches": false,
-        "alternate_bg_color": false,
-        "show_view_all": false
-      }
-    },
-    "custom_spacing_X4xn3W": {
-      "type": "custom-spacing",
-      "disabled": true,
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 40,
-        "mobile_spacing": 20
-      }
-    },
-    "rich_text_44bHnC": {
-      "type": "rich-text",
-      "disabled": true,
-      "name": "Rich text",
-      "settings": {
-        "subheading": "helios x uprize",
-        "title": "mema collection",
-        "title_size": 48,
-        "title_width": 12,
-        "heading_h1": false,
-        "text": "<p>Comming soon 11/11</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "#000000",
-        "color_text": ""
-      }
-    },
-    "custom_spacing_ebHRRE": {
-      "type": "custom-spacing",
-      "disabled": true,
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 40,
-        "mobile_spacing": 20
-      }
     }
   },
   "order": [
@@ -349,10 +268,6 @@
     "rich_text_JTDfAL",
     "mema_set_selector_BjEbTJ",
     "rich_text_kwfXU7",
-    "slideshow_xgA7TR",
-    "slideshow_db3WDi",
-    "custom_spacing_X4xn3W",
-    "rich_text_44bHnC",
-    "custom_spacing_ebHRRE"
+    "slideshow_xgA7TR"
   ]
 }
