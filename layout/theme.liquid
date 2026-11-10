@@ -52,6 +52,34 @@
 
   {{ content_for_header }}
 
+  {% if template.suffix == 'uprize-meme-collection' %}
+    <style>
+      body.template-suffix-uprize-meme-collection {
+        background: #ffffff;
+      }
+      body.template-suffix-uprize-meme-collection #page-content,
+      body.template-suffix-uprize-meme-collection #page-content .section-spacing,
+      body.template-suffix-uprize-meme-collection #page-content .shopify-section {
+        background-color: #ffffff;
+      }
+      body.template-suffix-uprize-meme-collection #page-content { color: #423f3f; }
+      body.template-suffix-uprize-meme-collection #page-content h1,
+      body.template-suffix-uprize-meme-collection #page-content h2,
+      body.template-suffix-uprize-meme-collection #page-content h3,
+      body.template-suffix-uprize-meme-collection #page-content h4,
+      body.template-suffix-uprize-meme-collection #page-content .product-block .title,
+      body.template-suffix-uprize-meme-collection #page-content .product-block .price,
+      body.template-suffix-uprize-meme-collection #page-content .product-block .vendor,
+      body.template-suffix-uprize-meme-collection #page-content a:not(.btn):not(.button) {
+        color: #212121;
+      }
+      body.template-suffix-uprize-meme-collection #page-content .image-overlay .overlay__content,
+      body.template-suffix-uprize-meme-collection #page-content .image-overlay .overlay__content * {
+        color: #ffffff;
+      }
+    </style>
+  {% endif %}
+
   {%- if request.design_mode -%}
     <script src="{{ 'store-info.v1.0.0.js' | asset_url }}" defer="defer" data-theme="Showcase" data-version="7.1.4" data-contact="{{ shop.email | escape }}"></script>
   {%- endif -%}
