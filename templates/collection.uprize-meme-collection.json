@@ -188,7 +188,7 @@
         "desktop_image_effect": "reveal",
         "image_fit": "contain",
         "show_counter": true,
-        "mobile_image_height": 270,
+        "mobile_image_height": 290,
         "card_gap": 14,
         "card_radius": 0,
         "heading_size": 32,
