@@ -35,51 +35,92 @@
     background: var(--sets-middle);
   }
   #shopify-section-{{ section.id }} .mema-sets__choice {
-    display: block;
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) 14px;
+    align-items: start;
+    gap: 12px;
+    position: relative;
     width: 100%;
-    padding: 11px 14px;
-    border: 1px solid transparent;
+    padding: 17px 16px;
+    border: 0;
     border-radius: var(--sets-radius);
-    background: var(--sets-card);
+    background: transparent;
     color: var(--sets-text);
     text-align: left;
     cursor: pointer;
     font: inherit;
-    transition: border-color .2s ease, box-shadow .2s ease;
+    transition: background-color .2s ease, box-shadow .2s ease;
   }
   #shopify-section-{{ section.id }} .mema-sets__choice:hover,
-  #shopify-section-{{ section.id }} .mema-sets__choice:focus-visible,
   #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"] {
-    border-color: var(--sets-active);
+    background: var(--sets-card);
+  }
+  #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"] {
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .035);
+  }
+  #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"]::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 0;
+    width: 2px;
+    background: var(--sets-active);
   }
   #shopify-section-{{ section.id }} .mema-sets__choice:focus-visible {
     outline: 2px solid var(--sets-active);
     outline-offset: 2px;
   }
+  #shopify-section-{{ section.id }} .mema-sets__number {
+    display: block;
+    padding-top: 2px;
+    color: var(--sets-muted);
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: .08em;
+  }
+  #shopify-section-{{ section.id }} .mema-sets__copy { display: block; min-width: 0; }
   #shopify-section-{{ section.id }} .mema-sets__title {
     display: block;
     font-size: {{ section.settings.card_title_size }}px;
-    line-height: 1.25;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: .025em;
     text-transform: uppercase;
   }
   #shopify-section-{{ section.id }} .mema-sets__subtitle {
     display: block;
-    margin-top: 5px;
+    margin-top: 7px;
     color: var(--sets-muted);
     font-size: {{ section.settings.card_detail_size }}px;
-    line-height: 1.25;
+    line-height: 1.4;
   }
   #shopify-section-{{ section.id }} .mema-sets__divider {
     display: block;
     height: 1px;
-    margin: 7px 0 5px;
+    margin: 12px 0 9px;
     background: var(--sets-muted);
-    opacity: .65;
+    opacity: .3;
   }
   #shopify-section-{{ section.id }} .mema-sets__details {
     display: block;
     font-size: {{ section.settings.card_detail_size }}px;
-    line-height: 1.3;
+    line-height: 1.45;
+  }
+  #shopify-section-{{ section.id }} .mema-sets__arrow {
+    display: block;
+    width: 8px;
+    height: 8px;
+    margin-top: 4px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    color: var(--sets-muted);
+    transform: rotate(45deg);
+    transition: transform .2s ease, color .2s ease;
+  }
+  #shopify-section-{{ section.id }} .mema-sets__choice[aria-selected="true"] .mema-sets__arrow {
+    color: var(--sets-active);
+    transform: translateX(2px) rotate(45deg);
   }
   #shopify-section-{{ section.id }} .mema-sets__visual {
     display: flex;
@@ -125,6 +166,7 @@
     #shopify-section-{{ section.id }} .mema-sets__choice {
       flex: 0 0 min(76vw, 260px);
       scroll-snap-align: start;
+      padding: 16px 14px;
     }
     #shopify-section-{{ section.id }} .mema-sets__visual {
       min-height: var(--sets-mobile-image-height);
@@ -151,12 +193,16 @@
           aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
           tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
           {{ block.shopify_attributes }}>
-          <span class="mema-sets__title">{{ block.settings.title | escape }}</span>
-          {%- if block.settings.subtitle != blank -%}<span class="mema-sets__subtitle">{{ block.settings.subtitle | escape }}</span>{%- endif -%}
-          {%- if block.settings.details != blank -%}
-            <span class="mema-sets__divider" aria-hidden="true"></span>
-            <span class="mema-sets__details">{{ block.settings.details | escape | newline_to_br }}</span>
-          {%- endif -%}
+          <span class="mema-sets__number" aria-hidden="true">{{ forloop.index | prepend: '0' }}</span>
+          <span class="mema-sets__copy">
+            <span class="mema-sets__title">{{ block.settings.title | escape }}</span>
+            {%- if block.settings.subtitle != blank -%}<span class="mema-sets__subtitle">{{ block.settings.subtitle | escape }}</span>{%- endif -%}
+            {%- if block.settings.details != blank -%}
+              <span class="mema-sets__divider" aria-hidden="true"></span>
+              <span class="mema-sets__details">{{ block.settings.details | escape | newline_to_br }}</span>
+            {%- endif -%}
+          </span>
+          <span class="mema-sets__arrow" aria-hidden="true"></span>
         </button>
       {%- endfor -%}
     </div>
@@ -243,13 +289,13 @@
     { "type": "select", "id": "image_fit", "label": "Desktop image fit", "default": "contain", "options": [{ "value": "contain", "label": "Show full image" }, { "value": "cover", "label": "Fill area" }] },
     { "type": "header", "content": "Cards and text" },
     { "type": "range", "id": "card_gap", "label": "Space between sets", "min": 4, "max": 32, "step": 2, "unit": "px", "default": 14 },
-    { "type": "range", "id": "card_radius", "label": "Card corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "card_radius", "label": "Selected set corner radius", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 12 },
     { "type": "range", "id": "card_title_size", "label": "Set name size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 14 },
     { "type": "range", "id": "card_detail_size", "label": "Set detail size", "min": 10, "max": 20, "step": 1, "unit": "px", "default": 11 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
     { "type": "color", "id": "middle_background", "label": "Set column background", "default": "#f8f8f8" },
-    { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "card_background", "label": "Selected set background", "default": "#ffffff" },
     { "type": "color", "id": "text_color", "label": "Main text", "default": "#171717" },
     { "type": "color", "id": "muted_color", "label": "Secondary text and rule", "default": "#777777" },
     { "type": "color", "id": "active_color", "label": "Selected set border", "default": "#444444" }
