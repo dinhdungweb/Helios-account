@@ -11,6 +11,7 @@
   "sections": {
     "mema_editorial_hero_TwbhYe": {
       "type": "mema-editorial-hero",
+      "disabled": true,
       "name": "MEMA editorial hero",
       "settings": {
         "eyebrow": "HELIOS x BEX&O.D",
@@ -39,6 +40,45 @@
         "mobile_body_size": 14,
         "panel_background": "#ffffff",
         "text_color": "#111111"
+      }
+    },
+    "slideshow_xgA7TR": {
+      "type": "slideshow",
+      "blocks": {
+        "image_Qy9LnA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_PC_1.jpg",
+            "mobile_image": "shopify://shop_images/Banner_Mobile_1_e05c29e1-9fe3-46f3-8854-1bbd19fc3ae9.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_Qy9LnA"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 480,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
       }
     },
     "featured_collection_xnChk9": {
@@ -145,8 +185,6 @@
         "desktop_image_effect": "reveal",
         "image_fit": "contain",
         "show_counter": true,
-        "stack_on_mobile": false,
-        "mobile_item_width": 82,
         "mobile_image_height": 420,
         "card_gap": 14,
         "card_radius": 12,
@@ -187,10 +225,10 @@
         "color_text": ""
       }
     },
-    "slideshow_xgA7TR": {
+    "slideshow_cwcrDV": {
       "type": "slideshow",
       "blocks": {
-        "image_Qy9LnA": {
+        "image_zC3e6y": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/UPRIZE_x_HELIOS1408__2___2__optimized.webp",
@@ -207,7 +245,7 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
-        "image_BHRP4g": {
+        "image_7Pn8rT": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/UPRIZE_x_HELIOS1568_2_optimized.webp",
@@ -224,7 +262,7 @@
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
-        "image_XQKd9e": {
+        "image_E4mFRN": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/UPRIZE_x_HELIOS1545_2_optimized.webp",
@@ -243,9 +281,9 @@
         }
       },
       "block_order": [
-        "image_Qy9LnA",
-        "image_BHRP4g",
-        "image_XQKd9e"
+        "image_zC3e6y",
+        "image_7Pn8rT",
+        "image_E4mFRN"
       ],
       "name": "Slideshow",
       "settings": {
@@ -264,10 +302,11 @@
   },
   "order": [
     "mema_editorial_hero_TwbhYe",
+    "slideshow_xgA7TR",
     "featured_collection_xnChk9",
     "rich_text_JTDfAL",
     "mema_set_selector_BjEbTJ",
     "rich_text_kwfXU7",
-    "slideshow_xgA7TR"
+    "slideshow_cwcrDV"
   ]
 }
