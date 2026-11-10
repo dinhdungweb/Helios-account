@@ -247,7 +247,7 @@
           "menu_linklist": "main-menu",
           "nav_featured_link": "CUỐI MÙA, TƯ VẤN 1:1",
           "desktop_navigation": "inline",
-          "nav_opacity": "transparent",
+          "nav_opacity": "opaque",
           "nav_positioning": "inline",
           "logo": "shopify://shop_images/logo-w.webp",
           "alt_logo": "shopify://shop_images/logo-w.webp",
