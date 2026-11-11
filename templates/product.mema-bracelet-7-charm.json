@@ -238,29 +238,6 @@
         "mobile_spacing": 20
       }
     },
-    "blocks_AdG4zX": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_1d3b865_rcXCtp": {
-          "type": "ai_gen_block_1d3b865",
-          "name": "Large image",
-          "settings": {
-            "image": "shopify://shop_images/STANDARD_INDIVIDUALS_optimized.webp",
-            "image_fit": "contain",
-            "image_position": "center",
-            "desktop_height": 750,
-            "mobile_height": 400,
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_1d3b865_rcXCtp"
-      ],
-      "name": "Large image",
-      "settings": {}
-    },
     "17907591362a40ee49": {
       "type": "apps",
       "blocks": {
@@ -284,6 +261,29 @@
       ],
       "settings": {
         "skip_container": true
+      }
+    },
+    "rich_text_N7wNdG": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "MEMA Route Bracelet · 7-Charm",
+        "title_size": 30,
+        "title_width": 38,
+        "heading_h1": false,
+        "text": "<p>Những mắt xích nhỏ nối về mặt bạc ở giữa, cạnh một charm sao chuyển động theo cổ tay. Route là quãng đường được tạo nên từ những lần rất nhỏ mình chọn lắng nghe, nhớ đến và có mặt cho nhau.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
       }
     },
     "custom_spacing_Bx9JEX": {
@@ -471,8 +471,8 @@
     "main",
     "tab_description_Mct6Bb",
     "custom_spacing_PGhXBd",
-    "blocks_AdG4zX",
     "17907591362a40ee49",
+    "rich_text_N7wNdG",
     "custom_spacing_Bx9JEX",
     "background_video_jhNGKc",
     "image_with_text_kUyLYN",
