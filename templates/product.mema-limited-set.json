@@ -245,7 +245,7 @@
           "type": "ai_gen_block_1d3b865",
           "name": "Large image",
           "settings": {
-            "image": "shopify://shop_images/STANDARD_INDIVIDUALS_optimized.webp",
+            "image": "shopify://shop_images/LIMITED_SET_optimized.webp",
             "image_fit": "contain",
             "image_position": "center",
             "desktop_height": 750,
