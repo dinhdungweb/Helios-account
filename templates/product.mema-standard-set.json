@@ -64,12 +64,6 @@
             "size_chart_page_accessories": "huong-dan-do-size-ao"
           }
         },
-        "richtext_diBFic": {
-          "type": "richtext",
-          "settings": {
-            "text": "<p>Text</p>"
-          }
-        },
         "linked_products": {
           "type": "linked_products",
           "settings": {
@@ -190,7 +184,6 @@
         "price",
         "richtext_3g4Dzi",
         "variant_picker",
-        "richtext_diBFic",
         "linked_products",
         "custom_liquid_beCgGM",
         "buy_buttons",
