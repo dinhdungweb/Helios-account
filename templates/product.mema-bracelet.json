@@ -230,14 +230,6 @@
         "fade_color": "#ffffff"
       }
     },
-    "custom_spacing_PGhXBd": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 40,
-        "mobile_spacing": 20
-      }
-    },
     "17907591362a40ee49": {
       "type": "apps",
       "blocks": {
@@ -470,7 +462,6 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
-    "custom_spacing_PGhXBd",
     "17907591362a40ee49",
     "rich_text_NznKkM",
     "custom_spacing_Bx9JEX",
