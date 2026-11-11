@@ -230,6 +230,37 @@
         "fade_color": "#000000"
       }
     },
+    "custom_spacing_PGhXBd": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 20
+      }
+    },
+    "blocks_AdG4zX": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1d3b865_rcXCtp": {
+          "type": "ai_gen_block_1d3b865",
+          "name": "Large image",
+          "settings": {
+            "image": "shopify://shop_images/STANDARD_INDIVIDUALS_optimized.webp",
+            "image_fit": "contain",
+            "image_position": "center",
+            "desktop_height": 750,
+            "mobile_height": 400,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1d3b865_rcXCtp"
+      ],
+      "name": "Large image",
+      "settings": {}
+    },
     "17907591362a40ee49": {
       "type": "apps",
       "blocks": {
@@ -246,6 +277,7 @@
       "block_order": [
         "judge_me_reviews_review_widget_tkmTbn"
       ],
+      "disabled": true,
       "custom_css": [
         ".section-spacing {padding-top: 10px; padding-bottom: 0px;}",
         ".jdgm-review-widget--small .jdgm-rev-widg,.jdgm-review-widget--medium .jdgm-rev-widg {padding: 16px 10px;}"
@@ -336,6 +368,7 @@
     },
     "product_feedback_gallery_XyZ123": {
       "type": "product-feedback-gallery",
+      "disabled": true,
       "settings": {
         "heading": "Feedback Từ Khách Hàng",
         "description": "<p>Những hình ảnh thực tế từ khách hàng đã sử dụng sản phẩm</p>",
@@ -409,6 +442,7 @@
         "accordion_CHQwjD",
         "accordion_tKwP9N"
       ],
+      "disabled": true,
       "custom_css": [
         ".accordion-container .h2 {text-align: center; padding-right: 0;}",
         ".accordion-container .section-heading {display: block;}",
@@ -436,6 +470,8 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
+    "custom_spacing_PGhXBd",
+    "blocks_AdG4zX",
     "17907591362a40ee49",
     "custom_spacing_Bx9JEX",
     "background_video_jhNGKc",
