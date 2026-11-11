@@ -82,54 +82,54 @@
 
   {% if template.name == 'product' and template.suffix contains 'mema-' %}
     <style>
-      body.template-product[class*="template-suffix-mema-"] {
+      body.mema-white-page.template-product {
         background: #ffffff;
       }
-      body.template-product[class*="template-suffix-mema-"] #page-content,
-      body.template-product[class*="template-suffix-mema-"] #page-content .section-spacing,
-      body.template-product[class*="template-suffix-mema-"] #page-content .shopify-section {
+      body.mema-white-page.template-product #page-content,
+      body.mema-white-page.template-product #page-content .section-spacing,
+      body.mema-white-page.template-product #page-content .shopify-section {
         background-color: #ffffff;
       }
-      body.template-product[class*="template-suffix-mema-"] #page-content { color: #423f3f; }
-      body.template-product[class*="template-suffix-mema-"] #page-content h1,
-      body.template-product[class*="template-suffix-mema-"] #page-content h2,
-      body.template-product[class*="template-suffix-mema-"] #page-content h3,
-      body.template-product[class*="template-suffix-mema-"] #page-content h4,
-      body.template-product[class*="template-suffix-mema-"] #page-content .product-block .title,
-      body.template-product[class*="template-suffix-mema-"] #page-content .product-block .price,
-      body.template-product[class*="template-suffix-mema-"] #page-content .product-block .vendor,
-      body.template-product[class*="template-suffix-mema-"] #page-content a:not(.btn):not(.button) {
+      body.mema-white-page.template-product #page-content { color: #423f3f; }
+      body.mema-white-page.template-product #page-content h1,
+      body.mema-white-page.template-product #page-content h2,
+      body.mema-white-page.template-product #page-content h3,
+      body.mema-white-page.template-product #page-content h4,
+      body.mema-white-page.template-product #page-content .product-block .title,
+      body.mema-white-page.template-product #page-content .product-block .price,
+      body.mema-white-page.template-product #page-content .product-block .vendor,
+      body.mema-white-page.template-product #page-content a:not(.btn):not(.button) {
         color: #212121;
       }
-      body.template-product[class*="template-suffix-mema-"] #page-content .image-overlay .overlay__content,
-      body.template-product[class*="template-suffix-mema-"] #page-content .image-overlay .overlay__content * {
+      body.mema-white-page.template-product #page-content .image-overlay .overlay__content,
+      body.mema-white-page.template-product #page-content .image-overlay .overlay__content * {
         color: #ffffff;
       }
     </style>
   {% endif %}
 
   <style>
-    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .logo,
-    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner a,
-    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .disclosure__toggle {
+    body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control .logo,
+    body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner a,
+    body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .disclosure__toggle {
       color: #212121;
     }
-    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner svg,
-    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .cart {
+    body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner svg,
+    body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .cart {
       fill: #212121;
       color: #212121;
     }
-    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .menu .icon-menu__bar {
+    body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .menu .icon-menu__bar {
       background-color: #212121;
     }
-    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .logo img {
+    body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control .logo img {
       filter: brightness(0);
     }
     @media (min-width: 768px) {
-      :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control.nav-inline-desktop:hover .logo {
+      body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control.nav-inline-desktop:hover .logo {
         color: #f2f2f2;
       }
-      :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control.nav-inline-desktop:hover .logo img {
+      body.mema-white-page:not(.modal-active):not(.nav-mega-open) #site-control.nav-inline-desktop:hover .logo img {
         filter: none;
       }
     }
@@ -264,7 +264,7 @@
   {% render 'helios-i18n' %}
 </head>
 
-<body class="page-{{ page_title | handle }} {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %}{% if template contains 'customers' %} template-customer-area{% endif %}{% if logo_html contains 'img' %} has-logo{% endif %} animation-speed-{{ settings.animation_speed }}"
+<body class="page-{{ page_title | handle }} {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %}{% if template.suffix == 'uprize-meme-collection' %} mema-white-page{% endif %}{% if template.name == 'product' and template.suffix contains 'mema-' %} mema-white-page{% endif %}{% if template contains 'customers' %} template-customer-area{% endif %}{% if logo_html contains 'img' %} has-logo{% endif %} animation-speed-{{ settings.animation_speed }}"
       {% if settings.animation_speed == "fast" %}data-cc-animate-timeout="0"{% endif %}>
   {% if settings.animation_enabled_mobile %}
     <script>
