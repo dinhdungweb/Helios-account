@@ -238,28 +238,28 @@
         "mobile_spacing": 20
       }
     },
-    "blocks_AdG4zX": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_1d3b865_rcXCtp": {
-          "type": "ai_gen_block_1d3b865",
-          "name": "Large image",
-          "settings": {
-            "image": "shopify://shop_images/STANDARD_INDIVIDUALS_optimized.webp",
-            "image_fit": "contain",
-            "image_position": "center",
-            "desktop_height": 750,
-            "mobile_height": 400,
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_1d3b865_rcXCtp"
-      ],
-      "name": "Large image",
-      "settings": {}
+    "rich_text_NgdHPn": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "MEMA Origin Pendant",
+        "title_size": 30,
+        "title_width": 26,
+        "heading_h1": false,
+        "text": "<p>Một điểm đá xanh nằm giữa hai nét cuộn trong khung bạc. Chi tiết ấy là Origin, một điểm nhỏ được giữ gần tim, gợi về lần đầu một người trở nên đáng nhớ với mình.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     },
     "17907591362a40ee49": {
       "type": "apps",
@@ -471,7 +471,7 @@
     "main",
     "tab_description_Mct6Bb",
     "custom_spacing_PGhXBd",
-    "blocks_AdG4zX",
+    "rich_text_NgdHPn",
     "17907591362a40ee49",
     "custom_spacing_Bx9JEX",
     "background_video_jhNGKc",
