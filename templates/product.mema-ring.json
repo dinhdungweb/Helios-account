@@ -230,14 +230,6 @@
         "fade_color": "#ffffff"
       }
     },
-    "custom_spacing_PGhXBd": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 40,
-        "mobile_spacing": 20
-      }
-    },
     "blocks_AdG4zX": {
       "type": "_blocks",
       "blocks": {
@@ -258,6 +250,7 @@
       "block_order": [
         "ai_gen_block_1d3b865_rcXCtp"
       ],
+      "disabled": true,
       "name": "Large image",
       "settings": {}
     },
@@ -288,10 +281,34 @@
     },
     "custom_spacing_Bx9JEX": {
       "type": "custom-spacing",
+      "disabled": true,
       "name": "Custom spacing",
       "settings": {
-        "desktop_spacing": 60,
+        "desktop_spacing": 20,
         "mobile_spacing": 35
+      }
+    },
+    "rich_text_K9Pq66": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "MEMA Loop Ring",
+        "title_size": 26,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Nét cuộn và những điểm xanh lặp quanh thân nhẫn khép kín. Loop kể về việc quay lại, qua mỗi lần UPRIZE và RIZER tiếp tục chọn có mặt cho nhau.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
       }
     },
     "background_video_jhNGKc": {
@@ -470,10 +487,10 @@
     "custom_liquid_C3UJwm",
     "main",
     "tab_description_Mct6Bb",
-    "custom_spacing_PGhXBd",
     "blocks_AdG4zX",
     "17907591362a40ee49",
     "custom_spacing_Bx9JEX",
+    "rich_text_K9Pq66",
     "background_video_jhNGKc",
     "image_with_text_kUyLYN",
     "image_with_text_xAeKkA",
