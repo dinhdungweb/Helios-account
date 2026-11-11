@@ -288,6 +288,7 @@
     },
     "background_video_jhNGKc": {
       "type": "background-video",
+      "disabled": true,
       "name": "Background video",
       "settings": {
         "video_shopify": "shopify://files/videos/Video web trang sản _optimized.webm",
