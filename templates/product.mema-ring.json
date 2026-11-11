@@ -279,14 +279,6 @@
         "skip_container": true
       }
     },
-    "custom_spacing_Bx9JEX": {
-      "type": "custom-spacing",
-      "name": "Custom spacing",
-      "settings": {
-        "desktop_spacing": 20,
-        "mobile_spacing": 35
-      }
-    },
     "rich_text_K9Pq66": {
       "type": "rich-text",
       "name": "Rich text",
@@ -310,8 +302,17 @@
         "color_text": ""
       }
     },
+    "custom_spacing_Bx9JEX": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 20,
+        "mobile_spacing": 35
+      }
+    },
     "background_video_jhNGKc": {
       "type": "background-video",
+      "disabled": true,
       "name": "Background video",
       "settings": {
         "video_shopify": "shopify://files/videos/Video web trang sản _optimized.webm",
