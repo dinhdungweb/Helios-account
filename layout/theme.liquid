@@ -108,6 +108,33 @@
     </style>
   {% endif %}
 
+  <style>
+    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .logo,
+    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner a,
+    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .disclosure__toggle {
+      color: #212121;
+    }
+    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner svg,
+    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .cart {
+      fill: #212121;
+      color: #212121;
+    }
+    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .site-control__inner .menu .icon-menu__bar {
+      background-color: #212121;
+    }
+    :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control .logo img {
+      filter: brightness(0);
+    }
+    @media (min-width: 768px) {
+      :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control.nav-inline-desktop:hover .logo {
+        color: #f2f2f2;
+      }
+      :is(body.template-suffix-uprize-meme-collection, body.template-product[class*="template-suffix-mema-"]):not(.modal-active):not(.nav-mega-open) #site-control.nav-inline-desktop:hover .logo img {
+        filter: none;
+      }
+    }
+  </style>
+
   {%- if request.design_mode -%}
     <script src="{{ 'store-info.v1.0.0.js' | asset_url }}" defer="defer" data-theme="Showcase" data-version="7.1.4" data-contact="{{ shop.email | escape }}"></script>
   {%- endif -%}
