@@ -258,6 +258,7 @@
       "block_order": [
         "ai_gen_block_1d3b865_rcXCtp"
       ],
+      "disabled": true,
       "name": "Large image",
       "settings": {}
     },
@@ -286,6 +287,52 @@
         "skip_container": true
       }
     },
+    "rich_text_k6kgDB": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": " MEMA Route Bracelet · 7-Charm",
+        "title_size": 30,
+        "title_width": 28,
+        "heading_h1": false,
+        "text": "<p>Những mắt xích nhỏ nối về mặt bạc ở giữa, cạnh một charm sao chuyển động theo cổ tay. Route là quãng đường được tạo nên từ những lần rất nhỏ mình chọn lắng nghe, nhớ đến và có mặt cho nhau.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "rich_text_CWTzVU": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "MEMA Address Choker",
+        "title_size": 30,
+        "title_width": 28,
+        "heading_h1": false,
+        "text": "<p>Những cụm bạc và đá xanh nối tiếp nhau thành một dải ôm sát cổ. Từ một điểm xanh trên mặt dây, đến đây nhiều điểm cùng hiện diện trên một đường. Address là nơi chốn chung mà UPRIZE và RIZER tạo nên khi gặp nhau.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "custom_spacing_Bx9JEX": {
       "type": "custom-spacing",
       "name": "Custom spacing",
@@ -296,6 +343,7 @@
     },
     "background_video_jhNGKc": {
       "type": "background-video",
+      "disabled": true,
       "name": "Background video",
       "settings": {
         "video_shopify": "shopify://files/videos/Video web trang sản _optimized.webm",
@@ -473,6 +521,8 @@
     "custom_spacing_PGhXBd",
     "blocks_AdG4zX",
     "17907591362a40ee49",
+    "rich_text_k6kgDB",
+    "rich_text_CWTzVU",
     "custom_spacing_Bx9JEX",
     "background_video_jhNGKc",
     "image_with_text_kUyLYN",
