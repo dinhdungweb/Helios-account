@@ -80,6 +80,34 @@
     </style>
   {% endif %}
 
+  {% if template.name == 'product' and template.suffix contains 'mema-' %}
+    <style>
+      body.template-product[class*="template-suffix-mema-"] {
+        background: #ffffff;
+      }
+      body.template-product[class*="template-suffix-mema-"] #page-content,
+      body.template-product[class*="template-suffix-mema-"] #page-content .section-spacing,
+      body.template-product[class*="template-suffix-mema-"] #page-content .shopify-section {
+        background-color: #ffffff;
+      }
+      body.template-product[class*="template-suffix-mema-"] #page-content { color: #423f3f; }
+      body.template-product[class*="template-suffix-mema-"] #page-content h1,
+      body.template-product[class*="template-suffix-mema-"] #page-content h2,
+      body.template-product[class*="template-suffix-mema-"] #page-content h3,
+      body.template-product[class*="template-suffix-mema-"] #page-content h4,
+      body.template-product[class*="template-suffix-mema-"] #page-content .product-block .title,
+      body.template-product[class*="template-suffix-mema-"] #page-content .product-block .price,
+      body.template-product[class*="template-suffix-mema-"] #page-content .product-block .vendor,
+      body.template-product[class*="template-suffix-mema-"] #page-content a:not(.btn):not(.button) {
+        color: #212121;
+      }
+      body.template-product[class*="template-suffix-mema-"] #page-content .image-overlay .overlay__content,
+      body.template-product[class*="template-suffix-mema-"] #page-content .image-overlay .overlay__content * {
+        color: #ffffff;
+      }
+    </style>
+  {% endif %}
+
   {%- if request.design_mode -%}
     <script src="{{ 'store-info.v1.0.0.js' | asset_url }}" defer="defer" data-theme="Showcase" data-version="7.1.4" data-contact="{{ shop.email | escape }}"></script>
   {%- endif -%}

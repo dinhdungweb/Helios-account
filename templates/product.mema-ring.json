@@ -227,7 +227,7 @@
         "expand_label": "Xem thêm",
         "collapse_label": "Thu gọn",
         "collapsed_height": 350,
-        "fade_color": "#000000"
+        "fade_color": "#ffffff"
       }
     },
     "custom_spacing_PGhXBd": {
@@ -339,8 +339,8 @@
         "image_position": "right",
         "media_size": "cover",
         "color_scheme": "custom",
-        "color_bg": "#0c0c0c",
-        "color_text": ""
+        "color_bg": "#ffffff",
+        "color_text": "#212121"
       }
     },
     "image_with_text_xAeKkA": {
@@ -362,8 +362,8 @@
         "image_position": "left",
         "media_size": "cover",
         "color_scheme": "custom",
-        "color_bg": "#0c0c0c",
-        "color_text": ""
+        "color_bg": "#ffffff",
+        "color_text": "#212121"
       }
     },
     "product_feedback_gallery_XyZ123": {
@@ -377,7 +377,7 @@
         "images_per_row_desktop": 4,
         "images_per_row_tablet": 2,
         "images_per_row_mobile": 2,
-        "heading_color": "#ffffff",
+        "heading_color": "#212121",
         "text_color": "#777777",
         "grid_gap": 20,
         "border_radius": 6,
@@ -447,7 +447,7 @@
         ".accordion-container .h2 {text-align: center; padding-right: 0;}",
         ".accordion-container .section-heading {display: block;}",
         ".accordion-container.reading-width {max-width: 1000px;}",
-        "div#section-id-template--18114500165853__accordions_gkjQkM {background: #111; padding: 80px 0;}"
+        "div#section-id-template--18114500165853__accordions_gkjQkM {background: #ffffff; padding: 80px 0;}"
       ],
       "settings": {
         "title": "Câu Hỏi Thường Gặp!",
