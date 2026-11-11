@@ -42,6 +42,32 @@
             "image_6": "shopify://shop_images/DSC05506.JPG_compressed_optimized.webp"
           }
         },
+        "store_qb7JKL": {
+          "type": "store",
+          "disabled": true,
+          "settings": {
+            "tab": "tab_1",
+            "anchor_id": "nguyen-trai",
+            "kicker": "",
+            "title": "HELIOS HÀNG DA",
+            "badge": "",
+            "text_alignment": "justify",
+            "media_position": "right",
+            "address": "<p>19 P. Hàng Da, Phố cổ Hà Nội, Hoàn Kiếm, Hà Nội</p>",
+            "description": "<p>Điểm gặp trang sức bạc thủ công giữa lòng Hà Nội, nơi bạn trực tiếp khám phá, thử và chọn một dấu ấn mang theo mình.</p><p>Những thiết kế bạc S925 thủ công được làm bởi bàn tay nghệ nhân Việt, mỗi món bạc mang theo những biểu tượng và câu chuyện riêng đồng hành cùng người đàn ông.</p>",
+            "opening_hours": "8:30am - 10pm",
+            "hotline": "0964302899",
+            "direction_url": "https://maps.app.goo.gl/s8HthagRRVfdhu5C9",
+            "direction_label": "HƯỚNG ĐI",
+            "open_direction_new_tab": true,
+            "image_1": "shopify://shop_images/DSC0617.jpg_compressed_optimized.webp",
+            "image_2": "shopify://shop_images/DSC05462.JPG_compressed_optimized.webp",
+            "image_3": "shopify://shop_images/DSC05509.JPG_compressed_optimized.webp",
+            "image_4": "shopify://shop_images/DSC05413.JPG_compressed_optimized.webp",
+            "image_5": "shopify://shop_images/DSC08379.jpg_compressed_optimized.webp",
+            "image_6": "shopify://shop_images/DSC05506.JPG_compressed_optimized.webp"
+          }
+        },
         "nguyen_gia_tri": {
           "type": "store",
           "settings": {
@@ -123,6 +149,7 @@
       },
       "block_order": [
         "nguyen_trai",
+        "store_qb7JKL",
         "nguyen_gia_tri",
         "vincom_dong_khoi",
         "ba_hat"
