@@ -281,7 +281,6 @@
     },
     "custom_spacing_Bx9JEX": {
       "type": "custom-spacing",
-      "disabled": true,
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 20,
@@ -489,8 +488,8 @@
     "tab_description_Mct6Bb",
     "blocks_AdG4zX",
     "17907591362a40ee49",
-    "custom_spacing_Bx9JEX",
     "rich_text_K9Pq66",
+    "custom_spacing_Bx9JEX",
     "background_video_jhNGKc",
     "image_with_text_kUyLYN",
     "image_with_text_xAeKkA",
