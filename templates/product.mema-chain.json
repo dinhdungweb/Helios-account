@@ -238,29 +238,6 @@
         "mobile_spacing": 20
       }
     },
-    "blocks_AdG4zX": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_1d3b865_rcXCtp": {
-          "type": "ai_gen_block_1d3b865",
-          "name": "Large image",
-          "settings": {
-            "image": "shopify://shop_images/STANDARD_INDIVIDUALS_optimized.webp",
-            "image_fit": "contain",
-            "image_position": "center",
-            "desktop_height": 750,
-            "mobile_height": 400,
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_1d3b865_rcXCtp"
-      ],
-      "name": "Large image",
-      "settings": {}
-    },
     "17907591362a40ee49": {
       "type": "apps",
       "blocks": {
@@ -286,6 +263,29 @@
         "skip_container": true
       }
     },
+    "rich_text_YnkYNJ": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "MEMA Address Choker",
+        "title_size": 30,
+        "title_width": 22,
+        "heading_h1": false,
+        "text": "<p>Những cụm bạc và đá xanh nối tiếp nhau thành một dải ôm sát cổ. Từ một điểm xanh trên mặt dây, đến đây nhiều điểm cùng hiện diện trên một đường. Address là nơi chốn chung mà UPRIZE và RIZER tạo nên khi gặp nhau.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "custom_spacing_Bx9JEX": {
       "type": "custom-spacing",
       "name": "Custom spacing",
@@ -296,6 +296,7 @@
     },
     "background_video_jhNGKc": {
       "type": "background-video",
+      "disabled": true,
       "name": "Background video",
       "settings": {
         "video_shopify": "shopify://files/videos/Video web trang sản _optimized.webm",
@@ -471,8 +472,8 @@
     "main",
     "tab_description_Mct6Bb",
     "custom_spacing_PGhXBd",
-    "blocks_AdG4zX",
     "17907591362a40ee49",
+    "rich_text_YnkYNJ",
     "custom_spacing_Bx9JEX",
     "background_video_jhNGKc",
     "image_with_text_kUyLYN",
