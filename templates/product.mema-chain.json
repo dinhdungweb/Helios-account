@@ -232,6 +232,7 @@
     },
     "custom_spacing_PGhXBd": {
       "type": "custom-spacing",
+      "disabled": true,
       "name": "Custom spacing",
       "settings": {
         "desktop_spacing": 40,
