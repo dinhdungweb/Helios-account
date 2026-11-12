@@ -63,7 +63,7 @@
         "title": "",
         "featured_collection_align": "center",
         "collection": "new-in",
-        "layout": "rows",
+        "layout": "carousel",
         "show_arrows": true,
         "show_dots": false,
         "show_progress": false,
