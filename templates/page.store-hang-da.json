@@ -14,7 +14,74 @@
       "disabled": true,
       "settings": {}
     },
-    "store_landing": {
+    "store_landing_top": {
+      "type": "store-landing",
+      "settings": {
+        "address": "19 Phố Hàng Da, Phường Hoàn Kiếm, Hà Nội",
+        "opening_hours": "8:30 – 22:00, tất cả các ngày",
+        "open_time": "08:30",
+        "close_time": "22:00",
+        "hotline": "0964 302 899",
+        "map_url": "https://maps.app.goo.gl/s8HthagRRVfdhu5C9",
+        "map_query": "19 Hàng Da, Hoàn Kiếm, Hà Nội",
+        "parking": "",
+        "zalo_url": "",
+        "accent_color": "#fab320",
+        "line_color": "#3a3a3a",
+        "hero_label": "HELIOS đã có mặt tại",
+        "hero_title": "Hàng Da",
+        "title_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
+        "title_size": 210,
+        "title_size_mobile": 72,
+        "hero_subtitle": "Ngay giữa lòng Hà Nội",
+        "quote": "<p>Một sự kết nối thực sự chỉ bắt đầu khi ta trực tiếp cầm nắm và cảm nhận một tác phẩm bằng chính đôi tay và cảm xúc của mình.</p>",
+        "intro": "<p>Những thiết kế bạc S925 thủ công được làm bởi bàn tay nghệ nhân Việt, mỗi món bạc mang theo những biểu tượng và câu chuyện riêng đồng hành cùng người đàn ông.</p>",
+        "space_label": "Không gian",
+        "space_heading": "Một góc bạc giữa phố cổ",
+        "space_image_1": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp",
+        "space_position_1": "30% center",
+        "space_image_2": "shopify://shop_images/2aOboRBpV7cfQr9yqTJdpJLW1zcQRT3dOmv4C7bk_optimized.webp",
+        "space_position_2": "42% center",
+        "space_image_3": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
+        "space_position_3": "28% center",
+        "space_caption": "Thêm một điểm hẹn mới tại 19 Hàng Da, nơi bạn có thể trực tiếp khám phá, thử và lựa chọn những thiết kế phù hợp với mình.",
+        "route_label": "Đường đến",
+        "route_heading": "Cách Hồ Gươm vài phút",
+        "faq_heading": "Câu hỏi thường gặp",
+        "final_label": "HELIOS đã có mặt tại",
+        "final_heading": "19 Phố Hàng Da\nPhường Hoàn Kiếm, Hà Nội",
+        "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn.",
+        "part": "top"
+      }
+    },
+    "featured_collection_hang_da": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "Những tác phẩm chờ bạn",
+        "featured_collection_align": "center",
+        "collection": "new-in",
+        "layout": "rows",
+        "show_arrows": true,
+        "show_dots": false,
+        "show_progress": false,
+        "dot_color": "#777777",
+        "dot_active_color": "#ffffff",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 1,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": true
+      }
+    },
+    "store_landing_bottom": {
       "type": "store-landing",
       "blocks": {
         "faq_hours": {
@@ -65,23 +132,20 @@
         "space_image_3": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
         "space_position_3": "28% center",
         "space_caption": "Thêm một điểm hẹn mới tại 19 Hàng Da, nơi bạn có thể trực tiếp khám phá, thử và lựa chọn những thiết kế phù hợp với mình.",
-        "show_products": true,
-        "products_label": "Có sẵn tại Hàng Da",
-        "products_heading": "Những tác phẩm chờ bạn",
-        "collection": "new-in",
-        "products_count": 4,
-        "products_button_label": "Xem toàn bộ bộ sưu tập",
         "route_label": "Đường đến",
         "route_heading": "Cách Hồ Gươm vài phút",
         "faq_heading": "Câu hỏi thường gặp",
         "final_label": "HELIOS đã có mặt tại",
         "final_heading": "19 Phố Hàng Da\nPhường Hoàn Kiếm, Hà Nội",
-        "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn."
+        "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn.",
+        "part": "bottom"
       }
     }
   },
   "order": [
     "main",
-    "store_landing"
+    "store_landing_top",
+    "featured_collection_hang_da",
+    "store_landing_bottom"
   ]
 }
