@@ -27,7 +27,6 @@
         "parking": "",
         "zalo_url": "",
         "accent_color": "#fab320",
-        "line_color": "#3a3a3a",
         "hero_label": "HELIOS đã có mặt tại",
         "hero_title": "Hàng Da",
         "title_size": 210,
@@ -54,7 +53,8 @@
         "products_label": "Có sẵn tại Hàng Da",
         "products_heading": "Những tác phẩm chờ bạn",
         "hero_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
-        "hero_image_mobile": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp"
+        "hero_image_mobile": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp",
+        "hero_position": "center bottom"
       }
     },
     "featured_collection_hang_da": {
@@ -167,7 +167,6 @@
         "parking": "",
         "zalo_url": "",
         "accent_color": "#fab320",
-        "line_color": "#3a3a3a",
         "hero_label": "HELIOS đã có mặt tại",
         "hero_title": "Hàng Da",
         "title_size": 210,
@@ -194,7 +193,8 @@
         "products_button_label": "Xem toàn bộ bộ sưu tập",
         "products_button_link": "shopify://collections/new-in",
         "hero_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
-        "hero_image_mobile": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp"
+        "hero_image_mobile": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp",
+        "hero_position": "center bottom"
       }
     }
   },

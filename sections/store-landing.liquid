@@ -13,7 +13,7 @@
 <style>
   #StoreLanding-{{ section.id }} {
     --hdl-accent: {{ s.accent_color }};
-    --hdl-line: {{ s.line_color }};
+    --hdl-line: #3a3a3a;
     --hdl-giant: {{ s.title_size }}px;
     --hdl-giant-mobile: {{ s.title_size_mobile }}px;
   }
@@ -182,7 +182,8 @@
     {%- if s.hero_image -%}
       {%- liquid
         assign hero_mobile = s.hero_image_mobile | default: s.hero_image
-        assign hero_pos = 'object-position: ' | append: s.hero_image.presentation.focal_point
+        assign hero_pos = s.hero_position | default: s.hero_image.presentation.focal_point
+        assign hero_pos = 'object-position: ' | append: hero_pos
       -%}
       <picture class="hdl-hero__media">
         <source media="(max-width: 767px)" srcset="{{ hero_mobile | image_url: width: 800 }} 800w, {{ hero_mobile | image_url: width: 1200 }} 1200w" sizes="100vw">
@@ -462,13 +463,13 @@
 
     { "type": "header", "content": "Màu sắc" },
     { "type": "color", "id": "accent_color", "label": "Màu nhấn", "default": "#fab320" },
-    { "type": "color", "id": "line_color", "label": "Màu đường kẻ", "default": "#3a3a3a" },
 
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "hero_label", "label": "Dòng nhỏ phía trên", "default": "HELIOS đã có mặt tại" },
     { "type": "text", "id": "hero_title", "label": "Tiêu đề lớn", "default": "Hàng Da" },
     { "type": "image_picker", "id": "hero_image", "label": "Ảnh banner", "info": "Ảnh ngang, tối thiểu 2000px. Chỉnh điểm lấy nét của ảnh để căn khung" },
     { "type": "image_picker", "id": "hero_image_mobile", "label": "Ảnh banner mobile", "info": "Ảnh dọc. Để trống sẽ dùng ảnh banner" },
+    { "type": "text", "id": "hero_position", "label": "Vị trí cắt ảnh banner", "info": "Ví dụ: center bottom. Để trống dùng điểm lấy nét" },
     { "type": "range", "id": "title_size", "label": "Cỡ tiêu đề desktop", "min": 80, "max": 260, "step": 10, "unit": "px", "default": 210 },
     { "type": "range", "id": "title_size_mobile", "label": "Cỡ tiêu đề mobile", "min": 40, "max": 100, "step": 2, "unit": "px", "default": 72 },
     { "type": "text", "id": "hero_subtitle", "label": "Dòng phụ", "default": "Ngay giữa lòng Hà Nội" },
