@@ -39,9 +39,26 @@
   .hdl-btn svg { width: 16px; height: 16px; flex: none; }
 
   /* Hero */
-  .hdl-hero { padding: 88px 0 96px; gap: 18px; }
+  .hdl-hero { position: relative; padding: 88px 0 96px; }
+  .hdl-hero__content { position: relative; z-index: 1; gap: 18px; }
+  .hdl-hero--banner { display: flex; align-items: flex-end; min-height: min(88vh, 920px); padding: 120px 0 88px; overflow: hidden; color: #fff; }
+  .hdl-hero__media, .hdl-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hdl-hero__media img { object-fit: cover; }
+  .hdl-hero__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.55) 42%, rgba(0,0,0,.2) 72%, rgba(0,0,0,.35) 100%); }
+  .hdl-hero--banner .hdl-label, .hdl-hero--banner .hdl-ornament { color: #fff; }
   .hdl .hdl-giant { margin: 0; font-size: var(--hdl-giant); line-height: 1; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
-  .hdl .hdl-giant--image { background-size: cover; background-position: center; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px rgba(237, 237, 237, .35); }
+  .hdl .hdl-hero--banner .hdl-giant { color: #fff; text-shadow: 0 2px 30px rgba(0,0,0,.45); }
+
+  /* Photo mosaic */
+  .hdl-mosaic { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 280px; grid-auto-flow: dense; gap: 12px; }
+  .hdl-mosaic__item { position: relative; overflow: hidden; margin: 0; }
+  .hdl-mosaic__item img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+  .hdl-mosaic__item:hover img { transform: scale(1.04); }
+  .hdl-mosaic__item--wide { grid-column: span 2; }
+  .hdl-mosaic__item--tall { grid-row: span 2; }
+  .hdl-mosaic__item--big { grid-column: span 2; grid-row: span 2; }
+  .hdl-mosaic__item--full { grid-column: 1 / -1; grid-row: span 2; }
+  .hdl-mosaic__caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 16px 14px; margin: 0; color: #fff; background: linear-gradient(to top, rgba(0,0,0,.7), transparent); font-size: .8em; letter-spacing: .2em; text-transform: uppercase; }
   .hdl-hero__sub { margin: 0; font-style: italic; font-size: 1.6em; }
   .hdl-hero__address { margin: 0; font-size: 1.25em; letter-spacing: .06em; }
   .hdl-status { display: inline-flex; align-items: center; gap: 10px; }
@@ -122,6 +139,9 @@
     .hdl-wrap { padding: 0 16px; }
     .hdl-sec { padding: 72px 0; }
     .hdl-hero { padding: 56px 0 64px; }
+    .hdl-hero--banner { min-height: 82vh; padding: 96px 0 48px; }
+    .hdl-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 170px; gap: 8px; }
+    .hdl-mosaic__item--wide, .hdl-mosaic__item--big, .hdl-mosaic__item--full { grid-column: 1 / -1; }
     .hdl .hdl-giant { font-size: var(--hdl-giant-mobile); }
     .hdl-hero__sub { font-size: 1.35em; }
     .hdl-hero .hdl-btns { flex-direction: column; width: 100%; }
@@ -158,14 +178,22 @@
 
   {%- if part != 'bottom' -%}
   {%- comment -%} HERO {%- endcomment -%}
-  <section class="hdl-hero hdl-center">
-    <div class="hdl-wrap hdl-center" style="gap: 18px;">
+  <section class="hdl-hero{% if s.hero_image %} hdl-hero--banner{% endif %}">
+    {%- if s.hero_image -%}
+      {%- liquid
+        assign hero_mobile = s.hero_image_mobile | default: s.hero_image
+        assign hero_pos = 'object-position: ' | append: s.hero_image.presentation.focal_point
+      -%}
+      <picture class="hdl-hero__media">
+        <source media="(max-width: 767px)" srcset="{{ hero_mobile | image_url: width: 800 }} 800w, {{ hero_mobile | image_url: width: 1200 }} 1200w" sizes="100vw">
+        {{ s.hero_image | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '1200, 1600, 2000, 2400', alt: s.hero_image.alt, style: hero_pos }}
+      </picture>
+      <div class="hdl-hero__overlay" aria-hidden="true"></div>
+    {%- endif -%}
+    <div class="hdl-wrap hdl-center hdl-hero__content">
       <svg class="hdl-ornament" width="220" height="18" viewBox="0 0 220 18" fill="none" aria-hidden="true"><path d="M0 9h88M132 9h88" stroke="currentColor"></path><path d="M110 1l8 8-8 8-8-8z" stroke="currentColor"></path><path class="hdl-ornament__gem" d="M110 5l4 4-4 4-4-4z"></path></svg>
       {%- if s.hero_label != blank -%}<p class="hdl-label">{{ s.hero_label | escape }}</p>{%- endif -%}
-      <h1
-        class="hdl-giant{% if s.title_image %} hdl-giant--image{% endif %}"
-        {% if s.title_image %}style="background-image: url('{{ s.title_image | image_url: width: 2000 }}'); background-position: {{ s.title_image.presentation.focal_point | default: 'center' }};"{% endif %}
-      >{{ s.hero_title | escape }}</h1>
+      <h1 class="hdl-giant">{{ s.hero_title | escape }}</h1>
       {%- if s.hero_subtitle != blank -%}<p class="hdl-hero__sub">{{ s.hero_subtitle | escape }}</p>{%- endif -%}
       {%- if s.address != blank -%}<p class="hdl-hero__address hdl-heading-font hdl-accent">{{ s.address | escape }}</p>{%- endif -%}
       <p class="hdl-label hdl-status" data-hdl-status hidden>
@@ -247,6 +275,30 @@
       <a class="hdl-btn hdl-btn--line" href="{{ s.products_button_link }}">{{ s.products_button_label | escape }}</a>
     </div>
   {%- endif -%}
+
+  {%- comment -%} PHOTO MOSAIC {%- endcomment -%}
+  {%- assign photo_blocks = section.blocks | where: 'type', 'photo' -%}
+  {%- if photo_blocks.size > 0 -%}
+    <section class="hdl-sec" id="hinh-anh">
+      <div class="hdl-wrap">
+        <div class="hdl-mosaic">
+          {%- for block in photo_blocks -%}
+            {%- if block.settings.image -%}
+              {%- liquid
+                assign pos = block.settings.position | default: block.settings.image.presentation.focal_point
+                assign pos_style = 'object-position: ' | append: pos
+              -%}
+              <figure class="hdl-mosaic__item hdl-mosaic__item--{{ block.settings.size }}" {{ block.shopify_attributes }}>
+                {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(max-width: 767px) 100vw, 50vw', widths: '400, 700, 1000, 1400', alt: block.settings.image.alt, style: pos_style }}
+                {%- if block.settings.caption != blank -%}<figcaption class="hdl-mosaic__caption">{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
+              </figure>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
   {%- comment -%} ROUTE {%- endcomment -%}
   <section class="hdl-sec" id="duong-den">
     <div class="hdl-wrap hdl-route">
@@ -415,7 +467,8 @@
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "hero_label", "label": "Dòng nhỏ phía trên", "default": "HELIOS đã có mặt tại" },
     { "type": "text", "id": "hero_title", "label": "Tiêu đề lớn", "default": "Hàng Da" },
-    { "type": "image_picker", "id": "title_image", "label": "Ảnh bên trong chữ", "info": "Để trống để dùng chữ màu thường" },
+    { "type": "image_picker", "id": "hero_image", "label": "Ảnh banner", "info": "Ảnh ngang, tối thiểu 2000px. Chỉnh điểm lấy nét của ảnh để căn khung" },
+    { "type": "image_picker", "id": "hero_image_mobile", "label": "Ảnh banner mobile", "info": "Ảnh dọc. Để trống sẽ dùng ảnh banner" },
     { "type": "range", "id": "title_size", "label": "Cỡ tiêu đề desktop", "min": 80, "max": 260, "step": 10, "unit": "px", "default": 210 },
     { "type": "range", "id": "title_size_mobile", "label": "Cỡ tiêu đề mobile", "min": 40, "max": 100, "step": 2, "unit": "px", "default": 72 },
     { "type": "text", "id": "hero_subtitle", "label": "Dòng phụ", "default": "Ngay giữa lòng Hà Nội" },
@@ -455,6 +508,28 @@
     { "type": "text", "id": "final_text", "label": "Mô tả", "default": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn." }
   ],
   "blocks": [
+    {
+      "type": "photo",
+      "name": "Ảnh (lưới ảnh)",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Ảnh" },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Kích thước ô",
+          "options": [
+            { "value": "normal", "label": "Thường (1×1)" },
+            { "value": "wide", "label": "Ngang (2×1)" },
+            { "value": "tall", "label": "Dọc (1×2)" },
+            { "value": "big", "label": "Lớn (2×2)" },
+            { "value": "full", "label": "Tràn hàng" }
+          ],
+          "default": "normal"
+        },
+        { "type": "text", "id": "position", "label": "Vị trí cắt ảnh", "info": "Ví dụ: 30% center. Để trống dùng điểm lấy nét" },
+        { "type": "text", "id": "caption", "label": "Chú thích" }
+      ]
+    },
     {
       "type": "faq",
       "name": "Câu hỏi",

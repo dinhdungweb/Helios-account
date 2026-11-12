@@ -30,7 +30,6 @@
         "line_color": "#3a3a3a",
         "hero_label": "HELIOS đã có mặt tại",
         "hero_title": "Hàng Da",
-        "title_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
         "title_size": 210,
         "title_size_mobile": 72,
         "hero_subtitle": "Ngay giữa lòng Hà Nội",
@@ -53,7 +52,9 @@
         "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn.",
         "part": "top",
         "products_label": "Có sẵn tại Hàng Da",
-        "products_heading": "Những tác phẩm chờ bạn"
+        "products_heading": "Những tác phẩm chờ bạn",
+        "hero_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
+        "hero_image_mobile": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp"
       }
     },
     "featured_collection_hang_da": {
@@ -86,6 +87,51 @@
     "store_landing_bottom": {
       "type": "store-landing",
       "blocks": {
+        "photo_earring": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/4_optimized.webp",
+            "size": "tall",
+            "position": "center",
+            "caption": ""
+          }
+        },
+        "photo_ring": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/2_optimized.webp",
+            "size": "normal",
+            "position": "center",
+            "caption": ""
+          }
+        },
+        "photo_bracelet": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/5_optimized.webp",
+            "size": "normal",
+            "position": "center",
+            "caption": ""
+          }
+        },
+        "photo_eyewear": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/6_optimized.webp",
+            "size": "tall",
+            "position": "center",
+            "caption": ""
+          }
+        },
+        "photo_horse": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1_optimized.webp",
+            "size": "wide",
+            "position": "center 62%",
+            "caption": ""
+          }
+        },
         "faq_hours": {
           "type": "faq",
           "settings": {
@@ -102,6 +148,11 @@
         }
       },
       "block_order": [
+        "photo_earring",
+        "photo_ring",
+        "photo_bracelet",
+        "photo_eyewear",
+        "photo_horse",
         "faq_hours",
         "faq_contact"
       ],
@@ -119,7 +170,6 @@
         "line_color": "#3a3a3a",
         "hero_label": "HELIOS đã có mặt tại",
         "hero_title": "Hàng Da",
-        "title_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
         "title_size": 210,
         "title_size_mobile": 72,
         "hero_subtitle": "Ngay giữa lòng Hà Nội",
@@ -142,7 +192,9 @@
         "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn.",
         "part": "bottom",
         "products_button_label": "Xem toàn bộ bộ sưu tập",
-        "products_button_link": "shopify://collections/new-in"
+        "products_button_link": "shopify://collections/new-in",
+        "hero_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
+        "hero_image_mobile": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp"
       }
     }
   },
