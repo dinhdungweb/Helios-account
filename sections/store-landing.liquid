@@ -20,7 +20,8 @@
   .hdl { color: inherit; }
   .hdl * { box-sizing: border-box; }
   .hdl-wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-  .hdl-sec { padding: 112px 0; }
+  .hdl-sec { padding: 112px 0 0; }
+  .hdl-sec--last { padding-bottom: 112px; }
   .hdl-center { display: flex; flex-direction: column; align-items: center; text-align: center; }
   .hdl-heading-font { font-family: "Font-1785468145119", {{ heading_font.family }}, {{ heading_font.fallback_families }}; font-style: {{ heading_font.style }}; }
   .hdl-label { margin: 0; font-size: .8em; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; opacity: .8; }
@@ -86,7 +87,7 @@
 
   .hdl .hdl-sec--products-head { padding-bottom: 0; }
   .hdl .hdl-sec--products-head .hdl-head { margin-bottom: 0; }
-  .hdl-products-more { padding-top: 16px; }
+  .hdl-products-more { padding-top: 24px; }
   .store-landing-section + .section-featured-collection .section-spacing { padding-top: 56px; padding-bottom: 32px; }
   .store-landing-section + .section-featured-collection .product-slider .swiper-container .swiper-wrapper { margin-top: 0; }
   .store-landing-section + .section-featured-collection .section-spacing { box-sizing: border-box; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 40px; padding-right: 40px; }
@@ -137,7 +138,8 @@
   }
   @media (max-width: 767px) {
     .hdl-wrap { padding: 0 16px; }
-    .hdl-sec { padding: 72px 0; }
+    .hdl-sec { padding: 72px 0 0; }
+    .hdl-sec--last { padding-bottom: 72px; }
     .hdl-hero { padding: 56px 0 64px; }
     .hdl-hero--banner { min-height: 82vh; padding: 96px 0 48px; }
     .hdl-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 170px; gap: 8px; }
@@ -350,7 +352,7 @@
   {%- endif -%}
 
   {%- comment -%} FINAL CTA {%- endcomment -%}
-  <section class="hdl-sec">
+  <section class="hdl-sec hdl-sec--last">
     <div class="hdl-wrap hdl-final hdl-center">
       <svg class="hdl-ornament" width="220" height="18" viewBox="0 0 220 18" fill="none" aria-hidden="true"><path d="M0 9h88M132 9h88" stroke="currentColor"></path><path d="M110 1l8 8-8 8-8-8z" stroke="currentColor"></path><path class="hdl-ornament__gem" d="M110 5l4 4-4 4-4-4z"></path></svg>
       {%- if s.final_label != blank -%}<p class="hdl-label">{{ s.final_label | escape }}</p>{%- endif -%}
