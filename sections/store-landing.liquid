@@ -67,6 +67,9 @@
   .hdl-arch--tall img { height: 520px; }
   .hdl-caption { max-width: 640px; margin: 48px auto 0; text-align: center; font-style: italic; }
 
+  .hdl-sec--products-head { padding-bottom: 0; }
+  .hdl-sec--products-head .hdl-head { margin-bottom: 0; }
+  .hdl-products-more { padding-top: 16px; }
   .hdl-frame { border: 1px solid var(--hdl-line); padding: 10px; }
 
   /* Route */
@@ -215,9 +218,24 @@
     </section>
   {%- endif -%}
 
+  {%- if s.products_label != blank or s.products_heading != blank -%}
+    <section class="hdl-sec hdl-sec--products-head" id="san-pham">
+      <div class="hdl-wrap">
+        <div class="hdl-head hdl-center">
+          {%- if s.products_label != blank -%}<p class="hdl-label">{{ s.products_label | escape }}</p>{%- endif -%}
+          {%- if s.products_heading != blank -%}<h2>{{ s.products_heading | escape }}</h2>{%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
   {%- endif -%}
 
   {%- if part != 'top' -%}
+  {%- if s.products_button_label != blank and s.products_button_link != blank -%}
+    <div class="hdl-wrap hdl-btns hdl-products-more">
+      <a class="hdl-btn hdl-btn--line" href="{{ s.products_button_link }}">{{ s.products_button_label | escape }}</a>
+    </div>
+  {%- endif -%}
   {%- comment -%} ROUTE {%- endcomment -%}
   <section class="hdl-sec" id="duong-den">
     <div class="hdl-wrap hdl-route">
@@ -406,6 +424,12 @@
     { "type": "text", "id": "space_position_3", "label": "Vị trí cắt ảnh 3" },
     { "type": "text", "id": "space_caption", "label": "Chú thích" },
 
+
+    { "type": "header", "content": "Tác phẩm (đặt quanh Featured collection)" },
+    { "type": "text", "id": "products_label", "label": "Nhãn", "info": "Hiện ở cuối phần trên" },
+    { "type": "text", "id": "products_heading", "label": "Tiêu đề", "info": "Hiện ở cuối phần trên" },
+    { "type": "text", "id": "products_button_label", "label": "Nhãn nút xem thêm", "info": "Hiện ở đầu phần dưới" },
+    { "type": "url", "id": "products_button_link", "label": "Link nút xem thêm" },
 
     { "type": "header", "content": "Đường đến" },
     { "type": "text", "id": "route_label", "label": "Nhãn", "default": "Đường đến" },

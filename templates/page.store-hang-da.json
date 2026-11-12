@@ -51,14 +51,16 @@
         "final_label": "HELIOS đã có mặt tại",
         "final_heading": "19 Phố Hàng Da\nPhường Hoàn Kiếm, Hà Nội",
         "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn.",
-        "part": "top"
+        "part": "top",
+        "products_label": "Có sẵn tại Hàng Da",
+        "products_heading": "Những tác phẩm chờ bạn"
       }
     },
     "featured_collection_hang_da": {
       "type": "featured-collection",
       "name": "Featured collection",
       "settings": {
-        "title": "Những tác phẩm chờ bạn",
+        "title": "",
         "featured_collection_align": "center",
         "collection": "new-in",
         "layout": "rows",
@@ -78,7 +80,7 @@
         "grid_mobile": "2",
         "hide_swatches": false,
         "alternate_bg_color": false,
-        "show_view_all": true
+        "show_view_all": false
       }
     },
     "store_landing_bottom": {
@@ -138,7 +140,9 @@
         "final_label": "HELIOS đã có mặt tại",
         "final_heading": "19 Phố Hàng Da\nPhường Hoàn Kiếm, Hà Nội",
         "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn.",
-        "part": "bottom"
+        "part": "bottom",
+        "products_button_label": "Xem toàn bộ bộ sưu tập",
+        "products_button_link": "shopify://collections/new-in"
       }
     }
   },
