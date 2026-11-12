@@ -26,9 +26,8 @@
   .hdl-heading-font { font-family: "Font-1785468145119", {{ heading_font.family }}, {{ heading_font.fallback_families }}; font-style: {{ heading_font.style }}; }
   .hdl-label { margin: 0; font-size: .8em; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; opacity: .8; }
   .hdl-muted { opacity: .78; }
-  .hdl-accent { color: var(--hdl-accent); }
   .hdl-ornament { display: block; color: var(--hdl-line); }
-  .hdl-ornament .hdl-ornament__gem { fill: var(--hdl-accent); }
+  .hdl-ornament .hdl-ornament__gem { fill: currentColor; opacity: .7; }
 
   /* Buttons */
   .hdl-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
@@ -65,7 +64,7 @@
   .hdl-status { display: inline-flex; align-items: center; gap: 10px; }
   .hdl-status[hidden] { display: none; }
   .hdl-status__dot { width: 7px; height: 7px; transform: rotate(45deg); background: var(--hdl-line); }
-  .hdl-status.is-open .hdl-status__dot { background: var(--hdl-accent); }
+  .hdl-status.is-open .hdl-status__dot { background: currentColor; }
   .hdl-hero .hdl-btns { margin-top: 18px; }
 
   /* Manifesto */
@@ -199,7 +198,7 @@
       {%- if s.hero_label != blank -%}<p class="hdl-label">{{ s.hero_label | escape }}</p>{%- endif -%}
       <h1 class="hdl-giant">{{ s.hero_title | escape }}</h1>
       {%- if s.hero_subtitle != blank -%}<p class="hdl-hero__sub">{{ s.hero_subtitle | escape }}</p>{%- endif -%}
-      {%- if s.address != blank -%}<p class="hdl-hero__address hdl-heading-font hdl-accent">{{ s.address | escape }}</p>{%- endif -%}
+      {%- if s.address != blank -%}<p class="hdl-hero__address hdl-heading-font">{{ s.address | escape }}</p>{%- endif -%}
       <p class="hdl-label hdl-status" data-hdl-status hidden>
         <span class="hdl-status__dot" aria-hidden="true"></span>
         <span data-hdl-status-text></span>
@@ -358,7 +357,7 @@
     <div class="hdl-wrap hdl-final hdl-center">
       <svg class="hdl-ornament" width="220" height="18" viewBox="0 0 220 18" fill="none" aria-hidden="true"><path d="M0 9h88M132 9h88" stroke="currentColor"></path><path d="M110 1l8 8-8 8-8-8z" stroke="currentColor"></path><path class="hdl-ornament__gem" d="M110 5l4 4-4 4-4-4z"></path></svg>
       {%- if s.final_label != blank -%}<p class="hdl-label">{{ s.final_label | escape }}</p>{%- endif -%}
-      {%- if s.final_heading != blank -%}<h2 class="hdl-accent" style="color: var(--hdl-accent);">{{ s.final_heading | escape | newline_to_br }}</h2>{%- endif -%}
+      {%- if s.final_heading != blank -%}<h2>{{ s.final_heading | escape | newline_to_br }}</h2>{%- endif -%}
       {%- if s.final_text != blank -%}<p class="hdl-muted" style="margin: 0; font-style: italic;">{{ s.final_text | escape }}</p>{%- endif -%}
       <div class="hdl-btns">
         {%- if s.map_url != blank -%}<a class="hdl-btn hdl-btn--primary" href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">Chỉ đường</a>{%- endif -%}
@@ -466,7 +465,7 @@
     { "type": "url", "id": "zalo_url", "label": "Link Zalo", "info": "Để trống để ẩn nút Zalo trên mobile" },
 
     { "type": "header", "content": "Màu sắc" },
-    { "type": "color", "id": "accent_color", "label": "Màu nhấn", "default": "#fab320" },
+    { "type": "color", "id": "accent_color", "label": "Màu nút chính", "default": "#fab320" },
 
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "hero_label", "label": "Dòng nhỏ phía trên", "default": "HELIOS đã có mặt tại" },
