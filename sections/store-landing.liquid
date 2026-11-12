@@ -22,7 +22,7 @@
   .hdl-wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
   .hdl-sec { padding: 112px 0; }
   .hdl-center { display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .hdl-heading-font { font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }}; font-style: {{ heading_font.style }}; }
+  .hdl-heading-font { font-family: "Font-1785468145119", {{ heading_font.family }}, {{ heading_font.fallback_families }}; font-style: {{ heading_font.style }}; }
   .hdl-label { margin: 0; font-size: .8em; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; opacity: .8; }
   .hdl-muted { opacity: .78; }
   .hdl-accent { color: var(--hdl-accent); }
@@ -101,6 +101,7 @@
   .hdl-faq details { border-bottom: 1px solid var(--hdl-line); }
   .hdl-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 44px; padding: 22px 0; cursor: pointer; list-style: none; font-size: 1.2em; }
   .hdl-faq summary::-webkit-details-marker { display: none; }
+  .hdl .hdl-faq__q { margin: 0; text-align: left; }
   .hdl-faq__plus { font-size: 1.4em; line-height: 1; transition: transform .2s; opacity: .7; }
   .hdl-faq details[open] .hdl-faq__plus { transform: rotate(45deg); }
   .hdl-faq__answer { padding: 0 0 22px; }
@@ -282,8 +283,8 @@
           <div class="hdl-faq__list">
             {%- for block in faq_blocks -%}
               <details {{ block.shopify_attributes }}>
-                <summary class="hdl-heading-font">
-                  <span>{{ block.settings.question | escape }}</span>
+                <summary>
+                  <h3 class="h4 hdl-faq__q">{{ block.settings.question | escape }}</h3>
                   <span class="hdl-faq__plus" aria-hidden="true">+</span>
                 </summary>
                 <div class="hdl-faq__answer hdl-muted">{{ block.settings.answer }}</div>
