@@ -173,11 +173,11 @@
         {%- if s.map_url != blank -%}
           <a class="hdl-btn hdl-btn--primary" href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-            {{ s.directions_label | escape }}
+            Chỉ đường
           </a>
         {%- endif -%}
         {%- if s.hotline != blank -%}
-          <a class="hdl-btn hdl-btn--line" href="tel:{{ hotline_tel }}" data-hdl-track="call">{{ s.call_label | escape }} {{ s.hotline | escape }}</a>
+          <a class="hdl-btn hdl-btn--line" href="tel:{{ hotline_tel }}" data-hdl-track="call">Gọi {{ s.hotline | escape }}</a>
         {%- endif -%}
       </div>
     </div>
@@ -317,8 +317,8 @@
       {%- if s.final_heading != blank -%}<h2 class="hdl-accent" style="color: var(--hdl-accent);">{{ s.final_heading | escape | newline_to_br }}</h2>{%- endif -%}
       {%- if s.final_text != blank -%}<p class="hdl-muted" style="margin: 0; font-style: italic;">{{ s.final_text | escape }}</p>{%- endif -%}
       <div class="hdl-btns">
-        {%- if s.map_url != blank -%}<a class="hdl-btn hdl-btn--primary" href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">{{ s.directions_label | escape }}</a>{%- endif -%}
-        {%- if s.hotline != blank -%}<a class="hdl-btn hdl-btn--line" href="tel:{{ hotline_tel }}" data-hdl-track="call">{{ s.call_label | escape }} {{ s.hotline | escape }}</a>{%- endif -%}
+        {%- if s.map_url != blank -%}<a class="hdl-btn hdl-btn--primary" href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">Chỉ đường</a>{%- endif -%}
+        {%- if s.hotline != blank -%}<a class="hdl-btn hdl-btn--line" href="tel:{{ hotline_tel }}" data-hdl-track="call">Gọi {{ s.hotline | escape }}</a>{%- endif -%}
       </div>
     </div>
   </section>
@@ -328,7 +328,7 @@
     {%- if s.map_url != blank -%}
       <a href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-        {{ s.directions_label | escape }}
+        Chỉ đường
       </a>
     {%- endif -%}
     {%- if s.hotline != blank -%}
@@ -371,8 +371,8 @@
       } catch (e) {}
       var isOpen = now >= openAt && now < closeAt;
       status.querySelector('[data-hdl-status-text]').textContent = isOpen
-        ? {{ s.status_open | json }} + ' ' + root.getAttribute('data-close')
-        : {{ s.status_closed | json }} + ' ' + root.getAttribute('data-open');
+        ? "Đang mở cửa · đến" + ' ' + root.getAttribute('data-close')
+        : "Đã đóng cửa · mở lại lúc" + ' ' + root.getAttribute('data-open');
       status.classList.toggle('is-open', isOpen);
       status.hidden = false;
     }
@@ -383,9 +383,9 @@
       var action = link.getAttribute('data-hdl-track');
       try {
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'store_landing_click', store_action: action, store_name: {{ s.store_name | json }} });
-        if (typeof window.gtag === 'function') window.gtag('event', 'store_' + action, { store_name: {{ s.store_name | json }} });
-        if (typeof window.fbq === 'function') window.fbq('trackCustom', 'StoreLanding_' + action, { store_name: {{ s.store_name | json }} });
+        window.dataLayer.push({ event: 'store_landing_click', store_action: action, store_name: {{ page.title | default: s.hero_title | json }} });
+        if (typeof window.gtag === 'function') window.gtag('event', 'store_' + action, { store_name: {{ page.title | default: s.hero_title | json }} });
+        if (typeof window.fbq === 'function') window.fbq('trackCustom', 'StoreLanding_' + action, { store_name: {{ page.title | default: s.hero_title | json }} });
       } catch (e) {}
     });
   })();
@@ -398,20 +398,15 @@
   "class": "store-landing-section",
   "settings": [
     { "type": "header", "content": "Thông tin cửa hàng" },
-    { "type": "text", "id": "store_name", "label": "Tên cửa hàng (dùng cho tracking)", "default": "HELIOS Hàng Da" },
     { "type": "text", "id": "address", "label": "Địa chỉ", "default": "19 Phố Hàng Da, Phường Hoàn Kiếm, Hà Nội" },
     { "type": "text", "id": "opening_hours", "label": "Giờ mở cửa (hiển thị)", "default": "8:30 – 22:00, tất cả các ngày" },
     { "type": "text", "id": "open_time", "label": "Giờ mở cửa (HH:MM, 24h)", "default": "08:30" },
     { "type": "text", "id": "close_time", "label": "Giờ đóng cửa (HH:MM, 24h)", "default": "22:00" },
-    { "type": "text", "id": "status_open", "label": "Nhãn đang mở cửa", "default": "Đang mở cửa · đến" },
-    { "type": "text", "id": "status_closed", "label": "Nhãn đã đóng cửa", "default": "Đã đóng cửa · mở lại lúc" },
     { "type": "text", "id": "hotline", "label": "Hotline", "default": "0964 302 899" },
     { "type": "url", "id": "map_url", "label": "Link Google Maps (nút Chỉ đường)" },
     { "type": "text", "id": "map_query", "label": "Địa chỉ cho bản đồ nhúng", "default": "19 Hàng Da, Hoàn Kiếm, Hà Nội" },
     { "type": "text", "id": "parking", "label": "Chỗ gửi xe", "info": "Để trống để ẩn dòng này" },
     { "type": "url", "id": "zalo_url", "label": "Link Zalo", "info": "Để trống để ẩn nút Zalo trên mobile" },
-    { "type": "text", "id": "directions_label", "label": "Nhãn nút chỉ đường", "default": "Chỉ đường" },
-    { "type": "text", "id": "call_label", "label": "Nhãn nút gọi", "default": "Gọi" },
 
     { "type": "header", "content": "Màu sắc" },
     { "type": "color", "id": "accent_color", "label": "Màu nhấn", "default": "#fab320" },
