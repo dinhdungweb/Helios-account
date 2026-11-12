@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
@@ -14,262 +5,78 @@
       "disabled": true,
       "settings": {}
     },
-    "background_video_responsive_Yqg6UJ": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "full_width": true,
-        "section_width": 1400,
-        "video_full_vh": false,
-        "video_size": "cover",
-        "video_height_desktop": 700,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_external_desktop": "",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
-    "rich_text_QERqMT": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "19 phố Hàng Da, PHƯỜNG Hoàn Kiếm, Hà Nội",
-        "title": "HELIOS SẮP RA MẮT",
-        "title_size": 30,
-        "title_width": 30,
-        "heading_h1": false,
-        "text": "<p>Điểm gặp trang sức bạc thủ công giữa lòng Hà Nội, nơi bạn trực tiếp khám phá, thử và chọn một dấu ấn mang theo mình.</p><p>Những thiết kế bạc S925 thủ công được làm bởi bàn tay nghệ nhân Việt, mỗi món bạc mang theo những biểu tượng và câu chuyện riêng đồng hành cùng người đàn ông.</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "image_with_text_eRXydk": {
-      "type": "image-with-text",
-      "name": "Media with text",
-      "settings": {
-        "subheading": "",
-        "title": "Media with text",
-        "title_size": 28,
-        "title_width": 12,
-        "text": "<p>Use this text to share information about your store. Describe products, share announcements, or welcome customers to your store.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "center",
-        "text_width": 50,
-        "button_style": "auto",
-        "image_width": 90,
-        "image_position": "right",
-        "media_size": "cover",
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "image_with_text_bBzrGK": {
-      "type": "image-with-text",
-      "name": "Media with text",
-      "settings": {
-        "subheading": "",
-        "title": "Media with text",
-        "title_size": 28,
-        "title_width": 12,
-        "text": "<p>Use this text to share information about your store. Describe products, share announcements, or welcome customers to your store.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "center",
-        "text_width": 50,
-        "button_style": "auto",
-        "image_width": 90,
-        "image_position": "left",
-        "media_size": "cover",
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "image_marquee_AkyXn7": {
-      "type": "image-marquee",
+    "store_landing": {
+      "type": "store-landing",
       "blocks": {
-        "image_MHqAWV": {
-          "type": "image",
+        "faq_hours": {
+          "type": "faq",
           "settings": {
-            "alt_text": "",
-            "caption": "",
-            "link": "",
-            "open_new_tab": false,
-            "width_desktop": 320,
-            "width_mobile": 220,
-            "rotation": 0
+            "question": "Cửa hàng mở cửa lúc mấy giờ?",
+            "answer": "<p>HELIOS Hàng Da mở cửa từ 8:30 đến 22:00 tất cả các ngày trong tuần.</p>"
           }
         },
-        "image_BbkB4W": {
-          "type": "image",
+        "faq_contact": {
+          "type": "faq",
           "settings": {
-            "alt_text": "",
-            "caption": "",
-            "link": "",
-            "open_new_tab": false,
-            "width_desktop": 320,
-            "width_mobile": 220,
-            "rotation": 0
-          }
-        },
-        "image_XWBUf8": {
-          "type": "image",
-          "settings": {
-            "alt_text": "",
-            "caption": "",
-            "link": "",
-            "open_new_tab": false,
-            "width_desktop": 320,
-            "width_mobile": 220,
-            "rotation": 0
-          }
-        },
-        "image_Aq8waE": {
-          "type": "image",
-          "settings": {
-            "alt_text": "",
-            "caption": "",
-            "link": "",
-            "open_new_tab": false,
-            "width_desktop": 320,
-            "width_mobile": 220,
-            "rotation": 0
+            "question": "Tôi muốn hỏi trước về mẫu có sẵn tại cửa hàng?",
+            "answer": "<p>Bạn gọi hotline 0964 302 899 để được nhân viên tại HELIOS Hàng Da hỗ trợ trước khi đến.</p>"
           }
         }
       },
       "block_order": [
-        "image_MHqAWV",
-        "image_BbkB4W",
-        "image_XWBUf8",
-        "image_Aq8waE"
+        "faq_hours",
+        "faq_contact"
       ],
-      "name": "Image marquee",
       "settings": {
-        "heading": "Khám phá bộ sưu tập",
-        "subheading": "",
-        "text_alignment": "center",
-        "title_size": 42,
-        "title_size_mobile": 30,
-        "full_width": true,
-        "content_width": 1400,
-        "vertical_alignment": "center",
-        "gap_desktop": 24,
-        "gap_mobile": 14,
-        "image_height_desktop": 240,
-        "image_height_mobile": 160,
-        "image_fit": "cover",
-        "enable_animation": true,
-        "direction": "left",
-        "speed": 30,
-        "speed_mobile": 24,
-        "pause_on_hover": true,
-        "respect_reduced_motion": false,
-        "edge_fade": true,
-        "fade_width": 80,
-        "background_color": "#000000",
-        "background_gradient": "",
-        "text_color": "#F2F2F2",
-        "caption_color": "#EAF0F0",
-        "item_background": "#f4f4f4",
-        "border_color": "#000000",
-        "border_width": 0,
-        "corner_radius": 12,
-        "image_opacity": 100,
-        "grayscale": false,
-        "color_on_hover": true,
-        "hover_scale": 104,
-        "shadow_opacity": 8,
-        "caption_size": 14,
-        "padding_top": 48,
-        "padding_bottom": 48,
-        "padding_horizontal": 24,
-        "padding_horizontal_mobile": 16
-      }
-    },
-    "accordions_eBW66V": {
-      "type": "accordions",
-      "blocks": {
-        "accordion_Hqz3wt": {
-          "type": "accordion",
-          "settings": {
-            "icon": "none",
-            "title": "Title",
-            "text": "<p>Add the content to appear when the content is expanded</p>",
-            "open": false
-          }
-        },
-        "accordion_wkkQ6z": {
-          "type": "accordion",
-          "settings": {
-            "icon": "none",
-            "title": "Title",
-            "text": "<p>Add the content to appear when the content is expanded</p>",
-            "open": false
-          }
-        },
-        "accordion_bDmrG6": {
-          "type": "accordion",
-          "settings": {
-            "icon": "none",
-            "title": "Title",
-            "text": "<p>Add the content to appear when the content is expanded</p>",
-            "open": false
-          }
-        }
-      },
-      "block_order": [
-        "accordion_Hqz3wt",
-        "accordion_wkkQ6z",
-        "accordion_bDmrG6"
-      ],
-      "name": "Expandable content",
-      "settings": {
-        "title": "Expandable content",
-        "alternate_bg_color": false,
-        "view_all_page": ""
-      }
-    },
-    "newsletter_mE4ye6": {
-      "type": "newsletter",
-      "name": "Newsletter",
-      "settings": {
-        "subheading": "",
-        "title": "Subscribe to our newsletter",
-        "text": "<p>Sign up to our newsletter and we'll keep you up to date with the latest arrivals</p>",
-        "height_desktop": 500,
-        "height_mobile": 400,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
+        "store_name": "HELIOS Hàng Da",
+        "address": "19 Phố Hàng Da, Phường Hoàn Kiếm, Hà Nội",
+        "opening_hours": "8:30 – 22:00, tất cả các ngày",
+        "open_time": "08:30",
+        "close_time": "22:00",
+        "status_open": "Đang mở cửa · đến",
+        "status_closed": "Đã đóng cửa · mở lại lúc",
+        "hotline": "0964 302 899",
+        "map_url": "https://maps.app.goo.gl/s8HthagRRVfdhu5C9",
+        "map_query": "19 Hàng Da, Hoàn Kiếm, Hà Nội",
+        "parking": "",
+        "zalo_url": "",
+        "directions_label": "Chỉ đường",
+        "call_label": "Gọi",
+        "accent_color": "#fab320",
+        "line_color": "#3a3a3a",
+        "hero_label": "HELIOS đã có mặt tại",
+        "hero_title": "Hàng Da",
+        "title_image": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
+        "title_size": 210,
+        "title_size_mobile": 72,
+        "hero_subtitle": "Ngay giữa lòng Hà Nội",
+        "quote": "<p>Một sự kết nối thực sự chỉ bắt đầu khi ta trực tiếp cầm nắm và cảm nhận một tác phẩm bằng chính đôi tay và cảm xúc của mình.</p>",
+        "intro": "<p>Những thiết kế bạc S925 thủ công được làm bởi bàn tay nghệ nhân Việt, mỗi món bạc mang theo những biểu tượng và câu chuyện riêng đồng hành cùng người đàn ông.</p>",
+        "space_label": "Không gian",
+        "space_heading": "Một góc bạc giữa phố cổ",
+        "space_image_1": "shopify://shop_images/2aOboRBrScouXEAeAcOR7zpmGSBP5z6MslhyZGRk_optimized.webp",
+        "space_position_1": "30% center",
+        "space_image_2": "shopify://shop_images/2aOboRBpV7cfQr9yqTJdpJLW1zcQRT3dOmv4C7bk_optimized.webp",
+        "space_position_2": "42% center",
+        "space_image_3": "shopify://shop_images/2aOboRBpV7MJ2EVtwspyokvsYh5z23SJ4vNW9zCC_optimized.webp",
+        "space_position_3": "28% center",
+        "space_caption": "Thêm một điểm hẹn mới tại 19 Hàng Da, nơi bạn có thể trực tiếp khám phá, thử và lựa chọn những thiết kế phù hợp với mình.",
+        "show_products": true,
+        "products_label": "Có sẵn tại Hàng Da",
+        "products_heading": "Những tác phẩm chờ bạn",
+        "products_count": 4,
+        "products_button_label": "Xem toàn bộ bộ sưu tập",
+        "route_label": "Đường đến",
+        "route_heading": "Cách Hồ Gươm vài phút",
+        "faq_heading": "Câu hỏi thường gặp",
+        "final_label": "HELIOS đã có mặt tại",
+        "final_heading": "19 Phố Hàng Da\nPhường Hoàn Kiếm, Hà Nội",
+        "final_text": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn."
       }
     }
   },
   "order": [
     "main",
-    "background_video_responsive_Yqg6UJ",
-    "rich_text_QERqMT",
-    "image_with_text_eRXydk",
-    "image_with_text_bBzrGK",
-    "image_marquee_AkyXn7",
-    "accordions_eBW66V",
-    "newsletter_mE4ye6"
+    "store_landing"
   ]
 }

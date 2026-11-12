@@ -1,0 +1,477 @@
+{%- liquid
+  assign s = section.settings
+  assign heading_font = settings.type_heading_font
+  assign hotline_tel = s.hotline | remove: ' ' | remove: '.' | remove: '-'
+  assign landing_collection = s.collection
+  if landing_collection == blank
+    assign landing_collection = collections.all
+  endif
+  assign faq_blocks = section.blocks | where: 'type', 'faq'
+  assign has_zalo = false
+  if s.zalo_url != blank
+    assign has_zalo = true
+  endif
+-%}
+
+<style>
+  #StoreLanding-{{ section.id }} {
+    --hdl-accent: {{ s.accent_color }};
+    --hdl-line: {{ s.line_color }};
+    --hdl-giant: {{ s.title_size }}px;
+    --hdl-giant-mobile: {{ s.title_size_mobile }}px;
+  }
+  .hdl { color: inherit; }
+  .hdl * { box-sizing: border-box; }
+  .hdl-wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+  .hdl-sec { padding: 112px 0; border-top: 1px solid var(--hdl-line); }
+  .hdl-center { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .hdl-heading-font { font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }}; font-style: {{ heading_font.style }}; }
+  .hdl-label { margin: 0; font-size: .8em; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; opacity: .8; }
+  .hdl-muted { opacity: .78; }
+  .hdl-accent { color: var(--hdl-accent); }
+  .hdl-ornament { display: block; color: var(--hdl-line); }
+  .hdl-ornament .hdl-ornament__gem { fill: var(--hdl-accent); }
+
+  /* Buttons */
+  .hdl-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .hdl-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 30px; font-size: .85em; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; border: 1px solid transparent; transition: background-color .2s, color .2s, border-color .2s; }
+  .hdl-btn--primary { background: var(--hdl-accent); border-color: var(--hdl-accent); color: #070707; }
+  .hdl-btn--primary:hover { background: transparent; color: var(--hdl-accent); }
+  .hdl-btn--line { border-color: currentColor; color: inherit; }
+  .hdl-btn--line:hover { opacity: .75; }
+  .hdl-btn svg { width: 16px; height: 16px; flex: none; }
+
+  /* Hero */
+  .hdl-hero { padding: 88px 0 96px; gap: 18px; }
+  .hdl .hdl-giant { margin: 0; font-size: var(--hdl-giant); line-height: 1; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
+  .hdl .hdl-giant--image { background-size: cover; background-position: center; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-stroke: 1px rgba(237, 237, 237, .35); }
+  .hdl-hero__sub { margin: 0; font-style: italic; font-size: 1.6em; }
+  .hdl-hero__address { margin: 0; font-size: 1.25em; letter-spacing: .06em; }
+  .hdl-status { display: inline-flex; align-items: center; gap: 10px; }
+  .hdl-status[hidden] { display: none; }
+  .hdl-status__dot { width: 7px; height: 7px; transform: rotate(45deg); background: var(--hdl-line); }
+  .hdl-status.is-open .hdl-status__dot { background: var(--hdl-accent); }
+  .hdl-hero .hdl-btns { margin-top: 18px; }
+
+  /* Manifesto */
+  .hdl-quote { gap: 28px; max-width: 900px; margin: 0 auto; }
+  .hdl-quote__mark { font-size: 3em; line-height: .6; opacity: .45; }
+  .hdl-quote__text { margin: 0; font-style: italic; font-size: 1.9em; line-height: 1.4; }
+  .hdl-quote__text p { margin: 0; }
+  .hdl-quote__body { max-width: 680px; }
+  .hdl-quote__body p { margin: 0 0 .8em; }
+
+  /* Space */
+  .hdl-head { gap: 14px; margin-bottom: 56px; }
+  .hdl-head h2 { margin: 0; }
+  .hdl-arches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: end; }
+  .hdl-arch { border: 1px solid var(--hdl-line); border-radius: 999px 999px 0 0; padding: 10px; }
+  .hdl-arch img { display: block; width: 100%; height: 420px; object-fit: cover; border-radius: 999px 999px 0 0; }
+  .hdl-arch--tall img { height: 520px; }
+  .hdl-caption { max-width: 640px; margin: 48px auto 0; text-align: center; font-style: italic; }
+
+  /* Products */
+  .hdl-products { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  .hdl-product { display: flex; flex-direction: column; gap: 16px; text-align: center; color: inherit; text-decoration: none; }
+  .hdl-frame { border: 1px solid var(--hdl-line); padding: 10px; }
+  .hdl-product img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transition: transform .5s; }
+  .hdl-product__media { overflow: hidden; }
+  .hdl-product:hover img { transform: scale(1.04); }
+  .hdl-product__title { font-size: 1.1em; }
+  .hdl-products-more { margin-top: 48px; }
+
+  /* Route */
+  .hdl-route { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  .hdl-map iframe { display: block; width: 100%; height: 480px; border: 0; filter: grayscale(1) invert(.92) contrast(.9); }
+  .hdl-route__info { display: flex; flex-direction: column; gap: 32px; }
+  .hdl-route__info h2 { margin: 0; text-align: left; }
+  .hdl-dl { margin: 0; }
+  .hdl-dl > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-top: 1px solid var(--hdl-line); align-items: baseline; }
+  .hdl-dl > div:last-child { border-bottom: 1px solid var(--hdl-line); }
+  .hdl-dl dt { margin: 0; }
+  .hdl-dl dd { margin: 0; }
+  .hdl-route .hdl-btns { justify-content: flex-start; }
+
+  /* FAQ */
+  .hdl-faq { max-width: 880px; margin: 0 auto; }
+  .hdl-faq h2 { margin: 0 0 40px; }
+  .hdl-faq__list { border-top: 1px solid var(--hdl-line); }
+  .hdl-faq details { border-bottom: 1px solid var(--hdl-line); }
+  .hdl-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 44px; padding: 22px 0; cursor: pointer; list-style: none; font-size: 1.2em; }
+  .hdl-faq summary::-webkit-details-marker { display: none; }
+  .hdl-faq__plus { font-size: 1.4em; line-height: 1; transition: transform .2s; opacity: .7; }
+  .hdl-faq details[open] .hdl-faq__plus { transform: rotate(45deg); }
+  .hdl-faq__answer { padding: 0 0 22px; }
+  .hdl-faq__answer p { margin: 0 0 .6em; }
+
+  /* Final CTA */
+  .hdl-final { gap: 20px; }
+  .hdl-final h2 { margin: 0; }
+  .hdl-final .hdl-btns { margin-top: 16px; }
+
+  /* Sticky mobile bar */
+  .hdl-sticky { display: none; }
+
+  @media (max-width: 1120px) {
+    .hdl .hdl-giant { font-size: min(var(--hdl-giant), 17vw); }
+  }
+  @media (max-width: 767px) {
+    .hdl-wrap { padding: 0 16px; }
+    .hdl-sec { padding: 72px 0; }
+    .hdl-hero { padding: 56px 0 64px; }
+    .hdl .hdl-giant { font-size: var(--hdl-giant-mobile); }
+    .hdl-hero__sub { font-size: 1.35em; }
+    .hdl-hero .hdl-btns { flex-direction: column; width: 100%; }
+    .hdl-hero .hdl-btn { width: 100%; }
+    .hdl-quote__text { font-size: 1.4em; }
+    .hdl-head { margin-bottom: 32px; }
+    .hdl-arches { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .hdl-arches > .hdl-arch:first-child { grid-column: span 2; }
+    .hdl-arch { padding: 6px; }
+    .hdl-arch img, .hdl-arch--tall img { height: 260px; }
+    .hdl-arches > .hdl-arch:first-child img { height: 420px; }
+    .hdl-caption { margin-top: 32px; }
+    .hdl-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+    .hdl-frame { padding: 6px; }
+    .hdl-route { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .hdl-route__info h2 { text-align: center; }
+    .hdl-map iframe { height: 260px; }
+    .hdl-dl > div { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 14px 0; }
+    .hdl-route .hdl-btns .hdl-btn { width: 100%; }
+    .hdl-final .hdl-btns { display: none; }
+    .hdl-sticky {
+      display: grid; grid-template-columns: repeat({% if has_zalo %}3{% else %}2{% endif %}, minmax(0, 1fr));
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+      background: {{ settings.col_page_bg | default: '#000000' }}; border-top: 1px solid var(--hdl-line);
+    }
+    .hdl-sticky a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 64px; font-size: .75em; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: inherit; text-decoration: none; }
+    .hdl-sticky a + a { border-left: 1px solid var(--hdl-line); }
+    .hdl-sticky a:first-child { background: var(--hdl-accent); color: #070707; }
+    .hdl-sticky svg { width: 18px; height: 18px; }
+    body:has(.hdl-sticky) { padding-bottom: 64px; }
+  }
+</style>
+
+<div id="StoreLanding-{{ section.id }}" class="hdl" data-open="{{ s.open_time }}" data-close="{{ s.close_time }}">
+
+  {%- comment -%} HERO {%- endcomment -%}
+  <section class="hdl-hero hdl-center">
+    <div class="hdl-wrap hdl-center" style="gap: 18px;">
+      <svg class="hdl-ornament" width="220" height="18" viewBox="0 0 220 18" fill="none" aria-hidden="true"><path d="M0 9h88M132 9h88" stroke="currentColor"></path><path d="M110 1l8 8-8 8-8-8z" stroke="currentColor"></path><path class="hdl-ornament__gem" d="M110 5l4 4-4 4-4-4z"></path></svg>
+      {%- if s.hero_label != blank -%}<p class="hdl-label">{{ s.hero_label | escape }}</p>{%- endif -%}
+      <h1
+        class="hdl-giant{% if s.title_image %} hdl-giant--image{% endif %}"
+        {% if s.title_image %}style="background-image: url('{{ s.title_image | image_url: width: 2000 }}'); background-position: {{ s.title_image.presentation.focal_point | default: 'center' }};"{% endif %}
+      >{{ s.hero_title | escape }}</h1>
+      {%- if s.hero_subtitle != blank -%}<p class="hdl-hero__sub">{{ s.hero_subtitle | escape }}</p>{%- endif -%}
+      {%- if s.address != blank -%}<p class="hdl-hero__address hdl-heading-font hdl-accent">{{ s.address | escape }}</p>{%- endif -%}
+      <p class="hdl-label hdl-status" data-hdl-status hidden>
+        <span class="hdl-status__dot" aria-hidden="true"></span>
+        <span data-hdl-status-text></span>
+      </p>
+      <div class="hdl-btns">
+        {%- if s.map_url != blank -%}
+          <a class="hdl-btn hdl-btn--primary" href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+            {{ s.directions_label | escape }}
+          </a>
+        {%- endif -%}
+        {%- if s.hotline != blank -%}
+          <a class="hdl-btn hdl-btn--line" href="tel:{{ hotline_tel }}" data-hdl-track="call">{{ s.call_label | escape }} {{ s.hotline | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} MANIFESTO {%- endcomment -%}
+  {%- if s.quote != blank or s.intro != blank -%}
+    <section class="hdl-sec">
+      <div class="hdl-wrap">
+        <div class="hdl-quote hdl-center">
+          <span class="hdl-quote__mark hdl-heading-font" aria-hidden="true">“</span>
+          {%- if s.quote != blank -%}<div class="hdl-quote__text">{{ s.quote }}</div>{%- endif -%}
+          <svg class="hdl-ornament" width="120" height="14" viewBox="0 0 120 14" fill="none" aria-hidden="true"><path d="M0 7h48M72 7h48" stroke="currentColor"></path><path d="M60 1l6 6-6 6-6-6z" stroke="currentColor"></path></svg>
+          {%- if s.intro != blank -%}<div class="hdl-quote__body hdl-muted">{{ s.intro }}</div>{%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} SPACE {%- endcomment -%}
+  {%- if s.space_image_1 or s.space_image_2 or s.space_image_3 -%}
+    <section class="hdl-sec" id="khong-gian">
+      <div class="hdl-wrap">
+        <div class="hdl-head hdl-center">
+          {%- if s.space_label != blank -%}<p class="hdl-label">{{ s.space_label | escape }}</p>{%- endif -%}
+          {%- if s.space_heading != blank -%}<h2>{{ s.space_heading | escape }}</h2>{%- endif -%}
+        </div>
+        <div class="hdl-arches">
+          {%- for i in (1..3) -%}
+            {%- liquid
+              assign img_key = 'space_image_' | append: i
+              assign img = s[img_key]
+              assign pos_key = 'space_position_' | append: i
+              assign img_position = s[pos_key] | default: img.presentation.focal_point
+              assign img_position = 'object-position: ' | append: img_position
+            -%}
+            {%- if img -%}
+              <div class="hdl-arch{% if i == 2 %} hdl-arch--tall{% endif %}">
+                {{ img | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(max-width: 767px) 100vw, 400px', widths: '400, 600, 800, 1000', alt: img.alt, style: img_position }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if s.space_caption != blank -%}<p class="hdl-caption hdl-muted">{{ s.space_caption | escape }}</p>{%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} PRODUCTS {%- endcomment -%}
+  {%- if s.show_products and landing_collection.products_count > 0 -%}
+    <section class="hdl-sec" id="san-pham">
+      <div class="hdl-wrap">
+        <div class="hdl-head hdl-center">
+          {%- if s.products_label != blank -%}<p class="hdl-label">{{ s.products_label | escape }}</p>{%- endif -%}
+          {%- if s.products_heading != blank -%}<h2>{{ s.products_heading | escape }}</h2>{%- endif -%}
+        </div>
+        <div class="hdl-products">
+          {%- for product in landing_collection.products limit: s.products_count -%}
+            <a class="hdl-product" href="{{ product.url }}">
+              <div class="hdl-frame">
+                <div class="hdl-product__media">
+                  {%- if product.featured_media -%}
+                    {{ product.featured_media | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(max-width: 767px) 50vw, 280px', widths: '300, 450, 600, 800', alt: product.title }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  {%- endif -%}
+                </div>
+              </div>
+              <span class="hdl-product__title hdl-heading-font">{{ product.title | escape }}</span>
+              <span class="hdl-label">{{ product.price | money }}</span>
+            </a>
+          {%- endfor -%}
+        </div>
+        {%- if s.products_button_label != blank -%}
+          <div class="hdl-btns hdl-products-more">
+            <a class="hdl-btn hdl-btn--line" href="{{ landing_collection.url }}">{{ s.products_button_label | escape }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ROUTE {%- endcomment -%}
+  <section class="hdl-sec" id="duong-den">
+    <div class="hdl-wrap hdl-route">
+      {%- if s.map_query != blank -%}
+        <div class="hdl-frame hdl-map">
+          <iframe src="https://maps.google.com/maps?q={{ s.map_query | url_encode }}&z=17&output=embed" title="{{ s.route_heading | escape }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      {%- endif -%}
+      <div class="hdl-route__info">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          {%- if s.route_label != blank -%}<p class="hdl-label">{{ s.route_label | escape }}</p>{%- endif -%}
+          {%- if s.route_heading != blank -%}<h2>{{ s.route_heading | escape }}</h2>{%- endif -%}
+        </div>
+        <dl class="hdl-dl">
+          {%- if s.address != blank -%}<div><dt class="hdl-label">Địa chỉ</dt><dd>{{ s.address | escape }}</dd></div>{%- endif -%}
+          {%- if s.parking != blank -%}<div><dt class="hdl-label">Gửi xe</dt><dd>{{ s.parking | escape }}</dd></div>{%- endif -%}
+          {%- if s.opening_hours != blank -%}<div><dt class="hdl-label">Giờ mở cửa</dt><dd>{{ s.opening_hours | escape }}</dd></div>{%- endif -%}
+          {%- if s.hotline != blank -%}<div><dt class="hdl-label">Hotline</dt><dd><a href="tel:{{ hotline_tel }}" data-hdl-track="call">{{ s.hotline | escape }}</a></dd></div>{%- endif -%}
+        </dl>
+        <div class="hdl-btns">
+          {%- if s.map_url != blank -%}<a class="hdl-btn hdl-btn--primary" href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">Mở Google Maps</a>{%- endif -%}
+          {%- if s.hotline != blank -%}<a class="hdl-btn hdl-btn--line" href="tel:{{ hotline_tel }}" data-hdl-track="call">Gọi trước khi đến</a>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} FAQ {%- endcomment -%}
+  {%- if faq_blocks.size > 0 -%}
+    <section class="hdl-sec" id="faq">
+      <div class="hdl-wrap">
+        <div class="hdl-faq">
+          {%- if s.faq_heading != blank -%}<h2>{{ s.faq_heading | escape }}</h2>{%- endif -%}
+          <div class="hdl-faq__list">
+            {%- for block in faq_blocks -%}
+              <details {{ block.shopify_attributes }}>
+                <summary class="hdl-heading-font">
+                  <span>{{ block.settings.question | escape }}</span>
+                  <span class="hdl-faq__plus" aria-hidden="true">+</span>
+                </summary>
+                <div class="hdl-faq__answer hdl-muted">{{ block.settings.answer }}</div>
+              </details>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} FINAL CTA {%- endcomment -%}
+  <section class="hdl-sec">
+    <div class="hdl-wrap hdl-final hdl-center">
+      <svg class="hdl-ornament" width="220" height="18" viewBox="0 0 220 18" fill="none" aria-hidden="true"><path d="M0 9h88M132 9h88" stroke="currentColor"></path><path d="M110 1l8 8-8 8-8-8z" stroke="currentColor"></path><path class="hdl-ornament__gem" d="M110 5l4 4-4 4-4-4z"></path></svg>
+      {%- if s.final_label != blank -%}<p class="hdl-label">{{ s.final_label | escape }}</p>{%- endif -%}
+      {%- if s.final_heading != blank -%}<h2 class="hdl-accent" style="color: var(--hdl-accent);">{{ s.final_heading | escape | newline_to_br }}</h2>{%- endif -%}
+      {%- if s.final_text != blank -%}<p class="hdl-muted" style="margin: 0; font-style: italic;">{{ s.final_text | escape }}</p>{%- endif -%}
+      <div class="hdl-btns">
+        {%- if s.map_url != blank -%}<a class="hdl-btn hdl-btn--primary" href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">{{ s.directions_label | escape }}</a>{%- endif -%}
+        {%- if s.hotline != blank -%}<a class="hdl-btn hdl-btn--line" href="tel:{{ hotline_tel }}" data-hdl-track="call">{{ s.call_label | escape }} {{ s.hotline | escape }}</a>{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} STICKY MOBILE BAR {%- endcomment -%}
+  <nav class="hdl-sticky" aria-label="Liên hệ nhanh">
+    {%- if s.map_url != blank -%}
+      <a href="{{ s.map_url }}" target="_blank" rel="noopener" data-hdl-track="directions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+        {{ s.directions_label | escape }}
+      </a>
+    {%- endif -%}
+    {%- if s.hotline != blank -%}
+      <a href="tel:{{ hotline_tel }}" data-hdl-track="call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
+        Gọi
+      </a>
+    {%- endif -%}
+    {%- if has_zalo -%}
+      <a href="{{ s.zalo_url }}" target="_blank" rel="noopener" data-hdl-track="zalo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"></path></svg>
+        Zalo
+      </a>
+    {%- endif -%}
+  </nav>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('StoreLanding-{{ section.id }}');
+    if (!root) return;
+
+    function toMinutes(value) {
+      var parts = String(value || '').split(':');
+      if (parts.length !== 2) return null;
+      var h = parseInt(parts[0], 10), m = parseInt(parts[1], 10);
+      return isNaN(h) || isNaN(m) ? null : h * 60 + m;
+    }
+
+    var openAt = toMinutes(root.getAttribute('data-open'));
+    var closeAt = toMinutes(root.getAttribute('data-close'));
+    var status = root.querySelector('[data-hdl-status]');
+    if (status && openAt !== null && closeAt !== null) {
+      var now = 600;
+      try {
+        var parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+        var h = 0, m = 0;
+        parts.forEach(function (p) { if (p.type === 'hour') h = parseInt(p.value, 10); if (p.type === 'minute') m = parseInt(p.value, 10); });
+        now = (h % 24) * 60 + m;
+      } catch (e) {}
+      var isOpen = now >= openAt && now < closeAt;
+      status.querySelector('[data-hdl-status-text]').textContent = isOpen
+        ? {{ s.status_open | json }} + ' ' + root.getAttribute('data-close')
+        : {{ s.status_closed | json }} + ' ' + root.getAttribute('data-open');
+      status.classList.toggle('is-open', isOpen);
+      status.hidden = false;
+    }
+
+    root.addEventListener('click', function (event) {
+      var link = event.target.closest('[data-hdl-track]');
+      if (!link) return;
+      var action = link.getAttribute('data-hdl-track');
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'store_landing_click', store_action: action, store_name: {{ s.store_name | json }} });
+        if (typeof window.gtag === 'function') window.gtag('event', 'store_' + action, { store_name: {{ s.store_name | json }} });
+        if (typeof window.fbq === 'function') window.fbq('trackCustom', 'StoreLanding_' + action, { store_name: {{ s.store_name | json }} });
+      } catch (e) {}
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Landing cửa hàng",
+  "tag": "div",
+  "class": "store-landing-section",
+  "settings": [
+    { "type": "header", "content": "Thông tin cửa hàng" },
+    { "type": "text", "id": "store_name", "label": "Tên cửa hàng (dùng cho tracking)", "default": "HELIOS Hàng Da" },
+    { "type": "text", "id": "address", "label": "Địa chỉ", "default": "19 Phố Hàng Da, Phường Hoàn Kiếm, Hà Nội" },
+    { "type": "text", "id": "opening_hours", "label": "Giờ mở cửa (hiển thị)", "default": "8:30 – 22:00, tất cả các ngày" },
+    { "type": "text", "id": "open_time", "label": "Giờ mở cửa (HH:MM, 24h)", "default": "08:30" },
+    { "type": "text", "id": "close_time", "label": "Giờ đóng cửa (HH:MM, 24h)", "default": "22:00" },
+    { "type": "text", "id": "status_open", "label": "Nhãn đang mở cửa", "default": "Đang mở cửa · đến" },
+    { "type": "text", "id": "status_closed", "label": "Nhãn đã đóng cửa", "default": "Đã đóng cửa · mở lại lúc" },
+    { "type": "text", "id": "hotline", "label": "Hotline", "default": "0964 302 899" },
+    { "type": "url", "id": "map_url", "label": "Link Google Maps (nút Chỉ đường)" },
+    { "type": "text", "id": "map_query", "label": "Địa chỉ cho bản đồ nhúng", "default": "19 Hàng Da, Hoàn Kiếm, Hà Nội" },
+    { "type": "text", "id": "parking", "label": "Chỗ gửi xe", "info": "Để trống để ẩn dòng này" },
+    { "type": "url", "id": "zalo_url", "label": "Link Zalo", "info": "Để trống để ẩn nút Zalo trên mobile" },
+    { "type": "text", "id": "directions_label", "label": "Nhãn nút chỉ đường", "default": "Chỉ đường" },
+    { "type": "text", "id": "call_label", "label": "Nhãn nút gọi", "default": "Gọi" },
+
+    { "type": "header", "content": "Màu sắc" },
+    { "type": "color", "id": "accent_color", "label": "Màu nhấn", "default": "#fab320" },
+    { "type": "color", "id": "line_color", "label": "Màu đường kẻ", "default": "#3a3a3a" },
+
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_label", "label": "Dòng nhỏ phía trên", "default": "HELIOS đã có mặt tại" },
+    { "type": "text", "id": "hero_title", "label": "Tiêu đề lớn", "default": "Hàng Da" },
+    { "type": "image_picker", "id": "title_image", "label": "Ảnh bên trong chữ", "info": "Để trống để dùng chữ màu thường" },
+    { "type": "range", "id": "title_size", "label": "Cỡ tiêu đề desktop", "min": 80, "max": 260, "step": 10, "unit": "px", "default": 210 },
+    { "type": "range", "id": "title_size_mobile", "label": "Cỡ tiêu đề mobile", "min": 40, "max": 100, "step": 2, "unit": "px", "default": 72 },
+    { "type": "text", "id": "hero_subtitle", "label": "Dòng phụ", "default": "Ngay giữa lòng Hà Nội" },
+
+    { "type": "header", "content": "Trích dẫn" },
+    { "type": "richtext", "id": "quote", "label": "Câu trích dẫn" },
+    { "type": "richtext", "id": "intro", "label": "Đoạn giới thiệu" },
+
+    { "type": "header", "content": "Không gian" },
+    { "type": "text", "id": "space_label", "label": "Nhãn", "default": "Không gian" },
+    { "type": "text", "id": "space_heading", "label": "Tiêu đề", "default": "Một góc bạc giữa phố cổ" },
+    { "type": "image_picker", "id": "space_image_1", "label": "Ảnh vòm 1" },
+    { "type": "text", "id": "space_position_1", "label": "Vị trí cắt ảnh 1", "info": "Ví dụ: 30% center. Để trống dùng điểm lấy nét của ảnh" },
+    { "type": "image_picker", "id": "space_image_2", "label": "Ảnh vòm 2 (cao hơn)" },
+    { "type": "text", "id": "space_position_2", "label": "Vị trí cắt ảnh 2" },
+    { "type": "image_picker", "id": "space_image_3", "label": "Ảnh vòm 3" },
+    { "type": "text", "id": "space_position_3", "label": "Vị trí cắt ảnh 3" },
+    { "type": "text", "id": "space_caption", "label": "Chú thích" },
+
+    { "type": "header", "content": "Tác phẩm" },
+    { "type": "checkbox", "id": "show_products", "label": "Hiện phần tác phẩm", "default": true },
+    { "type": "text", "id": "products_label", "label": "Nhãn", "default": "Có sẵn tại Hàng Da" },
+    { "type": "text", "id": "products_heading", "label": "Tiêu đề", "default": "Những tác phẩm chờ bạn" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Để trống sẽ lấy từ tất cả sản phẩm" },
+    { "type": "range", "id": "products_count", "label": "Số sản phẩm", "min": 2, "max": 8, "step": 2, "default": 4 },
+    { "type": "text", "id": "products_button_label", "label": "Nhãn nút xem thêm", "default": "Xem toàn bộ bộ sưu tập" },
+
+    { "type": "header", "content": "Đường đến" },
+    { "type": "text", "id": "route_label", "label": "Nhãn", "default": "Đường đến" },
+    { "type": "text", "id": "route_heading", "label": "Tiêu đề", "default": "Cách Hồ Gươm vài phút" },
+
+    { "type": "header", "content": "Hỏi đáp" },
+    { "type": "text", "id": "faq_heading", "label": "Tiêu đề", "default": "Câu hỏi thường gặp" },
+
+    { "type": "header", "content": "Kêu gọi cuối trang" },
+    { "type": "text", "id": "final_label", "label": "Nhãn", "default": "HELIOS đã có mặt tại" },
+    { "type": "textarea", "id": "final_heading", "label": "Tiêu đề", "default": "19 Phố Hàng Da\nPhường Hoàn Kiếm, Hà Nội" },
+    { "type": "text", "id": "final_text", "label": "Mô tả", "default": "Mở cửa 8:30 – 22:00 mỗi ngày. Hẹn gặp bạn." }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Câu hỏi",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Câu hỏi" },
+        { "type": "richtext", "id": "answer", "label": "Trả lời" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Landing cửa hàng" }
+  ]
+}
+{% endschema %}
