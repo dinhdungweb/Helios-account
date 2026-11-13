@@ -286,13 +286,13 @@
         '<div class="gmm__scroller" data-gmm-scroller>' +
           '<div class="gmm__dialog" role="dialog" aria-modal="true" aria-labelledby="gmm-title-' + esc(this.g.sectionId) + '">' +
             '<div class="gmm__card">' +
-              '<button type="button" class="gmm__icon-btn gmm__close" data-gmm-close aria-label="' + esc(t.close) + '">' + ICON.close + '</button>' +
+              '<button type="button" class="no-hover gmm__icon-btn gmm__close" data-gmm-close aria-label="' + esc(t.close) + '">' + ICON.close + '</button>' +
               '<div class="gmm__media" data-gmm-media>' +
                 '<img class="gmm__img" data-gmm-img alt="">' +
               '</div>' +
               '<div class="gmm__body">' +
                 '<div class="gmm__toolbar">' +
-                  '<button type="button" class="gmm__icon-btn" data-gmm-share aria-label="' + esc(t.share) + '" title="' + esc(t.share) + '">' + ICON.share + '</button>' +
+                  '<button type="button" class="no-hover gmm__icon-btn" data-gmm-share aria-label="' + esc(t.share) + '" title="' + esc(t.share) + '">' + ICON.share + '</button>' +
                   '<a class="gmm__pill" data-gmm-link target="_blank" rel="noopener">' + ICON.link + '<span>' + esc(t.open) + '</span></a>' +
                 '</div>' +
                 '<h2 class="gmm__title" id="gmm-title-' + esc(this.g.sectionId) + '" data-gmm-title></h2>' +
@@ -310,8 +310,8 @@
             '</div>' +
           '</div>' +
         '</div>' +
-        '<button type="button" class="gmm__nav gmm__nav--prev" data-gmm-prev aria-label="' + esc(t.prev) + '">' + ICON.prev + '</button>' +
-        '<button type="button" class="gmm__nav gmm__nav--next" data-gmm-next aria-label="' + esc(t.next) + '">' + ICON.next + '</button>' +
+        '<button type="button" class="no-hover gmm__nav gmm__nav--prev" data-gmm-prev aria-label="' + esc(t.prev) + '">' + ICON.prev + '</button>' +
+        '<button type="button" class="no-hover gmm__nav gmm__nav--next" data-gmm-next aria-label="' + esc(t.next) + '">' + ICON.next + '</button>' +
         '<div class="gmm__toast" data-gmm-toast role="status" aria-live="polite"></div>';
 
       document.body.appendChild(el);
@@ -359,6 +359,12 @@
       this.$.prev.addEventListener('click', () => this.step(-1));
       this.$.next.addEventListener('click', () => this.step(1));
       this.$.share.addEventListener('click', () => this.share());
+      this.$.products.addEventListener('scroll', () => {
+        const l = this.$.products;
+        l.classList.toggle('is-end', l.scrollTop + l.clientHeight >= l.scrollHeight - 4);
+      }, { passive: true });
+      this.onResize = () => { if (this.isOpen) this.fitProducts(); };
+      window.addEventListener('resize', this.onResize);
 
       // Swipe left/right on the image (touch screens)
       let sx = 0, sy = 0;
@@ -437,6 +443,24 @@
         setTimeout(() => this.$.close.focus({ preventScroll: true }), 50);
       }
       this.$.scroller.scrollTop = 0;
+      this.fitProducts();
+    }
+
+    // Show ~2 products, scroll the rest (desktop/tablet only, see CSS)
+    fitProducts() {
+      const list = this.$.products;
+      list.scrollTop = 0;
+      list.style.removeProperty('--gmm-products-max');
+      list.classList.remove('is-scrollable', 'is-end');
+      const cards = list.children;
+      if (cards.length <= 2) return;
+      const top = cards[0].offsetTop;
+      const second = cards[1];
+      const max = second.offsetTop + second.offsetHeight - top;
+      if (max <= 0) return;
+      // + a peek of the third card so it is obvious the list scrolls
+      list.style.setProperty('--gmm-products-max', Math.round(max + 36) + 'px');
+      list.classList.add('is-scrollable');
     }
 
     close(opts) {
@@ -534,7 +558,7 @@
         const h = handleize(c);
         const hasFilter = this.g.root.querySelector('[data-gm-filter="' + h + '"]');
         return hasFilter
-          ? '<button type="button" class="gmm__tag" data-gmm-tag="' + esc(h) + '">' + esc(c) + '</button>'
+          ? '<button type="button" class="no-hover gmm__tag" data-gmm-tag="' + esc(h) + '">' + esc(c) + '</button>'
           : '<span class="gmm__tag">' + esc(c) + '</span>';
       }).join('');
       $.tags.hidden = !cats.length;
@@ -560,7 +584,7 @@
         const rw = rd.image && rd.image.width;
         const rh = rd.image && rd.image.height;
         return (
-          '<button type="button" class="gmm__related-item" data-gmm-related-item="' + esc(r.dataset.handle) + '"' +
+          '<button type="button" class="no-hover gmm__related-item" data-gmm-related-item="' + esc(r.dataset.handle) + '"' +
           ' aria-label="' + esc(rd.title || (rd.image && rd.image.alt) || '') + '">' +
             '<img src="' + esc(this.thumbSrc(r)) + '" alt="" loading="lazy"' +
             (rw && rh ? ' width="' + rw + '" height="' + rh + '"' : '') + '>' +
@@ -581,11 +605,11 @@
       const t = this.t;
       let action;
       if (!p.available) {
-        action = '<button type="button" class="gmm__btn gmm__btn--muted" disabled>' + esc(t.soldOut) + '</button>';
+        action = '<button type="button" class="no-hover gmm__btn gmm__btn--muted" disabled>' + esc(t.soldOut) + '</button>';
       } else if (p.multi) {
         action = '<a class="gmm__btn gmm__btn--primary" href="' + esc(p.url) + '">' + esc(t.choose) + '</a>';
       } else {
-        action = '<button type="button" class="gmm__btn gmm__btn--primary" data-gmm-add="' + esc(p.variant) + '">' +
+        action = '<button type="button" class="no-hover gmm__btn gmm__btn--primary" data-gmm-add="' + esc(p.variant) + '">' +
           ICON.bag + '<span>' + esc(t.add) + '</span></button>';
       }
       return (
@@ -718,6 +742,7 @@
       this.g.grid.removeEventListener('click', this.onGridClick);
       window.removeEventListener('popstate', this.onPop);
       document.removeEventListener('keydown', this.onKey);
+      window.removeEventListener('resize', this.onResize);
       this.unlockScroll();
       if (this.el) this.el.remove();
     }

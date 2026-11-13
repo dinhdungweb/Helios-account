@@ -68,13 +68,13 @@
 
     {%- if filters.size > 0 -%}
       <div class="gm__filters" role="toolbar" aria-label="{{ section.settings.filter_label | escape }}">
-        <button type="button" class="gm__filter is-active" data-gm-filter="">
+        <button type="button" class="no-hover gm__filter is-active" data-gm-filter="">
           {{- section.settings.all_label | escape -}}
         </button>
         {%- for f in filters -%}
           {%- assign f_clean = f | strip -%}
           {%- if f_clean != blank -%}
-            <button type="button" class="gm__filter" data-gm-filter="{{ f_clean | handleize }}">
+            <button type="button" class="no-hover gm__filter" data-gm-filter="{{ f_clean | handleize }}">
               {{- f_clean | escape -}}
             </button>
           {%- endif -%}
