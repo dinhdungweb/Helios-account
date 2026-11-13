@@ -26,7 +26,7 @@
         "columns_tablet": 2,
         "columns_desktop": 2,
         "gap": 12,
-        "radius": 8,
+        "radius": 0,
         "show_info": true,
         "text_position": "hover",
         "overlay_opacity": 60,
