@@ -118,6 +118,24 @@ html.gmm-lock, html.gmm-lock body { overflow: hidden !important; }
 }
 .gmm[hidden] { display: none; }
 
+/* Shield the popup from global theme rules (svg fill/size, centered headings) */
+.gmm svg {
+  display: block; flex: 0 0 auto;
+  width: 20px !important; height: 20px !important;
+  fill: none !important; stroke: currentColor !important;
+  stroke-width: 2 !important; stroke-linecap: round; stroke-linejoin: round;
+  overflow: visible; vertical-align: middle;
+}
+.gmm svg path { fill: none !important; stroke: currentColor !important; stroke-width: 2 !important; display: inline !important; }
+.gmm .gmm__btn svg,
+.gmm .gmm__pill svg { width: 16px !important; height: 16px !important; }
+.gmm .gmm__nav svg { width: 24px !important; height: 24px !important; }
+.gmm h2, .gmm h3 {
+  font-family: inherit; text-align: left; text-transform: none;
+  letter-spacing: normal; font-variant: normal; font-style: normal;
+}
+.gmm .gmm__related-heading { text-align: center; }
+
 .gmm__backdrop {
   position: absolute; inset: 0; background: var(--gmm-backdrop);
   opacity: 0; transition: opacity .25s ease;
@@ -147,9 +165,9 @@ html.gmm-lock, html.gmm-lock body { overflow: hidden !important; }
 }
 .gmm__media {
   position: relative; background: var(--gmm-media-bg);
-  max-height: calc(100vh - 104px); min-height: 320px;
+  max-height: calc(100vh - 104px); min-height: 0;
   display: flex; align-items: center; justify-content: center;
-  align-self: start; width: 100%;
+  align-self: center; width: 100%;
 }
 .gmm__img {
   display: block; width: 100%; height: 100%; max-height: calc(100vh - 104px);
@@ -314,7 +332,7 @@ button.gmm__tag:hover { background: var(--gmm-surface-hover); }
   .gmm__scroller { padding: 0 0 32px; }
   .gmm__dialog { transform: translateY(40px); }
   .gmm__card { grid-template-columns: 1fr; border-radius: 0 0 var(--gmm-radius) var(--gmm-radius); box-shadow: none; }
-  .gmm__media { max-height: 78vh; min-height: 240px; }
+  .gmm__media { max-height: 78vh; min-height: 0; }
   .gmm__img { max-height: 78vh; }
   .gmm__product-actions { gap: 4px; }
   .gmm__btn { padding: 0 14px; font-size: 13px; }
