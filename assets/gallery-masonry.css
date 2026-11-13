@@ -192,6 +192,7 @@ html.gmm-lock, html.gmm-lock body { overflow: hidden !important; }
 }
 
 .gmm__icon-btn {
+  padding: 0; margin: 0; flex: 0 0 auto; min-width: 0; min-height: 0; line-height: 1; aspect-ratio: 1;
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; border-radius: 50%; border: 0;
   background: transparent; color: var(--gmm-text); cursor: pointer;
@@ -299,6 +300,7 @@ button.gmm__tag:hover { background: var(--gmm-surface-hover); }
 
 /* Prev / next */
 .gmm__nav {
+  padding: 0; margin: 0; min-width: 0; min-height: 0; line-height: 1; aspect-ratio: 1;
   position: fixed; top: 50%; z-index: 3; transform: translateY(-50%);
   width: 52px; height: 52px; border-radius: 50%; border: 0;
   display: inline-flex; align-items: center; justify-content: center;
