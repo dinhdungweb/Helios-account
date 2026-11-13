@@ -79,7 +79,7 @@ a.gm__link:hover .gm__img { transform: scale(1.04); }
 }
 
 /* Cards that open the popup */
-.gm__link[data-gm-open] { cursor: zoom-in; }
+.gm__link[data-gm-open] { cursor: pointer; }
 
 /* ==================================================================
    Detail popup
@@ -144,10 +144,16 @@ html.gmm-lock, html.gmm-lock body { overflow: hidden !important; }
 .gmm.is-open .gmm__backdrop { opacity: 1; }
 
 .gmm__scroller {
+  scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .22) transparent;
   position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   padding: 40px 88px 64px;
 }
+/* Safari / older Chromium */
+.gmm__scroller::-webkit-scrollbar { width: 6px; }
+.gmm__scroller::-webkit-scrollbar-track { background: transparent; }
+.gmm__scroller::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .22); border-radius: 999px; }
+.gmm__scroller::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, .4); }
 .gmm__dialog {
   max-width: 1016px; margin: 0 auto;
   opacity: 0; transform: translateY(24px) scale(.98);
@@ -279,7 +285,7 @@ button.gmm__tag:hover { background: var(--gmm-surface-hover); }
 .gmm__related-grid { column-count: 4; column-gap: 12px; }
 .gmm__related-item {
   display: block; width: 100%; margin: 0 0 12px; padding: 0; border: 0; background: none;
-  break-inside: avoid; cursor: zoom-in; text-align: left; color: #fff; font: inherit;
+  break-inside: avoid; cursor: pointer; text-align: left; color: #fff; font: inherit;
 }
 .gmm__related-item img {
   display: block; width: 100%; height: auto; border-radius: 16px;
