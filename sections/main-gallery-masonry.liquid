@@ -1,0 +1,164 @@
+{%- comment -%}
+  Masonry gallery fed by the `gallery_item` metaobject.
+  Fields used: image (file, required), link (url), title, caption,
+  category (list of single line text), product (product reference).
+  Infinite scroll loads further pages via the Section Rendering API.
+{%- endcomment -%}
+
+{%- liquid
+  assign filters = section.settings.categories | split: ','
+-%}
+
+{% style %}
+  #gm-{{ section.id }} {
+    --gm-cols-mobile: {{ section.settings.columns_mobile }};
+    --gm-cols-tablet: {{ section.settings.columns_tablet }};
+    --gm-cols-desktop: {{ section.settings.columns_desktop }};
+    --gm-gap: {{ section.settings.gap }}px;
+    --gm-radius: {{ section.settings.radius }}px;
+  }
+{% endstyle %}
+
+{{ 'gallery-masonry.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="gm-{{ section.id }}"
+  class="gm section-spacing"
+  data-gallery-masonry
+  data-section-id="{{ section.id }}"
+  data-infinite="{{ section.settings.infinite_scroll }}"
+>
+  <div class="wide-container">
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="gm__header">
+        {%- if section.settings.heading != blank -%}
+          <h1 class="gm__heading h2">{{ section.settings.heading | escape }}</h1>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <div class="gm__subheading rte">{{ section.settings.subheading }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if filters.size > 0 -%}
+      <div class="gm__filters" role="toolbar" aria-label="{{ section.settings.filter_label | escape }}">
+        <button type="button" class="gm__filter is-active" data-gm-filter="">
+          {{- section.settings.all_label | escape -}}
+        </button>
+        {%- for f in filters -%}
+          {%- assign f_clean = f | strip -%}
+          {%- if f_clean != blank -%}
+            <button type="button" class="gm__filter" data-gm-filter="{{ f_clean | handleize }}">
+              {{- f_clean | escape -}}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {% paginate shop.metaobjects.gallery_item.values by section.settings.per_page %}
+      <div class="gm__grid" data-gm-grid>
+        {%- for item in shop.metaobjects.gallery_item.values -%}
+          {%- assign img = item.image.value -%}
+          {%- if img != blank -%}
+          {%- liquid
+            assign product = item.product.value
+            assign url = item.link.value
+            if url == blank and product
+              assign url = product.url
+            endif
+            assign alt = item.title.value | default: img.alt | default: shop.name
+            assign ratio = img.aspect_ratio | default: 1
+            assign cats = ''
+            if item.category.type contains 'list.'
+              for c in item.category.value
+                assign c_handle = c | handleize
+                assign cats = cats | append: ' ' | append: c_handle
+              endfor
+            elsif item.category.value != blank
+              assign cats = item.category.value | handleize
+            endif
+          -%}
+          <article class="gm__item" data-gm-item data-ratio="{{ ratio }}" data-categories="{{ cats | strip }}">
+            {%- if url != blank -%}<a class="gm__link" href="{{ url }}"{% if section.settings.new_tab %} target="_blank" rel="noopener"{% endif %}>{%- else -%}<div class="gm__link">{%- endif -%}
+              <div class="gm__media" style="aspect-ratio: {{ ratio }};">
+                {{
+                  img
+                  | image_url: width: 1200
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '300, 450, 600, 800, 1000, 1200',
+                    sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+                    alt: alt,
+                    class: 'gm__img'
+                }}
+              </div>
+              {%- if section.settings.show_info -%}
+                {%- if item.title.value != blank or item.caption.value != blank or product -%}
+                  <div class="gm__info">
+                    {%- if item.title.value != blank -%}<p class="gm__title">{{ item.title.value | escape }}</p>{%- endif -%}
+                    {%- if item.caption.value != blank -%}<p class="gm__caption">{{ item.caption.value | escape }}</p>{%- endif -%}
+                    {%- if product and section.settings.show_price -%}
+                      <p class="gm__price">{{ product.price | money }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            {%- if url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+          </article>
+          {%- endif -%}
+        {%- else -%}
+          <p class="gm__empty">{{ section.settings.empty_text | escape }}</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.next -%}
+        <div class="gm__more" data-gm-more data-next-page="{{ paginate.current_page | plus: 1 }}" data-total-pages="{{ paginate.pages }}">
+          <a class="btn btn--secondary gm__more-btn" href="{{ paginate.next.url }}" data-gm-more-btn>
+            {{- section.settings.load_more_label | escape -}}
+          </a>
+          <span class="gm__spinner" aria-hidden="true"></span>
+        </div>
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</div>
+
+<script src="{{ 'gallery-masonry.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Masonry gallery",
+  "tag": "section",
+  "class": "section-gallery-masonry",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Gallery" },
+    { "type": "richtext", "id": "subheading", "label": "Subheading" },
+    { "type": "paragraph", "content": "Images come from metaobject type \"gallery_item\" (Admin → Content → Metaobjects)." },
+    { "type": "range", "id": "per_page", "label": "Images per load", "min": 12, "max": 48, "step": 4, "default": 24 },
+    { "type": "checkbox", "id": "infinite_scroll", "label": "Infinite scroll", "info": "Off = show a Load more button.", "default": true },
+    { "type": "checkbox", "id": "new_tab", "label": "Open links in new tab", "default": false },
+
+    { "type": "header", "content": "Filters" },
+    { "type": "text", "id": "categories", "label": "Filter categories", "info": "Comma separated, must match the metaobject 'category' values. Leave empty to hide filters.", "placeholder": "Nhẫn, Dây chuyền, Lắc tay" },
+    { "type": "text", "id": "all_label", "label": "\"All\" label", "default": "Tất cả" },
+    { "type": "text", "id": "filter_label", "label": "Filter aria label", "default": "Lọc theo danh mục" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "columns_mobile", "label": "Columns (mobile)", "min": 1, "max": 3, "step": 1, "default": 2 },
+    { "type": "range", "id": "columns_tablet", "label": "Columns (tablet)", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "range", "id": "columns_desktop", "label": "Columns (desktop)", "min": 3, "max": 6, "step": 1, "default": 4 },
+    { "type": "range", "id": "gap", "label": "Gap", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "range", "id": "radius", "label": "Corner radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 8 },
+
+    { "type": "header", "content": "Card info" },
+    { "type": "checkbox", "id": "show_info", "label": "Show title / caption", "default": true },
+    { "type": "checkbox", "id": "show_price", "label": "Show product price", "default": true },
+
+    { "type": "header", "content": "Texts" },
+    { "type": "text", "id": "load_more_label", "label": "Load more label", "default": "Xem thêm" },
+    { "type": "text", "id": "empty_text", "label": "Empty state", "default": "Chưa có hình ảnh nào." }
+  ]
+}
+{% endschema %}
