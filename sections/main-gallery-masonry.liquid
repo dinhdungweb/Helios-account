@@ -10,6 +10,25 @@
   assign col_px = section.settings.max_width | divided_by: section.settings.columns_desktop
   assign img_sizes = "(min-width: 990px) " | append: col_px | append: "px, 50vw"
 -%}
+{%- capture modal_labels -%}
+  {
+    "products": {{ section.settings.modal_products_heading | json }},
+    "related": {{ section.settings.modal_related_heading | json }},
+    "view": {{ section.settings.modal_view_label | json }},
+    "add": {{ section.settings.modal_add_label | json }},
+    "added": "Đã thêm vào giỏ",
+    "viewCart": "Xem giỏ hàng",
+    "choose": "Chọn size",
+    "soldOut": "Hết hàng",
+    "error": "Không thêm được, vui lòng thử lại",
+    "open": {{ section.settings.modal_link_label | json }},
+    "share": "Chia sẻ",
+    "copied": "Đã sao chép liên kết",
+    "close": "Đóng",
+    "prev": "Ảnh trước",
+    "next": "Ảnh sau"
+  }
+{%- endcapture -%}
 
 {% style %}
   #gm-{{ section.id }} {
@@ -31,6 +50,9 @@
   data-gallery-masonry
   data-section-id="{{ section.id }}"
   data-infinite="{{ section.settings.infinite_scroll }}"
+  data-modal="{{ section.settings.enable_modal }}"
+  data-modal-theme="{{ section.settings.modal_theme }}"
+  data-labels="{{ modal_labels | strip_newlines | escape }}"
 >
   <div class="wide-container gm__container">
     {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
@@ -88,8 +110,45 @@
               assign cats = item.category.value | handleize
             endif
           -%}
-          <article class="gm__item" data-gm-item data-ratio="{{ ratio }}" data-categories="{{ cats | strip }}">
-            {%- if url != blank -%}<a class="gm__link" href="{{ url }}"{% if section.settings.new_tab %} target="_blank" rel="noopener"{% endif %}>{%- else -%}<div class="gm__link">{%- endif -%}
+          {%- liquid
+            assign handle = item.system.handle
+            if section.settings.enable_modal
+              assign card_url = request.path | append: '?g=' | append: handle
+            else
+              assign card_url = url
+            endif
+            if item.product.type contains 'list.'
+              assign is_product_list = true
+            else
+              assign is_product_list = false
+            endif
+          -%}
+          <article class="gm__item" data-gm-item data-handle="{{ handle }}" data-ratio="{{ ratio }}" data-categories="{{ cats | strip }}">
+            <script type="application/json" data-gm-data>
+              {
+                "handle": {{ handle | json }},
+                "title": {{ item.title.value | json }},
+                "caption": {{ item.caption.value | json }},
+                "categories": {% if item.category.value != blank %}{% if item.category.type contains 'list.' %}{{ item.category.value | json }}{% else %}[{{ item.category.value | json }}]{% endif %}{% else %}[]{% endif %},
+                "link": {{ item.link.value | json }},
+                "image": {
+                  "src": {{ img | image_url: width: 1600 | json }},
+                  "width": {{ img.width | json }},
+                  "height": {{ img.height | json }},
+                  "alt": {{ alt | json }}
+                },
+                "products": [
+                  {%- if is_product_list -%}
+                    {%- for p in item.product.value -%}
+                      {%- render 'gallery-product-json', product: p -%}{%- unless forloop.last -%},{%- endunless -%}
+                    {%- endfor -%}
+                  {%- elsif product -%}
+                    {%- render 'gallery-product-json', product: product -%}
+                  {%- endif -%}
+                ]
+              }
+            </script>
+            {%- if card_url != blank -%}<a class="gm__link" href="{{ card_url }}"{% if section.settings.new_tab and section.settings.enable_modal == false %} target="_blank" rel="noopener"{% endif %}{% if section.settings.enable_modal %} data-gm-open{% endif %}>{%- else -%}<div class="gm__link">{%- endif -%}
               <div class="gm__media" style="aspect-ratio: {{ ratio }};">
                 {{
                   img
@@ -113,7 +172,7 @@
                   </div>
                 {%- endif -%}
               {%- endif -%}
-            {%- if url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+            {%- if card_url != blank -%}</a>{%- else -%}</div>{%- endif -%}
           </article>
           {%- endif -%}
         {%- else -%}
@@ -188,6 +247,24 @@
     },
     { "type": "range", "id": "overlay_opacity", "label": "Overlay darkness", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 60 },
     { "type": "checkbox", "id": "show_price", "label": "Show product price", "default": true },
+
+    { "type": "header", "content": "Detail popup" },
+    { "type": "checkbox", "id": "enable_modal", "label": "Open image in popup", "info": "Off = clicking an image goes straight to its link.", "default": true },
+    {
+      "type": "select",
+      "id": "modal_theme",
+      "label": "Popup color scheme",
+      "options": [
+        { "value": "dark", "label": "Dark" },
+        { "value": "light", "label": "Light" }
+      ],
+      "default": "dark"
+    },
+    { "type": "text", "id": "modal_products_heading", "label": "Products heading", "default": "Sản phẩm trong ảnh" },
+    { "type": "text", "id": "modal_view_label", "label": "View product label", "default": "Xem chi tiết" },
+    { "type": "text", "id": "modal_add_label", "label": "Add to cart label", "default": "Thêm vào giỏ" },
+    { "type": "text", "id": "modal_link_label", "label": "Open link label", "default": "Mở liên kết" },
+    { "type": "text", "id": "modal_related_heading", "label": "Related heading", "default": "Khám phá thêm" },
 
     { "type": "header", "content": "Texts" },
     { "type": "text", "id": "load_more_label", "label": "Load more label", "default": "Xem thêm" },

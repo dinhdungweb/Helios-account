@@ -1,0 +1,22 @@
+{%- comment -%}
+  Renders one product as JSON for the gallery modal.
+  Usage: {% render 'gallery-product-json', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign compare = blank
+  if variant.compare_at_price > variant.price
+    assign compare = variant.compare_at_price | money
+  endif
+-%}
+{
+  "title": {{ product.title | json }},
+  "url": {{ product.url | json }},
+  "vendor": {{ product.vendor | json }},
+  "image": {{ product.featured_image | image_url: width: 300 | json }},
+  "price": {{ variant.price | money | json }},
+  "compare": {{ compare | json }},
+  "available": {{ product.available | json }},
+  "variant": {{ variant.id | json }},
+  "multi": {% if product.has_only_default_variant %}false{% else %}true{% endif %}
+}
