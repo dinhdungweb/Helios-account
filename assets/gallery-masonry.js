@@ -43,7 +43,8 @@
     // Relative height of an item per unit of column width.
     weight(item) {
       const ratio = parseFloat(item.dataset.ratio) || 1;
-      return 1 / ratio + (item.querySelector('.gm__info') ? 0.2 : 0) + 0.05;
+      const below = item.querySelector('.gm__info') && this.root.classList.contains('gm--text-below');
+      return 1 / ratio + (below ? 0.2 : 0) + 0.05;
     }
 
     isVisible(item) {

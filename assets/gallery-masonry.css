@@ -57,3 +57,23 @@ a.gm__link:hover .gm__img { transform: scale(1.04); }
 .gm__more.is-loading .gm__spinner { display: block; }
 .gm--infinite .gm__more-btn { display: none; }
 @keyframes gm-spin { to { transform: rotate(360deg); } }
+
+/* Text on image */
+.gm--text-overlay .gm__link,
+.gm--text-hover .gm__link { position: relative; overflow: hidden; border-radius: var(--gm-radius); }
+.gm--text-overlay .gm__info,
+.gm--text-hover .gm__info {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 40px 14px 12px; color: #fff; pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,var(--gm-overlay, .6)), rgba(0,0,0,0));
+  text-shadow: 0 1px 2px rgba(0,0,0,.35);
+}
+.gm--text-overlay .gm__caption,
+.gm--text-hover .gm__caption { opacity: .85; }
+.gm--text-hover .gm__info { opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; }
+.gm--text-hover .gm__link:hover .gm__info,
+.gm--text-hover .gm__link:focus-visible .gm__info { opacity: 1; transform: none; }
+@media (hover: none) {
+  /* Touch screens have no hover: show the text */
+  .gm--text-hover .gm__info { opacity: 1; transform: none; }
+}

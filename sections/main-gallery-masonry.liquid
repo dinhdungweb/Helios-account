@@ -18,6 +18,7 @@
     --gm-cols-desktop: {{ section.settings.columns_desktop }};
     --gm-gap: {{ section.settings.gap }}px;
     --gm-radius: {{ section.settings.radius }}px;
+    --gm-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     --gm-max-width: {{ section.settings.max_width }}px;
   }
 {% endstyle %}
@@ -26,7 +27,7 @@
 
 <div
   id="gm-{{ section.id }}"
-  class="gm section-spacing"
+  class="gm gm--text-{{ section.settings.text_position }} section-spacing"
   data-gallery-masonry
   data-section-id="{{ section.id }}"
   data-infinite="{{ section.settings.infinite_scroll }}"
@@ -174,6 +175,18 @@
 
     { "type": "header", "content": "Card info" },
     { "type": "checkbox", "id": "show_info", "label": "Show title / caption", "default": true },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        { "value": "below", "label": "Below image" },
+        { "value": "overlay", "label": "On image (always)" },
+        { "value": "hover", "label": "On image (on hover)" }
+      ],
+      "default": "below"
+    },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay darkness", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 60 },
     { "type": "checkbox", "id": "show_price", "label": "Show product price", "default": true },
 
     { "type": "header", "content": "Texts" },
