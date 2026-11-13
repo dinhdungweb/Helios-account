@@ -7,6 +7,8 @@
 
 {%- liquid
   assign filters = section.settings.categories | split: ','
+  assign col_px = section.settings.max_width | divided_by: section.settings.columns_desktop
+  assign img_sizes = "(min-width: 990px) " | append: col_px | append: "px, 50vw"
 -%}
 
 {% style %}
@@ -16,6 +18,7 @@
     --gm-cols-desktop: {{ section.settings.columns_desktop }};
     --gm-gap: {{ section.settings.gap }}px;
     --gm-radius: {{ section.settings.radius }}px;
+    --gm-max-width: {{ section.settings.max_width }}px;
   }
 {% endstyle %}
 
@@ -28,7 +31,7 @@
   data-section-id="{{ section.id }}"
   data-infinite="{{ section.settings.infinite_scroll }}"
 >
-  <div class="wide-container">
+  <div class="wide-container gm__container">
     {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
       <div class="gm__header">
         {%- if section.settings.heading != blank -%}
@@ -88,7 +91,7 @@
                   | image_tag:
                     loading: 'lazy',
                     widths: '300, 450, 600, 800, 1000, 1200',
-                    sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
+                    sizes: img_sizes,
                     alt: alt,
                     class: 'gm__img'
                 }}
@@ -146,9 +149,10 @@
     { "type": "text", "id": "filter_label", "label": "Filter aria label", "default": "Lọc theo danh mục" },
 
     { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "max_width", "label": "Max page width", "min": 600, "max": 1600, "step": 20, "unit": "px", "default": 1000 },
     { "type": "range", "id": "columns_mobile", "label": "Columns (mobile)", "min": 1, "max": 3, "step": 1, "default": 2 },
-    { "type": "range", "id": "columns_tablet", "label": "Columns (tablet)", "min": 2, "max": 4, "step": 1, "default": 3 },
-    { "type": "range", "id": "columns_desktop", "label": "Columns (desktop)", "min": 3, "max": 6, "step": 1, "default": 4 },
+    { "type": "range", "id": "columns_tablet", "label": "Columns (tablet)", "min": 1, "max": 4, "step": 1, "default": 2 },
+    { "type": "range", "id": "columns_desktop", "label": "Columns (desktop)", "min": 1, "max": 6, "step": 1, "default": 2 },
     { "type": "range", "id": "gap", "label": "Gap", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
     { "type": "range", "id": "radius", "label": "Corner radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 8 },
 

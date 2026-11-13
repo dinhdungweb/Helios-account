@@ -2,7 +2,12 @@
   "sections": {
     "main": {
       "type": "main-gallery-masonry",
-      "settings": {}
+      "settings": {
+        "max_width": 1000,
+        "columns_mobile": 2,
+        "columns_tablet": 2,
+        "columns_desktop": 2
+      }
     }
   },
   "order": [
