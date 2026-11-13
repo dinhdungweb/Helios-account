@@ -72,6 +72,11 @@
             endif
             assign alt = item.title.value | default: img.alt | default: shop.name
             assign ratio = img.aspect_ratio | default: 1
+            if section.settings.height_mode == 'staggered'
+              assign pattern = '0.667,0.8,1,0.75,0.667,0.9,0.8,1' | split: ','
+              assign idx = paginate.current_offset | plus: forloop.index0 | modulo: pattern.size
+              assign ratio = pattern[idx]
+            endif
             assign cats = ''
             if item.category.type contains 'list.'
               for c in item.category.value
@@ -149,6 +154,17 @@
     { "type": "text", "id": "filter_label", "label": "Filter aria label", "default": "Lọc theo danh mục" },
 
     { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "height_mode",
+      "label": "Image heights",
+      "info": "Staggered crops images to varied heights so the layout stays staggered even when all photos share one ratio.",
+      "options": [
+        { "value": "staggered", "label": "Staggered" },
+        { "value": "original", "label": "Original ratio" }
+      ],
+      "default": "staggered"
+    },
     { "type": "range", "id": "max_width", "label": "Max page width", "min": 600, "max": 1600, "step": 20, "unit": "px", "default": 1000 },
     { "type": "range", "id": "columns_mobile", "label": "Columns (mobile)", "min": 1, "max": 3, "step": 1, "default": 2 },
     { "type": "range", "id": "columns_tablet", "label": "Columns (tablet)", "min": 1, "max": 4, "step": 1, "default": 2 },
