@@ -854,6 +854,14 @@
   animation: fadeIn 0.3s ease;
 }
 
+/* Gallery as an in-page tab on /account */
+.db-content > #section-gallery { display: none; }
+.db-content.show-gallery-tab > * { display: none !important; }
+.db-content.show-gallery-tab > #section-gallery { display: flex !important; animation: fadeIn .3s ease; }
+.db-gallery-panel__loading { display: flex; align-items: center; justify-content: center; min-height: 240px; }
+.db-gallery-panel__loading .gm__spinner { display: block; }
+.db-gallery-panel__loading a { color: var(--db-accent, #fab320); }
+
 .db-content.show-benefits-tab > #section-benefits {
   display: block !important;
   animation: fadeIn 0.3s ease;

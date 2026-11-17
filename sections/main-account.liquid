@@ -643,6 +643,26 @@
 
 
 
+      {% comment %}--- GALLERY TAB (loaded on demand from the account-gallery page) ---{% endcomment %}
+      {%- if settings.account_gallery_page != blank -%}
+        {%- liquid
+          assign gallery_page = settings.account_gallery_page
+          if gallery_page.url == blank
+            assign gallery_page = pages[settings.account_gallery_page]
+          endif
+        -%}
+        <div class="db-card db-gallery-card db-gallery-panel" id="section-gallery" data-gallery-panel data-src="{{ gallery_page.url }}">
+          <div class="db-card-header">
+            <h3 class="db-card-title">{{ settings.account_gallery_label | default: 'Gallery' }}</h3>
+          </div>
+          <div class="db-card-body db-gallery-panel__loading">
+            <span class="gm__spinner" aria-hidden="true"></span>
+          </div>
+        </div>
+        {{ 'gallery-masonry.css' | asset_url | stylesheet_tag }}
+        <script src="{{ 'gallery-masonry.js' | asset_url }}" defer="defer"></script>
+      {%- endif -%}
+
       {% comment %}--- CUSTOM TAB CONTENT (from blocks) ---{% endcomment %}
       {% for block in section.blocks %}
         {% if block.type == 'custom_tab' %}
@@ -722,18 +742,29 @@
     }
 
     const dbContent = document.querySelector('.db-content');
+    const tabClasses = ['show-orders-tab', 'show-account-tab', 'show-benefits-tab', 'show-gallery-tab'];
+
+    if (targetId !== 'section-gallery' && window.location.hash === '#section-gallery') {
+      history.replaceState(history.state, '', window.location.pathname + window.location.search);
+    }
 
     if (targetId === 'section-orders') {
+      dbContent.classList.remove.apply(dbContent.classList, tabClasses);
       dbContent.classList.add('show-orders-tab');
-      dbContent.classList.remove('show-account-tab', 'show-benefits-tab');
     } else if (targetId === 'section-account') {
+      dbContent.classList.remove.apply(dbContent.classList, tabClasses);
       dbContent.classList.add('show-account-tab');
-      dbContent.classList.remove('show-orders-tab', 'show-benefits-tab');
     } else if (targetId === 'section-benefits') {
+      dbContent.classList.remove.apply(dbContent.classList, tabClasses);
       dbContent.classList.add('show-benefits-tab');
-      dbContent.classList.remove('show-orders-tab', 'show-account-tab');
+    } else if (targetId === 'section-gallery') {
+      dbContent.classList.remove.apply(dbContent.classList, tabClasses);
+      dbContent.classList.add('show-gallery-tab');
+      history.replaceState(history.state, '', window.location.pathname + window.location.search + '#section-gallery');
+      loadGallery();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      dbContent.classList.remove('show-orders-tab', 'show-account-tab', 'show-benefits-tab');
+      dbContent.classList.remove.apply(dbContent.classList, tabClasses);
       if (targetId !== 'top') {
         const target = document.getElementById(targetId);
         if (target) {
@@ -751,8 +782,41 @@
   });
 
 
-  // Check hash on load
-  if (window.location.hash === '#section-orders') {
+  // Gallery tab: fetch the account-gallery page once and mount its gallery here
+  var galleryLoaded = false;
+  function loadGallery() {
+    var panel = document.querySelector('[data-gallery-panel]');
+    if (!panel || galleryLoaded) return;
+    galleryLoaded = true;
+    fetch(panel.getAttribute('data-src'), { credentials: 'same-origin' })
+      .then(function(res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
+      .then(function(html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var card = doc.querySelector('.db-gallery-card');
+        if (!card) throw new Error('Gallery markup not found');
+        panel.innerHTML = card.innerHTML;
+        var mount = function() { if (window.GalleryMasonryInit) window.GalleryMasonryInit(panel); };
+        if (window.GalleryMasonryInit) mount();
+        else window.addEventListener('load', mount, { once: true });
+      })
+      .catch(function(err) {
+        console.error('[account gallery]', err);
+        galleryLoaded = false;
+        var body = panel.querySelector('.db-gallery-panel__loading');
+        if (body) body.innerHTML = '<a href="' + panel.getAttribute('data-src') + '">Mở Gallery</a>';
+      });
+  }
+
+  // Check hash on load (?g= means a shared gallery image link)
+  if (window.location.hash === '#section-gallery' || (new URL(window.location.href)).searchParams.get('g')) {
+    const galleryNav = document.querySelector('.db-nav-item[data-scroll="section-gallery"]');
+    if (galleryNav && document.querySelector('[data-gallery-panel]')) {
+      document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });
+      galleryNav.classList.add('active');
+      document.querySelector('.db-content').classList.add('show-gallery-tab');
+      loadGallery();
+    }
+  } else if (window.location.hash === '#section-orders') {
     const ordersNav = document.querySelector('.db-nav-item[data-scroll="section-orders"]');
     if (ordersNav) {
       document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });

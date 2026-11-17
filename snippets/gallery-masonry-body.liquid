@@ -49,6 +49,7 @@
   class="gm gm--text-{{ s.text_position }} {{ extra_class | default: 'section-spacing' }}"
   data-gallery-masonry
   data-section-id="{{ section_id }}"
+  data-base-url="{{ request.path }}"
   data-infinite="{{ s.infinite_scroll }}"
   data-modal="{{ s.enable_modal }}"
   data-modal-theme="{{ s.modal_theme }}"

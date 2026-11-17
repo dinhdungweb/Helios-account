@@ -135,7 +135,8 @@
       this.more.classList.add('is-loading');
 
       try {
-        const url = new URL(window.location.href);
+        const url = new URL(this.root.dataset.baseUrl || window.location.pathname, window.location.origin);
+        if (!this.root.dataset.baseUrl) new URL(window.location.href).searchParams.forEach((v, k) => url.searchParams.set(k, v));
         url.searchParams.set('page', page);
         url.searchParams.set('section_id', this.sectionId);
         url.searchParams.delete('g');
@@ -754,6 +755,8 @@
       if (!instances.has(el)) instances.set(el, new GalleryMasonry(el));
     });
   };
+
+  window.GalleryMasonryInit = init;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => init(document));
