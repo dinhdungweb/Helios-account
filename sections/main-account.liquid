@@ -792,9 +792,27 @@
       .then(function(res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.text(); })
       .then(function(html) {
         var doc = new DOMParser().parseFromString(html, 'text/html');
-        var card = doc.querySelector('.db-gallery-card');
-        if (!card) throw new Error('Gallery markup not found');
-        panel.innerHTML = card.innerHTML;
+        // Works with both the account-gallery template and the public gallery template
+        var root = doc.querySelector('[data-gallery-masonry]');
+        if (!root) throw new Error('Gallery markup not found');
+        var styles = Array.prototype.filter.call(doc.querySelectorAll('style'), function(s) {
+          return s.textContent.indexOf('#' + root.id) !== -1;
+        });
+
+        // Fit it into the dashboard card: no page heading, full width, no page spacing
+        var header = root.querySelector('.gm__header');
+        if (header) header.remove();
+        var container = root.querySelector('.gm__container');
+        if (container) container.className = 'gm__container gm__container--fluid';
+        root.classList.remove('section-spacing');
+        root.classList.add('gm--account');
+
+        var body = document.createElement('div');
+        body.className = 'db-card-body db-gallery-card__body';
+        styles.forEach(function(s) { body.appendChild(document.importNode(s, true)); });
+        body.appendChild(document.importNode(root, true));
+        var loading = panel.querySelector('.db-gallery-panel__loading');
+        if (loading) loading.replaceWith(body); else panel.appendChild(body);
         var mount = function() { if (window.GalleryMasonryInit) window.GalleryMasonryInit(panel); };
         if (window.GalleryMasonryInit) mount();
         else window.addEventListener('load', mount, { once: true });
