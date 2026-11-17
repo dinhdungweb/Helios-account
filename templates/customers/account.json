@@ -99,17 +99,6 @@
     "main": {
       "type": "main-account",
       "blocks": {
-        "custom_tab_fzzUdm": {
-          "type": "custom_tab",
-          "settings": {
-            "title": "Gallerry",
-            "page_content": "gallerry",
-            "richtext_content": "",
-            "enable_link": false,
-            "tab_url": "",
-            "open_in_new_tab": false
-          }
-        },
         "tier_black_diamond": {
           "type": "tier_config",
           "settings": {
@@ -160,7 +149,6 @@
         }
       },
       "block_order": [
-        "custom_tab_fzzUdm",
         "tier_black_diamond",
         "tier_diamond",
         "tier_platinum",
