@@ -102,7 +102,7 @@
         "custom_tab_fzzUdm": {
           "type": "custom_tab",
           "settings": {
-            "title": "Tab Mới",
+            "title": "Gallerry",
             "page_content": "gallerry",
             "richtext_content": "",
             "enable_link": false,
