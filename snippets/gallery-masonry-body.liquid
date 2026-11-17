@@ -1,0 +1,195 @@
+{%- comment -%}
+  Masonry gallery body, shared by the standalone gallery page and the
+  customer account gallery page.
+  Usage: {% render 'gallery-masonry-body', s: section.settings, section_id: section.id %}
+  Optional: container_class (default wide-container), extra_class (default section-spacing)
+  Data: metaobject gallery_item (image, link, title, caption, category, product).
+{%- endcomment -%}
+{%- liquid
+  assign filters = s.categories | split: ','
+  assign col_px = s.max_width | divided_by: s.columns_desktop
+  assign img_sizes = "(min-width: 990px) " | append: col_px | append: "px, 50vw"
+-%}
+{%- capture modal_labels -%}
+  {
+    "products": {{ s.modal_products_heading | json }},
+    "related": {{ s.modal_related_heading | json }},
+    "view": {{ s.modal_view_label | json }},
+    "add": {{ s.modal_add_label | json }},
+    "added": "Đã thêm vào giỏ",
+    "viewCart": "Xem giỏ hàng",
+    "choose": "Chọn size",
+    "soldOut": "Hết hàng",
+    "error": "Không thêm được, vui lòng thử lại",
+    "open": {{ s.modal_link_label | json }},
+    "share": "Chia sẻ",
+    "copied": "Đã sao chép liên kết",
+    "close": "Đóng",
+    "prev": "Ảnh trước",
+    "next": "Ảnh sau"
+  }
+{%- endcapture -%}
+
+<style>
+  #gm-{{ section_id }} {
+    --gm-cols-mobile: {{ s.columns_mobile }};
+    --gm-cols-tablet: {{ s.columns_tablet }};
+    --gm-cols-desktop: {{ s.columns_desktop }};
+    --gm-gap: {{ s.gap }}px;
+    --gm-radius: {{ s.radius }}px;
+    --gm-overlay: {{ s.overlay_opacity | divided_by: 100.0 }};
+    --gm-max-width: {{ s.max_width }}px;
+  }
+</style>
+
+{{ 'gallery-masonry.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="gm-{{ section_id }}"
+  class="gm gm--text-{{ s.text_position }} {{ extra_class | default: 'section-spacing' }}"
+  data-gallery-masonry
+  data-section-id="{{ section_id }}"
+  data-infinite="{{ s.infinite_scroll }}"
+  data-modal="{{ s.enable_modal }}"
+  data-modal-theme="{{ s.modal_theme }}"
+  data-labels="{{ modal_labels | strip_newlines | escape }}"
+>
+  <div class="{{ container_class | default: 'wide-container' }} gm__container">
+    {%- if hide_header != true and s.heading != blank or hide_header != true and s.subheading != blank -%}
+      <div class="gm__header">
+        {%- if s.heading != blank -%}
+          <h1 class="gm__heading h2">{{ s.heading | escape }}</h1>
+        {%- endif -%}
+        {%- if s.subheading != blank -%}
+          <div class="gm__subheading rte">{{ s.subheading }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if filters.size > 0 -%}
+      <div class="gm__filters" role="toolbar" aria-label="{{ s.filter_label | escape }}">
+        <button type="button" class="no-hover gm__filter is-active" data-gm-filter="">
+          {{- s.all_label | escape -}}
+        </button>
+        {%- for f in filters -%}
+          {%- assign f_clean = f | strip -%}
+          {%- if f_clean != blank -%}
+            <button type="button" class="no-hover gm__filter" data-gm-filter="{{ f_clean | handleize }}">
+              {{- f_clean | escape -}}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {% paginate shop.metaobjects.gallery_item.values by s.per_page %}
+      <div class="gm__grid" data-gm-grid>
+        {%- for item in shop.metaobjects.gallery_item.values -%}
+          {%- assign img = item.image.value -%}
+          {%- if img != blank -%}
+          {%- liquid
+            assign product = item.product.value
+            assign url = item.link.value
+            if url == blank and product
+              assign url = product.url
+            endif
+            assign alt = item.title.value | default: img.alt | default: shop.name
+            assign ratio = img.aspect_ratio | default: 1
+            if s.height_mode == 'staggered'
+              assign pattern = '0.667,0.8,1,0.75,0.667,0.9,0.8,1' | split: ','
+              assign idx = paginate.current_offset | plus: forloop.index0 | modulo: pattern.size
+              assign ratio = pattern[idx]
+            endif
+            assign cats = ''
+            if item.category.type contains 'list.'
+              for c in item.category.value
+                assign c_handle = c | handleize
+                assign cats = cats | append: ' ' | append: c_handle
+              endfor
+            elsif item.category.value != blank
+              assign cats = item.category.value | handleize
+            endif
+          -%}
+          {%- liquid
+            assign handle = item.system.handle
+            if s.enable_modal
+              assign card_url = request.path | append: '?g=' | append: handle
+            else
+              assign card_url = url
+            endif
+            if item.product.type contains 'list.'
+              assign is_product_list = true
+            else
+              assign is_product_list = false
+            endif
+          -%}
+          <article class="gm__item" data-gm-item data-handle="{{ handle }}" data-ratio="{{ ratio }}" data-categories="{{ cats | strip }}">
+            <script type="application/json" data-gm-data>
+              {
+                "handle": {{ handle | json }},
+                "title": {{ item.title.value | json }},
+                "caption": {{ item.caption.value | json }},
+                "categories": {% if item.category.value != blank %}{% if item.category.type contains 'list.' %}{{ item.category.value | json }}{% else %}[{{ item.category.value | json }}]{% endif %}{% else %}[]{% endif %},
+                "link": {{ item.link.value | json }},
+                "image": {
+                  "src": {{ img | image_url: width: 1600 | json }},
+                  "width": {{ img.width | json }},
+                  "height": {{ img.height | json }},
+                  "alt": {{ alt | json }}
+                },
+                "products": [
+                  {%- if is_product_list -%}
+                    {%- for p in item.product.value -%}
+                      {%- render 'gallery-product-json', product: p -%}{%- unless forloop.last -%},{%- endunless -%}
+                    {%- endfor -%}
+                  {%- elsif product -%}
+                    {%- render 'gallery-product-json', product: product -%}
+                  {%- endif -%}
+                ]
+              }
+            </script>
+            {%- if card_url != blank -%}<a class="gm__link" href="{{ card_url }}"{% if s.new_tab and s.enable_modal == false %} target="_blank" rel="noopener"{% endif %}{% if s.enable_modal %} data-gm-open{% endif %}>{%- else -%}<div class="gm__link">{%- endif -%}
+              <div class="gm__media" style="aspect-ratio: {{ ratio }};">
+                {{
+                  img
+                  | image_url: width: 1200
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '300, 450, 600, 800, 1000, 1200',
+                    sizes: img_sizes,
+                    alt: alt,
+                    class: 'gm__img'
+                }}
+              </div>
+              {%- if s.show_info -%}
+                {%- if item.title.value != blank or item.caption.value != blank or product -%}
+                  <div class="gm__info">
+                    {%- if item.title.value != blank -%}<p class="gm__title">{{ item.title.value | escape }}</p>{%- endif -%}
+                    {%- if item.caption.value != blank -%}<p class="gm__caption">{{ item.caption.value | escape }}</p>{%- endif -%}
+                    {%- if product and s.show_price -%}
+                      <p class="gm__price">{{ product.price | money }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            {%- if card_url != blank -%}</a>{%- else -%}</div>{%- endif -%}
+          </article>
+          {%- endif -%}
+        {%- else -%}
+          <p class="gm__empty">{{ s.empty_text | escape }}</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.next -%}
+        <div class="gm__more" data-gm-more data-next-page="{{ paginate.current_page | plus: 1 }}" data-total-pages="{{ paginate.pages }}">
+          <a class="btn btn--secondary gm__more-btn" href="{{ paginate.next.url }}" data-gm-more-btn>
+            {{- s.load_more_label | escape -}}
+          </a>
+          <span class="gm__spinner" aria-hidden="true"></span>
+        </div>
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</div>
+
+<script src="{{ 'gallery-masonry.js' | asset_url }}" defer="defer"></script>

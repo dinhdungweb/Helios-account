@@ -1959,6 +1959,22 @@
         "unit": "px",
         "label": "Logo width",
         "default": 150
+      },
+      {
+        "type": "header",
+        "content": "Gallery tab"
+      },
+      {
+        "type": "page",
+        "id": "account_gallery_page",
+        "label": "Gallery page",
+        "info": "A page using the \"account-gallery\" template. Leave empty to hide the tab."
+      },
+      {
+        "type": "text",
+        "id": "account_gallery_label",
+        "label": "Tab label",
+        "default": "Gallery"
       }
     ]
   }

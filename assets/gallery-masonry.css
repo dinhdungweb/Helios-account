@@ -378,3 +378,39 @@ button.gmm__tag:hover { background: var(--gmm-surface-hover); }
 @media (prefers-reduced-motion: reduce) {
   .gmm__dialog, .gmm__backdrop, .gmm__nav, .gmm__img { transition: none; }
 }
+
+/* ==================================================================
+   Gallery inside the customer account dashboard
+   ================================================================== */
+.gm .gm__container.gm__container--fluid { max-width: none; margin: 0; padding: 0; }
+.db-gallery-card__header { align-items: flex-start; }
+.db-gallery-card__sub { margin-top: 6px; font-size: 13px; line-height: 1.5; color: var(--db-text-muted, #777); }
+.db-gallery-card__sub p { margin: 0; }
+.db-gallery-card__body { padding: 20px; }
+.gm--account .gm__filters { justify-content: flex-start; margin-bottom: 20px; }
+.gm--account .gm__filter.is-active { background: var(--db-accent, #fab320); border-color: var(--db-accent, #fab320); color: #111; }
+@media (max-width: 768px) {
+  .db-gallery-card__body { padding: 12px; }
+}
+
+/* Logged-out state */
+.db-gallery-locked {
+  min-height: 70vh; display: flex; align-items: center; justify-content: center;
+  padding: 48px 16px; background: var(--db-bg, #0d0d0d); color: #fff;
+}
+.db-gallery-locked__card {
+  width: 100%; max-width: 440px; text-align: center;
+  padding: 40px 28px; border: 1px solid #222; background: #141414;
+}
+.db-gallery-locked__card svg { color: var(--db-accent, #fab320); margin: 0 auto 16px; display: block; }
+.db-gallery-locked__title { margin: 0 0 8px; font-size: 22px; text-align: center; color: #fff; }
+.db-gallery-locked__text { margin: 0 0 24px; color: #aaa; font-size: 14px; }
+.db-gallery-locked__actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.db-gallery-locked__btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 44px; padding: 0 22px; border: 1px solid #444; color: #fff;
+  font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s, border-color .2s;
+}
+.db-gallery-locked__btn:hover { border-color: #fff; color: #fff; }
+.db-gallery-locked__btn--primary { background: var(--db-accent, #fab320); border-color: var(--db-accent, #fab320); color: #111; }
+.db-gallery-locked__btn--primary:hover { color: #111; opacity: .9; }

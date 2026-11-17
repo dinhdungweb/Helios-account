@@ -1,0 +1,379 @@
+{%- comment -%}
+  Members-only gallery inside the customer account dashboard.
+  Same layout as the other account pages (sidebar + content) and the same
+  gallery markup as the public gallery (snippets/gallery-masonry-body.liquid).
+{%- endcomment -%}
+{{ 'account.css' | asset_url | stylesheet_tag }}
+
+{%- if customer or request.design_mode -%}
+<div class="db-wrapper">
+  {% render 'account-nav' %}
+
+  <div class="db-main">
+    {% render 'account-hero', customer: customer %}
+
+    <div class="db-content">
+      <div class="db-card db-gallery-card">
+        {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+          <div class="db-card-header db-gallery-card__header">
+            <div>
+              {%- if section.settings.heading != blank -%}
+                <h3 class="db-card-title">{{ section.settings.heading | escape }}</h3>
+              {%- endif -%}
+              {%- if section.settings.subheading != blank -%}
+                <div class="db-gallery-card__sub">{{ section.settings.subheading }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+        <div class="db-card-body db-gallery-card__body">
+          {%- render 'gallery-masonry-body',
+            s: section.settings,
+            section_id: section.id,
+            hide_header: true,
+            container_class: 'gm__container--fluid',
+            extra_class: 'gm--account'
+          -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggle = document.getElementById('dbMenuToggle');
+    var sidebar = document.getElementById('dbSidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    if (!toggle || !sidebar || !overlay) return;
+    toggle.addEventListener('click', function () {
+      sidebar.classList.toggle('is-open');
+      overlay.classList.toggle('is-open');
+    });
+    overlay.addEventListener('click', function () {
+      sidebar.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+    });
+  });
+</script>
+{%- else -%}
+  {%- liquid
+    assign return_to = request.path | url_encode
+    assign login_url = routes.account_login_url | append: '?return_url=' | append: return_to
+  -%}
+  <div class="db-gallery-locked">
+    <div class="db-gallery-locked__card">
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+      <h1 class="db-gallery-locked__title">{{ section.settings.login_heading | escape }}</h1>
+      <p class="db-gallery-locked__text">{{ section.settings.login_text | escape }}</p>
+      <div class="db-gallery-locked__actions">
+        <a class="db-gallery-locked__btn db-gallery-locked__btn--primary" href="{{ login_url }}">{{ section.settings.login_button | escape }}</a>
+        <a class="db-gallery-locked__btn" href="{{ routes.account_register_url }}">{{ section.settings.register_button | escape }}</a>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Account gallery",
+  "tag": "section",
+  "class": "section-account-gallery",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "paragraph",
+      "content": "Customers must be logged in to see this page. Assign this template to a page, then pick that page in Theme settings → Account Dashboard → Gallery page."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Gallery"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "paragraph",
+      "content": "Images come from metaobject type \"gallery_item\" (Admin → Content → Metaobjects)."
+    },
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Images per load",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite_scroll",
+      "label": "Infinite scroll",
+      "info": "Off = show a Load more button.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "new_tab",
+      "label": "Open links in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Filters"
+    },
+    {
+      "type": "text",
+      "id": "categories",
+      "label": "Filter categories",
+      "info": "Comma separated, must match the metaobject 'category' values. Leave empty to hide filters.",
+      "placeholder": "Nhẫn, Dây chuyền, Lắc tay"
+    },
+    {
+      "type": "text",
+      "id": "all_label",
+      "label": "\"All\" label",
+      "default": "Tất cả"
+    },
+    {
+      "type": "text",
+      "id": "filter_label",
+      "label": "Filter aria label",
+      "default": "Lọc theo danh mục"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "height_mode",
+      "label": "Image heights",
+      "info": "Staggered crops images to varied heights so the layout stays staggered even when all photos share one ratio.",
+      "options": [
+        {
+          "value": "staggered",
+          "label": "Staggered"
+        },
+        {
+          "value": "original",
+          "label": "Original ratio"
+        }
+      ],
+      "default": "staggered"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max page width",
+      "min": 600,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1000,
+      "info": "Not used on the account page (gallery fills the content area)."
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns (mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columns (tablet)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Card info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_info",
+      "label": "Show title / caption",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "below",
+          "label": "Below image"
+        },
+        {
+          "value": "overlay",
+          "label": "On image (always)"
+        },
+        {
+          "value": "hover",
+          "label": "On image (on hover)"
+        }
+      ],
+      "default": "below"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay darkness",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show product price",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Detail popup"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_modal",
+      "label": "Open image in popup",
+      "info": "Off = clicking an image goes straight to its link.",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "modal_theme",
+      "label": "Popup color scheme",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "text",
+      "id": "modal_products_heading",
+      "label": "Products heading",
+      "default": "Sản phẩm trong ảnh"
+    },
+    {
+      "type": "text",
+      "id": "modal_view_label",
+      "label": "View product label",
+      "default": "Xem chi tiết"
+    },
+    {
+      "type": "text",
+      "id": "modal_add_label",
+      "label": "Add to cart label",
+      "default": "Thêm vào giỏ"
+    },
+    {
+      "type": "text",
+      "id": "modal_link_label",
+      "label": "Open link label",
+      "default": "Mở liên kết"
+    },
+    {
+      "type": "text",
+      "id": "modal_related_heading",
+      "label": "Related heading",
+      "default": "Khám phá thêm"
+    },
+    {
+      "type": "header",
+      "content": "Texts"
+    },
+    {
+      "type": "text",
+      "id": "load_more_label",
+      "label": "Load more label",
+      "default": "Xem thêm"
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty state",
+      "default": "Chưa có hình ảnh nào."
+    },
+    {
+      "type": "header",
+      "content": "Logged out"
+    },
+    {
+      "type": "text",
+      "id": "login_heading",
+      "label": "Heading",
+      "default": "Đăng nhập để xem Gallery"
+    },
+    {
+      "type": "text",
+      "id": "login_text",
+      "label": "Text",
+      "default": "Gallery dành riêng cho thành viên HELIOS."
+    },
+    {
+      "type": "text",
+      "id": "login_button",
+      "label": "Login button",
+      "default": "Đăng nhập"
+    },
+    {
+      "type": "text",
+      "id": "register_button",
+      "label": "Register button",
+      "default": "Tạo tài khoản"
+    }
+  ]
+}
+{% endschema %}

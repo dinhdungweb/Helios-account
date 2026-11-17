@@ -80,6 +80,23 @@
       Blacksun Club
     </a>
 
+    {%- if settings.account_gallery_page != blank -%}
+      {%- liquid
+        assign gallery_page = settings.account_gallery_page
+        if gallery_page.url == blank
+          assign gallery_page = pages[settings.account_gallery_page]
+        endif
+      -%}
+      <a class="db-nav-item {% if template.name == 'page' and page.handle == gallery_page.handle %}active{% endif %}" href="{{ gallery_page.url }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <path d="M21 15l-5-5L5 21"></path>
+        </svg>
+        {{ settings.account_gallery_label | default: 'Gallery' }}
+      </a>
+    {%- endif -%}
+
     <a class="db-nav-item {% if template == 'customers/addresses' %}active{% endif %}" href="{{ routes.account_addresses_url }}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
