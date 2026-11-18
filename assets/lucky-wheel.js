@@ -116,7 +116,7 @@
             html += '<image href="' + esc(slot.image) + '" x="-17" y="-169" width="34" height="34" clip-path="url(#lwThumbClip' + i + ')" preserveAspectRatio="xMidYMid slice"/>';
             html += '<clipPath id="lwThumbClip' + i + '"><circle cx="0" cy="-152" r="17"/></clipPath>';
           } else {
-            html += '<text class="lw__seg-icon" x="0" y="-152" text-anchor="middle" dominant-baseline="middle">' + (isCard ? '🃏' : '🎁') + '</text>';
+            html += '<g transform="translate(0,-152)">' + (isCard ? LuckyWheel.cardIcon() : LuckyWheel.giftIcon()) + '</g>';
           }
           html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 10).slice(0, 2), isCard ? 'lw__seg-label lw__seg-label--lose' : 'lw__seg-label');
         }
@@ -128,6 +128,25 @@
       html += '<circle r="' + (R_IN + 1) + '" fill="none" stroke="url(#lwGold)" stroke-width="2"/>';
       svg.innerHTML = html;
       LuckyWheel.lockFills(svg);
+    }
+
+    /* Vector icons (emoji get clipped inside SVG on some systems) */
+    static giftIcon() {
+      return (
+        '<path d="M-1 -8 C-4 -16 -13 -14 -9 -8 Z" fill="#c0392b" stroke="#7a1a12" stroke-width=".8"/>' +
+        '<path d="M1 -8 C4 -16 13 -14 9 -8 Z" fill="#c0392b" stroke="#7a1a12" stroke-width=".8"/>' +
+        '<rect x="-10" y="-3" width="20" height="13" rx="1.5" fill="#e2a93a" stroke="#8a5a12" stroke-width=".8"/>' +
+        '<rect x="-12" y="-8" width="24" height="6" rx="1.5" fill="#f5c45a" stroke="#8a5a12" stroke-width=".8"/>' +
+        '<rect x="-2" y="-8" width="4" height="18" fill="#c0392b"/>'
+      );
+    }
+
+    static cardIcon() {
+      return (
+        '<rect x="-8.5" y="-11.5" width="17" height="23" rx="2.5" fill="#f6efe0" stroke="#e2a93a" stroke-width="1.4"/>' +
+        '<rect x="-6" y="-9" width="12" height="18" rx="1.5" fill="none" stroke="#e2a93a" stroke-width=".6"/>' +
+        '<path d="M0 -5.5 L1.6 -1.7 L5.6 -1.4 L2.5 1.2 L3.5 5.1 L0 3 L-3.5 5.1 L-2.5 1.2 L-5.6 -1.4 L-1.6 -1.7 Z" fill="#c98f2a"/>'
+      );
     }
 
     /* The account dashboard has `.db-wrapper svg * { fill: none !important }`.
