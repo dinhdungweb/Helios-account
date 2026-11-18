@@ -2006,6 +2006,20 @@
       },
       {
         "type": "text",
+        "id": "lucky_wheel_font_body",
+        "label": "Font chữ (tên custom font)",
+        "default": "Font-1736240127176",
+        "info": "Tên font từ app Font Picker (SVN-Futura). Để trống = font chữ của theme."
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_font_heading",
+        "label": "Font tiêu đề (tên custom font)",
+        "default": "Font-1785468145119",
+        "info": "Dùng cho nút QUAY và tiêu đề. Để trống = font tiêu đề của theme."
+      },
+      {
+        "type": "text",
         "id": "lucky_wheel_start",
         "label": "Bắt đầu",
         "info": "Định dạng YYYY-MM-DD HH:mm (giờ Việt Nam), ví dụ 2026-12-01 00:00",
