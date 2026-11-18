@@ -663,6 +663,18 @@
         <script src="{{ 'gallery-masonry.js' | asset_url }}" defer="defer"></script>
       {%- endif -%}
 
+      {% comment %}--- LUCKY WHEEL TAB ---{% endcomment %}
+      {%- if settings.lucky_wheel_enabled -%}
+        <div class="db-card db-wheel-card" id="section-wheel">
+          <div class="db-card-header">
+            <h3 class="db-card-title">{{ settings.lucky_wheel_tab_label | default: 'Vòng quay may mắn' }}</h3>
+          </div>
+          <div class="db-card-body">
+            {% render 'lucky-wheel' %}
+          </div>
+        </div>
+      {%- endif -%}
+
       {% comment %}--- CUSTOM TAB CONTENT (from blocks) ---{% endcomment %}
       {% for block in section.blocks %}
         {% if block.type == 'custom_tab' %}
@@ -742,10 +754,20 @@
     }
 
     const dbContent = document.querySelector('.db-content');
-    const tabClasses = ['show-orders-tab', 'show-account-tab', 'show-benefits-tab', 'show-gallery-tab'];
+    const tabClasses = ['show-orders-tab', 'show-account-tab', 'show-benefits-tab', 'show-gallery-tab', 'show-wheel-tab'];
 
-    if (targetId !== 'section-gallery' && window.location.hash === '#section-gallery') {
+    if (targetId !== 'section-gallery' && targetId !== 'section-wheel' &&
+        (window.location.hash === '#section-gallery' || window.location.hash === '#section-wheel')) {
       history.replaceState(history.state, '', window.location.pathname + window.location.search);
+    }
+
+    if (targetId === 'section-wheel') {
+      dbContent.classList.remove.apply(dbContent.classList, tabClasses);
+      dbContent.classList.add('show-wheel-tab');
+      history.replaceState(history.state, '', window.location.pathname + window.location.search + '#section-wheel');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (isNav) closeSidebar();
+      return;
     }
 
     if (targetId === 'section-orders') {
@@ -826,7 +848,14 @@
   }
 
   // Check hash on load (?g= means a shared gallery image link)
-  if (window.location.hash === '#section-gallery' || (new URL(window.location.href)).searchParams.get('g')) {
+  if (window.location.hash === '#section-wheel' && document.getElementById('section-wheel')) {
+    const wheelNav = document.querySelector('.db-nav-item[data-scroll="section-wheel"]');
+    if (wheelNav) {
+      document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });
+      wheelNav.classList.add('active');
+    }
+    document.querySelector('.db-content').classList.add('show-wheel-tab');
+  } else if (window.location.hash === '#section-gallery' || (new URL(window.location.href)).searchParams.get('g')) {
     const galleryNav = document.querySelector('.db-nav-item[data-scroll="section-gallery"]');
     if (galleryNav && document.querySelector('[data-gallery-panel]')) {
       document.querySelectorAll('.db-nav-item').forEach(function(el) { el.classList.remove('active'); });

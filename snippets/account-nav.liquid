@@ -97,6 +97,17 @@
       </a>
     {%- endif -%}
 
+    {%- if settings.lucky_wheel_enabled -%}
+      <a class="db-nav-item db-nav-item--wheel" {% if is_account_page %}data-scroll="section-wheel" href="#"{% else %}href="{{ routes.account_url }}#section-wheel"{% endif %}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"></path>
+          <circle cx="12" cy="12" r="2.5" fill="currentColor"></circle>
+        </svg>
+        {{ settings.lucky_wheel_tab_label | default: 'Vòng quay may mắn' }}
+      </a>
+    {%- endif -%}
+
     <a class="db-nav-item {% if template == 'customers/addresses' %}active{% endif %}" href="{{ routes.account_addresses_url }}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>

@@ -855,6 +855,9 @@
 }
 
 /* Gallery as an in-page tab on /account */
+.db-content > #section-wheel { display: none; }
+.db-content.show-wheel-tab > * { display: none !important; }
+.db-content.show-wheel-tab > #section-wheel { display: flex !important; animation: fadeIn .3s ease; }
 .db-content > #section-gallery { display: none; }
 .db-content.show-gallery-tab > * { display: none !important; }
 .db-content.show-gallery-tab > #section-gallery { display: flex !important; animation: fadeIn .3s ease; }

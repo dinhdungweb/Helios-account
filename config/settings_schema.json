@@ -1977,5 +1977,276 @@
         "default": "Gallery"
       }
     ]
+  },
+  {
+    "name": "Lucky Wheel",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Vòng quay may mắn trong trang tài khoản. Kết quả do server quyết định (Vercel: /api/lucky-wheel). Ngày giờ theo giờ Việt Nam."
+      },
+      {
+        "type": "checkbox",
+        "id": "lucky_wheel_enabled",
+        "label": "Bật vòng quay",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_tab_label",
+        "label": "Tên tab trong tài khoản",
+        "default": "Vòng quay may mắn"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_start",
+        "label": "Bắt đầu",
+        "info": "Định dạng YYYY-MM-DD HH:mm (giờ Việt Nam), ví dụ 2026-12-01 00:00",
+        "placeholder": "2026-12-01 00:00"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_end",
+        "label": "Kết thúc",
+        "info": "YYYY-MM-DD HH:mm. Chỉ nhập ngày = hết 23:59 ngày đó.",
+        "placeholder": "2026-12-31 23:59"
+      },
+      {
+        "type": "range",
+        "id": "lucky_wheel_wins_per_day",
+        "label": "Số lượt trúng tối đa mỗi ngày",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "lucky_wheel_win_start_hour",
+        "label": "Rải lượt trúng từ (giờ)",
+        "min": 0,
+        "max": 23,
+        "step": 1,
+        "unit": "h",
+        "default": 8,
+        "info": "Lượt trúng được rải ngẫu nhiên trong khung giờ này mỗi ngày."
+      },
+      {
+        "type": "range",
+        "id": "lucky_wheel_win_end_hour",
+        "label": "Rải lượt trúng đến (giờ)",
+        "min": 1,
+        "max": 24,
+        "step": 1,
+        "unit": "h",
+        "default": 23
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_campaign_id",
+        "label": "Mã chiến dịch",
+        "info": "Để trống = tự lấy theo ngày bắt đầu. Đổi mã = bắt đầu lại bộ đếm quà (dùng cho chiến dịch mới)."
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_card_name",
+        "label": "Quà khi không trúng (thẻ chương)",
+        "default": "Thẻ chương 10 năm",
+        "info": "Mọi lượt không trúng quà 1–9 nhận món này, không giới hạn, lưu 30 ngày."
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_card_image",
+        "label": "Ảnh thẻ chương"
+      },
+      {
+        "type": "richtext",
+        "id": "lucky_wheel_note",
+        "label": "Ghi chú nhận quà",
+        "default": "<p>Quà sẽ được gửi kèm trong đơn hàng tiếp theo của bạn. Mọi thắc mắc vui lòng liên hệ fanpage HELIOS.</p>"
+      },
+      {
+        "type": "url",
+        "id": "lucky_wheel_contact_url",
+        "label": "Link fanpage"
+      },
+      {
+        "type": "header",
+        "content": "Quà tặng (9 món)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Số lượng = tổng số món phát ra trong cả chiến dịch. Món được chọn ngẫu nhiên theo số còn lại."
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_1_name",
+        "label": "Quà 1 - tên",
+        "default": "Summer sock"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_1_stock",
+        "label": "Quà 1 - số lượng",
+        "default": 8
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_1_image",
+        "label": "Quà 1 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_2_name",
+        "label": "Quà 2 - tên",
+        "default": "Mũ Cruiser"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_2_stock",
+        "label": "Quà 2 - số lượng",
+        "default": 7
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_2_image",
+        "label": "Quà 2 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_3_name",
+        "label": "Quà 3 - tên",
+        "default": "Sticker"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_3_stock",
+        "label": "Quà 3 - số lượng",
+        "default": 7
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_3_image",
+        "label": "Quà 3 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_4_name",
+        "label": "Quà 4 - tên",
+        "default": "Bài Ngọ"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_4_stock",
+        "label": "Quà 4 - số lượng",
+        "default": 7
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_4_image",
+        "label": "Quà 4 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_5_name",
+        "label": "Quà 5 - tên",
+        "default": "Figure Warrior"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_5_stock",
+        "label": "Quà 5 - số lượng",
+        "default": 7
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_5_image",
+        "label": "Quà 5 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_6_name",
+        "label": "Quà 6 - tên",
+        "default": "Bandana Seravix"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_6_stock",
+        "label": "Quà 6 - số lượng",
+        "default": 7
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_6_image",
+        "label": "Quà 6 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_7_name",
+        "label": "Quà 7 - tên",
+        "default": "Cốc gốm (SECRET)"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_7_stock",
+        "label": "Quà 7 - số lượng",
+        "default": 2
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_7_image",
+        "label": "Quà 7 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_8_name",
+        "label": "Quà 8 - tên",
+        "default": "Xu moneta"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_8_stock",
+        "label": "Quà 8 - số lượng",
+        "default": 7
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_8_image",
+        "label": "Quà 8 - ảnh"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_9_name",
+        "label": "Quà 9 - tên",
+        "default": "Tất Surgo"
+      },
+      {
+        "type": "number",
+        "id": "lucky_wheel_prize_9_stock",
+        "label": "Quà 9 - số lượng",
+        "default": 8
+      },
+      {
+        "type": "image_picker",
+        "id": "lucky_wheel_prize_9_image",
+        "label": "Quà 9 - ảnh"
+      },
+      {
+        "type": "header",
+        "content": "Kết nối"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_api_url",
+        "label": "API URL",
+        "default": "https://helios-tier-pricing-api-h543.vercel.app/api/lucky-wheel"
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_secret",
+        "label": "Khoá bí mật",
+        "info": "Phải trùng với biến LUCKY_WHEEL_SECRET trên Vercel. Không chia sẻ khoá này."
+      }
+    ]
   }
 ]

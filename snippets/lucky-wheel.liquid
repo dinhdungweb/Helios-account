@@ -1,0 +1,153 @@
+{%- comment -%}
+  Lucky wheel (customer account tab).
+  Usage: {% render 'lucky-wheel' %}  (customer must be logged in)
+
+  The result is decided by the server (settings.lucky_wheel_api_url). This
+  snippet only renders a short-lived signed token identifying the logged-in
+  customer, the wheel, and the customer's prizes from the
+  customer.metafields.lucky_wheel.history metafield.
+{%- endcomment -%}
+{%- liquid
+  assign lw_now = 'now' | date: '%s' | plus: 0
+  assign lw_payload = customer.id | append: '.' | append: lw_now
+  assign lw_sig = lw_payload | hmac_sha256: settings.lucky_wheel_secret
+  assign lw_token = lw_payload | append: '.' | append: lw_sig
+  assign lw_history = customer.metafields.lucky_wheel.history.value
+-%}
+{{ 'lucky-wheel.css' | asset_url | stylesheet_tag }}
+
+{%- capture lw_segments -%}
+  [
+    {%- for n in (1..9) -%}
+      {%- liquid
+        assign name_key = 'lucky_wheel_prize_' | append: n | append: '_name'
+        assign image_key = 'lucky_wheel_prize_' | append: n | append: '_image'
+        assign p_name = settings[name_key]
+        assign p_image = settings[image_key]
+      -%}
+      {%- if p_name != blank -%}
+        {"key": "p{{ n }}", "name": {{ p_name | json }}, "image": {% if p_image != blank %}{{ p_image | image_url: width: 160 | json }}{% else %}null{% endif %}},
+      {%- endif -%}
+    {%- endfor -%}
+    {"key": "card", "name": {{ settings.lucky_wheel_card_name | default: 'Thẻ chương 10 năm' | json }}, "image": {% if settings.lucky_wheel_card_image != blank %}{{ settings.lucky_wheel_card_image | image_url: width: 160 | json }}{% else %}null{% endif %}}
+  ]
+{%- endcapture -%}
+
+<div
+  class="lw"
+  data-lucky-wheel
+  data-api="{{ settings.lucky_wheel_api_url | escape }}"
+  data-token="{{ lw_token }}"
+  data-segments="{{ lw_segments | strip_newlines | escape }}"
+>
+  <div class="lw__layout">
+    <div class="lw__stage-col">
+      <div class="lw__stage" data-lw-stage>
+        <div class="lw__glow" aria-hidden="true"></div>
+        <div class="lw__tilt">
+          <div class="lw__shadow" aria-hidden="true"></div>
+          <div class="lw__body">
+            <div class="lw__side" aria-hidden="true"></div>
+            <div class="lw__rim" aria-hidden="true">
+              {%- for i in (1..24) -%}
+                <span class="lw__bulb" style="--i: {{ forloop.index0 }};"></span>
+              {%- endfor -%}
+            </div>
+            <div class="lw__disc" data-lw-disc>
+              <svg class="lw__svg" viewBox="-200 -200 400 400" data-lw-svg role="img" aria-label="Vòng quay may mắn"></svg>
+            </div>
+            <button type="button" class="no-hover lw__hub" data-lw-spin disabled>
+              <span class="lw__hub-text" data-lw-hub-text>QUAY</span>
+            </button>
+          </div>
+        </div>
+        <div class="lw__pointer" data-lw-pointer aria-hidden="true">
+          <svg viewBox="0 0 40 52"><defs><linearGradient id="lwPointerGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6d8"/><stop offset=".45" stop-color="#f5c45a"/><stop offset="1" stop-color="#a8741a"/></linearGradient></defs><path d="M20 50 L4 14 A17 17 0 1 1 36 14 Z" fill="url(#lwPointerGrad)" stroke="#5a3b06" stroke-width="1.5"/><circle cx="20" cy="17" r="6" fill="#1a1a1a" stroke="#fff3cc" stroke-width="1.5"/></svg>
+        </div>
+      </div>
+
+      <div class="lw__status" data-lw-status role="status" aria-live="polite">Đang tải…</div>
+    </div>
+
+    <aside class="lw__side-col">
+      <div class="lw__panel">
+        <h4 class="lw__panel-title">Quà của tôi</h4>
+        <div class="lw__prizes" data-lw-prizes>
+          {%- assign lw_has_prize = false -%}
+          {%- if lw_history.prizes -%}
+            {%- for prize in lw_history.prizes -%}
+              {%- liquid
+                assign lw_has_prize = true
+                assign p_num = prize.key | remove: 'p'
+                assign image_key = 'lucky_wheel_prize_' | append: p_num | append: '_image'
+                assign p_image = settings[image_key]
+                if prize.key == 'card'
+                  assign p_image = settings.lucky_wheel_card_image
+                endif
+                assign expires_s = prize.expires_at | date: '%s' | plus: 0
+                assign seconds_left = expires_s | minus: lw_now
+                assign days_left = seconds_left | divided_by: 86400 | plus: 1
+              -%}
+              <div class="lw-prize{% if prize.status == 'sent' %} is-sent{% elsif seconds_left <= 0 %} is-expired{% endif %}">
+                <div class="lw-prize__img">
+                  {%- if p_image != blank -%}
+                    <img src="{{ p_image | image_url: width: 160 }}" alt="" width="64" height="64" loading="lazy">
+                  {%- else -%}
+                    <span aria-hidden="true">🎁</span>
+                  {%- endif -%}
+                </div>
+                <div class="lw-prize__info">
+                  <p class="lw-prize__name">{{ prize.name | escape }}</p>
+                  <p class="lw-prize__meta">Nhận ngày {{ prize.won_at | date: '%d/%m/%Y' }}</p>
+                  {%- if prize.status == 'sent' -%}
+                    <p class="lw-prize__exp lw-prize__exp--sent">✓ Đã gửi kèm đơn hàng</p>
+                  {%- elsif seconds_left > 0 -%}
+                    <p class="lw-prize__exp">Hạn dùng đến {{ prize.expires_at | date: '%d/%m/%Y' }} · còn {{ days_left }} ngày</p>
+                  {%- else -%}
+                    <p class="lw-prize__exp">Đã hết hạn ({{ prize.expires_at | date: '%d/%m/%Y' }})</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+          {%- unless lw_has_prize -%}
+            <p class="lw__empty">Bạn chưa có quà nào. Quay ngay để thử vận may!</p>
+          {%- endunless -%}
+        </div>
+        {%- if settings.lucky_wheel_note != blank -%}
+          <div class="lw__note">
+            {{ settings.lucky_wheel_note }}
+            {%- if settings.lucky_wheel_contact_url != blank -%}
+              <a class="lw__note-link" href="{{ settings.lucky_wheel_contact_url }}" target="_blank" rel="noopener">Liên hệ fanpage →</a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="lw__panel lw__rules">
+        <h4 class="lw__panel-title">Thể lệ</h4>
+        <ul>
+          <li>Mỗi tài khoản được quay <strong>1 lượt mỗi ngày</strong>, lượt mới mở lúc 00:00.</li>
+          <li>Quà được lưu trong tài khoản <strong>30 ngày</strong> kể từ ngày nhận.</li>
+          <li>Mỗi ngày có giới hạn lượt trúng quà; lượt không trúng nhận <strong>{{ settings.lucky_wheel_card_name | default: 'Thẻ chương 10 năm' | escape }}</strong>.</li>
+          <li>Quà sẽ được gửi kèm trong đơn hàng tiếp theo của bạn.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <div class="lw lw-modal" data-lw-modal hidden>
+    <div class="lw-modal__backdrop" data-lw-close></div>
+    <canvas class="lw-modal__confetti" data-lw-confetti aria-hidden="true"></canvas>
+    <div class="lw-modal__card" role="dialog" aria-modal="true" aria-labelledby="lw-modal-title">
+      <div class="lw-modal__burst" aria-hidden="true"></div>
+      <div class="lw-modal__img" data-lw-modal-img></div>
+      <p class="lw-modal__eyebrow" data-lw-modal-eyebrow></p>
+      <h3 class="lw-modal__title" id="lw-modal-title" data-lw-modal-title></h3>
+      <p class="lw-modal__text" data-lw-modal-text></p>
+      <button type="button" class="no-hover lw-modal__btn" data-lw-close>Đóng</button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'lucky-wheel.js' | asset_url }}" defer="defer"></script>
