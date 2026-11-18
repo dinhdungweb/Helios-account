@@ -15,6 +15,18 @@
   assign lw_history = customer.metafields.lucky_wheel.history.value
 -%}
 {{ 'lucky-wheel.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign lw_body_font = settings.type_base_font
+  assign lw_heading_font = settings.type_heading_font
+-%}
+<style>
+  .lw {
+    --lw-font-body: {{ lw_body_font.family }}, {{ lw_body_font.fallback_families }};
+    --lw-font-heading: {{ lw_heading_font.family }}, {{ lw_heading_font.fallback_families }};
+    --lw-font-heading-weight: {{ lw_heading_font.weight | default: 700 }};
+    --lw-font-size: {{ settings.font_size_base_int | default: 15 }}px;
+  }
+</style>
 
 {%- capture lw_segments -%}
   [
@@ -37,6 +49,7 @@
   class="lw"
   data-lucky-wheel
   data-api="{{ settings.lucky_wheel_api_url | escape }}"
+  data-show-labels="{{ settings.lucky_wheel_show_labels }}"
   data-token="{{ lw_token }}"
   data-segments="{{ lw_segments | strip_newlines | escape }}"
 >

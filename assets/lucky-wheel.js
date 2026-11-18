@@ -25,6 +25,7 @@
       this.root = root;
       this.api = root.dataset.api;
       this.token = root.dataset.token;
+      this.showLabels = root.dataset.showLabels !== 'false';
       this.angle = 0;
       this.spinning = false;
       this.canSpin = false;
@@ -110,14 +111,18 @@
         const rot = i * step;
         html += '<g transform="rotate(' + rot + ')">';
         const isCard = slot.key === 'card';
-        {
-          if (slot.image) {
-            html += '<circle cx="0" cy="-152" r="19" fill="#0d0d0d" stroke="url(#lwGold)" stroke-width="1.5"/>';
-            html += '<image href="' + esc(slot.image) + '" x="-17" y="-169" width="34" height="34" clip-path="url(#lwThumbClip' + i + ')" preserveAspectRatio="xMidYMid slice"/>';
-            html += '<clipPath id="lwThumbClip' + i + '"><circle cx="0" cy="-152" r="17"/></clipPath>';
-          } else {
-            html += '<g transform="translate(0,-152)">' + (isCard ? LuckyWheel.cardIcon() : LuckyWheel.giftIcon()) + '</g>';
-          }
+        // With labels: small thumb near the rim. Without: larger thumb centred in the segment.
+        const cy = this.showLabels ? -152 : -122;
+        const r = this.showLabels ? 19 : 28;
+        const iconScale = this.showLabels ? 1 : 1.7;
+        if (slot.image) {
+          html += '<circle cx="0" cy="' + cy + '" r="' + r + '" fill="#0d0d0d" stroke="url(#lwGold)" stroke-width="1.5"/>';
+          html += '<image href="' + esc(slot.image) + '" x="' + -(r - 2) + '" y="' + (cy - r + 2) + '" width="' + 2 * (r - 2) + '" height="' + 2 * (r - 2) + '" clip-path="url(#lwThumbClip' + i + ')" preserveAspectRatio="xMidYMid slice"/>';
+          html += '<clipPath id="lwThumbClip' + i + '"><circle cx="0" cy="' + cy + '" r="' + (r - 2) + '"/></clipPath>';
+        } else {
+          html += '<g transform="translate(0,' + cy + ') scale(' + iconScale + ')">' + (isCard ? LuckyWheel.cardIcon() : LuckyWheel.giftIcon()) + '</g>';
+        }
+        if (this.showLabels) {
           html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 10).slice(0, 2), isCard ? 'lw__seg-label lw__seg-label--lose' : 'lw__seg-label');
         }
         html += '</g>';

@@ -1998,6 +1998,13 @@
         "default": "Vòng quay may mắn"
       },
       {
+        "type": "checkbox",
+        "id": "lucky_wheel_show_labels",
+        "label": "Hiện tên quà trên vòng quay",
+        "info": "Tắt: các ô chỉ hiện ảnh/icon (ảnh to hơn, nằm giữa ô).",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "lucky_wheel_start",
         "label": "Bắt đầu",
