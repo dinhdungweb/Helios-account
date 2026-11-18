@@ -2049,6 +2049,17 @@
         "default": 23
       },
       {
+        "type": "range",
+        "id": "lucky_wheel_win_chance",
+        "label": "Tỉ lệ trúng khi tới mốc giờ",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "default": 40,
+        "info": "Khi tới một mốc trúng, mỗi lượt quay chỉ có tỉ lệ này để trúng; chưa trúng thì mốc chờ người sau. Thấp hơn = khó đoán hơn nhưng ngày vắng có thể phát ít hơn số tối đa."
+      },
+      {
         "type": "text",
         "id": "lucky_wheel_campaign_id",
         "label": "Mã chiến dịch",
