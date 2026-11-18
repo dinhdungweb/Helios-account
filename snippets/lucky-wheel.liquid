@@ -22,7 +22,7 @@
 <style>
   .lw {
     --lw-font-body: {{ lw_body_font.family }}, {{ lw_body_font.fallback_families }};
-    --lw-font-heading: {{ lw_heading_font.family }}, {{ lw_heading_font.fallback_families }};
+    --lw-font-heading: "Font-1785468145119", "Copperplate", "Copperplate Gothic Light", {{ lw_heading_font.family }}, {{ lw_heading_font.fallback_families }};
     --lw-font-heading-weight: {{ lw_heading_font.weight | default: 700 }};
     --lw-font-size: {{ settings.font_size_base_int | default: 15 }}px;
   }
