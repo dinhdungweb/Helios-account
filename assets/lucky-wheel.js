@@ -127,6 +127,23 @@
       html += '<circle r="' + R_OUT + '" fill="none" stroke="url(#lwGold)" stroke-width="3"/>';
       html += '<circle r="' + (R_IN + 1) + '" fill="none" stroke="url(#lwGold)" stroke-width="2"/>';
       svg.innerHTML = html;
+      LuckyWheel.lockFills(svg);
+    }
+
+    /* The account dashboard has `.db-wrapper svg * { fill: none !important }`.
+       Re-apply every fill as an inline !important style, which outranks it. */
+    static lockFills(svg) {
+      svg.querySelectorAll('*').forEach((el) => {
+        const tag = el.tagName.toLowerCase();
+        if (tag === 'stop' || tag === 'lineargradient' || tag === 'radialgradient' || tag === 'defs' || tag === 'clippath') return;
+        let fill = el.getAttribute('fill');
+        if (!fill && tag === 'text') {
+          fill = el.classList.contains('lw__seg-label--lose') ? '#f5c45a'
+            : el.classList.contains('lw__seg-label') ? '#f6efe0'
+            : '#ffffff';
+        }
+        if (fill) el.style.setProperty('fill', fill, 'important');
+      });
     }
 
     /* Text running along the radius (centre -> rim), max 2 lines */
