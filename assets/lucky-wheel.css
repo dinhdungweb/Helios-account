@@ -38,7 +38,6 @@
   transform: rotateX(18deg); transform-style: preserve-3d;
   transition: transform .6s cubic-bezier(.2, .8, .2, 1);
 }
-.lw.is-spinning .lw__tilt { transform: rotateX(22deg) scale(1.01); }
 
 .lw__shadow {
   position: absolute; left: 8%; right: 8%; bottom: -14%; height: 22%;
@@ -111,6 +110,7 @@
     inset 0 4px 8px rgba(255, 255, 255, .6);
   display: flex; align-items: center; justify-content: center;
   transition: transform .15s ease, filter .2s ease;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
 }
 .lw .lw__hub:hover:not([disabled]) { filter: brightness(1.08); }
 .lw .lw__hub:active:not([disabled]) { transform: translate(-50%, -50%) translateZ(18px) scale(.94); }
@@ -170,7 +170,8 @@
 .lw__rules strong { color: var(--lw-text); }
 
 /* ---------- Result modal ---------- */
-.lw-modal { position: fixed; inset: 0; z-index: 100001; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.lw-modal { position: fixed; inset: 0; z-index: 100001; display: flex; align-items: center; justify-content: center; padding: 20px; overscroll-behavior: contain; }
+.lw-modal__backdrop { touch-action: none; }
 .lw-modal[hidden] { display: none; }
 .lw-modal__backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .78); backdrop-filter: blur(6px); opacity: 0; transition: opacity .25s ease; }
 .lw-modal__confetti { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
@@ -213,6 +214,17 @@
 @media (max-width: 1024px) {
   .lw__layout { grid-template-columns: 1fr; }
   .lw__stage { width: min(100%, 420px); }
+}
+@media (max-width: 749px) {
+  .lw__stage { perspective: none; }
+  .lw__tilt { transform: none; transform-style: flat; }
+  .lw__body { transform-style: flat; }
+  .lw__side { transform: translateY(8px); }
+  .lw__shadow { transform: none; bottom: -8%; height: 14%; }
+  .lw .lw__hub { transform: translate(-50%, -50%); }
+  .lw .lw__hub:active:not([disabled]) { transform: translate(-50%, -50%) scale(.94); }
+  .lw__glow { animation: none; opacity: .8; }
+  .lw__status { min-height: 64px; }
 }
 @media (max-width: 480px) {
   .lw__seg-label { font-size: 12px; }
