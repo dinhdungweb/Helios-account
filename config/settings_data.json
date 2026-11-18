@@ -162,6 +162,7 @@
     "tier_use_custom_metafield": true,
     "account_sidebar_logo": "shopify://shop_images/logo-w_3d2b1ce7-e744-493c-8b25-4a67596d6279.webp",
     "account_gallery_page": "",
+    "lucky_wheel_enabled": true,
     "enable_cart_upsell": true,
     "cart_drawer_recommendations_background_color": "#111111",
     "cart_drawer_recommendations_heading_color": "#f2f2f2",
