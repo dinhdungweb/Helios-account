@@ -112,10 +112,10 @@
         // content, rotated so it reads from the rim towards the centre
         html += '<g transform="rotate(' + (i * step) + ')">';
         // With labels: smaller icon near the rim. Without: larger icon centred in the segment.
-        const cy = this.showLabels ? -146 : -112;
-        const iconScale = this.showLabels ? 1.15 : 1.75;
+        const cy = this.showLabels ? -150 : -122;
+        const iconScale = this.showLabels ? 1 : 1.35;
         if (slot.image) {
-          const s = this.showLabels ? 34 : 50;
+          const s = this.showLabels ? 30 : 40;
           html += '<rect x="' + (-s / 2 - 2) + '" y="' + (cy - s / 2 - 2) + '" width="' + (s + 4) + '" height="' + (s + 4) + '" rx="8" fill="#111" stroke="' + (isCard ? 'url(#lwGold)' : 'rgba(255,255,255,.75)') + '" stroke-width="1.5"/>';
           html += '<clipPath id="lwThumbClip' + i + '"><rect x="' + (-s / 2) + '" y="' + (cy - s / 2) + '" width="' + s + '" height="' + s + '" rx="6"/></clipPath>';
           html += '<image href="' + esc(slot.image) + '" x="' + (-s / 2) + '" y="' + (cy - s / 2) + '" width="' + s + '" height="' + s + '" clip-path="url(#lwThumbClip' + i + ')" preserveAspectRatio="xMidYMid slice"/>';
@@ -429,7 +429,7 @@
       const seg = Math.floor(((this.angle % 360) + 360 + step / 2) / step);
       if (seg !== this.lastSeg) {
         this.lastSeg = seg;
-        if (this.spinning) this.tickPointer();
+        // (no pointer tick: it made the ribbon look like it was shaking)
       }
     }
 
