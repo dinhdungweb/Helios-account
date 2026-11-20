@@ -2015,7 +2015,14 @@
         "type": "checkbox",
         "id": "lucky_wheel_image_frame",
         "label": "Hiện viền quanh ảnh quà",
-        "info": "Tắt: ảnh quà hiển thị trực tiếp trên ô, không có khung nền tối và viền.",
+        "info": "Tắt: bỏ đường viền quanh ảnh quà.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "lucky_wheel_image_bg",
+        "label": "Hiện nền tối phía sau ảnh quà",
+        "info": "Tắt: bỏ khung nền tối, ảnh quà nằm trực tiếp trên ô (nên dùng ảnh PNG nền trong suốt).",
         "default": true
       },
       {

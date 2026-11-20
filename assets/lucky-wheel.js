@@ -26,6 +26,7 @@
       this.token = root.dataset.token;
       this.showLabels = root.dataset.showLabels !== 'false';
       this.imageFrame = root.dataset.imageFrame !== 'false';
+      this.imageBg = root.dataset.imageBg !== 'false';
       this.angle = 0;
       this.spinning = false;
       this.canSpin = false;
@@ -117,8 +118,12 @@
         const iconScale = this.showLabels ? 1 : 1.35;
         if (slot.image) {
           const s = this.showLabels ? 30 : 40;
-          if (this.imageFrame) {
-            html += '<rect x="' + (-s / 2 - 2) + '" y="' + (cy - s / 2 - 2) + '" width="' + (s + 4) + '" height="' + (s + 4) + '" rx="8" fill="#111" stroke="' + (isCard ? 'url(#lwGold)' : 'rgba(255,255,255,.75)') + '" stroke-width="1.5"/>';
+          // Dark tile and its border are toggled independently from Theme settings.
+          if (this.imageBg || this.imageFrame) {
+            const frameStroke = this.imageFrame
+              ? ' stroke="' + (isCard ? 'url(#lwGold)' : 'rgba(255,255,255,.75)') + '" stroke-width="1.5"'
+              : ' stroke="none"';
+            html += '<rect x="' + (-s / 2 - 2) + '" y="' + (cy - s / 2 - 2) + '" width="' + (s + 4) + '" height="' + (s + 4) + '" rx="8" fill="' + (this.imageBg ? '#111' : 'none') + '"' + frameStroke + '/>';
           }
           html += '<clipPath id="lwThumbClip' + i + '"><rect x="' + (-s / 2) + '" y="' + (cy - s / 2) + '" width="' + s + '" height="' + s + '" rx="6"/></clipPath>';
           html += '<image href="' + esc(slot.image) + '" x="' + (-s / 2) + '" y="' + (cy - s / 2) + '" width="' + s + '" height="' + s + '" clip-path="url(#lwThumbClip' + i + ')" preserveAspectRatio="xMidYMid slice"/>';
