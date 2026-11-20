@@ -60,17 +60,17 @@
         <div class="lw__wheel">
           {%- comment -%} Ribbon banner = pointer. Text from Theme settings {%- endcomment -%}
           <div class="lw__banner" data-lw-pointer aria-hidden="true">
-            <svg viewBox="0 0 260 78" style="overflow: visible;">
+            <svg viewBox="0 0 260 78" style="overflow: visible;" data-lw-banner-svg>
               <defs>
                 <linearGradient id="lwBannerGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stop-color="#f7c98a"/><stop offset=".55" stop-color="#e3a462"/><stop offset="1" stop-color="#b8743a"/>
                 </linearGradient>
                 <path id="lwBannerArc" d="M19 56 Q130 11 241 56"/>
               </defs>
-              <path d="M14 40 Q130 -6 246 40 L236 72 Q130 28 24 72 Z" fill="url(#lwBannerGrad)" style="fill: url(#lwBannerGrad) !important;"/>
-              <path d="M14 40 Q130 -6 246 40" fill="none" stroke="rgba(255,240,215,.8)" stroke-width="1.2"/>
+              <path data-lw-banner-shape d="M14 40 Q130 -6 246 40 L236 72 Q130 28 24 72 Z" fill="url(#lwBannerGrad)" style="fill: url(#lwBannerGrad) !important;"/>
+              <path data-lw-banner-edge d="M14 40 Q130 -6 246 40" fill="none" stroke="rgba(255,240,215,.8)" stroke-width="1.2"/>
               <text class="lw__banner-text" text-anchor="middle" dominant-baseline="central" style="fill: #6e3f17 !important;">
-                <textPath href="#lwBannerArc" startOffset="50%" dominant-baseline="central" style="fill: #6e3f17 !important;">{{ lw_banner | escape }}</textPath>
+                <textPath data-lw-banner-text href="#lwBannerArc" startOffset="50%" dominant-baseline="central" style="fill: #6e3f17 !important;">{{ lw_banner | escape }}</textPath>
               </text>
             </svg>
           </div>

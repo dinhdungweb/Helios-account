@@ -57,6 +57,9 @@
       if (this.$.modal) document.body.appendChild(this.$.modal);
 
       this.draw();
+      this.fitBanner();
+      // Custom fonts load late and change the text width: fit again once they are ready
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.fitBanner());
       this.idle();
       this.bind();
       this.loadStatus();
@@ -127,6 +130,53 @@
 
       svg.innerHTML = html;
       LuckyWheel.lockFills(svg);
+    }
+
+    /* Widen the ribbon to fit its text (base design is 260 x 78 SVG units) */
+    fitBanner() {
+      const svg = this.root.querySelector('[data-lw-banner-svg]');
+      const textPath = this.root.querySelector('[data-lw-banner-text]');
+      const shape = this.root.querySelector('[data-lw-banner-shape]');
+      const edge = this.root.querySelector('[data-lw-banner-edge]');
+      const arc = svg && svg.querySelector('#lwBannerArc');
+      const banner = svg && svg.parentNode;
+      if (!svg || !textPath || !shape || !arc || !banner) return;
+
+      // Measure the text on a straight line with the same styles
+      const probe = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      probe.setAttribute('class', 'lw__banner-text');
+      probe.style.visibility = 'hidden';
+      probe.textContent = textPath.textContent;
+      svg.appendChild(probe);
+      let textLen = 0;
+      try { textLen = probe.getComputedTextLength(); } catch (e) { textLen = 0; }
+      probe.remove();
+      if (!textLen) return;
+
+      const BASE_W = 260, BASE_PCT = 58, MAX_PCT = 96, PAD = 30;
+      // Arc length of the text line ~ sqrt(chord^2 + 16/3 * d^2), d = 22.5 (half the sag)
+      const need = textLen + PAD * 2;
+      const chord = Math.sqrt(Math.max(need * need - 2700, 0));
+      let W = Math.max(BASE_W, Math.ceil(chord + 38));
+      const maxW = Math.floor(BASE_W * MAX_PCT / BASE_PCT);
+      W = Math.min(W, maxW);
+
+      const m = W / 2;
+      svg.setAttribute('viewBox', '0 0 ' + W + ' 78');
+      shape.setAttribute('d', 'M14 40 Q' + m + ' -6 ' + (W - 14) + ' 40 L' + (W - 24) + ' 72 Q' + m + ' 28 24 72 Z');
+      if (edge) edge.setAttribute('d', 'M14 40 Q' + m + ' -6 ' + (W - 14) + ' 40');
+      arc.setAttribute('d', 'M19 56 Q' + m + ' 11 ' + (W - 19) + ' 56');
+      banner.style.width = (BASE_PCT * W / BASE_W).toFixed(2) + '%';
+
+      // Still too long at the maximum width: squeeze the text instead of overflowing
+      const available = Math.sqrt(Math.pow(W - 38, 2) + 2700) - PAD * 2;
+      if (textLen > available) {
+        textPath.setAttribute('textLength', Math.max(40, Math.floor(available)));
+        textPath.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+      } else {
+        textPath.removeAttribute('textLength');
+        textPath.removeAttribute('lengthAdjust');
+      }
     }
 
     /* Lift the segment that landed under the banner */
