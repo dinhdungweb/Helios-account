@@ -132,15 +132,15 @@
       LuckyWheel.lockFills(svg);
     }
 
-    /* Widen the ribbon to fit its text (base design is 260 x 78 SVG units) */
+    /* Ribbon = an arc concentric with the wheel (same -200..200 coordinates).
+       Its angle grows with the text so the ribbon always hugs the rim. */
     fitBanner() {
       const svg = this.root.querySelector('[data-lw-banner-svg]');
       const textPath = this.root.querySelector('[data-lw-banner-text]');
       const shape = this.root.querySelector('[data-lw-banner-shape]');
       const edge = this.root.querySelector('[data-lw-banner-edge]');
       const arc = svg && svg.querySelector('#lwBannerArc');
-      const banner = svg && svg.parentNode;
-      if (!svg || !textPath || !shape || !arc || !banner) return;
+      if (!svg || !textPath || !shape || !arc) return;
 
       // Measure the text on a straight line with the same styles
       const probe = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -151,26 +151,26 @@
       let textLen = 0;
       try { textLen = probe.getComputedTextLength(); } catch (e) { textLen = 0; }
       probe.remove();
-      if (!textLen) return;
 
-      const BASE_W = 260, BASE_PCT = 58, MAX_PCT = 96, PAD = 30;
-      // Arc length of the text line ~ sqrt(chord^2 + 16/3 * d^2), d = 22.5 (half the sag)
-      const need = textLen + PAD * 2;
-      const chord = Math.sqrt(Math.max(need * need - 2700, 0));
-      let W = Math.max(BASE_W, Math.ceil(chord + 38));
-      const maxW = Math.floor(BASE_W * MAX_PCT / BASE_PCT);
-      W = Math.min(W, maxW);
+      const RO = 214, RI = 184, RC = 199, PAD = 26;
+      const MIN_DEG = 30, MAX_DEG = 68; // half-angle of the ribbon, from the top
+      let half = MIN_DEG;
+      if (textLen) half = Math.min(MAX_DEG, Math.max(MIN_DEG, ((textLen + PAD * 2) / RC) * 90 / Math.PI));
 
-      const m = W / 2;
-      svg.setAttribute('viewBox', '0 0 ' + W + ' 78');
-      shape.setAttribute('d', 'M14 40 Q' + m + ' -6 ' + (W - 14) + ' 40 L' + (W - 24) + ' 72 Q' + m + ' 28 24 72 Z');
-      if (edge) edge.setAttribute('d', 'M14 40 Q' + m + ' -6 ' + (W - 14) + ' 40');
-      arc.setAttribute('d', 'M19 56 Q' + m + ' 11 ' + (W - 19) + ' 56');
-      banner.style.width = (BASE_PCT * W / BASE_W).toFixed(2) + '%';
+      const pt = (r, deg) => {
+        const a = deg * Math.PI / 180;
+        return (r * Math.sin(a)).toFixed(2) + ' ' + (-r * Math.cos(a)).toFixed(2);
+      };
+      const large = half > 90 ? 1 : 0;
+      shape.setAttribute('d',
+        'M' + pt(RO, -half) + ' A' + RO + ' ' + RO + ' 0 ' + large + ' 1 ' + pt(RO, half) +
+        ' L' + pt(RI, half) + ' A' + RI + ' ' + RI + ' 0 ' + large + ' 0 ' + pt(RI, -half) + ' Z');
+      if (edge) edge.setAttribute('d', 'M' + pt(RO, -half) + ' A' + RO + ' ' + RO + ' 0 ' + large + ' 1 ' + pt(RO, half));
+      arc.setAttribute('d', 'M' + pt(RC, -half) + ' A' + RC + ' ' + RC + ' 0 ' + large + ' 1 ' + pt(RC, half));
 
-      // Still too long at the maximum width: squeeze the text instead of overflowing
-      const available = Math.sqrt(Math.pow(W - 38, 2) + 2700) - PAD * 2;
-      if (textLen > available) {
+      // Still too long at the maximum angle: squeeze the text instead of overflowing
+      const available = (2 * half * Math.PI / 180) * RC - PAD * 2;
+      if (textLen > available + 1) {
         textPath.setAttribute('textLength', Math.max(40, Math.floor(available)));
         textPath.setAttribute('lengthAdjust', 'spacingAndGlyphs');
       } else {
@@ -192,7 +192,7 @@
       const g = this.$.svg.querySelector('.lw__seg[data-seg="' + index + '"]');
       if (!g) return;
       g.classList.add('is-active');
-      g.setAttribute('transform', 'scale(1.1)');
+      g.setAttribute('transform', 'scale(1.07)');
       g.setAttribute('filter', 'url(#lwLift)');
       const shape = g.querySelector('.lw__seg-shape');
       if (shape) { shape.setAttribute('stroke', 'url(#lwGold)'); shape.setAttribute('stroke-width', '2.5'); }
