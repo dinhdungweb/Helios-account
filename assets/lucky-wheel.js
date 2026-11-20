@@ -8,7 +8,6 @@
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const R_OUT = 186;
-  const R_IN = 58;
   const CARD_SLOTS = [0, 4, 8]; // 12-slot wheel: 9 prizes + 3 chapter-card slots
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
@@ -83,14 +82,15 @@
       let html =
         '<defs>' +
           '<radialGradient id="lwSegA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(190)">' +
-            '<stop offset=".2" stop-color="#2b2b2b"/><stop offset="1" stop-color="#151515"/></radialGradient>' +
+            '<stop offset="0" stop-color="#5a5a5a"/><stop offset="1" stop-color="#454545"/></radialGradient>' +
           '<radialGradient id="lwSegB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(190)">' +
-            '<stop offset=".2" stop-color="#3a3a3a"/><stop offset="1" stop-color="#1f1f1f"/></radialGradient>' +
-          '<radialGradient id="lwSegLose" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(190)">' +
-            '<stop offset=".2" stop-color="#3a2a0c"/><stop offset="1" stop-color="#1a1206"/></radialGradient>' +
+            '<stop offset="0" stop-color="#3b3b3b"/><stop offset="1" stop-color="#2c2c2c"/></radialGradient>' +
+          '<radialGradient id="lwSegCard" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="scale(190)">' +
+            '<stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#1c1c1c"/></radialGradient>' +
           '<linearGradient id="lwGold" x1="0" y1="0" x2="1" y2="1">' +
-            '<stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#e2a93a"/><stop offset="1" stop-color="#8a5a12"/></linearGradient>' +
-
+            '<stop offset="0" stop-color="#ffe2a8"/><stop offset=".5" stop-color="#e3a75a"/><stop offset="1" stop-color="#a5672a"/></linearGradient>' +
+          '<filter id="lwLift" x="-30%" y="-30%" width="160%" height="160%">' +
+            '<feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000" flood-opacity=".65"/></filter>' +
         '</defs>';
 
       for (let i = 0; i < n; i += 1) {
@@ -98,59 +98,74 @@
         const a1 = ((i + 1) * step - 90 - step / 2) * Math.PI / 180;
         const x0 = R_OUT * Math.cos(a0), y0 = R_OUT * Math.sin(a0);
         const x1 = R_OUT * Math.cos(a1), y1 = R_OUT * Math.sin(a1);
-        const ix0 = R_IN * Math.cos(a0), iy0 = R_IN * Math.sin(a0);
-        const ix1 = R_IN * Math.cos(a1), iy1 = R_IN * Math.sin(a1);
         const slot = this.slots[i];
-        const fill = slot.key === 'card' ? 'url(#lwSegLose)' : (i % 2 ? 'url(#lwSegB)' : 'url(#lwSegA)');
-        html += '<path d="M' + ix0 + ' ' + iy0 + ' L' + x0 + ' ' + y0 + ' A' + R_OUT + ' ' + R_OUT + ' 0 0 1 ' + x1 + ' ' + y1 +
-          ' L' + ix1 + ' ' + iy1 + ' A' + R_IN + ' ' + R_IN + ' 0 0 0 ' + ix0 + ' ' + iy0 + 'Z" fill="' + fill + '"/>';
-        // gold divider
-        html += '<line x1="' + ix0 + '" y1="' + iy0 + '" x2="' + x0 + '" y2="' + y0 + '" stroke="url(#lwGold)" stroke-width="1.6" opacity=".9"/>';
+        const isCard = slot.key === 'card';
+        const fill = isCard ? 'url(#lwSegCard)' : (i % 2 ? 'url(#lwSegB)' : 'url(#lwSegA)');
+
+        html += '<g class="lw__seg" data-seg="' + i + '">';
+        html += '<path class="lw__seg-shape" d="M0 0 L' + x0 + ' ' + y0 + ' A' + R_OUT + ' ' + R_OUT + ' 0 0 1 ' + x1 + ' ' + y1 + 'Z" fill="' + fill + '"' +
+          ' stroke="rgba(0,0,0,.35)" stroke-width="1"/>';
 
         // content, rotated so it reads from the rim towards the centre
-        const rot = i * step;
-        html += '<g transform="rotate(' + rot + ')">';
-        const isCard = slot.key === 'card';
-        // With labels: small thumb near the rim. Without: larger thumb centred in the segment.
-        const cy = this.showLabels ? -152 : -122;
-        const r = this.showLabels ? 19 : 28;
-        const iconScale = this.showLabels ? 1 : 1.7;
+        html += '<g transform="rotate(' + (i * step) + ')">';
+        // With labels: smaller icon near the rim. Without: larger icon centred in the segment.
+        const cy = this.showLabels ? -146 : -112;
+        const iconScale = this.showLabels ? 1.15 : 1.75;
         if (slot.image) {
-          html += '<circle cx="0" cy="' + cy + '" r="' + r + '" fill="#0d0d0d" stroke="url(#lwGold)" stroke-width="1.5"/>';
-          html += '<image href="' + esc(slot.image) + '" x="' + -(r - 2) + '" y="' + (cy - r + 2) + '" width="' + 2 * (r - 2) + '" height="' + 2 * (r - 2) + '" clip-path="url(#lwThumbClip' + i + ')" preserveAspectRatio="xMidYMid slice"/>';
-          html += '<clipPath id="lwThumbClip' + i + '"><circle cx="0" cy="' + cy + '" r="' + (r - 2) + '"/></clipPath>';
+          const s = this.showLabels ? 34 : 50;
+          html += '<rect x="' + (-s / 2 - 2) + '" y="' + (cy - s / 2 - 2) + '" width="' + (s + 4) + '" height="' + (s + 4) + '" rx="8" fill="#111" stroke="' + (isCard ? 'url(#lwGold)' : 'rgba(255,255,255,.75)') + '" stroke-width="1.5"/>';
+          html += '<clipPath id="lwThumbClip' + i + '"><rect x="' + (-s / 2) + '" y="' + (cy - s / 2) + '" width="' + s + '" height="' + s + '" rx="6"/></clipPath>';
+          html += '<image href="' + esc(slot.image) + '" x="' + (-s / 2) + '" y="' + (cy - s / 2) + '" width="' + s + '" height="' + s + '" clip-path="url(#lwThumbClip' + i + ')" preserveAspectRatio="xMidYMid slice"/>';
         } else {
           html += '<g transform="translate(0,' + cy + ') scale(' + iconScale + ')">' + (isCard ? LuckyWheel.cardIcon() : LuckyWheel.giftIcon()) + '</g>';
         }
         if (this.showLabels) {
           html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 10).slice(0, 2), isCard ? 'lw__seg-label lw__seg-label--lose' : 'lw__seg-label');
         }
-        html += '</g>';
+        html += '</g></g>';
       }
 
-      // inner ring
-      html += '<circle r="' + R_OUT + '" fill="none" stroke="url(#lwGold)" stroke-width="3"/>';
-      html += '<circle r="' + (R_IN + 1) + '" fill="none" stroke="url(#lwGold)" stroke-width="2"/>';
       svg.innerHTML = html;
       LuckyWheel.lockFills(svg);
     }
 
-    /* Vector icons (emoji get clipped inside SVG on some systems) */
+    /* Lift the segment that landed under the banner */
+    highlight(index) {
+      this.$.svg.querySelectorAll('.lw__seg.is-active').forEach((g) => {
+        g.classList.remove('is-active');
+        g.removeAttribute('transform');
+        g.removeAttribute('filter');
+        const p = g.querySelector('.lw__seg-shape');
+        if (p) { p.setAttribute('stroke', 'rgba(0,0,0,.35)'); p.setAttribute('stroke-width', '1'); }
+      });
+      if (index == null) return;
+      const g = this.$.svg.querySelector('.lw__seg[data-seg="' + index + '"]');
+      if (!g) return;
+      g.classList.add('is-active');
+      g.setAttribute('transform', 'scale(1.1)');
+      g.setAttribute('filter', 'url(#lwLift)');
+      const shape = g.querySelector('.lw__seg-shape');
+      if (shape) { shape.setAttribute('stroke', 'url(#lwGold)'); shape.setAttribute('stroke-width', '2.5'); }
+      g.parentNode.appendChild(g); // draw on top of its neighbours
+    }
+
+    /* Flat vector icons (emoji get clipped inside SVG on some systems) */
     static giftIcon() {
       return (
-        '<path d="M-1 -8 C-4 -16 -13 -14 -9 -8 Z" fill="#c0392b" stroke="#7a1a12" stroke-width=".8"/>' +
-        '<path d="M1 -8 C4 -16 13 -14 9 -8 Z" fill="#c0392b" stroke="#7a1a12" stroke-width=".8"/>' +
-        '<rect x="-10" y="-3" width="20" height="13" rx="1.5" fill="#e2a93a" stroke="#8a5a12" stroke-width=".8"/>' +
-        '<rect x="-12" y="-8" width="24" height="6" rx="1.5" fill="#f5c45a" stroke="#8a5a12" stroke-width=".8"/>' +
-        '<rect x="-2" y="-8" width="4" height="18" fill="#c0392b"/>'
+        '<path d="M0 -9 C-2 -17 -12 -18 -11 -12 C-10 -8.5 -4 -8.5 0 -9 Z" fill="#f4f4f4"/>' +
+        '<path d="M0 -9 C2 -17 12 -18 11 -12 C10 -8.5 4 -8.5 0 -9 Z" fill="#f4f4f4"/>' +
+        '<rect x="-13" y="-8.5" width="26" height="6.5" rx="1.2" fill="#f4f4f4"/>' +
+        '<rect x="-11" y="-0.5" width="22" height="13.5" rx="1.2" fill="#f4f4f4"/>' +
+        '<rect x="-1.6" y="-8.5" width="3.2" height="21.5" fill="rgba(0,0,0,.45)"/>'
       );
     }
 
     static cardIcon() {
       return (
-        '<rect x="-8.5" y="-11.5" width="17" height="23" rx="2.5" fill="#f6efe0" stroke="#e2a93a" stroke-width="1.4"/>' +
-        '<rect x="-6" y="-9" width="12" height="18" rx="1.5" fill="none" stroke="#e2a93a" stroke-width=".6"/>' +
-        '<path d="M0 -5.5 L1.6 -1.7 L5.6 -1.4 L2.5 1.2 L3.5 5.1 L0 3 L-3.5 5.1 L-2.5 1.2 L-5.6 -1.4 L-1.6 -1.7 Z" fill="#c98f2a"/>'
+        '<rect x="-14" y="-14" width="28" height="28" rx="3" fill="#121212" stroke="rgba(227,167,90,.55)" stroke-width=".8"/>' +
+        '<rect x="-7" y="-10" width="14" height="20" rx="2" fill="url(#lwGold)"/>' +
+        '<rect x="-5" y="-8" width="10" height="16" rx="1.2" fill="#f7ead2"/>' +
+        '<path d="M0 -4.6 L1.35 -1.45 L4.7 -1.2 L2.15 1 L2.95 4.3 L0 2.55 L-2.95 4.3 L-2.15 1 L-4.7 -1.2 L-1.35 -1.45 Z" fill="#b8792f"/>'
       );
     }
 
@@ -247,7 +262,7 @@
       } else {
         this.canSpin = true;
         this.$.btn.disabled = false;
-        this.$.hubText.textContent = 'QUAY';
+        this.$.hubText.textContent = 'Quay ngay';
         this.root.classList.add('is-ready');
         this.$.status.innerHTML = 'Bạn có <strong>1 lượt quay</strong> hôm nay. Chúc may mắn!';
       }
@@ -256,6 +271,7 @@
     setLocked(msg) {
       this.canSpin = false;
       this.$.btn.disabled = true;
+      this.$.hubText.textContent = 'Quay ngay';
       this.root.classList.remove('is-ready');
       this.$.status.textContent = msg;
     }
@@ -264,7 +280,7 @@
       this.canSpin = false;
       this.$.btn.disabled = true;
       this.root.classList.remove('is-ready');
-      this.$.hubText.textContent = 'MAI';
+      this.$.hubText.textContent = 'Hẹn bạn ngày mai';
       const prefix = today && today.type === 'win'
         ? 'Hôm nay bạn đã trúng <strong>' + esc(today.name) + '</strong>. '
         : 'Bạn đã quay hôm nay. ';
@@ -298,6 +314,9 @@
       this.root.classList.remove('is-ready');
       this.root.classList.add('is-spinning');
       this.$.status.textContent = 'Đang quay…';
+      this.$.hubText.textContent = 'Đang quay…';
+      this.highlight(null);
+      this.parked = false;
 
       // Start spinning right away; land once the server answers
       const free = this.freeSpin();
@@ -321,6 +340,7 @@
       const index = this.slotIndexFor(result);
       await free.landOn(index);
       this.parked = true;
+      this.highlight(index);
 
       this.spinning = false;
       this.root.classList.remove('is-spinning');

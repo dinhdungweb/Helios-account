@@ -1998,6 +1998,13 @@
         "default": "Vòng quay may mắn"
       },
       {
+        "type": "text",
+        "id": "lucky_wheel_banner_text",
+        "label": "Chữ trên ruy băng",
+        "default": "LUCKY SPIN",
+        "info": "Hiển thị trên dải ruy băng phía trên vòng quay. Nên ngắn (tối đa ~14 ký tự)."
+      },
+      {
         "type": "checkbox",
         "id": "lucky_wheel_show_labels",
         "label": "Hiện tên quà trên vòng quay",
