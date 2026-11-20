@@ -84,13 +84,18 @@
         },
         "buy_buttons": {
           "type": "buy_buttons",
-          "disabled": true,
           "settings": {
             "show_quantity_selector": true,
             "enable_payment_button": true,
             "show_pickup_availability": false,
             "enable_mobile_sticky_cart": true,
             "show_gift_card_recipient": false
+          }
+        },
+        "richtext_8QiJLp": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>- Thời gian giao hàng tiêu chuẩn của Helios<br/>- Bắt đầu đi đơn từ ngày 25/11</strong></p>"
           }
         },
         "complementary_pwBz8L": {
@@ -188,6 +193,7 @@
         "linked_products",
         "custom_liquid_beCgGM",
         "buy_buttons",
+        "richtext_8QiJLp",
         "complementary_pwBz8L",
         "trust_icons_TyrExf",
         "richtext_3YiAcR",
