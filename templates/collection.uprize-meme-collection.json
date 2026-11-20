@@ -149,9 +149,19 @@
           "type": "set",
           "settings": {
             "title": "STANDARD SET",
-            "subtitle": "<p>MEMA Loop Ring<br/>MEMA Route Bracelet<br/>MEMA Origin Pendant</p>",
+            "subtitle": "<p>MEMA Loop Ring<br/>MEMA Route Bracelet</p>",
             "details": "1 Minibook Love · 2 Love Notes\n1 Individual Card + 1 Duo Card",
             "image_desktop": "shopify://shop_images/Standard_Set.jpg",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "set_U6ED4P": {
+          "type": "set",
+          "settings": {
+            "title": "MEMORY OF LOVE PHOTOBOOK",
+            "subtitle": "<p>Photobook Memory of Love</p><p>Một trong hai sản phẩm:&nbsp;</p><ul><li>Nhẫn Bex - chờ tên chính thức</li><li>Nhẫn O.D - chờ tên chính thức</li></ul>",
+            "details": "1 Individual Card\n? Secret Love ?",
             "link_label": "",
             "link": ""
           }
@@ -171,6 +181,7 @@
       "block_order": [
         "set_fJtcip",
         "set_cNbBQG",
+        "set_U6ED4P",
         "set_niye43"
       ],
       "name": "MEMA set selector",
