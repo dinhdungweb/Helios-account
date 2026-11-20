@@ -2012,6 +2012,13 @@
         "default": true
       },
       {
+        "type": "checkbox",
+        "id": "lucky_wheel_image_frame",
+        "label": "Hiện viền quanh ảnh quà",
+        "info": "Tắt: ảnh quà hiển thị trực tiếp trên ô, không có khung nền tối và viền.",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "lucky_wheel_font_body",
         "label": "Font chữ (tên custom font)",
