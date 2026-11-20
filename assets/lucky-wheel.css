@@ -26,16 +26,6 @@
   display: flex; align-items: center; justify-content: center;
 }
 
-/* warm light falling from the banner onto the wheel */
-.lw__glow {
-  position: absolute; left: 50%; top: 1%; width: 46%; height: 30%;
-  transform: translateX(-50%); z-index: 2; pointer-events: none;
-  background: radial-gradient(ellipse at 50% 0%, rgba(240, 170, 90, .55), rgba(240, 170, 90, .18) 45%, rgba(240, 170, 90, 0) 72%);
-  filter: blur(6px); mix-blend-mode: screen;
-}
-.lw.is-spinning .lw__glow { animation: lw-glow .9s ease-in-out infinite; }
-@keyframes lw-glow { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
-
 /* glass ring around the disc */
 .lw__wheel {
   position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%;
@@ -200,7 +190,6 @@
 }
 @media (max-width: 749px) {
   .lw__status { min-height: 64px; }
-  .lw__glow { mix-blend-mode: normal; }
   .lw__wheel { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (max-width: 480px) {
@@ -208,7 +197,7 @@
   .lw__status { font-size: .87em; padding: 10px 16px; border-radius: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .lw__glow, .lw.is-ready .lw__spin-btn, .lw-modal__burst { animation: none; }
+  .lw.is-ready .lw__spin-btn, .lw-modal__burst { animation: none; }
   .lw__seg { transition: none; }
 }
 
