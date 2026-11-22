@@ -181,11 +181,11 @@
         },
         "set_U6ED4P": {
           "type": "set",
-          "disabled": true,
           "settings": {
             "title": "PHOTOBOOK SET",
             "subtitle": "<p>Memory of Love Photobook</p><p>Và một trong hai sản phẩm:&nbsp;</p><ul><li>MEMA Milestone Ring</li><li>MEMA Becoming Ring</li></ul>",
             "details": "2 Individual Cards\n? Secret Love ?",
+            "image_desktop": "shopify://shop_images/1795321956182_5717625653795588355_5717625653795588355_69c0a64b062cd2f7636e7d958c82fd60.jpg",
             "link_label": "",
             "link": ""
           }
