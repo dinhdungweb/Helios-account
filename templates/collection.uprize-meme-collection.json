@@ -81,6 +81,29 @@
         "autoplay_speed": 7
       }
     },
+    "rich_text_RmkfTk": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "Lưu ý",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>* Sản phẩm mở bán trong thời gian từ ngày 22/11 - 30/11<br/>* Bắt đầu đi đơn từ ngày 25/11<br/>* Không đổi trả hàng</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": true,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "featured_collection_xnChk9": {
       "type": "featured-collection",
       "name": "Featured collection",
@@ -319,6 +342,7 @@
   "order": [
     "mema_editorial_hero_TwbhYe",
     "slideshow_xgA7TR",
+    "rich_text_RmkfTk",
     "featured_collection_xnChk9",
     "rich_text_JTDfAL",
     "mema_set_selector_BjEbTJ",
