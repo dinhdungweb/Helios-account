@@ -40,7 +40,7 @@
         assign p_image = settings[image_key] | default: p_product.featured_image
       -%}
       {%- if p_name != blank -%}
-        {"key": "p{{ n }}", "name": {{ p_name | json }}, "image": {% if p_image != blank %}{{ p_image | image_url: width: 160 | json }}{% else %}null{% endif %}},
+        {"key": "p{{ n }}", "name": {{ p_name | json }}, "image": {% if p_image != blank %}{{ p_image | image_url: width: 160 | json }}{% else %}null{% endif %}, "photo": {% if p_product.featured_image %}{{ p_product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}},
       {%- endif -%}
     {%- endfor -%}
     {%- liquid
@@ -48,7 +48,7 @@
       assign card_name = settings.lucky_wheel_card_name | default: card_product.title | default: 'Thẻ chương 10 năm'
       assign card_image = settings.lucky_wheel_card_image | default: card_product.featured_image
     -%}
-    {"key": "card", "name": {{ card_name | json }}, "image": {% if card_image != blank %}{{ card_image | image_url: width: 160 | json }}{% else %}null{% endif %}}
+    {"key": "card", "name": {{ card_name | json }}, "image": {% if card_image != blank %}{{ card_image | image_url: width: 160 | json }}{% else %}null{% endif %}, "photo": {% if card_product.featured_image %}{{ card_product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}}
   ]
 {%- endcapture -%}
 
@@ -125,7 +125,7 @@
                 assign seconds_left = expires_s | minus: lw_now
                 assign days_left = seconds_left | divided_by: 86400 | plus: 1
               -%}
-              <div class="lw-prize{% if prize.status == 'sent' or prize.status == 'used' %} is-sent{% elsif seconds_left <= 0 %} is-expired{% endif %}">
+              <div class="lw-prize{% if prize.status == 'sent' or prize.status == 'attached' %} is-sent{% elsif seconds_left <= 0 %} is-expired{% endif %}">
                 <div class="lw-prize__img">
                   {%- if p_image != blank -%}
                     <img src="{{ p_image | image_url: width: 160 }}" alt="" width="64" height="64" loading="lazy">
@@ -136,14 +136,12 @@
                 <div class="lw-prize__info">
                   <p class="lw-prize__name">{{ prize.name | escape }}</p>
                   <p class="lw-prize__meta">Nhận ngày {{ prize.won_at | date: '%d/%m/%Y' }}</p>
-                  {%- if prize.status == 'used' -%}
-                    <p class="lw-prize__exp lw-prize__exp--sent">✓ Đã dùng trong đơn hàng</p>
-                  {%- elsif prize.status == 'sent' -%}
-                    <p class="lw-prize__exp lw-prize__exp--sent">✓ Đã gửi kèm đơn hàng</p>
+                  {%- if prize.status == 'sent' -%}
+                    <p class="lw-prize__exp lw-prize__exp--sent">✓ Đã gửi kèm đơn hàng {{ prize.order.name | escape }}</p>
+                  {%- elsif prize.status == 'attached' -%}
+                    <p class="lw-prize__exp lw-prize__exp--sent">✓ Sẽ gửi kèm đơn hàng {{ prize.order.name | escape }}</p>
                   {%- elsif seconds_left > 0 -%}
-                    <p class="lw-prize__exp">Hạn dùng đến {{ prize.expires_at | date: '%d/%m/%Y' }} · còn {{ days_left }} ngày</p>
-                    <div class="lw-prize__actions"><button type="button" class="no-hover lw-prize__add" data-lw-claim="{{ prize.id | escape }}">Thêm vào giỏ</button></div>
-                    <p class="lw-prize__msg" data-lw-claim-msg hidden></p>
+                    <p class="lw-prize__exp">Gửi kèm đơn hàng tiếp theo · đặt hàng trước {{ prize.expires_at | date: '%d/%m/%Y' }} (còn {{ days_left }} ngày)</p>
                   {%- else -%}
                     <p class="lw-prize__exp">Đã hết hạn ({{ prize.expires_at | date: '%d/%m/%Y' }})</p>
                   {%- endif -%}
@@ -170,8 +168,11 @@
         <ul>
           <li>Mỗi tài khoản được quay <strong>1 lượt mỗi ngày</strong>, lượt mới mở lúc 00:00.</li>
           <li>Quà được lưu trong tài khoản <strong>30 ngày</strong> kể từ ngày nhận.</li>
-          <li>Bấm <strong>Thêm vào giỏ</strong> ở mục Quà của tôi để nhận quà. Mỗi quà dùng 1 lần, chỉ áp dụng cho tài khoản của bạn.</li>
-          <li><strong>Quà chỉ được miễn phí khi mua kèm ít nhất 1 sản phẩm khác</strong> trong cùng đơn hàng. Nếu giỏ hàng chỉ có quà, quà sẽ được tính đủ giá.</li>
+          <li>Quà được <strong>gửi kèm miễn phí trong đơn hàng tiếp theo</strong> của bạn (đặt bằng tài khoản này, trong thời hạn 30 ngày). Bạn không cần thêm quà vào giỏ.</li>
+          {%- assign lw_min_order = settings.lucky_wheel_min_order | default: 0 | times: 1 -%}
+          {%- if lw_min_order > 0 -%}
+            <li>Áp dụng cho đơn hàng từ <strong>{{ lw_min_order | times: 100 | money_without_trailing_zeros }}</strong> trở lên.</li>
+          {%- endif -%}
         </ul>
       </div>
     </aside>

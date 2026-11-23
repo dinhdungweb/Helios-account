@@ -83,7 +83,6 @@
 
     let items = [];
     let currency = '';
-    let discountCodes = [];
 
     // Check if this is "Buy Now" mode (single item from product page)
     if (eventDetail && eventDetail.buyNowMode && eventDetail.singleItem) {
@@ -110,11 +109,6 @@
       if (!currency) {
         throw new Error('Checkout currency not found');
       }
-
-      // Lucky-wheel gift codes (customer-only, validated by Shopify on the draft order)
-      discountCodes = (cart.discount_codes || [])
-        .map(function (d) { return String(d && d.code || '').toUpperCase(); })
-        .filter(function (code) { return /^LW[A-Z0-9]{10}$/.test(code); });
 
       // Build items with tier discounts
       items = await Promise.all(cart.items.map(async (item) => {
@@ -178,8 +172,7 @@
         customer_email: customerEmail,
         currency: currency,
         country: getActiveCountry(),
-        items: items,
-        discount_codes: discountCodes
+        items: items
       })
     });
 

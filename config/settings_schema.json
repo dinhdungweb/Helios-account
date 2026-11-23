@@ -2119,10 +2119,11 @@
         "info": "Để trống = dùng ảnh sản phẩm."
       },
       {
-        "type": "collection",
-        "id": "lucky_wheel_buy_collection",
-        "label": "Điều kiện dùng quà: mua kèm 1 sản phẩm trong collection",
-        "info": "Giỏ hàng phải có ít nhất 1 sản phẩm trả tiền trong collection này thì quà mới được miễn phí. Để trống = collection all-products."
+        "type": "number",
+        "id": "lucky_wheel_min_order",
+        "label": "Giá trị đơn tối thiểu để gửi kèm quà (đ)",
+        "info": "0 hoặc để trống = đơn nào cũng được gửi kèm quà. Tính theo tạm tính của đơn (sau giảm giá, chưa gồm phí ship).",
+        "default": 0
       },
       {
         "type": "richtext",
@@ -2141,7 +2142,7 @@
       },
       {
         "type": "paragraph",
-        "content": "Chọn sản phẩm cho từng quà. Khách bấm \"Thêm vào giỏ\" trong mục Quà của tôi, quà được miễn phí khi thanh toán (chỉ tài khoản đó, 1 lần, trong 30 ngày). Số lượng = tổng số món phát ra trong cả chiến dịch."
+        "content": "Chọn sản phẩm cho từng quà (dùng tên và ảnh của sản phẩm). Quà khách trúng được tự động gắn vào đơn hàng tiếp theo của khách: đơn có ghi chú \"Gửi kèm quà vòng quay\" và tag vong-quay. Số lượng = tổng số món phát ra trong cả chiến dịch."
       },
       {
         "type": "product",
