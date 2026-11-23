@@ -304,6 +304,22 @@
       return data;
     }
 
+    /**
+     * Retries while the server is busy (many spins at the same moment) or the network
+     * hiccups. Safe: a repeated spin returns the result already recorded for today.
+     */
+    async callWithRetry(action, extra, tries = 4) {
+      for (let i = 1; ; i += 1) {
+        try {
+          return await this.call(action, extra);
+        } catch (e) {
+          const transient = e.code === 'busy' || e.code === 'server_error' || e.name === 'TypeError';
+          if (!transient || i >= tries) throw e;
+          await new Promise((r) => setTimeout(r, 600 + Math.random() * 900 * i));
+        }
+      }
+    }
+
     async loadStatus() {
       try {
         const data = await this.call('status');
@@ -388,7 +404,7 @@
       const free = this.freeSpin();
       let data;
       try {
-        data = await this.call('spin');
+        data = await this.callWithRetry('spin');
       } catch (e) {
         if (e.code === 'already_spun' && e.data && e.data.result) {
           data = { result: e.data.result, next_spin_at: null, already: true };
