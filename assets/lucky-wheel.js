@@ -130,8 +130,7 @@
         const cy = this.showLabels ? -150 : -122;
         const iconScale = this.showLabels ? 1 : 1.35;
         if (isLose) {
-          // Always written out, so customers see what this slot means
-          html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 9).slice(0, 3), 'lw__seg-label lw__seg-label--lose', -112, 12);
+          html += '<g transform="translate(0,' + cy + ') scale(' + iconScale + ')">' + LuckyWheel.loseIcon() + '</g>';
         } else if (slot.image) {
           const s = this.showLabels ? 30 : 40;
           // Dark tile and its border are toggled independently from Theme settings.
@@ -146,8 +145,8 @@
         } else {
           html += '<g transform="translate(0,' + cy + ') scale(' + iconScale + ')">' + (isCard ? LuckyWheel.cardIcon() : LuckyWheel.giftIcon()) + '</g>';
         }
-        if (this.showLabels && !isLose) {
-          html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 10).slice(0, 2), isCard ? 'lw__seg-label lw__seg-label--card' : 'lw__seg-label');
+        if (this.showLabels) {
+          html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 10).slice(0, 2), isLose ? 'lw__seg-label lw__seg-label--lose' : 'lw__seg-label');
         }
         html += '</g></g>';
       }
@@ -232,6 +231,14 @@
         '<rect x="-11" y="-0.5" width="22" height="13.5" rx="1.2" fill="#f4f4f4"/>' +
         '<rect x="-1.6" y="-8.5" width="3.2" height="21.5" fill="rgba(0,0,0,.45)"/>'
       );
+    }
+
+    /* Four-leaf clover for "better luck next time" */
+    static loseIcon() {
+      const leaf = (r) => '<path d="M0 -1 C-7 -6 -9 -14 -4.5 -15 C-2 -15.5 0 -13.5 0 -11 C0 -13.5 2 -15.5 4.5 -15 C9 -14 7 -6 0 -1 Z" transform="rotate(' + r + ')" fill="url(#lwGold)"/>';
+      return leaf(0) + leaf(90) + leaf(180) + leaf(270) +
+        '<path d="M0.8 0.8 C4 5 5 9 8.5 12.5" fill="none" stroke="#e3a75a" stroke-width="1.8" stroke-linecap="round"/>' +
+        '<circle r="2.2" fill="#8a5a12"/>';
     }
 
     static cardIcon() {
