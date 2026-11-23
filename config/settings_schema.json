@@ -2116,7 +2116,7 @@
         "id": "lucky_wheel_card_name",
         "label": "Quà khi không trúng (thẻ chương) - tên hiển thị",
         "default": "Thẻ chương 10 năm",
-        "info": "Mỗi ngày có N thẻ rải ngẫu nhiên trong khung giờ trúng; mỗi tài khoản nhận tối đa 1 thẻ cả chương trình. Thẻ nằm ở ô quà đầu tiên có số lượng 0. Để trống = dùng tên sản phẩm."
+        "info": "Mỗi ngày có N thẻ rải ngẫu nhiên trong khung giờ trúng; một tài khoản có thể nhận nhiều thẻ. Để trống = dùng tên sản phẩm."
       },
       {
         "type": "image_picker",
@@ -2129,7 +2129,7 @@
         "id": "lucky_wheel_lose_text",
         "label": "Ô không trúng",
         "default": "Chúc bạn may mắn lần sau",
-        "info": "Hiện trên 3 ô không trúng của vòng quay. Mỗi tài khoản nhận tối đa 1 phần quà + 1 Thẻ chương; các lượt còn lại rơi vào ô này."
+        "info": "Ô không trúng trên vòng quay. Mỗi tài khoản nhận tối đa 1 phần quà (1–9) trong cả chương trình; lượt không ra quà hay thẻ chương rơi vào ô này."
       },
       {
         "type": "text",

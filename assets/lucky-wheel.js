@@ -104,7 +104,7 @@
         const slot = this.slots[i];
         const isCard = slot.key === 'card';
         const isLose = slot.key === 'lose';
-        const fill = isLose ? 'url(#lwSegCard)' : (i % 2 ? 'url(#lwSegB)' : 'url(#lwSegA)');
+        const fill = i % 2 ? 'url(#lwSegB)' : 'url(#lwSegA)';
 
         html += '<g class="lw__seg" data-seg="' + i + '">';
         html += '<path class="lw__seg-shape" d="M0 0 L' + x0 + ' ' + y0 + ' A' + R_OUT + ' ' + R_OUT + ' 0 0 1 ' + x1 + ' ' + y1 + 'Z" fill="' + fill + '"' +

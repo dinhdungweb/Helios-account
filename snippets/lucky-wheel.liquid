@@ -181,10 +181,8 @@
           {%- liquid
             assign lw_min_order = settings.lucky_wheel_min_order | default: 0 | times: 1
             assign lw_expiry = settings.lucky_wheel_prize_expiry | strip
-            assign lw_card_name = settings.lucky_wheel_card_name | default: settings.lucky_wheel_card_product.title | default: 'Thẻ chương 10 năm'
           -%}
           <li>Mỗi tài khoản được quay <strong>1 lượt mỗi ngày</strong>, lượt mới mở lúc 00:00.</li>
-          <li>Mỗi tài khoản nhận tối đa <strong>1 phần quà</strong> và <strong>1 {{ lw_card_name | escape }}</strong> trong suốt chương trình; các lượt còn lại là “{{ settings.lucky_wheel_lose_text | default: 'Chúc bạn may mắn lần sau' | escape }}”.</li>
           <li>Quà được <strong>gửi kèm miễn phí trong đơn hàng tiếp theo</strong> của bạn (đặt bằng tài khoản này){% if lw_min_order > 0 %}, áp dụng cho đơn từ <strong>{{ lw_min_order | times: 100 | money_without_trailing_zeros }}</strong>{% else %}, không giới hạn giá trị đơn{% endif %}. Bạn không cần thêm quà vào giỏ.</li>
           {%- if lw_expiry != blank -%}
             <li>Quà được giữ đến hết ngày <strong>{{ lw_expiry | date: '%d/%m/%Y' }}</strong>.</li>
