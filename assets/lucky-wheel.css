@@ -217,3 +217,5 @@
   background: #fff; box-shadow: 0 10px 40px rgba(0, 0, 0, .45), 0 0 30px rgba(245, 196, 90, .25);
 }
 .lw-modal__img.is-photo img { object-fit: contain; }
+.lw-prize__img.is-photo { background: #fff; border-color: rgba(245, 196, 90, .5); border-radius: 6px; }
+.lw-prize__img.is-photo img { object-fit: contain; }

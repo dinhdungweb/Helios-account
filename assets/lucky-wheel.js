@@ -527,7 +527,7 @@
         const orderName = p.order && p.order.name ? ' ' + p.order.name : '';
         const expired = !sent && !attached && left <= 0;
         return '<div class="lw-prize' + (sent || attached ? ' is-sent' : expired ? ' is-expired' : '') + '">' +
-          '<div class="lw-prize__img">' + (def.image ? '<img src="' + esc(def.image) + '" alt="" width="64" height="64" loading="lazy">' : '<span aria-hidden="true">🎁</span>') + '</div>' +
+          '<div class="lw-prize__img' + (def.photo ? ' is-photo' : '') + '">' + ((def.photo || def.image) ? '<img src="' + esc(def.photo || def.image) + '" alt="" width="64" height="64" loading="lazy">' : '<span aria-hidden="true">🎁</span>') + '</div>' +
           '<div class="lw-prize__info">' +
             '<p class="lw-prize__name">' + esc(p.name) + '</p>' +
             '<p class="lw-prize__meta">Nhận ngày ' + fmtDate(p.won_at) + '</p>' +

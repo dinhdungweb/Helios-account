@@ -114,19 +114,27 @@
                 assign p_num = prize.key | remove: 'p'
                 assign image_key = 'lucky_wheel_prize_' | append: p_num | append: '_image'
                 assign product_key = 'lucky_wheel_prize_' | append: p_num | append: '_product'
-                assign p_image = settings[image_key] | default: settings[product_key].featured_image
+                # Product photo first (the product the customer won, else the current prize product), then the wheel image
+                assign p_photo = settings[product_key].featured_image
+                assign p_image = settings[image_key]
                 if prize.key == 'card'
-                  assign p_image = settings.lucky_wheel_card_image | default: settings.lucky_wheel_card_product.featured_image
+                  assign p_photo = settings.lucky_wheel_card_product.featured_image
+                  assign p_image = settings.lucky_wheel_card_image
                 endif
-                if prize.product != blank and p_image == blank
-                  assign p_image = all_products[prize.product].featured_image
+                if prize.product != blank and all_products[prize.product].featured_image
+                  assign p_photo = all_products[prize.product].featured_image
+                endif
+                assign p_is_photo = false
+                if p_photo
+                  assign p_image = p_photo
+                  assign p_is_photo = true
                 endif
                 assign expires_s = prize.expires_at | date: '%s' | plus: 0
                 assign seconds_left = expires_s | minus: lw_now
                 assign days_left = seconds_left | divided_by: 86400 | plus: 1
               -%}
               <div class="lw-prize{% if prize.status == 'sent' or prize.status == 'attached' %} is-sent{% elsif seconds_left <= 0 %} is-expired{% endif %}">
-                <div class="lw-prize__img">
+                <div class="lw-prize__img{% if p_is_photo %} is-photo{% endif %}">
                   {%- if p_image != blank -%}
                     <img src="{{ p_image | image_url: width: 160 }}" alt="" width="64" height="64" loading="lazy">
                   {%- else -%}
