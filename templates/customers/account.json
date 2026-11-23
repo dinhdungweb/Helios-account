@@ -54,6 +54,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "VÒNG QUAY BLACK SUN DAY",
+            "button_style": "wheel_badge",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--bottom-xs"
           }

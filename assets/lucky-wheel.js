@@ -8,7 +8,7 @@
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const R_OUT = 186;
-  const CARD_SLOTS = [0, 4, 8]; // 12-slot wheel: 9 prizes + 3 chapter-card slots
+  const LOSE_SLOTS = [0, 4, 8]; // 12-slot wheel: 3 "better luck next time" + 9 prize slots (chapter card in a free one)
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
@@ -33,9 +33,10 @@
 
       let defs = [];
       try { defs = JSON.parse(root.dataset.segments || '[]'); } catch (e) { defs = []; }
-      this.prizes = defs.filter((d) => d.key !== 'card');
+      this.prizes = defs.filter((d) => /^p\d+$/.test(d.key));
       this.card = defs.find((d) => d.key === 'card') || { key: 'card', name: 'Thẻ chương 10 năm', image: null };
-      this.allDefs = this.prizes.concat([this.card]);
+      this.lose = defs.find((d) => d.key === 'lose') || { key: 'lose', name: 'Chúc bạn may mắn lần sau', image: null };
+      this.allDefs = this.prizes.concat([this.card, this.lose]);
       this.slots = this.buildSlots();
 
       this.$ = {
@@ -69,14 +70,25 @@
 
     /* ---------- layout ---------- */
 
+    /**
+     * 12 slots: "better luck next time" at 0/4/8, prize slots 1..9 in the other 9.
+     * A prize slot without a prize (stock 0) shows the chapter card (first one) or another
+     * "better luck next time".
+     */
     buildSlots() {
-      const total = this.prizes.length + CARD_SLOTS.length;
+      const bySlot = {};
+      this.prizes.forEach((p, i) => { bySlot[p.slot || i + 1] = p; });
       const slots = [];
-      let p = 0;
-      for (let i = 0; i < total; i += 1) {
-        if (CARD_SLOTS.indexOf(i) !== -1 || p >= this.prizes.length) slots.push(this.card);
-        else slots.push(this.prizes[p++]);
+      let n = 0;
+      let cardPlaced = false;
+      for (let i = 0; i < 12; i += 1) {
+        if (LOSE_SLOTS.indexOf(i) !== -1) { slots.push(this.lose); continue; }
+        n += 1;
+        if (bySlot[n]) slots.push(bySlot[n]);
+        else if (!cardPlaced) { slots.push(this.card); cardPlaced = true; }
+        else slots.push(this.lose);
       }
+      if (!cardPlaced) slots[slots.length - 1] = this.card; // all 9 prizes set: card replaces the last slot
       return slots;
     }
 
@@ -105,7 +117,8 @@
         const x1 = R_OUT * Math.cos(a1), y1 = R_OUT * Math.sin(a1);
         const slot = this.slots[i];
         const isCard = slot.key === 'card';
-        const fill = isCard ? 'url(#lwSegCard)' : (i % 2 ? 'url(#lwSegB)' : 'url(#lwSegA)');
+        const isLose = slot.key === 'lose';
+        const fill = isLose ? 'url(#lwSegCard)' : (i % 2 ? 'url(#lwSegB)' : 'url(#lwSegA)');
 
         html += '<g class="lw__seg" data-seg="' + i + '">';
         html += '<path class="lw__seg-shape" d="M0 0 L' + x0 + ' ' + y0 + ' A' + R_OUT + ' ' + R_OUT + ' 0 0 1 ' + x1 + ' ' + y1 + 'Z" fill="' + fill + '"' +
@@ -116,7 +129,10 @@
         // With labels: smaller icon near the rim. Without: larger icon centred in the segment.
         const cy = this.showLabels ? -150 : -122;
         const iconScale = this.showLabels ? 1 : 1.35;
-        if (slot.image) {
+        if (isLose) {
+          // Always written out, so customers see what this slot means
+          html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 9).slice(0, 3), 'lw__seg-label lw__seg-label--lose', -112, 12);
+        } else if (slot.image) {
           const s = this.showLabels ? 30 : 40;
           // Dark tile and its border are toggled independently from Theme settings.
           if (this.imageBg || this.imageFrame) {
@@ -130,8 +146,8 @@
         } else {
           html += '<g transform="translate(0,' + cy + ') scale(' + iconScale + ')">' + (isCard ? LuckyWheel.cardIcon() : LuckyWheel.giftIcon()) + '</g>';
         }
-        if (this.showLabels) {
-          html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 10).slice(0, 2), isCard ? 'lw__seg-label lw__seg-label--lose' : 'lw__seg-label');
+        if (this.showLabels && !isLose) {
+          html += this.radialLabel(this.wrap(slot.name.toUpperCase(), 10).slice(0, 2), isCard ? 'lw__seg-label lw__seg-label--card' : 'lw__seg-label');
         }
         html += '</g></g>';
       }
@@ -244,10 +260,9 @@
     }
 
     /* Text running along the radius (centre -> rim), max 2 lines */
-    radialLabel(lines, cls) {
-      const gap = 13;
+    radialLabel(lines, cls, r = -98, gap = 13) {
       const offset = (lines.length - 1) * gap / 2;
-      return '<g transform="translate(0,-98) rotate(-90)">' + lines.map((line, i) =>
+      return '<g transform="translate(0,' + r + ') rotate(-90)">' + lines.map((line, i) =>
         '<text class="' + cls + '" x="0" y="' + (i * gap - offset) + '" text-anchor="middle" dominant-baseline="middle">' + esc(line) + '</text>'
       ).join('') + '</g>';
     }
@@ -339,7 +354,7 @@
       this.$.btn.disabled = true;
       this.root.classList.remove('is-ready');
       this.$.hubText.textContent = 'Hẹn bạn ngày mai';
-      const prefix = today && today.type === 'win'
+      const prefix = today && (today.type === 'win' || today.type === 'card')
         ? 'Hôm nay bạn đã trúng <strong>' + esc(today.name) + '</strong>. '
         : 'Bạn đã quay hôm nay. ';
       const tick = () => {
@@ -546,21 +561,24 @@
 
     openModal(result) {
       const win = result.type === 'win';
+      const lose = result.type === 'lose';
       const def = this.allDefs.find((d) => d.key === result.key) || {};
       this.$.modal.classList.toggle('is-win', win);
       const photo = def.photo || def.image;
       this.$.modalImg.classList.toggle('is-photo', !!def.photo);
       this.$.modalImg.innerHTML = photo
         ? '<img src="' + esc(photo) + '" alt="' + esc(result.name || def.name || '') + '">'
-        : '<span>' + (win ? '🎁' : '🃏') + '</span>';
-      this.$.modalEyebrow.textContent = win ? 'Chúc mừng bạn đã trúng' : 'Bạn nhận được';
+        : '<span>' + (win ? '🎁' : lose ? '🍀' : '🃏') + '</span>';
+      this.$.modalEyebrow.textContent = win ? 'Chúc mừng bạn đã trúng' : lose ? 'Tiếc quá!' : 'Bạn nhận được';
       this.$.modalTitle.textContent = result.name || def.name || '';
-      const exp = new Date(new Date(result.at).getTime() + 30 * 86400000);
-      this.$.modalText.innerHTML = 'Quà đã được lưu trong mục <strong>Quà của tôi</strong>. Quà sẽ được <strong>gửi kèm đơn hàng tiếp theo</strong> của bạn, đặt hàng trước <strong>' + fmtDate(exp) + '</strong>.' +
-        (win ? '' : '<br>Hẹn bạn quay tiếp vào ngày mai để thử vận may với quà lớn!');
+      const exp = result.expires_at ? new Date(result.expires_at) : new Date(new Date(result.at).getTime() + 30 * 86400000);
+      this.$.modalText.innerHTML = lose
+        ? 'Hẹn bạn quay tiếp vào ngày mai để thử vận may nhé!'
+        : 'Quà đã được lưu trong mục <strong>Quà của tôi</strong>. Quà sẽ được <strong>gửi kèm đơn hàng tiếp theo</strong> của bạn, đặt hàng trước <strong>' + fmtDate(exp) + '</strong>.' +
+          (win ? '' : '<br>Hẹn bạn quay tiếp vào ngày mai để thử vận may với quà lớn!');
       this.$.modal.hidden = false;
       requestAnimationFrame(() => this.$.modal.classList.add('is-open'));
-      this.confetti(win ? 160 : 50);
+      if (!lose) this.confetti(win ? 160 : 50);
       const btn = this.$.modal.querySelector('.lw-modal__btn');
       if (btn) btn.focus({ preventScroll: true });
     }

@@ -2106,17 +2106,36 @@
         "label": "Thẻ chương - sản phẩm"
       },
       {
+        "type": "number",
+        "id": "lucky_wheel_cards_per_day",
+        "label": "Số Thẻ chương mỗi ngày",
+        "default": 50
+      },
+      {
         "type": "text",
         "id": "lucky_wheel_card_name",
         "label": "Quà khi không trúng (thẻ chương) - tên hiển thị",
         "default": "Thẻ chương 10 năm",
-        "info": "Mọi lượt không trúng quà 1–9 nhận món này, không giới hạn, lưu 30 ngày. Để trống = dùng tên sản phẩm."
+        "info": "Mỗi ngày có N thẻ rải ngẫu nhiên trong khung giờ trúng; mỗi tài khoản nhận tối đa 1 thẻ cả chương trình. Thẻ nằm ở ô quà đầu tiên có số lượng 0. Để trống = dùng tên sản phẩm."
       },
       {
         "type": "image_picker",
         "id": "lucky_wheel_card_image",
         "label": "Thẻ chương - ảnh (tuỳ chọn)",
         "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_lose_text",
+        "label": "Ô không trúng",
+        "default": "Chúc bạn may mắn lần sau",
+        "info": "Hiện trên 3 ô không trúng của vòng quay. Mỗi tài khoản nhận tối đa 1 phần quà + 1 Thẻ chương; các lượt còn lại rơi vào ô này."
+      },
+      {
+        "type": "text",
+        "id": "lucky_wheel_prize_expiry",
+        "label": "Hạn giữ quà (YYYY-MM-DD)",
+        "info": "Vd 2026-12-20: mọi quà hết hạn cuối ngày này. Để trống = 30 ngày kể từ ngày nhận."
       },
       {
         "type": "number",
@@ -2160,7 +2179,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_1_stock",
         "label": "Quà 1 - số lượng",
-        "default": 8
+        "default": 10,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2184,7 +2204,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_2_stock",
         "label": "Quà 2 - số lượng",
-        "default": 7
+        "default": 5,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2208,7 +2229,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_3_stock",
         "label": "Quà 3 - số lượng",
-        "default": 7
+        "default": 0,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2232,7 +2254,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_4_stock",
         "label": "Quà 4 - số lượng",
-        "default": 7
+        "default": 5,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2256,7 +2279,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_5_stock",
         "label": "Quà 5 - số lượng",
-        "default": 7
+        "default": 7,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2280,7 +2304,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_6_stock",
         "label": "Quà 6 - số lượng",
-        "default": 7
+        "default": 6,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2304,7 +2329,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_7_stock",
         "label": "Quà 7 - số lượng",
-        "default": 2
+        "default": 2,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2328,7 +2354,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_8_stock",
         "label": "Quà 8 - số lượng",
-        "default": 7
+        "default": 5,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",
@@ -2352,7 +2379,8 @@
         "type": "number",
         "id": "lucky_wheel_prize_9_stock",
         "label": "Quà 9 - số lượng",
-        "default": 8
+        "default": 10,
+        "info": "0 = không có trên vòng quay (ô đó dành cho Thẻ chương)."
       },
       {
         "type": "image_picker",

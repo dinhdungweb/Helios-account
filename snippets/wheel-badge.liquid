@@ -1,0 +1,37 @@
+{%- comment -%}
+  Round "lucky wheel" badge: a small wheel with the label turning around it.
+  Usage: {% render 'wheel-badge', label: 'VÒNG QUAY BLACK SUN DAY', image: block.settings.badge_image, id: block.id %}
+  The surrounding link (e.g. the slide link) decides where it goes.
+{%- endcomment -%}
+{%- liquid
+  assign wb_label = label | default: 'VÒNG QUAY MAY MẮN' | upcase | escape
+  assign wb_id = 'wb-' | append: id
+-%}
+{{ 'wheel-badge.css' | asset_url | stylesheet_tag }}
+<span class="wheel-badge" role="img" aria-label="{{ label | escape }}">
+  <svg class="wheel-badge__ring" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <defs>
+      <path id="{{ wb_id }}-path" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/>
+    </defs>
+    <circle cx="100" cy="100" r="97" fill="rgba(12,12,12,.72)" stroke="rgba(245,196,90,.55)" stroke-width="1.5"/>
+    <text class="wheel-badge__text" style="fill: #f5d08a !important;{% if settings.lucky_wheel_font_heading != blank %} font-family: '{{ settings.lucky_wheel_font_heading | strip }}', inherit;{% endif %}">
+      <textPath href="#{{ wb_id }}-path" textLength="498" lengthAdjust="spacing">{{ wb_label }} ✦ {{ wb_label }} ✦</textPath>
+    </text>
+  </svg>
+  <span class="wheel-badge__core">
+    {%- if image != blank -%}
+      <img src="{{ image | image_url: width: 240 }}" alt="" width="120" height="120" loading="lazy">
+    {%- else -%}
+      <svg class="wheel-badge__wheel" viewBox="-50 -50 100 100" aria-hidden="true" focusable="false">
+        {%- for i in (0..7) -%}
+          {%- assign wb_rot = i | times: 45 -%}
+          {%- assign wb_odd = i | modulo: 2 -%}
+          <path d="M0 0 L0 -46 A46 46 0 0 1 32.53 -32.53 Z" transform="rotate({{ wb_rot }})" style="fill: {% if wb_odd == 1 %}#2a2a2a{% else %}#e3a75a{% endif %} !important;" stroke="#111" stroke-width="1"/>
+        {%- endfor -%}
+        <circle r="46" fill="none" style="fill: none !important;" stroke="#f5c45a" stroke-width="2.5"/>
+        <circle r="8" style="fill: #f5c45a !important;" stroke="#111" stroke-width="1.5"/>
+      </svg>
+    {%- endif -%}
+    <span class="wheel-badge__pointer" aria-hidden="true"></span>
+  </span>
+</span>

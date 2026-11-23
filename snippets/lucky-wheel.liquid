@@ -38,9 +38,12 @@
         assign p_product = settings[product_key]
         assign p_name = settings[name_key] | default: p_product.title
         assign p_image = settings[image_key] | default: p_product.featured_image
+        assign stock_key = 'lucky_wheel_prize_' | append: n | append: '_stock'
+        assign p_stock = settings[stock_key] | default: 0 | times: 1
       -%}
-      {%- if p_name != blank -%}
-        {"key": "p{{ n }}", "name": {{ p_name | json }}, "image": {% if p_image != blank %}{{ p_image | image_url: width: 160 | json }}{% else %}null{% endif %}, "photo": {% if p_product.featured_image %}{{ p_product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}},
+      {%- comment -%} Stock 0 = not on the wheel; the chapter card takes that slot {%- endcomment -%}
+      {%- if p_name != blank and p_stock > 0 -%}
+        {"key": "p{{ n }}", "slot": {{ n }}, "name": {{ p_name | json }}, "image": {% if p_image != blank %}{{ p_image | image_url: width: 160 | json }}{% else %}null{% endif %}, "photo": {% if p_product.featured_image %}{{ p_product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}},
       {%- endif -%}
     {%- endfor -%}
     {%- liquid
@@ -48,7 +51,8 @@
       assign card_name = settings.lucky_wheel_card_name | default: card_product.title | default: 'Thẻ chương 10 năm'
       assign card_image = settings.lucky_wheel_card_image | default: card_product.featured_image
     -%}
-    {"key": "card", "name": {{ card_name | json }}, "image": {% if card_image != blank %}{{ card_image | image_url: width: 160 | json }}{% else %}null{% endif %}, "photo": {% if card_product.featured_image %}{{ card_product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}}
+    {"key": "card", "name": {{ card_name | json }}, "image": {% if card_image != blank %}{{ card_image | image_url: width: 160 | json }}{% else %}null{% endif %}, "photo": {% if card_product.featured_image %}{{ card_product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}},
+    {"key": "lose", "name": {{ settings.lucky_wheel_lose_text | default: 'Chúc bạn may mắn lần sau' | json }}, "image": null, "photo": null}
   ]
 {%- endcapture -%}
 
@@ -174,12 +178,18 @@
       <div class="lw__panel lw__rules">
         <h4 class="lw__panel-title">Thể lệ</h4>
         <ul>
+          {%- liquid
+            assign lw_min_order = settings.lucky_wheel_min_order | default: 0 | times: 1
+            assign lw_expiry = settings.lucky_wheel_prize_expiry | strip
+            assign lw_card_name = settings.lucky_wheel_card_name | default: settings.lucky_wheel_card_product.title | default: 'Thẻ chương 10 năm'
+          -%}
           <li>Mỗi tài khoản được quay <strong>1 lượt mỗi ngày</strong>, lượt mới mở lúc 00:00.</li>
-          <li>Quà được lưu trong tài khoản <strong>30 ngày</strong> kể từ ngày nhận.</li>
-          <li>Quà được <strong>gửi kèm miễn phí trong đơn hàng tiếp theo</strong> của bạn (đặt bằng tài khoản này, trong thời hạn 30 ngày). Bạn không cần thêm quà vào giỏ.</li>
-          {%- assign lw_min_order = settings.lucky_wheel_min_order | default: 0 | times: 1 -%}
-          {%- if lw_min_order > 0 -%}
-            <li>Áp dụng cho đơn hàng từ <strong>{{ lw_min_order | times: 100 | money_without_trailing_zeros }}</strong> trở lên.</li>
+          <li>Mỗi tài khoản nhận tối đa <strong>1 phần quà</strong> và <strong>1 {{ lw_card_name | escape }}</strong> trong suốt chương trình; các lượt còn lại là “{{ settings.lucky_wheel_lose_text | default: 'Chúc bạn may mắn lần sau' | escape }}”.</li>
+          <li>Quà được <strong>gửi kèm miễn phí trong đơn hàng tiếp theo</strong> của bạn (đặt bằng tài khoản này){% if lw_min_order > 0 %}, áp dụng cho đơn từ <strong>{{ lw_min_order | times: 100 | money_without_trailing_zeros }}</strong>{% else %}, không giới hạn giá trị đơn{% endif %}. Bạn không cần thêm quà vào giỏ.</li>
+          {%- if lw_expiry != blank -%}
+            <li>Quà được giữ đến hết ngày <strong>{{ lw_expiry | date: '%d/%m/%Y' }}</strong>.</li>
+          {%- else -%}
+            <li>Quà được giữ <strong>30 ngày</strong> kể từ ngày nhận.</li>
           {%- endif -%}
         </ul>
       </div>

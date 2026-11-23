@@ -134,7 +134,11 @@
 
                   {%- if block.settings.button_label != blank -%}
                     <div class="line-3">
-                      <span class="button hover-grow">{{ block.settings.button_label | escape }}</span>
+                      {%- if block.settings.button_style == 'wheel_badge' -%}
+                        {%- render 'wheel-badge', label: block.settings.button_label, image: block.settings.badge_image, id: block.id -%}
+                      {%- else -%}
+                        <span class="button hover-grow">{{ block.settings.button_label | escape }}</span>
+                      {%- endif -%}
                     </div>
                   {%- endif -%}
                 </div>
@@ -360,6 +364,23 @@
             "type": "text",
             "id": "button_label",
             "label": "Button"
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "options": [
+              { "value": "button", "label": "Button" },
+              { "value": "wheel_badge", "label": "Lucky wheel badge (rotating text)" }
+            ],
+            "default": "button",
+            "info": "Lucky wheel badge: a small wheel with the button text turning around it."
+          },
+          {
+            "type": "image_picker",
+            "id": "badge_image",
+            "label": "Badge center image",
+            "info": "Optional. Empty = a small wheel."
           },
           {
             "type": "select",
