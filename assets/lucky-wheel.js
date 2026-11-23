@@ -352,13 +352,27 @@
         }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
         const applied = !!updated && (updated.discount_codes || []).some((d) => String(d.code).toUpperCase() === data.code);
 
-        btn.textContent = '✓ Đã thêm vào giỏ';
-        say('Lưu ý: quà chỉ được miễn phí khi mua kèm ít nhất 1 sản phẩm khác. Đang chuyển tới giỏ hàng…');
         const cartUrl = root + 'cart';
-        setTimeout(() => {
-          // Fallback when the cart API did not take the code: Shopify's discount link applies it
-          window.location.href = applied ? cartUrl : root + 'discount/' + encodeURIComponent(data.code) + '?redirect=' + encodeURIComponent(cartUrl);
-        }, 900);
+        if (!applied) {
+          // The cart API did not take the code: Shopify's discount link applies it, then shows the cart
+          window.location.href = root + 'discount/' + encodeURIComponent(data.code) + '?redirect=' + encodeURIComponent(cartUrl);
+          return;
+        }
+
+        btn.textContent = '✓ Đã thêm vào giỏ';
+        say('Lưu ý: quà chỉ được miễn phí khi mua kèm ít nhất 1 sản phẩm khác.');
+        btn.disabled = false; // can be pressed again to reopen the cart (no duplicate is added)
+
+        // Refresh and open the theme's cart drawer; fall back to the cart page
+        if (typeof window.openCartDrawer === 'function' && typeof window.updateCartDrawer === 'function') {
+          if (typeof window.updateCartItemCounts === 'function') window.updateCartItemCounts(updated.item_count);
+          await window.updateCartDrawer();
+          document.dispatchEvent(new CustomEvent('theme:cartchanged', { bubbles: true }));
+          document.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true }));
+          window.openCartDrawer();
+        } else {
+          window.location.href = cartUrl;
+        }
       } catch (e) {
         btn.disabled = false;
         btn.textContent = label;
