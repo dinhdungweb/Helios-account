@@ -8,7 +8,6 @@
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const R_OUT = 186;
-  const LOSE_SLOTS = [0, 4, 8]; // used only when all 9 prizes are on the wheel
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
@@ -71,27 +70,21 @@
     /* ---------- layout ---------- */
 
     /**
-     * Up to 8 prizes: 12 symmetric slots, every third one special, alternating
-     * "better luck next time" / chapter card (0, 3, 6, 9), two prizes in between.
-     * 9 prizes: "better luck next time" at 0/4/8 and the card in the last slot.
+     * One slot per prize (in Theme settings order), plus one chapter card and one
+     * "better luck next time": the wheel grows or shrinks with the prize list.
+     * "Better luck next time" sits at the top, the chapter card opposite it.
      */
     buildSlots() {
       const prizes = this.prizes.slice().sort((x, y) => (x.slot || 0) - (y.slot || 0));
+      const n = prizes.length + 2;
+      const cardAt = Math.floor(n / 2);
       const slots = [];
-      if (prizes.length <= 8) {
-        let p = 0;
-        for (let i = 0; i < 12; i += 1) {
-          if (i % 3 === 0) slots.push((i / 3) % 2 === 0 ? this.lose : this.card);
-          else slots.push(prizes[p++] || this.lose);
-        }
-        return slots;
-      }
       let p = 0;
-      for (let i = 0; i < 12; i += 1) {
-        if (LOSE_SLOTS.indexOf(i) !== -1) slots.push(this.lose);
-        else slots.push(prizes[p++] || this.card);
+      for (let i = 0; i < n; i += 1) {
+        if (i === 0) slots.push(this.lose);
+        else if (i === cardAt) slots.push(this.card);
+        else slots.push(prizes[p++]);
       }
-      slots[11] = this.card;
       return slots;
     }
 

@@ -41,7 +41,7 @@
         assign stock_key = 'lucky_wheel_prize_' | append: n | append: '_stock'
         assign p_stock = settings[stock_key] | default: 0 | times: 1
       -%}
-      {%- comment -%} Stock 0 = not on the wheel; the chapter card takes that slot {%- endcomment -%}
+      {%- comment -%} Stock 0 = not on the wheel {%- endcomment -%}
       {%- if p_name != blank and p_stock > 0 -%}
         {"key": "p{{ n }}", "slot": {{ n }}, "name": {{ p_name | json }}, "image": {% if p_image != blank %}{{ p_image | image_url: width: 160 | json }}{% else %}null{% endif %}, "photo": {% if p_product.featured_image %}{{ p_product.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}},
       {%- endif -%}
