@@ -70,22 +70,12 @@
     /* ---------- layout ---------- */
 
     /**
-     * One slot per prize (in Theme settings order), plus one chapter card and one
-     * "better luck next time": the wheel grows or shrinks with the prize list.
-     * "Better luck next time" sits at the top, the chapter card opposite it.
+     * One slot per prize, in Theme settings order, then the chapter card and
+     * "better luck next time" last (clockwise from the top).
      */
     buildSlots() {
       const prizes = this.prizes.slice().sort((x, y) => (x.slot || 0) - (y.slot || 0));
-      const n = prizes.length + 2;
-      const cardAt = Math.floor(n / 2);
-      const slots = [];
-      let p = 0;
-      for (let i = 0; i < n; i += 1) {
-        if (i === 0) slots.push(this.lose);
-        else if (i === cardAt) slots.push(this.card);
-        else slots.push(prizes[p++]);
-      }
-      return slots;
+      return prizes.concat([this.card, this.lose]);
     }
 
     draw() {
