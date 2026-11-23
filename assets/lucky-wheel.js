@@ -8,7 +8,7 @@
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const R_OUT = 186;
-  const LOSE_SLOTS = [0, 4, 8]; // 12-slot wheel: 3 "better luck next time" + 9 prize slots (chapter card in a free one)
+  const LOSE_SLOTS = [0, 4, 8]; // used only when all 9 prizes are on the wheel
 
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
@@ -71,24 +71,27 @@
     /* ---------- layout ---------- */
 
     /**
-     * 12 slots: "better luck next time" at 0/4/8, prize slots 1..9 in the other 9.
-     * A prize slot without a prize (stock 0) shows the chapter card (first one) or another
-     * "better luck next time".
+     * Up to 8 prizes: 12 symmetric slots, every third one special, alternating
+     * "better luck next time" / chapter card (0, 3, 6, 9), two prizes in between.
+     * 9 prizes: "better luck next time" at 0/4/8 and the card in the last slot.
      */
     buildSlots() {
-      const bySlot = {};
-      this.prizes.forEach((p, i) => { bySlot[p.slot || i + 1] = p; });
+      const prizes = this.prizes.slice().sort((x, y) => (x.slot || 0) - (y.slot || 0));
       const slots = [];
-      let n = 0;
-      let cardPlaced = false;
-      for (let i = 0; i < 12; i += 1) {
-        if (LOSE_SLOTS.indexOf(i) !== -1) { slots.push(this.lose); continue; }
-        n += 1;
-        if (bySlot[n]) slots.push(bySlot[n]);
-        else if (!cardPlaced) { slots.push(this.card); cardPlaced = true; }
-        else slots.push(this.lose);
+      if (prizes.length <= 8) {
+        let p = 0;
+        for (let i = 0; i < 12; i += 1) {
+          if (i % 3 === 0) slots.push((i / 3) % 2 === 0 ? this.lose : this.card);
+          else slots.push(prizes[p++] || this.lose);
+        }
+        return slots;
       }
-      if (!cardPlaced) slots[slots.length - 1] = this.card; // all 9 prizes set: card replaces the last slot
+      let p = 0;
+      for (let i = 0; i < 12; i += 1) {
+        if (LOSE_SLOTS.indexOf(i) !== -1) slots.push(this.lose);
+        else slots.push(prizes[p++] || this.card);
+      }
+      slots[11] = this.card;
       return slots;
     }
 
