@@ -53,9 +53,9 @@
             "heading_h1": false,
             "text": "",
             "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+            "button_label": "Vòng quay Black Sun Day",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--bottom-xs"
           }
         },
         "image_kyNjeg": {
