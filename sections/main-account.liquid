@@ -847,6 +847,15 @@
       });
   }
 
+  // ?tab=wheel / ?tab=gallery / ?tab=orders / ?tab=account work like the #section-* hash.
+  // Shopify link settings drop "#..." from URLs, so buttons should use ?tab=.
+  (function() {
+    var tab = (new URL(window.location.href)).searchParams.get('tab');
+    if (tab && /^(wheel|gallery|orders|account)$/.test(tab) && !window.location.hash) {
+      history.replaceState(history.state, '', window.location.pathname + window.location.search + '#section-' + tab);
+    }
+  })();
+
   // Check hash on load (?g= means a shared gallery image link)
   if (window.location.hash === '#section-wheel' && document.getElementById('section-wheel')) {
     const wheelNav = document.querySelector('.db-nav-item[data-scroll="section-wheel"]');
@@ -878,6 +887,36 @@
     }
     document.querySelector('.db-content').classList.add('show-account-tab');
   }
+
+  // Links already on /account (e.g. a hero banner button) pointing to /account#section-wheel
+  // or /account?tab=wheel only change the hash, so the page never reloads: switch tab in place.
+  function tabFromUrl(url) {
+    if (url.hash && /^#section-[\w-]+$/.test(url.hash)) return url.hash.slice(1);
+    var tab = url.searchParams.get('tab');
+    return tab && /^[\w-]+$/.test(tab) ? 'section-' + tab : null;
+  }
+
+  function openTab(targetId, e) {
+    var navItem = document.querySelector('.db-nav-item[data-scroll="' + targetId + '"]');
+    if (!navItem) return false;
+    handleNavigation(e || { preventDefault: function() {} }, navItem, true);
+    return true;
+  }
+
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest && e.target.closest('a[href]');
+    if (!link || link.closest('.db-nav-item') || e.metaKey || e.ctrlKey || e.shiftKey || link.target === '_blank') return;
+    var url;
+    try { url = new URL(link.getAttribute('href'), window.location.href); } catch (err) { return; }
+    if (url.origin !== window.location.origin || url.pathname.replace(/\/$/, '') !== window.location.pathname.replace(/\/$/, '')) return;
+    var targetId = tabFromUrl(url);
+    if (targetId) openTab(targetId, e);
+  });
+
+  window.addEventListener('hashchange', function() {
+    var targetId = tabFromUrl(new URL(window.location.href));
+    if (targetId) openTab(targetId);
+  });
 })();
 </script>
 
