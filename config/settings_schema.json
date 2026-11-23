@@ -2101,16 +2101,28 @@
         "info": "Để trống = tự lấy theo ngày bắt đầu. Đổi mã = bắt đầu lại bộ đếm quà (dùng cho chiến dịch mới)."
       },
       {
+        "type": "product",
+        "id": "lucky_wheel_card_product",
+        "label": "Thẻ chương - sản phẩm"
+      },
+      {
         "type": "text",
         "id": "lucky_wheel_card_name",
-        "label": "Quà khi không trúng (thẻ chương)",
+        "label": "Quà khi không trúng (thẻ chương) - tên hiển thị",
         "default": "Thẻ chương 10 năm",
-        "info": "Mọi lượt không trúng quà 1–9 nhận món này, không giới hạn, lưu 30 ngày."
+        "info": "Mọi lượt không trúng quà 1–9 nhận món này, không giới hạn, lưu 30 ngày. Để trống = dùng tên sản phẩm."
       },
       {
         "type": "image_picker",
         "id": "lucky_wheel_card_image",
-        "label": "Ảnh thẻ chương"
+        "label": "Thẻ chương - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "collection",
+        "id": "lucky_wheel_buy_collection",
+        "label": "Điều kiện dùng quà: mua kèm 1 sản phẩm trong collection",
+        "info": "Giỏ hàng phải có ít nhất 1 sản phẩm trả tiền trong collection này thì quà mới được miễn phí. Để trống = collection all-products."
       },
       {
         "type": "richtext",
@@ -2129,13 +2141,19 @@
       },
       {
         "type": "paragraph",
-        "content": "Số lượng = tổng số món phát ra trong cả chiến dịch. Món được chọn ngẫu nhiên theo số còn lại."
+        "content": "Chọn sản phẩm cho từng quà. Khách bấm \"Thêm vào giỏ\" trong mục Quà của tôi, quà được miễn phí khi thanh toán (chỉ tài khoản đó, 1 lần, trong 30 ngày). Số lượng = tổng số món phát ra trong cả chiến dịch."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_1_product",
+        "label": "Quà 1 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_1_name",
-        "label": "Quà 1 - tên",
-        "default": "Summer sock"
+        "label": "Quà 1 - tên hiển thị",
+        "default": "Summer sock",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2146,13 +2164,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_1_image",
-        "label": "Quà 1 - ảnh"
+        "label": "Quà 1 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_2_product",
+        "label": "Quà 2 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_2_name",
-        "label": "Quà 2 - tên",
-        "default": "Mũ Cruiser"
+        "label": "Quà 2 - tên hiển thị",
+        "default": "Mũ Cruiser",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2163,13 +2188,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_2_image",
-        "label": "Quà 2 - ảnh"
+        "label": "Quà 2 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_3_product",
+        "label": "Quà 3 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_3_name",
-        "label": "Quà 3 - tên",
-        "default": "Sticker"
+        "label": "Quà 3 - tên hiển thị",
+        "default": "Sticker",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2180,13 +2212,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_3_image",
-        "label": "Quà 3 - ảnh"
+        "label": "Quà 3 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_4_product",
+        "label": "Quà 4 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_4_name",
-        "label": "Quà 4 - tên",
-        "default": "Bài Ngọ"
+        "label": "Quà 4 - tên hiển thị",
+        "default": "Bài Ngọ",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2197,13 +2236,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_4_image",
-        "label": "Quà 4 - ảnh"
+        "label": "Quà 4 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_5_product",
+        "label": "Quà 5 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_5_name",
-        "label": "Quà 5 - tên",
-        "default": "Figure Warrior"
+        "label": "Quà 5 - tên hiển thị",
+        "default": "Figure Warrior",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2214,13 +2260,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_5_image",
-        "label": "Quà 5 - ảnh"
+        "label": "Quà 5 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_6_product",
+        "label": "Quà 6 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_6_name",
-        "label": "Quà 6 - tên",
-        "default": "Bandana Seravix"
+        "label": "Quà 6 - tên hiển thị",
+        "default": "Bandana Seravix",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2231,13 +2284,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_6_image",
-        "label": "Quà 6 - ảnh"
+        "label": "Quà 6 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_7_product",
+        "label": "Quà 7 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_7_name",
-        "label": "Quà 7 - tên",
-        "default": "Cốc gốm (SECRET)"
+        "label": "Quà 7 - tên hiển thị",
+        "default": "Cốc gốm (SECRET)",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2248,13 +2308,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_7_image",
-        "label": "Quà 7 - ảnh"
+        "label": "Quà 7 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_8_product",
+        "label": "Quà 8 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_8_name",
-        "label": "Quà 8 - tên",
-        "default": "Xu moneta"
+        "label": "Quà 8 - tên hiển thị",
+        "default": "Xu moneta",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2265,13 +2332,20 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_8_image",
-        "label": "Quà 8 - ảnh"
+        "label": "Quà 8 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
+      },
+      {
+        "type": "product",
+        "id": "lucky_wheel_prize_9_product",
+        "label": "Quà 9 - sản phẩm"
       },
       {
         "type": "text",
         "id": "lucky_wheel_prize_9_name",
-        "label": "Quà 9 - tên",
-        "default": "Tất Surgo"
+        "label": "Quà 9 - tên hiển thị",
+        "default": "Tất Surgo",
+        "info": "Để trống = dùng tên sản phẩm."
       },
       {
         "type": "number",
@@ -2282,7 +2356,8 @@
       {
         "type": "image_picker",
         "id": "lucky_wheel_prize_9_image",
-        "label": "Quà 9 - ảnh"
+        "label": "Quà 9 - ảnh (tuỳ chọn)",
+        "info": "Để trống = dùng ảnh sản phẩm."
       },
       {
         "type": "header",

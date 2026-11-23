@@ -276,15 +276,115 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !this.$.modal.hidden) this.closeModal();
       });
+      if (this.$.prizes) {
+        this.$.prizes.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-lw-claim]');
+          if (btn && !btn.disabled) this.claimPrize(btn);
+        });
+      }
+    }
+
+    /* ---------- gift -> cart ---------- */
+
+    /**
+     * Gets the customer's own gift code from the server, adds the gift product to the
+     * cart and applies the code. Shopify makes the gift free at checkout only for this
+     * customer, once, when the cart also has another paid item.
+     */
+    async claimPrize(btn) {
+      const id = btn.getAttribute('data-lw-claim');
+      const row = btn.closest('.lw-prize');
+      const msg = row && row.querySelector('[data-lw-claim-msg]');
+      const select = row && row.querySelector('[data-lw-variant]');
+      const say = (text, isError) => {
+        if (!msg) return;
+        msg.textContent = text;
+        msg.classList.toggle('is-error', !!isError);
+        msg.hidden = !text;
+      };
+      const label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Đang thêm…';
+      say('');
+      try {
+        const data = await this.call('claim', { id: id });
+        if (!data.product) throw new Error('Quà này chưa được gắn sản phẩm, vui lòng liên hệ fanpage.');
+        const root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
+        const product = await fetch(root + 'products/' + encodeURIComponent(data.product) + '.js').then((r) => {
+          if (!r.ok) throw new Error('Không tìm thấy sản phẩm quà, vui lòng liên hệ fanpage.');
+          return r.json();
+        });
+        const available = (product.variants || []).filter((v) => v.available);
+        if (!available.length) throw new Error('Quà đang tạm hết hàng, vui lòng liên hệ fanpage.');
+
+        // Several sizes/colours: let the customer pick first
+        let variantId = select ? Number(select.value) : 0;
+        if (!variantId && available.length > 1) {
+          this.showVariantPicker(row, available, btn);
+          btn.disabled = false;
+          btn.textContent = 'Thêm vào giỏ';
+          say('Chọn phân loại rồi bấm Thêm vào giỏ.');
+          return;
+        }
+        variantId = variantId || available[0].id;
+
+        const cart = await fetch(root + 'cart.js').then((r) => r.json());
+        const inCart = (cart.items || []).some((item) => item.properties && item.properties._lw_prize === id);
+        if (!inCart) {
+          const add = await fetch(root + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ items: [{ id: variantId, quantity: 1, properties: { _lw_prize: id } }] })
+          });
+          if (!add.ok) {
+            const err = await add.json().catch(() => ({}));
+            throw new Error(err.description || err.message || 'Không thêm được quà vào giỏ.');
+          }
+        }
+
+        // Keep the codes already in the cart and add the gift code
+        const codes = (cart.discount_codes || []).map((d) => d.code).filter((c) => c && c.toUpperCase() !== data.code);
+        codes.push(data.code);
+        const updated = await fetch(root + 'cart/update.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ discount: codes.join(',') })
+        }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+        const applied = !!updated && (updated.discount_codes || []).some((d) => String(d.code).toUpperCase() === data.code);
+
+        btn.textContent = '✓ Đã thêm vào giỏ';
+        say('Lưu ý: quà chỉ được miễn phí khi mua kèm ít nhất 1 sản phẩm khác. Đang chuyển tới giỏ hàng…');
+        const cartUrl = root + 'cart';
+        setTimeout(() => {
+          // Fallback when the cart API did not take the code: Shopify's discount link applies it
+          window.location.href = applied ? cartUrl : root + 'discount/' + encodeURIComponent(data.code) + '?redirect=' + encodeURIComponent(cartUrl);
+        }, 900);
+      } catch (e) {
+        btn.disabled = false;
+        btn.textContent = label;
+        say(e.message || 'Có lỗi xảy ra, vui lòng thử lại.', true);
+        if (e.code === 'prize_used' || e.code === 'prize_sent' || e.code === 'prize_expired') this.loadStatus();
+      }
+    }
+
+    showVariantPicker(row, variants, btn) {
+      if (!row || row.querySelector('[data-lw-variant]')) return;
+      const select = document.createElement('select');
+      select.className = 'lw-prize__variant';
+      select.setAttribute('data-lw-variant', '');
+      select.setAttribute('aria-label', 'Chọn phân loại quà');
+      select.innerHTML = variants.map((v) => '<option value="' + v.id + '">' + esc(v.public_title || v.title) + '</option>').join('');
+      btn.parentNode.insertBefore(select, btn);
+      select.focus();
     }
 
     /* ---------- API ---------- */
 
-    async call(action) {
+    async call(action, extra) {
       const res = await fetch(this.api, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: action, token: this.token })
+        body: JSON.stringify(Object.assign({ action: action, token: this.token }, extra || {}))
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -523,15 +623,21 @@
         const left = exp - now;
         const days = Math.ceil(left / 86400000);
         const sent = p.status === 'sent';
-        const expired = !sent && left <= 0;
-        return '<div class="lw-prize' + (sent ? ' is-sent' : expired ? ' is-expired' : '') + '">' +
+        const used = p.status === 'used';
+        const expired = !sent && !used && left <= 0;
+        const canClaim = !sent && !used && !expired;
+        return '<div class="lw-prize' + (sent || used ? ' is-sent' : expired ? ' is-expired' : '') + '">' +
           '<div class="lw-prize__img">' + (def.image ? '<img src="' + esc(def.image) + '" alt="" width="64" height="64" loading="lazy">' : '<span aria-hidden="true">🎁</span>') + '</div>' +
           '<div class="lw-prize__info">' +
             '<p class="lw-prize__name">' + esc(p.name) + '</p>' +
             '<p class="lw-prize__meta">Nhận ngày ' + fmtDate(p.won_at) + '</p>' +
-            '<p class="lw-prize__exp' + (sent ? ' lw-prize__exp--sent' : '') + '">' + (sent ? '✓ Đã gửi kèm đơn hàng' : expired
+            '<p class="lw-prize__exp' + (sent || used ? ' lw-prize__exp--sent' : '') + '">' + (used ? '✓ Đã dùng trong đơn hàng' : sent ? '✓ Đã gửi kèm đơn hàng' : expired
               ? 'Đã hết hạn (' + fmtDate(p.expires_at) + ')'
               : 'Hạn dùng đến ' + fmtDate(p.expires_at) + ' · còn ' + days + ' ngày') + '</p>' +
+            (canClaim
+              ? '<div class="lw-prize__actions"><button type="button" class="no-hover lw-prize__add" data-lw-claim="' + esc(p.id) + '">Thêm vào giỏ</button></div>' +
+                '<p class="lw-prize__msg" data-lw-claim-msg hidden></p>'
+              : '') +
           '</div></div>';
       }).join('');
     }
@@ -548,7 +654,7 @@
       this.$.modalEyebrow.textContent = win ? 'Chúc mừng bạn đã trúng' : 'Bạn nhận được';
       this.$.modalTitle.textContent = result.name || def.name || '';
       const exp = new Date(new Date(result.at).getTime() + 30 * 86400000);
-      this.$.modalText.innerHTML = 'Quà đã được lưu trong mục <strong>Quà của tôi</strong> và sẽ được gửi kèm đơn hàng tiếp theo. Hạn dùng đến <strong>' + fmtDate(exp) + '</strong>.' +
+      this.$.modalText.innerHTML = 'Quà đã được lưu trong mục <strong>Quà của tôi</strong>. Bấm <strong>Thêm vào giỏ</strong> để nhận quà miễn phí khi <strong>mua kèm ít nhất 1 sản phẩm khác</strong>. Hạn dùng đến <strong>' + fmtDate(exp) + '</strong>.' +
         (win ? '' : '<br>Hẹn bạn quay tiếp vào ngày mai để thử vận may với quà lớn!');
       this.$.modal.hidden = false;
       requestAnimationFrame(() => this.$.modal.classList.add('is-open'));
