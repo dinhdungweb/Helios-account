@@ -900,7 +900,29 @@
     var navItem = document.querySelector('.db-nav-item[data-scroll="' + targetId + '"]');
     if (!navItem) return false;
     handleNavigation(e || { preventDefault: function() {} }, navItem, true);
+    // Coming from a link (e.g. hero banner button): scroll to the tab content, not the page top.
+    scrollToSection(targetId);
     return true;
+  }
+
+  function scrollToSection(targetId) {
+    var target = document.getElementById(targetId);
+    if (!target) return;
+    requestAnimationFrame(function() {
+      var offset = 16;
+      var header = document.getElementById('site-control');
+      if (header) {
+        var pos = getComputedStyle(header).position;
+        if (pos === 'fixed' || pos === 'sticky') offset += header.getBoundingClientRect().height;
+      }
+      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    });
+  }
+
+  // Arriving from another page with #section-wheel / ?tab=wheel: land on the wheel too.
+  if (window.location.hash === '#section-wheel') {
+    window.addEventListener('load', function() { scrollToSection('section-wheel'); });
   }
 
   document.addEventListener('click', function(e) {
