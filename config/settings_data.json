@@ -166,6 +166,8 @@
     "lucky_wheel_banner_text": "BLACK SUN DAY",
     "lucky_wheel_show_labels": false,
     "lucky_wheel_image_frame": false,
+    "lucky_wheel_start": "2026-11-24 00:00",
+    "lucky_wheel_end": "2026-12-03 23:59",
     "lucky_wheel_cards_per_day": 50,
     "lucky_wheel_card_image": "shopify://shop_images/the-12.jpg",
     "lucky_wheel_prize_expiry": "2026-12-20",
