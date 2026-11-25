@@ -2112,11 +2112,18 @@
         "default": 50
       },
       {
+        "type": "number",
+        "id": "lucky_wheel_rewards_per_account",
+        "label": "Số phần thưởng tối đa mỗi tài khoản",
+        "default": 2,
+        "info": "Tính cả quà và Thẻ chương, trong cả chương trình; trong đó tối đa 1 quà. 2 = 1 quà + 1 thẻ, hoặc 2 thẻ. 0 = không giới hạn."
+      },
+      {
         "type": "text",
         "id": "lucky_wheel_card_name",
         "label": "Quà khi không trúng (thẻ chương) - tên hiển thị",
         "default": "Thẻ chương 10 năm",
-        "info": "Mỗi ngày có N thẻ rải ngẫu nhiên trong khung giờ trúng; một tài khoản có thể nhận nhiều thẻ. Để trống = dùng tên sản phẩm."
+        "info": "Mỗi ngày có N thẻ rải ngẫu nhiên trong khung giờ trúng. Số thẻ một tài khoản nhận được tính chung trong \"Số phần thưởng tối đa mỗi tài khoản\". Để trống = dùng tên sản phẩm."
       },
       {
         "type": "image_picker",
@@ -2129,7 +2136,7 @@
         "id": "lucky_wheel_lose_text",
         "label": "Ô không trúng",
         "default": "Chúc bạn may mắn lần sau",
-        "info": "Ô không trúng trên vòng quay. Mỗi tài khoản nhận tối đa 1 phần quà (1–9) trong cả chương trình; lượt không ra quà hay thẻ chương rơi vào ô này."
+        "info": "Ô không trúng trên vòng quay. Lượt không ra quà hay Thẻ chương (hoặc tài khoản đã đủ số phần thưởng tối đa) rơi vào ô này."
       },
       {
         "type": "text",
