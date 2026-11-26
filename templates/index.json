@@ -37,6 +37,25 @@
     "slideshow_AUtEr7": {
       "type": "slideshow",
       "blocks": {
+        "image_HkUphA": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bn2.jpg",
+            "mobile_image": "shopify://shop_images/bn1.jpg",
+            "slide_link": "https://helios.vn/account",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "Đăng ký Membership",
+            "button_style": "button",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--bottom-xs"
+          }
+        },
         "image_nNNj6R": {
           "type": "image",
           "settings": {
@@ -51,26 +70,8 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
-        },
-        "image_HkUphA": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/1792214586807_2359740545583841509_g8350574569212514233_ec5911f747452a3da38f9a89ae502594.jpg",
-            "mobile_image": "shopify://shop_images/1792215672930_2359740545583841509_g8350574569212514233_376533b719882ef3e7726dfd39ec78b4.jpg",
-            "slide_link": "shopify://pages/black-halloween",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
@@ -88,6 +89,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
@@ -107,6 +109,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
@@ -126,6 +129,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
@@ -145,6 +149,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
@@ -164,14 +169,15 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         }
       },
       "block_order": [
-        "image_nNNj6R",
         "image_HkUphA",
+        "image_nNNj6R",
         "image_KarRwm",
         "image_qbHR3Y",
         "image_3Aawga",
@@ -237,6 +243,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
@@ -256,6 +263,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
@@ -275,6 +283,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
@@ -293,6 +302,7 @@
             "text": "",
             "enlarge_text": true,
             "button_label": "",
+            "button_style": "button",
             "overlay_position": "position--hcenter position--vcenter",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
