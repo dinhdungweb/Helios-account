@@ -53,7 +53,7 @@
             "button_label": "Đăng ký Membership",
             "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
-            "overlay_position_mobile": "position--hcenter-xs position--bottom-xs"
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         },
         "image_nNNj6R": {
@@ -196,6 +196,53 @@
         "slide_navigation": "dots",
         "autoplay": true,
         "autoplay_speed": 7
+      }
+    },
+    "advanced_button_rdkKiP": {
+      "type": "advanced-button",
+      "name": "Advanced button",
+      "settings": {
+        "button_label": "Đăng ký membership",
+        "button_link": "https://helios.vn/account",
+        "open_new_tab": false,
+        "aria_label": "",
+        "alignment": "center",
+        "alignment_mobile": "center",
+        "full_width_desktop": false,
+        "full_width_mobile": false,
+        "min_width": 150,
+        "button_style": "ghost",
+        "button_background": "#fab320",
+        "button_text_color": "#FAB320",
+        "button_border_color": "#fab320",
+        "hover_background": "#f2f2f2",
+        "hover_text_color": "#111111",
+        "hover_border_color": "#f2f2f2",
+        "focus_color": "#fab320",
+        "hover_effect": "lift",
+        "transition_speed": 200,
+        "border_width": 1,
+        "border_radius": 3,
+        "font_source": "heading",
+        "font_size": 14,
+        "font_size_mobile": 13,
+        "font_weight": "400",
+        "text_transform": "uppercase",
+        "letter_spacing": 5,
+        "icon": "arrow",
+        "icon_position": "right",
+        "icon_size": 18,
+        "icon_gap": 8,
+        "padding_horizontal": 20,
+        "padding_vertical": 12,
+        "padding_horizontal_mobile": 24,
+        "padding_vertical_mobile": 11,
+        "show_background": false,
+        "section_background": "#000000",
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 0
       }
     },
     "featured_collection_WGhiFt": {
@@ -607,6 +654,7 @@
   "order": [
     "background_video_responsive_RnWgY3",
     "slideshow_AUtEr7",
+    "advanced_button_rdkKiP",
     "featured_collection_WGhiFt",
     "slideshow_iTKm3K",
     "two_banner_gUWcNj",
