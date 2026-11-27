@@ -50,7 +50,7 @@
             "heading_h1": false,
             "text": "",
             "enlarge_text": false,
-            "button_label": "Đăng ký Membership",
+            "button_label": "",
             "button_style": "button",
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
